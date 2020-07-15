@@ -1,0 +1,29 @@
+[package]
+name = "openfmb"
+version = "0.1.0"
+authors = ["Tom Burdick <tom@openenergysolutionsinc.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+futures = "0.3"
+bytes = "0.5"
+async-trait = "0.1"
+chrono = "0.4"
+uuid = "0.8"
+
+# protobuf related optional deps
+openfmb-ops-protobuf = {git="https://github.com/tupshin/openfmb-ops-protobuf-shuntbranch", optional = true}
+prost = {version = "0.6", optional = true}
+
+# nats optional dep
+nats = {version = "0.7", optional = true}
+
+[features]
+default = ["nats", "protobufs"]
+protobufs = ["openfmb-ops-protobuf", "prost"]
+
+[dev-dependencies]
+tokio = { version = "0.2", features = ["full"] }
+loom = "0.3"
