@@ -1,8 +1,9 @@
 use crate::prelude::*;
 use bytes::{Buf, BufMut};
 
-/// ProtobufEncoding
-struct ProtobufEncoding;
+/// ProtobufEncoding (zero sized, non-constructable type)
+#[derive(Debug, Clone)]
+pub enum ProtobufEncoding {}
 
 impl MessageEncoding for ProtobufEncoding {
     type DecodeError = prost::DecodeError;
