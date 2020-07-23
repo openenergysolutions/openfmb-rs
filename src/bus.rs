@@ -1,8 +1,7 @@
 use std::error::Error;
 use std::fmt;
 use async_trait::async_trait;
-use futures::prelude::*;
-use std::pin::Pin;
+use futures::stream::BoxStream;
 
 
 /// A common publish error type with erased enclosed error types
@@ -44,7 +43,7 @@ pub trait Publisher<T> {
 #[derive(Debug)]
 pub enum SubscriptionError {
     IoError(std::io::Error),
-    Unsubscribed(Box<(dyn std::error::Error + Send)>),
+    Unsubscribed,
     DecodeError(Box<(dyn std::error::Error + Send)>),
     BusError(Box<(dyn std::error::Error + Send)>),
 }
@@ -90,7 +89,7 @@ impl Error for SubscribeError {
 }
 
 /// Type alias for the subscription stream
-pub type Subscription<T> = Pin<Box<dyn Stream<Item = Result<T, SubscriptionError>>>>;
+pub type Subscription<T> = BoxStream<'static, Result<T, SubscriptionError>>;
 
 /// Type alias for a publish result
 pub type SubscribeResult<T, E=SubscribeError> = Result<Subscription<T>, E>;

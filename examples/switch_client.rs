@@ -11,7 +11,8 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut status = switch.status()?;
     while let Some(Ok(status)) = status.next().await {
-        println!("{:?}", status);
+        let position = switch.position().await?;
+        println!("{}: {:?}", mrid, position);
     }
     Ok(())
 }

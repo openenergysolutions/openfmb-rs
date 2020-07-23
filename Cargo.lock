@@ -846,6 +846,7 @@ dependencies = [
  "bytes 0.5.5",
  "chrono",
  "futures",
+ "log",
  "loom",
  "nats",
  "openfmb-ops-protobuf",

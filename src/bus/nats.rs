@@ -1,5 +1,6 @@
 use crate::prelude::*;
 use async_trait::async_trait;
+use log::debug;
 use std::marker::PhantomData;
 use std::thread;
 
@@ -15,23 +16,23 @@ where
     T: 'static + Message<M> + Send,
     M: 'static + MessageEncoding + Send,
 {
-    fn subscribe(
-        &mut self,
-        subject: &str,
-    ) -> Result<Subscription<T>, SubscribeError> {
-        dbg!("subscribing to {:?}", subject);
+    //TODO when the nats crate supports native async, the thread::spawn here
+    // can be removed. Its in progress
+    fn subscribe(&mut self, subject: &str) -> Result<Subscription<T>, SubscribeError> {
+        debug!("subscribing to {:?}", subject);
         let sub = self
             .conn
             .subscribe(subject)
             .map_err(SubscribeError::IoError)?;
         let (mut tx, rx) = futures::channel::mpsc::channel(128);
         thread::spawn(move || {
-            dbg!("waiting on message");
             for msg in sub {
                 let data: &[u8] = &msg.data;
-                let res = T::decode(data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)));
-                dbg!("decoded message, sending");
-                tx.try_send(res).unwrap();
+                let res =
+                    T::decode(data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)));
+                if let Err(err) = tx.try_send(res) {
+                    debug!("Failed to send msg to subscriber");
+                }
             }
         });
         Ok(Box::pin(rx))
@@ -46,7 +47,8 @@ where
 {
     async fn publish(&mut self, subject: &str, msg: T) -> PublishResult<()> {
         let mut buf = Vec::new();
-        msg.encode(&mut buf).map_err(|err| PublishError::EncodeError(Box::new(err)))?;
+        msg.encode(&mut buf)
+            .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         Ok(self
             .conn
             .publish(subject, buf)

@@ -1,9 +1,18 @@
 use crate::prelude::*;
-use openfmb_ops_protobuf::openfmb::switchmodule::{
-    SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+use futures::{
+    future::{self, BoxFuture},
+    stream::{self, Stream},
+    FutureExt, StreamExt, TryFutureExt,
 };
+use openfmb_ops_protobuf::openfmb::{
+    commonmodule::DbPosKind,
+    switchmodule::{SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile},
+};
+use std::pin::Pin;
 use uuid::Uuid;
 
+/// Error type erased return result, for simplified returns
+pub type SwitchResult<T> = Result<T, Box<dyn std::error::Error>>;
 
 /// Control and wait on updates from a switch
 ///
@@ -66,35 +75,67 @@ where
             .subscribe(&topic("SwitchReadingProfile", &self.mrid))
     }
 
-    /*
     /// On the next status update checks if the switch is open
     /// returning true if so.
-    async fn is_open(&self) -> SwitchResult<bool> {
-        Ok(self.position().await? == SwitchPosition::Open)
+    pub async fn is_open(&mut self) -> SwitchResult<bool> {
+        Ok(self.position().await? == DbPosKind::Open)
     }
 
     /// On the next status update checks if the switch is closed
     /// returning true if so.
-    async fn is_closed(&self) -> SwitchResult<bool> {
-        Ok(self.position().await? == SwitchPosition::Closed)
+    pub async fn is_closed(&mut self) -> SwitchResult<bool> {
+        Ok(self.position().await? == DbPosKind::Closed)
     }
 
     /// On the next status update checks if the switch is transient
     /// returning true if so.
-    async fn is_transient(&self) -> SwitchResult<bool> {
-        Ok(self.position().await? == SwitchPosition::Transient)
+    pub async fn is_transient(&mut self) -> SwitchResult<bool> {
+        Ok(self.position().await? == DbPosKind::Transient)
     }
 
     /// On the next event or status update report back the status of the switch
-    async fn position(&self) -> SwitchResult<SwitchPosition> {
-        let status = self.status()?;
-        let event = self.event()?;
-        select! {
-            Ok(status) = status.next() => Ok(status.switch_status.unwrap().switch_status_xswi.unwrap().pos.unwrap().st_val.unwrap().value.unwrap()),
-            Ok(event) = event.next() => Ok(event.switch_event.unwrap().switch_status_xswi.unwrap().pos.unwrap().st_val.unwrap().value.unwrap()),
-        }
+    ///
+    /// TODO simplify this stuff
+    pub async fn position(&mut self) -> SwitchResult<DbPosKind> {
+        let mut status = self.status()?;
+        let status: BoxFuture<Result<DbPosKind, SubscriptionError>> =
+            Box::pin(status.next().map(|s| {
+                match s {
+                    Some(Ok(s)) => Ok(DbPosKind::from_i32(
+                        s.switch_status
+                            .unwrap()
+                            .switch_status_xswi
+                            .unwrap()
+                            .pos
+                            .unwrap()
+                            .st_val,
+                    )
+                    .unwrap()),
+                    Some(Err(err)) => Err(err),
+                    None => Err(SubscriptionError::Unsubscribed),
+                }
+            }));
+        let mut event = self.event()?;
+        let event: BoxFuture<Result<DbPosKind, SubscriptionError>> =
+            Box::pin(event.next().map(|s| {
+                match s {
+                    Some(Ok(s)) => Ok(DbPosKind::from_i32(
+                        s.switch_event
+                            .unwrap()
+                            .switch_event_xswi
+                            .unwrap()
+                            .pos
+                            .unwrap()
+                            .st_val,
+                    )
+                    .unwrap()),
+                    Some(Err(err)) => Err(err),
+                    None => Err(SubscriptionError::Unsubscribed),
+                }
+            }));
+        let (pos, _) = future::select_ok(vec![status, event]).await?;
+        Ok(pos)
     }
-    */
 
     /*
     /// Open the switch, errors if the switch does not open or takes too long
