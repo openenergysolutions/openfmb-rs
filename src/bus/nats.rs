@@ -31,7 +31,7 @@ where
                 let res =
                     T::decode(data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)));
                 if let Err(err) = tx.try_send(res) {
-                    debug!("Failed to send msg to subscriber");
+                    debug!("Failed to send msg to subscriber, reason {:?}", err);
                 }
             }
         });

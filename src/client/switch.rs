@@ -1,14 +1,12 @@
 use crate::prelude::*;
 use futures::{
     future::{self, BoxFuture},
-    stream::{self, Stream},
-    FutureExt, StreamExt, TryFutureExt,
+    FutureExt, StreamExt,
 };
 use openfmb_ops_protobuf::openfmb::{
     commonmodule::DbPosKind,
     switchmodule::{SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile},
 };
-use std::pin::Pin;
 use uuid::Uuid;
 
 /// Error type erased return result, for simplified returns

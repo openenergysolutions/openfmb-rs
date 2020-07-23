@@ -1,8 +1,7 @@
-use std::error::Error;
-use std::fmt;
 use async_trait::async_trait;
 use futures::stream::BoxStream;
-
+use std::error::Error;
+use std::fmt;
 
 /// A common publish error type with erased enclosed error types
 #[derive(Debug)]
@@ -22,13 +21,14 @@ impl Error for PublishError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match *self {
             PublishError::IoError(ref err) => Some(err),
-            _ => None,
+            PublishError::EncodeError(ref err) => Some(&**err),
+            PublishError::BusError(ref err) => Some(&**err),
         }
     }
 }
 
 /// Type alias for a publish result
-pub type PublishResult<T, E=PublishError> = Result<T, E>;
+pub type PublishResult<T, E = PublishError> = Result<T, E>;
 
 /// A publisher provides the functionality needed to publish encodeable
 /// messages.
@@ -43,9 +43,9 @@ pub trait Publisher<T> {
 #[derive(Debug)]
 pub enum SubscriptionError {
     IoError(std::io::Error),
-    Unsubscribed,
     DecodeError(Box<(dyn std::error::Error + Send)>),
     BusError(Box<(dyn std::error::Error + Send)>),
+    Unsubscribed,
 }
 
 impl fmt::Display for SubscriptionError {
@@ -58,11 +58,12 @@ impl Error for SubscriptionError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match *self {
             SubscriptionError::IoError(ref err) => Some(err),
+            SubscriptionError::DecodeError(ref err) => Some(&**err),
+            SubscriptionError::BusError(ref err) => Some(&**err),
             _ => None,
         }
     }
 }
-
 
 /// A common publish error type with erased enclosed error types, useful
 /// for matching on and correcting issues potentially.
@@ -83,6 +84,7 @@ impl Error for SubscribeError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match *self {
             SubscribeError::IoError(ref err) => Some(err),
+            SubscribeError::BusError(ref err) => Some(&**err),
             _ => None,
         }
     }
@@ -92,7 +94,7 @@ impl Error for SubscribeError {
 pub type Subscription<T> = BoxStream<'static, Result<T, SubscriptionError>>;
 
 /// Type alias for a publish result
-pub type SubscribeResult<T, E=SubscribeError> = Result<Subscription<T>, E>;
+pub type SubscribeResult<T, E = SubscribeError> = Result<Subscription<T>, E>;
 
 /// Subscriber provides the functionality to subscribe to topics and messages
 /// of a specific type on the bus.
@@ -101,10 +103,7 @@ pub trait Subscriber<T> {
     //
     /// The idea is that the result type is a stream of decoded typed messages
     /// but that is up to the implemention.
-    fn subscribe(
-        &mut self,
-        topic: &str,
-    ) -> SubscribeResult<T>;
+    fn subscribe(&mut self, topic: &str) -> SubscribeResult<T>;
 }
 
 /// A message bus provides functionality to publish messages to a topic
