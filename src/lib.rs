@@ -48,7 +48,7 @@
 pub mod message;
 pub mod prelude {
     //! Exports very commonly used types and traits
-    pub use crate::bus::{MessageBus, Publisher, Subscriber, Subscription};
+    pub use crate::bus::{MessageBus, Publisher, Subscriber, Subscription, PublishError, SubscriptionError, SubscribeError, PublishResult, SubscribeResult};
     pub use crate::encoding::MessageEncoding;
     pub use crate::message::Message;
 }

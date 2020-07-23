@@ -44,15 +44,7 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub fn status(
-        &mut self,
-    ) -> Result<
-        Subscription<
-            SwitchStatusProfile,
-            <MB as Subscriber<SwitchStatusProfile>>::SubscriptionError,
-        >,
-        <MB as Subscriber<SwitchStatusProfile>>::SubscribeError,
-    > {
+    pub fn status(&mut self) -> SubscribeResult<SwitchStatusProfile> {
         self.bus
             .subscribe(&topic("SwitchStatusProfile", &self.mrid))
     }
@@ -61,12 +53,7 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub fn event(
-        &mut self,
-    ) -> Result<
-        Subscription<SwitchEventProfile, <MB as Subscriber<SwitchEventProfile>>::SubscriptionError>,
-        <MB as Subscriber<SwitchEventProfile>>::SubscribeError,
-    > {
+    pub fn event(&mut self) -> SubscribeResult<SwitchEventProfile> {
         self.bus.subscribe(&topic("SwitchEventProfile", &self.mrid))
     }
 
@@ -74,15 +61,7 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the next
     /// reading value.
-    pub fn reading(
-        &mut self,
-    ) -> Result<
-        Subscription<
-            SwitchReadingProfile,
-            <MB as Subscriber<SwitchReadingProfile>>::SubscriptionError,
-        >,
-        <MB as Subscriber<SwitchReadingProfile>>::SubscribeError,
-    > {
+    pub fn reading(&mut self) -> SubscribeResult<SwitchReadingProfile> {
         self.bus
             .subscribe(&topic("SwitchReadingProfile", &self.mrid))
     }
