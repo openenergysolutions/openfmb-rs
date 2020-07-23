@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use futures::{
     future::{self, BoxFuture},
-    FutureExt, StreamExt,
+    stream, FutureExt, StreamExt,
 };
 use openfmb_ops_protobuf::openfmb::{
     commonmodule::DbPosKind,
@@ -73,73 +73,77 @@ where
             .subscribe(&topic("SwitchReadingProfile", &self.mrid))
     }
 
-    /// On the next status update checks if the switch is open
-    /// returning true if so.
-    pub async fn is_open(&mut self) -> SwitchResult<bool> {
-        Ok(self.position().await? == DbPosKind::Open)
+    /// A returned subscription transform that checks if the switch was closed
+    /// on any event or status messages.
+    pub async fn is_open(&mut self) -> SubscribeResult<bool> {
+        Ok(Box::pin(self.position().await?.map(|p| match p {
+            Ok(DbPosKind::Open) => Ok(true),
+            Ok(_) => Ok(false),
+            Err(err) => Err(err),
+        })))
     }
 
-    /// On the next status update checks if the switch is closed
-    /// returning true if so.
-    pub async fn is_closed(&mut self) -> SwitchResult<bool> {
-        Ok(self.position().await? == DbPosKind::Closed)
+    /// A returned subscription transform that checks if the switch was open
+    /// on any event or status messages.
+    pub async fn is_closed(&mut self) -> SubscribeResult<bool> {
+        Ok(Box::pin(self.position().await?.map(|p| match p {
+            Ok(DbPosKind::Closed) => Ok(true),
+            Ok(_) => Ok(false),
+            Err(err) => Err(err),
+        })))
     }
 
-    /// On the next status update checks if the switch is transient
-    /// returning true if so.
-    pub async fn is_transient(&mut self) -> SwitchResult<bool> {
-        Ok(self.position().await? == DbPosKind::Transient)
+    /// A returned subscription transform that checks if the switch was transient
+    /// on any event or status messages.
+    pub async fn is_transient(&mut self) -> SubscribeResult<bool> {
+        Ok(Box::pin(self.position().await?.map(|p| match p {
+            Ok(DbPosKind::Transient) => Ok(true),
+            Ok(_) => Ok(false),
+            Err(err) => Err(err),
+        })))
     }
 
-    /// On the next event or status update report back the status of the switch
+    /// A stream of the switch position updates
     ///
-    /// TODO simplify this stuff
-    pub async fn position(&mut self) -> SwitchResult<DbPosKind> {
-        let mut status = self.status()?;
-        let status: BoxFuture<Result<DbPosKind, SubscriptionError>> =
-            Box::pin(status.next().map(|s| {
-                match s {
-                    Some(Ok(s)) => Ok(DbPosKind::from_i32(
-                        s.switch_status
-                            .unwrap()
-                            .switch_status_xswi
-                            .unwrap()
-                            .pos
-                            .unwrap()
-                            .st_val,
-                    )
-                    .unwrap()),
-                    Some(Err(err)) => Err(err),
-                    None => Err(SubscriptionError::Unsubscribed),
-                }
-            }));
-        let mut event = self.event()?;
-        let event: BoxFuture<Result<DbPosKind, SubscriptionError>> =
-            Box::pin(event.next().map(|s| {
-                match s {
-                    Some(Ok(s)) => Ok(DbPosKind::from_i32(
-                        s.switch_event
-                            .unwrap()
-                            .switch_event_xswi
-                            .unwrap()
-                            .pos
-                            .unwrap()
-                            .st_val,
-                    )
-                    .unwrap()),
-                    Some(Err(err)) => Err(err),
-                    None => Err(SubscriptionError::Unsubscribed),
-                }
-            }));
-        let (pos, _) = future::select_ok(vec![status, event]).await?;
-        Ok(pos)
+    /// These may come from either SwitchEventProfile *or* SwitchStatusProfile
+    /// messages so we subscribe to both streams and merge them together with
+    /// some combinators.
+    ///
+    /// Can be used directly in logic to wait for a position to change for example
+    ///
+    /// ```
+    /// let position = myswitch.position().await?;
+    /// while let Some(Ok(DbPosKind::Open)) = position.next() {
+    ///   myswitch.control(SwitchControlProfile::builder().set_position(DbPosKind::Closed));
+    /// }
+    /// ```
+    pub async fn position(&mut self) -> SubscribeResult<DbPosKind> {
+        let status = self.status()?.map(|s| match s {
+            Ok(s) => Ok(DbPosKind::from_i32(
+                s.switch_status
+                    .unwrap()
+                    .switch_status_xswi
+                    .unwrap()
+                    .pos
+                    .unwrap()
+                    .st_val,
+            )
+            .unwrap()),
+            Err(err) => Err(err),
+        });
+        let event = self.event()?.map(|s| match s {
+            Ok(s) => Ok(DbPosKind::from_i32(
+                s.switch_event
+                    .unwrap()
+                    .switch_event_xswi
+                    .unwrap()
+                    .pos
+                    .unwrap()
+                    .st_val,
+            )
+            .unwrap()),
+            Err(err) => Err(err),
+        });
+        Ok(Box::pin(stream::select(status, event)))
     }
-
-    /*
-    /// Open the switch, errors if the switch does not open or takes too long
-    async fn open(&self) -> SwitchResult<()>;
-
-    /// Close the switch, errors if the switch does not close or takes too long
-    async fn close(&self) -> SwitchResult<()>;
-    */
 }

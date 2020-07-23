@@ -8,11 +8,12 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let nc = nats::connect(&env::var("NATS_URL")?)?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
     let mut switch = openfmb::client::Switch::new(bus, mrid);
-
-    let mut status = switch.status()?;
-    while let Some(Ok(status)) = status.next().await {
-        let position = switch.position().await?;
-        println!("{}: {:?}", mrid, position);
+    let mut is_closed = switch.is_closed().await?;
+    let mut position = switch.position().await?;
+    while let (Some(Ok(position)), Some(Ok(closed))) =
+        (position.next().await, is_closed.next().await)
+    {
+        println!("{}: {:?}, {:?}", mrid, position, closed);
     }
     Ok(())
 }
