@@ -1,34 +1,6 @@
 use async_trait::async_trait;
-use futures::stream::BoxStream;
-use std::error::Error;
-use std::fmt;
 
-/// A common publish error type with erased enclosed error types
-#[derive(Debug)]
-pub enum PublishError {
-    IoError(std::io::Error),
-    EncodeError(Box<dyn std::error::Error>),
-    BusError(Box<dyn std::error::Error>),
-}
-
-impl fmt::Display for PublishError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl Error for PublishError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match *self {
-            PublishError::IoError(ref err) => Some(err),
-            PublishError::EncodeError(ref err) => Some(&**err),
-            PublishError::BusError(ref err) => Some(&**err),
-        }
-    }
-}
-
-/// Type alias for a publish result
-pub type PublishResult<T, E = PublishError> = Result<T, E>;
+use crate::error::{PublishResult, SubscribeResult};
 
 /// A publisher provides the functionality needed to publish encodeable
 /// messages.
@@ -37,64 +9,6 @@ pub trait Publisher<T> {
     /// Publish a message of type T to a topics
     async fn publish(&mut self, topic: &str, msg: T) -> PublishResult<()>;
 }
-
-/// A common publish error type with erased enclosed error types, useful
-/// for matching on and correcting issues potentially.
-#[derive(Debug)]
-pub enum SubscriptionError {
-    IoError(std::io::Error),
-    DecodeError(Box<(dyn std::error::Error + Send)>),
-    BusError(Box<(dyn std::error::Error + Send)>),
-    Unsubscribed,
-}
-
-impl fmt::Display for SubscriptionError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl Error for SubscriptionError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match *self {
-            SubscriptionError::IoError(ref err) => Some(err),
-            SubscriptionError::DecodeError(ref err) => Some(&**err),
-            SubscriptionError::BusError(ref err) => Some(&**err),
-            _ => None,
-        }
-    }
-}
-
-/// A common publish error type with erased enclosed error types, useful
-/// for matching on and correcting issues potentially.
-#[derive(Debug)]
-pub enum SubscribeError {
-    IoError(std::io::Error),
-    BusError(Box<dyn std::error::Error>),
-    InvalidTopic(String),
-}
-
-impl fmt::Display for SubscribeError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?}", self)
-    }
-}
-
-impl Error for SubscribeError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
-        match *self {
-            SubscribeError::IoError(ref err) => Some(err),
-            SubscribeError::BusError(ref err) => Some(&**err),
-            _ => None,
-        }
-    }
-}
-
-/// Type alias for the subscription stream
-pub type Subscription<T> = BoxStream<'static, Result<T, SubscriptionError>>;
-
-/// Type alias for a publish result
-pub type SubscribeResult<T, E = SubscribeError> = Result<Subscription<T>, E>;
 
 /// Subscriber provides the functionality to subscribe to topics and messages
 /// of a specific type on the bus.

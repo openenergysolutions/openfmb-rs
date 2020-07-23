@@ -45,14 +45,16 @@
 //! }
 //! ```
 
+pub mod error;
 pub mod message;
 pub mod prelude {
     //! Exports very commonly used types and traits
-    pub use crate::bus::{
-        MessageBus, PublishError, PublishResult, Publisher, SubscribeError, SubscribeResult,
-        Subscriber, Subscription, SubscriptionError,
-    };
+    pub use crate::bus::{MessageBus, Publisher, Subscriber};
     pub use crate::encoding::MessageEncoding;
+    pub use crate::error::{
+        ControlError, ControlResult, PublishError, PublishResult, SubscribeError, SubscribeResult,
+        Subscription, SubscriptionError,
+    };
     pub use crate::message::Message;
 }
 pub mod bus;

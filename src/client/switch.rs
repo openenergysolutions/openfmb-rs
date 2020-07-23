@@ -1,16 +1,15 @@
 use crate::prelude::*;
 use futures::{
-    future::{self, BoxFuture},
-    stream, FutureExt, StreamExt,
+    stream, StreamExt,
 };
 use openfmb_ops_protobuf::openfmb::{
     commonmodule::DbPosKind,
-    switchmodule::{SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile},
+    switchmodule::{
+        SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+    },
 };
+use openfmb_protobuf_ext::switch::SwitchControlExt;
 use uuid::Uuid;
-
-/// Error type erased return result, for simplified returns
-pub type SwitchResult<T> = Result<T, Box<dyn std::error::Error>>;
 
 /// Control and wait on updates from a switch
 ///
@@ -25,7 +24,8 @@ pub struct Switch<MB>
 where
     MB: Subscriber<SwitchStatusProfile>
         + Subscriber<SwitchEventProfile>
-        + Subscriber<SwitchReadingProfile>,
+        + Subscriber<SwitchReadingProfile>
+        + Publisher<SwitchControlProfile>,
 {
     bus: MB,
     mrid: Uuid,
@@ -38,9 +38,10 @@ fn topic(typ: &'static str, mrid: &Uuid) -> String {
 
 impl<MB> Switch<MB>
 where
-    MB: MessageBus<SwitchStatusProfile>
-        + MessageBus<SwitchEventProfile>
-        + MessageBus<SwitchReadingProfile>,
+    MB: Subscriber<SwitchStatusProfile>
+        + Subscriber<SwitchEventProfile>
+        + Subscriber<SwitchReadingProfile>
+        + Publisher<SwitchControlProfile>,
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
@@ -145,5 +146,49 @@ where
             Err(err) => Err(err),
         });
         Ok(Box::pin(stream::select(status, event)))
+    }
+
+    fn mrid_as_string(&self) -> String {
+        format!("{}", self.mrid.to_hyphenated())
+    }
+
+    async fn publish_control(&mut self, msg: SwitchControlProfile) -> PublishResult<()> {
+        Ok(self
+            .bus
+            .publish(&topic("SwitchControlProfile", &self.mrid), msg)
+            .await?)
+    }
+
+    /// Close the switch
+    ///
+    /// TODO add timeout and retry support
+    pub async fn close(&mut self) -> ControlResult<()> {
+        let mut is_open = self.is_open().await?;
+        while let Some(Ok(true)) = is_open.next().await {
+            let msg = SwitchControlProfile::switch_close_msg(&self.mrid_as_string());
+            self.publish_control(msg).await?
+        }
+        Ok(())
+    }
+
+    /// Open the switch
+    ///
+    /// TODO add timeout and retry support
+    pub async fn open(&mut self) -> ControlResult<()> {
+        let mut is_closed = self.is_closed().await?;
+        while let Some(Ok(true)) = is_closed.next().await {
+            let msg = SwitchControlProfile::switch_open_msg(&self.mrid_as_string());
+            self.publish_control(msg).await?;
+        }
+        Ok(())
+    }
+
+    /// Toggle the switch position
+    pub async fn toggle(&mut self) -> ControlResult<()> {
+        if let Some(Ok(true)) = self.is_closed().await?.next().await {
+            Ok(self.open().await?)
+        } else {
+            Ok(self.close().await?)
+        }
     }
 }

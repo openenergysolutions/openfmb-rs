@@ -306,6 +306,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "doc-comment"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fea41bba32d969b513997752735605054bc0dfa92b4c56bf1189f2e174be7a10"
+
+[[package]]
 name = "ed25519"
 version = "1.0.0-pre.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -850,6 +856,7 @@ dependencies = [
  "loom",
  "nats",
  "openfmb-ops-protobuf",
+ "openfmb_protobuf_ext",
  "prost",
  "tokio",
  "uuid",
@@ -865,6 +872,18 @@ dependencies = [
  "prost",
  "prost-types",
  "serde",
+]
+
+[[package]]
+name = "openfmb_protobuf_ext"
+version = "0.0.1"
+source = "git+https://github.com/openenergysolutions/openfmb_ext_rs.git#559699f34617f679946150d99e2b9e24c07e4470"
+dependencies = [
+ "chrono",
+ "log",
+ "openfmb-ops-protobuf",
+ "snafu",
+ "uuid",
 ]
 
 [[package]]
@@ -1409,6 +1428,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "snafu"
+version = "0.6.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7f5aed652511f5c9123cf2afbe9c244c29db6effa2abb05c866e965c82405ce"
+dependencies = [
+ "doc-comment",
+ "snafu-derive",
+]
+
+[[package]]
+name = "snafu-derive"
+version = "0.6.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ebf8f7d5720104a9df0f7076a8682024e958bba0fe9848767bb44f251f3648e9"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "socket2"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1529,6 +1569,10 @@ name = "uuid"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9fde2f6a4bea1d6e007c4ad38c6839fa71cbb63b6dbf5b595aa38dc9b1093c11"
+dependencies = [
+ "rand 0.7.3",
+ "serde",
+]
 
 [[package]]
 name = "waker-fn"

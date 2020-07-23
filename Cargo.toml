@@ -13,8 +13,11 @@ async-trait = "0.1"
 chrono = "0.4"
 uuid = "0.8"
 
-# protobuf related optional deps
-openfmb-ops-protobuf = {git="https://github.com/tupshin/openfmb-ops-protobuf-shuntbranch", optional = true}
+# messages and helpers
+openfmb-ops-protobuf = {git="https://github.com/tupshin/openfmb-ops-protobuf-shuntbranch"}
+openfmb_protobuf_ext = {git = "https://github.com/openenergysolutions/openfmb_ext_rs.git"}
+
+# protobuf encoding
 prost = {version = "0.6", optional = true}
 
 # nats optional dep
@@ -22,7 +25,7 @@ nats = {version = "0.7", optional = true}
 
 [features]
 default = ["nats", "protobufs"]
-protobufs = ["openfmb-ops-protobuf", "prost"]
+protobufs = ["prost"]
 
 [dev-dependencies]
 tokio = { version = "0.2", features = ["full"] }
