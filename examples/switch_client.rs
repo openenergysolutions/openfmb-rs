@@ -17,7 +17,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
             "{}: position: {:?}, is_closed: {:?}, is_open: {:?}",
             mrid, position, closed, open
         );
-        match switch.toggle().await {
+        match switch.toggle_position().await {
             Ok(_) => println!("Switch toggled!"),
             Err(err) => println!("Switch toggle failed, reason {:?}", err),
         }
