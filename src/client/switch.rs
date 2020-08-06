@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use futures::{stream, StreamExt};
 use openfmb_ops_protobuf::openfmb::{
-    commonmodule::{DynamicTestKind, DbPosKind},
+    commonmodule::{DbPosKind, DynamicTestKind},
     switchmodule::{
         SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
     },
@@ -81,7 +81,6 @@ where
             .publish(&topic("SwitchControlProfile", &self.mrid), msg)
             .await?)
     }
-
 
     /// A returned subscription transform that checks if the switch was closed
     /// on any event or status messages.
@@ -204,7 +203,6 @@ where
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.to_hyphenated())
     }
-
 
     /// Close the switch
     ///

@@ -1,5 +1,5 @@
-mod switch;
 mod ess;
+mod switch;
 
-pub use switch::Switch;
 pub use ess::Ess;
+pub use switch::Switch;
