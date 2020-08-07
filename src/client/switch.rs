@@ -130,11 +130,11 @@ where
         let status = self.status()?.map(|s| match s {
             Ok(s) => Ok(DbPosKind::from_i32(
                 s.switch_status
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .switch_status_xswi
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .pos
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .st_val,
             )
             .unwrap()),
@@ -143,11 +143,11 @@ where
         let event = self.event()?.map(|s| match s {
             Ok(s) => Ok(DbPosKind::from_i32(
                 s.switch_event
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .switch_event_xswi
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .pos
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .st_val,
             )
             .unwrap()),
@@ -174,11 +174,11 @@ where
         let status = self.status()?.map(|s| match s {
             Ok(s) => Ok(DynamicTestKind::from_i32(
                 s.switch_status
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .switch_status_xswi
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .dynamic_test
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .st_val,
             )
             .unwrap()),
@@ -187,11 +187,11 @@ where
         let event = self.event()?.map(|s| match s {
             Ok(s) => Ok(DynamicTestKind::from_i32(
                 s.switch_event
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .switch_event_xswi
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .dynamic_test
-                    .unwrap()
+                    .unwrap_or(Default::default())
                     .st_val,
             )
             .unwrap()),

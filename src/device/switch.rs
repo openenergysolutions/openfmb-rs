@@ -1,16 +1,17 @@
 use crate::prelude::*;
-use openfmb_ops_protobuf::openfmb::{
-    switchmodule::{
-        SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
-    },
+use openfmb_ops_protobuf::openfmb::switchmodule::{
+    SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
 };
 use uuid::Uuid;
 
 /// Provide functionality to publish and accept messages a switch device
 /// needs.
+#[derive(Debug, Clone)]
 pub struct Switch<MB>
 where
-    MB: Publisher<SwitchStatusProfile>
+    MB: std::fmt::Debug
+        + Clone
+        + Publisher<SwitchStatusProfile>
         + Publisher<SwitchEventProfile>
         + Publisher<SwitchReadingProfile>
         + Subscriber<SwitchControlProfile>,
@@ -26,7 +27,9 @@ pub fn topic(typ: &'static str, mrid: &Uuid) -> String {
 
 impl<MB> Switch<MB>
 where
-    MB: Publisher<SwitchStatusProfile>
+    MB: std::fmt::Debug
+        + Clone
+        + Publisher<SwitchStatusProfile>
         + Publisher<SwitchEventProfile>
         + Publisher<SwitchReadingProfile>
         + Subscriber<SwitchControlProfile>,
@@ -38,21 +41,31 @@ where
 
     /// publish switch status messages
     pub async fn status(&mut self, msg: SwitchStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(&topic("SwitchStatusProfile", &self.mrid), msg).await?)
+        Ok(self
+            .bus
+            .publish(&topic("SwitchStatusProfile", &self.mrid), msg)
+            .await?)
     }
 
     /// publish switch event messages
     pub async fn event(&mut self, msg: SwitchEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(&topic("SwitchEventProfile", &self.mrid), msg).await?)
+        Ok(self
+            .bus
+            .publish(&topic("SwitchEventProfile", &self.mrid), msg)
+            .await?)
     }
 
     /// publish switch reading messages
     pub async fn reading(&mut self, msg: SwitchReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(&topic("SwitchReadingProfile", &self.mrid), msg).await?)
+        Ok(self
+            .bus
+            .publish(&topic("SwitchReadingProfile", &self.mrid), msg)
+            .await?)
     }
 
     /// Subscribe to control messages
-    pub async fn control(&mut self) -> SubscribeResult<SwitchControlProfile> {
-        self.bus.subscribe(&topic("SwitchControlProfile", &self.mrid))
+    pub fn control(&mut self) -> SubscribeResult<SwitchControlProfile> {
+        self.bus
+            .subscribe(&topic("SwitchControlProfile", &self.mrid))
     }
 }
