@@ -59,4 +59,5 @@ pub mod prelude {
 }
 pub mod bus;
 pub mod client;
+pub mod device;
 pub mod encoding;
