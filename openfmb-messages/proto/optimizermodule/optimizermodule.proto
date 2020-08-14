@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
+
+package optimizermodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/optimizermodule";
+option java_package = "openfmb.optimizermodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.optimizermodule";
+
+import "uml.proto";
+import "regulatormodule/regulatormodule.proto";
+import "solarmodule/solarmodule.proto";
+import "interconnectionmodule/interconnectionmodule.proto";
+import "loadmodule/loadmodule.proto";
+import "essmodule/essmodule.proto";
+import "switchmodule/switchmodule.proto";
+import "generationmodule/generationmodule.proto";
+import "commonmodule/commonmodule.proto";
+
+// MISSING DOCUMENTATION!!!
+message RegulatorControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated regulatormodule.RegulatorControlProfile regulatorControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message SolarControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated solarmodule.SolarControlProfile solarControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Planned interconnection schedule profile
+message PlannedInterconnectionScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated interconnectionmodule.PlannedInterconnectionScheduleProfile plannedInterconnectionScheduleProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message LoadControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated loadmodule.LoadControlProfile loadControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message ESSControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated essmodule.ESSControlProfile essControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message SwitchControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated switchmodule.SwitchControlProfile switchControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message GenerationControlScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated generationmodule.GenerationControlProfile generationControlProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message PlannedOptimizerScheduleProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.OptimizationMessageInfo optimizationMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSControlScheduleProfileList essControlScheduleProfileList = 3;
+    // MISSING DOCUMENTATION!!!
+    GenerationControlScheduleProfileList generationControlScheduleProfileList = 4;
+    // MISSING DOCUMENTATION!!!
+    LoadControlScheduleProfileList loadControlScheduleProfileList = 5;
+    // MISSING DOCUMENTATION!!!
+    PlannedInterconnectionScheduleProfileList plannedInterconnectionScheduleProfileList = 6;
+    // MISSING DOCUMENTATION!!!
+    RegulatorControlScheduleProfileList regulatorControlScheduleProfileList = 7;
+    // MISSING DOCUMENTATION!!!
+    SolarControlScheduleProfileList solarControlScheduleProfileList = 8;
+    // MISSING DOCUMENTATION!!!
+    SwitchControlScheduleProfileList switchControlScheduleProfileList = 9;
+}
+
+// MISSING DOCUMENTATION!!!
+message RequestedInterconnectionScheduleProfileList
+{
+    // MISSING DOCUMENTATION!!!
+    repeated interconnectionmodule.RequestedInterconnectionScheduleProfile requestedInterconnectionScheduleProfile = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message RequestedOptimizerScheduleProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.OptimizationMessageInfo optimizationMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSControlScheduleProfileList essControlScheduleProfileList = 3;
+    // MISSING DOCUMENTATION!!!
+    GenerationControlScheduleProfileList generationControlScheduleProfileList = 4;
+    // MISSING DOCUMENTATION!!!
+    LoadControlScheduleProfileList loadControlScheduleProfileList = 5;
+    // MISSING DOCUMENTATION!!!
+    RegulatorControlScheduleProfileList regulatorControlScheduleProfileList = 6;
+    // MISSING DOCUMENTATION!!!
+    RequestedInterconnectionScheduleProfileList requestedInterconnectionScheduleProfileList = 7;
+    // MISSING DOCUMENTATION!!!
+    SolarControlScheduleProfileList solarControlScheduleProfileList = 8;
+    // MISSING DOCUMENTATION!!!
+    SwitchControlScheduleProfileList switchControlScheduleProfileList = 9;
+}
+

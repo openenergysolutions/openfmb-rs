@@ -12,20 +12,17 @@ bytes = "0.5"
 async-trait = "0.1"
 chrono = "0.4"
 uuid = "0.8"
+prost = "0.6"
 
-# messages and helpers
-openfmb-ops-protobuf = {git="https://github.com/tupshin/openfmb-ops-protobuf-shuntbranch"}
-openfmb_protobuf_ext = {git = "https://github.com/openenergysolutions/openfmb_ext_rs.git"}
-
-# protobuf encoding
-prost = {version = "0.6", optional = true}
+# messages
+openfmb-messages = { path = "./openfmb-messages" }
+openfmb-messages-ext = { path = "./openfmb-messages-ext" }
 
 # nats optional dep
 nats = {version = "0.7", optional = true}
 
 [features]
-default = ["nats", "protobufs"]
-protobufs = ["prost"]
+default = ["nats"]
 
 [dev-dependencies]
 tokio = { version = "0.2", features = ["full"] }

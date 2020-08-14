@@ -1,6 +1,6 @@
 use futures::stream::StreamExt;
 use openfmb::encoding::ProtobufEncoding;
-use openfmb_ops_protobuf::openfmb::{
+use openfmb_messages::{
     commonmodule::{
         DbPosKind, DynamicTestKind, EnsDynamicTestKind, IdentifiedObject, Ied, StatusDps,
     },

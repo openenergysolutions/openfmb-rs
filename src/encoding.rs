@@ -6,8 +6,5 @@ pub trait MessageEncoding: std::fmt::Debug {
     type DecodeError: Send + std::error::Error;
 }
 
-#[cfg(feature = "protobufs")]
 mod protobufs;
-
-#[cfg(feature = "protobufs")]
 pub use protobufs::ProtobufEncoding;

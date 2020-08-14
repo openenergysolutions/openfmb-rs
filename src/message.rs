@@ -9,3 +9,5 @@ pub trait Message<M: MessageEncoding>: Sized + Send {
     fn encode<B: BufMut>(&self, buf: &mut B) -> Result<(), M::EncodeError>;
     fn decode<B: Buf>(buf: B) -> Result<Self, M::DecodeError>;
 }
+
+

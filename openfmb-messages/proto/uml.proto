@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
+
+package uml;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb";
+option java_package = "openfmb";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb";
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions
+{
+    bool option_parent_message = 50000;
+    bool option_required_field = 50001;
+    int32 option_multiplicity_min = 50002;
+    int32 option_multiplicity_max = 50003;
+    bool option_uuid = 50004;
+    bool option_key = 50005;
+}
+
+extend google.protobuf.MessageOptions
+{
+    bool option_openfmb_profile = 51000;
+}
+

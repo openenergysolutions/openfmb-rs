@@ -1,0 +1,443 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM).eap
+// Thursday, April 25, 2019 1:26:42 PM UTC
+
+package essmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/essmodule";
+option java_package = "openfmb.essmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.essmodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+// Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
+message EssEventZBAT
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // If true, the battery is in overcharge (voltage or current) condition.
+    commonmodule.StatusSPS BatHi = 2;
+    // If true, the battery voltage or charge has dropped below a pre-set level.
+    commonmodule.StatusSPS BatLo = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusSPS BatSt = 4;
+    // State of charge (in percentage)
+    commonmodule.MV Soc = 5;
+    // If stVal TRUE, the device is in standby.
+    commonmodule.StatusSPS Stdby = 6;
+}
+
+// ESS inverter high level function to maintain frequency within dead bands.
+message FrequencyRegulation
+{
+    // uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
+    // bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
+    // DB = frequency set point – dead band minus
+    google.protobuf.FloatValue frequencyDeadBandMinus = 1;
+    // uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
+    // bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
+    // DB = frequency set point – dead band minus
+    google.protobuf.FloatValue frequencyDeadBandPlus = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue frequencyRegulationCtl = 3;
+    // uint/0.01Hz  Target frequency
+    google.protobuf.FloatValue frequencySetPoint = 4;
+    // uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue gridFrequencyStableBandMinus = 5;
+    // uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue gridFrequencyStableBandPlus = 6;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over frequency events. A droop of
+    // 1% means that the PCS will output 100% power if the frequency is 1% of the nominal frequency away
+    // from the upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue overFrequencyDroop = 7;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue underFrequencyDroop = 8;
+}
+
+// ESS inverter high level function to maintain power level by charging or discharging
+message PeakShaving
+{
+    // uint/1kW  If the supervised power goes below this limit, the ESS will charge to maintain this limit.
+    google.protobuf.FloatValue baseShavingLimit = 1;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue peakShavingCtl = 2;
+    // uint/1kW  If the supervised power goes above this limit, the ESS will discharge to maintain this
+    // limit.
+    google.protobuf.FloatValue peakShavingLimit = 3;
+    // uint/1kW  If the supervised power is between the band defined by these two limits then SOC
+    // management is allowed.
+    google.protobuf.FloatValue socManagementAllowedHighLimit = 4;
+    // uint/1kW  If the supervised power is between the band defined by these two limits then SOC
+    // management is allowed.
+    google.protobuf.FloatValue socManagementAllowedLowLimit = 5;
+}
+
+// ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
+message SocLimit
+{
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socHighLimit = 1;
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socHighLimitHysteresis = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue socLimitCtl = 3;
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socLowLimit = 4;
+    // uint/1%  These hysteresis define the release conditions for the block charge or discharge
+    // initiated by the SOC limits.For example, assume a SOC low limit of 10% and a SOC low limit
+    // hysteresis of 2% and that discharging is blocked because the batteries SOC reached the SOC low
+    // limit, discharging will only be allowed again after the battery’s SOC reaches 13%.
+    google.protobuf.FloatValue socLowLimitHysteresis = 5;
+}
+
+// ESS inverter high level function to maintain SOC within dead bands
+message SOCManagement
+{
+    // uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
+    // dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
+    // + dead band plus Lower DB = set point – dead band minus
+    google.protobuf.FloatValue socDeadBandMinus = 1;
+    // uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
+    // dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
+    // + dead band plus Lower DB = set point – dead band minus
+    google.protobuf.FloatValue socDeadBandPlus = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue socManagementCtl = 3;
+    // uint/1kW  Set point used for SOC maintenance
+    google.protobuf.FloatValue socPowerSetPoint = 4;
+    // uint/1%  SOC Target in percentage (%).
+    google.protobuf.FloatValue socSetPoint = 5;
+}
+
+// Voltage regulation function
+message VoltageRegulation
+{
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue overVoltageDroop = 1;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue underVoltageDroop = 2;
+    // uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
+    // dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
+    // set point – dead band minus
+    google.protobuf.FloatValue voltageDeadBandMinus = 3;
+    // uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
+    // dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
+    // set point – dead band minus
+    google.protobuf.FloatValue voltageDeadBandPlus = 4;
+    // uint/0.1V  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue voltageSetPoint = 5;
+}
+
+// ESS inverter high level function to maintain voltage within droop dead bands.
+message VoltageDroop
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue voltageDroopCtl = 1;
+    // Voltage regulation
+    VoltageRegulation voltageRegulation = 2;
+}
+
+// ESS inverter high level function to maintain voltage within dead bands.
+message VoltagePI
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue voltagePICtl = 1;
+    // Voltage regulation
+    VoltageRegulation voltageRegulation = 2;
+}
+
+// ESS inverter high level function to reduce (smooth) charging or discharging rate of change.
+message CapacityFirming
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue capacityFirmingCtl = 1;
+    // uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
+    // limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
+    // the PCC
+    google.protobuf.FloatValue limitNegative_dp_dt = 2;
+    // uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
+    // limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
+    // the PCC
+    google.protobuf.FloatValue limitPositive_dp_dt = 3;
+}
+
+// ESS inverter high level functions.
+message ESSFunction
+{
+    // ESS inverter high level function to reduce (smooth) charging or discharging rate of change.
+    CapacityFirming capacityFirming = 1;
+    // ESS inverter high level function to maintain frequency within dead bands.
+    FrequencyRegulation frequencyRegulation = 2;
+    // ESS inverter high level function to maintain power level by charging or discharging
+    PeakShaving peakShaving = 3;
+    // ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
+    SocLimit socLimit = 4;
+    // ESS inverter high level function to maintain SOC within dead bands
+    SOCManagement socManagement = 5;
+    // ESS inverter high level function to maintain voltage within droop dead bands.
+    VoltageDroop voltageDroop = 6;
+    // ESS inverter high level function to maintain voltage within dead bands.
+    VoltagePI voltagePI = 7;
+}
+
+// Point definition (Point)
+message ESSPointStatus
+{
+    // Black start enable
+    commonmodule.ControlDPC blackStartEnabled = 1;
+    // Enable frequency set point
+    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    // ESS function parameter
+    ESSFunction function = 3;
+    // Grid connect mode
+    commonmodule.ENG_GridConnectModeKind mode = 4;
+    // Black start enable
+    google.protobuf.FloatValue pctHzDroop = 5;
+    // Black start enable
+    google.protobuf.FloatValue pctVDroop = 6;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 7;
+    // Enable reactive power set point
+    commonmodule.ControlDPC reactivePwrSetPointEnabled = 8;
+    // Enable real power set point
+    commonmodule.ControlDPC realPwrSetPointEnabled = 9;
+    // ESS state
+    commonmodule.Optional_StateKind state = 10;
+    // Synchronize back to grid
+    commonmodule.ControlDPC syncBackToGrid = 11;
+    // Transition to island on grid loss enable
+    commonmodule.ControlDPC transToIslndOnGridLossEnabled = 12;
+    // Enable voltage set point
+    commonmodule.ControlDPC voltageSetPointEnabled = 13;
+}
+
+// Specialized 61850 ZGEN class
+message ESSEventAndStatusZGEN
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // DC Power On/Off Status; True = DC power on
+    commonmodule.StatusSPS AuxPwrSt = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ENS_DynamicTestKind DynamicTest = 3;
+    // Emergency stop
+    commonmodule.StatusSPS EmgStop = 4;
+    // Generator is synchronized to EPS, or not; True = Synchronized
+    commonmodule.StatusSPS GnSynSt = 5;
+    // Point status
+    ESSPointStatus PointStatus = 6;
+}
+
+// Specialized 61850 ZGEN class for ESS event profile
+message ESSEventZGEN
+{
+    // UML inherited base object
+    ESSEventAndStatusZGEN eSSEventAndStatusZGEN = 1 [(uml.option_parent_message) = true];
+}
+
+// ESS event
+message ESSEvent
+{
+    // UML inherited base object
+    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EssEventZBAT essEventZBAT = 2;
+    // MISSING DOCUMENTATION!!!
+    ESSEventZGEN essEventZGEN = 3;
+}
+
+// ESS event profile
+message ESSEventProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSEvent essEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// ESS reading value
+message ESSReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 4;
+}
+
+// ESS reading profile
+message ESSReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSReading essReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 ZBAT
+message EssStatusZBAT
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // Battery system status &ndash; True: on
+    commonmodule.StatusSPS BatSt = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ENG_GridConnectModeKind GriMod = 3;
+    // State of charge (in percentage)
+    commonmodule.MV Soc = 4;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusSPS Stdby = 5;
+}
+
+// Specialized 61850 ZGEN class
+message ESSStatusZGEN
+{
+    // UML inherited base object
+    ESSEventAndStatusZGEN eSSEventAndStatusZGEN = 1 [(uml.option_parent_message) = true];
+}
+
+// ESS status
+message ESSStatus
+{
+    // UML inherited base object
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EssStatusZBAT essStatusZBAT = 2;
+    // MISSING DOCUMENTATION!!!
+    ESSStatusZGEN essStatusZGEN = 3;
+}
+
+// ESS status profile
+message ESSStatusProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSStatus essStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Point definition (Point)
+message ESSPoint
+{
+    // Black start enable
+    commonmodule.ControlDPC blackStartEnabled = 1;
+    // Enable frequency set point
+    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    // ESS function parameter
+    ESSFunction function = 3;
+    // Grid connect mode
+    commonmodule.ENG_GridConnectModeKind mode = 4;
+    // Black start enable
+    google.protobuf.FloatValue pctHzDroop = 5;
+    // Black start enable
+    google.protobuf.FloatValue pctVDroop = 6;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 7;
+    // Enable reactive power set point
+    commonmodule.ControlDPC reactivePwrSetPointEnabled = 8;
+    // Enable real power set point
+    commonmodule.ControlDPC realPwrSetPointEnabled = 9;
+    // Reset device
+    commonmodule.ControlDPC reset = 10;
+    // ESS state
+    commonmodule.Optional_StateKind state = 11;
+    // Synchronize back to grid
+    commonmodule.ControlDPC syncBackToGrid = 12;
+    // Transition to island on grid loss enable
+    commonmodule.ControlDPC transToIslndOnGridLossEnabled = 13;
+    // Enable voltage set point
+    commonmodule.ControlDPC voltageSetPointEnabled = 14;
+    // Start time
+    commonmodule.ControlTimestamp startTime = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message ESSCSG
+{
+    // The array with the points specifying a curve shape.
+    repeated ESSPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message ESSControlScheduleFSCH
+{
+    // Discrete value in ESSCSG type
+    ESSCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
+message EssControlFSCC
+{
+    // UML inherited base object
+    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ESSControlScheduleFSCH essControlScheduleFSCH = 2;
+}
+
+// ESS control class
+message ESSControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    EssControlFSCC essControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// ESS control profile
+message ESSControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSControl essControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

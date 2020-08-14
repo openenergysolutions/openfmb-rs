@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use openfmb_ops_protobuf::openfmb::switchmodule::{
+use openfmb_messages::switchmodule::{
     SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
 };
 use uuid::Uuid;

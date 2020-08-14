@@ -1,12 +1,12 @@
 use crate::prelude::*;
 use futures::{stream, StreamExt};
-use openfmb_ops_protobuf::openfmb::{
+use openfmb_messages::{
     commonmodule::{DbPosKind, DynamicTestKind},
     switchmodule::{
         SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
     },
 };
-use openfmb_protobuf_ext::switch::SwitchControlExt;
+use openfmb_messages_ext::switch::SwitchControlExt;
 use uuid::Uuid;
 
 /// Control and wait on updates from a switch
