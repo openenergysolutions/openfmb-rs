@@ -68,8 +68,7 @@ impl OpenFMBExt for SwitchControlProfile {
 
 pub trait SwitchControlExt: ControlProfileExt {
     fn switch_open_msg(m_rid: &str) -> SwitchControlProfile {
-        let msg = Self::build_control_profile(m_rid, SystemTime::now(), false);
-        msg
+        Self::build_control_profile(m_rid, SystemTime::now(), false)
     }
 
     fn switch_close_msg(m_rid: &str) -> SwitchControlProfile {

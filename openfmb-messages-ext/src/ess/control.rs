@@ -122,25 +122,23 @@ pub trait EssControlExt: ControlProfileExt {
     }
 
     fn start_now_gridconnected_msg(m_rid: &str, charge_rate_kw: f32) -> EssControlProfile {
-        let msg = Ctrl::build_charge_control_profile(
+        Ctrl::build_charge_control_profile(
             m_rid,
             charge_rate_kw,
             SystemTime::now(),
             GridConnectModeKind::VsiPq,
             1,
-        );
-        msg
+        )
     }
 
     fn discharge_now_msg(m_rid: &str, charge_rate_kw: f32) -> EssControlProfile {
-        let msg = Ctrl::build_discharge_control_profile(
+        Ctrl::build_discharge_control_profile(
             m_rid,
             charge_rate_kw,
             SystemTime::now(),
             GridConnectModeKind::VsiPq,
             1,
-        );
-        msg
+        )
     }
 
     fn soc_limits_msg(m_rid: &str) -> EssControlProfile {

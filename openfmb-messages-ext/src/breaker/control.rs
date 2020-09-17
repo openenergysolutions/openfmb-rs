@@ -60,8 +60,7 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
 
 pub trait BreakerControlExt: ControlProfileExt {
     fn breaker_open_msg(m_rid: &str) -> BreakerDiscreteControlProfile {
-        let msg = Self::build_control_profile(m_rid, SystemTime::now(), false);
-        msg
+        Self::build_control_profile(m_rid, SystemTime::now(), false)
     }
 
     fn breaker_close_msg(m_rid: &str) -> BreakerDiscreteControlProfile {
