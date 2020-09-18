@@ -1,0 +1,29 @@
+[package]
+name = "openfmb-codegen"
+version = "0.6.1"
+authors = ["Tom Burdick <tom@openenergysolutionsinc.com>", "Dan Burkert <dan@danburkert.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/openenergysolutions/openfmb"
+documentation = "https://docs.rs/openfmb"
+readme = "README.md"
+description = "A Protocol Buffers implementation for the Rust Language."
+edition = "2018"
+
+[dependencies]
+bytes = "0.5"
+heck = "0.3"
+itertools = "0.8"
+log = "0.4"
+multimap = { version = "0.8", default-features = false }
+petgraph = { version = "0.5", default-features = false }
+#prost = { version = "0.6.1", path = "../prost" }
+prost = "0.6.1"
+#prost-types = { version = "0.6.1", path = "../prost-types" }
+proto-types = { path = "proto-types" }
+tempfile = "3"
+
+[build-dependencies]
+which = { version = "3", default-features = false }
+
+[dev-dependencies]
+env_logger = { version = "0.7", default-features = false }

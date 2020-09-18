@@ -18,7 +18,7 @@ fn main() {
         ];
     const INCLUDES: [&str; 1] = ["proto"];
     const OUT: &str = "src";
-    prost_build::Config::new()
+    openfmb_codegen::Config::new()
         .btree_map(&["."])
         .type_attribute(".", "#[derive(serde::Serialize, serde::Deserialize)]")
         .out_dir(OUT)

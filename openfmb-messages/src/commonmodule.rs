@@ -8,11 +8,42 @@ pub struct IdentifiedObject {
     pub description: ::std::option::Option<::std::string::String>,
     /// Master resource identifier issued by a model authority. The mRID must semantically be a UUID as
     /// specified in RFC 4122. The mRID is globally unique.
+    // parent_message: false
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: true
+    // key: false
     #[prost(message, optional, tag="2")]
     pub m_rid: ::std::option::Option<::std::string::String>,
     /// The name is any free human readable and possibly non unique text naming the object.
     #[prost(message, optional, tag="3")]
     pub name: ::std::option::Option<::std::string::String>,
+}
+mod identified_object {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DESCRIPTION: ::std::string::String = Default::default();
+        pub(super) static ref M_RID: ::std::string::String = Default::default();
+        pub(super) static ref NAME: ::std::string::String = Default::default();
+    }
+}
+trait IsIdentifiedObject {
+    fn _identified_object(&self) -> &IdentifiedObject;
+    fn description(&self) -> &::std::string::String {
+        self._identified_object().description.as_ref().unwrap_or(&identified_object::DESCRIPTION)
+    }
+    fn m_rid(&self) -> &::std::string::String {
+        self._identified_object().m_rid.as_ref().unwrap_or(&identified_object::M_RID)
+    }
+    fn name(&self) -> &::std::string::String {
+        self._identified_object().name.as_ref().unwrap_or(&identified_object::NAME)
+    }
+}
+impl IsIdentifiedObject for IdentifiedObject {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self
+    }
 }
 /// An electrical connection point (AC or DC) to a piece of conducting equipment. Terminals are
 /// connected at physical connection points called connectivity nodes.
@@ -20,6 +51,12 @@ pub struct IdentifiedObject {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct AcdcTerminal {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// The connected status is related to a bus-branch model and the topological node to terminal
@@ -37,17 +74,72 @@ pub struct AcdcTerminal {
     #[prost(message, optional, tag="3")]
     pub sequence_number: ::std::option::Option<i32>,
 }
+mod acdc_terminal {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+        pub(super) static ref CONNECTED: bool = Default::default();
+        pub(super) static ref SEQUENCE_NUMBER: i32 = Default::default();
+    }
+}
+trait IsAcdcTerminal {
+    fn _acdc_terminal(&self) -> &AcdcTerminal;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._acdc_terminal().identified_object.as_ref().unwrap_or(&acdc_terminal::IDENTIFIED_OBJECT)
+    }
+    fn connected(&self) -> &bool {
+        self._acdc_terminal().connected.as_ref().unwrap_or(&acdc_terminal::CONNECTED)
+    }
+    fn sequence_number(&self) -> &i32 {
+        self._acdc_terminal().sequence_number.as_ref().unwrap_or(&acdc_terminal::SEQUENCE_NUMBER)
+    }
+}
+impl IsAcdcTerminal for AcdcTerminal {
+    fn _acdc_terminal(&self) -> &AcdcTerminal {
+        self
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitSymbolKind {
     #[prost(enumeration="UnitSymbolKind", tag="1")]
     pub value: i32,
 }
+mod optional_unit_symbol_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalUnitSymbolKind {
+    fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind;
+    fn value(&self) -> &i32 {
+        &self._optional_unit_symbol_kind().value    }
+}
+impl IsOptionalUnitSymbolKind for OptionalUnitSymbolKind {
+    fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind {
+        self
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitMultiplierKind {
     #[prost(enumeration="UnitMultiplierKind", tag="1")]
     pub value: i32,
+}
+mod optional_unit_multiplier_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalUnitMultiplierKind {
+    fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind;
+    fn value(&self) -> &i32 {
+        &self._optional_unit_multiplier_kind().value    }
+}
+impl IsOptionalUnitMultiplierKind for OptionalUnitMultiplierKind {
+    fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind {
+        self
+    }
 }
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -63,11 +155,51 @@ pub struct ActivePower {
     #[prost(message, optional, tag="3")]
     pub value: ::std::option::Option<f32>,
 }
+mod active_power {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
+        pub(super) static ref UNIT: crate::commonmodule::OptionalUnitSymbolKind = Default::default();
+        pub(super) static ref VALUE: f32 = Default::default();
+    }
+}
+trait IsActivePower {
+    fn _active_power(&self) -> &ActivePower;
+    fn multiplier(&self) -> &OptionalUnitMultiplierKind {
+        self._active_power().multiplier.as_ref().unwrap_or(&active_power::MULTIPLIER)
+    }
+    fn unit(&self) -> &OptionalUnitSymbolKind {
+        self._active_power().unit.as_ref().unwrap_or(&active_power::UNIT)
+    }
+    fn value(&self) -> &f32 {
+        self._active_power().value.as_ref().unwrap_or(&active_power::VALUE)
+    }
+}
+impl IsActivePower for ActivePower {
+    fn _active_power(&self) -> &ActivePower {
+        self
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalPhaseCodeKind {
     #[prost(enumeration="PhaseCodeKind", tag="1")]
     pub value: i32,
+}
+mod optional_phase_code_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalPhaseCodeKind {
+    fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind;
+    fn value(&self) -> &i32 {
+        &self._optional_phase_code_kind().value    }
+}
+impl IsOptionalPhaseCodeKind for OptionalPhaseCodeKind {
+    fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind {
+        self
+    }
 }
 /// Analogue value (AnalogueValue)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -83,11 +215,47 @@ pub struct AnalogueValue {
     #[prost(message, optional, tag="2")]
     pub i: ::std::option::Option<i32>,
 }
+mod analogue_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref F: f32 = Default::default();
+        pub(super) static ref I: i32 = Default::default();
+    }
+}
+trait IsAnalogueValue {
+    fn _analogue_value(&self) -> &AnalogueValue;
+    fn f(&self) -> &f32 {
+        self._analogue_value().f.as_ref().unwrap_or(&analogue_value::F)
+    }
+    fn i(&self) -> &i32 {
+        self._analogue_value().i.as_ref().unwrap_or(&analogue_value::I)
+    }
+}
+impl IsAnalogueValue for AnalogueValue {
+    fn _analogue_value(&self) -> &AnalogueValue {
+        self
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalValidityKind {
     #[prost(enumeration="ValidityKind", tag="1")]
     pub value: i32,
+}
+mod optional_validity_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalValidityKind {
+    fn _optional_validity_kind(&self) -> &OptionalValidityKind;
+    fn value(&self) -> &i32 {
+        &self._optional_validity_kind().value    }
+}
+impl IsOptionalValidityKind for OptionalValidityKind {
+    fn _optional_validity_kind(&self) -> &OptionalValidityKind {
+        self
+    }
 }
 /// Describes some reasons in case 'validity' is not 'good'.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -96,22 +264,52 @@ pub struct DetailQual {
     /// (default=false) If true, the value may not be a correct value due to a reference being out of
     /// calibration. The server shall decide if validity shall be set to invalid or questionable (used for
     /// measurand information and binary counter information only).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="1")]
     pub bad_reference: bool,
     /// (default=false) If true, a supervision function has detected an internal or external failure.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="2")]
     pub failure: bool,
     /// (default=false) If true, the value does not meet the stated accuracy of the source. EXAMPLE The
     /// measured value of power factor may be noisy (inaccurate) when the current is very small.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="3")]
     pub inaccurate: bool,
     /// (default=false) If true, an evaluation function has detected an inconsistency.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="4")]
     pub inconsistent: bool,
     /// (default=false) If true, an update is not made during a specific time interval. The value may be
     /// an old value that may have changed in the meantime. This specific time interval may be defined by an
     /// allowed-age attribute. NOTE "Fail silent" errors, where the equipment stops sending data, will cause
     /// setting this flag to true. In this case, the last received information was correct.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="5")]
     pub old_data: bool,
     /// (default=false) To prevent overloading of event driven communication channels, it is desirable
@@ -125,6 +323,12 @@ pub struct DetailQual {
     /// oscillating.  If the configuration is such that all transient changes should be suppressed, the
     /// 'Quality.validity' shall be set immediately to 'invalid' and this flag to true (used for status
     /// information only).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="6")]
     pub oscillatory: bool,
     /// (default=false) If true, the attribute to which the quality has been associated is beyond a
@@ -133,20 +337,76 @@ pub struct DetailQual {
     /// range, however the selected data type can still represent the value, for example the data type is a
     /// 16-bit unsigned integer, the predefined range is 0 to 40 000, if the value is between 40 001 and 65
     /// 535 it is considered to be out of range.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="7")]
     pub out_of_range: bool,
     /// (default=false) If true, the value of the attribute to which the quality has been associated is
     /// beyond the capability of being represented properly (used for measurand information only). EXAMPLE A
     /// measured value may exceed the range that may be represented by the selected data type, for example
     /// the data type is a 16-bit unsigned integer and the value exceeds 65 535.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="8")]
     pub overflow: bool,
+}
+mod detail_qual {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsDetailQual {
+    fn _detail_qual(&self) -> &DetailQual;
+    fn bad_reference(&self) -> &bool {
+        &self._detail_qual().bad_reference    }
+    fn failure(&self) -> &bool {
+        &self._detail_qual().failure    }
+    fn inaccurate(&self) -> &bool {
+        &self._detail_qual().inaccurate    }
+    fn inconsistent(&self) -> &bool {
+        &self._detail_qual().inconsistent    }
+    fn old_data(&self) -> &bool {
+        &self._detail_qual().old_data    }
+    fn oscillatory(&self) -> &bool {
+        &self._detail_qual().oscillatory    }
+    fn out_of_range(&self) -> &bool {
+        &self._detail_qual().out_of_range    }
+    fn overflow(&self) -> &bool {
+        &self._detail_qual().overflow    }
+}
+impl IsDetailQual for DetailQual {
+    fn _detail_qual(&self) -> &DetailQual {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalSourceKind {
     #[prost(enumeration="SourceKind", tag="1")]
     pub value: i32,
+}
+mod optional_source_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalSourceKind {
+    fn _optional_source_kind(&self) -> &OptionalSourceKind;
+    fn value(&self) -> &i32 {
+        &self._optional_source_kind().value    }
+}
+impl IsOptionalSourceKind for OptionalSourceKind {
+    fn _optional_source_kind(&self) -> &OptionalSourceKind {
+        self
+    }
 }
 /// Quality contains data that describe the quality of the data from the server. Quality of the data
 /// is also related to the mode of a logical node. Further details can be found in IEC 61850-7-4. The
@@ -157,6 +417,12 @@ pub struct OptionalSourceKind {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Quality {
     /// Describes some reasons in case 'validity' is not 'good'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub detail_qual: ::std::option::Option<DetailQual>,
     /// (default=false) If true, further update of the value has been blocked by an operator. The value
@@ -166,6 +432,12 @@ pub struct Quality {
     /// communication updating as well as input updating. In both cases, 'detailQual.oldData' will be set.
     /// If the blocking is done by an operator, then this flag is set additionally, and an operator activity
     /// is required to clear the condition.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="2")]
     pub operator_blocked: bool,
     /// (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
@@ -173,17 +445,60 @@ pub struct Quality {
     /// There are various means to clear a substitution. As an example, a substitution that was done
     /// following an invalid condition may be cleared automatically if the invalid condition is cleared.
     /// However, this is a local issue and therefore not within the scope of this standard.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="SourceKind", tag="3")]
     pub source: i32,
     /// (default=false) If true, the value is a test value. The processing of the test quality in the
     /// client shall be as described in IEC 61850-7-4. This bit shall be completely independent from the
     /// other bits within the quality descriptor.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="4")]
     pub test: bool,
     /// Validity of the value, as condensed information for the client. In case this value is not
     /// 'good', some reasons may be found in the 'detailQual'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="ValidityKind", tag="5")]
     pub validity: i32,
+}
+mod quality {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DETAIL_QUAL: crate::commonmodule::DetailQual = Default::default();
+    }
+}
+trait IsQuality {
+    fn _quality(&self) -> &Quality;
+    fn detail_qual(&self) -> &DetailQual {
+        self._quality().detail_qual.as_ref().unwrap_or(&quality::DETAIL_QUAL)
+    }
+    fn operator_blocked(&self) -> &bool {
+        &self._quality().operator_blocked    }
+    fn source(&self) -> &i32 {
+        &self._quality().source    }
+    fn test(&self) -> &bool {
+        &self._quality().test    }
+    fn validity(&self) -> &i32 {
+        &self._quality().validity    }
+}
+impl IsQuality for Quality {
+    fn _quality(&self) -> &Quality {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -191,15 +506,42 @@ pub struct OptionalTimeAccuracyKind {
     #[prost(enumeration="TimeAccuracyKind", tag="1")]
     pub value: i32,
 }
+mod optional_time_accuracy_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalTimeAccuracyKind {
+    fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind;
+    fn value(&self) -> &i32 {
+        &self._optional_time_accuracy_kind().value    }
+}
+impl IsOptionalTimeAccuracyKind for OptionalTimeAccuracyKind {
+    fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind {
+        self
+    }
+}
 /// Information about the quality of the time source of the sending IED.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct TimeQuality {
     /// If true, the time source of the sending device is unreliable and the value of the time stamp
     /// shall be ignored.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="1")]
     pub clock_failure: bool,
     /// If true, the time source of the sending device is not synchronised with the external UTC time.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="2")]
     pub clock_not_synchronized: bool,
     /// If true, the value in 'P_Timestamp.SecondSinceEpoch' contains all leap seconds occurred.
@@ -207,11 +549,44 @@ pub struct TimeQuality {
     /// the time source of the device. Instead, the seconds since start of the epoch are calculated from the
     /// current date assuming a constant day length of 86 400 seconds. Note: If a UTC time master clock is
     /// used and accessible, this value should always be true.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="3")]
     pub leap_seconds_known: bool,
     /// Information about the quality of the time source of the sending IED.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="TimeAccuracyKind", tag="4")]
     pub time_accuracy: i32,
+}
+mod time_quality {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsTimeQuality {
+    fn _time_quality(&self) -> &TimeQuality;
+    fn clock_failure(&self) -> &bool {
+        &self._time_quality().clock_failure    }
+    fn clock_not_synchronized(&self) -> &bool {
+        &self._time_quality().clock_not_synchronized    }
+    fn leap_seconds_known(&self) -> &bool {
+        &self._time_quality().leap_seconds_known    }
+    fn time_accuracy(&self) -> &i32 {
+        &self._time_quality().time_accuracy    }
+}
+impl IsTimeQuality for TimeQuality {
+    fn _time_quality(&self) -> &TimeQuality {
+        self
+    }
 }
 /// UTC time with the epoch of midnight (00:00:00) of 1970-01-01. The presentation is defined in the
 /// SCSMs.The NULL time stamp has all fields set to 0 (zero).The relation between a timestamp value, the
@@ -222,14 +597,47 @@ pub struct TimeQuality {
 pub struct Timestamp {
     /// Fractional of the current second when the value of time stamp has been determined. It shall be
     /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(uint32, tag="1")]
     pub fraction: u32,
     /// Second since epoch (1970-01-01T00:00:00Z)
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(uint64, tag="2")]
     pub seconds: u64,
     /// IEC61850 time quality
     #[prost(message, optional, tag="3")]
     pub tq: ::std::option::Option<TimeQuality>,
+}
+mod timestamp {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref TQ: crate::commonmodule::TimeQuality = Default::default();
+    }
+}
+trait IsTimestamp {
+    fn _timestamp(&self) -> &Timestamp;
+    fn fraction(&self) -> &u32 {
+        &self._timestamp().fraction    }
+    fn seconds(&self) -> &u64 {
+        &self._timestamp().seconds    }
+    fn tq(&self) -> &TimeQuality {
+        self._timestamp().tq.as_ref().unwrap_or(&timestamp::TQ)
+    }
+}
+impl IsTimestamp for Timestamp {
+    fn _timestamp(&self) -> &Timestamp {
+        self
+    }
 }
 /// Unit definition (Unit)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -239,8 +647,33 @@ pub struct Unit {
     #[prost(message, optional, tag="1")]
     pub multiplier: ::std::option::Option<OptionalUnitMultiplierKind>,
     /// SI unit of measure.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="UnitSymbolKind", tag="2")]
     pub si_unit: i32,
+}
+mod unit {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
+    }
+}
+trait IsUnit {
+    fn _unit(&self) -> &Unit;
+    fn multiplier(&self) -> &OptionalUnitMultiplierKind {
+        self._unit().multiplier.as_ref().unwrap_or(&unit::MULTIPLIER)
+    }
+    fn si_unit(&self) -> &i32 {
+        &self._unit().si_unit    }
+}
+impl IsUnit for Unit {
+    fn _unit(&self) -> &Unit {
+        self
+    }
 }
 /// Measured value (MV)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -252,40 +685,147 @@ pub struct Mv {
     /// is typically used to create reports for analogue values. Such a report sent "by exception" is not
     /// comparable to the transfer of sampled measured values as supported by the CDC SAV.NOTE 2 This 'mag'
     /// is not the same as 'mag' of the constructed attribute class 'Vector'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub mag: ::std::option::Option<AnalogueValue>,
     /// Quality of the values in 'instMag', 'mag', 'range'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
     /// 'range' or 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
     /// Unit for: 'instMag', 'mag', 'subMag', 'rangeC'.
     #[prost(message, optional, tag="4")]
     pub units: ::std::option::Option<Unit>,
 }
+mod mv {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MAG: crate::commonmodule::AnalogueValue = Default::default();
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
+    }
+}
+trait IsMv {
+    fn _mv(&self) -> &Mv;
+    fn mag(&self) -> &AnalogueValue {
+        self._mv().mag.as_ref().unwrap_or(&mv::MAG)
+    }
+    fn q(&self) -> &Quality {
+        self._mv().q.as_ref().unwrap_or(&mv::Q)
+    }
+    fn t(&self) -> &Timestamp {
+        self._mv().t.as_ref().unwrap_or(&mv::T)
+    }
+    fn units(&self) -> &Unit {
+        self._mv().units.as_ref().unwrap_or(&mv::UNITS)
+    }
+}
+impl IsMv for Mv {
+    fn _mv(&self) -> &Mv {
+        self
+    }
+}
 /// IEC61850 logical node.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct LogicalNode {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod logical_node {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsLogicalNode {
+    fn _logical_node(&self) -> &LogicalNode;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._logical_node().identified_object.as_ref().unwrap_or(&logical_node::IDENTIFIED_OBJECT)
+    }
+}
+impl IsLogicalNode for LogicalNode {
+    fn _logical_node(&self) -> &LogicalNode {
+        self
+    }
 }
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct AnalogStatusGgio {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Generic analogue input <i>n</i>.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub an_in: ::std::option::Option<Mv>,
     /// Phase code
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
+}
+mod analog_status_ggio {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref AN_IN: crate::commonmodule::Mv = Default::default();
+        pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
+    }
+}
+trait IsAnalogStatusGgio {
+    fn _analog_status_ggio(&self) -> &AnalogStatusGgio;
+    fn logical_node(&self) -> &LogicalNode {
+        self._analog_status_ggio().logical_node.as_ref().unwrap_or(&analog_status_ggio::LOGICAL_NODE)
+    }
+    fn an_in(&self) -> &Mv {
+        self._analog_status_ggio().an_in.as_ref().unwrap_or(&analog_status_ggio::AN_IN)
+    }
+    fn phase(&self) -> &OptionalPhaseCodeKind {
+        self._analog_status_ggio().phase.as_ref().unwrap_or(&analog_status_ggio::PHASE)
+    }
+}
+impl IsAnalogStatusGgio for AnalogStatusGgio {
+    fn _analog_status_ggio(&self) -> &AnalogStatusGgio {
+        self
+    }
 }
 /// Analogue value control (AnalogueValueCtl)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -297,6 +837,27 @@ pub struct AnalogueValueCtl {
     /// Integer representation of the measured value. See 'AnalogueValue.i'.
     #[prost(message, optional, tag="2")]
     pub i: ::std::option::Option<i32>,
+}
+mod analogue_value_ctl {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref F: f32 = Default::default();
+        pub(super) static ref I: i32 = Default::default();
+    }
+}
+trait IsAnalogueValueCtl {
+    fn _analogue_value_ctl(&self) -> &AnalogueValueCtl;
+    fn f(&self) -> &f32 {
+        self._analogue_value_ctl().f.as_ref().unwrap_or(&analogue_value_ctl::F)
+    }
+    fn i(&self) -> &i32 {
+        self._analogue_value_ctl().i.as_ref().unwrap_or(&analogue_value_ctl::I)
+    }
+}
+impl IsAnalogueValueCtl for AnalogueValueCtl {
+    fn _analogue_value_ctl(&self) -> &AnalogueValueCtl {
+        self
+    }
 }
 /// This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
 /// the two classes is because the mRID may need to be defined as a separate key field for technology
@@ -311,27 +872,106 @@ pub struct NamedObject {
     #[prost(message, optional, tag="2")]
     pub name: ::std::option::Option<::std::string::String>,
 }
+mod named_object {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DESCRIPTION: ::std::string::String = Default::default();
+        pub(super) static ref NAME: ::std::string::String = Default::default();
+    }
+}
+trait IsNamedObject {
+    fn _named_object(&self) -> &NamedObject;
+    fn description(&self) -> &::std::string::String {
+        self._named_object().description.as_ref().unwrap_or(&named_object::DESCRIPTION)
+    }
+    fn name(&self) -> &::std::string::String {
+        self._named_object().name.as_ref().unwrap_or(&named_object::NAME)
+    }
+}
+impl IsNamedObject for NamedObject {
+    fn _named_object(&self) -> &NamedObject {
+        self
+    }
+}
 /// The parts of a power system that are physical devices, electronic or mechanical.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ApplicationSystem {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub named_object: ::std::option::Option<NamedObject>,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: true
+    // key: false
     #[prost(string, tag="2")]
     pub m_rid: std::string::String,
+}
+mod application_system {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
+    }
+}
+trait IsApplicationSystem {
+    fn _application_system(&self) -> &ApplicationSystem;
+    fn named_object(&self) -> &NamedObject {
+        self._application_system().named_object.as_ref().unwrap_or(&application_system::NAMED_OBJECT)
+    }
+    fn m_rid(&self) -> &std::string::String {
+        &self._application_system().m_rid    }
+}
+impl IsApplicationSystem for ApplicationSystem {
+    fn _application_system(&self) -> &ApplicationSystem {
+        self
+    }
 }
 /// Analogue setting (FC=SP) (ASG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Asg {
     /// The value of the analogue setting.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub set_mag: ::std::option::Option<AnalogueValueCtl>,
     /// Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
     #[prost(message, optional, tag="2")]
     pub units: ::std::option::Option<Unit>,
+}
+mod asg {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref SET_MAG: crate::commonmodule::AnalogueValueCtl = Default::default();
+        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
+    }
+}
+trait IsAsg {
+    fn _asg(&self) -> &Asg;
+    fn set_mag(&self) -> &AnalogueValueCtl {
+        self._asg().set_mag.as_ref().unwrap_or(&asg::SET_MAG)
+    }
+    fn units(&self) -> &Unit {
+        self._asg().units.as_ref().unwrap_or(&asg::UNITS)
+    }
+}
+impl IsAsg for Asg {
+    fn _asg(&self) -> &Asg {
+        self
+    }
 }
 /// Binary counter reading (BCR)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -339,17 +979,62 @@ pub struct Asg {
 pub struct Bcr {
     /// Binary counter status represented as an integer value; wraps to 0 at the maximum or minimum
     /// value of INT64.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int64, tag="1")]
     pub act_val: i64,
     /// Quality of the values in 'actVal', 'frVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last change of value in 'actVal' or 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
     /// Unit for value in 'pulsQty'.
     #[prost(message, optional, tag="4")]
     pub units: ::std::option::Option<OptionalUnitSymbolKind>,
+}
+mod bcr {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+        pub(super) static ref UNITS: crate::commonmodule::OptionalUnitSymbolKind = Default::default();
+    }
+}
+trait IsBcr {
+    fn _bcr(&self) -> &Bcr;
+    fn act_val(&self) -> &i64 {
+        &self._bcr().act_val    }
+    fn q(&self) -> &Quality {
+        self._bcr().q.as_ref().unwrap_or(&bcr::Q)
+    }
+    fn t(&self) -> &Timestamp {
+        self._bcr().t.as_ref().unwrap_or(&bcr::T)
+    }
+    fn units(&self) -> &OptionalUnitSymbolKind {
+        self._bcr().units.as_ref().unwrap_or(&bcr::UNITS)
+    }
+}
+impl IsBcr for Bcr {
+    fn _bcr(&self) -> &Bcr {
+        self
+    }
 }
 /// Specialized 61850 SPS class
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -359,25 +1044,91 @@ pub struct StatusSps {
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="2")]
     pub st_val: bool,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
+mod status_sps {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsStatusSps {
+    fn _status_sps(&self) -> &StatusSps;
+    fn q(&self) -> &Quality {
+        self._status_sps().q.as_ref().unwrap_or(&status_sps::Q)
+    }
+    fn st_val(&self) -> &bool {
+        &self._status_sps().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._status_sps().t.as_ref().unwrap_or(&status_sps::T)
+    }
+}
+impl IsStatusSps for StatusSps {
+    fn _status_sps(&self) -> &StatusSps {
+        self
+    }
+}
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct BooleanStatusGgio {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// If true, indication <i>n</i> is present.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub ind: ::std::option::Option<StatusSps>,
     /// Phase code
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
+}
+mod boolean_status_ggio {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref IND: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
+    }
+}
+trait IsBooleanStatusGgio {
+    fn _boolean_status_ggio(&self) -> &BooleanStatusGgio;
+    fn logical_node(&self) -> &LogicalNode {
+        self._boolean_status_ggio().logical_node.as_ref().unwrap_or(&boolean_status_ggio::LOGICAL_NODE)
+    }
+    fn ind(&self) -> &StatusSps {
+        self._boolean_status_ggio().ind.as_ref().unwrap_or(&boolean_status_ggio::IND)
+    }
+    fn phase(&self) -> &OptionalPhaseCodeKind {
+        self._boolean_status_ggio().phase.as_ref().unwrap_or(&boolean_status_ggio::PHASE)
+    }
+}
+impl IsBooleanStatusGgio for BooleanStatusGgio {
+    fn _boolean_status_ggio(&self) -> &BooleanStatusGgio {
+        self
+    }
 }
 /// IEC61850-7-2 Service parameter for conditions checking
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -392,6 +1143,27 @@ pub struct CheckConditions {
     #[prost(message, optional, tag="2")]
     pub synchro_check: ::std::option::Option<bool>,
 }
+mod check_conditions {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref INTERLOCK_CHECK: bool = Default::default();
+        pub(super) static ref SYNCHRO_CHECK: bool = Default::default();
+    }
+}
+trait IsCheckConditions {
+    fn _check_conditions(&self) -> &CheckConditions;
+    fn interlock_check(&self) -> &bool {
+        self._check_conditions().interlock_check.as_ref().unwrap_or(&check_conditions::INTERLOCK_CHECK)
+    }
+    fn synchro_check(&self) -> &bool {
+        self._check_conditions().synchro_check.as_ref().unwrap_or(&check_conditions::SYNCHRO_CHECK)
+    }
+}
+impl IsCheckConditions for CheckConditions {
+    fn _check_conditions(&self) -> &CheckConditions {
+        self
+    }
+}
 /// Vector definition (Vector)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -401,8 +1173,35 @@ pub struct Vector {
     #[prost(message, optional, tag="1")]
     pub ang: ::std::option::Option<AnalogueValue>,
     /// Magnitude of the complex value.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub mag: ::std::option::Option<AnalogueValue>,
+}
+mod vector {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref ANG: crate::commonmodule::AnalogueValue = Default::default();
+        pub(super) static ref MAG: crate::commonmodule::AnalogueValue = Default::default();
+    }
+}
+trait IsVector {
+    fn _vector(&self) -> &Vector;
+    fn ang(&self) -> &AnalogueValue {
+        self._vector().ang.as_ref().unwrap_or(&vector::ANG)
+    }
+    fn mag(&self) -> &AnalogueValue {
+        self._vector().mag.as_ref().unwrap_or(&vector::MAG)
+    }
+}
+impl IsVector for Vector {
+    fn _vector(&self) -> &Vector {
+        self
+    }
 }
 /// Complex measured value (CMV)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -411,29 +1210,107 @@ pub struct Cmv {
     /// Complex value based on a deadband calculation from the instantaneous value 'instCVal.mag'. The
     /// deadband calculation is done both on 'instCVal.mag' (based on 'db') and on 'instCVal.ang' (based on
     /// 'dbAng'), independently. See  'MV.mag'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub c_val: ::std::option::Option<Vector>,
     /// Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     /// of 'range', 'rangeAng' or 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
     /// Units for: 'instCVal.mag', 'cVal.mag', 'subCVal.mag', 'rangeC'.
     #[prost(message, optional, tag="4")]
     pub units: ::std::option::Option<Unit>,
 }
+mod cmv {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref C_VAL: crate::commonmodule::Vector = Default::default();
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
+    }
+}
+trait IsCmv {
+    fn _cmv(&self) -> &Cmv;
+    fn c_val(&self) -> &Vector {
+        self._cmv().c_val.as_ref().unwrap_or(&cmv::C_VAL)
+    }
+    fn q(&self) -> &Quality {
+        self._cmv().q.as_ref().unwrap_or(&cmv::Q)
+    }
+    fn t(&self) -> &Timestamp {
+        self._cmv().t.as_ref().unwrap_or(&cmv::T)
+    }
+    fn units(&self) -> &Unit {
+        self._cmv().units.as_ref().unwrap_or(&cmv::UNITS)
+    }
+}
+impl IsCmv for Cmv {
+    fn _cmv(&self) -> &Cmv {
+        self
+    }
+}
 /// Asset representation of a ConductingEquipment.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ConductingEquipment {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub named_object: ::std::option::Option<NamedObject>,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: true
+    // key: true
     #[prost(string, tag="2")]
     pub m_rid: std::string::String,
+}
+mod conducting_equipment {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
+    }
+}
+trait IsConductingEquipment {
+    fn _conducting_equipment(&self) -> &ConductingEquipment;
+    fn named_object(&self) -> &NamedObject {
+        self._conducting_equipment().named_object.as_ref().unwrap_or(&conducting_equipment::NAMED_OBJECT)
+    }
+    fn m_rid(&self) -> &std::string::String {
+        &self._conducting_equipment().m_rid    }
+}
+impl IsConductingEquipment for ConductingEquipment {
+    fn _conducting_equipment(&self) -> &ConductingEquipment {
+        self
+    }
 }
 /// An AC electrical connection point to a piece of conducting equipment. Terminals are connected at
 /// physical connection points called connectivity nodes.
@@ -441,6 +1318,12 @@ pub struct ConductingEquipment {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Terminal {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub a_cdc_terminal: ::std::option::Option<AcdcTerminal>,
     /// Represents the normal network phasing condition. If the attribute is missing three phases (ABC
@@ -448,21 +1331,86 @@ pub struct Terminal {
     #[prost(message, optional, tag="2")]
     pub phases: ::std::option::Option<OptionalPhaseCodeKind>,
 }
+mod terminal {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref A_CDC_TERMINAL: crate::commonmodule::AcdcTerminal = Default::default();
+        pub(super) static ref PHASES: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
+    }
+}
+trait IsTerminal {
+    fn _terminal(&self) -> &Terminal;
+    fn a_cdc_terminal(&self) -> &AcdcTerminal {
+        self._terminal().a_cdc_terminal.as_ref().unwrap_or(&terminal::A_CDC_TERMINAL)
+    }
+    fn phases(&self) -> &OptionalPhaseCodeKind {
+        self._terminal().phases.as_ref().unwrap_or(&terminal::PHASES)
+    }
+}
+impl IsTerminal for Terminal {
+    fn _terminal(&self) -> &Terminal {
+        self
+    }
+}
 /// Reading associated with an equipment such as a recloser.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ConductingEquipmentTerminalReading {
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub terminal: ::std::option::Option<Terminal>,
+}
+mod conducting_equipment_terminal_reading {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref TERMINAL: crate::commonmodule::Terminal = Default::default();
+    }
+}
+trait IsConductingEquipmentTerminalReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading;
+    fn terminal(&self) -> &Terminal {
+        self._conducting_equipment_terminal_reading().terminal.as_ref().unwrap_or(&conducting_equipment_terminal_reading::TERMINAL)
+    }
+}
+impl IsConductingEquipmentTerminalReading for ConductingEquipmentTerminalReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        self
+    }
 }
 /// Specialized DPC 61850 CDC class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlDpc {
     /// Service parameter that determines the control activity ('false' for off, 'true' for on).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="1")]
     pub ctl_val: bool,
+}
+mod control_dpc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsControlDpc {
+    fn _control_dpc(&self) -> &ControlDpc;
+    fn ctl_val(&self) -> &bool {
+        &self._control_dpc().ctl_val    }
+}
+impl IsControlDpc for ControlDpc {
+    fn _control_dpc(&self) -> &ControlDpc {
+        self
+    }
 }
 /// UTC time with the epoch of midnight (00:00:00) of 1970-01-01. The presentation is defined in the
 /// SCSMs.The NULL time stamp has all fields set to 0 (zero).The relation between a timestamp value, the
@@ -475,11 +1423,40 @@ pub struct ControlDpc {
 pub struct ControlTimestamp {
     /// Fractional of the current second when the value of time stamp has been determined. It shall be
     /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(uint32, tag="1")]
     pub fraction: u32,
     /// Second since epoch (1970-01-01T00:00:00Z)
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(uint64, tag="2")]
     pub seconds: u64,
+}
+mod control_timestamp {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsControlTimestamp {
+    fn _control_timestamp(&self) -> &ControlTimestamp;
+    fn fraction(&self) -> &u32 {
+        &self._control_timestamp().fraction    }
+    fn seconds(&self) -> &u64 {
+        &self._control_timestamp().seconds    }
+}
+impl IsControlTimestamp for ControlTimestamp {
+    fn _control_timestamp(&self) -> &ControlTimestamp {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -487,51 +1464,193 @@ pub struct OptionalScheduleParameterKind {
     #[prost(enumeration="ScheduleParameterKind", tag="1")]
     pub value: i32,
 }
+mod optional_schedule_parameter_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalScheduleParameterKind {
+    fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind;
+    fn value(&self) -> &i32 {
+        &self._optional_schedule_parameter_kind().value    }
+}
+impl IsOptionalScheduleParameterKind for OptionalScheduleParameterKind {
+    fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind {
+        self
+    }
+}
 /// Grid connect mode kind
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EngScheduleParameter {
     /// Schedule parameter type
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="ScheduleParameterKind", tag="1")]
     pub schedule_parameter_type: i32,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(float, tag="2")]
     pub value: f32,
+}
+mod eng_schedule_parameter {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsEngScheduleParameter {
+    fn _eng_schedule_parameter(&self) -> &EngScheduleParameter;
+    fn schedule_parameter_type(&self) -> &i32 {
+        &self._eng_schedule_parameter().schedule_parameter_type    }
+    fn value(&self) -> &f32 {
+        &self._eng_schedule_parameter().value    }
+}
+impl IsEngScheduleParameter for EngScheduleParameter {
+    fn _eng_schedule_parameter(&self) -> &EngScheduleParameter {
+        self
+    }
 }
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct SchedulePoint {
     /// Schedule parameter
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, repeated, tag="1")]
     pub schedule_parameter: ::std::vec::Vec<EngScheduleParameter>,
     /// Start time
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub start_time: ::std::option::Option<ControlTimestamp>,
+}
+mod schedule_point {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
+    }
+}
+trait IsSchedulePoint {
+    fn _schedule_point(&self) -> &SchedulePoint;
+    fn schedule_parameter(&self) -> &::std::vec::Vec<EngScheduleParameter> {
+        &self._schedule_point().schedule_parameter    }
+    fn start_time(&self) -> &ControlTimestamp {
+        self._schedule_point().start_time.as_ref().unwrap_or(&schedule_point::START_TIME)
+    }
+}
+impl IsSchedulePoint for SchedulePoint {
+    fn _schedule_point(&self) -> &SchedulePoint {
+        self
+    }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ScheduleCsg {
     /// The array with the points specifying a time schedule
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, repeated, tag="1")]
     pub sch_pts: ::std::vec::Vec<SchedulePoint>,
+}
+mod schedule_csg {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsScheduleCsg {
+    fn _schedule_csg(&self) -> &ScheduleCsg;
+    fn sch_pts(&self) -> &::std::vec::Vec<SchedulePoint> {
+        &self._schedule_csg().sch_pts    }
+}
+impl IsScheduleCsg for ScheduleCsg {
+    fn _schedule_csg(&self) -> &ScheduleCsg {
+        self
+    }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlScheduleFsch {
     /// Analog CSG
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub val_acsg: ::std::option::Option<ScheduleCsg>,
+}
+mod control_schedule_fsch {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref VAL_ACSG: crate::commonmodule::ScheduleCsg = Default::default();
+    }
+}
+trait IsControlScheduleFsch {
+    fn _control_schedule_fsch(&self) -> &ControlScheduleFsch;
+    fn val_acsg(&self) -> &ScheduleCsg {
+        self._control_schedule_fsch().val_acsg.as_ref().unwrap_or(&control_schedule_fsch::VAL_ACSG)
+    }
+}
+impl IsControlScheduleFsch for ControlScheduleFsch {
+    fn _control_schedule_fsch(&self) -> &ControlScheduleFsch {
+        self
+    }
 }
 /// OpenFMB specialization for logical node control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct LogicalNodeForControl {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
+}
+mod logical_node_for_control {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+    }
+}
+trait IsLogicalNodeForControl {
+    fn _logical_node_for_control(&self) -> &LogicalNodeForControl;
+    fn logical_node(&self) -> &LogicalNode {
+        self._logical_node_for_control().logical_node.as_ref().unwrap_or(&logical_node_for_control::LOGICAL_NODE)
+    }
+}
+impl IsLogicalNodeForControl for LogicalNodeForControl {
+    fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        self
+    }
 }
 /// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:
 /// Control (execution)
@@ -539,6 +1658,12 @@ pub struct LogicalNodeForControl {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlFscc {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node_for_control: ::std::option::Option<LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
@@ -548,43 +1673,170 @@ pub struct ControlFscc {
     #[prost(message, optional, tag="3")]
     pub island_control_schedule_fsch: ::std::option::Option<ControlScheduleFsch>,
 }
+mod control_fscc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
+        pub(super) static ref CONTROL_SCHEDULE_FSCH: crate::commonmodule::ControlScheduleFsch = Default::default();
+        pub(super) static ref ISLAND_CONTROL_SCHEDULE_FSCH: crate::commonmodule::ControlScheduleFsch = Default::default();
+    }
+}
+trait IsControlFscc {
+    fn _control_fscc(&self) -> &ControlFscc;
+    fn logical_node_for_control(&self) -> &LogicalNodeForControl {
+        self._control_fscc().logical_node_for_control.as_ref().unwrap_or(&control_fscc::LOGICAL_NODE_FOR_CONTROL)
+    }
+    fn control_schedule_fsch(&self) -> &ControlScheduleFsch {
+        self._control_fscc().control_schedule_fsch.as_ref().unwrap_or(&control_fscc::CONTROL_SCHEDULE_FSCH)
+    }
+    fn island_control_schedule_fsch(&self) -> &ControlScheduleFsch {
+        self._control_fscc().island_control_schedule_fsch.as_ref().unwrap_or(&control_fscc::ISLAND_CONTROL_SCHEDULE_FSCH)
+    }
+}
+impl IsControlFscc for ControlFscc {
+    fn _control_fscc(&self) -> &ControlFscc {
+        self
+    }
+}
 /// Integer status setting (FC=SP) (ING_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlIng {
     /// The value of the status setting.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int32, tag="1")]
     pub set_val: i32,
     /// Unit for 'setVal', 'minVal', 'maxVal', 'stepSize'.
     #[prost(message, optional, tag="2")]
     pub units: ::std::option::Option<Unit>,
 }
+mod control_ing {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
+    }
+}
+trait IsControlIng {
+    fn _control_ing(&self) -> &ControlIng;
+    fn set_val(&self) -> &i32 {
+        &self._control_ing().set_val    }
+    fn units(&self) -> &Unit {
+        self._control_ing().units.as_ref().unwrap_or(&control_ing::UNITS)
+    }
+}
+impl IsControlIng for ControlIng {
+    fn _control_ing(&self) -> &ControlIng {
+        self
+    }
+}
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlIsc {
     /// Service parameter that determines the control activity.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int32, tag="1")]
     pub ctl_val: i32,
+}
+mod control_isc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsControlIsc {
+    fn _control_isc(&self) -> &ControlIsc;
+    fn ctl_val(&self) -> &i32 {
+        &self._control_isc().ctl_val    }
+}
+impl IsControlIsc for ControlIsc {
+    fn _control_isc(&self) -> &ControlIsc {
+        self
+    }
 }
 /// Generic control message info.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct MessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub message_time_stamp: ::std::option::Option<Timestamp>,
+}
+mod message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+        pub(super) static ref MESSAGE_TIME_STAMP: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsMessageInfo {
+    fn _message_info(&self) -> &MessageInfo;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._message_info().identified_object.as_ref().unwrap_or(&message_info::IDENTIFIED_OBJECT)
+    }
+    fn message_time_stamp(&self) -> &Timestamp {
+        self._message_info().message_time_stamp.as_ref().unwrap_or(&message_info::MESSAGE_TIME_STAMP)
+    }
+}
+impl IsMessageInfo for MessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self
+    }
 }
 /// Generic control message info.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlMessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub message_info: ::std::option::Option<MessageInfo>,
+}
+mod control_message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
+    }
+}
+trait IsControlMessageInfo {
+    fn _control_message_info(&self) -> &ControlMessageInfo;
+    fn message_info(&self) -> &MessageInfo {
+        self._control_message_info().message_info.as_ref().unwrap_or(&control_message_info::MESSAGE_INFO)
+    }
+}
+impl IsControlMessageInfo for ControlMessageInfo {
+    fn _control_message_info(&self) -> &ControlMessageInfo {
+        self
+    }
 }
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -592,8 +1844,29 @@ pub struct ControlMessageInfo {
 pub struct ControlSpc {
     /// Service parameter that determines the control activity ('false' for off or deactivation, 'true'
     /// for on or activation).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="1")]
     pub ctl_val: bool,
+}
+mod control_spc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsControlSpc {
+    fn _control_spc(&self) -> &ControlSpc;
+    fn ctl_val(&self) -> &bool {
+        &self._control_spc().ctl_val    }
+}
+impl IsControlSpc for ControlSpc {
+    fn _control_spc(&self) -> &ControlSpc {
+        self
+    }
 }
 /// The value of a control command which could either be a setpoint or a control schedule in curve.
 /// The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control schedule
@@ -603,6 +1876,12 @@ pub struct ControlSpc {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlValue {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control
@@ -610,6 +1889,27 @@ pub struct ControlValue {
     /// Any modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
     #[prost(message, optional, tag="2")]
     pub mod_blk: ::std::option::Option<bool>,
+}
+mod control_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+        pub(super) static ref MOD_BLK: bool = Default::default();
+    }
+}
+trait IsControlValue {
+    fn _control_value(&self) -> &ControlValue;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._control_value().identified_object.as_ref().unwrap_or(&control_value::IDENTIFIED_OBJECT)
+    }
+    fn mod_blk(&self) -> &bool {
+        self._control_value().mod_blk.as_ref().unwrap_or(&control_value::MOD_BLK)
+    }
+}
+impl IsControlValue for ControlValue {
+    fn _control_value(&self) -> &ControlValue {
+        self
+    }
 }
 /// Interval between two date and time points.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -621,6 +1921,27 @@ pub struct DateTimeInterval {
     /// Start date and time of this interval.
     #[prost(message, optional, tag="2")]
     pub start: ::std::option::Option<i64>,
+}
+mod date_time_interval {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref END: i64 = Default::default();
+        pub(super) static ref START: i64 = Default::default();
+    }
+}
+trait IsDateTimeInterval {
+    fn _date_time_interval(&self) -> &DateTimeInterval;
+    fn end(&self) -> &i64 {
+        self._date_time_interval().end.as_ref().unwrap_or(&date_time_interval::END)
+    }
+    fn start(&self) -> &i64 {
+        self._date_time_interval().start.as_ref().unwrap_or(&date_time_interval::START)
+    }
+}
+impl IsDateTimeInterval for DateTimeInterval {
+    fn _date_time_interval(&self) -> &DateTimeInterval {
+        self
+    }
 }
 /// Phase to phase related measured values of a three-phase system (DEL)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -636,16 +1957,68 @@ pub struct Del {
     #[prost(message, optional, tag="3")]
     pub phs_ca: ::std::option::Option<Cmv>,
 }
+mod del {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS_AB: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref PHS_BC: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref PHS_CA: crate::commonmodule::Cmv = Default::default();
+    }
+}
+trait IsDel {
+    fn _del(&self) -> &Del;
+    fn phs_ab(&self) -> &Cmv {
+        self._del().phs_ab.as_ref().unwrap_or(&del::PHS_AB)
+    }
+    fn phs_bc(&self) -> &Cmv {
+        self._del().phs_bc.as_ref().unwrap_or(&del::PHS_BC)
+    }
+    fn phs_ca(&self) -> &Cmv {
+        self._del().phs_ca.as_ref().unwrap_or(&del::PHS_CA)
+    }
+}
+impl IsDel for Del {
+    fn _del(&self) -> &Del {
+        self
+    }
+}
 /// Generic user of energy - a  point of consumption on the power system model.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnergyConsumer {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub operating_limit: ::std::option::Option<::std::string::String>,
+}
+mod energy_consumer {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
+        pub(super) static ref OPERATING_LIMIT: ::std::string::String = Default::default();
+    }
+}
+trait IsEnergyConsumer {
+    fn _energy_consumer(&self) -> &EnergyConsumer;
+    fn conducting_equipment(&self) -> &ConductingEquipment {
+        self._energy_consumer().conducting_equipment.as_ref().unwrap_or(&energy_consumer::CONDUCTING_EQUIPMENT)
+    }
+    fn operating_limit(&self) -> &::std::string::String {
+        self._energy_consumer().operating_limit.as_ref().unwrap_or(&energy_consumer::OPERATING_LIMIT)
+    }
+}
+impl IsEnergyConsumer for EnergyConsumer {
+    fn _energy_consumer(&self) -> &EnergyConsumer {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -653,13 +2026,49 @@ pub struct OptionalCalcMethodKind {
     #[prost(enumeration="CalcMethodKind", tag="1")]
     pub value: i32,
 }
+mod optional_calc_method_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalCalcMethodKind {
+    fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind;
+    fn value(&self) -> &i32 {
+        &self._optional_calc_method_kind().value    }
+}
+impl IsOptionalCalcMethodKind for OptionalCalcMethodKind {
+    fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind {
+        self
+    }
+}
 /// Calc method kind
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EngCalcMethodKind {
     /// The value of the status setting.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="CalcMethodKind", tag="1")]
     pub set_val: i32,
+}
+mod eng_calc_method_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsEngCalcMethodKind {
+    fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind;
+    fn set_val(&self) -> &i32 {
+        &self._eng_calc_method_kind().set_val    }
+}
+impl IsEngCalcMethodKind for EngCalcMethodKind {
+    fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -667,16 +2076,56 @@ pub struct OptionalGridConnectModeKind {
     #[prost(enumeration="GridConnectModeKind", tag="1")]
     pub value: i32,
 }
+mod optional_grid_connect_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalGridConnectModeKind {
+    fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind;
+    fn value(&self) -> &i32 {
+        &self._optional_grid_connect_mode_kind().value    }
+}
+impl IsOptionalGridConnectModeKind for OptionalGridConnectModeKind {
+    fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind {
+        self
+    }
+}
 /// Grid connect mode kind
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EngGridConnectModeKind {
     /// The value of the status setting.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
     pub set_val: i32,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub set_val_extension: ::std::option::Option<::std::string::String>,
+}
+mod eng_grid_connect_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref SET_VAL_EXTENSION: ::std::string::String = Default::default();
+    }
+}
+trait IsEngGridConnectModeKind {
+    fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind;
+    fn set_val(&self) -> &i32 {
+        &self._eng_grid_connect_mode_kind().set_val    }
+    fn set_val_extension(&self) -> &::std::string::String {
+        self._eng_grid_connect_mode_kind().set_val_extension.as_ref().unwrap_or(&eng_grid_connect_mode_kind::SET_VAL_EXTENSION)
+    }
+}
+impl IsEngGridConnectModeKind for EngGridConnectModeKind {
+    fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -684,13 +2133,49 @@ pub struct OptionalPfSignKind {
     #[prost(enumeration="PfSignKind", tag="1")]
     pub value: i32,
 }
+mod optional_pf_sign_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalPfSignKind {
+    fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind;
+    fn value(&self) -> &i32 {
+        &self._optional_pf_sign_kind().value    }
+}
+impl IsOptionalPfSignKind for OptionalPfSignKind {
+    fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind {
+        self
+    }
+}
 /// Enumerated status setting (FC=SP) (ENG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EngPfSignKind {
     /// The value of the status setting.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="PfSignKind", tag="1")]
     pub set_val: i32,
+}
+mod eng_pf_sign_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsEngPfSignKind {
+    fn _eng_pf_sign_kind(&self) -> &EngPfSignKind;
+    fn set_val(&self) -> &i32 {
+        &self._eng_pf_sign_kind().set_val    }
+}
+impl IsEngPfSignKind for EngPfSignKind {
+    fn _eng_pf_sign_kind(&self) -> &EngPfSignKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -698,19 +2183,75 @@ pub struct OptionalBehaviourModeKind {
     #[prost(enumeration="BehaviourModeKind", tag="1")]
     pub value: i32,
 }
+mod optional_behaviour_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalBehaviourModeKind {
+    fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind;
+    fn value(&self) -> &i32 {
+        &self._optional_behaviour_mode_kind().value    }
+}
+impl IsOptionalBehaviourModeKind for OptionalBehaviourModeKind {
+    fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind {
+        self
+    }
+}
 /// Behavior mode kind. ENS stands for Enumerated status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsBehaviourModeKind {
     /// Quality of the value in 'stVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="BehaviourModeKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
+}
+mod ens_behaviour_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsEnsBehaviourModeKind {
+    fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind;
+    fn q(&self) -> &Quality {
+        self._ens_behaviour_mode_kind().q.as_ref().unwrap_or(&ens_behaviour_mode_kind::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._ens_behaviour_mode_kind().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._ens_behaviour_mode_kind().t.as_ref().unwrap_or(&ens_behaviour_mode_kind::T)
+    }
+}
+impl IsEnsBehaviourModeKind for EnsBehaviourModeKind {
+    fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -718,19 +2259,75 @@ pub struct OptionalDerGeneratorStateKind {
     #[prost(enumeration="DerGeneratorStateKind", tag="1")]
     pub value: i32,
 }
+mod optional_der_generator_state_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalDerGeneratorStateKind {
+    fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind;
+    fn value(&self) -> &i32 {
+        &self._optional_der_generator_state_kind().value    }
+}
+impl IsOptionalDerGeneratorStateKind for OptionalDerGeneratorStateKind {
+    fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind {
+        self
+    }
+}
 /// DER generation state kind. ENS stands for Enumerated status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsDerGeneratorStateKind {
     /// Quality of the value in 'stVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="DerGeneratorStateKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
+}
+mod ens_der_generator_state_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsEnsDerGeneratorStateKind {
+    fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind;
+    fn q(&self) -> &Quality {
+        self._ens_der_generator_state_kind().q.as_ref().unwrap_or(&ens_der_generator_state_kind::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._ens_der_generator_state_kind().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._ens_der_generator_state_kind().t.as_ref().unwrap_or(&ens_der_generator_state_kind::T)
+    }
+}
+impl IsEnsDerGeneratorStateKind for EnsDerGeneratorStateKind {
+    fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -738,36 +2335,136 @@ pub struct OptionalDynamicTestKind {
     #[prost(enumeration="DynamicTestKind", tag="1")]
     pub value: i32,
 }
+mod optional_dynamic_test_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalDynamicTestKind {
+    fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind;
+    fn value(&self) -> &i32 {
+        &self._optional_dynamic_test_kind().value    }
+}
+impl IsOptionalDynamicTestKind for OptionalDynamicTestKind {
+    fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind {
+        self
+    }
+}
 /// Dynamic test kind. ENS stands for Enumerated status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsDynamicTestKind {
     /// Quality of the value in 'stVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="DynamicTestKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
+}
+mod ens_dynamic_test_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsEnsDynamicTestKind {
+    fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind;
+    fn q(&self) -> &Quality {
+        self._ens_dynamic_test_kind().q.as_ref().unwrap_or(&ens_dynamic_test_kind::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._ens_dynamic_test_kind().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._ens_dynamic_test_kind().t.as_ref().unwrap_or(&ens_dynamic_test_kind::T)
+    }
+}
+impl IsEnsDynamicTestKind for EnsDynamicTestKind {
+    fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind {
+        self
+    }
 }
 /// Grid connect event &amp; status mode kind
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsGridConnectModeKind {
     /// Actual Grid Connection Mode
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
     pub st_val: i32,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(string, tag="2")]
     pub st_val_extension: std::string::String,
+}
+mod ens_grid_connect_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsEnsGridConnectModeKind {
+    fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind;
+    fn st_val(&self) -> &i32 {
+        &self._ens_grid_connect_mode_kind().st_val    }
+    fn st_val_extension(&self) -> &std::string::String {
+        &self._ens_grid_connect_mode_kind().st_val_extension    }
+}
+impl IsEnsGridConnectModeKind for EnsGridConnectModeKind {
+    fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalHealthKind {
     #[prost(enumeration="HealthKind", tag="1")]
     pub value: i32,
+}
+mod optional_health_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalHealthKind {
+    fn _optional_health_kind(&self) -> &OptionalHealthKind;
+    fn value(&self) -> &i32 {
+        &self._optional_health_kind().value    }
+}
+impl IsOptionalHealthKind for OptionalHealthKind {
+    fn _optional_health_kind(&self) -> &OptionalHealthKind {
+        self
+    }
 }
 /// &lt;&gt; Enumerated status (ENS)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -778,40 +2475,157 @@ pub struct EnsHealthKind {
     #[prost(message, optional, tag="1")]
     pub d: ::std::option::Option<::std::string::String>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="HealthKind", tag="2")]
     pub st_val: i32,
+}
+mod ens_health_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref D: ::std::string::String = Default::default();
+    }
+}
+trait IsEnsHealthKind {
+    fn _ens_health_kind(&self) -> &EnsHealthKind;
+    fn d(&self) -> &::std::string::String {
+        self._ens_health_kind().d.as_ref().unwrap_or(&ens_health_kind::D)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._ens_health_kind().st_val    }
+}
+impl IsEnsHealthKind for EnsHealthKind {
+    fn _ens_health_kind(&self) -> &EnsHealthKind {
+        self
+    }
 }
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Ess {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
+}
+mod ess {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
+    }
+}
+trait IsEss {
+    fn _ess(&self) -> &Ess;
+    fn conducting_equipment(&self) -> &ConductingEquipment {
+        self._ess().conducting_equipment.as_ref().unwrap_or(&ess::CONDUCTING_EQUIPMENT)
+    }
+}
+impl IsEss for Ess {
+    fn _ess(&self) -> &Ess {
+        self
+    }
 }
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EventMessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub message_info: ::std::option::Option<MessageInfo>,
+}
+mod event_message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
+    }
+}
+trait IsEventMessageInfo {
+    fn _event_message_info(&self) -> &EventMessageInfo;
+    fn message_info(&self) -> &MessageInfo {
+        self._event_message_info().message_info.as_ref().unwrap_or(&event_message_info::MESSAGE_INFO)
+    }
+}
+impl IsEventMessageInfo for EventMessageInfo {
+    fn _event_message_info(&self) -> &EventMessageInfo {
+        self
+    }
 }
 /// Event value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EventValue {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod event_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsEventValue {
+    fn _event_value(&self) -> &EventValue;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._event_value().identified_object.as_ref().unwrap_or(&event_value::IDENTIFIED_OBJECT)
+    }
+}
+impl IsEventValue for EventValue {
+    fn _event_value(&self) -> &EventValue {
+        self
+    }
 }
 /// The source where a forecast value is issued.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ForecastValueSource {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod forecast_value_source {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsForecastValueSource {
+    fn _forecast_value_source(&self) -> &ForecastValueSource;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._forecast_value_source().identified_object.as_ref().unwrap_or(&forecast_value_source::IDENTIFIED_OBJECT)
+    }
+}
+impl IsForecastValueSource for ForecastValueSource {
+    fn _forecast_value_source(&self) -> &ForecastValueSource {
+        self
+    }
 }
 /// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
 /// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
@@ -825,23 +2639,85 @@ pub struct ForecastValueSource {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ForecastIed {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub forecast_value_source: ::std::option::Option<ForecastValueSource>,
     /// For control, this is an application ID, unique within communication system, and if the message
     /// is transformed between gateway the original source application ID should be kept.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(string, tag="2")]
     pub source_application_id: std::string::String,
     /// Message publication date time
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int64, tag="3")]
     pub source_date_time: i64,
+}
+mod forecast_ied {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref FORECAST_VALUE_SOURCE: crate::commonmodule::ForecastValueSource = Default::default();
+    }
+}
+trait IsForecastIed {
+    fn _forecast_ied(&self) -> &ForecastIed;
+    fn forecast_value_source(&self) -> &ForecastValueSource {
+        self._forecast_ied().forecast_value_source.as_ref().unwrap_or(&forecast_ied::FORECAST_VALUE_SOURCE)
+    }
+    fn source_application_id(&self) -> &std::string::String {
+        &self._forecast_ied().source_application_id    }
+    fn source_date_time(&self) -> &i64 {
+        &self._forecast_ied().source_date_time    }
+}
+impl IsForecastIed for ForecastIed {
+    fn _forecast_ied(&self) -> &ForecastIed {
+        self
+    }
 }
 /// Forecast value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ForecastValue {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod forecast_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsForecastValue {
+    fn _forecast_value(&self) -> &ForecastValue;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._forecast_value().identified_object.as_ref().unwrap_or(&forecast_value::IDENTIFIED_OBJECT)
+    }
+}
+impl IsForecastValue for ForecastValue {
+    fn _forecast_value(&self) -> &ForecastValue {
+        self
+    }
 }
 /// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
 /// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
@@ -855,8 +2731,31 @@ pub struct ForecastValue {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Ied {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod ied {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsIed {
+    fn _ied(&self) -> &Ied;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._ied().identified_object.as_ref().unwrap_or(&ied::IDENTIFIED_OBJECT)
+    }
+}
+impl IsIed for Ied {
+    fn _ied(&self) -> &Ied {
+        self
+    }
 }
 /// <<statistics>> Integer status (INS)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -866,6 +2765,12 @@ pub struct StatusIns {
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int32, tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
@@ -875,25 +2780,95 @@ pub struct StatusIns {
     #[prost(message, optional, tag="4")]
     pub units: ::std::option::Option<Unit>,
 }
+mod status_ins {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
+    }
+}
+trait IsStatusIns {
+    fn _status_ins(&self) -> &StatusIns;
+    fn q(&self) -> &Quality {
+        self._status_ins().q.as_ref().unwrap_or(&status_ins::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._status_ins().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._status_ins().t.as_ref().unwrap_or(&status_ins::T)
+    }
+    fn units(&self) -> &Unit {
+        self._status_ins().units.as_ref().unwrap_or(&status_ins::UNITS)
+    }
+}
+impl IsStatusIns for StatusIns {
+    fn _status_ins(&self) -> &StatusIns {
+        self
+    }
+}
 /// Status expressed in integer based on IEC61850 GGIO.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct IntegerStatusGgio {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Generic integer status input <i>n</i>.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub int_in: ::std::option::Option<StatusIns>,
     /// Phase code
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
+mod integer_status_ggio {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref INT_IN: crate::commonmodule::StatusIns = Default::default();
+        pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
+    }
+}
+trait IsIntegerStatusGgio {
+    fn _integer_status_ggio(&self) -> &IntegerStatusGgio;
+    fn logical_node(&self) -> &LogicalNode {
+        self._integer_status_ggio().logical_node.as_ref().unwrap_or(&integer_status_ggio::LOGICAL_NODE)
+    }
+    fn int_in(&self) -> &StatusIns {
+        self._integer_status_ggio().int_in.as_ref().unwrap_or(&integer_status_ggio::INT_IN)
+    }
+    fn phase(&self) -> &OptionalPhaseCodeKind {
+        self._integer_status_ggio().phase.as_ref().unwrap_or(&integer_status_ggio::PHASE)
+    }
+}
+impl IsIntegerStatusGgio for IntegerStatusGgio {
+    fn _integer_status_ggio(&self) -> &IntegerStatusGgio {
+        self
+    }
+}
 /// Logical node for event and status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct LogicalNodeForEventAndStatus {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Behavior of the function
@@ -903,6 +2878,31 @@ pub struct LogicalNodeForEventAndStatus {
     #[prost(message, optional, tag="3")]
     pub ee_health: ::std::option::Option<EnsHealthKind>,
 }
+mod logical_node_for_event_and_status {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref BEH: crate::commonmodule::EnsBehaviourModeKind = Default::default();
+        pub(super) static ref EE_HEALTH: crate::commonmodule::EnsHealthKind = Default::default();
+    }
+}
+trait IsLogicalNodeForEventAndStatus {
+    fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus;
+    fn logical_node(&self) -> &LogicalNode {
+        self._logical_node_for_event_and_status().logical_node.as_ref().unwrap_or(&logical_node_for_event_and_status::LOGICAL_NODE)
+    }
+    fn beh(&self) -> &EnsBehaviourModeKind {
+        self._logical_node_for_event_and_status().beh.as_ref().unwrap_or(&logical_node_for_event_and_status::BEH)
+    }
+    fn ee_health(&self) -> &EnsHealthKind {
+        self._logical_node_for_event_and_status().ee_health.as_ref().unwrap_or(&logical_node_for_event_and_status::EE_HEALTH)
+    }
+}
+impl IsLogicalNodeForEventAndStatus for LogicalNodeForEventAndStatus {
+    fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        self
+    }
+}
 /// The current state for a measurement. A state value is an instance of a measurement from a
 /// specific source. Measurements can be associated with many state values, each representing a
 /// different source for the measurement.
@@ -910,8 +2910,31 @@ pub struct LogicalNodeForEventAndStatus {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct MeasurementValue {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod measurement_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsMeasurementValue {
+    fn _measurement_value(&self) -> &MeasurementValue;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._measurement_value().identified_object.as_ref().unwrap_or(&measurement_value::IDENTIFIED_OBJECT)
+    }
+}
+impl IsMeasurementValue for MeasurementValue {
+    fn _measurement_value(&self) -> &MeasurementValue {
+        self
+    }
 }
 /// Physical asset that performs the metering role of the usage point. Used for measuring
 /// consumption and detection of events.
@@ -919,22 +2942,74 @@ pub struct MeasurementValue {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Meter {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
+}
+mod meter {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
+    }
+}
+trait IsMeter {
+    fn _meter(&self) -> &Meter;
+    fn conducting_equipment(&self) -> &ConductingEquipment {
+        self._meter().conducting_equipment.as_ref().unwrap_or(&meter::CONDUCTING_EQUIPMENT)
+    }
+}
+impl IsMeter for Meter {
+    fn _meter(&self) -> &Meter {
+        self
+    }
 }
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptimizationMessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub message_info: ::std::option::Option<MessageInfo>,
+}
+mod optimization_message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
+    }
+}
+trait IsOptimizationMessageInfo {
+    fn _optimization_message_info(&self) -> &OptimizationMessageInfo;
+    fn message_info(&self) -> &MessageInfo {
+        self._optimization_message_info().message_info.as_ref().unwrap_or(&optimization_message_info::MESSAGE_INFO)
+    }
+}
+impl IsOptimizationMessageInfo for OptimizationMessageInfo {
+    fn _optimization_message_info(&self) -> &OptimizationMessageInfo {
+        self
+    }
 }
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmtn {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Apparent energy demand (direction: from busbar).
@@ -964,6 +3039,59 @@ pub struct ReadingMmtn {
     /// Net real energy since last reset.
     #[prost(message, optional, tag="10")]
     pub tot_wh: ::std::option::Option<Bcr>,
+}
+mod reading_mmtn {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref DMD_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref DMD_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref DMD_WH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_WH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
+    }
+}
+trait IsReadingMmtn {
+    fn _reading_mmtn(&self) -> &ReadingMmtn;
+    fn logical_node(&self) -> &LogicalNode {
+        self._reading_mmtn().logical_node.as_ref().unwrap_or(&reading_mmtn::LOGICAL_NODE)
+    }
+    fn dmd_v_ah(&self) -> &Bcr {
+        self._reading_mmtn().dmd_v_ah.as_ref().unwrap_or(&reading_mmtn::DMD_V_AH)
+    }
+    fn dmd_v_arh(&self) -> &Bcr {
+        self._reading_mmtn().dmd_v_arh.as_ref().unwrap_or(&reading_mmtn::DMD_V_ARH)
+    }
+    fn dmd_wh(&self) -> &Bcr {
+        self._reading_mmtn().dmd_wh.as_ref().unwrap_or(&reading_mmtn::DMD_WH)
+    }
+    fn sup_v_ah(&self) -> &Bcr {
+        self._reading_mmtn().sup_v_ah.as_ref().unwrap_or(&reading_mmtn::SUP_V_AH)
+    }
+    fn sup_v_arh(&self) -> &Bcr {
+        self._reading_mmtn().sup_v_arh.as_ref().unwrap_or(&reading_mmtn::SUP_V_ARH)
+    }
+    fn sup_wh(&self) -> &Bcr {
+        self._reading_mmtn().sup_wh.as_ref().unwrap_or(&reading_mmtn::SUP_WH)
+    }
+    fn tot_v_ah(&self) -> &Bcr {
+        self._reading_mmtn().tot_v_ah.as_ref().unwrap_or(&reading_mmtn::TOT_V_AH)
+    }
+    fn tot_v_arh(&self) -> &Bcr {
+        self._reading_mmtn().tot_v_arh.as_ref().unwrap_or(&reading_mmtn::TOT_V_ARH)
+    }
+    fn tot_wh(&self) -> &Bcr {
+        self._reading_mmtn().tot_wh.as_ref().unwrap_or(&reading_mmtn::TOT_WH)
+    }
+}
+impl IsReadingMmtn for ReadingMmtn {
+    fn _reading_mmtn(&self) -> &ReadingMmtn {
+        self
+    }
 }
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -988,6 +3116,43 @@ pub struct PhaseMmtn {
     #[prost(message, optional, tag="6")]
     pub phs_ca: ::std::option::Option<ReadingMmtn>,
 }
+mod phase_mmtn {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS_A: crate::commonmodule::ReadingMmtn = Default::default();
+        pub(super) static ref PHS_AB: crate::commonmodule::ReadingMmtn = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::ReadingMmtn = Default::default();
+        pub(super) static ref PHS_BC: crate::commonmodule::ReadingMmtn = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::ReadingMmtn = Default::default();
+        pub(super) static ref PHS_CA: crate::commonmodule::ReadingMmtn = Default::default();
+    }
+}
+trait IsPhaseMmtn {
+    fn _phase_mmtn(&self) -> &PhaseMmtn;
+    fn phs_a(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_a.as_ref().unwrap_or(&phase_mmtn::PHS_A)
+    }
+    fn phs_ab(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_ab.as_ref().unwrap_or(&phase_mmtn::PHS_AB)
+    }
+    fn phs_b(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_b.as_ref().unwrap_or(&phase_mmtn::PHS_B)
+    }
+    fn phs_bc(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_bc.as_ref().unwrap_or(&phase_mmtn::PHS_BC)
+    }
+    fn phs_c(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_c.as_ref().unwrap_or(&phase_mmtn::PHS_C)
+    }
+    fn phs_ca(&self) -> &ReadingMmtn {
+        self._phase_mmtn().phs_ca.as_ref().unwrap_or(&phase_mmtn::PHS_CA)
+    }
+}
+impl IsPhaseMmtn for PhaseMmtn {
+    fn _phase_mmtn(&self) -> &PhaseMmtn {
+        self
+    }
+}
 /// Grid connect mode kind
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1005,19 +3170,77 @@ pub struct RampRate {
     #[prost(message, optional, tag="4")]
     pub positive_real_power_kw_per_min: ::std::option::Option<f32>,
 }
+mod ramp_rate {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref NEGATIVE_REACTIVE_POWER_KV_AR_PER_MIN: f32 = Default::default();
+        pub(super) static ref NEGATIVE_REAL_POWER_KW_PER_MIN: f32 = Default::default();
+        pub(super) static ref POSITIVE_REACTIVE_POWER_KV_AR_PER_MIN: f32 = Default::default();
+        pub(super) static ref POSITIVE_REAL_POWER_KW_PER_MIN: f32 = Default::default();
+    }
+}
+trait IsRampRate {
+    fn _ramp_rate(&self) -> &RampRate;
+    fn negative_reactive_power_kv_ar_per_min(&self) -> &f32 {
+        self._ramp_rate().negative_reactive_power_kv_ar_per_min.as_ref().unwrap_or(&ramp_rate::NEGATIVE_REACTIVE_POWER_KV_AR_PER_MIN)
+    }
+    fn negative_real_power_kw_per_min(&self) -> &f32 {
+        self._ramp_rate().negative_real_power_kw_per_min.as_ref().unwrap_or(&ramp_rate::NEGATIVE_REAL_POWER_KW_PER_MIN)
+    }
+    fn positive_reactive_power_kv_ar_per_min(&self) -> &f32 {
+        self._ramp_rate().positive_reactive_power_kv_ar_per_min.as_ref().unwrap_or(&ramp_rate::POSITIVE_REACTIVE_POWER_KV_AR_PER_MIN)
+    }
+    fn positive_real_power_kw_per_min(&self) -> &f32 {
+        self._ramp_rate().positive_real_power_kw_per_min.as_ref().unwrap_or(&ramp_rate::POSITIVE_REAL_POWER_KW_PER_MIN)
+    }
+}
+impl IsRampRate for RampRate {
+    fn _ramp_rate(&self) -> &RampRate {
+        self
+    }
+}
 /// Generic reading message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ReadingMessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub message_info: ::std::option::Option<MessageInfo>,
+}
+mod reading_message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
+    }
+}
+trait IsReadingMessageInfo {
+    fn _reading_message_info(&self) -> &ReadingMessageInfo;
+    fn message_info(&self) -> &MessageInfo {
+        self._reading_message_info().message_info.as_ref().unwrap_or(&reading_message_info::MESSAGE_INFO)
+    }
+}
+impl IsReadingMessageInfo for ReadingMessageInfo {
+    fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        self
+    }
 }
 /// Specialized 61850 MMTR class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmtr {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Apparent energy demand (direction: from busbar).
@@ -1047,6 +3270,59 @@ pub struct ReadingMmtr {
     /// Net real energy since last reset.
     #[prost(message, optional, tag="10")]
     pub tot_wh: ::std::option::Option<Bcr>,
+}
+mod reading_mmtr {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref DMD_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref DMD_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref DMD_WH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref SUP_WH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_V_AH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_V_ARH: crate::commonmodule::Bcr = Default::default();
+        pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
+    }
+}
+trait IsReadingMmtr {
+    fn _reading_mmtr(&self) -> &ReadingMmtr;
+    fn logical_node(&self) -> &LogicalNode {
+        self._reading_mmtr().logical_node.as_ref().unwrap_or(&reading_mmtr::LOGICAL_NODE)
+    }
+    fn dmd_v_ah(&self) -> &Bcr {
+        self._reading_mmtr().dmd_v_ah.as_ref().unwrap_or(&reading_mmtr::DMD_V_AH)
+    }
+    fn dmd_v_arh(&self) -> &Bcr {
+        self._reading_mmtr().dmd_v_arh.as_ref().unwrap_or(&reading_mmtr::DMD_V_ARH)
+    }
+    fn dmd_wh(&self) -> &Bcr {
+        self._reading_mmtr().dmd_wh.as_ref().unwrap_or(&reading_mmtr::DMD_WH)
+    }
+    fn sup_v_ah(&self) -> &Bcr {
+        self._reading_mmtr().sup_v_ah.as_ref().unwrap_or(&reading_mmtr::SUP_V_AH)
+    }
+    fn sup_v_arh(&self) -> &Bcr {
+        self._reading_mmtr().sup_v_arh.as_ref().unwrap_or(&reading_mmtr::SUP_V_ARH)
+    }
+    fn sup_wh(&self) -> &Bcr {
+        self._reading_mmtr().sup_wh.as_ref().unwrap_or(&reading_mmtr::SUP_WH)
+    }
+    fn tot_v_ah(&self) -> &Bcr {
+        self._reading_mmtr().tot_v_ah.as_ref().unwrap_or(&reading_mmtr::TOT_V_AH)
+    }
+    fn tot_v_arh(&self) -> &Bcr {
+        self._reading_mmtr().tot_v_arh.as_ref().unwrap_or(&reading_mmtr::TOT_V_ARH)
+    }
+    fn tot_wh(&self) -> &Bcr {
+        self._reading_mmtr().tot_wh.as_ref().unwrap_or(&reading_mmtr::TOT_WH)
+    }
+}
+impl IsReadingMmtr for ReadingMmtr {
+    fn _reading_mmtr(&self) -> &ReadingMmtr {
+        self
+    }
 }
 /// Phase to ground/neutral related measured values of a three-phase system (WYE)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1073,11 +3349,50 @@ pub struct Wye {
     #[prost(message, optional, tag="5")]
     pub phs_c: ::std::option::Option<Cmv>,
 }
+mod wye {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref NET: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref NEUT: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::Cmv = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::Cmv = Default::default();
+    }
+}
+trait IsWye {
+    fn _wye(&self) -> &Wye;
+    fn net(&self) -> &Cmv {
+        self._wye().net.as_ref().unwrap_or(&wye::NET)
+    }
+    fn neut(&self) -> &Cmv {
+        self._wye().neut.as_ref().unwrap_or(&wye::NEUT)
+    }
+    fn phs_a(&self) -> &Cmv {
+        self._wye().phs_a.as_ref().unwrap_or(&wye::PHS_A)
+    }
+    fn phs_b(&self) -> &Cmv {
+        self._wye().phs_b.as_ref().unwrap_or(&wye::PHS_B)
+    }
+    fn phs_c(&self) -> &Cmv {
+        self._wye().phs_c.as_ref().unwrap_or(&wye::PHS_C)
+    }
+}
+impl IsWye for Wye {
+    fn _wye(&self) -> &Wye {
+        self
+    }
+}
 /// Specialized 61850 MMXU LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmxu {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Phase to ground/phase to neutral three phase currents.
@@ -1119,25 +3434,138 @@ pub struct ReadingMmxu {
     #[prost(message, optional, tag="11")]
     pub w: ::std::option::Option<Wye>,
 }
+mod reading_mmxu {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref A: crate::commonmodule::Wye = Default::default();
+        pub(super) static ref CLC_MTH: crate::commonmodule::EngCalcMethodKind = Default::default();
+        pub(super) static ref HZ: crate::commonmodule::Mv = Default::default();
+        pub(super) static ref PF: crate::commonmodule::Wye = Default::default();
+        pub(super) static ref PF_SIGN: crate::commonmodule::EngPfSignKind = Default::default();
+        pub(super) static ref PH_V: crate::commonmodule::Wye = Default::default();
+        pub(super) static ref PPV: crate::commonmodule::Del = Default::default();
+        pub(super) static ref VA: crate::commonmodule::Wye = Default::default();
+        pub(super) static ref V_AR: crate::commonmodule::Wye = Default::default();
+        pub(super) static ref W: crate::commonmodule::Wye = Default::default();
+    }
+}
+trait IsReadingMmxu {
+    fn _reading_mmxu(&self) -> &ReadingMmxu;
+    fn logical_node(&self) -> &LogicalNode {
+        self._reading_mmxu().logical_node.as_ref().unwrap_or(&reading_mmxu::LOGICAL_NODE)
+    }
+    fn a(&self) -> &Wye {
+        self._reading_mmxu().a.as_ref().unwrap_or(&reading_mmxu::A)
+    }
+    fn clc_mth(&self) -> &EngCalcMethodKind {
+        self._reading_mmxu().clc_mth.as_ref().unwrap_or(&reading_mmxu::CLC_MTH)
+    }
+    fn hz(&self) -> &Mv {
+        self._reading_mmxu().hz.as_ref().unwrap_or(&reading_mmxu::HZ)
+    }
+    fn pf(&self) -> &Wye {
+        self._reading_mmxu().pf.as_ref().unwrap_or(&reading_mmxu::PF)
+    }
+    fn pf_sign(&self) -> &EngPfSignKind {
+        self._reading_mmxu().pf_sign.as_ref().unwrap_or(&reading_mmxu::PF_SIGN)
+    }
+    fn ph_v(&self) -> &Wye {
+        self._reading_mmxu().ph_v.as_ref().unwrap_or(&reading_mmxu::PH_V)
+    }
+    fn ppv(&self) -> &Del {
+        self._reading_mmxu().ppv.as_ref().unwrap_or(&reading_mmxu::PPV)
+    }
+    fn va(&self) -> &Wye {
+        self._reading_mmxu().va.as_ref().unwrap_or(&reading_mmxu::VA)
+    }
+    fn v_ar(&self) -> &Wye {
+        self._reading_mmxu().v_ar.as_ref().unwrap_or(&reading_mmxu::V_AR)
+    }
+    fn w(&self) -> &Wye {
+        self._reading_mmxu().w.as_ref().unwrap_or(&reading_mmxu::W)
+    }
+}
+impl IsReadingMmxu for ReadingMmxu {
+    fn _reading_mmxu(&self) -> &ReadingMmxu {
+        self
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalDbPosKind {
     #[prost(enumeration="DbPosKind", tag="1")]
     pub value: i32,
 }
+mod optional_db_pos_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalDbPosKind {
+    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
+    fn value(&self) -> &i32 {
+        &self._optional_db_pos_kind().value    }
+}
+impl IsOptionalDbPosKind for OptionalDbPosKind {
+    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind {
+        self
+    }
+}
 /// Specialized 61850 DPS class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct StatusDps {
     /// Quality of the value in 'stVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Status value of the controllable data object.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(enumeration="DbPosKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
+}
+mod status_dps {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsStatusDps {
+    fn _status_dps(&self) -> &StatusDps;
+    fn q(&self) -> &Quality {
+        self._status_dps().q.as_ref().unwrap_or(&status_dps::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._status_dps().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._status_dps().t.as_ref().unwrap_or(&status_dps::T)
+    }
+}
+impl IsStatusDps for StatusDps {
+    fn _status_dps(&self) -> &StatusDps {
+        self
+    }
 }
 /// OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 /// breaker   Name: XCBR
@@ -1145,14 +3573,51 @@ pub struct StatusDps {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct StatusAndEventXcbr {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node_for_event_and_status: ::std::option::Option<LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub dynamic_test: ::std::option::Option<EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub pos: ::std::option::Option<StatusDps>,
+}
+mod status_and_event_xcbr {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
+        pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
+        pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
+    }
+}
+trait IsStatusAndEventXcbr {
+    fn _status_and_event_xcbr(&self) -> &StatusAndEventXcbr;
+    fn logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        self._status_and_event_xcbr().logical_node_for_event_and_status.as_ref().unwrap_or(&status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    fn dynamic_test(&self) -> &EnsDynamicTestKind {
+        self._status_and_event_xcbr().dynamic_test.as_ref().unwrap_or(&status_and_event_xcbr::DYNAMIC_TEST)
+    }
+    fn pos(&self) -> &StatusDps {
+        self._status_and_event_xcbr().pos.as_ref().unwrap_or(&status_and_event_xcbr::POS)
+    }
+}
+impl IsStatusAndEventXcbr for StatusAndEventXcbr {
+    fn _status_and_event_xcbr(&self) -> &StatusAndEventXcbr {
+        self
+    }
 }
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1162,19 +3627,71 @@ pub struct StatusIsc {
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Status value
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(int32, tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change of the value in any of 'valWTr' or 'q'.
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
+mod status_isc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsStatusIsc {
+    fn _status_isc(&self) -> &StatusIsc;
+    fn q(&self) -> &Quality {
+        self._status_isc().q.as_ref().unwrap_or(&status_isc::Q)
+    }
+    fn st_val(&self) -> &i32 {
+        &self._status_isc().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._status_isc().t.as_ref().unwrap_or(&status_isc::T)
+    }
+}
+impl IsStatusIsc for StatusIsc {
+    fn _status_isc(&self) -> &StatusIsc {
+        self
+    }
+}
 /// Generic status message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct StatusMessageInfo {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub message_info: ::std::option::Option<MessageInfo>,
+}
+mod status_message_info {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
+    }
+}
+trait IsStatusMessageInfo {
+    fn _status_message_info(&self) -> &StatusMessageInfo;
+    fn message_info(&self) -> &MessageInfo {
+        self._status_message_info().message_info.as_ref().unwrap_or(&status_message_info::MESSAGE_INFO)
+    }
+}
+impl IsStatusMessageInfo for StatusMessageInfo {
+    fn _status_message_info(&self) -> &StatusMessageInfo {
+        self
+    }
 }
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1184,80 +3701,302 @@ pub struct StatusSpc {
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Status value of the controllable data object.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(bool, tag="2")]
     pub st_val: bool,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
+mod status_spc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsStatusSpc {
+    fn _status_spc(&self) -> &StatusSpc;
+    fn q(&self) -> &Quality {
+        self._status_spc().q.as_ref().unwrap_or(&status_spc::Q)
+    }
+    fn st_val(&self) -> &bool {
+        &self._status_spc().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._status_spc().t.as_ref().unwrap_or(&status_spc::T)
+    }
+}
+impl IsStatusSpc for StatusSpc {
+    fn _status_spc(&self) -> &StatusSpc {
+        self
+    }
+}
 /// Status value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct StatusValue {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+}
+mod status_value {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+    }
+}
+trait IsStatusValue {
+    fn _status_value(&self) -> &StatusValue;
+    fn identified_object(&self) -> &IdentifiedObject {
+        self._status_value().identified_object.as_ref().unwrap_or(&status_value::IDENTIFIED_OBJECT)
+    }
+}
+impl IsStatusValue for StatusValue {
+    fn _status_value(&self) -> &StatusValue {
+        self
+    }
 }
 /// Visible string status (VSS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Vss {
     /// Quality of the value in 'stVal'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(string, tag="2")]
     pub st_val: std::string::String,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
+}
+mod vss {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+trait IsVss {
+    fn _vss(&self) -> &Vss;
+    fn q(&self) -> &Quality {
+        self._vss().q.as_ref().unwrap_or(&vss::Q)
+    }
+    fn st_val(&self) -> &std::string::String {
+        &self._vss().st_val    }
+    fn t(&self) -> &Timestamp {
+        self._vss().t.as_ref().unwrap_or(&vss::T)
+    }
+}
+impl IsVss for Vss {
+    fn _vss(&self) -> &Vss {
+        self
+    }
 }
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct StringStatusGgio {
     /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: 0
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Phase code
     #[prost(message, optional, tag="2")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
     /// String status
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="3")]
     pub str_in: ::std::option::Option<Vss>,
+}
+mod string_status_ggio {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
+        pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
+        pub(super) static ref STR_IN: crate::commonmodule::Vss = Default::default();
+    }
+}
+trait IsStringStatusGgio {
+    fn _string_status_ggio(&self) -> &StringStatusGgio;
+    fn logical_node(&self) -> &LogicalNode {
+        self._string_status_ggio().logical_node.as_ref().unwrap_or(&string_status_ggio::LOGICAL_NODE)
+    }
+    fn phase(&self) -> &OptionalPhaseCodeKind {
+        self._string_status_ggio().phase.as_ref().unwrap_or(&string_status_ggio::PHASE)
+    }
+    fn str_in(&self) -> &Vss {
+        self._string_status_ggio().str_in.as_ref().unwrap_or(&string_status_ggio::STR_IN)
+    }
+}
+impl IsStringStatusGgio for StringStatusGgio {
+    fn _string_status_ggio(&self) -> &StringStatusGgio {
+        self
+    }
 }
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct SwitchPoint {
     /// Switch position
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub pos: ::std::option::Option<ControlDpc>,
     /// Start time
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="2")]
     pub start_time: ::std::option::Option<ControlTimestamp>,
+}
+mod switch_point {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
+    }
+}
+trait IsSwitchPoint {
+    fn _switch_point(&self) -> &SwitchPoint;
+    fn pos(&self) -> &ControlDpc {
+        self._switch_point().pos.as_ref().unwrap_or(&switch_point::POS)
+    }
+    fn start_time(&self) -> &ControlTimestamp {
+        self._switch_point().start_time.as_ref().unwrap_or(&switch_point::START_TIME)
+    }
+}
+impl IsSwitchPoint for SwitchPoint {
+    fn _switch_point(&self) -> &SwitchPoint {
+        self
+    }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct SwitchCsg {
     /// The array with the points specifying a curve shape.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, repeated, tag="1")]
     pub crv_pts: ::std::vec::Vec<SwitchPoint>,
+}
+mod switch_csg {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsSwitchCsg {
+    fn _switch_csg(&self) -> &SwitchCsg;
+    fn crv_pts(&self) -> &::std::vec::Vec<SwitchPoint> {
+        &self._switch_csg().crv_pts    }
+}
+impl IsSwitchCsg for SwitchCsg {
+    fn _switch_csg(&self) -> &SwitchCsg {
+        self
+    }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct SwitchControlScheduleFsch {
     /// Discrete value in SwitchCSG type
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: 1
+    // multiplicity_max: 0
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
     pub val_dcsg: ::std::option::Option<SwitchCsg>,
+}
+mod switch_control_schedule_fsch {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref VAL_DCSG: crate::commonmodule::SwitchCsg = Default::default();
+    }
+}
+trait IsSwitchControlScheduleFsch {
+    fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch;
+    fn val_dcsg(&self) -> &SwitchCsg {
+        self._switch_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&switch_control_schedule_fsch::VAL_DCSG)
+    }
+}
+impl IsSwitchControlScheduleFsch for SwitchControlScheduleFsch {
+    fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch {
+        self
+    }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalStateKind {
     #[prost(enumeration="StateKind", tag="1")]
     pub value: i32,
+}
+mod optional_state_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+trait IsOptionalStateKind {
+    fn _optional_state_kind(&self) -> &OptionalStateKind;
+    fn value(&self) -> &i32 {
+        &self._optional_state_kind().value    }
+}
+impl IsOptionalStateKind for OptionalStateKind {
+    fn _optional_state_kind(&self) -> &OptionalStateKind {
+        self
+    }
 }
 /// The units defined for usage in the CIM.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

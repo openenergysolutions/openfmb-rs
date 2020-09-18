@@ -1,0 +1,18 @@
+[package]
+name = "proto-types"
+version = "0.6.1"
+authors = ["Dan Burkert <dan@danburkert.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/danburkert/prost"
+documentation = "https://docs.rs/prost-types"
+readme = "README.md"
+description = "A Protocol Buffers implementation for the Rust Language."
+edition = "2018"
+
+[lib]
+doctest = false
+test = false
+
+[dependencies]
+bytes = "0.5"
+prost = "0.6.1"
