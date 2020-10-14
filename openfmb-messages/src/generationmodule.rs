@@ -66,7 +66,7 @@ mod generation_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsGenerationPoint {
+pub trait IsGenerationPoint {
     fn _generation_point(&self) -> &GenerationPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().black_start_enabled.as_ref().unwrap_or(&generation_point::BLACK_START_ENABLED)
@@ -132,7 +132,7 @@ mod generation_csg {
     lazy_static! {
     }
 }
-trait IsGenerationCsg {
+pub trait IsGenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<GenerationPoint> {
         &self._generation_csg().crv_pts    }
@@ -162,7 +162,7 @@ mod generation_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::generationmodule::GenerationCsg = Default::default();
     }
 }
-trait IsGenerationControlScheduleFsch {
+pub trait IsGenerationControlScheduleFsch {
     fn _generation_control_schedule_fsch(&self) -> &GenerationControlScheduleFsch;
     fn val_dcsg(&self) -> &GenerationCsg {
         self._generation_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&generation_control_schedule_fsch::VAL_DCSG)
@@ -197,7 +197,7 @@ mod generation_control_fscc {
         pub(super) static ref GENERATION_CONTROL_SCHEDULE_FSCH: crate::generationmodule::GenerationControlScheduleFsch = Default::default();
     }
 }
-trait IsGenerationControlFscc {
+pub trait IsGenerationControlFscc {
     fn _generation_control_fscc(&self) -> &GenerationControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._generation_control_fscc().control_fscc.as_ref().unwrap_or(&generation_control_fscc::CONTROL_FSCC)
@@ -245,7 +245,7 @@ mod generation_control {
         pub(super) static ref GENERATION_CONTROL_FSCC: crate::generationmodule::GenerationControlFscc = Default::default();
     }
 }
-trait IsGenerationControl {
+pub trait IsGenerationControl {
     fn _generation_control(&self) -> &GenerationControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._generation_control().control_value.as_ref().unwrap_or(&generation_control::CONTROL_VALUE)
@@ -289,7 +289,7 @@ mod generating_unit {
         pub(super) static ref MAX_OPERATING_P: crate::commonmodule::ActivePower = Default::default();
     }
 }
-trait IsGeneratingUnit {
+pub trait IsGeneratingUnit {
     fn _generating_unit(&self) -> &GeneratingUnit;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._generating_unit().conducting_equipment.as_ref().unwrap_or(&generating_unit::CONDUCTING_EQUIPMENT)
@@ -354,7 +354,7 @@ mod generation_control_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsGenerationControlProfile {
+pub trait IsGenerationControlProfile {
     fn _generation_control_profile(&self) -> &GenerationControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._generation_control_profile().control_message_info.as_ref().unwrap_or(&generation_control_profile::CONTROL_MESSAGE_INFO)
@@ -406,7 +406,7 @@ mod generation_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsGenerationReading {
+pub trait IsGenerationReading {
     fn _generation_reading(&self) -> &GenerationReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._generation_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&generation_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -477,7 +477,7 @@ mod generation_reading_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsGenerationReadingProfile {
+pub trait IsGenerationReadingProfile {
     fn _generation_reading_profile(&self) -> &GenerationReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._generation_reading_profile().reading_message_info.as_ref().unwrap_or(&generation_reading_profile::READING_MESSAGE_INFO)
@@ -551,7 +551,7 @@ mod generation_point_status {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsGenerationPointStatus {
+pub trait IsGenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().black_start_enabled.as_ref().unwrap_or(&generation_point_status::BLACK_START_ENABLED)
@@ -632,7 +632,7 @@ mod generation_event_and_status_zgen {
         pub(super) static ref POINT_STATUS: crate::generationmodule::GenerationPointStatus = Default::default();
     }
 }
-trait IsGenerationEventAndStatusZgen {
+pub trait IsGenerationEventAndStatusZgen {
     fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._generation_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&generation_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -678,7 +678,7 @@ mod generation_event_zgen {
         pub(super) static ref GENERATION_EVENT_AND_STATUS_ZGEN: crate::generationmodule::GenerationEventAndStatusZgen = Default::default();
     }
 }
-trait IsGenerationEventZgen {
+pub trait IsGenerationEventZgen {
     fn _generation_event_zgen(&self) -> &GenerationEventZgen;
     fn generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
         self._generation_event_zgen().generation_event_and_status_zgen.as_ref().unwrap_or(&generation_event_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
@@ -719,7 +719,7 @@ mod generation_event {
         pub(super) static ref GENERATION_EVENT_ZGEN: crate::generationmodule::GenerationEventZgen = Default::default();
     }
 }
-trait IsGenerationEvent {
+pub trait IsGenerationEvent {
     fn _generation_event(&self) -> &GenerationEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._generation_event().event_value.as_ref().unwrap_or(&generation_event::EVENT_VALUE)
@@ -784,7 +784,7 @@ mod generation_event_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsGenerationEventProfile {
+pub trait IsGenerationEventProfile {
     fn _generation_event_profile(&self) -> &GenerationEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._generation_event_profile().event_message_info.as_ref().unwrap_or(&generation_event_profile::EVENT_MESSAGE_INFO)
@@ -824,7 +824,7 @@ mod generation_status_zgen {
         pub(super) static ref GENERATION_EVENT_AND_STATUS_ZGEN: crate::generationmodule::GenerationEventAndStatusZgen = Default::default();
     }
 }
-trait IsGenerationStatusZgen {
+pub trait IsGenerationStatusZgen {
     fn _generation_status_zgen(&self) -> &GenerationStatusZgen;
     fn generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
         self._generation_status_zgen().generation_event_and_status_zgen.as_ref().unwrap_or(&generation_status_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
@@ -865,7 +865,7 @@ mod generation_status {
         pub(super) static ref GENERATION_STATUS_ZGEN: crate::generationmodule::GenerationStatusZgen = Default::default();
     }
 }
-trait IsGenerationStatus {
+pub trait IsGenerationStatus {
     fn _generation_status(&self) -> &GenerationStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._generation_status().status_value.as_ref().unwrap_or(&generation_status::STATUS_VALUE)
@@ -930,7 +930,7 @@ mod generation_status_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsGenerationStatusProfile {
+pub trait IsGenerationStatusProfile {
     fn _generation_status_profile(&self) -> &GenerationStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._generation_status_profile().status_message_info.as_ref().unwrap_or(&generation_status_profile::STATUS_MESSAGE_INFO)

@@ -264,7 +264,7 @@ impl<'a> CodeGenerator<'a> {
 
         // generate a trait type
         self.push_indent();
-        self.buf.push_str("trait Is");
+        self.buf.push_str("pub trait Is");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(" {\n");
         self.depth += 1;

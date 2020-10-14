@@ -38,7 +38,7 @@ mod load_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsLoadPoint {
+pub trait IsLoadPoint {
     fn _load_point(&self) -> &LoadPoint;
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._load_point().ramp_rates.as_ref().unwrap_or(&load_point::RAMP_RATES)
@@ -83,7 +83,7 @@ mod load_csg {
     lazy_static! {
     }
 }
-trait IsLoadCsg {
+pub trait IsLoadCsg {
     fn _load_csg(&self) -> &LoadCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<LoadPoint> {
         &self._load_csg().crv_pts    }
@@ -113,7 +113,7 @@ mod load_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::loadmodule::LoadCsg = Default::default();
     }
 }
-trait IsLoadControlScheduleFsch {
+pub trait IsLoadControlScheduleFsch {
     fn _load_control_schedule_fsch(&self) -> &LoadControlScheduleFsch;
     fn val_dcsg(&self) -> &LoadCsg {
         self._load_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&load_control_schedule_fsch::VAL_DCSG)
@@ -148,7 +148,7 @@ mod load_control_fscc {
         pub(super) static ref LOAD_CONTROL_SCHEDULE_FSCH: crate::loadmodule::LoadControlScheduleFsch = Default::default();
     }
 }
-trait IsLoadControlFscc {
+pub trait IsLoadControlFscc {
     fn _load_control_fscc(&self) -> &LoadControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._load_control_fscc().control_fscc.as_ref().unwrap_or(&load_control_fscc::CONTROL_FSCC)
@@ -196,7 +196,7 @@ mod load_control {
         pub(super) static ref LOAD_CONTROL_FSCC: crate::loadmodule::LoadControlFscc = Default::default();
     }
 }
-trait IsLoadControl {
+pub trait IsLoadControl {
     fn _load_control(&self) -> &LoadControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._load_control().control_value.as_ref().unwrap_or(&load_control::CONTROL_VALUE)
@@ -264,7 +264,7 @@ mod load_control_profile {
         pub(super) static ref LOAD_CONTROL: crate::loadmodule::LoadControl = Default::default();
     }
 }
-trait IsLoadControlProfile {
+pub trait IsLoadControlProfile {
     fn _load_control_profile(&self) -> &LoadControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._load_control_profile().control_message_info.as_ref().unwrap_or(&load_control_profile::CONTROL_MESSAGE_INFO)
@@ -314,7 +314,7 @@ mod load_point_status {
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
     }
 }
-trait IsLoadPointStatus {
+pub trait IsLoadPointStatus {
     fn _load_point_status(&self) -> &LoadPointStatus;
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._load_point_status().ramp_rates.as_ref().unwrap_or(&load_point_status::RAMP_RATES)
@@ -369,7 +369,7 @@ mod load_event_and_status_zgld {
         pub(super) static ref POINT_STATUS: crate::loadmodule::LoadPointStatus = Default::default();
     }
 }
-trait IsLoadEventAndStatusZgld {
+pub trait IsLoadEventAndStatusZgld {
     fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._load_event_and_status_zgld().logical_node_for_event_and_status.as_ref().unwrap_or(&load_event_and_status_zgld::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -409,7 +409,7 @@ mod load_event_zgld {
         pub(super) static ref LOAD_EVENT_AND_STATUS_ZGLD: crate::loadmodule::LoadEventAndStatusZgld = Default::default();
     }
 }
-trait IsLoadEventZgld {
+pub trait IsLoadEventZgld {
     fn _load_event_zgld(&self) -> &LoadEventZgld;
     fn load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
         self._load_event_zgld().load_event_and_status_zgld.as_ref().unwrap_or(&load_event_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
@@ -450,7 +450,7 @@ mod load_event {
         pub(super) static ref LOAD_EVENT_ZGLD: crate::loadmodule::LoadEventZgld = Default::default();
     }
 }
-trait IsLoadEvent {
+pub trait IsLoadEvent {
     fn _load_event(&self) -> &LoadEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._load_event().event_value.as_ref().unwrap_or(&load_event::EVENT_VALUE)
@@ -515,7 +515,7 @@ mod load_event_profile {
         pub(super) static ref LOAD_EVENT: crate::loadmodule::LoadEvent = Default::default();
     }
 }
-trait IsLoadEventProfile {
+pub trait IsLoadEventProfile {
     fn _load_event_profile(&self) -> &LoadEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._load_event_profile().event_message_info.as_ref().unwrap_or(&load_event_profile::EVENT_MESSAGE_INFO)
@@ -567,7 +567,7 @@ mod load_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsLoadReading {
+pub trait IsLoadReading {
     fn _load_reading(&self) -> &LoadReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._load_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&load_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -638,7 +638,7 @@ mod load_reading_profile {
         pub(super) static ref LOAD_READING: crate::loadmodule::LoadReading = Default::default();
     }
 }
-trait IsLoadReadingProfile {
+pub trait IsLoadReadingProfile {
     fn _load_reading_profile(&self) -> &LoadReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._load_reading_profile().reading_message_info.as_ref().unwrap_or(&load_reading_profile::READING_MESSAGE_INFO)
@@ -678,7 +678,7 @@ mod load_status_zgld {
         pub(super) static ref LOAD_EVENT_AND_STATUS_ZGLD: crate::loadmodule::LoadEventAndStatusZgld = Default::default();
     }
 }
-trait IsLoadStatusZgld {
+pub trait IsLoadStatusZgld {
     fn _load_status_zgld(&self) -> &LoadStatusZgld;
     fn load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
         self._load_status_zgld().load_event_and_status_zgld.as_ref().unwrap_or(&load_status_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
@@ -719,7 +719,7 @@ mod load_status {
         pub(super) static ref LOAD_STATUS_ZGLD: crate::loadmodule::LoadStatusZgld = Default::default();
     }
 }
-trait IsLoadStatus {
+pub trait IsLoadStatus {
     fn _load_status(&self) -> &LoadStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._load_status().status_value.as_ref().unwrap_or(&load_status::STATUS_VALUE)
@@ -784,7 +784,7 @@ mod load_status_profile {
         pub(super) static ref LOAD_STATUS: crate::loadmodule::LoadStatus = Default::default();
     }
 }
-trait IsLoadStatusProfile {
+pub trait IsLoadStatusProfile {
     fn _load_status_profile(&self) -> &LoadStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._load_status_profile().status_message_info.as_ref().unwrap_or(&load_status_profile::STATUS_MESSAGE_INFO)

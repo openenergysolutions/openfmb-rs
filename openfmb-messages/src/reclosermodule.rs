@@ -22,7 +22,7 @@ mod recloser_control_fscc {
         pub(super) static ref SWITCH_CONTROL_SCHEDULE_FSCH: crate::commonmodule::SwitchControlScheduleFsch = Default::default();
     }
 }
-trait IsRecloserControlFscc {
+pub trait IsRecloserControlFscc {
     fn _recloser_control_fscc(&self) -> &RecloserControlFscc;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._recloser_control_fscc().logical_node_for_control.as_ref().unwrap_or(&recloser_control_fscc::LOGICAL_NODE_FOR_CONTROL)
@@ -70,7 +70,7 @@ mod recloser_control {
         pub(super) static ref RECLOSER_CONTROL_FSCC: crate::reclosermodule::RecloserControlFscc = Default::default();
     }
 }
-trait IsRecloserControl {
+pub trait IsRecloserControl {
     fn _recloser_control(&self) -> &RecloserControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._recloser_control().control_value.as_ref().unwrap_or(&recloser_control::CONTROL_VALUE)
@@ -112,7 +112,7 @@ mod recloser {
         pub(super) static ref NORMAL_OPEN: bool = Default::default();
     }
 }
-trait IsRecloser {
+pub trait IsRecloser {
     fn _recloser(&self) -> &Recloser;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._recloser().conducting_equipment.as_ref().unwrap_or(&recloser::CONDUCTING_EQUIPMENT)
@@ -178,7 +178,7 @@ mod recloser_control_profile {
         pub(super) static ref RECLOSER_CONTROL: crate::reclosermodule::RecloserControl = Default::default();
     }
 }
-trait IsRecloserControlProfile {
+pub trait IsRecloserControlProfile {
     fn _recloser_control_profile(&self) -> &RecloserControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._recloser_control_profile().control_message_info.as_ref().unwrap_or(&recloser_control_profile::CONTROL_MESSAGE_INFO)
@@ -223,7 +223,7 @@ mod recloser_discrete_control_xcbr {
         pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsRecloserDiscreteControlXcbr {
+pub trait IsRecloserDiscreteControlXcbr {
     fn _recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._recloser_discrete_control_xcbr().logical_node_for_control.as_ref().unwrap_or(&recloser_discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
@@ -271,7 +271,7 @@ mod recloser_discrete_control {
         pub(super) static ref RECLOSER_DISCRETE_CONTROL_XCBR: crate::reclosermodule::RecloserDiscreteControlXcbr = Default::default();
     }
 }
-trait IsRecloserDiscreteControl {
+pub trait IsRecloserDiscreteControl {
     fn _recloser_discrete_control(&self) -> &RecloserDiscreteControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._recloser_discrete_control().control_value.as_ref().unwrap_or(&recloser_discrete_control::CONTROL_VALUE)
@@ -340,7 +340,7 @@ mod recloser_discrete_control_profile {
         pub(super) static ref RECLOSER_DISCRETE_CONTROL: crate::reclosermodule::RecloserDiscreteControl = Default::default();
     }
 }
-trait IsRecloserDiscreteControlProfile {
+pub trait IsRecloserDiscreteControlProfile {
     fn _recloser_discrete_control_profile(&self) -> &RecloserDiscreteControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._recloser_discrete_control_profile().control_message_info.as_ref().unwrap_or(&recloser_discrete_control_profile::CONTROL_MESSAGE_INFO)
@@ -390,7 +390,7 @@ mod recloser_event {
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
     }
 }
-trait IsRecloserEvent {
+pub trait IsRecloserEvent {
     fn _recloser_event(&self) -> &RecloserEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._recloser_event().event_value.as_ref().unwrap_or(&recloser_event::EVENT_VALUE)
@@ -455,7 +455,7 @@ mod recloser_event_profile {
         pub(super) static ref RECLOSER_EVENT: crate::reclosermodule::RecloserEvent = Default::default();
     }
 }
-trait IsRecloserEventProfile {
+pub trait IsRecloserEventProfile {
     fn _recloser_event_profile(&self) -> &RecloserEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._recloser_event_profile().event_message_info.as_ref().unwrap_or(&recloser_event_profile::EVENT_MESSAGE_INFO)
@@ -511,7 +511,7 @@ mod recloser_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsRecloserReading {
+pub trait IsRecloserReading {
     fn _recloser_reading(&self) -> &RecloserReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._recloser_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&recloser_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -584,7 +584,7 @@ mod recloser_reading_profile {
         pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
     }
 }
-trait IsRecloserReadingProfile {
+pub trait IsRecloserReadingProfile {
     fn _recloser_reading_profile(&self) -> &RecloserReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._recloser_reading_profile().reading_message_info.as_ref().unwrap_or(&recloser_reading_profile::READING_MESSAGE_INFO)
@@ -633,7 +633,7 @@ mod recloser_status {
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
     }
 }
-trait IsRecloserStatus {
+pub trait IsRecloserStatus {
     fn _recloser_status(&self) -> &RecloserStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._recloser_status().status_value.as_ref().unwrap_or(&recloser_status::STATUS_VALUE)
@@ -698,7 +698,7 @@ mod recloser_status_profile {
         pub(super) static ref RECLOSER_STATUS: crate::reclosermodule::RecloserStatus = Default::default();
     }
 }
-trait IsRecloserStatusProfile {
+pub trait IsRecloserStatusProfile {
     fn _recloser_status_profile(&self) -> &RecloserStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._recloser_status_profile().status_message_info.as_ref().unwrap_or(&recloser_status_profile::STATUS_MESSAGE_INFO)

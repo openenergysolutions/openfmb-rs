@@ -58,7 +58,7 @@ mod solar_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsSolarPoint {
+pub trait IsSolarPoint {
     fn _solar_point(&self) -> &SolarPoint;
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point::FREQUENCY_SET_POINT_ENABLED)
@@ -118,7 +118,7 @@ mod solar_csg {
     lazy_static! {
     }
 }
-trait IsSolarCsg {
+pub trait IsSolarCsg {
     fn _solar_csg(&self) -> &SolarCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<SolarPoint> {
         &self._solar_csg().crv_pts    }
@@ -148,7 +148,7 @@ mod solar_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::solarmodule::SolarCsg = Default::default();
     }
 }
-trait IsSolarControlScheduleFsch {
+pub trait IsSolarControlScheduleFsch {
     fn _solar_control_schedule_fsch(&self) -> &SolarControlScheduleFsch;
     fn val_dcsg(&self) -> &SolarCsg {
         self._solar_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&solar_control_schedule_fsch::VAL_DCSG)
@@ -183,7 +183,7 @@ mod solar_control_fscc {
         pub(super) static ref SOLAR_CONTROL_SCHEDULE_FSCH: crate::solarmodule::SolarControlScheduleFsch = Default::default();
     }
 }
-trait IsSolarControlFscc {
+pub trait IsSolarControlFscc {
     fn _solar_control_fscc(&self) -> &SolarControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._solar_control_fscc().control_fscc.as_ref().unwrap_or(&solar_control_fscc::CONTROL_FSCC)
@@ -225,7 +225,7 @@ mod solar_control {
         pub(super) static ref SOLAR_CONTROL_FSCC: crate::solarmodule::SolarControlFscc = Default::default();
     }
 }
-trait IsSolarControl {
+pub trait IsSolarControl {
     fn _solar_control(&self) -> &SolarControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._solar_control().control_value.as_ref().unwrap_or(&solar_control::CONTROL_VALUE)
@@ -262,7 +262,7 @@ mod solar_inverter {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsSolarInverter {
+pub trait IsSolarInverter {
     fn _solar_inverter(&self) -> &SolarInverter;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._solar_inverter().conducting_equipment.as_ref().unwrap_or(&solar_inverter::CONDUCTING_EQUIPMENT)
@@ -324,7 +324,7 @@ mod solar_control_profile {
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
     }
 }
-trait IsSolarControlProfile {
+pub trait IsSolarControlProfile {
     fn _solar_control_profile(&self) -> &SolarControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._solar_control_profile().control_message_info.as_ref().unwrap_or(&solar_control_profile::CONTROL_MESSAGE_INFO)
@@ -390,7 +390,7 @@ mod solar_point_status {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsSolarPointStatus {
+pub trait IsSolarPointStatus {
     fn _solar_point_status(&self) -> &SolarPointStatus;
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point_status::FREQUENCY_SET_POINT_ENABLED)
@@ -461,7 +461,7 @@ mod solar_event_and_status_zgen {
         pub(super) static ref POINT_STATUS: crate::solarmodule::SolarPointStatus = Default::default();
     }
 }
-trait IsSolarEventAndStatusZgen {
+pub trait IsSolarEventAndStatusZgen {
     fn _solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._solar_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&solar_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -508,7 +508,7 @@ mod solar_event_zgen {
         pub(super) static ref GRI_MOD: crate::commonmodule::EngGridConnectModeKind = Default::default();
     }
 }
-trait IsSolarEventZgen {
+pub trait IsSolarEventZgen {
     fn _solar_event_zgen(&self) -> &SolarEventZgen;
     fn solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen {
         self._solar_event_zgen().solar_event_and_status_zgen.as_ref().unwrap_or(&solar_event_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
@@ -552,7 +552,7 @@ mod solar_event {
         pub(super) static ref SOLAR_EVENT_ZGEN: crate::solarmodule::SolarEventZgen = Default::default();
     }
 }
-trait IsSolarEvent {
+pub trait IsSolarEvent {
     fn _solar_event(&self) -> &SolarEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._solar_event().event_value.as_ref().unwrap_or(&solar_event::EVENT_VALUE)
@@ -617,7 +617,7 @@ mod solar_event_profile {
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
     }
 }
-trait IsSolarEventProfile {
+pub trait IsSolarEventProfile {
     fn _solar_event_profile(&self) -> &SolarEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._solar_event_profile().event_message_info.as_ref().unwrap_or(&solar_event_profile::EVENT_MESSAGE_INFO)
@@ -669,7 +669,7 @@ mod solar_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsSolarReading {
+pub trait IsSolarReading {
     fn _solar_reading(&self) -> &SolarReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._solar_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&solar_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -740,7 +740,7 @@ mod solar_reading_profile {
         pub(super) static ref SOLAR_READING: crate::solarmodule::SolarReading = Default::default();
     }
 }
-trait IsSolarReadingProfile {
+pub trait IsSolarReadingProfile {
     fn _solar_reading_profile(&self) -> &SolarReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._solar_reading_profile().reading_message_info.as_ref().unwrap_or(&solar_reading_profile::READING_MESSAGE_INFO)
@@ -784,7 +784,7 @@ mod solar_status_zgen {
         pub(super) static ref GRI_MOD: crate::commonmodule::EngGridConnectModeKind = Default::default();
     }
 }
-trait IsSolarStatusZgen {
+pub trait IsSolarStatusZgen {
     fn _solar_status_zgen(&self) -> &SolarStatusZgen;
     fn solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen {
         self._solar_status_zgen().solar_event_and_status_zgen.as_ref().unwrap_or(&solar_status_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
@@ -828,7 +828,7 @@ mod solar_status {
         pub(super) static ref SOLAR_STATUS_ZGEN: crate::solarmodule::SolarStatusZgen = Default::default();
     }
 }
-trait IsSolarStatus {
+pub trait IsSolarStatus {
     fn _solar_status(&self) -> &SolarStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._solar_status().status_value.as_ref().unwrap_or(&solar_status::STATUS_VALUE)
@@ -893,7 +893,7 @@ mod solar_status_profile {
         pub(super) static ref SOLAR_STATUS: crate::solarmodule::SolarStatus = Default::default();
     }
 }
-trait IsSolarStatusProfile {
+pub trait IsSolarStatusProfile {
     fn _solar_status_profile(&self) -> &SolarStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._solar_status_profile().status_message_info.as_ref().unwrap_or(&solar_status_profile::STATUS_MESSAGE_INFO)

@@ -29,7 +29,7 @@ mod breaker_discrete_control_xcbr {
         pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsBreakerDiscreteControlXcbr {
+pub trait IsBreakerDiscreteControlXcbr {
     fn _breaker_discrete_control_xcbr(&self) -> &BreakerDiscreteControlXcbr;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._breaker_discrete_control_xcbr().logical_node_for_control.as_ref().unwrap_or(&breaker_discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
@@ -77,7 +77,7 @@ mod breaker_discrete_control {
         pub(super) static ref BREAKER_DISCRETE_CONTROL_XCBR: crate::breakermodule::BreakerDiscreteControlXcbr = Default::default();
     }
 }
-trait IsBreakerDiscreteControl {
+pub trait IsBreakerDiscreteControl {
     fn _breaker_discrete_control(&self) -> &BreakerDiscreteControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._breaker_discrete_control().control_value.as_ref().unwrap_or(&breaker_discrete_control::CONTROL_VALUE)
@@ -116,7 +116,7 @@ mod breaker {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsBreaker {
+pub trait IsBreaker {
     fn _breaker(&self) -> &Breaker;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._breaker().conducting_equipment.as_ref().unwrap_or(&breaker::CONDUCTING_EQUIPMENT)
@@ -178,7 +178,7 @@ mod breaker_discrete_control_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsBreakerDiscreteControlProfile {
+pub trait IsBreakerDiscreteControlProfile {
     fn _breaker_discrete_control_profile(&self) -> &BreakerDiscreteControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._breaker_discrete_control_profile().control_message_info.as_ref().unwrap_or(&breaker_discrete_control_profile::CONTROL_MESSAGE_INFO)
@@ -228,7 +228,7 @@ mod breaker_event {
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
     }
 }
-trait IsBreakerEvent {
+pub trait IsBreakerEvent {
     fn _breaker_event(&self) -> &BreakerEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._breaker_event().event_value.as_ref().unwrap_or(&breaker_event::EVENT_VALUE)
@@ -293,7 +293,7 @@ mod breaker_event_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsBreakerEventProfile {
+pub trait IsBreakerEventProfile {
     fn _breaker_event_profile(&self) -> &BreakerEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._breaker_event_profile().event_message_info.as_ref().unwrap_or(&breaker_event_profile::EVENT_MESSAGE_INFO)
@@ -349,7 +349,7 @@ mod breaker_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsBreakerReading {
+pub trait IsBreakerReading {
     fn _breaker_reading(&self) -> &BreakerReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._breaker_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&breaker_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -422,7 +422,7 @@ mod breaker_reading_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsBreakerReadingProfile {
+pub trait IsBreakerReadingProfile {
     fn _breaker_reading_profile(&self) -> &BreakerReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._breaker_reading_profile().reading_message_info.as_ref().unwrap_or(&breaker_reading_profile::READING_MESSAGE_INFO)
@@ -471,7 +471,7 @@ mod breaker_status {
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
     }
 }
-trait IsBreakerStatus {
+pub trait IsBreakerStatus {
     fn _breaker_status(&self) -> &BreakerStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._breaker_status().status_value.as_ref().unwrap_or(&breaker_status::STATUS_VALUE)
@@ -536,7 +536,7 @@ mod breaker_status_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsBreakerStatusProfile {
+pub trait IsBreakerStatusProfile {
     fn _breaker_status_profile(&self) -> &BreakerStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._breaker_status_profile().status_message_info.as_ref().unwrap_or(&breaker_status_profile::STATUS_MESSAGE_INFO)

@@ -38,7 +38,7 @@ mod ess_event_zbat {
         pub(super) static ref STDBY: crate::commonmodule::StatusSps = Default::default();
     }
 }
-trait IsEssEventZbat {
+pub trait IsEssEventZbat {
     fn _ess_event_zbat(&self) -> &EssEventZbat;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_event_zbat().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -118,7 +118,7 @@ mod frequency_regulation {
         pub(super) static ref UNDER_FREQUENCY_DROOP: f32 = Default::default();
     }
 }
-trait IsFrequencyRegulation {
+pub trait IsFrequencyRegulation {
     fn _frequency_regulation(&self) -> &FrequencyRegulation;
     fn frequency_dead_band_minus(&self) -> &f32 {
         self._frequency_regulation().frequency_dead_band_minus.as_ref().unwrap_or(&frequency_regulation::FREQUENCY_DEAD_BAND_MINUS)
@@ -183,7 +183,7 @@ mod peak_shaving {
         pub(super) static ref SOC_MANAGEMENT_ALLOWED_LOW_LIMIT: f32 = Default::default();
     }
 }
-trait IsPeakShaving {
+pub trait IsPeakShaving {
     fn _peak_shaving(&self) -> &PeakShaving;
     fn base_shaving_limit(&self) -> &f32 {
         self._peak_shaving().base_shaving_limit.as_ref().unwrap_or(&peak_shaving::BASE_SHAVING_LIMIT)
@@ -248,7 +248,7 @@ mod soc_limit {
         pub(super) static ref SOC_LOW_LIMIT_HYSTERESIS: f32 = Default::default();
     }
 }
-trait IsSocLimit {
+pub trait IsSocLimit {
     fn _soc_limit(&self) -> &SocLimit;
     fn soc_high_limit(&self) -> &f32 {
         self._soc_limit().soc_high_limit.as_ref().unwrap_or(&soc_limit::SOC_HIGH_LIMIT)
@@ -305,7 +305,7 @@ mod soc_management {
         pub(super) static ref SOC_SET_POINT: f32 = Default::default();
     }
 }
-trait IsSocManagement {
+pub trait IsSocManagement {
     fn _soc_management(&self) -> &SocManagement;
     fn soc_dead_band_minus(&self) -> &f32 {
         self._soc_management().soc_dead_band_minus.as_ref().unwrap_or(&soc_management::SOC_DEAD_BAND_MINUS)
@@ -368,7 +368,7 @@ mod voltage_regulation {
         pub(super) static ref VOLTAGE_SET_POINT: f32 = Default::default();
     }
 }
-trait IsVoltageRegulation {
+pub trait IsVoltageRegulation {
     fn _voltage_regulation(&self) -> &VoltageRegulation;
     fn over_voltage_droop(&self) -> &f32 {
         self._voltage_regulation().over_voltage_droop.as_ref().unwrap_or(&voltage_regulation::OVER_VOLTAGE_DROOP)
@@ -409,7 +409,7 @@ mod voltage_droop {
         pub(super) static ref VOLTAGE_REGULATION: crate::essmodule::VoltageRegulation = Default::default();
     }
 }
-trait IsVoltageDroop {
+pub trait IsVoltageDroop {
     fn _voltage_droop(&self) -> &VoltageDroop;
     fn voltage_droop_ctl(&self) -> &bool {
         self._voltage_droop().voltage_droop_ctl.as_ref().unwrap_or(&voltage_droop::VOLTAGE_DROOP_CTL)
@@ -441,7 +441,7 @@ mod voltage_pi {
         pub(super) static ref VOLTAGE_REGULATION: crate::essmodule::VoltageRegulation = Default::default();
     }
 }
-trait IsVoltagePi {
+pub trait IsVoltagePi {
     fn _voltage_pi(&self) -> &VoltagePi;
     fn voltage_pi_ctl(&self) -> &bool {
         self._voltage_pi().voltage_pi_ctl.as_ref().unwrap_or(&voltage_pi::VOLTAGE_PI_CTL)
@@ -481,7 +481,7 @@ mod capacity_firming {
         pub(super) static ref LIMIT_POSITIVE_DP_DT: f32 = Default::default();
     }
 }
-trait IsCapacityFirming {
+pub trait IsCapacityFirming {
     fn _capacity_firming(&self) -> &CapacityFirming;
     fn capacity_firming_ctl(&self) -> &bool {
         self._capacity_firming().capacity_firming_ctl.as_ref().unwrap_or(&capacity_firming::CAPACITY_FIRMING_CTL)
@@ -536,7 +536,7 @@ mod ess_function {
         pub(super) static ref VOLTAGE_PI: crate::essmodule::VoltagePi = Default::default();
     }
 }
-trait IsEssFunction {
+pub trait IsEssFunction {
     fn _ess_function(&self) -> &EssFunction;
     fn capacity_firming(&self) -> &CapacityFirming {
         self._ess_function().capacity_firming.as_ref().unwrap_or(&ess_function::CAPACITY_FIRMING)
@@ -627,7 +627,7 @@ mod ess_point_status {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsEssPointStatus {
+pub trait IsEssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().black_start_enabled.as_ref().unwrap_or(&ess_point_status::BLACK_START_ENABLED)
@@ -714,7 +714,7 @@ mod ess_event_and_status_zgen {
         pub(super) static ref POINT_STATUS: crate::essmodule::EssPointStatus = Default::default();
     }
 }
-trait IsEssEventAndStatusZgen {
+pub trait IsEssEventAndStatusZgen {
     fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -760,7 +760,7 @@ mod ess_event_zgen {
         pub(super) static ref E_SS_EVENT_AND_STATUS_ZGEN: crate::essmodule::EssEventAndStatusZgen = Default::default();
     }
 }
-trait IsEssEventZgen {
+pub trait IsEssEventZgen {
     fn _ess_event_zgen(&self) -> &EssEventZgen;
     fn e_ss_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
         self._ess_event_zgen().e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_event_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
@@ -799,7 +799,7 @@ mod ess_event {
         pub(super) static ref ESS_EVENT_ZGEN: crate::essmodule::EssEventZgen = Default::default();
     }
 }
-trait IsEssEvent {
+pub trait IsEssEvent {
     fn _ess_event(&self) -> &EssEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._ess_event().event_value.as_ref().unwrap_or(&ess_event::EVENT_VALUE)
@@ -867,7 +867,7 @@ mod ess_event_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsEssEventProfile {
+pub trait IsEssEventProfile {
     fn _ess_event_profile(&self) -> &EssEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._ess_event_profile().event_message_info.as_ref().unwrap_or(&ess_event_profile::EVENT_MESSAGE_INFO)
@@ -919,7 +919,7 @@ mod ess_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsEssReading {
+pub trait IsEssReading {
     fn _ess_reading(&self) -> &EssReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._ess_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&ess_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -990,7 +990,7 @@ mod ess_reading_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsEssReadingProfile {
+pub trait IsEssReadingProfile {
     fn _ess_reading_profile(&self) -> &EssReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._ess_reading_profile().reading_message_info.as_ref().unwrap_or(&ess_reading_profile::READING_MESSAGE_INFO)
@@ -1052,7 +1052,7 @@ mod ess_status_zbat {
         pub(super) static ref STDBY: crate::commonmodule::StatusSps = Default::default();
     }
 }
-trait IsEssStatusZbat {
+pub trait IsEssStatusZbat {
     fn _ess_status_zbat(&self) -> &EssStatusZbat;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_status_zbat().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_status_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -1095,7 +1095,7 @@ mod ess_status_zgen {
         pub(super) static ref E_SS_EVENT_AND_STATUS_ZGEN: crate::essmodule::EssEventAndStatusZgen = Default::default();
     }
 }
-trait IsEssStatusZgen {
+pub trait IsEssStatusZgen {
     fn _ess_status_zgen(&self) -> &EssStatusZgen;
     fn e_ss_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
         self._ess_status_zgen().e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_status_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
@@ -1134,7 +1134,7 @@ mod ess_status {
         pub(super) static ref ESS_STATUS_ZGEN: crate::essmodule::EssStatusZgen = Default::default();
     }
 }
-trait IsEssStatus {
+pub trait IsEssStatus {
     fn _ess_status(&self) -> &EssStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._ess_status().status_value.as_ref().unwrap_or(&ess_status::STATUS_VALUE)
@@ -1202,7 +1202,7 @@ mod ess_status_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsEssStatusProfile {
+pub trait IsEssStatusProfile {
     fn _ess_status_profile(&self) -> &EssStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._ess_status_profile().status_message_info.as_ref().unwrap_or(&ess_status_profile::STATUS_MESSAGE_INFO)
@@ -1298,7 +1298,7 @@ mod ess_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsEssPoint {
+pub trait IsEssPoint {
     fn _ess_point(&self) -> &EssPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().black_start_enabled.as_ref().unwrap_or(&ess_point::BLACK_START_ENABLED)
@@ -1370,7 +1370,7 @@ mod esscsg {
     lazy_static! {
     }
 }
-trait IsEsscsg {
+pub trait IsEsscsg {
     fn _esscsg(&self) -> &Esscsg;
     fn crv_pts(&self) -> &::std::vec::Vec<EssPoint> {
         &self._esscsg().crv_pts    }
@@ -1400,7 +1400,7 @@ mod ess_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::essmodule::Esscsg = Default::default();
     }
 }
-trait IsEssControlScheduleFsch {
+pub trait IsEssControlScheduleFsch {
     fn _ess_control_schedule_fsch(&self) -> &EssControlScheduleFsch;
     fn val_dcsg(&self) -> &Esscsg {
         self._ess_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&ess_control_schedule_fsch::VAL_DCSG)
@@ -1435,7 +1435,7 @@ mod ess_control_fscc {
         pub(super) static ref ESS_CONTROL_SCHEDULE_FSCH: crate::essmodule::EssControlScheduleFsch = Default::default();
     }
 }
-trait IsEssControlFscc {
+pub trait IsEssControlFscc {
     fn _ess_control_fscc(&self) -> &EssControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._ess_control_fscc().control_fscc.as_ref().unwrap_or(&ess_control_fscc::CONTROL_FSCC)
@@ -1483,7 +1483,7 @@ mod ess_control {
         pub(super) static ref ESS_CONTROL_FSCC: crate::essmodule::EssControlFscc = Default::default();
     }
 }
-trait IsEssControl {
+pub trait IsEssControl {
     fn _ess_control(&self) -> &EssControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._ess_control().control_value.as_ref().unwrap_or(&ess_control::CONTROL_VALUE)
@@ -1551,7 +1551,7 @@ mod ess_control_profile {
         pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
-trait IsEssControlProfile {
+pub trait IsEssControlProfile {
     fn _ess_control_profile(&self) -> &EssControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._ess_control_profile().control_message_info.as_ref().unwrap_or(&ess_control_profile::CONTROL_MESSAGE_INFO)

@@ -28,7 +28,7 @@ mod identified_object {
         pub(super) static ref NAME: ::std::string::String = Default::default();
     }
 }
-trait IsIdentifiedObject {
+pub trait IsIdentifiedObject {
     fn _identified_object(&self) -> &IdentifiedObject;
     fn description(&self) -> &::std::string::String {
         self._identified_object().description.as_ref().unwrap_or(&identified_object::DESCRIPTION)
@@ -82,7 +82,7 @@ mod acdc_terminal {
         pub(super) static ref SEQUENCE_NUMBER: i32 = Default::default();
     }
 }
-trait IsAcdcTerminal {
+pub trait IsAcdcTerminal {
     fn _acdc_terminal(&self) -> &AcdcTerminal;
     fn identified_object(&self) -> &IdentifiedObject {
         self._acdc_terminal().identified_object.as_ref().unwrap_or(&acdc_terminal::IDENTIFIED_OBJECT)
@@ -110,7 +110,7 @@ mod optional_unit_symbol_kind {
     lazy_static! {
     }
 }
-trait IsOptionalUnitSymbolKind {
+pub trait IsOptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind;
     fn value(&self) -> &i32 {
         &self._optional_unit_symbol_kind().value    }
@@ -131,7 +131,7 @@ mod optional_unit_multiplier_kind {
     lazy_static! {
     }
 }
-trait IsOptionalUnitMultiplierKind {
+pub trait IsOptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind;
     fn value(&self) -> &i32 {
         &self._optional_unit_multiplier_kind().value    }
@@ -163,7 +163,7 @@ mod active_power {
         pub(super) static ref VALUE: f32 = Default::default();
     }
 }
-trait IsActivePower {
+pub trait IsActivePower {
     fn _active_power(&self) -> &ActivePower;
     fn multiplier(&self) -> &OptionalUnitMultiplierKind {
         self._active_power().multiplier.as_ref().unwrap_or(&active_power::MULTIPLIER)
@@ -191,7 +191,7 @@ mod optional_phase_code_kind {
     lazy_static! {
     }
 }
-trait IsOptionalPhaseCodeKind {
+pub trait IsOptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind;
     fn value(&self) -> &i32 {
         &self._optional_phase_code_kind().value    }
@@ -222,7 +222,7 @@ mod analogue_value {
         pub(super) static ref I: i32 = Default::default();
     }
 }
-trait IsAnalogueValue {
+pub trait IsAnalogueValue {
     fn _analogue_value(&self) -> &AnalogueValue;
     fn f(&self) -> &f32 {
         self._analogue_value().f.as_ref().unwrap_or(&analogue_value::F)
@@ -247,7 +247,7 @@ mod optional_validity_kind {
     lazy_static! {
     }
 }
-trait IsOptionalValidityKind {
+pub trait IsOptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind;
     fn value(&self) -> &i32 {
         &self._optional_validity_kind().value    }
@@ -363,7 +363,7 @@ mod detail_qual {
     lazy_static! {
     }
 }
-trait IsDetailQual {
+pub trait IsDetailQual {
     fn _detail_qual(&self) -> &DetailQual;
     fn bad_reference(&self) -> &bool {
         &self._detail_qual().bad_reference    }
@@ -398,7 +398,7 @@ mod optional_source_kind {
     lazy_static! {
     }
 }
-trait IsOptionalSourceKind {
+pub trait IsOptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind;
     fn value(&self) -> &i32 {
         &self._optional_source_kind().value    }
@@ -481,7 +481,7 @@ mod quality {
         pub(super) static ref DETAIL_QUAL: crate::commonmodule::DetailQual = Default::default();
     }
 }
-trait IsQuality {
+pub trait IsQuality {
     fn _quality(&self) -> &Quality;
     fn detail_qual(&self) -> &DetailQual {
         self._quality().detail_qual.as_ref().unwrap_or(&quality::DETAIL_QUAL)
@@ -511,7 +511,7 @@ mod optional_time_accuracy_kind {
     lazy_static! {
     }
 }
-trait IsOptionalTimeAccuracyKind {
+pub trait IsOptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind;
     fn value(&self) -> &i32 {
         &self._optional_time_accuracy_kind().value    }
@@ -572,7 +572,7 @@ mod time_quality {
     lazy_static! {
     }
 }
-trait IsTimeQuality {
+pub trait IsTimeQuality {
     fn _time_quality(&self) -> &TimeQuality;
     fn clock_failure(&self) -> &bool {
         &self._time_quality().clock_failure    }
@@ -624,7 +624,7 @@ mod timestamp {
         pub(super) static ref TQ: crate::commonmodule::TimeQuality = Default::default();
     }
 }
-trait IsTimestamp {
+pub trait IsTimestamp {
     fn _timestamp(&self) -> &Timestamp;
     fn fraction(&self) -> &u32 {
         &self._timestamp().fraction    }
@@ -662,7 +662,7 @@ mod unit {
         pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
     }
 }
-trait IsUnit {
+pub trait IsUnit {
     fn _unit(&self) -> &Unit;
     fn multiplier(&self) -> &OptionalUnitMultiplierKind {
         self._unit().multiplier.as_ref().unwrap_or(&unit::MULTIPLIER)
@@ -725,7 +725,7 @@ mod mv {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
-trait IsMv {
+pub trait IsMv {
     fn _mv(&self) -> &Mv;
     fn mag(&self) -> &AnalogueValue {
         self._mv().mag.as_ref().unwrap_or(&mv::MAG)
@@ -765,7 +765,7 @@ mod logical_node {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsLogicalNode {
+pub trait IsLogicalNode {
     fn _logical_node(&self) -> &LogicalNode;
     fn identified_object(&self) -> &IdentifiedObject {
         self._logical_node().identified_object.as_ref().unwrap_or(&logical_node::IDENTIFIED_OBJECT)
@@ -810,7 +810,7 @@ mod analog_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-trait IsAnalogStatusGgio {
+pub trait IsAnalogStatusGgio {
     fn _analog_status_ggio(&self) -> &AnalogStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._analog_status_ggio().logical_node.as_ref().unwrap_or(&analog_status_ggio::LOGICAL_NODE)
@@ -845,7 +845,7 @@ mod analogue_value_ctl {
         pub(super) static ref I: i32 = Default::default();
     }
 }
-trait IsAnalogueValueCtl {
+pub trait IsAnalogueValueCtl {
     fn _analogue_value_ctl(&self) -> &AnalogueValueCtl;
     fn f(&self) -> &f32 {
         self._analogue_value_ctl().f.as_ref().unwrap_or(&analogue_value_ctl::F)
@@ -879,7 +879,7 @@ mod named_object {
         pub(super) static ref NAME: ::std::string::String = Default::default();
     }
 }
-trait IsNamedObject {
+pub trait IsNamedObject {
     fn _named_object(&self) -> &NamedObject;
     fn description(&self) -> &::std::string::String {
         self._named_object().description.as_ref().unwrap_or(&named_object::DESCRIPTION)
@@ -922,7 +922,7 @@ mod application_system {
         pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
     }
 }
-trait IsApplicationSystem {
+pub trait IsApplicationSystem {
     fn _application_system(&self) -> &ApplicationSystem;
     fn named_object(&self) -> &NamedObject {
         self._application_system().named_object.as_ref().unwrap_or(&application_system::NAMED_OBJECT)
@@ -959,7 +959,7 @@ mod asg {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
-trait IsAsg {
+pub trait IsAsg {
     fn _asg(&self) -> &Asg;
     fn set_mag(&self) -> &AnalogueValueCtl {
         self._asg().set_mag.as_ref().unwrap_or(&asg::SET_MAG)
@@ -1017,7 +1017,7 @@ mod bcr {
         pub(super) static ref UNITS: crate::commonmodule::OptionalUnitSymbolKind = Default::default();
     }
 }
-trait IsBcr {
+pub trait IsBcr {
     fn _bcr(&self) -> &Bcr;
     fn act_val(&self) -> &i64 {
         &self._bcr().act_val    }
@@ -1063,7 +1063,7 @@ mod status_sps {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsStatusSps {
+pub trait IsStatusSps {
     fn _status_sps(&self) -> &StatusSps;
     fn q(&self) -> &Quality {
         self._status_sps().q.as_ref().unwrap_or(&status_sps::Q)
@@ -1113,7 +1113,7 @@ mod boolean_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-trait IsBooleanStatusGgio {
+pub trait IsBooleanStatusGgio {
     fn _boolean_status_ggio(&self) -> &BooleanStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._boolean_status_ggio().logical_node.as_ref().unwrap_or(&boolean_status_ggio::LOGICAL_NODE)
@@ -1150,7 +1150,7 @@ mod check_conditions {
         pub(super) static ref SYNCHRO_CHECK: bool = Default::default();
     }
 }
-trait IsCheckConditions {
+pub trait IsCheckConditions {
     fn _check_conditions(&self) -> &CheckConditions;
     fn interlock_check(&self) -> &bool {
         self._check_conditions().interlock_check.as_ref().unwrap_or(&check_conditions::INTERLOCK_CHECK)
@@ -1189,7 +1189,7 @@ mod vector {
         pub(super) static ref MAG: crate::commonmodule::AnalogueValue = Default::default();
     }
 }
-trait IsVector {
+pub trait IsVector {
     fn _vector(&self) -> &Vector;
     fn ang(&self) -> &AnalogueValue {
         self._vector().ang.as_ref().unwrap_or(&vector::ANG)
@@ -1250,7 +1250,7 @@ mod cmv {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
-trait IsCmv {
+pub trait IsCmv {
     fn _cmv(&self) -> &Cmv;
     fn c_val(&self) -> &Vector {
         self._cmv().c_val.as_ref().unwrap_or(&cmv::C_VAL)
@@ -1299,7 +1299,7 @@ mod conducting_equipment {
         pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
     }
 }
-trait IsConductingEquipment {
+pub trait IsConductingEquipment {
     fn _conducting_equipment(&self) -> &ConductingEquipment;
     fn named_object(&self) -> &NamedObject {
         self._conducting_equipment().named_object.as_ref().unwrap_or(&conducting_equipment::NAMED_OBJECT)
@@ -1338,7 +1338,7 @@ mod terminal {
         pub(super) static ref PHASES: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-trait IsTerminal {
+pub trait IsTerminal {
     fn _terminal(&self) -> &Terminal;
     fn a_cdc_terminal(&self) -> &AcdcTerminal {
         self._terminal().a_cdc_terminal.as_ref().unwrap_or(&terminal::A_CDC_TERMINAL)
@@ -1372,7 +1372,7 @@ mod conducting_equipment_terminal_reading {
         pub(super) static ref TERMINAL: crate::commonmodule::Terminal = Default::default();
     }
 }
-trait IsConductingEquipmentTerminalReading {
+pub trait IsConductingEquipmentTerminalReading {
     fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading;
     fn terminal(&self) -> &Terminal {
         self._conducting_equipment_terminal_reading().terminal.as_ref().unwrap_or(&conducting_equipment_terminal_reading::TERMINAL)
@@ -1402,7 +1402,7 @@ mod control_dpc {
     lazy_static! {
     }
 }
-trait IsControlDpc {
+pub trait IsControlDpc {
     fn _control_dpc(&self) -> &ControlDpc;
     fn ctl_val(&self) -> &bool {
         &self._control_dpc().ctl_val    }
@@ -1446,7 +1446,7 @@ mod control_timestamp {
     lazy_static! {
     }
 }
-trait IsControlTimestamp {
+pub trait IsControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp;
     fn fraction(&self) -> &u32 {
         &self._control_timestamp().fraction    }
@@ -1469,7 +1469,7 @@ mod optional_schedule_parameter_kind {
     lazy_static! {
     }
 }
-trait IsOptionalScheduleParameterKind {
+pub trait IsOptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind;
     fn value(&self) -> &i32 {
         &self._optional_schedule_parameter_kind().value    }
@@ -1507,7 +1507,7 @@ mod eng_schedule_parameter {
     lazy_static! {
     }
 }
-trait IsEngScheduleParameter {
+pub trait IsEngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter;
     fn schedule_parameter_type(&self) -> &i32 {
         &self._eng_schedule_parameter().schedule_parameter_type    }
@@ -1548,7 +1548,7 @@ mod schedule_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsSchedulePoint {
+pub trait IsSchedulePoint {
     fn _schedule_point(&self) -> &SchedulePoint;
     fn schedule_parameter(&self) -> &::std::vec::Vec<EngScheduleParameter> {
         &self._schedule_point().schedule_parameter    }
@@ -1580,7 +1580,7 @@ mod schedule_csg {
     lazy_static! {
     }
 }
-trait IsScheduleCsg {
+pub trait IsScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg;
     fn sch_pts(&self) -> &::std::vec::Vec<SchedulePoint> {
         &self._schedule_csg().sch_pts    }
@@ -1610,7 +1610,7 @@ mod control_schedule_fsch {
         pub(super) static ref VAL_ACSG: crate::commonmodule::ScheduleCsg = Default::default();
     }
 }
-trait IsControlScheduleFsch {
+pub trait IsControlScheduleFsch {
     fn _control_schedule_fsch(&self) -> &ControlScheduleFsch;
     fn val_acsg(&self) -> &ScheduleCsg {
         self._control_schedule_fsch().val_acsg.as_ref().unwrap_or(&control_schedule_fsch::VAL_ACSG)
@@ -1641,7 +1641,7 @@ mod logical_node_for_control {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
     }
 }
-trait IsLogicalNodeForControl {
+pub trait IsLogicalNodeForControl {
     fn _logical_node_for_control(&self) -> &LogicalNodeForControl;
     fn logical_node(&self) -> &LogicalNode {
         self._logical_node_for_control().logical_node.as_ref().unwrap_or(&logical_node_for_control::LOGICAL_NODE)
@@ -1681,7 +1681,7 @@ mod control_fscc {
         pub(super) static ref ISLAND_CONTROL_SCHEDULE_FSCH: crate::commonmodule::ControlScheduleFsch = Default::default();
     }
 }
-trait IsControlFscc {
+pub trait IsControlFscc {
     fn _control_fscc(&self) -> &ControlFscc;
     fn logical_node_for_control(&self) -> &LogicalNodeForControl {
         self._control_fscc().logical_node_for_control.as_ref().unwrap_or(&control_fscc::LOGICAL_NODE_FOR_CONTROL)
@@ -1721,7 +1721,7 @@ mod control_ing {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
-trait IsControlIng {
+pub trait IsControlIng {
     fn _control_ing(&self) -> &ControlIng;
     fn set_val(&self) -> &i32 {
         &self._control_ing().set_val    }
@@ -1753,7 +1753,7 @@ mod control_isc {
     lazy_static! {
     }
 }
-trait IsControlIsc {
+pub trait IsControlIsc {
     fn _control_isc(&self) -> &ControlIsc;
     fn ctl_val(&self) -> &i32 {
         &self._control_isc().ctl_val    }
@@ -1793,7 +1793,7 @@ mod message_info {
         pub(super) static ref MESSAGE_TIME_STAMP: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsMessageInfo {
+pub trait IsMessageInfo {
     fn _message_info(&self) -> &MessageInfo;
     fn identified_object(&self) -> &IdentifiedObject {
         self._message_info().identified_object.as_ref().unwrap_or(&message_info::IDENTIFIED_OBJECT)
@@ -1827,7 +1827,7 @@ mod control_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
-trait IsControlMessageInfo {
+pub trait IsControlMessageInfo {
     fn _control_message_info(&self) -> &ControlMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._control_message_info().message_info.as_ref().unwrap_or(&control_message_info::MESSAGE_INFO)
@@ -1858,7 +1858,7 @@ mod control_spc {
     lazy_static! {
     }
 }
-trait IsControlSpc {
+pub trait IsControlSpc {
     fn _control_spc(&self) -> &ControlSpc;
     fn ctl_val(&self) -> &bool {
         &self._control_spc().ctl_val    }
@@ -1897,7 +1897,7 @@ mod control_value {
         pub(super) static ref MOD_BLK: bool = Default::default();
     }
 }
-trait IsControlValue {
+pub trait IsControlValue {
     fn _control_value(&self) -> &ControlValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._control_value().identified_object.as_ref().unwrap_or(&control_value::IDENTIFIED_OBJECT)
@@ -1929,7 +1929,7 @@ mod date_time_interval {
         pub(super) static ref START: i64 = Default::default();
     }
 }
-trait IsDateTimeInterval {
+pub trait IsDateTimeInterval {
     fn _date_time_interval(&self) -> &DateTimeInterval;
     fn end(&self) -> &i64 {
         self._date_time_interval().end.as_ref().unwrap_or(&date_time_interval::END)
@@ -1965,7 +1965,7 @@ mod del {
         pub(super) static ref PHS_CA: crate::commonmodule::Cmv = Default::default();
     }
 }
-trait IsDel {
+pub trait IsDel {
     fn _del(&self) -> &Del;
     fn phs_ab(&self) -> &Cmv {
         self._del().phs_ab.as_ref().unwrap_or(&del::PHS_AB)
@@ -2006,7 +2006,7 @@ mod energy_consumer {
         pub(super) static ref OPERATING_LIMIT: ::std::string::String = Default::default();
     }
 }
-trait IsEnergyConsumer {
+pub trait IsEnergyConsumer {
     fn _energy_consumer(&self) -> &EnergyConsumer;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._energy_consumer().conducting_equipment.as_ref().unwrap_or(&energy_consumer::CONDUCTING_EQUIPMENT)
@@ -2031,7 +2031,7 @@ mod optional_calc_method_kind {
     lazy_static! {
     }
 }
-trait IsOptionalCalcMethodKind {
+pub trait IsOptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind;
     fn value(&self) -> &i32 {
         &self._optional_calc_method_kind().value    }
@@ -2060,7 +2060,7 @@ mod eng_calc_method_kind {
     lazy_static! {
     }
 }
-trait IsEngCalcMethodKind {
+pub trait IsEngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind;
     fn set_val(&self) -> &i32 {
         &self._eng_calc_method_kind().set_val    }
@@ -2081,7 +2081,7 @@ mod optional_grid_connect_mode_kind {
     lazy_static! {
     }
 }
-trait IsOptionalGridConnectModeKind {
+pub trait IsOptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind;
     fn value(&self) -> &i32 {
         &self._optional_grid_connect_mode_kind().value    }
@@ -2114,7 +2114,7 @@ mod eng_grid_connect_mode_kind {
         pub(super) static ref SET_VAL_EXTENSION: ::std::string::String = Default::default();
     }
 }
-trait IsEngGridConnectModeKind {
+pub trait IsEngGridConnectModeKind {
     fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind;
     fn set_val(&self) -> &i32 {
         &self._eng_grid_connect_mode_kind().set_val    }
@@ -2138,7 +2138,7 @@ mod optional_pf_sign_kind {
     lazy_static! {
     }
 }
-trait IsOptionalPfSignKind {
+pub trait IsOptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind;
     fn value(&self) -> &i32 {
         &self._optional_pf_sign_kind().value    }
@@ -2167,7 +2167,7 @@ mod eng_pf_sign_kind {
     lazy_static! {
     }
 }
-trait IsEngPfSignKind {
+pub trait IsEngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind;
     fn set_val(&self) -> &i32 {
         &self._eng_pf_sign_kind().set_val    }
@@ -2188,7 +2188,7 @@ mod optional_behaviour_mode_kind {
     lazy_static! {
     }
 }
-trait IsOptionalBehaviourModeKind {
+pub trait IsOptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind;
     fn value(&self) -> &i32 {
         &self._optional_behaviour_mode_kind().value    }
@@ -2237,7 +2237,7 @@ mod ens_behaviour_mode_kind {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsEnsBehaviourModeKind {
+pub trait IsEnsBehaviourModeKind {
     fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind;
     fn q(&self) -> &Quality {
         self._ens_behaviour_mode_kind().q.as_ref().unwrap_or(&ens_behaviour_mode_kind::Q)
@@ -2264,7 +2264,7 @@ mod optional_der_generator_state_kind {
     lazy_static! {
     }
 }
-trait IsOptionalDerGeneratorStateKind {
+pub trait IsOptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind;
     fn value(&self) -> &i32 {
         &self._optional_der_generator_state_kind().value    }
@@ -2313,7 +2313,7 @@ mod ens_der_generator_state_kind {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsEnsDerGeneratorStateKind {
+pub trait IsEnsDerGeneratorStateKind {
     fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind;
     fn q(&self) -> &Quality {
         self._ens_der_generator_state_kind().q.as_ref().unwrap_or(&ens_der_generator_state_kind::Q)
@@ -2340,7 +2340,7 @@ mod optional_dynamic_test_kind {
     lazy_static! {
     }
 }
-trait IsOptionalDynamicTestKind {
+pub trait IsOptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind;
     fn value(&self) -> &i32 {
         &self._optional_dynamic_test_kind().value    }
@@ -2389,7 +2389,7 @@ mod ens_dynamic_test_kind {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsEnsDynamicTestKind {
+pub trait IsEnsDynamicTestKind {
     fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind;
     fn q(&self) -> &Quality {
         self._ens_dynamic_test_kind().q.as_ref().unwrap_or(&ens_dynamic_test_kind::Q)
@@ -2433,7 +2433,7 @@ mod ens_grid_connect_mode_kind {
     lazy_static! {
     }
 }
-trait IsEnsGridConnectModeKind {
+pub trait IsEnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind;
     fn st_val(&self) -> &i32 {
         &self._ens_grid_connect_mode_kind().st_val    }
@@ -2456,7 +2456,7 @@ mod optional_health_kind {
     lazy_static! {
     }
 }
-trait IsOptionalHealthKind {
+pub trait IsOptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind;
     fn value(&self) -> &i32 {
         &self._optional_health_kind().value    }
@@ -2490,7 +2490,7 @@ mod ens_health_kind {
         pub(super) static ref D: ::std::string::String = Default::default();
     }
 }
-trait IsEnsHealthKind {
+pub trait IsEnsHealthKind {
     fn _ens_health_kind(&self) -> &EnsHealthKind;
     fn d(&self) -> &::std::string::String {
         self._ens_health_kind().d.as_ref().unwrap_or(&ens_health_kind::D)
@@ -2523,7 +2523,7 @@ mod ess {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsEss {
+pub trait IsEss {
     fn _ess(&self) -> &Ess;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._ess().conducting_equipment.as_ref().unwrap_or(&ess::CONDUCTING_EQUIPMENT)
@@ -2554,7 +2554,7 @@ mod event_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
-trait IsEventMessageInfo {
+pub trait IsEventMessageInfo {
     fn _event_message_info(&self) -> &EventMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._event_message_info().message_info.as_ref().unwrap_or(&event_message_info::MESSAGE_INFO)
@@ -2585,7 +2585,7 @@ mod event_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsEventValue {
+pub trait IsEventValue {
     fn _event_value(&self) -> &EventValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._event_value().identified_object.as_ref().unwrap_or(&event_value::IDENTIFIED_OBJECT)
@@ -2616,7 +2616,7 @@ mod forecast_value_source {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsForecastValueSource {
+pub trait IsForecastValueSource {
     fn _forecast_value_source(&self) -> &ForecastValueSource;
     fn identified_object(&self) -> &IdentifiedObject {
         self._forecast_value_source().identified_object.as_ref().unwrap_or(&forecast_value_source::IDENTIFIED_OBJECT)
@@ -2673,7 +2673,7 @@ mod forecast_ied {
         pub(super) static ref FORECAST_VALUE_SOURCE: crate::commonmodule::ForecastValueSource = Default::default();
     }
 }
-trait IsForecastIed {
+pub trait IsForecastIed {
     fn _forecast_ied(&self) -> &ForecastIed;
     fn forecast_value_source(&self) -> &ForecastValueSource {
         self._forecast_ied().forecast_value_source.as_ref().unwrap_or(&forecast_ied::FORECAST_VALUE_SOURCE)
@@ -2708,7 +2708,7 @@ mod forecast_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsForecastValue {
+pub trait IsForecastValue {
     fn _forecast_value(&self) -> &ForecastValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._forecast_value().identified_object.as_ref().unwrap_or(&forecast_value::IDENTIFIED_OBJECT)
@@ -2746,7 +2746,7 @@ mod ied {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsIed {
+pub trait IsIed {
     fn _ied(&self) -> &Ied;
     fn identified_object(&self) -> &IdentifiedObject {
         self._ied().identified_object.as_ref().unwrap_or(&ied::IDENTIFIED_OBJECT)
@@ -2788,7 +2788,7 @@ mod status_ins {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
-trait IsStatusIns {
+pub trait IsStatusIns {
     fn _status_ins(&self) -> &StatusIns;
     fn q(&self) -> &Quality {
         self._status_ins().q.as_ref().unwrap_or(&status_ins::Q)
@@ -2841,7 +2841,7 @@ mod integer_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-trait IsIntegerStatusGgio {
+pub trait IsIntegerStatusGgio {
     fn _integer_status_ggio(&self) -> &IntegerStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._integer_status_ggio().logical_node.as_ref().unwrap_or(&integer_status_ggio::LOGICAL_NODE)
@@ -2886,7 +2886,7 @@ mod logical_node_for_event_and_status {
         pub(super) static ref EE_HEALTH: crate::commonmodule::EnsHealthKind = Default::default();
     }
 }
-trait IsLogicalNodeForEventAndStatus {
+pub trait IsLogicalNodeForEventAndStatus {
     fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus;
     fn logical_node(&self) -> &LogicalNode {
         self._logical_node_for_event_and_status().logical_node.as_ref().unwrap_or(&logical_node_for_event_and_status::LOGICAL_NODE)
@@ -2925,7 +2925,7 @@ mod measurement_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsMeasurementValue {
+pub trait IsMeasurementValue {
     fn _measurement_value(&self) -> &MeasurementValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._measurement_value().identified_object.as_ref().unwrap_or(&measurement_value::IDENTIFIED_OBJECT)
@@ -2957,7 +2957,7 @@ mod meter {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsMeter {
+pub trait IsMeter {
     fn _meter(&self) -> &Meter;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._meter().conducting_equipment.as_ref().unwrap_or(&meter::CONDUCTING_EQUIPMENT)
@@ -2988,7 +2988,7 @@ mod optimization_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
-trait IsOptimizationMessageInfo {
+pub trait IsOptimizationMessageInfo {
     fn _optimization_message_info(&self) -> &OptimizationMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._optimization_message_info().message_info.as_ref().unwrap_or(&optimization_message_info::MESSAGE_INFO)
@@ -3055,7 +3055,7 @@ mod reading_mmtn {
         pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
     }
 }
-trait IsReadingMmtn {
+pub trait IsReadingMmtn {
     fn _reading_mmtn(&self) -> &ReadingMmtn;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmtn().logical_node.as_ref().unwrap_or(&reading_mmtn::LOGICAL_NODE)
@@ -3127,7 +3127,7 @@ mod phase_mmtn {
         pub(super) static ref PHS_CA: crate::commonmodule::ReadingMmtn = Default::default();
     }
 }
-trait IsPhaseMmtn {
+pub trait IsPhaseMmtn {
     fn _phase_mmtn(&self) -> &PhaseMmtn;
     fn phs_a(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_a.as_ref().unwrap_or(&phase_mmtn::PHS_A)
@@ -3179,7 +3179,7 @@ mod ramp_rate {
         pub(super) static ref POSITIVE_REAL_POWER_KW_PER_MIN: f32 = Default::default();
     }
 }
-trait IsRampRate {
+pub trait IsRampRate {
     fn _ramp_rate(&self) -> &RampRate;
     fn negative_reactive_power_kv_ar_per_min(&self) -> &f32 {
         self._ramp_rate().negative_reactive_power_kv_ar_per_min.as_ref().unwrap_or(&ramp_rate::NEGATIVE_REACTIVE_POWER_KV_AR_PER_MIN)
@@ -3219,7 +3219,7 @@ mod reading_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
-trait IsReadingMessageInfo {
+pub trait IsReadingMessageInfo {
     fn _reading_message_info(&self) -> &ReadingMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._reading_message_info().message_info.as_ref().unwrap_or(&reading_message_info::MESSAGE_INFO)
@@ -3286,7 +3286,7 @@ mod reading_mmtr {
         pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
     }
 }
-trait IsReadingMmtr {
+pub trait IsReadingMmtr {
     fn _reading_mmtr(&self) -> &ReadingMmtr;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmtr().logical_node.as_ref().unwrap_or(&reading_mmtr::LOGICAL_NODE)
@@ -3359,7 +3359,7 @@ mod wye {
         pub(super) static ref PHS_C: crate::commonmodule::Cmv = Default::default();
     }
 }
-trait IsWye {
+pub trait IsWye {
     fn _wye(&self) -> &Wye;
     fn net(&self) -> &Cmv {
         self._wye().net.as_ref().unwrap_or(&wye::NET)
@@ -3450,7 +3450,7 @@ mod reading_mmxu {
         pub(super) static ref W: crate::commonmodule::Wye = Default::default();
     }
 }
-trait IsReadingMmxu {
+pub trait IsReadingMmxu {
     fn _reading_mmxu(&self) -> &ReadingMmxu;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmxu().logical_node.as_ref().unwrap_or(&reading_mmxu::LOGICAL_NODE)
@@ -3502,7 +3502,7 @@ mod optional_db_pos_kind {
     lazy_static! {
     }
 }
-trait IsOptionalDbPosKind {
+pub trait IsOptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
     fn value(&self) -> &i32 {
         &self._optional_db_pos_kind().value    }
@@ -3551,7 +3551,7 @@ mod status_dps {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsStatusDps {
+pub trait IsStatusDps {
     fn _status_dps(&self) -> &StatusDps;
     fn q(&self) -> &Quality {
         self._status_dps().q.as_ref().unwrap_or(&status_dps::Q)
@@ -3602,7 +3602,7 @@ mod status_and_event_xcbr {
         pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
     }
 }
-trait IsStatusAndEventXcbr {
+pub trait IsStatusAndEventXcbr {
     fn _status_and_event_xcbr(&self) -> &StatusAndEventXcbr;
     fn logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
         self._status_and_event_xcbr().logical_node_for_event_and_status.as_ref().unwrap_or(&status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -3646,7 +3646,7 @@ mod status_isc {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsStatusIsc {
+pub trait IsStatusIsc {
     fn _status_isc(&self) -> &StatusIsc;
     fn q(&self) -> &Quality {
         self._status_isc().q.as_ref().unwrap_or(&status_isc::Q)
@@ -3682,7 +3682,7 @@ mod status_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
-trait IsStatusMessageInfo {
+pub trait IsStatusMessageInfo {
     fn _status_message_info(&self) -> &StatusMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._status_message_info().message_info.as_ref().unwrap_or(&status_message_info::MESSAGE_INFO)
@@ -3720,7 +3720,7 @@ mod status_spc {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsStatusSpc {
+pub trait IsStatusSpc {
     fn _status_spc(&self) -> &StatusSpc;
     fn q(&self) -> &Quality {
         self._status_spc().q.as_ref().unwrap_or(&status_spc::Q)
@@ -3756,7 +3756,7 @@ mod status_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
-trait IsStatusValue {
+pub trait IsStatusValue {
     fn _status_value(&self) -> &StatusValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._status_value().identified_object.as_ref().unwrap_or(&status_value::IDENTIFIED_OBJECT)
@@ -3806,7 +3806,7 @@ mod vss {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsVss {
+pub trait IsVss {
     fn _vss(&self) -> &Vss;
     fn q(&self) -> &Quality {
         self._vss().q.as_ref().unwrap_or(&vss::Q)
@@ -3856,7 +3856,7 @@ mod string_status_ggio {
         pub(super) static ref STR_IN: crate::commonmodule::Vss = Default::default();
     }
 }
-trait IsStringStatusGgio {
+pub trait IsStringStatusGgio {
     fn _string_status_ggio(&self) -> &StringStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._string_status_ggio().logical_node.as_ref().unwrap_or(&string_status_ggio::LOGICAL_NODE)
@@ -3903,7 +3903,7 @@ mod switch_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
-trait IsSwitchPoint {
+pub trait IsSwitchPoint {
     fn _switch_point(&self) -> &SwitchPoint;
     fn pos(&self) -> &ControlDpc {
         self._switch_point().pos.as_ref().unwrap_or(&switch_point::POS)
@@ -3936,7 +3936,7 @@ mod switch_csg {
     lazy_static! {
     }
 }
-trait IsSwitchCsg {
+pub trait IsSwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<SwitchPoint> {
         &self._switch_csg().crv_pts    }
@@ -3966,7 +3966,7 @@ mod switch_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::commonmodule::SwitchCsg = Default::default();
     }
 }
-trait IsSwitchControlScheduleFsch {
+pub trait IsSwitchControlScheduleFsch {
     fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch;
     fn val_dcsg(&self) -> &SwitchCsg {
         self._switch_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&switch_control_schedule_fsch::VAL_DCSG)
@@ -3988,7 +3988,7 @@ mod optional_state_kind {
     lazy_static! {
     }
 }
-trait IsOptionalStateKind {
+pub trait IsOptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind;
     fn value(&self) -> &i32 {
         &self._optional_state_kind().value    }

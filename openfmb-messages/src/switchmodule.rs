@@ -22,7 +22,7 @@ mod switch_discrete_control_xswi {
         pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsSwitchDiscreteControlXswi {
+pub trait IsSwitchDiscreteControlXswi {
     fn _switch_discrete_control_xswi(&self) -> &SwitchDiscreteControlXswi;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._switch_discrete_control_xswi().logical_node_for_control.as_ref().unwrap_or(&switch_discrete_control_xswi::LOGICAL_NODE_FOR_CONTROL)
@@ -70,7 +70,7 @@ mod switch_discrete_control {
         pub(super) static ref SWITCH_DISCRETE_CONTROL_XSWI: crate::switchmodule::SwitchDiscreteControlXswi = Default::default();
     }
 }
-trait IsSwitchDiscreteControl {
+pub trait IsSwitchDiscreteControl {
     fn _switch_discrete_control(&self) -> &SwitchDiscreteControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._switch_discrete_control().control_value.as_ref().unwrap_or(&switch_discrete_control::CONTROL_VALUE)
@@ -107,7 +107,7 @@ mod protected_switch {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsProtectedSwitch {
+pub trait IsProtectedSwitch {
     fn _protected_switch(&self) -> &ProtectedSwitch;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._protected_switch().conducting_equipment.as_ref().unwrap_or(&protected_switch::CONDUCTING_EQUIPMENT)
@@ -169,7 +169,7 @@ mod switch_discrete_control_profile {
         pub(super) static ref SWITCH_DISCRETE_CONTROL: crate::switchmodule::SwitchDiscreteControl = Default::default();
     }
 }
-trait IsSwitchDiscreteControlProfile {
+pub trait IsSwitchDiscreteControlProfile {
     fn _switch_discrete_control_profile(&self) -> &SwitchDiscreteControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._switch_discrete_control_profile().control_message_info.as_ref().unwrap_or(&switch_discrete_control_profile::CONTROL_MESSAGE_INFO)
@@ -223,7 +223,7 @@ mod switch_event_xswi {
         pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
     }
 }
-trait IsSwitchEventXswi {
+pub trait IsSwitchEventXswi {
     fn _switch_event_xswi(&self) -> &SwitchEventXswi;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._switch_event_xswi().logical_node_for_event_and_status.as_ref().unwrap_or(&switch_event_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -270,7 +270,7 @@ mod switch_event {
         pub(super) static ref SWITCH_EVENT_XSWI: crate::switchmodule::SwitchEventXswi = Default::default();
     }
 }
-trait IsSwitchEvent {
+pub trait IsSwitchEvent {
     fn _switch_event(&self) -> &SwitchEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._switch_event().event_value.as_ref().unwrap_or(&switch_event::EVENT_VALUE)
@@ -335,7 +335,7 @@ mod switch_event_profile {
         pub(super) static ref SWITCH_EVENT: crate::switchmodule::SwitchEvent = Default::default();
     }
 }
-trait IsSwitchEventProfile {
+pub trait IsSwitchEventProfile {
     fn _switch_event_profile(&self) -> &SwitchEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._switch_event_profile().event_message_info.as_ref().unwrap_or(&switch_event_profile::EVENT_MESSAGE_INFO)
@@ -391,7 +391,7 @@ mod switch_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsSwitchReading {
+pub trait IsSwitchReading {
     fn _switch_reading(&self) -> &SwitchReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._switch_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&switch_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -464,7 +464,7 @@ mod switch_reading_profile {
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
     }
 }
-trait IsSwitchReadingProfile {
+pub trait IsSwitchReadingProfile {
     fn _switch_reading_profile(&self) -> &SwitchReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._switch_reading_profile().reading_message_info.as_ref().unwrap_or(&switch_reading_profile::READING_MESSAGE_INFO)
@@ -517,7 +517,7 @@ mod switch_status_xswi {
         pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
     }
 }
-trait IsSwitchStatusXswi {
+pub trait IsSwitchStatusXswi {
     fn _switch_status_xswi(&self) -> &SwitchStatusXswi;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._switch_status_xswi().logical_node_for_event_and_status.as_ref().unwrap_or(&switch_status_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -564,7 +564,7 @@ mod switch_status {
         pub(super) static ref SWITCH_STATUS_XSWI: crate::switchmodule::SwitchStatusXswi = Default::default();
     }
 }
-trait IsSwitchStatus {
+pub trait IsSwitchStatus {
     fn _switch_status(&self) -> &SwitchStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._switch_status().status_value.as_ref().unwrap_or(&switch_status::STATUS_VALUE)
@@ -629,7 +629,7 @@ mod switch_status_profile {
         pub(super) static ref SWITCH_STATUS: crate::switchmodule::SwitchStatus = Default::default();
     }
 }
-trait IsSwitchStatusProfile {
+pub trait IsSwitchStatusProfile {
     fn _switch_status_profile(&self) -> &SwitchStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._switch_status_profile().status_message_info.as_ref().unwrap_or(&switch_status_profile::STATUS_MESSAGE_INFO)
@@ -673,7 +673,7 @@ mod switch_control_fscc {
         pub(super) static ref SWITCH_CONTROL_SCHEDULE_FSCH: crate::commonmodule::SwitchControlScheduleFsch = Default::default();
     }
 }
-trait IsSwitchControlFscc {
+pub trait IsSwitchControlFscc {
     fn _switch_control_fscc(&self) -> &SwitchControlFscc;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._switch_control_fscc().logical_node_for_control.as_ref().unwrap_or(&switch_control_fscc::LOGICAL_NODE_FOR_CONTROL)
@@ -721,7 +721,7 @@ mod switch_control {
         pub(super) static ref SWITCH_CONTROL_FSCC: crate::switchmodule::SwitchControlFscc = Default::default();
     }
 }
-trait IsSwitchControl {
+pub trait IsSwitchControl {
     fn _switch_control(&self) -> &SwitchControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._switch_control().control_value.as_ref().unwrap_or(&switch_control::CONTROL_VALUE)
@@ -789,7 +789,7 @@ mod switch_control_profile {
         pub(super) static ref SWITCH_CONTROL: crate::switchmodule::SwitchControl = Default::default();
     }
 }
-trait IsSwitchControlProfile {
+pub trait IsSwitchControlProfile {
     fn _switch_control_profile(&self) -> &SwitchControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._switch_control_profile().control_message_info.as_ref().unwrap_or(&switch_control_profile::CONTROL_MESSAGE_INFO)

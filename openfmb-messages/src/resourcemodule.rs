@@ -30,7 +30,7 @@ mod resource_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsResourceReading {
+pub trait IsResourceReading {
     fn _resource_reading(&self) -> &ResourceReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._resource_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&resource_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -101,7 +101,7 @@ mod resource_reading_profile {
         pub(super) static ref RESOURCE_READING: crate::resourcemodule::ResourceReading = Default::default();
     }
 }
-trait IsResourceReadingProfile {
+pub trait IsResourceReadingProfile {
     fn _resource_reading_profile(&self) -> &ResourceReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._resource_reading_profile().reading_message_info.as_ref().unwrap_or(&resource_reading_profile::READING_MESSAGE_INFO)
@@ -177,7 +177,7 @@ mod resource_status {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
     }
 }
-trait IsResourceStatus {
+pub trait IsResourceStatus {
     fn _resource_status(&self) -> &ResourceStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._resource_status().status_value.as_ref().unwrap_or(&resource_status::STATUS_VALUE)
@@ -247,7 +247,7 @@ mod resource_status_profile {
         pub(super) static ref RESOURCE_STATUS: crate::resourcemodule::ResourceStatus = Default::default();
     }
 }
-trait IsResourceStatusProfile {
+pub trait IsResourceStatusProfile {
     fn _resource_status_profile(&self) -> &ResourceStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._resource_status_profile().status_message_info.as_ref().unwrap_or(&resource_status_profile::STATUS_MESSAGE_INFO)

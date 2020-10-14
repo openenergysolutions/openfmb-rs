@@ -41,7 +41,7 @@ mod regulator_control_atcc {
         pub(super) static ref TAP_POS: crate::commonmodule::ControlIsc = Default::default();
     }
 }
-trait IsRegulatorControlAtcc {
+pub trait IsRegulatorControlAtcc {
     fn _regulator_control_atcc(&self) -> &RegulatorControlAtcc;
     fn bnd_ctr(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_control_atcc::BND_CTR)
@@ -121,7 +121,7 @@ mod regulator_point {
         pub(super) static ref START_TIME: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsRegulatorPoint {
+pub trait IsRegulatorPoint {
     fn _regulator_point(&self) -> &RegulatorPoint;
     fn control(&self) -> &RegulatorControlAtcc {
         self._regulator_point().control.as_ref().unwrap_or(&regulator_point::CONTROL)
@@ -172,7 +172,7 @@ mod regulator_csg {
     lazy_static! {
     }
 }
-trait IsRegulatorCsg {
+pub trait IsRegulatorCsg {
     fn _regulator_csg(&self) -> &RegulatorCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<RegulatorPoint> {
         &self._regulator_csg().crv_pts    }
@@ -202,7 +202,7 @@ mod regulator_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::regulatormodule::RegulatorCsg = Default::default();
     }
 }
-trait IsRegulatorControlScheduleFsch {
+pub trait IsRegulatorControlScheduleFsch {
     fn _regulator_control_schedule_fsch(&self) -> &RegulatorControlScheduleFsch;
     fn val_dcsg(&self) -> &RegulatorCsg {
         self._regulator_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&regulator_control_schedule_fsch::VAL_DCSG)
@@ -237,7 +237,7 @@ mod regulator_control_fscc {
         pub(super) static ref REGULATOR_CONTROL_SCHEDULE_FSCH: crate::regulatormodule::RegulatorControlScheduleFsch = Default::default();
     }
 }
-trait IsRegulatorControlFscc {
+pub trait IsRegulatorControlFscc {
     fn _regulator_control_fscc(&self) -> &RegulatorControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._regulator_control_fscc().control_fscc.as_ref().unwrap_or(&regulator_control_fscc::CONTROL_FSCC)
@@ -285,7 +285,7 @@ mod regulator_control {
         pub(super) static ref REGULATOR_CONTROL_FSCC: crate::regulatormodule::RegulatorControlFscc = Default::default();
     }
 }
-trait IsRegulatorControl {
+pub trait IsRegulatorControl {
     fn _regulator_control(&self) -> &RegulatorControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._regulator_control().control_value.as_ref().unwrap_or(&regulator_control::CONTROL_VALUE)
@@ -323,7 +323,7 @@ mod regulator_system {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
-trait IsRegulatorSystem {
+pub trait IsRegulatorSystem {
     fn _regulator_system(&self) -> &RegulatorSystem;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._regulator_system().conducting_equipment.as_ref().unwrap_or(&regulator_system::CONDUCTING_EQUIPMENT)
@@ -386,7 +386,7 @@ mod regulator_control_profile {
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
 }
-trait IsRegulatorControlProfile {
+pub trait IsRegulatorControlProfile {
     fn _regulator_control_profile(&self) -> &RegulatorControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._regulator_control_profile().control_message_info.as_ref().unwrap_or(&regulator_control_profile::CONTROL_MESSAGE_INFO)
@@ -450,7 +450,7 @@ mod regulator_event_and_status_atcc {
         pub(super) static ref TAP_POS: crate::commonmodule::StatusIsc = Default::default();
     }
 }
-trait IsRegulatorEventAndStatusAtcc {
+pub trait IsRegulatorEventAndStatusAtcc {
     fn _regulator_event_and_status_atcc(&self) -> &RegulatorEventAndStatusAtcc;
     fn bnd_ctr(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_event_and_status_atcc::BND_CTR)
@@ -516,7 +516,7 @@ mod regulator_event_and_status_point {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSpc = Default::default();
     }
 }
-trait IsRegulatorEventAndStatusPoint {
+pub trait IsRegulatorEventAndStatusPoint {
     fn _regulator_event_and_status_point(&self) -> &RegulatorEventAndStatusPoint;
     fn event_and_status(&self) -> &RegulatorEventAndStatusAtcc {
         self._regulator_event_and_status_point().event_and_status.as_ref().unwrap_or(&regulator_event_and_status_point::EVENT_AND_STATUS)
@@ -576,7 +576,7 @@ mod regulator_event_and_status_ancr {
         pub(super) static ref POINT_STATUS: crate::regulatormodule::RegulatorEventAndStatusPoint = Default::default();
     }
 }
-trait IsRegulatorEventAndStatusAncr {
+pub trait IsRegulatorEventAndStatusAncr {
     fn _regulator_event_and_status_ancr(&self) -> &RegulatorEventAndStatusAncr;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._regulator_event_and_status_ancr().logical_node_for_event_and_status.as_ref().unwrap_or(&regulator_event_and_status_ancr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -623,7 +623,7 @@ mod regulator_event {
         pub(super) static ref REGULATOR_EVENT_AND_STATUS_ANCR: crate::regulatormodule::RegulatorEventAndStatusAncr = Default::default();
     }
 }
-trait IsRegulatorEvent {
+pub trait IsRegulatorEvent {
     fn _regulator_event(&self) -> &RegulatorEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._regulator_event().event_value.as_ref().unwrap_or(&regulator_event::EVENT_VALUE)
@@ -688,7 +688,7 @@ mod regulator_event_profile {
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
 }
-trait IsRegulatorEventProfile {
+pub trait IsRegulatorEventProfile {
     fn _regulator_event_profile(&self) -> &RegulatorEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._regulator_event_profile().event_message_info.as_ref().unwrap_or(&regulator_event_profile::EVENT_MESSAGE_INFO)
@@ -740,7 +740,7 @@ mod regulator_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsRegulatorReading {
+pub trait IsRegulatorReading {
     fn _regulator_reading(&self) -> &RegulatorReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._regulator_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&regulator_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -810,7 +810,7 @@ mod regulator_reading_profile {
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
 }
-trait IsRegulatorReadingProfile {
+pub trait IsRegulatorReadingProfile {
     fn _regulator_reading_profile(&self) -> &RegulatorReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._regulator_reading_profile().reading_message_info.as_ref().unwrap_or(&regulator_reading_profile::READING_MESSAGE_INFO)
@@ -859,7 +859,7 @@ mod regulator_status {
         pub(super) static ref REGULATOR_EVENT_AND_STATUS_ANCR: crate::regulatormodule::RegulatorEventAndStatusAncr = Default::default();
     }
 }
-trait IsRegulatorStatus {
+pub trait IsRegulatorStatus {
     fn _regulator_status(&self) -> &RegulatorStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._regulator_status().status_value.as_ref().unwrap_or(&regulator_status::STATUS_VALUE)
@@ -924,7 +924,7 @@ mod regulator_status_profile {
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
 }
-trait IsRegulatorStatusProfile {
+pub trait IsRegulatorStatusProfile {
     fn _regulator_status_profile(&self) -> &RegulatorStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._regulator_status_profile().status_message_info.as_ref().unwrap_or(&regulator_status_profile::STATUS_MESSAGE_INFO)

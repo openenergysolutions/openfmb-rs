@@ -54,7 +54,7 @@ mod interconnection_point {
         pub(super) static ref START_TIME: crate::commonmodule::Timestamp = Default::default();
     }
 }
-trait IsInterconnectionPoint {
+pub trait IsInterconnectionPoint {
     fn _interconnection_point(&self) -> &InterconnectionPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().black_start_enabled.as_ref().unwrap_or(&interconnection_point::BLACK_START_ENABLED)
@@ -111,7 +111,7 @@ mod interconnection_csg {
     lazy_static! {
     }
 }
-trait IsInterconnectionCsg {
+pub trait IsInterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<InterconnectionPoint> {
         &self._interconnection_csg().crv_pts    }
@@ -141,7 +141,7 @@ mod interconnection_control_schedule_fsch {
         pub(super) static ref VAL_DCSG: crate::interconnectionmodule::InterconnectionCsg = Default::default();
     }
 }
-trait IsInterconnectionControlScheduleFsch {
+pub trait IsInterconnectionControlScheduleFsch {
     fn _interconnection_control_schedule_fsch(&self) -> &InterconnectionControlScheduleFsch;
     fn val_dcsg(&self) -> &InterconnectionCsg {
         self._interconnection_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&interconnection_control_schedule_fsch::VAL_DCSG)
@@ -181,7 +181,7 @@ mod interconnection_schedule_fscc {
         pub(super) static ref CONTROL_FSCC: crate::commonmodule::ControlFscc = Default::default();
     }
 }
-trait IsInterconnectionScheduleFscc {
+pub trait IsInterconnectionScheduleFscc {
     fn _interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._interconnection_schedule_fscc().control_fscc.as_ref().unwrap_or(&interconnection_schedule_fscc::CONTROL_FSCC)
@@ -228,7 +228,7 @@ mod interconnection_schedule {
         pub(super) static ref INTERCONNECTION_SCHEDULE_FSCC: crate::interconnectionmodule::InterconnectionScheduleFscc = Default::default();
     }
 }
-trait IsInterconnectionSchedule {
+pub trait IsInterconnectionSchedule {
     fn _interconnection_schedule(&self) -> &InterconnectionSchedule;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._interconnection_schedule().control_value.as_ref().unwrap_or(&interconnection_schedule::CONTROL_VALUE)
@@ -286,7 +286,7 @@ mod planned_interconnection_schedule_profile {
         pub(super) static ref INTERCONNECTION_SCHEDULE: crate::interconnectionmodule::InterconnectionSchedule = Default::default();
     }
 }
-trait IsPlannedInterconnectionScheduleProfile {
+pub trait IsPlannedInterconnectionScheduleProfile {
     fn _planned_interconnection_schedule_profile(&self) -> &PlannedInterconnectionScheduleProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._planned_interconnection_schedule_profile().control_message_info.as_ref().unwrap_or(&planned_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
@@ -344,7 +344,7 @@ mod requested_interconnection_schedule_profile {
         pub(super) static ref INTERCONNECTION_SCHEDULE: crate::interconnectionmodule::InterconnectionSchedule = Default::default();
     }
 }
-trait IsRequestedInterconnectionScheduleProfile {
+pub trait IsRequestedInterconnectionScheduleProfile {
     fn _requested_interconnection_schedule_profile(&self) -> &RequestedInterconnectionScheduleProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._requested_interconnection_schedule_profile().control_message_info.as_ref().unwrap_or(&requested_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)

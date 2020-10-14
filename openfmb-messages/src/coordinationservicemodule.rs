@@ -9,7 +9,7 @@ mod optional_coordination_service_mode_kind {
     lazy_static! {
     }
 }
-trait IsOptionalCoordinationServiceModeKind {
+pub trait IsOptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind;
     fn value(&self) -> &i32 {
         &self._optional_coordination_service_mode_kind().value    }
@@ -42,7 +42,7 @@ mod eng_coordination_service_mode_kind {
         pub(super) static ref SET_VAL_EXTENSION: ::std::string::String = Default::default();
     }
 }
-trait IsEngCoordinationServiceModeKind {
+pub trait IsEngCoordinationServiceModeKind {
     fn _eng_coordination_service_mode_kind(&self) -> &EngCoordinationServiceModeKind;
     fn set_val(&self) -> &i32 {
         &self._eng_coordination_service_mode_kind().set_val    }
@@ -84,7 +84,7 @@ mod coordination_control_dcsc {
         pub(super) static ref ISLAND: crate::commonmodule::ControlDpc = Default::default();
     }
 }
-trait IsCoordinationControlDcsc {
+pub trait IsCoordinationControlDcsc {
     fn _coordination_control_dcsc(&self) -> &CoordinationControlDcsc;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._coordination_control_dcsc().logical_node_for_control.as_ref().unwrap_or(&coordination_control_dcsc::LOGICAL_NODE_FOR_CONTROL)
@@ -135,7 +135,7 @@ mod coordination_control {
         pub(super) static ref COORDINATION_CONTROL_DCSC: crate::coordinationservicemodule::CoordinationControlDcsc = Default::default();
     }
 }
-trait IsCoordinationControl {
+pub trait IsCoordinationControl {
     fn _coordination_control(&self) -> &CoordinationControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._coordination_control().control_value.as_ref().unwrap_or(&coordination_control::CONTROL_VALUE)
@@ -193,7 +193,7 @@ mod coordination_control_profile {
         pub(super) static ref COORDINATION_CONTROL: crate::coordinationservicemodule::CoordinationControl = Default::default();
     }
 }
-trait IsCoordinationControlProfile {
+pub trait IsCoordinationControlProfile {
     fn _coordination_control_profile(&self) -> &CoordinationControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._coordination_control_profile().control_message_info.as_ref().unwrap_or(&coordination_control_profile::CONTROL_MESSAGE_INFO)
@@ -259,7 +259,7 @@ mod coordination_event_dcsc {
         pub(super) static ref PERMISSIBLE_STOP: crate::commonmodule::StatusSps = Default::default();
     }
 }
-trait IsCoordinationEventDcsc {
+pub trait IsCoordinationEventDcsc {
     fn _coordination_event_dcsc(&self) -> &CoordinationEventDcsc;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._coordination_event_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -321,7 +321,7 @@ mod coordination_event {
         pub(super) static ref COORDINATION_EVENT_DCSC: crate::coordinationservicemodule::CoordinationEventDcsc = Default::default();
     }
 }
-trait IsCoordinationEvent {
+pub trait IsCoordinationEvent {
     fn _coordination_event(&self) -> &CoordinationEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._coordination_event().event_value.as_ref().unwrap_or(&coordination_event::EVENT_VALUE)
@@ -376,7 +376,7 @@ mod coordination_event_profile {
         pub(super) static ref COORDINATION_EVENT: crate::coordinationservicemodule::CoordinationEvent = Default::default();
     }
 }
-trait IsCoordinationEventProfile {
+pub trait IsCoordinationEventProfile {
     fn _coordination_event_profile(&self) -> &CoordinationEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._coordination_event_profile().event_message_info.as_ref().unwrap_or(&coordination_event_profile::EVENT_MESSAGE_INFO)
@@ -442,7 +442,7 @@ mod coordination_status_dcsc {
         pub(super) static ref PERMISSIBLE_STOP: crate::commonmodule::StatusSps = Default::default();
     }
 }
-trait IsCoordinationStatusDcsc {
+pub trait IsCoordinationStatusDcsc {
     fn _coordination_status_dcsc(&self) -> &CoordinationStatusDcsc;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._coordination_status_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
@@ -504,7 +504,7 @@ mod coordination_status {
         pub(super) static ref COORDINATION_STATUS_DCSC: crate::coordinationservicemodule::CoordinationStatusDcsc = Default::default();
     }
 }
-trait IsCoordinationStatus {
+pub trait IsCoordinationStatus {
     fn _coordination_status(&self) -> &CoordinationStatus;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._coordination_status().event_value.as_ref().unwrap_or(&coordination_status::EVENT_VALUE)
@@ -559,7 +559,7 @@ mod coordination_status_profile {
         pub(super) static ref COORDINATION_STATUS: crate::coordinationservicemodule::CoordinationStatus = Default::default();
     }
 }
-trait IsCoordinationStatusProfile {
+pub trait IsCoordinationStatusProfile {
     fn _coordination_status_profile(&self) -> &CoordinationStatusProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._coordination_status_profile().event_message_info.as_ref().unwrap_or(&coordination_status_profile::EVENT_MESSAGE_INFO)

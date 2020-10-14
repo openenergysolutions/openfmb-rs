@@ -17,7 +17,7 @@ mod regulator_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsRegulatorControlScheduleProfileList {
+pub trait IsRegulatorControlScheduleProfileList {
     fn _regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList;
     fn regulator_control_profile(&self) -> &::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
         &self._regulator_control_schedule_profile_list().regulator_control_profile    }
@@ -46,7 +46,7 @@ mod solar_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsSolarControlScheduleProfileList {
+pub trait IsSolarControlScheduleProfileList {
     fn _solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList;
     fn solar_control_profile(&self) -> &::std::vec::Vec<super::solarmodule::SolarControlProfile> {
         &self._solar_control_schedule_profile_list().solar_control_profile    }
@@ -75,7 +75,7 @@ mod planned_interconnection_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsPlannedInterconnectionScheduleProfileList {
+pub trait IsPlannedInterconnectionScheduleProfileList {
     fn _planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList;
     fn planned_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
         &self._planned_interconnection_schedule_profile_list().planned_interconnection_schedule_profile    }
@@ -104,7 +104,7 @@ mod load_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsLoadControlScheduleProfileList {
+pub trait IsLoadControlScheduleProfileList {
     fn _load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList;
     fn load_control_profile(&self) -> &::std::vec::Vec<super::loadmodule::LoadControlProfile> {
         &self._load_control_schedule_profile_list().load_control_profile    }
@@ -133,7 +133,7 @@ mod ess_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsEssControlScheduleProfileList {
+pub trait IsEssControlScheduleProfileList {
     fn _ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList;
     fn ess_control_profile(&self) -> &::std::vec::Vec<super::essmodule::EssControlProfile> {
         &self._ess_control_schedule_profile_list().ess_control_profile    }
@@ -162,7 +162,7 @@ mod switch_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsSwitchControlScheduleProfileList {
+pub trait IsSwitchControlScheduleProfileList {
     fn _switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList;
     fn switch_control_profile(&self) -> &::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
         &self._switch_control_schedule_profile_list().switch_control_profile    }
@@ -191,7 +191,7 @@ mod generation_control_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsGenerationControlScheduleProfileList {
+pub trait IsGenerationControlScheduleProfileList {
     fn _generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList;
     fn generation_control_profile(&self) -> &::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
         &self._generation_control_schedule_profile_list().generation_control_profile    }
@@ -260,7 +260,7 @@ mod planned_optimizer_schedule_profile {
         pub(super) static ref SWITCH_CONTROL_SCHEDULE_PROFILE_LIST: crate::optimizermodule::SwitchControlScheduleProfileList = Default::default();
     }
 }
-trait IsPlannedOptimizerScheduleProfile {
+pub trait IsPlannedOptimizerScheduleProfile {
     fn _planned_optimizer_schedule_profile(&self) -> &PlannedOptimizerScheduleProfile;
     fn optimization_message_info(&self) -> &super::commonmodule::OptimizationMessageInfo {
         self._planned_optimizer_schedule_profile().optimization_message_info.as_ref().unwrap_or(&planned_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO)
@@ -314,7 +314,7 @@ mod requested_interconnection_schedule_profile_list {
     lazy_static! {
     }
 }
-trait IsRequestedInterconnectionScheduleProfileList {
+pub trait IsRequestedInterconnectionScheduleProfileList {
     fn _requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList;
     fn requested_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
         &self._requested_interconnection_schedule_profile_list().requested_interconnection_schedule_profile    }
@@ -383,7 +383,7 @@ mod requested_optimizer_schedule_profile {
         pub(super) static ref SWITCH_CONTROL_SCHEDULE_PROFILE_LIST: crate::optimizermodule::SwitchControlScheduleProfileList = Default::default();
     }
 }
-trait IsRequestedOptimizerScheduleProfile {
+pub trait IsRequestedOptimizerScheduleProfile {
     fn _requested_optimizer_schedule_profile(&self) -> &RequestedOptimizerScheduleProfile;
     fn optimization_message_info(&self) -> &super::commonmodule::OptimizationMessageInfo {
         self._requested_optimizer_schedule_profile().optimization_message_info.as_ref().unwrap_or(&requested_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO)

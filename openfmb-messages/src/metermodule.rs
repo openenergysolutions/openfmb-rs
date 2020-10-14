@@ -30,7 +30,7 @@ mod meter_reading {
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
-trait IsMeterReading {
+pub trait IsMeterReading {
     fn _meter_reading(&self) -> &MeterReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._meter_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&meter_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
@@ -101,7 +101,7 @@ mod meter_reading_profile {
         pub(super) static ref METER_READING: crate::metermodule::MeterReading = Default::default();
     }
 }
-trait IsMeterReadingProfile {
+pub trait IsMeterReadingProfile {
     fn _meter_reading_profile(&self) -> &MeterReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._meter_reading_profile().reading_message_info.as_ref().unwrap_or(&meter_reading_profile::READING_MESSAGE_INFO)
