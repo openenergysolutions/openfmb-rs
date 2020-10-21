@@ -32,21 +32,37 @@ mod resource_reading {
 }
 pub trait IsResourceReading {
     fn _resource_reading(&self) -> &ResourceReading;
+    fn _mut_resource_reading(&mut self) -> &mut ResourceReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._resource_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&resource_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._mut_resource_reading().conducting_equipment_terminal_reading.get_or_insert(resource_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._resource_reading().phase_mmtn.as_ref().unwrap_or(&resource_reading::PHASE_MMTN)
     }
+    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._mut_resource_reading().phase_mmtn.get_or_insert(resource_reading::PHASE_MMTN.clone())
+    }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._resource_reading().reading_mmtr.as_ref().unwrap_or(&resource_reading::READING_MMTR)
+    }
+    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._mut_resource_reading().reading_mmtr.get_or_insert(resource_reading::READING_MMTR.clone())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._resource_reading().reading_mmxu.as_ref().unwrap_or(&resource_reading::READING_MMXU)
     }
+    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._mut_resource_reading().reading_mmxu.get_or_insert(resource_reading::READING_MMXU.clone())
+    }
 }
 impl IsResourceReading for ResourceReading {
     fn _resource_reading(&self) -> &ResourceReading {
+        self
+    }
+    fn _mut_resource_reading(&mut self) -> &mut ResourceReading {
         self
     }
 }
@@ -103,21 +119,37 @@ mod resource_reading_profile {
 }
 pub trait IsResourceReadingProfile {
     fn _resource_reading_profile(&self) -> &ResourceReadingProfile;
+    fn _mut_resource_reading_profile(&mut self) -> &mut ResourceReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._resource_reading_profile().reading_message_info.as_ref().unwrap_or(&resource_reading_profile::READING_MESSAGE_INFO)
+    }
+    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._mut_resource_reading_profile().reading_message_info.get_or_insert(resource_reading_profile::READING_MESSAGE_INFO.clone())
     }
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._resource_reading_profile().conducting_equipment.as_ref().unwrap_or(&resource_reading_profile::CONDUCTING_EQUIPMENT)
     }
+    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._mut_resource_reading_profile().conducting_equipment.get_or_insert(resource_reading_profile::CONDUCTING_EQUIPMENT.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._resource_reading_profile().ied.as_ref().unwrap_or(&resource_reading_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_resource_reading_profile().ied.get_or_insert(resource_reading_profile::IED.clone())
     }
     fn resource_reading(&self) -> &ResourceReading {
         self._resource_reading_profile().resource_reading.as_ref().unwrap_or(&resource_reading_profile::RESOURCE_READING)
     }
+    fn mut_resource_reading(&mut self) -> &mut ResourceReading {
+        self._mut_resource_reading_profile().resource_reading.get_or_insert(resource_reading_profile::RESOURCE_READING.clone())
+    }
 }
 impl IsResourceReadingProfile for ResourceReadingProfile {
     fn _resource_reading_profile(&self) -> &ResourceReadingProfile {
+        self
+    }
+    fn _mut_resource_reading_profile(&mut self) -> &mut ResourceReadingProfile {
         self
     }
 }
@@ -179,20 +211,35 @@ mod resource_status {
 }
 pub trait IsResourceStatus {
     fn _resource_status(&self) -> &ResourceStatus;
+    fn _mut_resource_status(&mut self) -> &mut ResourceStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._resource_status().status_value.as_ref().unwrap_or(&resource_status::STATUS_VALUE)
     }
+    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._mut_resource_status().status_value.get_or_insert(resource_status::STATUS_VALUE.clone())
+    }
     fn analog_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::AnalogStatusGgio> {
         &self._resource_status().analog_status_ggio    }
+    fn mut_analog_status_ggio(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::AnalogStatusGgio> {
+        &mut self._mut_resource_status().analog_status_ggio    }
     fn boolean_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::BooleanStatusGgio> {
         &self._resource_status().boolean_status_ggio    }
+    fn mut_boolean_status_ggio(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::BooleanStatusGgio> {
+        &mut self._mut_resource_status().boolean_status_ggio    }
     fn integer_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::IntegerStatusGgio> {
         &self._resource_status().integer_status_ggio    }
+    fn mut_integer_status_ggio(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::IntegerStatusGgio> {
+        &mut self._mut_resource_status().integer_status_ggio    }
     fn string_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::StringStatusGgio> {
         &self._resource_status().string_status_ggio    }
+    fn mut_string_status_ggio(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::StringStatusGgio> {
+        &mut self._mut_resource_status().string_status_ggio    }
 }
 impl IsResourceStatus for ResourceStatus {
     fn _resource_status(&self) -> &ResourceStatus {
+        self
+    }
+    fn _mut_resource_status(&mut self) -> &mut ResourceStatus {
         self
     }
 }
@@ -249,21 +296,37 @@ mod resource_status_profile {
 }
 pub trait IsResourceStatusProfile {
     fn _resource_status_profile(&self) -> &ResourceStatusProfile;
+    fn _mut_resource_status_profile(&mut self) -> &mut ResourceStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._resource_status_profile().status_message_info.as_ref().unwrap_or(&resource_status_profile::STATUS_MESSAGE_INFO)
+    }
+    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._mut_resource_status_profile().status_message_info.get_or_insert(resource_status_profile::STATUS_MESSAGE_INFO.clone())
     }
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._resource_status_profile().conducting_equipment.as_ref().unwrap_or(&resource_status_profile::CONDUCTING_EQUIPMENT)
     }
+    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._mut_resource_status_profile().conducting_equipment.get_or_insert(resource_status_profile::CONDUCTING_EQUIPMENT.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._resource_status_profile().ied.as_ref().unwrap_or(&resource_status_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_resource_status_profile().ied.get_or_insert(resource_status_profile::IED.clone())
     }
     fn resource_status(&self) -> &ResourceStatus {
         self._resource_status_profile().resource_status.as_ref().unwrap_or(&resource_status_profile::RESOURCE_STATUS)
     }
+    fn mut_resource_status(&mut self) -> &mut ResourceStatus {
+        self._mut_resource_status_profile().resource_status.get_or_insert(resource_status_profile::RESOURCE_STATUS.clone())
+    }
 }
 impl IsResourceStatusProfile for ResourceStatusProfile {
     fn _resource_status_profile(&self) -> &ResourceStatusProfile {
+        self
+    }
+    fn _mut_resource_status_profile(&mut self) -> &mut ResourceStatusProfile {
         self
     }
 }

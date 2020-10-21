@@ -40,27 +40,49 @@ mod load_point {
 }
 pub trait IsLoadPoint {
     fn _load_point(&self) -> &LoadPoint;
+    fn _mut_load_point(&mut self) -> &mut LoadPoint;
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._load_point().ramp_rates.as_ref().unwrap_or(&load_point::RAMP_RATES)
+    }
+    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
+        self._mut_load_point().ramp_rates.get_or_insert(load_point::RAMP_RATES.clone())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._load_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&load_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
+    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point().reactive_pwr_set_point_enabled.get_or_insert(load_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._load_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&load_point::REAL_PWR_SET_POINT_ENABLED)
+    }
+    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point().real_pwr_set_point_enabled.get_or_insert(load_point::REAL_PWR_SET_POINT_ENABLED.clone())
     }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._load_point().reset.as_ref().unwrap_or(&load_point::RESET)
     }
+    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point().reset.get_or_insert(load_point::RESET.clone())
+    }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._load_point().state.as_ref().unwrap_or(&load_point::STATE)
+    }
+    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._mut_load_point().state.get_or_insert(load_point::STATE.clone())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
         self._load_point().start_time.as_ref().unwrap_or(&load_point::START_TIME)
     }
+    fn mut_start_time(&mut self) -> &mut super::commonmodule::ControlTimestamp {
+        self._mut_load_point().start_time.get_or_insert(load_point::START_TIME.clone())
+    }
 }
 impl IsLoadPoint for LoadPoint {
     fn _load_point(&self) -> &LoadPoint {
+        self
+    }
+    fn _mut_load_point(&mut self) -> &mut LoadPoint {
         self
     }
 }
@@ -85,11 +107,17 @@ mod load_csg {
 }
 pub trait IsLoadCsg {
     fn _load_csg(&self) -> &LoadCsg;
+    fn _mut_load_csg(&mut self) -> &mut LoadCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<LoadPoint> {
         &self._load_csg().crv_pts    }
+    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<LoadPoint> {
+        &mut self._mut_load_csg().crv_pts    }
 }
 impl IsLoadCsg for LoadCsg {
     fn _load_csg(&self) -> &LoadCsg {
+        self
+    }
+    fn _mut_load_csg(&mut self) -> &mut LoadCsg {
         self
     }
 }
@@ -115,12 +143,19 @@ mod load_control_schedule_fsch {
 }
 pub trait IsLoadControlScheduleFsch {
     fn _load_control_schedule_fsch(&self) -> &LoadControlScheduleFsch;
+    fn _mut_load_control_schedule_fsch(&mut self) -> &mut LoadControlScheduleFsch;
     fn val_dcsg(&self) -> &LoadCsg {
         self._load_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&load_control_schedule_fsch::VAL_DCSG)
+    }
+    fn mut_val_dcsg(&mut self) -> &mut LoadCsg {
+        self._mut_load_control_schedule_fsch().val_dcsg.get_or_insert(load_control_schedule_fsch::VAL_DCSG.clone())
     }
 }
 impl IsLoadControlScheduleFsch for LoadControlScheduleFsch {
     fn _load_control_schedule_fsch(&self) -> &LoadControlScheduleFsch {
+        self
+    }
+    fn _mut_load_control_schedule_fsch(&mut self) -> &mut LoadControlScheduleFsch {
         self
     }
 }
@@ -150,15 +185,25 @@ mod load_control_fscc {
 }
 pub trait IsLoadControlFscc {
     fn _load_control_fscc(&self) -> &LoadControlFscc;
+    fn _mut_load_control_fscc(&mut self) -> &mut LoadControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._load_control_fscc().control_fscc.as_ref().unwrap_or(&load_control_fscc::CONTROL_FSCC)
+    }
+    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._mut_load_control_fscc().control_fscc.get_or_insert(load_control_fscc::CONTROL_FSCC.clone())
     }
     fn load_control_schedule_fsch(&self) -> &LoadControlScheduleFsch {
         self._load_control_fscc().load_control_schedule_fsch.as_ref().unwrap_or(&load_control_fscc::LOAD_CONTROL_SCHEDULE_FSCH)
     }
+    fn mut_load_control_schedule_fsch(&mut self) -> &mut LoadControlScheduleFsch {
+        self._mut_load_control_fscc().load_control_schedule_fsch.get_or_insert(load_control_fscc::LOAD_CONTROL_SCHEDULE_FSCH.clone())
+    }
 }
 impl IsLoadControlFscc for LoadControlFscc {
     fn _load_control_fscc(&self) -> &LoadControlFscc {
+        self
+    }
+    fn _mut_load_control_fscc(&mut self) -> &mut LoadControlFscc {
         self
     }
 }
@@ -198,18 +243,31 @@ mod load_control {
 }
 pub trait IsLoadControl {
     fn _load_control(&self) -> &LoadControl;
+    fn _mut_load_control(&mut self) -> &mut LoadControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._load_control().control_value.as_ref().unwrap_or(&load_control::CONTROL_VALUE)
+    }
+    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._mut_load_control().control_value.get_or_insert(load_control::CONTROL_VALUE.clone())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._load_control().check.as_ref().unwrap_or(&load_control::CHECK)
     }
+    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._mut_load_control().check.get_or_insert(load_control::CHECK.clone())
+    }
     fn load_control_fscc(&self) -> &LoadControlFscc {
         self._load_control().load_control_fscc.as_ref().unwrap_or(&load_control::LOAD_CONTROL_FSCC)
+    }
+    fn mut_load_control_fscc(&mut self) -> &mut LoadControlFscc {
+        self._mut_load_control().load_control_fscc.get_or_insert(load_control::LOAD_CONTROL_FSCC.clone())
     }
 }
 impl IsLoadControl for LoadControl {
     fn _load_control(&self) -> &LoadControl {
+        self
+    }
+    fn _mut_load_control(&mut self) -> &mut LoadControl {
         self
     }
 }
@@ -266,21 +324,37 @@ mod load_control_profile {
 }
 pub trait IsLoadControlProfile {
     fn _load_control_profile(&self) -> &LoadControlProfile;
+    fn _mut_load_control_profile(&mut self) -> &mut LoadControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._load_control_profile().control_message_info.as_ref().unwrap_or(&load_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._mut_load_control_profile().control_message_info.get_or_insert(load_control_profile::CONTROL_MESSAGE_INFO.clone())
     }
     fn energy_consumer(&self) -> &super::commonmodule::EnergyConsumer {
         self._load_control_profile().energy_consumer.as_ref().unwrap_or(&load_control_profile::ENERGY_CONSUMER)
     }
+    fn mut_energy_consumer(&mut self) -> &mut super::commonmodule::EnergyConsumer {
+        self._mut_load_control_profile().energy_consumer.get_or_insert(load_control_profile::ENERGY_CONSUMER.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._load_control_profile().ied.as_ref().unwrap_or(&load_control_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_load_control_profile().ied.get_or_insert(load_control_profile::IED.clone())
     }
     fn load_control(&self) -> &LoadControl {
         self._load_control_profile().load_control.as_ref().unwrap_or(&load_control_profile::LOAD_CONTROL)
     }
+    fn mut_load_control(&mut self) -> &mut LoadControl {
+        self._mut_load_control_profile().load_control.get_or_insert(load_control_profile::LOAD_CONTROL.clone())
+    }
 }
 impl IsLoadControlProfile for LoadControlProfile {
     fn _load_control_profile(&self) -> &LoadControlProfile {
+        self
+    }
+    fn _mut_load_control_profile(&mut self) -> &mut LoadControlProfile {
         self
     }
 }
@@ -316,24 +390,43 @@ mod load_point_status {
 }
 pub trait IsLoadPointStatus {
     fn _load_point_status(&self) -> &LoadPointStatus;
+    fn _mut_load_point_status(&mut self) -> &mut LoadPointStatus;
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._load_point_status().ramp_rates.as_ref().unwrap_or(&load_point_status::RAMP_RATES)
+    }
+    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
+        self._mut_load_point_status().ramp_rates.get_or_insert(load_point_status::RAMP_RATES.clone())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._load_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
+    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point_status().reactive_pwr_set_point_enabled.get_or_insert(load_point_status::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._load_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REAL_PWR_SET_POINT_ENABLED)
+    }
+    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point_status().real_pwr_set_point_enabled.get_or_insert(load_point_status::REAL_PWR_SET_POINT_ENABLED.clone())
     }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._load_point_status().reset.as_ref().unwrap_or(&load_point_status::RESET)
     }
+    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_load_point_status().reset.get_or_insert(load_point_status::RESET.clone())
+    }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._load_point_status().state.as_ref().unwrap_or(&load_point_status::STATE)
+    }
+    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._mut_load_point_status().state.get_or_insert(load_point_status::STATE.clone())
     }
 }
 impl IsLoadPointStatus for LoadPointStatus {
     fn _load_point_status(&self) -> &LoadPointStatus {
+        self
+    }
+    fn _mut_load_point_status(&mut self) -> &mut LoadPointStatus {
         self
     }
 }
@@ -371,21 +464,37 @@ mod load_event_and_status_zgld {
 }
 pub trait IsLoadEventAndStatusZgld {
     fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld;
+    fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._load_event_and_status_zgld().logical_node_for_event_and_status.as_ref().unwrap_or(&load_event_and_status_zgld::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._mut_load_event_and_status_zgld().logical_node_for_event_and_status.get_or_insert(load_event_and_status_zgld::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._load_event_and_status_zgld().dynamic_test.as_ref().unwrap_or(&load_event_and_status_zgld::DYNAMIC_TEST)
     }
+    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._mut_load_event_and_status_zgld().dynamic_test.get_or_insert(load_event_and_status_zgld::DYNAMIC_TEST.clone())
+    }
     fn emg_stop(&self) -> &super::commonmodule::StatusSps {
         self._load_event_and_status_zgld().emg_stop.as_ref().unwrap_or(&load_event_and_status_zgld::EMG_STOP)
+    }
+    fn mut_emg_stop(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._mut_load_event_and_status_zgld().emg_stop.get_or_insert(load_event_and_status_zgld::EMG_STOP.clone())
     }
     fn point_status(&self) -> &LoadPointStatus {
         self._load_event_and_status_zgld().point_status.as_ref().unwrap_or(&load_event_and_status_zgld::POINT_STATUS)
     }
+    fn mut_point_status(&mut self) -> &mut LoadPointStatus {
+        self._mut_load_event_and_status_zgld().point_status.get_or_insert(load_event_and_status_zgld::POINT_STATUS.clone())
+    }
 }
 impl IsLoadEventAndStatusZgld for LoadEventAndStatusZgld {
     fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
+        self
+    }
+    fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
         self
     }
 }
@@ -411,12 +520,19 @@ mod load_event_zgld {
 }
 pub trait IsLoadEventZgld {
     fn _load_event_zgld(&self) -> &LoadEventZgld;
+    fn _mut_load_event_zgld(&mut self) -> &mut LoadEventZgld;
     fn load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
         self._load_event_zgld().load_event_and_status_zgld.as_ref().unwrap_or(&load_event_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
+    }
+    fn mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
+        self._mut_load_event_zgld().load_event_and_status_zgld.get_or_insert(load_event_zgld::LOAD_EVENT_AND_STATUS_ZGLD.clone())
     }
 }
 impl IsLoadEventZgld for LoadEventZgld {
     fn _load_event_zgld(&self) -> &LoadEventZgld {
+        self
+    }
+    fn _mut_load_event_zgld(&mut self) -> &mut LoadEventZgld {
         self
     }
 }
@@ -452,15 +568,25 @@ mod load_event {
 }
 pub trait IsLoadEvent {
     fn _load_event(&self) -> &LoadEvent;
+    fn _mut_load_event(&mut self) -> &mut LoadEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._load_event().event_value.as_ref().unwrap_or(&load_event::EVENT_VALUE)
+    }
+    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
+        self._mut_load_event().event_value.get_or_insert(load_event::EVENT_VALUE.clone())
     }
     fn load_event_zgld(&self) -> &LoadEventZgld {
         self._load_event().load_event_zgld.as_ref().unwrap_or(&load_event::LOAD_EVENT_ZGLD)
     }
+    fn mut_load_event_zgld(&mut self) -> &mut LoadEventZgld {
+        self._mut_load_event().load_event_zgld.get_or_insert(load_event::LOAD_EVENT_ZGLD.clone())
+    }
 }
 impl IsLoadEvent for LoadEvent {
     fn _load_event(&self) -> &LoadEvent {
+        self
+    }
+    fn _mut_load_event(&mut self) -> &mut LoadEvent {
         self
     }
 }
@@ -517,21 +643,37 @@ mod load_event_profile {
 }
 pub trait IsLoadEventProfile {
     fn _load_event_profile(&self) -> &LoadEventProfile;
+    fn _mut_load_event_profile(&mut self) -> &mut LoadEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._load_event_profile().event_message_info.as_ref().unwrap_or(&load_event_profile::EVENT_MESSAGE_INFO)
+    }
+    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._mut_load_event_profile().event_message_info.get_or_insert(load_event_profile::EVENT_MESSAGE_INFO.clone())
     }
     fn energy_consumer(&self) -> &super::commonmodule::EnergyConsumer {
         self._load_event_profile().energy_consumer.as_ref().unwrap_or(&load_event_profile::ENERGY_CONSUMER)
     }
+    fn mut_energy_consumer(&mut self) -> &mut super::commonmodule::EnergyConsumer {
+        self._mut_load_event_profile().energy_consumer.get_or_insert(load_event_profile::ENERGY_CONSUMER.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._load_event_profile().ied.as_ref().unwrap_or(&load_event_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_load_event_profile().ied.get_or_insert(load_event_profile::IED.clone())
     }
     fn load_event(&self) -> &LoadEvent {
         self._load_event_profile().load_event.as_ref().unwrap_or(&load_event_profile::LOAD_EVENT)
     }
+    fn mut_load_event(&mut self) -> &mut LoadEvent {
+        self._mut_load_event_profile().load_event.get_or_insert(load_event_profile::LOAD_EVENT.clone())
+    }
 }
 impl IsLoadEventProfile for LoadEventProfile {
     fn _load_event_profile(&self) -> &LoadEventProfile {
+        self
+    }
+    fn _mut_load_event_profile(&mut self) -> &mut LoadEventProfile {
         self
     }
 }
@@ -569,21 +711,37 @@ mod load_reading {
 }
 pub trait IsLoadReading {
     fn _load_reading(&self) -> &LoadReading;
+    fn _mut_load_reading(&mut self) -> &mut LoadReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._load_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&load_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._mut_load_reading().conducting_equipment_terminal_reading.get_or_insert(load_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._load_reading().phase_mmtn.as_ref().unwrap_or(&load_reading::PHASE_MMTN)
     }
+    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._mut_load_reading().phase_mmtn.get_or_insert(load_reading::PHASE_MMTN.clone())
+    }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._load_reading().reading_mmtr.as_ref().unwrap_or(&load_reading::READING_MMTR)
+    }
+    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._mut_load_reading().reading_mmtr.get_or_insert(load_reading::READING_MMTR.clone())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._load_reading().reading_mmxu.as_ref().unwrap_or(&load_reading::READING_MMXU)
     }
+    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._mut_load_reading().reading_mmxu.get_or_insert(load_reading::READING_MMXU.clone())
+    }
 }
 impl IsLoadReading for LoadReading {
     fn _load_reading(&self) -> &LoadReading {
+        self
+    }
+    fn _mut_load_reading(&mut self) -> &mut LoadReading {
         self
     }
 }
@@ -640,21 +798,37 @@ mod load_reading_profile {
 }
 pub trait IsLoadReadingProfile {
     fn _load_reading_profile(&self) -> &LoadReadingProfile;
+    fn _mut_load_reading_profile(&mut self) -> &mut LoadReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._load_reading_profile().reading_message_info.as_ref().unwrap_or(&load_reading_profile::READING_MESSAGE_INFO)
+    }
+    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._mut_load_reading_profile().reading_message_info.get_or_insert(load_reading_profile::READING_MESSAGE_INFO.clone())
     }
     fn energy_consumer(&self) -> &super::commonmodule::EnergyConsumer {
         self._load_reading_profile().energy_consumer.as_ref().unwrap_or(&load_reading_profile::ENERGY_CONSUMER)
     }
+    fn mut_energy_consumer(&mut self) -> &mut super::commonmodule::EnergyConsumer {
+        self._mut_load_reading_profile().energy_consumer.get_or_insert(load_reading_profile::ENERGY_CONSUMER.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._load_reading_profile().ied.as_ref().unwrap_or(&load_reading_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_load_reading_profile().ied.get_or_insert(load_reading_profile::IED.clone())
     }
     fn load_reading(&self) -> &LoadReading {
         self._load_reading_profile().load_reading.as_ref().unwrap_or(&load_reading_profile::LOAD_READING)
     }
+    fn mut_load_reading(&mut self) -> &mut LoadReading {
+        self._mut_load_reading_profile().load_reading.get_or_insert(load_reading_profile::LOAD_READING.clone())
+    }
 }
 impl IsLoadReadingProfile for LoadReadingProfile {
     fn _load_reading_profile(&self) -> &LoadReadingProfile {
+        self
+    }
+    fn _mut_load_reading_profile(&mut self) -> &mut LoadReadingProfile {
         self
     }
 }
@@ -680,12 +854,19 @@ mod load_status_zgld {
 }
 pub trait IsLoadStatusZgld {
     fn _load_status_zgld(&self) -> &LoadStatusZgld;
+    fn _mut_load_status_zgld(&mut self) -> &mut LoadStatusZgld;
     fn load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
         self._load_status_zgld().load_event_and_status_zgld.as_ref().unwrap_or(&load_status_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
+    }
+    fn mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
+        self._mut_load_status_zgld().load_event_and_status_zgld.get_or_insert(load_status_zgld::LOAD_EVENT_AND_STATUS_ZGLD.clone())
     }
 }
 impl IsLoadStatusZgld for LoadStatusZgld {
     fn _load_status_zgld(&self) -> &LoadStatusZgld {
+        self
+    }
+    fn _mut_load_status_zgld(&mut self) -> &mut LoadStatusZgld {
         self
     }
 }
@@ -721,15 +902,25 @@ mod load_status {
 }
 pub trait IsLoadStatus {
     fn _load_status(&self) -> &LoadStatus;
+    fn _mut_load_status(&mut self) -> &mut LoadStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._load_status().status_value.as_ref().unwrap_or(&load_status::STATUS_VALUE)
+    }
+    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._mut_load_status().status_value.get_or_insert(load_status::STATUS_VALUE.clone())
     }
     fn load_status_zgld(&self) -> &LoadStatusZgld {
         self._load_status().load_status_zgld.as_ref().unwrap_or(&load_status::LOAD_STATUS_ZGLD)
     }
+    fn mut_load_status_zgld(&mut self) -> &mut LoadStatusZgld {
+        self._mut_load_status().load_status_zgld.get_or_insert(load_status::LOAD_STATUS_ZGLD.clone())
+    }
 }
 impl IsLoadStatus for LoadStatus {
     fn _load_status(&self) -> &LoadStatus {
+        self
+    }
+    fn _mut_load_status(&mut self) -> &mut LoadStatus {
         self
     }
 }
@@ -786,21 +977,37 @@ mod load_status_profile {
 }
 pub trait IsLoadStatusProfile {
     fn _load_status_profile(&self) -> &LoadStatusProfile;
+    fn _mut_load_status_profile(&mut self) -> &mut LoadStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._load_status_profile().status_message_info.as_ref().unwrap_or(&load_status_profile::STATUS_MESSAGE_INFO)
+    }
+    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._mut_load_status_profile().status_message_info.get_or_insert(load_status_profile::STATUS_MESSAGE_INFO.clone())
     }
     fn energy_consumer(&self) -> &super::commonmodule::EnergyConsumer {
         self._load_status_profile().energy_consumer.as_ref().unwrap_or(&load_status_profile::ENERGY_CONSUMER)
     }
+    fn mut_energy_consumer(&mut self) -> &mut super::commonmodule::EnergyConsumer {
+        self._mut_load_status_profile().energy_consumer.get_or_insert(load_status_profile::ENERGY_CONSUMER.clone())
+    }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._load_status_profile().ied.as_ref().unwrap_or(&load_status_profile::IED)
+    }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_load_status_profile().ied.get_or_insert(load_status_profile::IED.clone())
     }
     fn load_status(&self) -> &LoadStatus {
         self._load_status_profile().load_status.as_ref().unwrap_or(&load_status_profile::LOAD_STATUS)
     }
+    fn mut_load_status(&mut self) -> &mut LoadStatus {
+        self._mut_load_status_profile().load_status.get_or_insert(load_status_profile::LOAD_STATUS.clone())
+    }
 }
 impl IsLoadStatusProfile for LoadStatusProfile {
     fn _load_status_profile(&self) -> &LoadStatusProfile {
+        self
+    }
+    fn _mut_load_status_profile(&mut self) -> &mut LoadStatusProfile {
         self
     }
 }

@@ -43,33 +43,61 @@ mod regulator_control_atcc {
 }
 pub trait IsRegulatorControlAtcc {
     fn _regulator_control_atcc(&self) -> &RegulatorControlAtcc;
+    fn _mut_regulator_control_atcc(&mut self) -> &mut RegulatorControlAtcc;
     fn bnd_ctr(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_control_atcc::BND_CTR)
+    }
+    fn mut_bnd_ctr(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_control_atcc().bnd_ctr.get_or_insert(regulator_control_atcc::BND_CTR.clone())
     }
     fn bnd_wid(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().bnd_wid.as_ref().unwrap_or(&regulator_control_atcc::BND_WID)
     }
+    fn mut_bnd_wid(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_control_atcc().bnd_wid.get_or_insert(regulator_control_atcc::BND_WID.clone())
+    }
     fn ctl_dl_tmms(&self) -> &super::commonmodule::ControlIng {
         self._regulator_control_atcc().ctl_dl_tmms.as_ref().unwrap_or(&regulator_control_atcc::CTL_DL_TMMS)
+    }
+    fn mut_ctl_dl_tmms(&mut self) -> &mut super::commonmodule::ControlIng {
+        self._mut_regulator_control_atcc().ctl_dl_tmms.get_or_insert(regulator_control_atcc::CTL_DL_TMMS.clone())
     }
     fn ldcr(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().ldcr.as_ref().unwrap_or(&regulator_control_atcc::LDCR)
     }
+    fn mut_ldcr(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_control_atcc().ldcr.get_or_insert(regulator_control_atcc::LDCR.clone())
+    }
     fn ldcx(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().ldcx.as_ref().unwrap_or(&regulator_control_atcc::LDCX)
+    }
+    fn mut_ldcx(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_control_atcc().ldcx.get_or_insert(regulator_control_atcc::LDCX.clone())
     }
     fn ldcz(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().ldcz.as_ref().unwrap_or(&regulator_control_atcc::LDCZ)
     }
+    fn mut_ldcz(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_control_atcc().ldcz.get_or_insert(regulator_control_atcc::LDCZ.clone())
+    }
     fn par_op(&self) -> &super::commonmodule::ControlSpc {
         self._regulator_control_atcc().par_op.as_ref().unwrap_or(&regulator_control_atcc::PAR_OP)
+    }
+    fn mut_par_op(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._mut_regulator_control_atcc().par_op.get_or_insert(regulator_control_atcc::PAR_OP.clone())
     }
     fn tap_pos(&self) -> &super::commonmodule::ControlIsc {
         self._regulator_control_atcc().tap_pos.as_ref().unwrap_or(&regulator_control_atcc::TAP_POS)
     }
+    fn mut_tap_pos(&mut self) -> &mut super::commonmodule::ControlIsc {
+        self._mut_regulator_control_atcc().tap_pos.get_or_insert(regulator_control_atcc::TAP_POS.clone())
+    }
 }
 impl IsRegulatorControlAtcc for RegulatorControlAtcc {
     fn _regulator_control_atcc(&self) -> &RegulatorControlAtcc {
+        self
+    }
+    fn _mut_regulator_control_atcc(&mut self) -> &mut RegulatorControlAtcc {
         self
     }
 }
@@ -123,33 +151,61 @@ mod regulator_point {
 }
 pub trait IsRegulatorPoint {
     fn _regulator_point(&self) -> &RegulatorPoint;
+    fn _mut_regulator_point(&mut self) -> &mut RegulatorPoint;
     fn control(&self) -> &RegulatorControlAtcc {
         self._regulator_point().control.as_ref().unwrap_or(&regulator_point::CONTROL)
+    }
+    fn mut_control(&mut self) -> &mut RegulatorControlAtcc {
+        self._mut_regulator_point().control.get_or_insert(regulator_point::CONTROL.clone())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._regulator_point().pct_v_droop.as_ref().unwrap_or(&regulator_point::PCT_V_DROOP)
     }
+    fn mut_pct_v_droop(&mut self) -> &mut f32 {
+        self._mut_regulator_point().pct_v_droop.get_or_insert(regulator_point::PCT_V_DROOP.clone())
+    }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._regulator_point().ramp_rates.as_ref().unwrap_or(&regulator_point::RAMP_RATES)
+    }
+    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
+        self._mut_regulator_point().ramp_rates.get_or_insert(regulator_point::RAMP_RATES.clone())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._regulator_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&regulator_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
+    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_regulator_point().reactive_pwr_set_point_enabled.get_or_insert(regulator_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._regulator_point().reset.as_ref().unwrap_or(&regulator_point::RESET)
+    }
+    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_regulator_point().reset.get_or_insert(regulator_point::RESET.clone())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._regulator_point().state.as_ref().unwrap_or(&regulator_point::STATE)
     }
+    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._mut_regulator_point().state.get_or_insert(regulator_point::STATE.clone())
+    }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._regulator_point().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_point::VOLTAGE_SET_POINT_ENABLED)
+    }
+    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._mut_regulator_point().voltage_set_point_enabled.get_or_insert(regulator_point::VOLTAGE_SET_POINT_ENABLED.clone())
     }
     fn start_time(&self) -> &super::commonmodule::Timestamp {
         self._regulator_point().start_time.as_ref().unwrap_or(&regulator_point::START_TIME)
     }
+    fn mut_start_time(&mut self) -> &mut super::commonmodule::Timestamp {
+        self._mut_regulator_point().start_time.get_or_insert(regulator_point::START_TIME.clone())
+    }
 }
 impl IsRegulatorPoint for RegulatorPoint {
     fn _regulator_point(&self) -> &RegulatorPoint {
+        self
+    }
+    fn _mut_regulator_point(&mut self) -> &mut RegulatorPoint {
         self
     }
 }
@@ -174,11 +230,17 @@ mod regulator_csg {
 }
 pub trait IsRegulatorCsg {
     fn _regulator_csg(&self) -> &RegulatorCsg;
+    fn _mut_regulator_csg(&mut self) -> &mut RegulatorCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<RegulatorPoint> {
         &self._regulator_csg().crv_pts    }
+    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<RegulatorPoint> {
+        &mut self._mut_regulator_csg().crv_pts    }
 }
 impl IsRegulatorCsg for RegulatorCsg {
     fn _regulator_csg(&self) -> &RegulatorCsg {
+        self
+    }
+    fn _mut_regulator_csg(&mut self) -> &mut RegulatorCsg {
         self
     }
 }
@@ -204,12 +266,19 @@ mod regulator_control_schedule_fsch {
 }
 pub trait IsRegulatorControlScheduleFsch {
     fn _regulator_control_schedule_fsch(&self) -> &RegulatorControlScheduleFsch;
+    fn _mut_regulator_control_schedule_fsch(&mut self) -> &mut RegulatorControlScheduleFsch;
     fn val_dcsg(&self) -> &RegulatorCsg {
         self._regulator_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&regulator_control_schedule_fsch::VAL_DCSG)
+    }
+    fn mut_val_dcsg(&mut self) -> &mut RegulatorCsg {
+        self._mut_regulator_control_schedule_fsch().val_dcsg.get_or_insert(regulator_control_schedule_fsch::VAL_DCSG.clone())
     }
 }
 impl IsRegulatorControlScheduleFsch for RegulatorControlScheduleFsch {
     fn _regulator_control_schedule_fsch(&self) -> &RegulatorControlScheduleFsch {
+        self
+    }
+    fn _mut_regulator_control_schedule_fsch(&mut self) -> &mut RegulatorControlScheduleFsch {
         self
     }
 }
@@ -239,15 +308,25 @@ mod regulator_control_fscc {
 }
 pub trait IsRegulatorControlFscc {
     fn _regulator_control_fscc(&self) -> &RegulatorControlFscc;
+    fn _mut_regulator_control_fscc(&mut self) -> &mut RegulatorControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._regulator_control_fscc().control_fscc.as_ref().unwrap_or(&regulator_control_fscc::CONTROL_FSCC)
+    }
+    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._mut_regulator_control_fscc().control_fscc.get_or_insert(regulator_control_fscc::CONTROL_FSCC.clone())
     }
     fn regulator_control_schedule_fsch(&self) -> &RegulatorControlScheduleFsch {
         self._regulator_control_fscc().regulator_control_schedule_fsch.as_ref().unwrap_or(&regulator_control_fscc::REGULATOR_CONTROL_SCHEDULE_FSCH)
     }
+    fn mut_regulator_control_schedule_fsch(&mut self) -> &mut RegulatorControlScheduleFsch {
+        self._mut_regulator_control_fscc().regulator_control_schedule_fsch.get_or_insert(regulator_control_fscc::REGULATOR_CONTROL_SCHEDULE_FSCH.clone())
+    }
 }
 impl IsRegulatorControlFscc for RegulatorControlFscc {
     fn _regulator_control_fscc(&self) -> &RegulatorControlFscc {
+        self
+    }
+    fn _mut_regulator_control_fscc(&mut self) -> &mut RegulatorControlFscc {
         self
     }
 }
@@ -287,18 +366,31 @@ mod regulator_control {
 }
 pub trait IsRegulatorControl {
     fn _regulator_control(&self) -> &RegulatorControl;
+    fn _mut_regulator_control(&mut self) -> &mut RegulatorControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._regulator_control().control_value.as_ref().unwrap_or(&regulator_control::CONTROL_VALUE)
+    }
+    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._mut_regulator_control().control_value.get_or_insert(regulator_control::CONTROL_VALUE.clone())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._regulator_control().check.as_ref().unwrap_or(&regulator_control::CHECK)
     }
+    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._mut_regulator_control().check.get_or_insert(regulator_control::CHECK.clone())
+    }
     fn regulator_control_fscc(&self) -> &RegulatorControlFscc {
         self._regulator_control().regulator_control_fscc.as_ref().unwrap_or(&regulator_control::REGULATOR_CONTROL_FSCC)
+    }
+    fn mut_regulator_control_fscc(&mut self) -> &mut RegulatorControlFscc {
+        self._mut_regulator_control().regulator_control_fscc.get_or_insert(regulator_control::REGULATOR_CONTROL_FSCC.clone())
     }
 }
 impl IsRegulatorControl for RegulatorControl {
     fn _regulator_control(&self) -> &RegulatorControl {
+        self
+    }
+    fn _mut_regulator_control(&mut self) -> &mut RegulatorControl {
         self
     }
 }
@@ -325,12 +417,19 @@ mod regulator_system {
 }
 pub trait IsRegulatorSystem {
     fn _regulator_system(&self) -> &RegulatorSystem;
+    fn _mut_regulator_system(&mut self) -> &mut RegulatorSystem;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._regulator_system().conducting_equipment.as_ref().unwrap_or(&regulator_system::CONDUCTING_EQUIPMENT)
+    }
+    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._mut_regulator_system().conducting_equipment.get_or_insert(regulator_system::CONDUCTING_EQUIPMENT.clone())
     }
 }
 impl IsRegulatorSystem for RegulatorSystem {
     fn _regulator_system(&self) -> &RegulatorSystem {
+        self
+    }
+    fn _mut_regulator_system(&mut self) -> &mut RegulatorSystem {
         self
     }
 }
@@ -388,21 +487,37 @@ mod regulator_control_profile {
 }
 pub trait IsRegulatorControlProfile {
     fn _regulator_control_profile(&self) -> &RegulatorControlProfile;
+    fn _mut_regulator_control_profile(&mut self) -> &mut RegulatorControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._regulator_control_profile().control_message_info.as_ref().unwrap_or(&regulator_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._mut_regulator_control_profile().control_message_info.get_or_insert(regulator_control_profile::CONTROL_MESSAGE_INFO.clone())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._regulator_control_profile().ied.as_ref().unwrap_or(&regulator_control_profile::IED)
     }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_regulator_control_profile().ied.get_or_insert(regulator_control_profile::IED.clone())
+    }
     fn regulator_control(&self) -> &RegulatorControl {
         self._regulator_control_profile().regulator_control.as_ref().unwrap_or(&regulator_control_profile::REGULATOR_CONTROL)
+    }
+    fn mut_regulator_control(&mut self) -> &mut RegulatorControl {
+        self._mut_regulator_control_profile().regulator_control.get_or_insert(regulator_control_profile::REGULATOR_CONTROL.clone())
     }
     fn regulator_system(&self) -> &RegulatorSystem {
         self._regulator_control_profile().regulator_system.as_ref().unwrap_or(&regulator_control_profile::REGULATOR_SYSTEM)
     }
+    fn mut_regulator_system(&mut self) -> &mut RegulatorSystem {
+        self._mut_regulator_control_profile().regulator_system.get_or_insert(regulator_control_profile::REGULATOR_SYSTEM.clone())
+    }
 }
 impl IsRegulatorControlProfile for RegulatorControlProfile {
     fn _regulator_control_profile(&self) -> &RegulatorControlProfile {
+        self
+    }
+    fn _mut_regulator_control_profile(&mut self) -> &mut RegulatorControlProfile {
         self
     }
 }
@@ -452,33 +567,61 @@ mod regulator_event_and_status_atcc {
 }
 pub trait IsRegulatorEventAndStatusAtcc {
     fn _regulator_event_and_status_atcc(&self) -> &RegulatorEventAndStatusAtcc;
+    fn _mut_regulator_event_and_status_atcc(&mut self) -> &mut RegulatorEventAndStatusAtcc;
     fn bnd_ctr(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_event_and_status_atcc::BND_CTR)
+    }
+    fn mut_bnd_ctr(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_event_and_status_atcc().bnd_ctr.get_or_insert(regulator_event_and_status_atcc::BND_CTR.clone())
     }
     fn bnd_wid(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().bnd_wid.as_ref().unwrap_or(&regulator_event_and_status_atcc::BND_WID)
     }
+    fn mut_bnd_wid(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_event_and_status_atcc().bnd_wid.get_or_insert(regulator_event_and_status_atcc::BND_WID.clone())
+    }
     fn ldcr(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().ldcr.as_ref().unwrap_or(&regulator_event_and_status_atcc::LDCR)
+    }
+    fn mut_ldcr(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_event_and_status_atcc().ldcr.get_or_insert(regulator_event_and_status_atcc::LDCR.clone())
     }
     fn ldcx(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().ldcx.as_ref().unwrap_or(&regulator_event_and_status_atcc::LDCX)
     }
+    fn mut_ldcx(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_event_and_status_atcc().ldcx.get_or_insert(regulator_event_and_status_atcc::LDCX.clone())
+    }
     fn ldcz(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().ldcz.as_ref().unwrap_or(&regulator_event_and_status_atcc::LDCZ)
+    }
+    fn mut_ldcz(&mut self) -> &mut super::commonmodule::Asg {
+        self._mut_regulator_event_and_status_atcc().ldcz.get_or_insert(regulator_event_and_status_atcc::LDCZ.clone())
     }
     fn par_op(&self) -> &super::commonmodule::StatusSpc {
         self._regulator_event_and_status_atcc().par_op.as_ref().unwrap_or(&regulator_event_and_status_atcc::PAR_OP)
     }
+    fn mut_par_op(&mut self) -> &mut super::commonmodule::StatusSpc {
+        self._mut_regulator_event_and_status_atcc().par_op.get_or_insert(regulator_event_and_status_atcc::PAR_OP.clone())
+    }
     fn tap_op_err(&self) -> &super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc().tap_op_err.as_ref().unwrap_or(&regulator_event_and_status_atcc::TAP_OP_ERR)
+    }
+    fn mut_tap_op_err(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._mut_regulator_event_and_status_atcc().tap_op_err.get_or_insert(regulator_event_and_status_atcc::TAP_OP_ERR.clone())
     }
     fn tap_pos(&self) -> &super::commonmodule::StatusIsc {
         self._regulator_event_and_status_atcc().tap_pos.as_ref().unwrap_or(&regulator_event_and_status_atcc::TAP_POS)
     }
+    fn mut_tap_pos(&mut self) -> &mut super::commonmodule::StatusIsc {
+        self._mut_regulator_event_and_status_atcc().tap_pos.get_or_insert(regulator_event_and_status_atcc::TAP_POS.clone())
+    }
 }
 impl IsRegulatorEventAndStatusAtcc for RegulatorEventAndStatusAtcc {
     fn _regulator_event_and_status_atcc(&self) -> &RegulatorEventAndStatusAtcc {
+        self
+    }
+    fn _mut_regulator_event_and_status_atcc(&mut self) -> &mut RegulatorEventAndStatusAtcc {
         self
     }
 }
@@ -518,27 +661,49 @@ mod regulator_event_and_status_point {
 }
 pub trait IsRegulatorEventAndStatusPoint {
     fn _regulator_event_and_status_point(&self) -> &RegulatorEventAndStatusPoint;
+    fn _mut_regulator_event_and_status_point(&mut self) -> &mut RegulatorEventAndStatusPoint;
     fn event_and_status(&self) -> &RegulatorEventAndStatusAtcc {
         self._regulator_event_and_status_point().event_and_status.as_ref().unwrap_or(&regulator_event_and_status_point::EVENT_AND_STATUS)
+    }
+    fn mut_event_and_status(&mut self) -> &mut RegulatorEventAndStatusAtcc {
+        self._mut_regulator_event_and_status_point().event_and_status.get_or_insert(regulator_event_and_status_point::EVENT_AND_STATUS.clone())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._regulator_event_and_status_point().pct_v_droop.as_ref().unwrap_or(&regulator_event_and_status_point::PCT_V_DROOP)
     }
+    fn mut_pct_v_droop(&mut self) -> &mut f32 {
+        self._mut_regulator_event_and_status_point().pct_v_droop.get_or_insert(regulator_event_and_status_point::PCT_V_DROOP.clone())
+    }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._regulator_event_and_status_point().ramp_rates.as_ref().unwrap_or(&regulator_event_and_status_point::RAMP_RATES)
+    }
+    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
+        self._mut_regulator_event_and_status_point().ramp_rates.get_or_insert(regulator_event_and_status_point::RAMP_RATES.clone())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
         self._regulator_event_and_status_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
+    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::StatusSpc {
+        self._mut_regulator_event_and_status_point().reactive_pwr_set_point_enabled.get_or_insert(regulator_event_and_status_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._regulator_event_and_status_point().state.as_ref().unwrap_or(&regulator_event_and_status_point::STATE)
+    }
+    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._mut_regulator_event_and_status_point().state.get_or_insert(regulator_event_and_status_point::STATE.clone())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
         self._regulator_event_and_status_point().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_point::VOLTAGE_SET_POINT_ENABLED)
     }
+    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::StatusSpc {
+        self._mut_regulator_event_and_status_point().voltage_set_point_enabled.get_or_insert(regulator_event_and_status_point::VOLTAGE_SET_POINT_ENABLED.clone())
+    }
 }
 impl IsRegulatorEventAndStatusPoint for RegulatorEventAndStatusPoint {
     fn _regulator_event_and_status_point(&self) -> &RegulatorEventAndStatusPoint {
+        self
+    }
+    fn _mut_regulator_event_and_status_point(&mut self) -> &mut RegulatorEventAndStatusPoint {
         self
     }
 }
@@ -578,18 +743,31 @@ mod regulator_event_and_status_ancr {
 }
 pub trait IsRegulatorEventAndStatusAncr {
     fn _regulator_event_and_status_ancr(&self) -> &RegulatorEventAndStatusAncr;
+    fn _mut_regulator_event_and_status_ancr(&mut self) -> &mut RegulatorEventAndStatusAncr;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._regulator_event_and_status_ancr().logical_node_for_event_and_status.as_ref().unwrap_or(&regulator_event_and_status_ancr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._mut_regulator_event_and_status_ancr().logical_node_for_event_and_status.get_or_insert(regulator_event_and_status_ancr::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._regulator_event_and_status_ancr().dynamic_test.as_ref().unwrap_or(&regulator_event_and_status_ancr::DYNAMIC_TEST)
     }
+    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._mut_regulator_event_and_status_ancr().dynamic_test.get_or_insert(regulator_event_and_status_ancr::DYNAMIC_TEST.clone())
+    }
     fn point_status(&self) -> &RegulatorEventAndStatusPoint {
         self._regulator_event_and_status_ancr().point_status.as_ref().unwrap_or(&regulator_event_and_status_ancr::POINT_STATUS)
+    }
+    fn mut_point_status(&mut self) -> &mut RegulatorEventAndStatusPoint {
+        self._mut_regulator_event_and_status_ancr().point_status.get_or_insert(regulator_event_and_status_ancr::POINT_STATUS.clone())
     }
 }
 impl IsRegulatorEventAndStatusAncr for RegulatorEventAndStatusAncr {
     fn _regulator_event_and_status_ancr(&self) -> &RegulatorEventAndStatusAncr {
+        self
+    }
+    fn _mut_regulator_event_and_status_ancr(&mut self) -> &mut RegulatorEventAndStatusAncr {
         self
     }
 }
@@ -625,15 +803,25 @@ mod regulator_event {
 }
 pub trait IsRegulatorEvent {
     fn _regulator_event(&self) -> &RegulatorEvent;
+    fn _mut_regulator_event(&mut self) -> &mut RegulatorEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._regulator_event().event_value.as_ref().unwrap_or(&regulator_event::EVENT_VALUE)
+    }
+    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
+        self._mut_regulator_event().event_value.get_or_insert(regulator_event::EVENT_VALUE.clone())
     }
     fn regulator_event_and_status_ancr(&self) -> &RegulatorEventAndStatusAncr {
         self._regulator_event().regulator_event_and_status_ancr.as_ref().unwrap_or(&regulator_event::REGULATOR_EVENT_AND_STATUS_ANCR)
     }
+    fn mut_regulator_event_and_status_ancr(&mut self) -> &mut RegulatorEventAndStatusAncr {
+        self._mut_regulator_event().regulator_event_and_status_ancr.get_or_insert(regulator_event::REGULATOR_EVENT_AND_STATUS_ANCR.clone())
+    }
 }
 impl IsRegulatorEvent for RegulatorEvent {
     fn _regulator_event(&self) -> &RegulatorEvent {
+        self
+    }
+    fn _mut_regulator_event(&mut self) -> &mut RegulatorEvent {
         self
     }
 }
@@ -690,21 +878,37 @@ mod regulator_event_profile {
 }
 pub trait IsRegulatorEventProfile {
     fn _regulator_event_profile(&self) -> &RegulatorEventProfile;
+    fn _mut_regulator_event_profile(&mut self) -> &mut RegulatorEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._regulator_event_profile().event_message_info.as_ref().unwrap_or(&regulator_event_profile::EVENT_MESSAGE_INFO)
+    }
+    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._mut_regulator_event_profile().event_message_info.get_or_insert(regulator_event_profile::EVENT_MESSAGE_INFO.clone())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._regulator_event_profile().ied.as_ref().unwrap_or(&regulator_event_profile::IED)
     }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_regulator_event_profile().ied.get_or_insert(regulator_event_profile::IED.clone())
+    }
     fn regulator_event(&self) -> &RegulatorEvent {
         self._regulator_event_profile().regulator_event.as_ref().unwrap_or(&regulator_event_profile::REGULATOR_EVENT)
+    }
+    fn mut_regulator_event(&mut self) -> &mut RegulatorEvent {
+        self._mut_regulator_event_profile().regulator_event.get_or_insert(regulator_event_profile::REGULATOR_EVENT.clone())
     }
     fn regulator_system(&self) -> &RegulatorSystem {
         self._regulator_event_profile().regulator_system.as_ref().unwrap_or(&regulator_event_profile::REGULATOR_SYSTEM)
     }
+    fn mut_regulator_system(&mut self) -> &mut RegulatorSystem {
+        self._mut_regulator_event_profile().regulator_system.get_or_insert(regulator_event_profile::REGULATOR_SYSTEM.clone())
+    }
 }
 impl IsRegulatorEventProfile for RegulatorEventProfile {
     fn _regulator_event_profile(&self) -> &RegulatorEventProfile {
+        self
+    }
+    fn _mut_regulator_event_profile(&mut self) -> &mut RegulatorEventProfile {
         self
     }
 }
@@ -742,21 +946,37 @@ mod regulator_reading {
 }
 pub trait IsRegulatorReading {
     fn _regulator_reading(&self) -> &RegulatorReading;
+    fn _mut_regulator_reading(&mut self) -> &mut RegulatorReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._regulator_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&regulator_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._mut_regulator_reading().conducting_equipment_terminal_reading.get_or_insert(regulator_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._regulator_reading().phase_mmtn.as_ref().unwrap_or(&regulator_reading::PHASE_MMTN)
     }
+    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._mut_regulator_reading().phase_mmtn.get_or_insert(regulator_reading::PHASE_MMTN.clone())
+    }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._regulator_reading().reading_mmtr.as_ref().unwrap_or(&regulator_reading::READING_MMTR)
+    }
+    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._mut_regulator_reading().reading_mmtr.get_or_insert(regulator_reading::READING_MMTR.clone())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._regulator_reading().reading_mmxu.as_ref().unwrap_or(&regulator_reading::READING_MMXU)
     }
+    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._mut_regulator_reading().reading_mmxu.get_or_insert(regulator_reading::READING_MMXU.clone())
+    }
 }
 impl IsRegulatorReading for RegulatorReading {
     fn _regulator_reading(&self) -> &RegulatorReading {
+        self
+    }
+    fn _mut_regulator_reading(&mut self) -> &mut RegulatorReading {
         self
     }
 }
@@ -812,20 +1032,35 @@ mod regulator_reading_profile {
 }
 pub trait IsRegulatorReadingProfile {
     fn _regulator_reading_profile(&self) -> &RegulatorReadingProfile;
+    fn _mut_regulator_reading_profile(&mut self) -> &mut RegulatorReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._regulator_reading_profile().reading_message_info.as_ref().unwrap_or(&regulator_reading_profile::READING_MESSAGE_INFO)
+    }
+    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._mut_regulator_reading_profile().reading_message_info.get_or_insert(regulator_reading_profile::READING_MESSAGE_INFO.clone())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._regulator_reading_profile().ied.as_ref().unwrap_or(&regulator_reading_profile::IED)
     }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_regulator_reading_profile().ied.get_or_insert(regulator_reading_profile::IED.clone())
+    }
     fn regulator_reading(&self) -> &::std::vec::Vec<RegulatorReading> {
         &self._regulator_reading_profile().regulator_reading    }
+    fn mut_regulator_reading(&mut self) -> &mut ::std::vec::Vec<RegulatorReading> {
+        &mut self._mut_regulator_reading_profile().regulator_reading    }
     fn regulator_system(&self) -> &RegulatorSystem {
         self._regulator_reading_profile().regulator_system.as_ref().unwrap_or(&regulator_reading_profile::REGULATOR_SYSTEM)
+    }
+    fn mut_regulator_system(&mut self) -> &mut RegulatorSystem {
+        self._mut_regulator_reading_profile().regulator_system.get_or_insert(regulator_reading_profile::REGULATOR_SYSTEM.clone())
     }
 }
 impl IsRegulatorReadingProfile for RegulatorReadingProfile {
     fn _regulator_reading_profile(&self) -> &RegulatorReadingProfile {
+        self
+    }
+    fn _mut_regulator_reading_profile(&mut self) -> &mut RegulatorReadingProfile {
         self
     }
 }
@@ -861,15 +1096,25 @@ mod regulator_status {
 }
 pub trait IsRegulatorStatus {
     fn _regulator_status(&self) -> &RegulatorStatus;
+    fn _mut_regulator_status(&mut self) -> &mut RegulatorStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._regulator_status().status_value.as_ref().unwrap_or(&regulator_status::STATUS_VALUE)
+    }
+    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._mut_regulator_status().status_value.get_or_insert(regulator_status::STATUS_VALUE.clone())
     }
     fn regulator_event_and_status_ancr(&self) -> &RegulatorEventAndStatusAncr {
         self._regulator_status().regulator_event_and_status_ancr.as_ref().unwrap_or(&regulator_status::REGULATOR_EVENT_AND_STATUS_ANCR)
     }
+    fn mut_regulator_event_and_status_ancr(&mut self) -> &mut RegulatorEventAndStatusAncr {
+        self._mut_regulator_status().regulator_event_and_status_ancr.get_or_insert(regulator_status::REGULATOR_EVENT_AND_STATUS_ANCR.clone())
+    }
 }
 impl IsRegulatorStatus for RegulatorStatus {
     fn _regulator_status(&self) -> &RegulatorStatus {
+        self
+    }
+    fn _mut_regulator_status(&mut self) -> &mut RegulatorStatus {
         self
     }
 }
@@ -926,21 +1171,37 @@ mod regulator_status_profile {
 }
 pub trait IsRegulatorStatusProfile {
     fn _regulator_status_profile(&self) -> &RegulatorStatusProfile;
+    fn _mut_regulator_status_profile(&mut self) -> &mut RegulatorStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._regulator_status_profile().status_message_info.as_ref().unwrap_or(&regulator_status_profile::STATUS_MESSAGE_INFO)
+    }
+    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._mut_regulator_status_profile().status_message_info.get_or_insert(regulator_status_profile::STATUS_MESSAGE_INFO.clone())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._regulator_status_profile().ied.as_ref().unwrap_or(&regulator_status_profile::IED)
     }
+    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
+        self._mut_regulator_status_profile().ied.get_or_insert(regulator_status_profile::IED.clone())
+    }
     fn regulator_status(&self) -> &RegulatorStatus {
         self._regulator_status_profile().regulator_status.as_ref().unwrap_or(&regulator_status_profile::REGULATOR_STATUS)
+    }
+    fn mut_regulator_status(&mut self) -> &mut RegulatorStatus {
+        self._mut_regulator_status_profile().regulator_status.get_or_insert(regulator_status_profile::REGULATOR_STATUS.clone())
     }
     fn regulator_system(&self) -> &RegulatorSystem {
         self._regulator_status_profile().regulator_system.as_ref().unwrap_or(&regulator_status_profile::REGULATOR_SYSTEM)
     }
+    fn mut_regulator_system(&mut self) -> &mut RegulatorSystem {
+        self._mut_regulator_status_profile().regulator_system.get_or_insert(regulator_status_profile::REGULATOR_SYSTEM.clone())
+    }
 }
 impl IsRegulatorStatusProfile for RegulatorStatusProfile {
     fn _regulator_status_profile(&self) -> &RegulatorStatusProfile {
+        self
+    }
+    fn _mut_regulator_status_profile(&mut self) -> &mut RegulatorStatusProfile {
         self
     }
 }

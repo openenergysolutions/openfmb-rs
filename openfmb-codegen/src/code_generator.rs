@@ -274,10 +274,18 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str("(&self) -> &");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(";\n");
+        self.push_indent();
+        self.buf.push_str("fn _mut_");
+        self.buf.push_str(&to_snake(&message_name));
+        self.buf.push_str("(&mut self) -> &mut ");
+        self.buf.push_str(&to_upper_camel(&message_name));
+        self.buf.push_str(";\n");
         for (field, _idx) in &fields {
             let ty = self.resolve_type(&field);
             let optional = self.optional(&field);
             let repeated = field.label == Some(Label::Repeated as i32);
+
+            // accessor, ex fn some_field(&self) -> &SomeFieldType
             self.push_indent();
             self.buf.push_str("fn ");
             self.buf.push_str(&to_snake(field.name()));
@@ -309,6 +317,40 @@ impl<'a> CodeGenerator<'a> {
             self.depth -= 1;
             self.push_indent();
             self.buf.push_str("}\n");
+
+            // mutator, ex fn mut_some_field(&mut self) -> &mut SomeFieldType
+            self.push_indent();
+            self.buf.push_str("fn mut_");
+            self.buf.push_str(&to_snake(field.name()));
+            self.buf.push_str("(&mut self) -> &mut ");
+            if repeated {
+                self.buf.push_str("::std::vec::Vec<");
+            }
+            self.buf.push_str(&ty);
+            if repeated {
+                self.buf.push_str(">");
+            }
+            self.buf.push_str(" {\n");
+            self.depth += 1;
+            self.push_indent();
+            if !optional {
+                self.buf.push_str("&mut ");
+            }
+            self.buf.push_str("self._mut_");
+            self.buf.push_str(&to_snake(&message_name));
+            self.buf.push_str("().");
+            self.buf.push_str(&to_snake(field.name()));
+            if optional {
+                self.buf.push_str(".get_or_insert(");
+                self.buf.push_str(&to_snake(&message_name));
+                self.buf.push_str("::");
+                self.buf.push_str(&to_shouty_snake(field.name()));
+                self.buf.push_str(".clone()");
+                self.buf.push_str(")\n");
+            }
+            self.depth -= 1;
+            self.push_indent();
+            self.buf.push_str("}\n");
         }
         self.depth -= 1;
         self.push_indent();
@@ -326,6 +368,18 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str("fn _");
         self.buf.push_str(&to_snake(&message_name));
         self.buf.push_str("(&self) -> &");
+        self.buf.push_str(&to_upper_camel(&message_name));
+        self.buf.push_str(" {\n");
+        self.depth += 1;
+        self.push_indent();
+        self.buf.push_str("self\n");
+        self.depth -= 1;
+        self.push_indent();
+        self.buf.push_str("}\n");
+        self.push_indent();
+        self.buf.push_str("fn _mut_");
+        self.buf.push_str(&to_snake(&message_name));
+        self.buf.push_str("(&mut self) -> &mut ");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(" {\n");
         self.depth += 1;
