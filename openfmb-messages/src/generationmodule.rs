@@ -68,91 +68,91 @@ mod generation_point {
 }
 pub trait IsGenerationPoint {
     fn _generation_point(&self) -> &GenerationPoint;
-    fn _mut_generation_point(&mut self) -> &mut GenerationPoint;
+    fn _generation_point_mut(&mut self) -> &mut GenerationPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().black_start_enabled.as_ref().unwrap_or(&generation_point::BLACK_START_ENABLED)
     }
-    fn mut_black_start_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().black_start_enabled.get_or_insert(generation_point::BLACK_START_ENABLED.clone())
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().frequency_set_point_enabled.as_ref().unwrap_or(&generation_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().frequency_set_point_enabled.get_or_insert(generation_point::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._generation_point().pct_hz_droop.as_ref().unwrap_or(&generation_point::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_generation_point().pct_hz_droop.get_or_insert(generation_point::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._generation_point_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._generation_point().pct_v_droop.as_ref().unwrap_or(&generation_point::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_generation_point().pct_v_droop.get_or_insert(generation_point::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._generation_point_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._generation_point().ramp_rates.as_ref().unwrap_or(&generation_point::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_generation_point().ramp_rates.get_or_insert(generation_point::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._generation_point_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().reactive_pwr_set_point_enabled.get_or_insert(generation_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().real_pwr_set_point_enabled.get_or_insert(generation_point::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().reset.as_ref().unwrap_or(&generation_point::RESET)
     }
-    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().reset.get_or_insert(generation_point::RESET.clone())
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._generation_point().state.as_ref().unwrap_or(&generation_point::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_generation_point().state.get_or_insert(generation_point::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._generation_point_mut().state.get_or_insert(Default::default())
     }
     fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().sync_back_to_grid.as_ref().unwrap_or(&generation_point::SYNC_BACK_TO_GRID)
     }
-    fn mut_sync_back_to_grid(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().sync_back_to_grid.get_or_insert(generation_point::SYNC_BACK_TO_GRID.clone())
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
     fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&generation_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn mut_trans_to_islnd_on_grid_loss_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().trans_to_islnd_on_grid_loss_enabled.get_or_insert(generation_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED.clone())
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point().voltage_set_point_enabled.as_ref().unwrap_or(&generation_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point().voltage_set_point_enabled.get_or_insert(generation_point::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
         self._generation_point().start_time.as_ref().unwrap_or(&generation_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut super::commonmodule::ControlTimestamp {
-        self._mut_generation_point().start_time.get_or_insert(generation_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut super::commonmodule::ControlTimestamp {
+        self._generation_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsGenerationPoint for GenerationPoint {
     fn _generation_point(&self) -> &GenerationPoint {
         self
     }
-    fn _mut_generation_point(&mut self) -> &mut GenerationPoint {
+    fn _generation_point_mut(&mut self) -> &mut GenerationPoint {
         self
     }
 }
@@ -177,17 +177,17 @@ mod generation_csg {
 }
 pub trait IsGenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg;
-    fn _mut_generation_csg(&mut self) -> &mut GenerationCsg;
+    fn _generation_csg_mut(&mut self) -> &mut GenerationCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<GenerationPoint> {
         &self._generation_csg().crv_pts    }
-    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<GenerationPoint> {
-        &mut self._mut_generation_csg().crv_pts    }
+    fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<GenerationPoint> {
+        &mut self._generation_csg_mut().crv_pts    }
 }
 impl IsGenerationCsg for GenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg {
         self
     }
-    fn _mut_generation_csg(&mut self) -> &mut GenerationCsg {
+    fn _generation_csg_mut(&mut self) -> &mut GenerationCsg {
         self
     }
 }
@@ -213,19 +213,19 @@ mod generation_control_schedule_fsch {
 }
 pub trait IsGenerationControlScheduleFsch {
     fn _generation_control_schedule_fsch(&self) -> &GenerationControlScheduleFsch;
-    fn _mut_generation_control_schedule_fsch(&mut self) -> &mut GenerationControlScheduleFsch;
+    fn _generation_control_schedule_fsch_mut(&mut self) -> &mut GenerationControlScheduleFsch;
     fn val_dcsg(&self) -> &GenerationCsg {
         self._generation_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&generation_control_schedule_fsch::VAL_DCSG)
     }
-    fn mut_val_dcsg(&mut self) -> &mut GenerationCsg {
-        self._mut_generation_control_schedule_fsch().val_dcsg.get_or_insert(generation_control_schedule_fsch::VAL_DCSG.clone())
+    fn val_dcsg_mut(&mut self) -> &mut GenerationCsg {
+        self._generation_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
     }
 }
 impl IsGenerationControlScheduleFsch for GenerationControlScheduleFsch {
     fn _generation_control_schedule_fsch(&self) -> &GenerationControlScheduleFsch {
         self
     }
-    fn _mut_generation_control_schedule_fsch(&mut self) -> &mut GenerationControlScheduleFsch {
+    fn _generation_control_schedule_fsch_mut(&mut self) -> &mut GenerationControlScheduleFsch {
         self
     }
 }
@@ -255,25 +255,25 @@ mod generation_control_fscc {
 }
 pub trait IsGenerationControlFscc {
     fn _generation_control_fscc(&self) -> &GenerationControlFscc;
-    fn _mut_generation_control_fscc(&mut self) -> &mut GenerationControlFscc;
+    fn _generation_control_fscc_mut(&mut self) -> &mut GenerationControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._generation_control_fscc().control_fscc.as_ref().unwrap_or(&generation_control_fscc::CONTROL_FSCC)
     }
-    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._mut_generation_control_fscc().control_fscc.get_or_insert(generation_control_fscc::CONTROL_FSCC.clone())
+    fn control_fscc_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._generation_control_fscc_mut().control_fscc.get_or_insert(Default::default())
     }
     fn generation_control_schedule_fsch(&self) -> &GenerationControlScheduleFsch {
         self._generation_control_fscc().generation_control_schedule_fsch.as_ref().unwrap_or(&generation_control_fscc::GENERATION_CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_generation_control_schedule_fsch(&mut self) -> &mut GenerationControlScheduleFsch {
-        self._mut_generation_control_fscc().generation_control_schedule_fsch.get_or_insert(generation_control_fscc::GENERATION_CONTROL_SCHEDULE_FSCH.clone())
+    fn generation_control_schedule_fsch_mut(&mut self) -> &mut GenerationControlScheduleFsch {
+        self._generation_control_fscc_mut().generation_control_schedule_fsch.get_or_insert(Default::default())
     }
 }
 impl IsGenerationControlFscc for GenerationControlFscc {
     fn _generation_control_fscc(&self) -> &GenerationControlFscc {
         self
     }
-    fn _mut_generation_control_fscc(&mut self) -> &mut GenerationControlFscc {
+    fn _generation_control_fscc_mut(&mut self) -> &mut GenerationControlFscc {
         self
     }
 }
@@ -313,31 +313,31 @@ mod generation_control {
 }
 pub trait IsGenerationControl {
     fn _generation_control(&self) -> &GenerationControl;
-    fn _mut_generation_control(&mut self) -> &mut GenerationControl;
+    fn _generation_control_mut(&mut self) -> &mut GenerationControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._generation_control().control_value.as_ref().unwrap_or(&generation_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_generation_control().control_value.get_or_insert(generation_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._generation_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._generation_control().check.as_ref().unwrap_or(&generation_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_generation_control().check.get_or_insert(generation_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._generation_control_mut().check.get_or_insert(Default::default())
     }
     fn generation_control_fscc(&self) -> &GenerationControlFscc {
         self._generation_control().generation_control_fscc.as_ref().unwrap_or(&generation_control::GENERATION_CONTROL_FSCC)
     }
-    fn mut_generation_control_fscc(&mut self) -> &mut GenerationControlFscc {
-        self._mut_generation_control().generation_control_fscc.get_or_insert(generation_control::GENERATION_CONTROL_FSCC.clone())
+    fn generation_control_fscc_mut(&mut self) -> &mut GenerationControlFscc {
+        self._generation_control_mut().generation_control_fscc.get_or_insert(Default::default())
     }
 }
 impl IsGenerationControl for GenerationControl {
     fn _generation_control(&self) -> &GenerationControl {
         self
     }
-    fn _mut_generation_control(&mut self) -> &mut GenerationControl {
+    fn _generation_control_mut(&mut self) -> &mut GenerationControl {
         self
     }
 }
@@ -370,25 +370,25 @@ mod generating_unit {
 }
 pub trait IsGeneratingUnit {
     fn _generating_unit(&self) -> &GeneratingUnit;
-    fn _mut_generating_unit(&mut self) -> &mut GeneratingUnit;
+    fn _generating_unit_mut(&mut self) -> &mut GeneratingUnit;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._generating_unit().conducting_equipment.as_ref().unwrap_or(&generating_unit::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._mut_generating_unit().conducting_equipment.get_or_insert(generating_unit::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._generating_unit_mut().conducting_equipment.get_or_insert(Default::default())
     }
     fn max_operating_p(&self) -> &super::commonmodule::ActivePower {
         self._generating_unit().max_operating_p.as_ref().unwrap_or(&generating_unit::MAX_OPERATING_P)
     }
-    fn mut_max_operating_p(&mut self) -> &mut super::commonmodule::ActivePower {
-        self._mut_generating_unit().max_operating_p.get_or_insert(generating_unit::MAX_OPERATING_P.clone())
+    fn max_operating_p_mut(&mut self) -> &mut super::commonmodule::ActivePower {
+        self._generating_unit_mut().max_operating_p.get_or_insert(Default::default())
     }
 }
 impl IsGeneratingUnit for GeneratingUnit {
     fn _generating_unit(&self) -> &GeneratingUnit {
         self
     }
-    fn _mut_generating_unit(&mut self) -> &mut GeneratingUnit {
+    fn _generating_unit_mut(&mut self) -> &mut GeneratingUnit {
         self
     }
 }
@@ -445,37 +445,37 @@ mod generation_control_profile {
 }
 pub trait IsGenerationControlProfile {
     fn _generation_control_profile(&self) -> &GenerationControlProfile;
-    fn _mut_generation_control_profile(&mut self) -> &mut GenerationControlProfile;
+    fn _generation_control_profile_mut(&mut self) -> &mut GenerationControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._generation_control_profile().control_message_info.as_ref().unwrap_or(&generation_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_generation_control_profile().control_message_info.get_or_insert(generation_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._generation_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn generating_unit(&self) -> &GeneratingUnit {
         self._generation_control_profile().generating_unit.as_ref().unwrap_or(&generation_control_profile::GENERATING_UNIT)
     }
-    fn mut_generating_unit(&mut self) -> &mut GeneratingUnit {
-        self._mut_generation_control_profile().generating_unit.get_or_insert(generation_control_profile::GENERATING_UNIT.clone())
+    fn generating_unit_mut(&mut self) -> &mut GeneratingUnit {
+        self._generation_control_profile_mut().generating_unit.get_or_insert(Default::default())
     }
     fn generation_control(&self) -> &GenerationControl {
         self._generation_control_profile().generation_control.as_ref().unwrap_or(&generation_control_profile::GENERATION_CONTROL)
     }
-    fn mut_generation_control(&mut self) -> &mut GenerationControl {
-        self._mut_generation_control_profile().generation_control.get_or_insert(generation_control_profile::GENERATION_CONTROL.clone())
+    fn generation_control_mut(&mut self) -> &mut GenerationControl {
+        self._generation_control_profile_mut().generation_control.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._generation_control_profile().ied.as_ref().unwrap_or(&generation_control_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_generation_control_profile().ied.get_or_insert(generation_control_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._generation_control_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationControlProfile for GenerationControlProfile {
     fn _generation_control_profile(&self) -> &GenerationControlProfile {
         self
     }
-    fn _mut_generation_control_profile(&mut self) -> &mut GenerationControlProfile {
+    fn _generation_control_profile_mut(&mut self) -> &mut GenerationControlProfile {
         self
     }
 }
@@ -513,37 +513,37 @@ mod generation_reading {
 }
 pub trait IsGenerationReading {
     fn _generation_reading(&self) -> &GenerationReading;
-    fn _mut_generation_reading(&mut self) -> &mut GenerationReading;
+    fn _generation_reading_mut(&mut self) -> &mut GenerationReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._generation_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&generation_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
-    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._mut_generation_reading().conducting_equipment_terminal_reading.get_or_insert(generation_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
+    fn conducting_equipment_terminal_reading_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._generation_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._generation_reading().phase_mmtn.as_ref().unwrap_or(&generation_reading::PHASE_MMTN)
     }
-    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
-        self._mut_generation_reading().phase_mmtn.get_or_insert(generation_reading::PHASE_MMTN.clone())
+    fn phase_mmtn_mut(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._generation_reading_mut().phase_mmtn.get_or_insert(Default::default())
     }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._generation_reading().reading_mmtr.as_ref().unwrap_or(&generation_reading::READING_MMTR)
     }
-    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
-        self._mut_generation_reading().reading_mmtr.get_or_insert(generation_reading::READING_MMTR.clone())
+    fn reading_mmtr_mut(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._generation_reading_mut().reading_mmtr.get_or_insert(Default::default())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._generation_reading().reading_mmxu.as_ref().unwrap_or(&generation_reading::READING_MMXU)
     }
-    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_generation_reading().reading_mmxu.get_or_insert(generation_reading::READING_MMXU.clone())
+    fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._generation_reading_mut().reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsGenerationReading for GenerationReading {
     fn _generation_reading(&self) -> &GenerationReading {
         self
     }
-    fn _mut_generation_reading(&mut self) -> &mut GenerationReading {
+    fn _generation_reading_mut(&mut self) -> &mut GenerationReading {
         self
     }
 }
@@ -600,37 +600,37 @@ mod generation_reading_profile {
 }
 pub trait IsGenerationReadingProfile {
     fn _generation_reading_profile(&self) -> &GenerationReadingProfile;
-    fn _mut_generation_reading_profile(&mut self) -> &mut GenerationReadingProfile;
+    fn _generation_reading_profile_mut(&mut self) -> &mut GenerationReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._generation_reading_profile().reading_message_info.as_ref().unwrap_or(&generation_reading_profile::READING_MESSAGE_INFO)
     }
-    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._mut_generation_reading_profile().reading_message_info.get_or_insert(generation_reading_profile::READING_MESSAGE_INFO.clone())
+    fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._generation_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
     }
     fn generating_unit(&self) -> &GeneratingUnit {
         self._generation_reading_profile().generating_unit.as_ref().unwrap_or(&generation_reading_profile::GENERATING_UNIT)
     }
-    fn mut_generating_unit(&mut self) -> &mut GeneratingUnit {
-        self._mut_generation_reading_profile().generating_unit.get_or_insert(generation_reading_profile::GENERATING_UNIT.clone())
+    fn generating_unit_mut(&mut self) -> &mut GeneratingUnit {
+        self._generation_reading_profile_mut().generating_unit.get_or_insert(Default::default())
     }
     fn generation_reading(&self) -> &GenerationReading {
         self._generation_reading_profile().generation_reading.as_ref().unwrap_or(&generation_reading_profile::GENERATION_READING)
     }
-    fn mut_generation_reading(&mut self) -> &mut GenerationReading {
-        self._mut_generation_reading_profile().generation_reading.get_or_insert(generation_reading_profile::GENERATION_READING.clone())
+    fn generation_reading_mut(&mut self) -> &mut GenerationReading {
+        self._generation_reading_profile_mut().generation_reading.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._generation_reading_profile().ied.as_ref().unwrap_or(&generation_reading_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_generation_reading_profile().ied.get_or_insert(generation_reading_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._generation_reading_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationReadingProfile for GenerationReadingProfile {
     fn _generation_reading_profile(&self) -> &GenerationReadingProfile {
         self
     }
-    fn _mut_generation_reading_profile(&mut self) -> &mut GenerationReadingProfile {
+    fn _generation_reading_profile_mut(&mut self) -> &mut GenerationReadingProfile {
         self
     }
 }
@@ -690,79 +690,79 @@ mod generation_point_status {
 }
 pub trait IsGenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus;
-    fn _mut_generation_point_status(&mut self) -> &mut GenerationPointStatus;
+    fn _generation_point_status_mut(&mut self) -> &mut GenerationPointStatus;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().black_start_enabled.as_ref().unwrap_or(&generation_point_status::BLACK_START_ENABLED)
     }
-    fn mut_black_start_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().black_start_enabled.get_or_insert(generation_point_status::BLACK_START_ENABLED.clone())
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&generation_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().frequency_set_point_enabled.get_or_insert(generation_point_status::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._generation_point_status().pct_hz_droop.as_ref().unwrap_or(&generation_point_status::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_generation_point_status().pct_hz_droop.get_or_insert(generation_point_status::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._generation_point_status_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._generation_point_status().pct_v_droop.as_ref().unwrap_or(&generation_point_status::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_generation_point_status().pct_v_droop.get_or_insert(generation_point_status::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._generation_point_status_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._generation_point_status().ramp_rates.as_ref().unwrap_or(&generation_point_status::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_generation_point_status().ramp_rates.get_or_insert(generation_point_status::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._generation_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().reactive_pwr_set_point_enabled.get_or_insert(generation_point_status::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().real_pwr_set_point_enabled.get_or_insert(generation_point_status::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._generation_point_status().state.as_ref().unwrap_or(&generation_point_status::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_generation_point_status().state.get_or_insert(generation_point_status::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._generation_point_status_mut().state.get_or_insert(Default::default())
     }
     fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().sync_back_to_grid.as_ref().unwrap_or(&generation_point_status::SYNC_BACK_TO_GRID)
     }
-    fn mut_sync_back_to_grid(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().sync_back_to_grid.get_or_insert(generation_point_status::SYNC_BACK_TO_GRID.clone())
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
     fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&generation_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn mut_trans_to_islnd_on_grid_loss_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().trans_to_islnd_on_grid_loss_enabled.get_or_insert(generation_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED.clone())
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._generation_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&generation_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_generation_point_status().voltage_set_point_enabled.get_or_insert(generation_point_status::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._generation_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
 impl IsGenerationPointStatus for GenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus {
         self
     }
-    fn _mut_generation_point_status(&mut self) -> &mut GenerationPointStatus {
+    fn _generation_point_status_mut(&mut self) -> &mut GenerationPointStatus {
         self
     }
 }
@@ -808,49 +808,49 @@ mod generation_event_and_status_zgen {
 }
 pub trait IsGenerationEventAndStatusZgen {
     fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen;
-    fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen;
+    fn _generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._generation_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&generation_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_generation_event_and_status_zgen().logical_node_for_event_and_status.get_or_insert(generation_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._generation_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn aux_pwr_st(&self) -> &super::commonmodule::StatusSps {
         self._generation_event_and_status_zgen().aux_pwr_st.as_ref().unwrap_or(&generation_event_and_status_zgen::AUX_PWR_ST)
     }
-    fn mut_aux_pwr_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_generation_event_and_status_zgen().aux_pwr_st.get_or_insert(generation_event_and_status_zgen::AUX_PWR_ST.clone())
+    fn aux_pwr_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._generation_event_and_status_zgen_mut().aux_pwr_st.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._generation_event_and_status_zgen().dynamic_test.as_ref().unwrap_or(&generation_event_and_status_zgen::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
-        self._mut_generation_event_and_status_zgen().dynamic_test.get_or_insert(generation_event_and_status_zgen::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._generation_event_and_status_zgen_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn emg_stop(&self) -> &super::commonmodule::StatusSps {
         self._generation_event_and_status_zgen().emg_stop.as_ref().unwrap_or(&generation_event_and_status_zgen::EMG_STOP)
     }
-    fn mut_emg_stop(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_generation_event_and_status_zgen().emg_stop.get_or_insert(generation_event_and_status_zgen::EMG_STOP.clone())
+    fn emg_stop_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._generation_event_and_status_zgen_mut().emg_stop.get_or_insert(Default::default())
     }
     fn gn_syn_st(&self) -> &super::commonmodule::StatusSps {
         self._generation_event_and_status_zgen().gn_syn_st.as_ref().unwrap_or(&generation_event_and_status_zgen::GN_SYN_ST)
     }
-    fn mut_gn_syn_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_generation_event_and_status_zgen().gn_syn_st.get_or_insert(generation_event_and_status_zgen::GN_SYN_ST.clone())
+    fn gn_syn_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._generation_event_and_status_zgen_mut().gn_syn_st.get_or_insert(Default::default())
     }
     fn point_status(&self) -> &GenerationPointStatus {
         self._generation_event_and_status_zgen().point_status.as_ref().unwrap_or(&generation_event_and_status_zgen::POINT_STATUS)
     }
-    fn mut_point_status(&mut self) -> &mut GenerationPointStatus {
-        self._mut_generation_event_and_status_zgen().point_status.get_or_insert(generation_event_and_status_zgen::POINT_STATUS.clone())
+    fn point_status_mut(&mut self) -> &mut GenerationPointStatus {
+        self._generation_event_and_status_zgen_mut().point_status.get_or_insert(Default::default())
     }
 }
 impl IsGenerationEventAndStatusZgen for GenerationEventAndStatusZgen {
     fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
         self
     }
-    fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
+    fn _generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
         self
     }
 }
@@ -876,19 +876,19 @@ mod generation_event_zgen {
 }
 pub trait IsGenerationEventZgen {
     fn _generation_event_zgen(&self) -> &GenerationEventZgen;
-    fn _mut_generation_event_zgen(&mut self) -> &mut GenerationEventZgen;
+    fn _generation_event_zgen_mut(&mut self) -> &mut GenerationEventZgen;
     fn generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
         self._generation_event_zgen().generation_event_and_status_zgen.as_ref().unwrap_or(&generation_event_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
-        self._mut_generation_event_zgen().generation_event_and_status_zgen.get_or_insert(generation_event_zgen::GENERATION_EVENT_AND_STATUS_ZGEN.clone())
+    fn generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self._generation_event_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsGenerationEventZgen for GenerationEventZgen {
     fn _generation_event_zgen(&self) -> &GenerationEventZgen {
         self
     }
-    fn _mut_generation_event_zgen(&mut self) -> &mut GenerationEventZgen {
+    fn _generation_event_zgen_mut(&mut self) -> &mut GenerationEventZgen {
         self
     }
 }
@@ -924,25 +924,25 @@ mod generation_event {
 }
 pub trait IsGenerationEvent {
     fn _generation_event(&self) -> &GenerationEvent;
-    fn _mut_generation_event(&mut self) -> &mut GenerationEvent;
+    fn _generation_event_mut(&mut self) -> &mut GenerationEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._generation_event().event_value.as_ref().unwrap_or(&generation_event::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_generation_event().event_value.get_or_insert(generation_event::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._generation_event_mut().event_value.get_or_insert(Default::default())
     }
     fn generation_event_zgen(&self) -> &GenerationEventZgen {
         self._generation_event().generation_event_zgen.as_ref().unwrap_or(&generation_event::GENERATION_EVENT_ZGEN)
     }
-    fn mut_generation_event_zgen(&mut self) -> &mut GenerationEventZgen {
-        self._mut_generation_event().generation_event_zgen.get_or_insert(generation_event::GENERATION_EVENT_ZGEN.clone())
+    fn generation_event_zgen_mut(&mut self) -> &mut GenerationEventZgen {
+        self._generation_event_mut().generation_event_zgen.get_or_insert(Default::default())
     }
 }
 impl IsGenerationEvent for GenerationEvent {
     fn _generation_event(&self) -> &GenerationEvent {
         self
     }
-    fn _mut_generation_event(&mut self) -> &mut GenerationEvent {
+    fn _generation_event_mut(&mut self) -> &mut GenerationEvent {
         self
     }
 }
@@ -999,37 +999,37 @@ mod generation_event_profile {
 }
 pub trait IsGenerationEventProfile {
     fn _generation_event_profile(&self) -> &GenerationEventProfile;
-    fn _mut_generation_event_profile(&mut self) -> &mut GenerationEventProfile;
+    fn _generation_event_profile_mut(&mut self) -> &mut GenerationEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._generation_event_profile().event_message_info.as_ref().unwrap_or(&generation_event_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_generation_event_profile().event_message_info.get_or_insert(generation_event_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._generation_event_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn generating_unit(&self) -> &GeneratingUnit {
         self._generation_event_profile().generating_unit.as_ref().unwrap_or(&generation_event_profile::GENERATING_UNIT)
     }
-    fn mut_generating_unit(&mut self) -> &mut GeneratingUnit {
-        self._mut_generation_event_profile().generating_unit.get_or_insert(generation_event_profile::GENERATING_UNIT.clone())
+    fn generating_unit_mut(&mut self) -> &mut GeneratingUnit {
+        self._generation_event_profile_mut().generating_unit.get_or_insert(Default::default())
     }
     fn generation_event(&self) -> &GenerationEvent {
         self._generation_event_profile().generation_event.as_ref().unwrap_or(&generation_event_profile::GENERATION_EVENT)
     }
-    fn mut_generation_event(&mut self) -> &mut GenerationEvent {
-        self._mut_generation_event_profile().generation_event.get_or_insert(generation_event_profile::GENERATION_EVENT.clone())
+    fn generation_event_mut(&mut self) -> &mut GenerationEvent {
+        self._generation_event_profile_mut().generation_event.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._generation_event_profile().ied.as_ref().unwrap_or(&generation_event_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_generation_event_profile().ied.get_or_insert(generation_event_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._generation_event_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationEventProfile for GenerationEventProfile {
     fn _generation_event_profile(&self) -> &GenerationEventProfile {
         self
     }
-    fn _mut_generation_event_profile(&mut self) -> &mut GenerationEventProfile {
+    fn _generation_event_profile_mut(&mut self) -> &mut GenerationEventProfile {
         self
     }
 }
@@ -1055,19 +1055,19 @@ mod generation_status_zgen {
 }
 pub trait IsGenerationStatusZgen {
     fn _generation_status_zgen(&self) -> &GenerationStatusZgen;
-    fn _mut_generation_status_zgen(&mut self) -> &mut GenerationStatusZgen;
+    fn _generation_status_zgen_mut(&mut self) -> &mut GenerationStatusZgen;
     fn generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
         self._generation_status_zgen().generation_event_and_status_zgen.as_ref().unwrap_or(&generation_status_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
-        self._mut_generation_status_zgen().generation_event_and_status_zgen.get_or_insert(generation_status_zgen::GENERATION_EVENT_AND_STATUS_ZGEN.clone())
+    fn generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self._generation_status_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsGenerationStatusZgen for GenerationStatusZgen {
     fn _generation_status_zgen(&self) -> &GenerationStatusZgen {
         self
     }
-    fn _mut_generation_status_zgen(&mut self) -> &mut GenerationStatusZgen {
+    fn _generation_status_zgen_mut(&mut self) -> &mut GenerationStatusZgen {
         self
     }
 }
@@ -1103,25 +1103,25 @@ mod generation_status {
 }
 pub trait IsGenerationStatus {
     fn _generation_status(&self) -> &GenerationStatus;
-    fn _mut_generation_status(&mut self) -> &mut GenerationStatus;
+    fn _generation_status_mut(&mut self) -> &mut GenerationStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._generation_status().status_value.as_ref().unwrap_or(&generation_status::STATUS_VALUE)
     }
-    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._mut_generation_status().status_value.get_or_insert(generation_status::STATUS_VALUE.clone())
+    fn status_value_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._generation_status_mut().status_value.get_or_insert(Default::default())
     }
     fn generation_status_zgen(&self) -> &GenerationStatusZgen {
         self._generation_status().generation_status_zgen.as_ref().unwrap_or(&generation_status::GENERATION_STATUS_ZGEN)
     }
-    fn mut_generation_status_zgen(&mut self) -> &mut GenerationStatusZgen {
-        self._mut_generation_status().generation_status_zgen.get_or_insert(generation_status::GENERATION_STATUS_ZGEN.clone())
+    fn generation_status_zgen_mut(&mut self) -> &mut GenerationStatusZgen {
+        self._generation_status_mut().generation_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsGenerationStatus for GenerationStatus {
     fn _generation_status(&self) -> &GenerationStatus {
         self
     }
-    fn _mut_generation_status(&mut self) -> &mut GenerationStatus {
+    fn _generation_status_mut(&mut self) -> &mut GenerationStatus {
         self
     }
 }
@@ -1178,37 +1178,37 @@ mod generation_status_profile {
 }
 pub trait IsGenerationStatusProfile {
     fn _generation_status_profile(&self) -> &GenerationStatusProfile;
-    fn _mut_generation_status_profile(&mut self) -> &mut GenerationStatusProfile;
+    fn _generation_status_profile_mut(&mut self) -> &mut GenerationStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._generation_status_profile().status_message_info.as_ref().unwrap_or(&generation_status_profile::STATUS_MESSAGE_INFO)
     }
-    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._mut_generation_status_profile().status_message_info.get_or_insert(generation_status_profile::STATUS_MESSAGE_INFO.clone())
+    fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._generation_status_profile_mut().status_message_info.get_or_insert(Default::default())
     }
     fn generating_unit(&self) -> &GeneratingUnit {
         self._generation_status_profile().generating_unit.as_ref().unwrap_or(&generation_status_profile::GENERATING_UNIT)
     }
-    fn mut_generating_unit(&mut self) -> &mut GeneratingUnit {
-        self._mut_generation_status_profile().generating_unit.get_or_insert(generation_status_profile::GENERATING_UNIT.clone())
+    fn generating_unit_mut(&mut self) -> &mut GeneratingUnit {
+        self._generation_status_profile_mut().generating_unit.get_or_insert(Default::default())
     }
     fn generation_status(&self) -> &GenerationStatus {
         self._generation_status_profile().generation_status.as_ref().unwrap_or(&generation_status_profile::GENERATION_STATUS)
     }
-    fn mut_generation_status(&mut self) -> &mut GenerationStatus {
-        self._mut_generation_status_profile().generation_status.get_or_insert(generation_status_profile::GENERATION_STATUS.clone())
+    fn generation_status_mut(&mut self) -> &mut GenerationStatus {
+        self._generation_status_profile_mut().generation_status.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._generation_status_profile().ied.as_ref().unwrap_or(&generation_status_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_generation_status_profile().ied.get_or_insert(generation_status_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._generation_status_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationStatusProfile for GenerationStatusProfile {
     fn _generation_status_profile(&self) -> &GenerationStatusProfile {
         self
     }
-    fn _mut_generation_status_profile(&mut self) -> &mut GenerationStatusProfile {
+    fn _generation_status_profile_mut(&mut self) -> &mut GenerationStatusProfile {
         self
     }
 }

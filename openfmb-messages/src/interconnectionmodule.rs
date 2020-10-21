@@ -56,73 +56,73 @@ mod interconnection_point {
 }
 pub trait IsInterconnectionPoint {
     fn _interconnection_point(&self) -> &InterconnectionPoint;
-    fn _mut_interconnection_point(&mut self) -> &mut InterconnectionPoint;
+    fn _interconnection_point_mut(&mut self) -> &mut InterconnectionPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().black_start_enabled.as_ref().unwrap_or(&interconnection_point::BLACK_START_ENABLED)
     }
-    fn mut_black_start_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().black_start_enabled.get_or_insert(interconnection_point::BLACK_START_ENABLED.clone())
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().frequency_set_point_enabled.as_ref().unwrap_or(&interconnection_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().frequency_set_point_enabled.get_or_insert(interconnection_point::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn island(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().island.as_ref().unwrap_or(&interconnection_point::ISLAND)
     }
-    fn mut_island(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().island.get_or_insert(interconnection_point::ISLAND.clone())
+    fn island_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().island.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._interconnection_point().pct_hz_droop.as_ref().unwrap_or(&interconnection_point::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_interconnection_point().pct_hz_droop.get_or_insert(interconnection_point::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._interconnection_point_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._interconnection_point().pct_v_droop.as_ref().unwrap_or(&interconnection_point::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_interconnection_point().pct_v_droop.get_or_insert(interconnection_point::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._interconnection_point_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._interconnection_point().ramp_rates.as_ref().unwrap_or(&interconnection_point::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_interconnection_point().ramp_rates.get_or_insert(interconnection_point::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._interconnection_point_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&interconnection_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().reactive_pwr_set_point_enabled.get_or_insert(interconnection_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&interconnection_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().real_pwr_set_point_enabled.get_or_insert(interconnection_point::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._interconnection_point().voltage_set_point_enabled.as_ref().unwrap_or(&interconnection_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_interconnection_point().voltage_set_point_enabled.get_or_insert(interconnection_point::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._interconnection_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::Timestamp {
         self._interconnection_point().start_time.as_ref().unwrap_or(&interconnection_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut super::commonmodule::Timestamp {
-        self._mut_interconnection_point().start_time.get_or_insert(interconnection_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut super::commonmodule::Timestamp {
+        self._interconnection_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsInterconnectionPoint for InterconnectionPoint {
     fn _interconnection_point(&self) -> &InterconnectionPoint {
         self
     }
-    fn _mut_interconnection_point(&mut self) -> &mut InterconnectionPoint {
+    fn _interconnection_point_mut(&mut self) -> &mut InterconnectionPoint {
         self
     }
 }
@@ -147,17 +147,17 @@ mod interconnection_csg {
 }
 pub trait IsInterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg;
-    fn _mut_interconnection_csg(&mut self) -> &mut InterconnectionCsg;
+    fn _interconnection_csg_mut(&mut self) -> &mut InterconnectionCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<InterconnectionPoint> {
         &self._interconnection_csg().crv_pts    }
-    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<InterconnectionPoint> {
-        &mut self._mut_interconnection_csg().crv_pts    }
+    fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<InterconnectionPoint> {
+        &mut self._interconnection_csg_mut().crv_pts    }
 }
 impl IsInterconnectionCsg for InterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg {
         self
     }
-    fn _mut_interconnection_csg(&mut self) -> &mut InterconnectionCsg {
+    fn _interconnection_csg_mut(&mut self) -> &mut InterconnectionCsg {
         self
     }
 }
@@ -183,19 +183,19 @@ mod interconnection_control_schedule_fsch {
 }
 pub trait IsInterconnectionControlScheduleFsch {
     fn _interconnection_control_schedule_fsch(&self) -> &InterconnectionControlScheduleFsch;
-    fn _mut_interconnection_control_schedule_fsch(&mut self) -> &mut InterconnectionControlScheduleFsch;
+    fn _interconnection_control_schedule_fsch_mut(&mut self) -> &mut InterconnectionControlScheduleFsch;
     fn val_dcsg(&self) -> &InterconnectionCsg {
         self._interconnection_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&interconnection_control_schedule_fsch::VAL_DCSG)
     }
-    fn mut_val_dcsg(&mut self) -> &mut InterconnectionCsg {
-        self._mut_interconnection_control_schedule_fsch().val_dcsg.get_or_insert(interconnection_control_schedule_fsch::VAL_DCSG.clone())
+    fn val_dcsg_mut(&mut self) -> &mut InterconnectionCsg {
+        self._interconnection_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
     }
 }
 impl IsInterconnectionControlScheduleFsch for InterconnectionControlScheduleFsch {
     fn _interconnection_control_schedule_fsch(&self) -> &InterconnectionControlScheduleFsch {
         self
     }
-    fn _mut_interconnection_control_schedule_fsch(&mut self) -> &mut InterconnectionControlScheduleFsch {
+    fn _interconnection_control_schedule_fsch_mut(&mut self) -> &mut InterconnectionControlScheduleFsch {
         self
     }
 }
@@ -230,23 +230,23 @@ mod interconnection_schedule_fscc {
 }
 pub trait IsInterconnectionScheduleFscc {
     fn _interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc;
-    fn _mut_interconnection_schedule_fscc(&mut self) -> &mut InterconnectionScheduleFscc;
+    fn _interconnection_schedule_fscc_mut(&mut self) -> &mut InterconnectionScheduleFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._interconnection_schedule_fscc().control_fscc.as_ref().unwrap_or(&interconnection_schedule_fscc::CONTROL_FSCC)
     }
-    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._mut_interconnection_schedule_fscc().control_fscc.get_or_insert(interconnection_schedule_fscc::CONTROL_FSCC.clone())
+    fn control_fscc_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._interconnection_schedule_fscc_mut().control_fscc.get_or_insert(Default::default())
     }
     fn interconnection_control_schedule_fsch(&self) -> &::std::vec::Vec<InterconnectionControlScheduleFsch> {
         &self._interconnection_schedule_fscc().interconnection_control_schedule_fsch    }
-    fn mut_interconnection_control_schedule_fsch(&mut self) -> &mut ::std::vec::Vec<InterconnectionControlScheduleFsch> {
-        &mut self._mut_interconnection_schedule_fscc().interconnection_control_schedule_fsch    }
+    fn interconnection_control_schedule_fsch_mut(&mut self) -> &mut ::std::vec::Vec<InterconnectionControlScheduleFsch> {
+        &mut self._interconnection_schedule_fscc_mut().interconnection_control_schedule_fsch    }
 }
 impl IsInterconnectionScheduleFscc for InterconnectionScheduleFscc {
     fn _interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc {
         self
     }
-    fn _mut_interconnection_schedule_fscc(&mut self) -> &mut InterconnectionScheduleFscc {
+    fn _interconnection_schedule_fscc_mut(&mut self) -> &mut InterconnectionScheduleFscc {
         self
     }
 }
@@ -286,31 +286,31 @@ mod interconnection_schedule {
 }
 pub trait IsInterconnectionSchedule {
     fn _interconnection_schedule(&self) -> &InterconnectionSchedule;
-    fn _mut_interconnection_schedule(&mut self) -> &mut InterconnectionSchedule;
+    fn _interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._interconnection_schedule().control_value.as_ref().unwrap_or(&interconnection_schedule::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_interconnection_schedule().control_value.get_or_insert(interconnection_schedule::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._interconnection_schedule_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._interconnection_schedule().check.as_ref().unwrap_or(&interconnection_schedule::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_interconnection_schedule().check.get_or_insert(interconnection_schedule::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._interconnection_schedule_mut().check.get_or_insert(Default::default())
     }
     fn interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc {
         self._interconnection_schedule().interconnection_schedule_fscc.as_ref().unwrap_or(&interconnection_schedule::INTERCONNECTION_SCHEDULE_FSCC)
     }
-    fn mut_interconnection_schedule_fscc(&mut self) -> &mut InterconnectionScheduleFscc {
-        self._mut_interconnection_schedule().interconnection_schedule_fscc.get_or_insert(interconnection_schedule::INTERCONNECTION_SCHEDULE_FSCC.clone())
+    fn interconnection_schedule_fscc_mut(&mut self) -> &mut InterconnectionScheduleFscc {
+        self._interconnection_schedule_mut().interconnection_schedule_fscc.get_or_insert(Default::default())
     }
 }
 impl IsInterconnectionSchedule for InterconnectionSchedule {
     fn _interconnection_schedule(&self) -> &InterconnectionSchedule {
         self
     }
-    fn _mut_interconnection_schedule(&mut self) -> &mut InterconnectionSchedule {
+    fn _interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule {
         self
     }
 }
@@ -357,31 +357,31 @@ mod planned_interconnection_schedule_profile {
 }
 pub trait IsPlannedInterconnectionScheduleProfile {
     fn _planned_interconnection_schedule_profile(&self) -> &PlannedInterconnectionScheduleProfile;
-    fn _mut_planned_interconnection_schedule_profile(&mut self) -> &mut PlannedInterconnectionScheduleProfile;
+    fn _planned_interconnection_schedule_profile_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._planned_interconnection_schedule_profile().control_message_info.as_ref().unwrap_or(&planned_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_planned_interconnection_schedule_profile().control_message_info.get_or_insert(planned_interconnection_schedule_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._planned_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._planned_interconnection_schedule_profile().application_system.as_ref().unwrap_or(&planned_interconnection_schedule_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_planned_interconnection_schedule_profile().application_system.get_or_insert(planned_interconnection_schedule_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._planned_interconnection_schedule_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn interconnection_schedule(&self) -> &InterconnectionSchedule {
         self._planned_interconnection_schedule_profile().interconnection_schedule.as_ref().unwrap_or(&planned_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE)
     }
-    fn mut_interconnection_schedule(&mut self) -> &mut InterconnectionSchedule {
-        self._mut_planned_interconnection_schedule_profile().interconnection_schedule.get_or_insert(planned_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE.clone())
+    fn interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule {
+        self._planned_interconnection_schedule_profile_mut().interconnection_schedule.get_or_insert(Default::default())
     }
 }
 impl IsPlannedInterconnectionScheduleProfile for PlannedInterconnectionScheduleProfile {
     fn _planned_interconnection_schedule_profile(&self) -> &PlannedInterconnectionScheduleProfile {
         self
     }
-    fn _mut_planned_interconnection_schedule_profile(&mut self) -> &mut PlannedInterconnectionScheduleProfile {
+    fn _planned_interconnection_schedule_profile_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfile {
         self
     }
 }
@@ -428,31 +428,31 @@ mod requested_interconnection_schedule_profile {
 }
 pub trait IsRequestedInterconnectionScheduleProfile {
     fn _requested_interconnection_schedule_profile(&self) -> &RequestedInterconnectionScheduleProfile;
-    fn _mut_requested_interconnection_schedule_profile(&mut self) -> &mut RequestedInterconnectionScheduleProfile;
+    fn _requested_interconnection_schedule_profile_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._requested_interconnection_schedule_profile().control_message_info.as_ref().unwrap_or(&requested_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_requested_interconnection_schedule_profile().control_message_info.get_or_insert(requested_interconnection_schedule_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._requested_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._requested_interconnection_schedule_profile().application_system.as_ref().unwrap_or(&requested_interconnection_schedule_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_requested_interconnection_schedule_profile().application_system.get_or_insert(requested_interconnection_schedule_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._requested_interconnection_schedule_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn interconnection_schedule(&self) -> &InterconnectionSchedule {
         self._requested_interconnection_schedule_profile().interconnection_schedule.as_ref().unwrap_or(&requested_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE)
     }
-    fn mut_interconnection_schedule(&mut self) -> &mut InterconnectionSchedule {
-        self._mut_requested_interconnection_schedule_profile().interconnection_schedule.get_or_insert(requested_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE.clone())
+    fn interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule {
+        self._requested_interconnection_schedule_profile_mut().interconnection_schedule.get_or_insert(Default::default())
     }
 }
 impl IsRequestedInterconnectionScheduleProfile for RequestedInterconnectionScheduleProfile {
     fn _requested_interconnection_schedule_profile(&self) -> &RequestedInterconnectionScheduleProfile {
         self
     }
-    fn _mut_requested_interconnection_schedule_profile(&mut self) -> &mut RequestedInterconnectionScheduleProfile {
+    fn _requested_interconnection_schedule_profile_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfile {
         self
     }
 }

@@ -11,17 +11,17 @@ mod optional_coordination_service_mode_kind {
 }
 pub trait IsOptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind;
-    fn _mut_optional_coordination_service_mode_kind(&mut self) -> &mut OptionalCoordinationServiceModeKind;
+    fn _optional_coordination_service_mode_kind_mut(&mut self) -> &mut OptionalCoordinationServiceModeKind;
     fn value(&self) -> &i32 {
         &self._optional_coordination_service_mode_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_coordination_service_mode_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_coordination_service_mode_kind_mut().value    }
 }
 impl IsOptionalCoordinationServiceModeKind for OptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind {
         self
     }
-    fn _mut_optional_coordination_service_mode_kind(&mut self) -> &mut OptionalCoordinationServiceModeKind {
+    fn _optional_coordination_service_mode_kind_mut(&mut self) -> &mut OptionalCoordinationServiceModeKind {
         self
     }
 }
@@ -50,23 +50,23 @@ mod eng_coordination_service_mode_kind {
 }
 pub trait IsEngCoordinationServiceModeKind {
     fn _eng_coordination_service_mode_kind(&self) -> &EngCoordinationServiceModeKind;
-    fn _mut_eng_coordination_service_mode_kind(&mut self) -> &mut EngCoordinationServiceModeKind;
+    fn _eng_coordination_service_mode_kind_mut(&mut self) -> &mut EngCoordinationServiceModeKind;
     fn set_val(&self) -> &i32 {
         &self._eng_coordination_service_mode_kind().set_val    }
-    fn mut_set_val(&mut self) -> &mut i32 {
-        &mut self._mut_eng_coordination_service_mode_kind().set_val    }
+    fn set_val_mut(&mut self) -> &mut i32 {
+        &mut self._eng_coordination_service_mode_kind_mut().set_val    }
     fn set_val_extension(&self) -> &::std::string::String {
         self._eng_coordination_service_mode_kind().set_val_extension.as_ref().unwrap_or(&eng_coordination_service_mode_kind::SET_VAL_EXTENSION)
     }
-    fn mut_set_val_extension(&mut self) -> &mut ::std::string::String {
-        self._mut_eng_coordination_service_mode_kind().set_val_extension.get_or_insert(eng_coordination_service_mode_kind::SET_VAL_EXTENSION.clone())
+    fn set_val_extension_mut(&mut self) -> &mut ::std::string::String {
+        self._eng_coordination_service_mode_kind_mut().set_val_extension.get_or_insert(Default::default())
     }
 }
 impl IsEngCoordinationServiceModeKind for EngCoordinationServiceModeKind {
     fn _eng_coordination_service_mode_kind(&self) -> &EngCoordinationServiceModeKind {
         self
     }
-    fn _mut_eng_coordination_service_mode_kind(&mut self) -> &mut EngCoordinationServiceModeKind {
+    fn _eng_coordination_service_mode_kind_mut(&mut self) -> &mut EngCoordinationServiceModeKind {
         self
     }
 }
@@ -101,31 +101,31 @@ mod coordination_control_dcsc {
 }
 pub trait IsCoordinationControlDcsc {
     fn _coordination_control_dcsc(&self) -> &CoordinationControlDcsc;
-    fn _mut_coordination_control_dcsc(&mut self) -> &mut CoordinationControlDcsc;
+    fn _coordination_control_dcsc_mut(&mut self) -> &mut CoordinationControlDcsc;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._coordination_control_dcsc().logical_node_for_control.as_ref().unwrap_or(&coordination_control_dcsc::LOGICAL_NODE_FOR_CONTROL)
     }
-    fn mut_logical_node_for_control(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._mut_coordination_control_dcsc().logical_node_for_control.get_or_insert(coordination_control_dcsc::LOGICAL_NODE_FOR_CONTROL.clone())
+    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._coordination_control_dcsc_mut().logical_node_for_control.get_or_insert(Default::default())
     }
     fn coordination_service_mode(&self) -> &EngCoordinationServiceModeKind {
         self._coordination_control_dcsc().coordination_service_mode.as_ref().unwrap_or(&coordination_control_dcsc::COORDINATION_SERVICE_MODE)
     }
-    fn mut_coordination_service_mode(&mut self) -> &mut EngCoordinationServiceModeKind {
-        self._mut_coordination_control_dcsc().coordination_service_mode.get_or_insert(coordination_control_dcsc::COORDINATION_SERVICE_MODE.clone())
+    fn coordination_service_mode_mut(&mut self) -> &mut EngCoordinationServiceModeKind {
+        self._coordination_control_dcsc_mut().coordination_service_mode.get_or_insert(Default::default())
     }
     fn island(&self) -> &super::commonmodule::ControlDpc {
         self._coordination_control_dcsc().island.as_ref().unwrap_or(&coordination_control_dcsc::ISLAND)
     }
-    fn mut_island(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_coordination_control_dcsc().island.get_or_insert(coordination_control_dcsc::ISLAND.clone())
+    fn island_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._coordination_control_dcsc_mut().island.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationControlDcsc for CoordinationControlDcsc {
     fn _coordination_control_dcsc(&self) -> &CoordinationControlDcsc {
         self
     }
-    fn _mut_coordination_control_dcsc(&mut self) -> &mut CoordinationControlDcsc {
+    fn _coordination_control_dcsc_mut(&mut self) -> &mut CoordinationControlDcsc {
         self
     }
 }
@@ -165,31 +165,31 @@ mod coordination_control {
 }
 pub trait IsCoordinationControl {
     fn _coordination_control(&self) -> &CoordinationControl;
-    fn _mut_coordination_control(&mut self) -> &mut CoordinationControl;
+    fn _coordination_control_mut(&mut self) -> &mut CoordinationControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._coordination_control().control_value.as_ref().unwrap_or(&coordination_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_coordination_control().control_value.get_or_insert(coordination_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._coordination_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._coordination_control().check.as_ref().unwrap_or(&coordination_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_coordination_control().check.get_or_insert(coordination_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._coordination_control_mut().check.get_or_insert(Default::default())
     }
     fn coordination_control_dcsc(&self) -> &CoordinationControlDcsc {
         self._coordination_control().coordination_control_dcsc.as_ref().unwrap_or(&coordination_control::COORDINATION_CONTROL_DCSC)
     }
-    fn mut_coordination_control_dcsc(&mut self) -> &mut CoordinationControlDcsc {
-        self._mut_coordination_control().coordination_control_dcsc.get_or_insert(coordination_control::COORDINATION_CONTROL_DCSC.clone())
+    fn coordination_control_dcsc_mut(&mut self) -> &mut CoordinationControlDcsc {
+        self._coordination_control_mut().coordination_control_dcsc.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationControl for CoordinationControl {
     fn _coordination_control(&self) -> &CoordinationControl {
         self
     }
-    fn _mut_coordination_control(&mut self) -> &mut CoordinationControl {
+    fn _coordination_control_mut(&mut self) -> &mut CoordinationControl {
         self
     }
 }
@@ -236,31 +236,31 @@ mod coordination_control_profile {
 }
 pub trait IsCoordinationControlProfile {
     fn _coordination_control_profile(&self) -> &CoordinationControlProfile;
-    fn _mut_coordination_control_profile(&mut self) -> &mut CoordinationControlProfile;
+    fn _coordination_control_profile_mut(&mut self) -> &mut CoordinationControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._coordination_control_profile().control_message_info.as_ref().unwrap_or(&coordination_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_coordination_control_profile().control_message_info.get_or_insert(coordination_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._coordination_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._coordination_control_profile().application_system.as_ref().unwrap_or(&coordination_control_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_coordination_control_profile().application_system.get_or_insert(coordination_control_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._coordination_control_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn coordination_control(&self) -> &CoordinationControl {
         self._coordination_control_profile().coordination_control.as_ref().unwrap_or(&coordination_control_profile::COORDINATION_CONTROL)
     }
-    fn mut_coordination_control(&mut self) -> &mut CoordinationControl {
-        self._mut_coordination_control_profile().coordination_control.get_or_insert(coordination_control_profile::COORDINATION_CONTROL.clone())
+    fn coordination_control_mut(&mut self) -> &mut CoordinationControl {
+        self._coordination_control_profile_mut().coordination_control.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationControlProfile for CoordinationControlProfile {
     fn _coordination_control_profile(&self) -> &CoordinationControlProfile {
         self
     }
-    fn _mut_coordination_control_profile(&mut self) -> &mut CoordinationControlProfile {
+    fn _coordination_control_profile_mut(&mut self) -> &mut CoordinationControlProfile {
         self
     }
 }
@@ -315,61 +315,61 @@ mod coordination_event_dcsc {
 }
 pub trait IsCoordinationEventDcsc {
     fn _coordination_event_dcsc(&self) -> &CoordinationEventDcsc;
-    fn _mut_coordination_event_dcsc(&mut self) -> &mut CoordinationEventDcsc;
+    fn _coordination_event_dcsc_mut(&mut self) -> &mut CoordinationEventDcsc;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._coordination_event_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_coordination_event_dcsc().logical_node_for_event_and_status.get_or_insert(coordination_event_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._coordination_event_dcsc_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn coordination_service_mode(&self) -> &EngCoordinationServiceModeKind {
         self._coordination_event_dcsc().coordination_service_mode.as_ref().unwrap_or(&coordination_event_dcsc::COORDINATION_SERVICE_MODE)
     }
-    fn mut_coordination_service_mode(&mut self) -> &mut EngCoordinationServiceModeKind {
-        self._mut_coordination_event_dcsc().coordination_service_mode.get_or_insert(coordination_event_dcsc::COORDINATION_SERVICE_MODE.clone())
+    fn coordination_service_mode_mut(&mut self) -> &mut EngCoordinationServiceModeKind {
+        self._coordination_event_dcsc_mut().coordination_service_mode.get_or_insert(Default::default())
     }
     fn island(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().island.as_ref().unwrap_or(&coordination_event_dcsc::ISLAND)
     }
-    fn mut_island(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().island.get_or_insert(coordination_event_dcsc::ISLAND.clone())
+    fn island_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().island.get_or_insert(Default::default())
     }
     fn permissible_auto(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().permissible_auto.as_ref().unwrap_or(&coordination_event_dcsc::PERMISSIBLE_AUTO)
     }
-    fn mut_permissible_auto(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().permissible_auto.get_or_insert(coordination_event_dcsc::PERMISSIBLE_AUTO.clone())
+    fn permissible_auto_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().permissible_auto.get_or_insert(Default::default())
     }
     fn permissible_manual(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().permissible_manual.as_ref().unwrap_or(&coordination_event_dcsc::PERMISSIBLE_MANUAL)
     }
-    fn mut_permissible_manual(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().permissible_manual.get_or_insert(coordination_event_dcsc::PERMISSIBLE_MANUAL.clone())
+    fn permissible_manual_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().permissible_manual.get_or_insert(Default::default())
     }
     fn permissible_netzero(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().permissible_netzero.as_ref().unwrap_or(&coordination_event_dcsc::PERMISSIBLE_NETZERO)
     }
-    fn mut_permissible_netzero(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().permissible_netzero.get_or_insert(coordination_event_dcsc::PERMISSIBLE_NETZERO.clone())
+    fn permissible_netzero_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().permissible_netzero.get_or_insert(Default::default())
     }
     fn permissible_start(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().permissible_start.as_ref().unwrap_or(&coordination_event_dcsc::PERMISSIBLE_START)
     }
-    fn mut_permissible_start(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().permissible_start.get_or_insert(coordination_event_dcsc::PERMISSIBLE_START.clone())
+    fn permissible_start_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().permissible_start.get_or_insert(Default::default())
     }
     fn permissible_stop(&self) -> &super::commonmodule::StatusSps {
         self._coordination_event_dcsc().permissible_stop.as_ref().unwrap_or(&coordination_event_dcsc::PERMISSIBLE_STOP)
     }
-    fn mut_permissible_stop(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_event_dcsc().permissible_stop.get_or_insert(coordination_event_dcsc::PERMISSIBLE_STOP.clone())
+    fn permissible_stop_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_event_dcsc_mut().permissible_stop.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationEventDcsc for CoordinationEventDcsc {
     fn _coordination_event_dcsc(&self) -> &CoordinationEventDcsc {
         self
     }
-    fn _mut_coordination_event_dcsc(&mut self) -> &mut CoordinationEventDcsc {
+    fn _coordination_event_dcsc_mut(&mut self) -> &mut CoordinationEventDcsc {
         self
     }
 }
@@ -405,25 +405,25 @@ mod coordination_event {
 }
 pub trait IsCoordinationEvent {
     fn _coordination_event(&self) -> &CoordinationEvent;
-    fn _mut_coordination_event(&mut self) -> &mut CoordinationEvent;
+    fn _coordination_event_mut(&mut self) -> &mut CoordinationEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._coordination_event().event_value.as_ref().unwrap_or(&coordination_event::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_coordination_event().event_value.get_or_insert(coordination_event::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._coordination_event_mut().event_value.get_or_insert(Default::default())
     }
     fn coordination_event_dcsc(&self) -> &CoordinationEventDcsc {
         self._coordination_event().coordination_event_dcsc.as_ref().unwrap_or(&coordination_event::COORDINATION_EVENT_DCSC)
     }
-    fn mut_coordination_event_dcsc(&mut self) -> &mut CoordinationEventDcsc {
-        self._mut_coordination_event().coordination_event_dcsc.get_or_insert(coordination_event::COORDINATION_EVENT_DCSC.clone())
+    fn coordination_event_dcsc_mut(&mut self) -> &mut CoordinationEventDcsc {
+        self._coordination_event_mut().coordination_event_dcsc.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationEvent for CoordinationEvent {
     fn _coordination_event(&self) -> &CoordinationEvent {
         self
     }
-    fn _mut_coordination_event(&mut self) -> &mut CoordinationEvent {
+    fn _coordination_event_mut(&mut self) -> &mut CoordinationEvent {
         self
     }
 }
@@ -470,31 +470,31 @@ mod coordination_event_profile {
 }
 pub trait IsCoordinationEventProfile {
     fn _coordination_event_profile(&self) -> &CoordinationEventProfile;
-    fn _mut_coordination_event_profile(&mut self) -> &mut CoordinationEventProfile;
+    fn _coordination_event_profile_mut(&mut self) -> &mut CoordinationEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._coordination_event_profile().event_message_info.as_ref().unwrap_or(&coordination_event_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_coordination_event_profile().event_message_info.get_or_insert(coordination_event_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._coordination_event_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._coordination_event_profile().application_system.as_ref().unwrap_or(&coordination_event_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_coordination_event_profile().application_system.get_or_insert(coordination_event_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._coordination_event_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn coordination_event(&self) -> &CoordinationEvent {
         self._coordination_event_profile().coordination_event.as_ref().unwrap_or(&coordination_event_profile::COORDINATION_EVENT)
     }
-    fn mut_coordination_event(&mut self) -> &mut CoordinationEvent {
-        self._mut_coordination_event_profile().coordination_event.get_or_insert(coordination_event_profile::COORDINATION_EVENT.clone())
+    fn coordination_event_mut(&mut self) -> &mut CoordinationEvent {
+        self._coordination_event_profile_mut().coordination_event.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationEventProfile for CoordinationEventProfile {
     fn _coordination_event_profile(&self) -> &CoordinationEventProfile {
         self
     }
-    fn _mut_coordination_event_profile(&mut self) -> &mut CoordinationEventProfile {
+    fn _coordination_event_profile_mut(&mut self) -> &mut CoordinationEventProfile {
         self
     }
 }
@@ -549,61 +549,61 @@ mod coordination_status_dcsc {
 }
 pub trait IsCoordinationStatusDcsc {
     fn _coordination_status_dcsc(&self) -> &CoordinationStatusDcsc;
-    fn _mut_coordination_status_dcsc(&mut self) -> &mut CoordinationStatusDcsc;
+    fn _coordination_status_dcsc_mut(&mut self) -> &mut CoordinationStatusDcsc;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._coordination_status_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_coordination_status_dcsc().logical_node_for_event_and_status.get_or_insert(coordination_status_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._coordination_status_dcsc_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn coordination_service_mode(&self) -> &EngCoordinationServiceModeKind {
         self._coordination_status_dcsc().coordination_service_mode.as_ref().unwrap_or(&coordination_status_dcsc::COORDINATION_SERVICE_MODE)
     }
-    fn mut_coordination_service_mode(&mut self) -> &mut EngCoordinationServiceModeKind {
-        self._mut_coordination_status_dcsc().coordination_service_mode.get_or_insert(coordination_status_dcsc::COORDINATION_SERVICE_MODE.clone())
+    fn coordination_service_mode_mut(&mut self) -> &mut EngCoordinationServiceModeKind {
+        self._coordination_status_dcsc_mut().coordination_service_mode.get_or_insert(Default::default())
     }
     fn island(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().island.as_ref().unwrap_or(&coordination_status_dcsc::ISLAND)
     }
-    fn mut_island(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().island.get_or_insert(coordination_status_dcsc::ISLAND.clone())
+    fn island_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().island.get_or_insert(Default::default())
     }
     fn permissible_auto(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().permissible_auto.as_ref().unwrap_or(&coordination_status_dcsc::PERMISSIBLE_AUTO)
     }
-    fn mut_permissible_auto(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().permissible_auto.get_or_insert(coordination_status_dcsc::PERMISSIBLE_AUTO.clone())
+    fn permissible_auto_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().permissible_auto.get_or_insert(Default::default())
     }
     fn permissible_manual(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().permissible_manual.as_ref().unwrap_or(&coordination_status_dcsc::PERMISSIBLE_MANUAL)
     }
-    fn mut_permissible_manual(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().permissible_manual.get_or_insert(coordination_status_dcsc::PERMISSIBLE_MANUAL.clone())
+    fn permissible_manual_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().permissible_manual.get_or_insert(Default::default())
     }
     fn permissible_netzero(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().permissible_netzero.as_ref().unwrap_or(&coordination_status_dcsc::PERMISSIBLE_NETZERO)
     }
-    fn mut_permissible_netzero(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().permissible_netzero.get_or_insert(coordination_status_dcsc::PERMISSIBLE_NETZERO.clone())
+    fn permissible_netzero_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().permissible_netzero.get_or_insert(Default::default())
     }
     fn permissible_start(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().permissible_start.as_ref().unwrap_or(&coordination_status_dcsc::PERMISSIBLE_START)
     }
-    fn mut_permissible_start(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().permissible_start.get_or_insert(coordination_status_dcsc::PERMISSIBLE_START.clone())
+    fn permissible_start_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().permissible_start.get_or_insert(Default::default())
     }
     fn permissible_stop(&self) -> &super::commonmodule::StatusSps {
         self._coordination_status_dcsc().permissible_stop.as_ref().unwrap_or(&coordination_status_dcsc::PERMISSIBLE_STOP)
     }
-    fn mut_permissible_stop(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_coordination_status_dcsc().permissible_stop.get_or_insert(coordination_status_dcsc::PERMISSIBLE_STOP.clone())
+    fn permissible_stop_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._coordination_status_dcsc_mut().permissible_stop.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationStatusDcsc for CoordinationStatusDcsc {
     fn _coordination_status_dcsc(&self) -> &CoordinationStatusDcsc {
         self
     }
-    fn _mut_coordination_status_dcsc(&mut self) -> &mut CoordinationStatusDcsc {
+    fn _coordination_status_dcsc_mut(&mut self) -> &mut CoordinationStatusDcsc {
         self
     }
 }
@@ -639,25 +639,25 @@ mod coordination_status {
 }
 pub trait IsCoordinationStatus {
     fn _coordination_status(&self) -> &CoordinationStatus;
-    fn _mut_coordination_status(&mut self) -> &mut CoordinationStatus;
+    fn _coordination_status_mut(&mut self) -> &mut CoordinationStatus;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._coordination_status().event_value.as_ref().unwrap_or(&coordination_status::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_coordination_status().event_value.get_or_insert(coordination_status::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._coordination_status_mut().event_value.get_or_insert(Default::default())
     }
     fn coordination_status_dcsc(&self) -> &CoordinationStatusDcsc {
         self._coordination_status().coordination_status_dcsc.as_ref().unwrap_or(&coordination_status::COORDINATION_STATUS_DCSC)
     }
-    fn mut_coordination_status_dcsc(&mut self) -> &mut CoordinationStatusDcsc {
-        self._mut_coordination_status().coordination_status_dcsc.get_or_insert(coordination_status::COORDINATION_STATUS_DCSC.clone())
+    fn coordination_status_dcsc_mut(&mut self) -> &mut CoordinationStatusDcsc {
+        self._coordination_status_mut().coordination_status_dcsc.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationStatus for CoordinationStatus {
     fn _coordination_status(&self) -> &CoordinationStatus {
         self
     }
-    fn _mut_coordination_status(&mut self) -> &mut CoordinationStatus {
+    fn _coordination_status_mut(&mut self) -> &mut CoordinationStatus {
         self
     }
 }
@@ -704,31 +704,31 @@ mod coordination_status_profile {
 }
 pub trait IsCoordinationStatusProfile {
     fn _coordination_status_profile(&self) -> &CoordinationStatusProfile;
-    fn _mut_coordination_status_profile(&mut self) -> &mut CoordinationStatusProfile;
+    fn _coordination_status_profile_mut(&mut self) -> &mut CoordinationStatusProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._coordination_status_profile().event_message_info.as_ref().unwrap_or(&coordination_status_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_coordination_status_profile().event_message_info.get_or_insert(coordination_status_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._coordination_status_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._coordination_status_profile().application_system.as_ref().unwrap_or(&coordination_status_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_coordination_status_profile().application_system.get_or_insert(coordination_status_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._coordination_status_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn coordination_status(&self) -> &CoordinationStatus {
         self._coordination_status_profile().coordination_status.as_ref().unwrap_or(&coordination_status_profile::COORDINATION_STATUS)
     }
-    fn mut_coordination_status(&mut self) -> &mut CoordinationStatus {
-        self._mut_coordination_status_profile().coordination_status.get_or_insert(coordination_status_profile::COORDINATION_STATUS.clone())
+    fn coordination_status_mut(&mut self) -> &mut CoordinationStatus {
+        self._coordination_status_profile_mut().coordination_status.get_or_insert(Default::default())
     }
 }
 impl IsCoordinationStatusProfile for CoordinationStatusProfile {
     fn _coordination_status_profile(&self) -> &CoordinationStatusProfile {
         self
     }
-    fn _mut_coordination_status_profile(&mut self) -> &mut CoordinationStatusProfile {
+    fn _coordination_status_profile_mut(&mut self) -> &mut CoordinationStatusProfile {
         self
     }
 }

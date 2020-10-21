@@ -60,79 +60,79 @@ mod solar_point {
 }
 pub trait IsSolarPoint {
     fn _solar_point(&self) -> &SolarPoint;
-    fn _mut_solar_point(&mut self) -> &mut SolarPoint;
+    fn _solar_point_mut(&mut self) -> &mut SolarPoint;
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point().frequency_set_point_enabled.get_or_insert(solar_point::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._solar_point().mode.as_ref().unwrap_or(&solar_point::MODE)
     }
-    fn mut_mode(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_solar_point().mode.get_or_insert(solar_point::MODE.clone())
+    fn mode_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._solar_point_mut().mode.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._solar_point().pct_hz_droop.as_ref().unwrap_or(&solar_point::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_solar_point().pct_hz_droop.get_or_insert(solar_point::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._solar_point_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._solar_point().pct_v_droop.as_ref().unwrap_or(&solar_point::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_solar_point().pct_v_droop.get_or_insert(solar_point::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._solar_point_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._solar_point().ramp_rates.as_ref().unwrap_or(&solar_point::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_solar_point().ramp_rates.get_or_insert(solar_point::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._solar_point_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point().reactive_pwr_set_point_enabled.get_or_insert(solar_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point().real_pwr_set_point_enabled.get_or_insert(solar_point::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().reset.as_ref().unwrap_or(&solar_point::RESET)
     }
-    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point().reset.get_or_insert(solar_point::RESET.clone())
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._solar_point().state.as_ref().unwrap_or(&solar_point::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_solar_point().state.get_or_insert(solar_point::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._solar_point_mut().state.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point().voltage_set_point_enabled.as_ref().unwrap_or(&solar_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point().voltage_set_point_enabled.get_or_insert(solar_point::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
         self._solar_point().start_time.as_ref().unwrap_or(&solar_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut super::commonmodule::ControlTimestamp {
-        self._mut_solar_point().start_time.get_or_insert(solar_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut super::commonmodule::ControlTimestamp {
+        self._solar_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsSolarPoint for SolarPoint {
     fn _solar_point(&self) -> &SolarPoint {
         self
     }
-    fn _mut_solar_point(&mut self) -> &mut SolarPoint {
+    fn _solar_point_mut(&mut self) -> &mut SolarPoint {
         self
     }
 }
@@ -157,17 +157,17 @@ mod solar_csg {
 }
 pub trait IsSolarCsg {
     fn _solar_csg(&self) -> &SolarCsg;
-    fn _mut_solar_csg(&mut self) -> &mut SolarCsg;
+    fn _solar_csg_mut(&mut self) -> &mut SolarCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<SolarPoint> {
         &self._solar_csg().crv_pts    }
-    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<SolarPoint> {
-        &mut self._mut_solar_csg().crv_pts    }
+    fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<SolarPoint> {
+        &mut self._solar_csg_mut().crv_pts    }
 }
 impl IsSolarCsg for SolarCsg {
     fn _solar_csg(&self) -> &SolarCsg {
         self
     }
-    fn _mut_solar_csg(&mut self) -> &mut SolarCsg {
+    fn _solar_csg_mut(&mut self) -> &mut SolarCsg {
         self
     }
 }
@@ -193,19 +193,19 @@ mod solar_control_schedule_fsch {
 }
 pub trait IsSolarControlScheduleFsch {
     fn _solar_control_schedule_fsch(&self) -> &SolarControlScheduleFsch;
-    fn _mut_solar_control_schedule_fsch(&mut self) -> &mut SolarControlScheduleFsch;
+    fn _solar_control_schedule_fsch_mut(&mut self) -> &mut SolarControlScheduleFsch;
     fn val_dcsg(&self) -> &SolarCsg {
         self._solar_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&solar_control_schedule_fsch::VAL_DCSG)
     }
-    fn mut_val_dcsg(&mut self) -> &mut SolarCsg {
-        self._mut_solar_control_schedule_fsch().val_dcsg.get_or_insert(solar_control_schedule_fsch::VAL_DCSG.clone())
+    fn val_dcsg_mut(&mut self) -> &mut SolarCsg {
+        self._solar_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
     }
 }
 impl IsSolarControlScheduleFsch for SolarControlScheduleFsch {
     fn _solar_control_schedule_fsch(&self) -> &SolarControlScheduleFsch {
         self
     }
-    fn _mut_solar_control_schedule_fsch(&mut self) -> &mut SolarControlScheduleFsch {
+    fn _solar_control_schedule_fsch_mut(&mut self) -> &mut SolarControlScheduleFsch {
         self
     }
 }
@@ -235,25 +235,25 @@ mod solar_control_fscc {
 }
 pub trait IsSolarControlFscc {
     fn _solar_control_fscc(&self) -> &SolarControlFscc;
-    fn _mut_solar_control_fscc(&mut self) -> &mut SolarControlFscc;
+    fn _solar_control_fscc_mut(&mut self) -> &mut SolarControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._solar_control_fscc().control_fscc.as_ref().unwrap_or(&solar_control_fscc::CONTROL_FSCC)
     }
-    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._mut_solar_control_fscc().control_fscc.get_or_insert(solar_control_fscc::CONTROL_FSCC.clone())
+    fn control_fscc_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._solar_control_fscc_mut().control_fscc.get_or_insert(Default::default())
     }
     fn solar_control_schedule_fsch(&self) -> &SolarControlScheduleFsch {
         self._solar_control_fscc().solar_control_schedule_fsch.as_ref().unwrap_or(&solar_control_fscc::SOLAR_CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_solar_control_schedule_fsch(&mut self) -> &mut SolarControlScheduleFsch {
-        self._mut_solar_control_fscc().solar_control_schedule_fsch.get_or_insert(solar_control_fscc::SOLAR_CONTROL_SCHEDULE_FSCH.clone())
+    fn solar_control_schedule_fsch_mut(&mut self) -> &mut SolarControlScheduleFsch {
+        self._solar_control_fscc_mut().solar_control_schedule_fsch.get_or_insert(Default::default())
     }
 }
 impl IsSolarControlFscc for SolarControlFscc {
     fn _solar_control_fscc(&self) -> &SolarControlFscc {
         self
     }
-    fn _mut_solar_control_fscc(&mut self) -> &mut SolarControlFscc {
+    fn _solar_control_fscc_mut(&mut self) -> &mut SolarControlFscc {
         self
     }
 }
@@ -287,31 +287,31 @@ mod solar_control {
 }
 pub trait IsSolarControl {
     fn _solar_control(&self) -> &SolarControl;
-    fn _mut_solar_control(&mut self) -> &mut SolarControl;
+    fn _solar_control_mut(&mut self) -> &mut SolarControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._solar_control().control_value.as_ref().unwrap_or(&solar_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_solar_control().control_value.get_or_insert(solar_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._solar_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._solar_control().check.as_ref().unwrap_or(&solar_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_solar_control().check.get_or_insert(solar_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._solar_control_mut().check.get_or_insert(Default::default())
     }
     fn solar_control_fscc(&self) -> &SolarControlFscc {
         self._solar_control().solar_control_fscc.as_ref().unwrap_or(&solar_control::SOLAR_CONTROL_FSCC)
     }
-    fn mut_solar_control_fscc(&mut self) -> &mut SolarControlFscc {
-        self._mut_solar_control().solar_control_fscc.get_or_insert(solar_control::SOLAR_CONTROL_FSCC.clone())
+    fn solar_control_fscc_mut(&mut self) -> &mut SolarControlFscc {
+        self._solar_control_mut().solar_control_fscc.get_or_insert(Default::default())
     }
 }
 impl IsSolarControl for SolarControl {
     fn _solar_control(&self) -> &SolarControl {
         self
     }
-    fn _mut_solar_control(&mut self) -> &mut SolarControl {
+    fn _solar_control_mut(&mut self) -> &mut SolarControl {
         self
     }
 }
@@ -337,19 +337,19 @@ mod solar_inverter {
 }
 pub trait IsSolarInverter {
     fn _solar_inverter(&self) -> &SolarInverter;
-    fn _mut_solar_inverter(&mut self) -> &mut SolarInverter;
+    fn _solar_inverter_mut(&mut self) -> &mut SolarInverter;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._solar_inverter().conducting_equipment.as_ref().unwrap_or(&solar_inverter::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._mut_solar_inverter().conducting_equipment.get_or_insert(solar_inverter::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._solar_inverter_mut().conducting_equipment.get_or_insert(Default::default())
     }
 }
 impl IsSolarInverter for SolarInverter {
     fn _solar_inverter(&self) -> &SolarInverter {
         self
     }
-    fn _mut_solar_inverter(&mut self) -> &mut SolarInverter {
+    fn _solar_inverter_mut(&mut self) -> &mut SolarInverter {
         self
     }
 }
@@ -406,37 +406,37 @@ mod solar_control_profile {
 }
 pub trait IsSolarControlProfile {
     fn _solar_control_profile(&self) -> &SolarControlProfile;
-    fn _mut_solar_control_profile(&mut self) -> &mut SolarControlProfile;
+    fn _solar_control_profile_mut(&mut self) -> &mut SolarControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._solar_control_profile().control_message_info.as_ref().unwrap_or(&solar_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_solar_control_profile().control_message_info.get_or_insert(solar_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._solar_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._solar_control_profile().ied.as_ref().unwrap_or(&solar_control_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_solar_control_profile().ied.get_or_insert(solar_control_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._solar_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_control(&self) -> &SolarControl {
         self._solar_control_profile().solar_control.as_ref().unwrap_or(&solar_control_profile::SOLAR_CONTROL)
     }
-    fn mut_solar_control(&mut self) -> &mut SolarControl {
-        self._mut_solar_control_profile().solar_control.get_or_insert(solar_control_profile::SOLAR_CONTROL.clone())
+    fn solar_control_mut(&mut self) -> &mut SolarControl {
+        self._solar_control_profile_mut().solar_control.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_control_profile().solar_inverter.as_ref().unwrap_or(&solar_control_profile::SOLAR_INVERTER)
     }
-    fn mut_solar_inverter(&mut self) -> &mut SolarInverter {
-        self._mut_solar_control_profile().solar_inverter.get_or_insert(solar_control_profile::SOLAR_INVERTER.clone())
+    fn solar_inverter_mut(&mut self) -> &mut SolarInverter {
+        self._solar_control_profile_mut().solar_inverter.get_or_insert(Default::default())
     }
 }
 impl IsSolarControlProfile for SolarControlProfile {
     fn _solar_control_profile(&self) -> &SolarControlProfile {
         self
     }
-    fn _mut_solar_control_profile(&mut self) -> &mut SolarControlProfile {
+    fn _solar_control_profile_mut(&mut self) -> &mut SolarControlProfile {
         self
     }
 }
@@ -488,67 +488,67 @@ mod solar_point_status {
 }
 pub trait IsSolarPointStatus {
     fn _solar_point_status(&self) -> &SolarPointStatus;
-    fn _mut_solar_point_status(&mut self) -> &mut SolarPointStatus;
+    fn _solar_point_status_mut(&mut self) -> &mut SolarPointStatus;
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point_status().frequency_set_point_enabled.get_or_insert(solar_point_status::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._solar_point_status().mode.as_ref().unwrap_or(&solar_point_status::MODE)
     }
-    fn mut_mode(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_solar_point_status().mode.get_or_insert(solar_point_status::MODE.clone())
+    fn mode_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._solar_point_status_mut().mode.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._solar_point_status().pct_hz_droop.as_ref().unwrap_or(&solar_point_status::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_solar_point_status().pct_hz_droop.get_or_insert(solar_point_status::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._solar_point_status_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._solar_point_status().pct_v_droop.as_ref().unwrap_or(&solar_point_status::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_solar_point_status().pct_v_droop.get_or_insert(solar_point_status::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._solar_point_status_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._solar_point_status().ramp_rates.as_ref().unwrap_or(&solar_point_status::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_solar_point_status().ramp_rates.get_or_insert(solar_point_status::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._solar_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point_status().reactive_pwr_set_point_enabled.get_or_insert(solar_point_status::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point_status().real_pwr_set_point_enabled.get_or_insert(solar_point_status::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._solar_point_status().state.as_ref().unwrap_or(&solar_point_status::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_solar_point_status().state.get_or_insert(solar_point_status::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._solar_point_status_mut().state.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._solar_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&solar_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_solar_point_status().voltage_set_point_enabled.get_or_insert(solar_point_status::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._solar_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
 impl IsSolarPointStatus for SolarPointStatus {
     fn _solar_point_status(&self) -> &SolarPointStatus {
         self
     }
-    fn _mut_solar_point_status(&mut self) -> &mut SolarPointStatus {
+    fn _solar_point_status_mut(&mut self) -> &mut SolarPointStatus {
         self
     }
 }
@@ -590,43 +590,43 @@ mod solar_event_and_status_zgen {
 }
 pub trait IsSolarEventAndStatusZgen {
     fn _solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen;
-    fn _mut_solar_event_and_status_zgen(&mut self) -> &mut SolarEventAndStatusZgen;
+    fn _solar_event_and_status_zgen_mut(&mut self) -> &mut SolarEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._solar_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&solar_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_solar_event_and_status_zgen().logical_node_for_event_and_status.get_or_insert(solar_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._solar_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn aux_pwr_st(&self) -> &super::commonmodule::StatusSps {
         self._solar_event_and_status_zgen().aux_pwr_st.as_ref().unwrap_or(&solar_event_and_status_zgen::AUX_PWR_ST)
     }
-    fn mut_aux_pwr_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_solar_event_and_status_zgen().aux_pwr_st.get_or_insert(solar_event_and_status_zgen::AUX_PWR_ST.clone())
+    fn aux_pwr_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._solar_event_and_status_zgen_mut().aux_pwr_st.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._solar_event_and_status_zgen().dynamic_test.as_ref().unwrap_or(&solar_event_and_status_zgen::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
-        self._mut_solar_event_and_status_zgen().dynamic_test.get_or_insert(solar_event_and_status_zgen::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._solar_event_and_status_zgen_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn emg_stop(&self) -> &super::commonmodule::StatusSps {
         self._solar_event_and_status_zgen().emg_stop.as_ref().unwrap_or(&solar_event_and_status_zgen::EMG_STOP)
     }
-    fn mut_emg_stop(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_solar_event_and_status_zgen().emg_stop.get_or_insert(solar_event_and_status_zgen::EMG_STOP.clone())
+    fn emg_stop_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._solar_event_and_status_zgen_mut().emg_stop.get_or_insert(Default::default())
     }
     fn point_status(&self) -> &SolarPointStatus {
         self._solar_event_and_status_zgen().point_status.as_ref().unwrap_or(&solar_event_and_status_zgen::POINT_STATUS)
     }
-    fn mut_point_status(&mut self) -> &mut SolarPointStatus {
-        self._mut_solar_event_and_status_zgen().point_status.get_or_insert(solar_event_and_status_zgen::POINT_STATUS.clone())
+    fn point_status_mut(&mut self) -> &mut SolarPointStatus {
+        self._solar_event_and_status_zgen_mut().point_status.get_or_insert(Default::default())
     }
 }
 impl IsSolarEventAndStatusZgen for SolarEventAndStatusZgen {
     fn _solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen {
         self
     }
-    fn _mut_solar_event_and_status_zgen(&mut self) -> &mut SolarEventAndStatusZgen {
+    fn _solar_event_and_status_zgen_mut(&mut self) -> &mut SolarEventAndStatusZgen {
         self
     }
 }
@@ -656,25 +656,25 @@ mod solar_event_zgen {
 }
 pub trait IsSolarEventZgen {
     fn _solar_event_zgen(&self) -> &SolarEventZgen;
-    fn _mut_solar_event_zgen(&mut self) -> &mut SolarEventZgen;
+    fn _solar_event_zgen_mut(&mut self) -> &mut SolarEventZgen;
     fn solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen {
         self._solar_event_zgen().solar_event_and_status_zgen.as_ref().unwrap_or(&solar_event_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_solar_event_and_status_zgen(&mut self) -> &mut SolarEventAndStatusZgen {
-        self._mut_solar_event_zgen().solar_event_and_status_zgen.get_or_insert(solar_event_zgen::SOLAR_EVENT_AND_STATUS_ZGEN.clone())
+    fn solar_event_and_status_zgen_mut(&mut self) -> &mut SolarEventAndStatusZgen {
+        self._solar_event_zgen_mut().solar_event_and_status_zgen.get_or_insert(Default::default())
     }
     fn gri_mod(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._solar_event_zgen().gri_mod.as_ref().unwrap_or(&solar_event_zgen::GRI_MOD)
     }
-    fn mut_gri_mod(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_solar_event_zgen().gri_mod.get_or_insert(solar_event_zgen::GRI_MOD.clone())
+    fn gri_mod_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._solar_event_zgen_mut().gri_mod.get_or_insert(Default::default())
     }
 }
 impl IsSolarEventZgen for SolarEventZgen {
     fn _solar_event_zgen(&self) -> &SolarEventZgen {
         self
     }
-    fn _mut_solar_event_zgen(&mut self) -> &mut SolarEventZgen {
+    fn _solar_event_zgen_mut(&mut self) -> &mut SolarEventZgen {
         self
     }
 }
@@ -710,25 +710,25 @@ mod solar_event {
 }
 pub trait IsSolarEvent {
     fn _solar_event(&self) -> &SolarEvent;
-    fn _mut_solar_event(&mut self) -> &mut SolarEvent;
+    fn _solar_event_mut(&mut self) -> &mut SolarEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._solar_event().event_value.as_ref().unwrap_or(&solar_event::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_solar_event().event_value.get_or_insert(solar_event::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._solar_event_mut().event_value.get_or_insert(Default::default())
     }
     fn solar_event_zgen(&self) -> &SolarEventZgen {
         self._solar_event().solar_event_zgen.as_ref().unwrap_or(&solar_event::SOLAR_EVENT_ZGEN)
     }
-    fn mut_solar_event_zgen(&mut self) -> &mut SolarEventZgen {
-        self._mut_solar_event().solar_event_zgen.get_or_insert(solar_event::SOLAR_EVENT_ZGEN.clone())
+    fn solar_event_zgen_mut(&mut self) -> &mut SolarEventZgen {
+        self._solar_event_mut().solar_event_zgen.get_or_insert(Default::default())
     }
 }
 impl IsSolarEvent for SolarEvent {
     fn _solar_event(&self) -> &SolarEvent {
         self
     }
-    fn _mut_solar_event(&mut self) -> &mut SolarEvent {
+    fn _solar_event_mut(&mut self) -> &mut SolarEvent {
         self
     }
 }
@@ -785,37 +785,37 @@ mod solar_event_profile {
 }
 pub trait IsSolarEventProfile {
     fn _solar_event_profile(&self) -> &SolarEventProfile;
-    fn _mut_solar_event_profile(&mut self) -> &mut SolarEventProfile;
+    fn _solar_event_profile_mut(&mut self) -> &mut SolarEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._solar_event_profile().event_message_info.as_ref().unwrap_or(&solar_event_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_solar_event_profile().event_message_info.get_or_insert(solar_event_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._solar_event_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._solar_event_profile().ied.as_ref().unwrap_or(&solar_event_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_solar_event_profile().ied.get_or_insert(solar_event_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._solar_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_event(&self) -> &SolarEvent {
         self._solar_event_profile().solar_event.as_ref().unwrap_or(&solar_event_profile::SOLAR_EVENT)
     }
-    fn mut_solar_event(&mut self) -> &mut SolarEvent {
-        self._mut_solar_event_profile().solar_event.get_or_insert(solar_event_profile::SOLAR_EVENT.clone())
+    fn solar_event_mut(&mut self) -> &mut SolarEvent {
+        self._solar_event_profile_mut().solar_event.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_event_profile().solar_inverter.as_ref().unwrap_or(&solar_event_profile::SOLAR_INVERTER)
     }
-    fn mut_solar_inverter(&mut self) -> &mut SolarInverter {
-        self._mut_solar_event_profile().solar_inverter.get_or_insert(solar_event_profile::SOLAR_INVERTER.clone())
+    fn solar_inverter_mut(&mut self) -> &mut SolarInverter {
+        self._solar_event_profile_mut().solar_inverter.get_or_insert(Default::default())
     }
 }
 impl IsSolarEventProfile for SolarEventProfile {
     fn _solar_event_profile(&self) -> &SolarEventProfile {
         self
     }
-    fn _mut_solar_event_profile(&mut self) -> &mut SolarEventProfile {
+    fn _solar_event_profile_mut(&mut self) -> &mut SolarEventProfile {
         self
     }
 }
@@ -853,37 +853,37 @@ mod solar_reading {
 }
 pub trait IsSolarReading {
     fn _solar_reading(&self) -> &SolarReading;
-    fn _mut_solar_reading(&mut self) -> &mut SolarReading;
+    fn _solar_reading_mut(&mut self) -> &mut SolarReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._solar_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&solar_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
-    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._mut_solar_reading().conducting_equipment_terminal_reading.get_or_insert(solar_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
+    fn conducting_equipment_terminal_reading_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._solar_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._solar_reading().phase_mmtn.as_ref().unwrap_or(&solar_reading::PHASE_MMTN)
     }
-    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
-        self._mut_solar_reading().phase_mmtn.get_or_insert(solar_reading::PHASE_MMTN.clone())
+    fn phase_mmtn_mut(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._solar_reading_mut().phase_mmtn.get_or_insert(Default::default())
     }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._solar_reading().reading_mmtr.as_ref().unwrap_or(&solar_reading::READING_MMTR)
     }
-    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
-        self._mut_solar_reading().reading_mmtr.get_or_insert(solar_reading::READING_MMTR.clone())
+    fn reading_mmtr_mut(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._solar_reading_mut().reading_mmtr.get_or_insert(Default::default())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._solar_reading().reading_mmxu.as_ref().unwrap_or(&solar_reading::READING_MMXU)
     }
-    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_solar_reading().reading_mmxu.get_or_insert(solar_reading::READING_MMXU.clone())
+    fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._solar_reading_mut().reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsSolarReading for SolarReading {
     fn _solar_reading(&self) -> &SolarReading {
         self
     }
-    fn _mut_solar_reading(&mut self) -> &mut SolarReading {
+    fn _solar_reading_mut(&mut self) -> &mut SolarReading {
         self
     }
 }
@@ -940,37 +940,37 @@ mod solar_reading_profile {
 }
 pub trait IsSolarReadingProfile {
     fn _solar_reading_profile(&self) -> &SolarReadingProfile;
-    fn _mut_solar_reading_profile(&mut self) -> &mut SolarReadingProfile;
+    fn _solar_reading_profile_mut(&mut self) -> &mut SolarReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._solar_reading_profile().reading_message_info.as_ref().unwrap_or(&solar_reading_profile::READING_MESSAGE_INFO)
     }
-    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._mut_solar_reading_profile().reading_message_info.get_or_insert(solar_reading_profile::READING_MESSAGE_INFO.clone())
+    fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._solar_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._solar_reading_profile().ied.as_ref().unwrap_or(&solar_reading_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_solar_reading_profile().ied.get_or_insert(solar_reading_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._solar_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_reading_profile().solar_inverter.as_ref().unwrap_or(&solar_reading_profile::SOLAR_INVERTER)
     }
-    fn mut_solar_inverter(&mut self) -> &mut SolarInverter {
-        self._mut_solar_reading_profile().solar_inverter.get_or_insert(solar_reading_profile::SOLAR_INVERTER.clone())
+    fn solar_inverter_mut(&mut self) -> &mut SolarInverter {
+        self._solar_reading_profile_mut().solar_inverter.get_or_insert(Default::default())
     }
     fn solar_reading(&self) -> &SolarReading {
         self._solar_reading_profile().solar_reading.as_ref().unwrap_or(&solar_reading_profile::SOLAR_READING)
     }
-    fn mut_solar_reading(&mut self) -> &mut SolarReading {
-        self._mut_solar_reading_profile().solar_reading.get_or_insert(solar_reading_profile::SOLAR_READING.clone())
+    fn solar_reading_mut(&mut self) -> &mut SolarReading {
+        self._solar_reading_profile_mut().solar_reading.get_or_insert(Default::default())
     }
 }
 impl IsSolarReadingProfile for SolarReadingProfile {
     fn _solar_reading_profile(&self) -> &SolarReadingProfile {
         self
     }
-    fn _mut_solar_reading_profile(&mut self) -> &mut SolarReadingProfile {
+    fn _solar_reading_profile_mut(&mut self) -> &mut SolarReadingProfile {
         self
     }
 }
@@ -1000,25 +1000,25 @@ mod solar_status_zgen {
 }
 pub trait IsSolarStatusZgen {
     fn _solar_status_zgen(&self) -> &SolarStatusZgen;
-    fn _mut_solar_status_zgen(&mut self) -> &mut SolarStatusZgen;
+    fn _solar_status_zgen_mut(&mut self) -> &mut SolarStatusZgen;
     fn solar_event_and_status_zgen(&self) -> &SolarEventAndStatusZgen {
         self._solar_status_zgen().solar_event_and_status_zgen.as_ref().unwrap_or(&solar_status_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_solar_event_and_status_zgen(&mut self) -> &mut SolarEventAndStatusZgen {
-        self._mut_solar_status_zgen().solar_event_and_status_zgen.get_or_insert(solar_status_zgen::SOLAR_EVENT_AND_STATUS_ZGEN.clone())
+    fn solar_event_and_status_zgen_mut(&mut self) -> &mut SolarEventAndStatusZgen {
+        self._solar_status_zgen_mut().solar_event_and_status_zgen.get_or_insert(Default::default())
     }
     fn gri_mod(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._solar_status_zgen().gri_mod.as_ref().unwrap_or(&solar_status_zgen::GRI_MOD)
     }
-    fn mut_gri_mod(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_solar_status_zgen().gri_mod.get_or_insert(solar_status_zgen::GRI_MOD.clone())
+    fn gri_mod_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._solar_status_zgen_mut().gri_mod.get_or_insert(Default::default())
     }
 }
 impl IsSolarStatusZgen for SolarStatusZgen {
     fn _solar_status_zgen(&self) -> &SolarStatusZgen {
         self
     }
-    fn _mut_solar_status_zgen(&mut self) -> &mut SolarStatusZgen {
+    fn _solar_status_zgen_mut(&mut self) -> &mut SolarStatusZgen {
         self
     }
 }
@@ -1054,25 +1054,25 @@ mod solar_status {
 }
 pub trait IsSolarStatus {
     fn _solar_status(&self) -> &SolarStatus;
-    fn _mut_solar_status(&mut self) -> &mut SolarStatus;
+    fn _solar_status_mut(&mut self) -> &mut SolarStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._solar_status().status_value.as_ref().unwrap_or(&solar_status::STATUS_VALUE)
     }
-    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._mut_solar_status().status_value.get_or_insert(solar_status::STATUS_VALUE.clone())
+    fn status_value_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._solar_status_mut().status_value.get_or_insert(Default::default())
     }
     fn solar_status_zgen(&self) -> &SolarStatusZgen {
         self._solar_status().solar_status_zgen.as_ref().unwrap_or(&solar_status::SOLAR_STATUS_ZGEN)
     }
-    fn mut_solar_status_zgen(&mut self) -> &mut SolarStatusZgen {
-        self._mut_solar_status().solar_status_zgen.get_or_insert(solar_status::SOLAR_STATUS_ZGEN.clone())
+    fn solar_status_zgen_mut(&mut self) -> &mut SolarStatusZgen {
+        self._solar_status_mut().solar_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsSolarStatus for SolarStatus {
     fn _solar_status(&self) -> &SolarStatus {
         self
     }
-    fn _mut_solar_status(&mut self) -> &mut SolarStatus {
+    fn _solar_status_mut(&mut self) -> &mut SolarStatus {
         self
     }
 }
@@ -1129,37 +1129,37 @@ mod solar_status_profile {
 }
 pub trait IsSolarStatusProfile {
     fn _solar_status_profile(&self) -> &SolarStatusProfile;
-    fn _mut_solar_status_profile(&mut self) -> &mut SolarStatusProfile;
+    fn _solar_status_profile_mut(&mut self) -> &mut SolarStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._solar_status_profile().status_message_info.as_ref().unwrap_or(&solar_status_profile::STATUS_MESSAGE_INFO)
     }
-    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._mut_solar_status_profile().status_message_info.get_or_insert(solar_status_profile::STATUS_MESSAGE_INFO.clone())
+    fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._solar_status_profile_mut().status_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._solar_status_profile().ied.as_ref().unwrap_or(&solar_status_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_solar_status_profile().ied.get_or_insert(solar_status_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._solar_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_status_profile().solar_inverter.as_ref().unwrap_or(&solar_status_profile::SOLAR_INVERTER)
     }
-    fn mut_solar_inverter(&mut self) -> &mut SolarInverter {
-        self._mut_solar_status_profile().solar_inverter.get_or_insert(solar_status_profile::SOLAR_INVERTER.clone())
+    fn solar_inverter_mut(&mut self) -> &mut SolarInverter {
+        self._solar_status_profile_mut().solar_inverter.get_or_insert(Default::default())
     }
     fn solar_status(&self) -> &SolarStatus {
         self._solar_status_profile().solar_status.as_ref().unwrap_or(&solar_status_profile::SOLAR_STATUS)
     }
-    fn mut_solar_status(&mut self) -> &mut SolarStatus {
-        self._mut_solar_status_profile().solar_status.get_or_insert(solar_status_profile::SOLAR_STATUS.clone())
+    fn solar_status_mut(&mut self) -> &mut SolarStatus {
+        self._solar_status_profile_mut().solar_status.get_or_insert(Default::default())
     }
 }
 impl IsSolarStatusProfile for SolarStatusProfile {
     fn _solar_status_profile(&self) -> &SolarStatusProfile {
         self
     }
-    fn _mut_solar_status_profile(&mut self) -> &mut SolarStatusProfile {
+    fn _solar_status_profile_mut(&mut self) -> &mut SolarStatusProfile {
         self
     }
 }

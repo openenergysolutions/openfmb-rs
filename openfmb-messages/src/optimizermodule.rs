@@ -19,17 +19,17 @@ mod regulator_control_schedule_profile_list {
 }
 pub trait IsRegulatorControlScheduleProfileList {
     fn _regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList;
-    fn _mut_regulator_control_schedule_profile_list(&mut self) -> &mut RegulatorControlScheduleProfileList;
+    fn _regulator_control_schedule_profile_list_mut(&mut self) -> &mut RegulatorControlScheduleProfileList;
     fn regulator_control_profile(&self) -> &::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
         &self._regulator_control_schedule_profile_list().regulator_control_profile    }
-    fn mut_regulator_control_profile(&mut self) -> &mut ::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
-        &mut self._mut_regulator_control_schedule_profile_list().regulator_control_profile    }
+    fn regulator_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
+        &mut self._regulator_control_schedule_profile_list_mut().regulator_control_profile    }
 }
 impl IsRegulatorControlScheduleProfileList for RegulatorControlScheduleProfileList {
     fn _regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList {
         self
     }
-    fn _mut_regulator_control_schedule_profile_list(&mut self) -> &mut RegulatorControlScheduleProfileList {
+    fn _regulator_control_schedule_profile_list_mut(&mut self) -> &mut RegulatorControlScheduleProfileList {
         self
     }
 }
@@ -54,17 +54,17 @@ mod solar_control_schedule_profile_list {
 }
 pub trait IsSolarControlScheduleProfileList {
     fn _solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList;
-    fn _mut_solar_control_schedule_profile_list(&mut self) -> &mut SolarControlScheduleProfileList;
+    fn _solar_control_schedule_profile_list_mut(&mut self) -> &mut SolarControlScheduleProfileList;
     fn solar_control_profile(&self) -> &::std::vec::Vec<super::solarmodule::SolarControlProfile> {
         &self._solar_control_schedule_profile_list().solar_control_profile    }
-    fn mut_solar_control_profile(&mut self) -> &mut ::std::vec::Vec<super::solarmodule::SolarControlProfile> {
-        &mut self._mut_solar_control_schedule_profile_list().solar_control_profile    }
+    fn solar_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::solarmodule::SolarControlProfile> {
+        &mut self._solar_control_schedule_profile_list_mut().solar_control_profile    }
 }
 impl IsSolarControlScheduleProfileList for SolarControlScheduleProfileList {
     fn _solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList {
         self
     }
-    fn _mut_solar_control_schedule_profile_list(&mut self) -> &mut SolarControlScheduleProfileList {
+    fn _solar_control_schedule_profile_list_mut(&mut self) -> &mut SolarControlScheduleProfileList {
         self
     }
 }
@@ -89,17 +89,17 @@ mod planned_interconnection_schedule_profile_list {
 }
 pub trait IsPlannedInterconnectionScheduleProfileList {
     fn _planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList;
-    fn _mut_planned_interconnection_schedule_profile_list(&mut self) -> &mut PlannedInterconnectionScheduleProfileList;
+    fn _planned_interconnection_schedule_profile_list_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfileList;
     fn planned_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
         &self._planned_interconnection_schedule_profile_list().planned_interconnection_schedule_profile    }
-    fn mut_planned_interconnection_schedule_profile(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
-        &mut self._mut_planned_interconnection_schedule_profile_list().planned_interconnection_schedule_profile    }
+    fn planned_interconnection_schedule_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
+        &mut self._planned_interconnection_schedule_profile_list_mut().planned_interconnection_schedule_profile    }
 }
 impl IsPlannedInterconnectionScheduleProfileList for PlannedInterconnectionScheduleProfileList {
     fn _planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList {
         self
     }
-    fn _mut_planned_interconnection_schedule_profile_list(&mut self) -> &mut PlannedInterconnectionScheduleProfileList {
+    fn _planned_interconnection_schedule_profile_list_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfileList {
         self
     }
 }
@@ -124,17 +124,17 @@ mod load_control_schedule_profile_list {
 }
 pub trait IsLoadControlScheduleProfileList {
     fn _load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList;
-    fn _mut_load_control_schedule_profile_list(&mut self) -> &mut LoadControlScheduleProfileList;
+    fn _load_control_schedule_profile_list_mut(&mut self) -> &mut LoadControlScheduleProfileList;
     fn load_control_profile(&self) -> &::std::vec::Vec<super::loadmodule::LoadControlProfile> {
         &self._load_control_schedule_profile_list().load_control_profile    }
-    fn mut_load_control_profile(&mut self) -> &mut ::std::vec::Vec<super::loadmodule::LoadControlProfile> {
-        &mut self._mut_load_control_schedule_profile_list().load_control_profile    }
+    fn load_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::loadmodule::LoadControlProfile> {
+        &mut self._load_control_schedule_profile_list_mut().load_control_profile    }
 }
 impl IsLoadControlScheduleProfileList for LoadControlScheduleProfileList {
     fn _load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList {
         self
     }
-    fn _mut_load_control_schedule_profile_list(&mut self) -> &mut LoadControlScheduleProfileList {
+    fn _load_control_schedule_profile_list_mut(&mut self) -> &mut LoadControlScheduleProfileList {
         self
     }
 }
@@ -159,17 +159,17 @@ mod ess_control_schedule_profile_list {
 }
 pub trait IsEssControlScheduleProfileList {
     fn _ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList;
-    fn _mut_ess_control_schedule_profile_list(&mut self) -> &mut EssControlScheduleProfileList;
+    fn _ess_control_schedule_profile_list_mut(&mut self) -> &mut EssControlScheduleProfileList;
     fn ess_control_profile(&self) -> &::std::vec::Vec<super::essmodule::EssControlProfile> {
         &self._ess_control_schedule_profile_list().ess_control_profile    }
-    fn mut_ess_control_profile(&mut self) -> &mut ::std::vec::Vec<super::essmodule::EssControlProfile> {
-        &mut self._mut_ess_control_schedule_profile_list().ess_control_profile    }
+    fn ess_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::essmodule::EssControlProfile> {
+        &mut self._ess_control_schedule_profile_list_mut().ess_control_profile    }
 }
 impl IsEssControlScheduleProfileList for EssControlScheduleProfileList {
     fn _ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList {
         self
     }
-    fn _mut_ess_control_schedule_profile_list(&mut self) -> &mut EssControlScheduleProfileList {
+    fn _ess_control_schedule_profile_list_mut(&mut self) -> &mut EssControlScheduleProfileList {
         self
     }
 }
@@ -194,17 +194,17 @@ mod switch_control_schedule_profile_list {
 }
 pub trait IsSwitchControlScheduleProfileList {
     fn _switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList;
-    fn _mut_switch_control_schedule_profile_list(&mut self) -> &mut SwitchControlScheduleProfileList;
+    fn _switch_control_schedule_profile_list_mut(&mut self) -> &mut SwitchControlScheduleProfileList;
     fn switch_control_profile(&self) -> &::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
         &self._switch_control_schedule_profile_list().switch_control_profile    }
-    fn mut_switch_control_profile(&mut self) -> &mut ::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
-        &mut self._mut_switch_control_schedule_profile_list().switch_control_profile    }
+    fn switch_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
+        &mut self._switch_control_schedule_profile_list_mut().switch_control_profile    }
 }
 impl IsSwitchControlScheduleProfileList for SwitchControlScheduleProfileList {
     fn _switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList {
         self
     }
-    fn _mut_switch_control_schedule_profile_list(&mut self) -> &mut SwitchControlScheduleProfileList {
+    fn _switch_control_schedule_profile_list_mut(&mut self) -> &mut SwitchControlScheduleProfileList {
         self
     }
 }
@@ -229,17 +229,17 @@ mod generation_control_schedule_profile_list {
 }
 pub trait IsGenerationControlScheduleProfileList {
     fn _generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList;
-    fn _mut_generation_control_schedule_profile_list(&mut self) -> &mut GenerationControlScheduleProfileList;
+    fn _generation_control_schedule_profile_list_mut(&mut self) -> &mut GenerationControlScheduleProfileList;
     fn generation_control_profile(&self) -> &::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
         &self._generation_control_schedule_profile_list().generation_control_profile    }
-    fn mut_generation_control_profile(&mut self) -> &mut ::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
-        &mut self._mut_generation_control_schedule_profile_list().generation_control_profile    }
+    fn generation_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
+        &mut self._generation_control_schedule_profile_list_mut().generation_control_profile    }
 }
 impl IsGenerationControlScheduleProfileList for GenerationControlScheduleProfileList {
     fn _generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList {
         self
     }
-    fn _mut_generation_control_schedule_profile_list(&mut self) -> &mut GenerationControlScheduleProfileList {
+    fn _generation_control_schedule_profile_list_mut(&mut self) -> &mut GenerationControlScheduleProfileList {
         self
     }
 }
@@ -304,67 +304,67 @@ mod planned_optimizer_schedule_profile {
 }
 pub trait IsPlannedOptimizerScheduleProfile {
     fn _planned_optimizer_schedule_profile(&self) -> &PlannedOptimizerScheduleProfile;
-    fn _mut_planned_optimizer_schedule_profile(&mut self) -> &mut PlannedOptimizerScheduleProfile;
+    fn _planned_optimizer_schedule_profile_mut(&mut self) -> &mut PlannedOptimizerScheduleProfile;
     fn optimization_message_info(&self) -> &super::commonmodule::OptimizationMessageInfo {
         self._planned_optimizer_schedule_profile().optimization_message_info.as_ref().unwrap_or(&planned_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO)
     }
-    fn mut_optimization_message_info(&mut self) -> &mut super::commonmodule::OptimizationMessageInfo {
-        self._mut_planned_optimizer_schedule_profile().optimization_message_info.get_or_insert(planned_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO.clone())
+    fn optimization_message_info_mut(&mut self) -> &mut super::commonmodule::OptimizationMessageInfo {
+        self._planned_optimizer_schedule_profile_mut().optimization_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._planned_optimizer_schedule_profile().application_system.as_ref().unwrap_or(&planned_optimizer_schedule_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_planned_optimizer_schedule_profile().application_system.get_or_insert(planned_optimizer_schedule_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._planned_optimizer_schedule_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().ess_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::ESS_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_ess_control_schedule_profile_list(&mut self) -> &mut EssControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().ess_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::ESS_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn ess_control_schedule_profile_list_mut(&mut self) -> &mut EssControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().ess_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().generation_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::GENERATION_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_generation_control_schedule_profile_list(&mut self) -> &mut GenerationControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().generation_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::GENERATION_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn generation_control_schedule_profile_list_mut(&mut self) -> &mut GenerationControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().generation_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().load_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::LOAD_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_load_control_schedule_profile_list(&mut self) -> &mut LoadControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().load_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::LOAD_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn load_control_schedule_profile_list_mut(&mut self) -> &mut LoadControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().load_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList {
         self._planned_optimizer_schedule_profile().planned_interconnection_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::PLANNED_INTERCONNECTION_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_planned_interconnection_schedule_profile_list(&mut self) -> &mut PlannedInterconnectionScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().planned_interconnection_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::PLANNED_INTERCONNECTION_SCHEDULE_PROFILE_LIST.clone())
+    fn planned_interconnection_schedule_profile_list_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().planned_interconnection_schedule_profile_list.get_or_insert(Default::default())
     }
     fn regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().regulator_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::REGULATOR_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_regulator_control_schedule_profile_list(&mut self) -> &mut RegulatorControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().regulator_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::REGULATOR_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn regulator_control_schedule_profile_list_mut(&mut self) -> &mut RegulatorControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().regulator_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().solar_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::SOLAR_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_solar_control_schedule_profile_list(&mut self) -> &mut SolarControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().solar_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::SOLAR_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn solar_control_schedule_profile_list_mut(&mut self) -> &mut SolarControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().solar_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList {
         self._planned_optimizer_schedule_profile().switch_control_schedule_profile_list.as_ref().unwrap_or(&planned_optimizer_schedule_profile::SWITCH_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_switch_control_schedule_profile_list(&mut self) -> &mut SwitchControlScheduleProfileList {
-        self._mut_planned_optimizer_schedule_profile().switch_control_schedule_profile_list.get_or_insert(planned_optimizer_schedule_profile::SWITCH_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn switch_control_schedule_profile_list_mut(&mut self) -> &mut SwitchControlScheduleProfileList {
+        self._planned_optimizer_schedule_profile_mut().switch_control_schedule_profile_list.get_or_insert(Default::default())
     }
 }
 impl IsPlannedOptimizerScheduleProfile for PlannedOptimizerScheduleProfile {
     fn _planned_optimizer_schedule_profile(&self) -> &PlannedOptimizerScheduleProfile {
         self
     }
-    fn _mut_planned_optimizer_schedule_profile(&mut self) -> &mut PlannedOptimizerScheduleProfile {
+    fn _planned_optimizer_schedule_profile_mut(&mut self) -> &mut PlannedOptimizerScheduleProfile {
         self
     }
 }
@@ -389,17 +389,17 @@ mod requested_interconnection_schedule_profile_list {
 }
 pub trait IsRequestedInterconnectionScheduleProfileList {
     fn _requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList;
-    fn _mut_requested_interconnection_schedule_profile_list(&mut self) -> &mut RequestedInterconnectionScheduleProfileList;
+    fn _requested_interconnection_schedule_profile_list_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfileList;
     fn requested_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
         &self._requested_interconnection_schedule_profile_list().requested_interconnection_schedule_profile    }
-    fn mut_requested_interconnection_schedule_profile(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
-        &mut self._mut_requested_interconnection_schedule_profile_list().requested_interconnection_schedule_profile    }
+    fn requested_interconnection_schedule_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
+        &mut self._requested_interconnection_schedule_profile_list_mut().requested_interconnection_schedule_profile    }
 }
 impl IsRequestedInterconnectionScheduleProfileList for RequestedInterconnectionScheduleProfileList {
     fn _requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList {
         self
     }
-    fn _mut_requested_interconnection_schedule_profile_list(&mut self) -> &mut RequestedInterconnectionScheduleProfileList {
+    fn _requested_interconnection_schedule_profile_list_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfileList {
         self
     }
 }
@@ -464,67 +464,67 @@ mod requested_optimizer_schedule_profile {
 }
 pub trait IsRequestedOptimizerScheduleProfile {
     fn _requested_optimizer_schedule_profile(&self) -> &RequestedOptimizerScheduleProfile;
-    fn _mut_requested_optimizer_schedule_profile(&mut self) -> &mut RequestedOptimizerScheduleProfile;
+    fn _requested_optimizer_schedule_profile_mut(&mut self) -> &mut RequestedOptimizerScheduleProfile;
     fn optimization_message_info(&self) -> &super::commonmodule::OptimizationMessageInfo {
         self._requested_optimizer_schedule_profile().optimization_message_info.as_ref().unwrap_or(&requested_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO)
     }
-    fn mut_optimization_message_info(&mut self) -> &mut super::commonmodule::OptimizationMessageInfo {
-        self._mut_requested_optimizer_schedule_profile().optimization_message_info.get_or_insert(requested_optimizer_schedule_profile::OPTIMIZATION_MESSAGE_INFO.clone())
+    fn optimization_message_info_mut(&mut self) -> &mut super::commonmodule::OptimizationMessageInfo {
+        self._requested_optimizer_schedule_profile_mut().optimization_message_info.get_or_insert(Default::default())
     }
     fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
         self._requested_optimizer_schedule_profile().application_system.as_ref().unwrap_or(&requested_optimizer_schedule_profile::APPLICATION_SYSTEM)
     }
-    fn mut_application_system(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._mut_requested_optimizer_schedule_profile().application_system.get_or_insert(requested_optimizer_schedule_profile::APPLICATION_SYSTEM.clone())
+    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._requested_optimizer_schedule_profile_mut().application_system.get_or_insert(Default::default())
     }
     fn ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().ess_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::ESS_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_ess_control_schedule_profile_list(&mut self) -> &mut EssControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().ess_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::ESS_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn ess_control_schedule_profile_list_mut(&mut self) -> &mut EssControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().ess_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().generation_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::GENERATION_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_generation_control_schedule_profile_list(&mut self) -> &mut GenerationControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().generation_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::GENERATION_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn generation_control_schedule_profile_list_mut(&mut self) -> &mut GenerationControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().generation_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().load_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::LOAD_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_load_control_schedule_profile_list(&mut self) -> &mut LoadControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().load_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::LOAD_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn load_control_schedule_profile_list_mut(&mut self) -> &mut LoadControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().load_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().regulator_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::REGULATOR_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_regulator_control_schedule_profile_list(&mut self) -> &mut RegulatorControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().regulator_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::REGULATOR_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn regulator_control_schedule_profile_list_mut(&mut self) -> &mut RegulatorControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().regulator_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList {
         self._requested_optimizer_schedule_profile().requested_interconnection_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::REQUESTED_INTERCONNECTION_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_requested_interconnection_schedule_profile_list(&mut self) -> &mut RequestedInterconnectionScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().requested_interconnection_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::REQUESTED_INTERCONNECTION_SCHEDULE_PROFILE_LIST.clone())
+    fn requested_interconnection_schedule_profile_list_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().requested_interconnection_schedule_profile_list.get_or_insert(Default::default())
     }
     fn solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().solar_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::SOLAR_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_solar_control_schedule_profile_list(&mut self) -> &mut SolarControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().solar_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::SOLAR_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn solar_control_schedule_profile_list_mut(&mut self) -> &mut SolarControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().solar_control_schedule_profile_list.get_or_insert(Default::default())
     }
     fn switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList {
         self._requested_optimizer_schedule_profile().switch_control_schedule_profile_list.as_ref().unwrap_or(&requested_optimizer_schedule_profile::SWITCH_CONTROL_SCHEDULE_PROFILE_LIST)
     }
-    fn mut_switch_control_schedule_profile_list(&mut self) -> &mut SwitchControlScheduleProfileList {
-        self._mut_requested_optimizer_schedule_profile().switch_control_schedule_profile_list.get_or_insert(requested_optimizer_schedule_profile::SWITCH_CONTROL_SCHEDULE_PROFILE_LIST.clone())
+    fn switch_control_schedule_profile_list_mut(&mut self) -> &mut SwitchControlScheduleProfileList {
+        self._requested_optimizer_schedule_profile_mut().switch_control_schedule_profile_list.get_or_insert(Default::default())
     }
 }
 impl IsRequestedOptimizerScheduleProfile for RequestedOptimizerScheduleProfile {
     fn _requested_optimizer_schedule_profile(&self) -> &RequestedOptimizerScheduleProfile {
         self
     }
-    fn _mut_requested_optimizer_schedule_profile(&mut self) -> &mut RequestedOptimizerScheduleProfile {
+    fn _requested_optimizer_schedule_profile_mut(&mut self) -> &mut RequestedOptimizerScheduleProfile {
         self
     }
 }

@@ -30,31 +30,31 @@ mod identified_object {
 }
 pub trait IsIdentifiedObject {
     fn _identified_object(&self) -> &IdentifiedObject;
-    fn _mut_identified_object(&mut self) -> &mut IdentifiedObject;
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject;
     fn description(&self) -> &::std::string::String {
         self._identified_object().description.as_ref().unwrap_or(&identified_object::DESCRIPTION)
     }
-    fn mut_description(&mut self) -> &mut ::std::string::String {
-        self._mut_identified_object().description.get_or_insert(identified_object::DESCRIPTION.clone())
+    fn description_mut(&mut self) -> &mut ::std::string::String {
+        self._identified_object_mut().description.get_or_insert(Default::default())
     }
     fn m_rid(&self) -> &::std::string::String {
         self._identified_object().m_rid.as_ref().unwrap_or(&identified_object::M_RID)
     }
-    fn mut_m_rid(&mut self) -> &mut ::std::string::String {
-        self._mut_identified_object().m_rid.get_or_insert(identified_object::M_RID.clone())
+    fn m_rid_mut(&mut self) -> &mut ::std::string::String {
+        self._identified_object_mut().m_rid.get_or_insert(Default::default())
     }
     fn name(&self) -> &::std::string::String {
         self._identified_object().name.as_ref().unwrap_or(&identified_object::NAME)
     }
-    fn mut_name(&mut self) -> &mut ::std::string::String {
-        self._mut_identified_object().name.get_or_insert(identified_object::NAME.clone())
+    fn name_mut(&mut self) -> &mut ::std::string::String {
+        self._identified_object_mut().name.get_or_insert(Default::default())
     }
 }
 impl IsIdentifiedObject for IdentifiedObject {
     fn _identified_object(&self) -> &IdentifiedObject {
         self
     }
-    fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
         self
     }
 }
@@ -97,31 +97,31 @@ mod acdc_terminal {
 }
 pub trait IsAcdcTerminal {
     fn _acdc_terminal(&self) -> &AcdcTerminal;
-    fn _mut_acdc_terminal(&mut self) -> &mut AcdcTerminal;
+    fn _acdc_terminal_mut(&mut self) -> &mut AcdcTerminal;
     fn identified_object(&self) -> &IdentifiedObject {
         self._acdc_terminal().identified_object.as_ref().unwrap_or(&acdc_terminal::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_acdc_terminal().identified_object.get_or_insert(acdc_terminal::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._acdc_terminal_mut().identified_object.get_or_insert(Default::default())
     }
     fn connected(&self) -> &bool {
         self._acdc_terminal().connected.as_ref().unwrap_or(&acdc_terminal::CONNECTED)
     }
-    fn mut_connected(&mut self) -> &mut bool {
-        self._mut_acdc_terminal().connected.get_or_insert(acdc_terminal::CONNECTED.clone())
+    fn connected_mut(&mut self) -> &mut bool {
+        self._acdc_terminal_mut().connected.get_or_insert(Default::default())
     }
     fn sequence_number(&self) -> &i32 {
         self._acdc_terminal().sequence_number.as_ref().unwrap_or(&acdc_terminal::SEQUENCE_NUMBER)
     }
-    fn mut_sequence_number(&mut self) -> &mut i32 {
-        self._mut_acdc_terminal().sequence_number.get_or_insert(acdc_terminal::SEQUENCE_NUMBER.clone())
+    fn sequence_number_mut(&mut self) -> &mut i32 {
+        self._acdc_terminal_mut().sequence_number.get_or_insert(Default::default())
     }
 }
 impl IsAcdcTerminal for AcdcTerminal {
     fn _acdc_terminal(&self) -> &AcdcTerminal {
         self
     }
-    fn _mut_acdc_terminal(&mut self) -> &mut AcdcTerminal {
+    fn _acdc_terminal_mut(&mut self) -> &mut AcdcTerminal {
         self
     }
 }
@@ -138,17 +138,17 @@ mod optional_unit_symbol_kind {
 }
 pub trait IsOptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind;
-    fn _mut_optional_unit_symbol_kind(&mut self) -> &mut OptionalUnitSymbolKind;
+    fn _optional_unit_symbol_kind_mut(&mut self) -> &mut OptionalUnitSymbolKind;
     fn value(&self) -> &i32 {
         &self._optional_unit_symbol_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_unit_symbol_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_unit_symbol_kind_mut().value    }
 }
 impl IsOptionalUnitSymbolKind for OptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind {
         self
     }
-    fn _mut_optional_unit_symbol_kind(&mut self) -> &mut OptionalUnitSymbolKind {
+    fn _optional_unit_symbol_kind_mut(&mut self) -> &mut OptionalUnitSymbolKind {
         self
     }
 }
@@ -165,17 +165,17 @@ mod optional_unit_multiplier_kind {
 }
 pub trait IsOptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind;
-    fn _mut_optional_unit_multiplier_kind(&mut self) -> &mut OptionalUnitMultiplierKind;
+    fn _optional_unit_multiplier_kind_mut(&mut self) -> &mut OptionalUnitMultiplierKind;
     fn value(&self) -> &i32 {
         &self._optional_unit_multiplier_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_unit_multiplier_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_unit_multiplier_kind_mut().value    }
 }
 impl IsOptionalUnitMultiplierKind for OptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind {
         self
     }
-    fn _mut_optional_unit_multiplier_kind(&mut self) -> &mut OptionalUnitMultiplierKind {
+    fn _optional_unit_multiplier_kind_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
         self
     }
 }
@@ -203,31 +203,31 @@ mod active_power {
 }
 pub trait IsActivePower {
     fn _active_power(&self) -> &ActivePower;
-    fn _mut_active_power(&mut self) -> &mut ActivePower;
+    fn _active_power_mut(&mut self) -> &mut ActivePower;
     fn multiplier(&self) -> &OptionalUnitMultiplierKind {
         self._active_power().multiplier.as_ref().unwrap_or(&active_power::MULTIPLIER)
     }
-    fn mut_multiplier(&mut self) -> &mut OptionalUnitMultiplierKind {
-        self._mut_active_power().multiplier.get_or_insert(active_power::MULTIPLIER.clone())
+    fn multiplier_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
+        self._active_power_mut().multiplier.get_or_insert(Default::default())
     }
     fn unit(&self) -> &OptionalUnitSymbolKind {
         self._active_power().unit.as_ref().unwrap_or(&active_power::UNIT)
     }
-    fn mut_unit(&mut self) -> &mut OptionalUnitSymbolKind {
-        self._mut_active_power().unit.get_or_insert(active_power::UNIT.clone())
+    fn unit_mut(&mut self) -> &mut OptionalUnitSymbolKind {
+        self._active_power_mut().unit.get_or_insert(Default::default())
     }
     fn value(&self) -> &f32 {
         self._active_power().value.as_ref().unwrap_or(&active_power::VALUE)
     }
-    fn mut_value(&mut self) -> &mut f32 {
-        self._mut_active_power().value.get_or_insert(active_power::VALUE.clone())
+    fn value_mut(&mut self) -> &mut f32 {
+        self._active_power_mut().value.get_or_insert(Default::default())
     }
 }
 impl IsActivePower for ActivePower {
     fn _active_power(&self) -> &ActivePower {
         self
     }
-    fn _mut_active_power(&mut self) -> &mut ActivePower {
+    fn _active_power_mut(&mut self) -> &mut ActivePower {
         self
     }
 }
@@ -244,17 +244,17 @@ mod optional_phase_code_kind {
 }
 pub trait IsOptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind;
-    fn _mut_optional_phase_code_kind(&mut self) -> &mut OptionalPhaseCodeKind;
+    fn _optional_phase_code_kind_mut(&mut self) -> &mut OptionalPhaseCodeKind;
     fn value(&self) -> &i32 {
         &self._optional_phase_code_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_phase_code_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_phase_code_kind_mut().value    }
 }
 impl IsOptionalPhaseCodeKind for OptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind {
         self
     }
-    fn _mut_optional_phase_code_kind(&mut self) -> &mut OptionalPhaseCodeKind {
+    fn _optional_phase_code_kind_mut(&mut self) -> &mut OptionalPhaseCodeKind {
         self
     }
 }
@@ -281,25 +281,25 @@ mod analogue_value {
 }
 pub trait IsAnalogueValue {
     fn _analogue_value(&self) -> &AnalogueValue;
-    fn _mut_analogue_value(&mut self) -> &mut AnalogueValue;
+    fn _analogue_value_mut(&mut self) -> &mut AnalogueValue;
     fn f(&self) -> &f32 {
         self._analogue_value().f.as_ref().unwrap_or(&analogue_value::F)
     }
-    fn mut_f(&mut self) -> &mut f32 {
-        self._mut_analogue_value().f.get_or_insert(analogue_value::F.clone())
+    fn f_mut(&mut self) -> &mut f32 {
+        self._analogue_value_mut().f.get_or_insert(Default::default())
     }
     fn i(&self) -> &i32 {
         self._analogue_value().i.as_ref().unwrap_or(&analogue_value::I)
     }
-    fn mut_i(&mut self) -> &mut i32 {
-        self._mut_analogue_value().i.get_or_insert(analogue_value::I.clone())
+    fn i_mut(&mut self) -> &mut i32 {
+        self._analogue_value_mut().i.get_or_insert(Default::default())
     }
 }
 impl IsAnalogueValue for AnalogueValue {
     fn _analogue_value(&self) -> &AnalogueValue {
         self
     }
-    fn _mut_analogue_value(&mut self) -> &mut AnalogueValue {
+    fn _analogue_value_mut(&mut self) -> &mut AnalogueValue {
         self
     }
 }
@@ -316,17 +316,17 @@ mod optional_validity_kind {
 }
 pub trait IsOptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind;
-    fn _mut_optional_validity_kind(&mut self) -> &mut OptionalValidityKind;
+    fn _optional_validity_kind_mut(&mut self) -> &mut OptionalValidityKind;
     fn value(&self) -> &i32 {
         &self._optional_validity_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_validity_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_validity_kind_mut().value    }
 }
 impl IsOptionalValidityKind for OptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind {
         self
     }
-    fn _mut_optional_validity_kind(&mut self) -> &mut OptionalValidityKind {
+    fn _optional_validity_kind_mut(&mut self) -> &mut OptionalValidityKind {
         self
     }
 }
@@ -438,45 +438,45 @@ mod detail_qual {
 }
 pub trait IsDetailQual {
     fn _detail_qual(&self) -> &DetailQual;
-    fn _mut_detail_qual(&mut self) -> &mut DetailQual;
+    fn _detail_qual_mut(&mut self) -> &mut DetailQual;
     fn bad_reference(&self) -> &bool {
         &self._detail_qual().bad_reference    }
-    fn mut_bad_reference(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().bad_reference    }
+    fn bad_reference_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().bad_reference    }
     fn failure(&self) -> &bool {
         &self._detail_qual().failure    }
-    fn mut_failure(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().failure    }
+    fn failure_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().failure    }
     fn inaccurate(&self) -> &bool {
         &self._detail_qual().inaccurate    }
-    fn mut_inaccurate(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().inaccurate    }
+    fn inaccurate_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().inaccurate    }
     fn inconsistent(&self) -> &bool {
         &self._detail_qual().inconsistent    }
-    fn mut_inconsistent(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().inconsistent    }
+    fn inconsistent_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().inconsistent    }
     fn old_data(&self) -> &bool {
         &self._detail_qual().old_data    }
-    fn mut_old_data(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().old_data    }
+    fn old_data_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().old_data    }
     fn oscillatory(&self) -> &bool {
         &self._detail_qual().oscillatory    }
-    fn mut_oscillatory(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().oscillatory    }
+    fn oscillatory_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().oscillatory    }
     fn out_of_range(&self) -> &bool {
         &self._detail_qual().out_of_range    }
-    fn mut_out_of_range(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().out_of_range    }
+    fn out_of_range_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().out_of_range    }
     fn overflow(&self) -> &bool {
         &self._detail_qual().overflow    }
-    fn mut_overflow(&mut self) -> &mut bool {
-        &mut self._mut_detail_qual().overflow    }
+    fn overflow_mut(&mut self) -> &mut bool {
+        &mut self._detail_qual_mut().overflow    }
 }
 impl IsDetailQual for DetailQual {
     fn _detail_qual(&self) -> &DetailQual {
         self
     }
-    fn _mut_detail_qual(&mut self) -> &mut DetailQual {
+    fn _detail_qual_mut(&mut self) -> &mut DetailQual {
         self
     }
 }
@@ -493,17 +493,17 @@ mod optional_source_kind {
 }
 pub trait IsOptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind;
-    fn _mut_optional_source_kind(&mut self) -> &mut OptionalSourceKind;
+    fn _optional_source_kind_mut(&mut self) -> &mut OptionalSourceKind;
     fn value(&self) -> &i32 {
         &self._optional_source_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_source_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_source_kind_mut().value    }
 }
 impl IsOptionalSourceKind for OptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind {
         self
     }
-    fn _mut_optional_source_kind(&mut self) -> &mut OptionalSourceKind {
+    fn _optional_source_kind_mut(&mut self) -> &mut OptionalSourceKind {
         self
     }
 }
@@ -582,35 +582,35 @@ mod quality {
 }
 pub trait IsQuality {
     fn _quality(&self) -> &Quality;
-    fn _mut_quality(&mut self) -> &mut Quality;
+    fn _quality_mut(&mut self) -> &mut Quality;
     fn detail_qual(&self) -> &DetailQual {
         self._quality().detail_qual.as_ref().unwrap_or(&quality::DETAIL_QUAL)
     }
-    fn mut_detail_qual(&mut self) -> &mut DetailQual {
-        self._mut_quality().detail_qual.get_or_insert(quality::DETAIL_QUAL.clone())
+    fn detail_qual_mut(&mut self) -> &mut DetailQual {
+        self._quality_mut().detail_qual.get_or_insert(Default::default())
     }
     fn operator_blocked(&self) -> &bool {
         &self._quality().operator_blocked    }
-    fn mut_operator_blocked(&mut self) -> &mut bool {
-        &mut self._mut_quality().operator_blocked    }
+    fn operator_blocked_mut(&mut self) -> &mut bool {
+        &mut self._quality_mut().operator_blocked    }
     fn source(&self) -> &i32 {
         &self._quality().source    }
-    fn mut_source(&mut self) -> &mut i32 {
-        &mut self._mut_quality().source    }
+    fn source_mut(&mut self) -> &mut i32 {
+        &mut self._quality_mut().source    }
     fn test(&self) -> &bool {
         &self._quality().test    }
-    fn mut_test(&mut self) -> &mut bool {
-        &mut self._mut_quality().test    }
+    fn test_mut(&mut self) -> &mut bool {
+        &mut self._quality_mut().test    }
     fn validity(&self) -> &i32 {
         &self._quality().validity    }
-    fn mut_validity(&mut self) -> &mut i32 {
-        &mut self._mut_quality().validity    }
+    fn validity_mut(&mut self) -> &mut i32 {
+        &mut self._quality_mut().validity    }
 }
 impl IsQuality for Quality {
     fn _quality(&self) -> &Quality {
         self
     }
-    fn _mut_quality(&mut self) -> &mut Quality {
+    fn _quality_mut(&mut self) -> &mut Quality {
         self
     }
 }
@@ -627,17 +627,17 @@ mod optional_time_accuracy_kind {
 }
 pub trait IsOptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind;
-    fn _mut_optional_time_accuracy_kind(&mut self) -> &mut OptionalTimeAccuracyKind;
+    fn _optional_time_accuracy_kind_mut(&mut self) -> &mut OptionalTimeAccuracyKind;
     fn value(&self) -> &i32 {
         &self._optional_time_accuracy_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_time_accuracy_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_time_accuracy_kind_mut().value    }
 }
 impl IsOptionalTimeAccuracyKind for OptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind {
         self
     }
-    fn _mut_optional_time_accuracy_kind(&mut self) -> &mut OptionalTimeAccuracyKind {
+    fn _optional_time_accuracy_kind_mut(&mut self) -> &mut OptionalTimeAccuracyKind {
         self
     }
 }
@@ -694,29 +694,29 @@ mod time_quality {
 }
 pub trait IsTimeQuality {
     fn _time_quality(&self) -> &TimeQuality;
-    fn _mut_time_quality(&mut self) -> &mut TimeQuality;
+    fn _time_quality_mut(&mut self) -> &mut TimeQuality;
     fn clock_failure(&self) -> &bool {
         &self._time_quality().clock_failure    }
-    fn mut_clock_failure(&mut self) -> &mut bool {
-        &mut self._mut_time_quality().clock_failure    }
+    fn clock_failure_mut(&mut self) -> &mut bool {
+        &mut self._time_quality_mut().clock_failure    }
     fn clock_not_synchronized(&self) -> &bool {
         &self._time_quality().clock_not_synchronized    }
-    fn mut_clock_not_synchronized(&mut self) -> &mut bool {
-        &mut self._mut_time_quality().clock_not_synchronized    }
+    fn clock_not_synchronized_mut(&mut self) -> &mut bool {
+        &mut self._time_quality_mut().clock_not_synchronized    }
     fn leap_seconds_known(&self) -> &bool {
         &self._time_quality().leap_seconds_known    }
-    fn mut_leap_seconds_known(&mut self) -> &mut bool {
-        &mut self._mut_time_quality().leap_seconds_known    }
+    fn leap_seconds_known_mut(&mut self) -> &mut bool {
+        &mut self._time_quality_mut().leap_seconds_known    }
     fn time_accuracy(&self) -> &i32 {
         &self._time_quality().time_accuracy    }
-    fn mut_time_accuracy(&mut self) -> &mut i32 {
-        &mut self._mut_time_quality().time_accuracy    }
+    fn time_accuracy_mut(&mut self) -> &mut i32 {
+        &mut self._time_quality_mut().time_accuracy    }
 }
 impl IsTimeQuality for TimeQuality {
     fn _time_quality(&self) -> &TimeQuality {
         self
     }
-    fn _mut_time_quality(&mut self) -> &mut TimeQuality {
+    fn _time_quality_mut(&mut self) -> &mut TimeQuality {
         self
     }
 }
@@ -758,27 +758,27 @@ mod timestamp {
 }
 pub trait IsTimestamp {
     fn _timestamp(&self) -> &Timestamp;
-    fn _mut_timestamp(&mut self) -> &mut Timestamp;
+    fn _timestamp_mut(&mut self) -> &mut Timestamp;
     fn fraction(&self) -> &u32 {
         &self._timestamp().fraction    }
-    fn mut_fraction(&mut self) -> &mut u32 {
-        &mut self._mut_timestamp().fraction    }
+    fn fraction_mut(&mut self) -> &mut u32 {
+        &mut self._timestamp_mut().fraction    }
     fn seconds(&self) -> &u64 {
         &self._timestamp().seconds    }
-    fn mut_seconds(&mut self) -> &mut u64 {
-        &mut self._mut_timestamp().seconds    }
+    fn seconds_mut(&mut self) -> &mut u64 {
+        &mut self._timestamp_mut().seconds    }
     fn tq(&self) -> &TimeQuality {
         self._timestamp().tq.as_ref().unwrap_or(&timestamp::TQ)
     }
-    fn mut_tq(&mut self) -> &mut TimeQuality {
-        self._mut_timestamp().tq.get_or_insert(timestamp::TQ.clone())
+    fn tq_mut(&mut self) -> &mut TimeQuality {
+        self._timestamp_mut().tq.get_or_insert(Default::default())
     }
 }
 impl IsTimestamp for Timestamp {
     fn _timestamp(&self) -> &Timestamp {
         self
     }
-    fn _mut_timestamp(&mut self) -> &mut Timestamp {
+    fn _timestamp_mut(&mut self) -> &mut Timestamp {
         self
     }
 }
@@ -807,23 +807,23 @@ mod unit {
 }
 pub trait IsUnit {
     fn _unit(&self) -> &Unit;
-    fn _mut_unit(&mut self) -> &mut Unit;
+    fn _unit_mut(&mut self) -> &mut Unit;
     fn multiplier(&self) -> &OptionalUnitMultiplierKind {
         self._unit().multiplier.as_ref().unwrap_or(&unit::MULTIPLIER)
     }
-    fn mut_multiplier(&mut self) -> &mut OptionalUnitMultiplierKind {
-        self._mut_unit().multiplier.get_or_insert(unit::MULTIPLIER.clone())
+    fn multiplier_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
+        self._unit_mut().multiplier.get_or_insert(Default::default())
     }
     fn si_unit(&self) -> &i32 {
         &self._unit().si_unit    }
-    fn mut_si_unit(&mut self) -> &mut i32 {
-        &mut self._mut_unit().si_unit    }
+    fn si_unit_mut(&mut self) -> &mut i32 {
+        &mut self._unit_mut().si_unit    }
 }
 impl IsUnit for Unit {
     fn _unit(&self) -> &Unit {
         self
     }
-    fn _mut_unit(&mut self) -> &mut Unit {
+    fn _unit_mut(&mut self) -> &mut Unit {
         self
     }
 }
@@ -879,37 +879,37 @@ mod mv {
 }
 pub trait IsMv {
     fn _mv(&self) -> &Mv;
-    fn _mut_mv(&mut self) -> &mut Mv;
+    fn _mv_mut(&mut self) -> &mut Mv;
     fn mag(&self) -> &AnalogueValue {
         self._mv().mag.as_ref().unwrap_or(&mv::MAG)
     }
-    fn mut_mag(&mut self) -> &mut AnalogueValue {
-        self._mut_mv().mag.get_or_insert(mv::MAG.clone())
+    fn mag_mut(&mut self) -> &mut AnalogueValue {
+        self._mv_mut().mag.get_or_insert(Default::default())
     }
     fn q(&self) -> &Quality {
         self._mv().q.as_ref().unwrap_or(&mv::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_mv().q.get_or_insert(mv::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._mv_mut().q.get_or_insert(Default::default())
     }
     fn t(&self) -> &Timestamp {
         self._mv().t.as_ref().unwrap_or(&mv::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_mv().t.get_or_insert(mv::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._mv_mut().t.get_or_insert(Default::default())
     }
     fn units(&self) -> &Unit {
         self._mv().units.as_ref().unwrap_or(&mv::UNITS)
     }
-    fn mut_units(&mut self) -> &mut Unit {
-        self._mut_mv().units.get_or_insert(mv::UNITS.clone())
+    fn units_mut(&mut self) -> &mut Unit {
+        self._mv_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsMv for Mv {
     fn _mv(&self) -> &Mv {
         self
     }
-    fn _mut_mv(&mut self) -> &mut Mv {
+    fn _mv_mut(&mut self) -> &mut Mv {
         self
     }
 }
@@ -935,19 +935,19 @@ mod logical_node {
 }
 pub trait IsLogicalNode {
     fn _logical_node(&self) -> &LogicalNode;
-    fn _mut_logical_node(&mut self) -> &mut LogicalNode;
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode;
     fn identified_object(&self) -> &IdentifiedObject {
         self._logical_node().identified_object.as_ref().unwrap_or(&logical_node::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_logical_node().identified_object.get_or_insert(logical_node::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._logical_node_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsLogicalNode for LogicalNode {
     fn _logical_node(&self) -> &LogicalNode {
         self
     }
-    fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
         self
     }
 }
@@ -987,31 +987,31 @@ mod analog_status_ggio {
 }
 pub trait IsAnalogStatusGgio {
     fn _analog_status_ggio(&self) -> &AnalogStatusGgio;
-    fn _mut_analog_status_ggio(&mut self) -> &mut AnalogStatusGgio;
+    fn _analog_status_ggio_mut(&mut self) -> &mut AnalogStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._analog_status_ggio().logical_node.as_ref().unwrap_or(&analog_status_ggio::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_analog_status_ggio().logical_node.get_or_insert(analog_status_ggio::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._analog_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn an_in(&self) -> &Mv {
         self._analog_status_ggio().an_in.as_ref().unwrap_or(&analog_status_ggio::AN_IN)
     }
-    fn mut_an_in(&mut self) -> &mut Mv {
-        self._mut_analog_status_ggio().an_in.get_or_insert(analog_status_ggio::AN_IN.clone())
+    fn an_in_mut(&mut self) -> &mut Mv {
+        self._analog_status_ggio_mut().an_in.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
         self._analog_status_ggio().phase.as_ref().unwrap_or(&analog_status_ggio::PHASE)
     }
-    fn mut_phase(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._mut_analog_status_ggio().phase.get_or_insert(analog_status_ggio::PHASE.clone())
+    fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
+        self._analog_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
 impl IsAnalogStatusGgio for AnalogStatusGgio {
     fn _analog_status_ggio(&self) -> &AnalogStatusGgio {
         self
     }
-    fn _mut_analog_status_ggio(&mut self) -> &mut AnalogStatusGgio {
+    fn _analog_status_ggio_mut(&mut self) -> &mut AnalogStatusGgio {
         self
     }
 }
@@ -1035,25 +1035,25 @@ mod analogue_value_ctl {
 }
 pub trait IsAnalogueValueCtl {
     fn _analogue_value_ctl(&self) -> &AnalogueValueCtl;
-    fn _mut_analogue_value_ctl(&mut self) -> &mut AnalogueValueCtl;
+    fn _analogue_value_ctl_mut(&mut self) -> &mut AnalogueValueCtl;
     fn f(&self) -> &f32 {
         self._analogue_value_ctl().f.as_ref().unwrap_or(&analogue_value_ctl::F)
     }
-    fn mut_f(&mut self) -> &mut f32 {
-        self._mut_analogue_value_ctl().f.get_or_insert(analogue_value_ctl::F.clone())
+    fn f_mut(&mut self) -> &mut f32 {
+        self._analogue_value_ctl_mut().f.get_or_insert(Default::default())
     }
     fn i(&self) -> &i32 {
         self._analogue_value_ctl().i.as_ref().unwrap_or(&analogue_value_ctl::I)
     }
-    fn mut_i(&mut self) -> &mut i32 {
-        self._mut_analogue_value_ctl().i.get_or_insert(analogue_value_ctl::I.clone())
+    fn i_mut(&mut self) -> &mut i32 {
+        self._analogue_value_ctl_mut().i.get_or_insert(Default::default())
     }
 }
 impl IsAnalogueValueCtl for AnalogueValueCtl {
     fn _analogue_value_ctl(&self) -> &AnalogueValueCtl {
         self
     }
-    fn _mut_analogue_value_ctl(&mut self) -> &mut AnalogueValueCtl {
+    fn _analogue_value_ctl_mut(&mut self) -> &mut AnalogueValueCtl {
         self
     }
 }
@@ -1079,25 +1079,25 @@ mod named_object {
 }
 pub trait IsNamedObject {
     fn _named_object(&self) -> &NamedObject;
-    fn _mut_named_object(&mut self) -> &mut NamedObject;
+    fn _named_object_mut(&mut self) -> &mut NamedObject;
     fn description(&self) -> &::std::string::String {
         self._named_object().description.as_ref().unwrap_or(&named_object::DESCRIPTION)
     }
-    fn mut_description(&mut self) -> &mut ::std::string::String {
-        self._mut_named_object().description.get_or_insert(named_object::DESCRIPTION.clone())
+    fn description_mut(&mut self) -> &mut ::std::string::String {
+        self._named_object_mut().description.get_or_insert(Default::default())
     }
     fn name(&self) -> &::std::string::String {
         self._named_object().name.as_ref().unwrap_or(&named_object::NAME)
     }
-    fn mut_name(&mut self) -> &mut ::std::string::String {
-        self._mut_named_object().name.get_or_insert(named_object::NAME.clone())
+    fn name_mut(&mut self) -> &mut ::std::string::String {
+        self._named_object_mut().name.get_or_insert(Default::default())
     }
 }
 impl IsNamedObject for NamedObject {
     fn _named_object(&self) -> &NamedObject {
         self
     }
-    fn _mut_named_object(&mut self) -> &mut NamedObject {
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
         self
     }
 }
@@ -1132,23 +1132,23 @@ mod application_system {
 }
 pub trait IsApplicationSystem {
     fn _application_system(&self) -> &ApplicationSystem;
-    fn _mut_application_system(&mut self) -> &mut ApplicationSystem;
+    fn _application_system_mut(&mut self) -> &mut ApplicationSystem;
     fn named_object(&self) -> &NamedObject {
         self._application_system().named_object.as_ref().unwrap_or(&application_system::NAMED_OBJECT)
     }
-    fn mut_named_object(&mut self) -> &mut NamedObject {
-        self._mut_application_system().named_object.get_or_insert(application_system::NAMED_OBJECT.clone())
+    fn named_object_mut(&mut self) -> &mut NamedObject {
+        self._application_system_mut().named_object.get_or_insert(Default::default())
     }
     fn m_rid(&self) -> &std::string::String {
         &self._application_system().m_rid    }
-    fn mut_m_rid(&mut self) -> &mut std::string::String {
-        &mut self._mut_application_system().m_rid    }
+    fn m_rid_mut(&mut self) -> &mut std::string::String {
+        &mut self._application_system_mut().m_rid    }
 }
 impl IsApplicationSystem for ApplicationSystem {
     fn _application_system(&self) -> &ApplicationSystem {
         self
     }
-    fn _mut_application_system(&mut self) -> &mut ApplicationSystem {
+    fn _application_system_mut(&mut self) -> &mut ApplicationSystem {
         self
     }
 }
@@ -1178,25 +1178,25 @@ mod asg {
 }
 pub trait IsAsg {
     fn _asg(&self) -> &Asg;
-    fn _mut_asg(&mut self) -> &mut Asg;
+    fn _asg_mut(&mut self) -> &mut Asg;
     fn set_mag(&self) -> &AnalogueValueCtl {
         self._asg().set_mag.as_ref().unwrap_or(&asg::SET_MAG)
     }
-    fn mut_set_mag(&mut self) -> &mut AnalogueValueCtl {
-        self._mut_asg().set_mag.get_or_insert(asg::SET_MAG.clone())
+    fn set_mag_mut(&mut self) -> &mut AnalogueValueCtl {
+        self._asg_mut().set_mag.get_or_insert(Default::default())
     }
     fn units(&self) -> &Unit {
         self._asg().units.as_ref().unwrap_or(&asg::UNITS)
     }
-    fn mut_units(&mut self) -> &mut Unit {
-        self._mut_asg().units.get_or_insert(asg::UNITS.clone())
+    fn units_mut(&mut self) -> &mut Unit {
+        self._asg_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsAsg for Asg {
     fn _asg(&self) -> &Asg {
         self
     }
-    fn _mut_asg(&mut self) -> &mut Asg {
+    fn _asg_mut(&mut self) -> &mut Asg {
         self
     }
 }
@@ -1246,35 +1246,35 @@ mod bcr {
 }
 pub trait IsBcr {
     fn _bcr(&self) -> &Bcr;
-    fn _mut_bcr(&mut self) -> &mut Bcr;
+    fn _bcr_mut(&mut self) -> &mut Bcr;
     fn act_val(&self) -> &i64 {
         &self._bcr().act_val    }
-    fn mut_act_val(&mut self) -> &mut i64 {
-        &mut self._mut_bcr().act_val    }
+    fn act_val_mut(&mut self) -> &mut i64 {
+        &mut self._bcr_mut().act_val    }
     fn q(&self) -> &Quality {
         self._bcr().q.as_ref().unwrap_or(&bcr::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_bcr().q.get_or_insert(bcr::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._bcr_mut().q.get_or_insert(Default::default())
     }
     fn t(&self) -> &Timestamp {
         self._bcr().t.as_ref().unwrap_or(&bcr::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_bcr().t.get_or_insert(bcr::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._bcr_mut().t.get_or_insert(Default::default())
     }
     fn units(&self) -> &OptionalUnitSymbolKind {
         self._bcr().units.as_ref().unwrap_or(&bcr::UNITS)
     }
-    fn mut_units(&mut self) -> &mut OptionalUnitSymbolKind {
-        self._mut_bcr().units.get_or_insert(bcr::UNITS.clone())
+    fn units_mut(&mut self) -> &mut OptionalUnitSymbolKind {
+        self._bcr_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsBcr for Bcr {
     fn _bcr(&self) -> &Bcr {
         self
     }
-    fn _mut_bcr(&mut self) -> &mut Bcr {
+    fn _bcr_mut(&mut self) -> &mut Bcr {
         self
     }
 }
@@ -1307,29 +1307,29 @@ mod status_sps {
 }
 pub trait IsStatusSps {
     fn _status_sps(&self) -> &StatusSps;
-    fn _mut_status_sps(&mut self) -> &mut StatusSps;
+    fn _status_sps_mut(&mut self) -> &mut StatusSps;
     fn q(&self) -> &Quality {
         self._status_sps().q.as_ref().unwrap_or(&status_sps::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_status_sps().q.get_or_insert(status_sps::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_sps_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &bool {
         &self._status_sps().st_val    }
-    fn mut_st_val(&mut self) -> &mut bool {
-        &mut self._mut_status_sps().st_val    }
+    fn st_val_mut(&mut self) -> &mut bool {
+        &mut self._status_sps_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._status_sps().t.as_ref().unwrap_or(&status_sps::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_status_sps().t.get_or_insert(status_sps::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_sps_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsStatusSps for StatusSps {
     fn _status_sps(&self) -> &StatusSps {
         self
     }
-    fn _mut_status_sps(&mut self) -> &mut StatusSps {
+    fn _status_sps_mut(&mut self) -> &mut StatusSps {
         self
     }
 }
@@ -1369,31 +1369,31 @@ mod boolean_status_ggio {
 }
 pub trait IsBooleanStatusGgio {
     fn _boolean_status_ggio(&self) -> &BooleanStatusGgio;
-    fn _mut_boolean_status_ggio(&mut self) -> &mut BooleanStatusGgio;
+    fn _boolean_status_ggio_mut(&mut self) -> &mut BooleanStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._boolean_status_ggio().logical_node.as_ref().unwrap_or(&boolean_status_ggio::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_boolean_status_ggio().logical_node.get_or_insert(boolean_status_ggio::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._boolean_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn ind(&self) -> &StatusSps {
         self._boolean_status_ggio().ind.as_ref().unwrap_or(&boolean_status_ggio::IND)
     }
-    fn mut_ind(&mut self) -> &mut StatusSps {
-        self._mut_boolean_status_ggio().ind.get_or_insert(boolean_status_ggio::IND.clone())
+    fn ind_mut(&mut self) -> &mut StatusSps {
+        self._boolean_status_ggio_mut().ind.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
         self._boolean_status_ggio().phase.as_ref().unwrap_or(&boolean_status_ggio::PHASE)
     }
-    fn mut_phase(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._mut_boolean_status_ggio().phase.get_or_insert(boolean_status_ggio::PHASE.clone())
+    fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
+        self._boolean_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
 impl IsBooleanStatusGgio for BooleanStatusGgio {
     fn _boolean_status_ggio(&self) -> &BooleanStatusGgio {
         self
     }
-    fn _mut_boolean_status_ggio(&mut self) -> &mut BooleanStatusGgio {
+    fn _boolean_status_ggio_mut(&mut self) -> &mut BooleanStatusGgio {
         self
     }
 }
@@ -1419,25 +1419,25 @@ mod check_conditions {
 }
 pub trait IsCheckConditions {
     fn _check_conditions(&self) -> &CheckConditions;
-    fn _mut_check_conditions(&mut self) -> &mut CheckConditions;
+    fn _check_conditions_mut(&mut self) -> &mut CheckConditions;
     fn interlock_check(&self) -> &bool {
         self._check_conditions().interlock_check.as_ref().unwrap_or(&check_conditions::INTERLOCK_CHECK)
     }
-    fn mut_interlock_check(&mut self) -> &mut bool {
-        self._mut_check_conditions().interlock_check.get_or_insert(check_conditions::INTERLOCK_CHECK.clone())
+    fn interlock_check_mut(&mut self) -> &mut bool {
+        self._check_conditions_mut().interlock_check.get_or_insert(Default::default())
     }
     fn synchro_check(&self) -> &bool {
         self._check_conditions().synchro_check.as_ref().unwrap_or(&check_conditions::SYNCHRO_CHECK)
     }
-    fn mut_synchro_check(&mut self) -> &mut bool {
-        self._mut_check_conditions().synchro_check.get_or_insert(check_conditions::SYNCHRO_CHECK.clone())
+    fn synchro_check_mut(&mut self) -> &mut bool {
+        self._check_conditions_mut().synchro_check.get_or_insert(Default::default())
     }
 }
 impl IsCheckConditions for CheckConditions {
     fn _check_conditions(&self) -> &CheckConditions {
         self
     }
-    fn _mut_check_conditions(&mut self) -> &mut CheckConditions {
+    fn _check_conditions_mut(&mut self) -> &mut CheckConditions {
         self
     }
 }
@@ -1468,25 +1468,25 @@ mod vector {
 }
 pub trait IsVector {
     fn _vector(&self) -> &Vector;
-    fn _mut_vector(&mut self) -> &mut Vector;
+    fn _vector_mut(&mut self) -> &mut Vector;
     fn ang(&self) -> &AnalogueValue {
         self._vector().ang.as_ref().unwrap_or(&vector::ANG)
     }
-    fn mut_ang(&mut self) -> &mut AnalogueValue {
-        self._mut_vector().ang.get_or_insert(vector::ANG.clone())
+    fn ang_mut(&mut self) -> &mut AnalogueValue {
+        self._vector_mut().ang.get_or_insert(Default::default())
     }
     fn mag(&self) -> &AnalogueValue {
         self._vector().mag.as_ref().unwrap_or(&vector::MAG)
     }
-    fn mut_mag(&mut self) -> &mut AnalogueValue {
-        self._mut_vector().mag.get_or_insert(vector::MAG.clone())
+    fn mag_mut(&mut self) -> &mut AnalogueValue {
+        self._vector_mut().mag.get_or_insert(Default::default())
     }
 }
 impl IsVector for Vector {
     fn _vector(&self) -> &Vector {
         self
     }
-    fn _mut_vector(&mut self) -> &mut Vector {
+    fn _vector_mut(&mut self) -> &mut Vector {
         self
     }
 }
@@ -1539,37 +1539,37 @@ mod cmv {
 }
 pub trait IsCmv {
     fn _cmv(&self) -> &Cmv;
-    fn _mut_cmv(&mut self) -> &mut Cmv;
+    fn _cmv_mut(&mut self) -> &mut Cmv;
     fn c_val(&self) -> &Vector {
         self._cmv().c_val.as_ref().unwrap_or(&cmv::C_VAL)
     }
-    fn mut_c_val(&mut self) -> &mut Vector {
-        self._mut_cmv().c_val.get_or_insert(cmv::C_VAL.clone())
+    fn c_val_mut(&mut self) -> &mut Vector {
+        self._cmv_mut().c_val.get_or_insert(Default::default())
     }
     fn q(&self) -> &Quality {
         self._cmv().q.as_ref().unwrap_or(&cmv::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_cmv().q.get_or_insert(cmv::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._cmv_mut().q.get_or_insert(Default::default())
     }
     fn t(&self) -> &Timestamp {
         self._cmv().t.as_ref().unwrap_or(&cmv::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_cmv().t.get_or_insert(cmv::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._cmv_mut().t.get_or_insert(Default::default())
     }
     fn units(&self) -> &Unit {
         self._cmv().units.as_ref().unwrap_or(&cmv::UNITS)
     }
-    fn mut_units(&mut self) -> &mut Unit {
-        self._mut_cmv().units.get_or_insert(cmv::UNITS.clone())
+    fn units_mut(&mut self) -> &mut Unit {
+        self._cmv_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsCmv for Cmv {
     fn _cmv(&self) -> &Cmv {
         self
     }
-    fn _mut_cmv(&mut self) -> &mut Cmv {
+    fn _cmv_mut(&mut self) -> &mut Cmv {
         self
     }
 }
@@ -1604,23 +1604,23 @@ mod conducting_equipment {
 }
 pub trait IsConductingEquipment {
     fn _conducting_equipment(&self) -> &ConductingEquipment;
-    fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment;
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment;
     fn named_object(&self) -> &NamedObject {
         self._conducting_equipment().named_object.as_ref().unwrap_or(&conducting_equipment::NAMED_OBJECT)
     }
-    fn mut_named_object(&mut self) -> &mut NamedObject {
-        self._mut_conducting_equipment().named_object.get_or_insert(conducting_equipment::NAMED_OBJECT.clone())
+    fn named_object_mut(&mut self) -> &mut NamedObject {
+        self._conducting_equipment_mut().named_object.get_or_insert(Default::default())
     }
     fn m_rid(&self) -> &std::string::String {
         &self._conducting_equipment().m_rid    }
-    fn mut_m_rid(&mut self) -> &mut std::string::String {
-        &mut self._mut_conducting_equipment().m_rid    }
+    fn m_rid_mut(&mut self) -> &mut std::string::String {
+        &mut self._conducting_equipment_mut().m_rid    }
 }
 impl IsConductingEquipment for ConductingEquipment {
     fn _conducting_equipment(&self) -> &ConductingEquipment {
         self
     }
-    fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
         self
     }
 }
@@ -1652,25 +1652,25 @@ mod terminal {
 }
 pub trait IsTerminal {
     fn _terminal(&self) -> &Terminal;
-    fn _mut_terminal(&mut self) -> &mut Terminal;
+    fn _terminal_mut(&mut self) -> &mut Terminal;
     fn a_cdc_terminal(&self) -> &AcdcTerminal {
         self._terminal().a_cdc_terminal.as_ref().unwrap_or(&terminal::A_CDC_TERMINAL)
     }
-    fn mut_a_cdc_terminal(&mut self) -> &mut AcdcTerminal {
-        self._mut_terminal().a_cdc_terminal.get_or_insert(terminal::A_CDC_TERMINAL.clone())
+    fn a_cdc_terminal_mut(&mut self) -> &mut AcdcTerminal {
+        self._terminal_mut().a_cdc_terminal.get_or_insert(Default::default())
     }
     fn phases(&self) -> &OptionalPhaseCodeKind {
         self._terminal().phases.as_ref().unwrap_or(&terminal::PHASES)
     }
-    fn mut_phases(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._mut_terminal().phases.get_or_insert(terminal::PHASES.clone())
+    fn phases_mut(&mut self) -> &mut OptionalPhaseCodeKind {
+        self._terminal_mut().phases.get_or_insert(Default::default())
     }
 }
 impl IsTerminal for Terminal {
     fn _terminal(&self) -> &Terminal {
         self
     }
-    fn _mut_terminal(&mut self) -> &mut Terminal {
+    fn _terminal_mut(&mut self) -> &mut Terminal {
         self
     }
 }
@@ -1696,19 +1696,19 @@ mod conducting_equipment_terminal_reading {
 }
 pub trait IsConductingEquipmentTerminalReading {
     fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading;
-    fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading;
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading;
     fn terminal(&self) -> &Terminal {
         self._conducting_equipment_terminal_reading().terminal.as_ref().unwrap_or(&conducting_equipment_terminal_reading::TERMINAL)
     }
-    fn mut_terminal(&mut self) -> &mut Terminal {
-        self._mut_conducting_equipment_terminal_reading().terminal.get_or_insert(conducting_equipment_terminal_reading::TERMINAL.clone())
+    fn terminal_mut(&mut self) -> &mut Terminal {
+        self._conducting_equipment_terminal_reading_mut().terminal.get_or_insert(Default::default())
     }
 }
 impl IsConductingEquipmentTerminalReading for ConductingEquipmentTerminalReading {
     fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
         self
     }
-    fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
         self
     }
 }
@@ -1733,17 +1733,17 @@ mod control_dpc {
 }
 pub trait IsControlDpc {
     fn _control_dpc(&self) -> &ControlDpc;
-    fn _mut_control_dpc(&mut self) -> &mut ControlDpc;
+    fn _control_dpc_mut(&mut self) -> &mut ControlDpc;
     fn ctl_val(&self) -> &bool {
         &self._control_dpc().ctl_val    }
-    fn mut_ctl_val(&mut self) -> &mut bool {
-        &mut self._mut_control_dpc().ctl_val    }
+    fn ctl_val_mut(&mut self) -> &mut bool {
+        &mut self._control_dpc_mut().ctl_val    }
 }
 impl IsControlDpc for ControlDpc {
     fn _control_dpc(&self) -> &ControlDpc {
         self
     }
-    fn _mut_control_dpc(&mut self) -> &mut ControlDpc {
+    fn _control_dpc_mut(&mut self) -> &mut ControlDpc {
         self
     }
 }
@@ -1783,21 +1783,21 @@ mod control_timestamp {
 }
 pub trait IsControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp;
-    fn _mut_control_timestamp(&mut self) -> &mut ControlTimestamp;
+    fn _control_timestamp_mut(&mut self) -> &mut ControlTimestamp;
     fn fraction(&self) -> &u32 {
         &self._control_timestamp().fraction    }
-    fn mut_fraction(&mut self) -> &mut u32 {
-        &mut self._mut_control_timestamp().fraction    }
+    fn fraction_mut(&mut self) -> &mut u32 {
+        &mut self._control_timestamp_mut().fraction    }
     fn seconds(&self) -> &u64 {
         &self._control_timestamp().seconds    }
-    fn mut_seconds(&mut self) -> &mut u64 {
-        &mut self._mut_control_timestamp().seconds    }
+    fn seconds_mut(&mut self) -> &mut u64 {
+        &mut self._control_timestamp_mut().seconds    }
 }
 impl IsControlTimestamp for ControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp {
         self
     }
-    fn _mut_control_timestamp(&mut self) -> &mut ControlTimestamp {
+    fn _control_timestamp_mut(&mut self) -> &mut ControlTimestamp {
         self
     }
 }
@@ -1814,17 +1814,17 @@ mod optional_schedule_parameter_kind {
 }
 pub trait IsOptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind;
-    fn _mut_optional_schedule_parameter_kind(&mut self) -> &mut OptionalScheduleParameterKind;
+    fn _optional_schedule_parameter_kind_mut(&mut self) -> &mut OptionalScheduleParameterKind;
     fn value(&self) -> &i32 {
         &self._optional_schedule_parameter_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_schedule_parameter_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_schedule_parameter_kind_mut().value    }
 }
 impl IsOptionalScheduleParameterKind for OptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind {
         self
     }
-    fn _mut_optional_schedule_parameter_kind(&mut self) -> &mut OptionalScheduleParameterKind {
+    fn _optional_schedule_parameter_kind_mut(&mut self) -> &mut OptionalScheduleParameterKind {
         self
     }
 }
@@ -1858,21 +1858,21 @@ mod eng_schedule_parameter {
 }
 pub trait IsEngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter;
-    fn _mut_eng_schedule_parameter(&mut self) -> &mut EngScheduleParameter;
+    fn _eng_schedule_parameter_mut(&mut self) -> &mut EngScheduleParameter;
     fn schedule_parameter_type(&self) -> &i32 {
         &self._eng_schedule_parameter().schedule_parameter_type    }
-    fn mut_schedule_parameter_type(&mut self) -> &mut i32 {
-        &mut self._mut_eng_schedule_parameter().schedule_parameter_type    }
+    fn schedule_parameter_type_mut(&mut self) -> &mut i32 {
+        &mut self._eng_schedule_parameter_mut().schedule_parameter_type    }
     fn value(&self) -> &f32 {
         &self._eng_schedule_parameter().value    }
-    fn mut_value(&mut self) -> &mut f32 {
-        &mut self._mut_eng_schedule_parameter().value    }
+    fn value_mut(&mut self) -> &mut f32 {
+        &mut self._eng_schedule_parameter_mut().value    }
 }
 impl IsEngScheduleParameter for EngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter {
         self
     }
-    fn _mut_eng_schedule_parameter(&mut self) -> &mut EngScheduleParameter {
+    fn _eng_schedule_parameter_mut(&mut self) -> &mut EngScheduleParameter {
         self
     }
 }
@@ -1907,23 +1907,23 @@ mod schedule_point {
 }
 pub trait IsSchedulePoint {
     fn _schedule_point(&self) -> &SchedulePoint;
-    fn _mut_schedule_point(&mut self) -> &mut SchedulePoint;
+    fn _schedule_point_mut(&mut self) -> &mut SchedulePoint;
     fn schedule_parameter(&self) -> &::std::vec::Vec<EngScheduleParameter> {
         &self._schedule_point().schedule_parameter    }
-    fn mut_schedule_parameter(&mut self) -> &mut ::std::vec::Vec<EngScheduleParameter> {
-        &mut self._mut_schedule_point().schedule_parameter    }
+    fn schedule_parameter_mut(&mut self) -> &mut ::std::vec::Vec<EngScheduleParameter> {
+        &mut self._schedule_point_mut().schedule_parameter    }
     fn start_time(&self) -> &ControlTimestamp {
         self._schedule_point().start_time.as_ref().unwrap_or(&schedule_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut ControlTimestamp {
-        self._mut_schedule_point().start_time.get_or_insert(schedule_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut ControlTimestamp {
+        self._schedule_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsSchedulePoint for SchedulePoint {
     fn _schedule_point(&self) -> &SchedulePoint {
         self
     }
-    fn _mut_schedule_point(&mut self) -> &mut SchedulePoint {
+    fn _schedule_point_mut(&mut self) -> &mut SchedulePoint {
         self
     }
 }
@@ -1948,17 +1948,17 @@ mod schedule_csg {
 }
 pub trait IsScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg;
-    fn _mut_schedule_csg(&mut self) -> &mut ScheduleCsg;
+    fn _schedule_csg_mut(&mut self) -> &mut ScheduleCsg;
     fn sch_pts(&self) -> &::std::vec::Vec<SchedulePoint> {
         &self._schedule_csg().sch_pts    }
-    fn mut_sch_pts(&mut self) -> &mut ::std::vec::Vec<SchedulePoint> {
-        &mut self._mut_schedule_csg().sch_pts    }
+    fn sch_pts_mut(&mut self) -> &mut ::std::vec::Vec<SchedulePoint> {
+        &mut self._schedule_csg_mut().sch_pts    }
 }
 impl IsScheduleCsg for ScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg {
         self
     }
-    fn _mut_schedule_csg(&mut self) -> &mut ScheduleCsg {
+    fn _schedule_csg_mut(&mut self) -> &mut ScheduleCsg {
         self
     }
 }
@@ -1984,19 +1984,19 @@ mod control_schedule_fsch {
 }
 pub trait IsControlScheduleFsch {
     fn _control_schedule_fsch(&self) -> &ControlScheduleFsch;
-    fn _mut_control_schedule_fsch(&mut self) -> &mut ControlScheduleFsch;
+    fn _control_schedule_fsch_mut(&mut self) -> &mut ControlScheduleFsch;
     fn val_acsg(&self) -> &ScheduleCsg {
         self._control_schedule_fsch().val_acsg.as_ref().unwrap_or(&control_schedule_fsch::VAL_ACSG)
     }
-    fn mut_val_acsg(&mut self) -> &mut ScheduleCsg {
-        self._mut_control_schedule_fsch().val_acsg.get_or_insert(control_schedule_fsch::VAL_ACSG.clone())
+    fn val_acsg_mut(&mut self) -> &mut ScheduleCsg {
+        self._control_schedule_fsch_mut().val_acsg.get_or_insert(Default::default())
     }
 }
 impl IsControlScheduleFsch for ControlScheduleFsch {
     fn _control_schedule_fsch(&self) -> &ControlScheduleFsch {
         self
     }
-    fn _mut_control_schedule_fsch(&mut self) -> &mut ControlScheduleFsch {
+    fn _control_schedule_fsch_mut(&mut self) -> &mut ControlScheduleFsch {
         self
     }
 }
@@ -2022,19 +2022,19 @@ mod logical_node_for_control {
 }
 pub trait IsLogicalNodeForControl {
     fn _logical_node_for_control(&self) -> &LogicalNodeForControl;
-    fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl;
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl;
     fn logical_node(&self) -> &LogicalNode {
         self._logical_node_for_control().logical_node.as_ref().unwrap_or(&logical_node_for_control::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_logical_node_for_control().logical_node.get_or_insert(logical_node_for_control::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._logical_node_for_control_mut().logical_node.get_or_insert(Default::default())
     }
 }
 impl IsLogicalNodeForControl for LogicalNodeForControl {
     fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
         self
     }
-    fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
         self
     }
 }
@@ -2069,31 +2069,31 @@ mod control_fscc {
 }
 pub trait IsControlFscc {
     fn _control_fscc(&self) -> &ControlFscc;
-    fn _mut_control_fscc(&mut self) -> &mut ControlFscc;
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc;
     fn logical_node_for_control(&self) -> &LogicalNodeForControl {
         self._control_fscc().logical_node_for_control.as_ref().unwrap_or(&control_fscc::LOGICAL_NODE_FOR_CONTROL)
     }
-    fn mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        self._mut_control_fscc().logical_node_for_control.get_or_insert(control_fscc::LOGICAL_NODE_FOR_CONTROL.clone())
+    fn logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self._control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
     }
     fn control_schedule_fsch(&self) -> &ControlScheduleFsch {
         self._control_fscc().control_schedule_fsch.as_ref().unwrap_or(&control_fscc::CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_control_schedule_fsch(&mut self) -> &mut ControlScheduleFsch {
-        self._mut_control_fscc().control_schedule_fsch.get_or_insert(control_fscc::CONTROL_SCHEDULE_FSCH.clone())
+    fn control_schedule_fsch_mut(&mut self) -> &mut ControlScheduleFsch {
+        self._control_fscc_mut().control_schedule_fsch.get_or_insert(Default::default())
     }
     fn island_control_schedule_fsch(&self) -> &ControlScheduleFsch {
         self._control_fscc().island_control_schedule_fsch.as_ref().unwrap_or(&control_fscc::ISLAND_CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_island_control_schedule_fsch(&mut self) -> &mut ControlScheduleFsch {
-        self._mut_control_fscc().island_control_schedule_fsch.get_or_insert(control_fscc::ISLAND_CONTROL_SCHEDULE_FSCH.clone())
+    fn island_control_schedule_fsch_mut(&mut self) -> &mut ControlScheduleFsch {
+        self._control_fscc_mut().island_control_schedule_fsch.get_or_insert(Default::default())
     }
 }
 impl IsControlFscc for ControlFscc {
     fn _control_fscc(&self) -> &ControlFscc {
         self
     }
-    fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc {
         self
     }
 }
@@ -2122,23 +2122,23 @@ mod control_ing {
 }
 pub trait IsControlIng {
     fn _control_ing(&self) -> &ControlIng;
-    fn _mut_control_ing(&mut self) -> &mut ControlIng;
+    fn _control_ing_mut(&mut self) -> &mut ControlIng;
     fn set_val(&self) -> &i32 {
         &self._control_ing().set_val    }
-    fn mut_set_val(&mut self) -> &mut i32 {
-        &mut self._mut_control_ing().set_val    }
+    fn set_val_mut(&mut self) -> &mut i32 {
+        &mut self._control_ing_mut().set_val    }
     fn units(&self) -> &Unit {
         self._control_ing().units.as_ref().unwrap_or(&control_ing::UNITS)
     }
-    fn mut_units(&mut self) -> &mut Unit {
-        self._mut_control_ing().units.get_or_insert(control_ing::UNITS.clone())
+    fn units_mut(&mut self) -> &mut Unit {
+        self._control_ing_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsControlIng for ControlIng {
     fn _control_ing(&self) -> &ControlIng {
         self
     }
-    fn _mut_control_ing(&mut self) -> &mut ControlIng {
+    fn _control_ing_mut(&mut self) -> &mut ControlIng {
         self
     }
 }
@@ -2163,17 +2163,17 @@ mod control_isc {
 }
 pub trait IsControlIsc {
     fn _control_isc(&self) -> &ControlIsc;
-    fn _mut_control_isc(&mut self) -> &mut ControlIsc;
+    fn _control_isc_mut(&mut self) -> &mut ControlIsc;
     fn ctl_val(&self) -> &i32 {
         &self._control_isc().ctl_val    }
-    fn mut_ctl_val(&mut self) -> &mut i32 {
-        &mut self._mut_control_isc().ctl_val    }
+    fn ctl_val_mut(&mut self) -> &mut i32 {
+        &mut self._control_isc_mut().ctl_val    }
 }
 impl IsControlIsc for ControlIsc {
     fn _control_isc(&self) -> &ControlIsc {
         self
     }
-    fn _mut_control_isc(&mut self) -> &mut ControlIsc {
+    fn _control_isc_mut(&mut self) -> &mut ControlIsc {
         self
     }
 }
@@ -2209,25 +2209,25 @@ mod message_info {
 }
 pub trait IsMessageInfo {
     fn _message_info(&self) -> &MessageInfo;
-    fn _mut_message_info(&mut self) -> &mut MessageInfo;
+    fn _message_info_mut(&mut self) -> &mut MessageInfo;
     fn identified_object(&self) -> &IdentifiedObject {
         self._message_info().identified_object.as_ref().unwrap_or(&message_info::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_message_info().identified_object.get_or_insert(message_info::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._message_info_mut().identified_object.get_or_insert(Default::default())
     }
     fn message_time_stamp(&self) -> &Timestamp {
         self._message_info().message_time_stamp.as_ref().unwrap_or(&message_info::MESSAGE_TIME_STAMP)
     }
-    fn mut_message_time_stamp(&mut self) -> &mut Timestamp {
-        self._mut_message_info().message_time_stamp.get_or_insert(message_info::MESSAGE_TIME_STAMP.clone())
+    fn message_time_stamp_mut(&mut self) -> &mut Timestamp {
+        self._message_info_mut().message_time_stamp.get_or_insert(Default::default())
     }
 }
 impl IsMessageInfo for MessageInfo {
     fn _message_info(&self) -> &MessageInfo {
         self
     }
-    fn _mut_message_info(&mut self) -> &mut MessageInfo {
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
         self
     }
 }
@@ -2253,19 +2253,19 @@ mod control_message_info {
 }
 pub trait IsControlMessageInfo {
     fn _control_message_info(&self) -> &ControlMessageInfo;
-    fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo;
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._control_message_info().message_info.as_ref().unwrap_or(&control_message_info::MESSAGE_INFO)
     }
-    fn mut_message_info(&mut self) -> &mut MessageInfo {
-        self._mut_control_message_info().message_info.get_or_insert(control_message_info::MESSAGE_INFO.clone())
+    fn message_info_mut(&mut self) -> &mut MessageInfo {
+        self._control_message_info_mut().message_info.get_or_insert(Default::default())
     }
 }
 impl IsControlMessageInfo for ControlMessageInfo {
     fn _control_message_info(&self) -> &ControlMessageInfo {
         self
     }
-    fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
         self
     }
 }
@@ -2291,17 +2291,17 @@ mod control_spc {
 }
 pub trait IsControlSpc {
     fn _control_spc(&self) -> &ControlSpc;
-    fn _mut_control_spc(&mut self) -> &mut ControlSpc;
+    fn _control_spc_mut(&mut self) -> &mut ControlSpc;
     fn ctl_val(&self) -> &bool {
         &self._control_spc().ctl_val    }
-    fn mut_ctl_val(&mut self) -> &mut bool {
-        &mut self._mut_control_spc().ctl_val    }
+    fn ctl_val_mut(&mut self) -> &mut bool {
+        &mut self._control_spc_mut().ctl_val    }
 }
 impl IsControlSpc for ControlSpc {
     fn _control_spc(&self) -> &ControlSpc {
         self
     }
-    fn _mut_control_spc(&mut self) -> &mut ControlSpc {
+    fn _control_spc_mut(&mut self) -> &mut ControlSpc {
         self
     }
 }
@@ -2336,25 +2336,25 @@ mod control_value {
 }
 pub trait IsControlValue {
     fn _control_value(&self) -> &ControlValue;
-    fn _mut_control_value(&mut self) -> &mut ControlValue;
+    fn _control_value_mut(&mut self) -> &mut ControlValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._control_value().identified_object.as_ref().unwrap_or(&control_value::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_control_value().identified_object.get_or_insert(control_value::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._control_value_mut().identified_object.get_or_insert(Default::default())
     }
     fn mod_blk(&self) -> &bool {
         self._control_value().mod_blk.as_ref().unwrap_or(&control_value::MOD_BLK)
     }
-    fn mut_mod_blk(&mut self) -> &mut bool {
-        self._mut_control_value().mod_blk.get_or_insert(control_value::MOD_BLK.clone())
+    fn mod_blk_mut(&mut self) -> &mut bool {
+        self._control_value_mut().mod_blk.get_or_insert(Default::default())
     }
 }
 impl IsControlValue for ControlValue {
     fn _control_value(&self) -> &ControlValue {
         self
     }
-    fn _mut_control_value(&mut self) -> &mut ControlValue {
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
         self
     }
 }
@@ -2378,25 +2378,25 @@ mod date_time_interval {
 }
 pub trait IsDateTimeInterval {
     fn _date_time_interval(&self) -> &DateTimeInterval;
-    fn _mut_date_time_interval(&mut self) -> &mut DateTimeInterval;
+    fn _date_time_interval_mut(&mut self) -> &mut DateTimeInterval;
     fn end(&self) -> &i64 {
         self._date_time_interval().end.as_ref().unwrap_or(&date_time_interval::END)
     }
-    fn mut_end(&mut self) -> &mut i64 {
-        self._mut_date_time_interval().end.get_or_insert(date_time_interval::END.clone())
+    fn end_mut(&mut self) -> &mut i64 {
+        self._date_time_interval_mut().end.get_or_insert(Default::default())
     }
     fn start(&self) -> &i64 {
         self._date_time_interval().start.as_ref().unwrap_or(&date_time_interval::START)
     }
-    fn mut_start(&mut self) -> &mut i64 {
-        self._mut_date_time_interval().start.get_or_insert(date_time_interval::START.clone())
+    fn start_mut(&mut self) -> &mut i64 {
+        self._date_time_interval_mut().start.get_or_insert(Default::default())
     }
 }
 impl IsDateTimeInterval for DateTimeInterval {
     fn _date_time_interval(&self) -> &DateTimeInterval {
         self
     }
-    fn _mut_date_time_interval(&mut self) -> &mut DateTimeInterval {
+    fn _date_time_interval_mut(&mut self) -> &mut DateTimeInterval {
         self
     }
 }
@@ -2424,31 +2424,31 @@ mod del {
 }
 pub trait IsDel {
     fn _del(&self) -> &Del;
-    fn _mut_del(&mut self) -> &mut Del;
+    fn _del_mut(&mut self) -> &mut Del;
     fn phs_ab(&self) -> &Cmv {
         self._del().phs_ab.as_ref().unwrap_or(&del::PHS_AB)
     }
-    fn mut_phs_ab(&mut self) -> &mut Cmv {
-        self._mut_del().phs_ab.get_or_insert(del::PHS_AB.clone())
+    fn phs_ab_mut(&mut self) -> &mut Cmv {
+        self._del_mut().phs_ab.get_or_insert(Default::default())
     }
     fn phs_bc(&self) -> &Cmv {
         self._del().phs_bc.as_ref().unwrap_or(&del::PHS_BC)
     }
-    fn mut_phs_bc(&mut self) -> &mut Cmv {
-        self._mut_del().phs_bc.get_or_insert(del::PHS_BC.clone())
+    fn phs_bc_mut(&mut self) -> &mut Cmv {
+        self._del_mut().phs_bc.get_or_insert(Default::default())
     }
     fn phs_ca(&self) -> &Cmv {
         self._del().phs_ca.as_ref().unwrap_or(&del::PHS_CA)
     }
-    fn mut_phs_ca(&mut self) -> &mut Cmv {
-        self._mut_del().phs_ca.get_or_insert(del::PHS_CA.clone())
+    fn phs_ca_mut(&mut self) -> &mut Cmv {
+        self._del_mut().phs_ca.get_or_insert(Default::default())
     }
 }
 impl IsDel for Del {
     fn _del(&self) -> &Del {
         self
     }
-    fn _mut_del(&mut self) -> &mut Del {
+    fn _del_mut(&mut self) -> &mut Del {
         self
     }
 }
@@ -2478,25 +2478,25 @@ mod energy_consumer {
 }
 pub trait IsEnergyConsumer {
     fn _energy_consumer(&self) -> &EnergyConsumer;
-    fn _mut_energy_consumer(&mut self) -> &mut EnergyConsumer;
+    fn _energy_consumer_mut(&mut self) -> &mut EnergyConsumer;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._energy_consumer().conducting_equipment.as_ref().unwrap_or(&energy_consumer::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        self._mut_energy_consumer().conducting_equipment.get_or_insert(energy_consumer::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self._energy_consumer_mut().conducting_equipment.get_or_insert(Default::default())
     }
     fn operating_limit(&self) -> &::std::string::String {
         self._energy_consumer().operating_limit.as_ref().unwrap_or(&energy_consumer::OPERATING_LIMIT)
     }
-    fn mut_operating_limit(&mut self) -> &mut ::std::string::String {
-        self._mut_energy_consumer().operating_limit.get_or_insert(energy_consumer::OPERATING_LIMIT.clone())
+    fn operating_limit_mut(&mut self) -> &mut ::std::string::String {
+        self._energy_consumer_mut().operating_limit.get_or_insert(Default::default())
     }
 }
 impl IsEnergyConsumer for EnergyConsumer {
     fn _energy_consumer(&self) -> &EnergyConsumer {
         self
     }
-    fn _mut_energy_consumer(&mut self) -> &mut EnergyConsumer {
+    fn _energy_consumer_mut(&mut self) -> &mut EnergyConsumer {
         self
     }
 }
@@ -2513,17 +2513,17 @@ mod optional_calc_method_kind {
 }
 pub trait IsOptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind;
-    fn _mut_optional_calc_method_kind(&mut self) -> &mut OptionalCalcMethodKind;
+    fn _optional_calc_method_kind_mut(&mut self) -> &mut OptionalCalcMethodKind;
     fn value(&self) -> &i32 {
         &self._optional_calc_method_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_calc_method_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_calc_method_kind_mut().value    }
 }
 impl IsOptionalCalcMethodKind for OptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind {
         self
     }
-    fn _mut_optional_calc_method_kind(&mut self) -> &mut OptionalCalcMethodKind {
+    fn _optional_calc_method_kind_mut(&mut self) -> &mut OptionalCalcMethodKind {
         self
     }
 }
@@ -2548,17 +2548,17 @@ mod eng_calc_method_kind {
 }
 pub trait IsEngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind;
-    fn _mut_eng_calc_method_kind(&mut self) -> &mut EngCalcMethodKind;
+    fn _eng_calc_method_kind_mut(&mut self) -> &mut EngCalcMethodKind;
     fn set_val(&self) -> &i32 {
         &self._eng_calc_method_kind().set_val    }
-    fn mut_set_val(&mut self) -> &mut i32 {
-        &mut self._mut_eng_calc_method_kind().set_val    }
+    fn set_val_mut(&mut self) -> &mut i32 {
+        &mut self._eng_calc_method_kind_mut().set_val    }
 }
 impl IsEngCalcMethodKind for EngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind {
         self
     }
-    fn _mut_eng_calc_method_kind(&mut self) -> &mut EngCalcMethodKind {
+    fn _eng_calc_method_kind_mut(&mut self) -> &mut EngCalcMethodKind {
         self
     }
 }
@@ -2575,17 +2575,17 @@ mod optional_grid_connect_mode_kind {
 }
 pub trait IsOptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind;
-    fn _mut_optional_grid_connect_mode_kind(&mut self) -> &mut OptionalGridConnectModeKind;
+    fn _optional_grid_connect_mode_kind_mut(&mut self) -> &mut OptionalGridConnectModeKind;
     fn value(&self) -> &i32 {
         &self._optional_grid_connect_mode_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_grid_connect_mode_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_grid_connect_mode_kind_mut().value    }
 }
 impl IsOptionalGridConnectModeKind for OptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind {
         self
     }
-    fn _mut_optional_grid_connect_mode_kind(&mut self) -> &mut OptionalGridConnectModeKind {
+    fn _optional_grid_connect_mode_kind_mut(&mut self) -> &mut OptionalGridConnectModeKind {
         self
     }
 }
@@ -2614,23 +2614,23 @@ mod eng_grid_connect_mode_kind {
 }
 pub trait IsEngGridConnectModeKind {
     fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind;
-    fn _mut_eng_grid_connect_mode_kind(&mut self) -> &mut EngGridConnectModeKind;
+    fn _eng_grid_connect_mode_kind_mut(&mut self) -> &mut EngGridConnectModeKind;
     fn set_val(&self) -> &i32 {
         &self._eng_grid_connect_mode_kind().set_val    }
-    fn mut_set_val(&mut self) -> &mut i32 {
-        &mut self._mut_eng_grid_connect_mode_kind().set_val    }
+    fn set_val_mut(&mut self) -> &mut i32 {
+        &mut self._eng_grid_connect_mode_kind_mut().set_val    }
     fn set_val_extension(&self) -> &::std::string::String {
         self._eng_grid_connect_mode_kind().set_val_extension.as_ref().unwrap_or(&eng_grid_connect_mode_kind::SET_VAL_EXTENSION)
     }
-    fn mut_set_val_extension(&mut self) -> &mut ::std::string::String {
-        self._mut_eng_grid_connect_mode_kind().set_val_extension.get_or_insert(eng_grid_connect_mode_kind::SET_VAL_EXTENSION.clone())
+    fn set_val_extension_mut(&mut self) -> &mut ::std::string::String {
+        self._eng_grid_connect_mode_kind_mut().set_val_extension.get_or_insert(Default::default())
     }
 }
 impl IsEngGridConnectModeKind for EngGridConnectModeKind {
     fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind {
         self
     }
-    fn _mut_eng_grid_connect_mode_kind(&mut self) -> &mut EngGridConnectModeKind {
+    fn _eng_grid_connect_mode_kind_mut(&mut self) -> &mut EngGridConnectModeKind {
         self
     }
 }
@@ -2647,17 +2647,17 @@ mod optional_pf_sign_kind {
 }
 pub trait IsOptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind;
-    fn _mut_optional_pf_sign_kind(&mut self) -> &mut OptionalPfSignKind;
+    fn _optional_pf_sign_kind_mut(&mut self) -> &mut OptionalPfSignKind;
     fn value(&self) -> &i32 {
         &self._optional_pf_sign_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_pf_sign_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_pf_sign_kind_mut().value    }
 }
 impl IsOptionalPfSignKind for OptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind {
         self
     }
-    fn _mut_optional_pf_sign_kind(&mut self) -> &mut OptionalPfSignKind {
+    fn _optional_pf_sign_kind_mut(&mut self) -> &mut OptionalPfSignKind {
         self
     }
 }
@@ -2682,17 +2682,17 @@ mod eng_pf_sign_kind {
 }
 pub trait IsEngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind;
-    fn _mut_eng_pf_sign_kind(&mut self) -> &mut EngPfSignKind;
+    fn _eng_pf_sign_kind_mut(&mut self) -> &mut EngPfSignKind;
     fn set_val(&self) -> &i32 {
         &self._eng_pf_sign_kind().set_val    }
-    fn mut_set_val(&mut self) -> &mut i32 {
-        &mut self._mut_eng_pf_sign_kind().set_val    }
+    fn set_val_mut(&mut self) -> &mut i32 {
+        &mut self._eng_pf_sign_kind_mut().set_val    }
 }
 impl IsEngPfSignKind for EngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind {
         self
     }
-    fn _mut_eng_pf_sign_kind(&mut self) -> &mut EngPfSignKind {
+    fn _eng_pf_sign_kind_mut(&mut self) -> &mut EngPfSignKind {
         self
     }
 }
@@ -2709,17 +2709,17 @@ mod optional_behaviour_mode_kind {
 }
 pub trait IsOptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind;
-    fn _mut_optional_behaviour_mode_kind(&mut self) -> &mut OptionalBehaviourModeKind;
+    fn _optional_behaviour_mode_kind_mut(&mut self) -> &mut OptionalBehaviourModeKind;
     fn value(&self) -> &i32 {
         &self._optional_behaviour_mode_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_behaviour_mode_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_behaviour_mode_kind_mut().value    }
 }
 impl IsOptionalBehaviourModeKind for OptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind {
         self
     }
-    fn _mut_optional_behaviour_mode_kind(&mut self) -> &mut OptionalBehaviourModeKind {
+    fn _optional_behaviour_mode_kind_mut(&mut self) -> &mut OptionalBehaviourModeKind {
         self
     }
 }
@@ -2764,29 +2764,29 @@ mod ens_behaviour_mode_kind {
 }
 pub trait IsEnsBehaviourModeKind {
     fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind;
-    fn _mut_ens_behaviour_mode_kind(&mut self) -> &mut EnsBehaviourModeKind;
+    fn _ens_behaviour_mode_kind_mut(&mut self) -> &mut EnsBehaviourModeKind;
     fn q(&self) -> &Quality {
         self._ens_behaviour_mode_kind().q.as_ref().unwrap_or(&ens_behaviour_mode_kind::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_ens_behaviour_mode_kind().q.get_or_insert(ens_behaviour_mode_kind::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._ens_behaviour_mode_kind_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._ens_behaviour_mode_kind().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_ens_behaviour_mode_kind().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_behaviour_mode_kind_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._ens_behaviour_mode_kind().t.as_ref().unwrap_or(&ens_behaviour_mode_kind::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_ens_behaviour_mode_kind().t.get_or_insert(ens_behaviour_mode_kind::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._ens_behaviour_mode_kind_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsEnsBehaviourModeKind for EnsBehaviourModeKind {
     fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind {
         self
     }
-    fn _mut_ens_behaviour_mode_kind(&mut self) -> &mut EnsBehaviourModeKind {
+    fn _ens_behaviour_mode_kind_mut(&mut self) -> &mut EnsBehaviourModeKind {
         self
     }
 }
@@ -2803,17 +2803,17 @@ mod optional_der_generator_state_kind {
 }
 pub trait IsOptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind;
-    fn _mut_optional_der_generator_state_kind(&mut self) -> &mut OptionalDerGeneratorStateKind;
+    fn _optional_der_generator_state_kind_mut(&mut self) -> &mut OptionalDerGeneratorStateKind;
     fn value(&self) -> &i32 {
         &self._optional_der_generator_state_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_der_generator_state_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_der_generator_state_kind_mut().value    }
 }
 impl IsOptionalDerGeneratorStateKind for OptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind {
         self
     }
-    fn _mut_optional_der_generator_state_kind(&mut self) -> &mut OptionalDerGeneratorStateKind {
+    fn _optional_der_generator_state_kind_mut(&mut self) -> &mut OptionalDerGeneratorStateKind {
         self
     }
 }
@@ -2858,29 +2858,29 @@ mod ens_der_generator_state_kind {
 }
 pub trait IsEnsDerGeneratorStateKind {
     fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind;
-    fn _mut_ens_der_generator_state_kind(&mut self) -> &mut EnsDerGeneratorStateKind;
+    fn _ens_der_generator_state_kind_mut(&mut self) -> &mut EnsDerGeneratorStateKind;
     fn q(&self) -> &Quality {
         self._ens_der_generator_state_kind().q.as_ref().unwrap_or(&ens_der_generator_state_kind::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_ens_der_generator_state_kind().q.get_or_insert(ens_der_generator_state_kind::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._ens_der_generator_state_kind_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._ens_der_generator_state_kind().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_ens_der_generator_state_kind().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_der_generator_state_kind_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._ens_der_generator_state_kind().t.as_ref().unwrap_or(&ens_der_generator_state_kind::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_ens_der_generator_state_kind().t.get_or_insert(ens_der_generator_state_kind::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._ens_der_generator_state_kind_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsEnsDerGeneratorStateKind for EnsDerGeneratorStateKind {
     fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind {
         self
     }
-    fn _mut_ens_der_generator_state_kind(&mut self) -> &mut EnsDerGeneratorStateKind {
+    fn _ens_der_generator_state_kind_mut(&mut self) -> &mut EnsDerGeneratorStateKind {
         self
     }
 }
@@ -2897,17 +2897,17 @@ mod optional_dynamic_test_kind {
 }
 pub trait IsOptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind;
-    fn _mut_optional_dynamic_test_kind(&mut self) -> &mut OptionalDynamicTestKind;
+    fn _optional_dynamic_test_kind_mut(&mut self) -> &mut OptionalDynamicTestKind;
     fn value(&self) -> &i32 {
         &self._optional_dynamic_test_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_dynamic_test_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_dynamic_test_kind_mut().value    }
 }
 impl IsOptionalDynamicTestKind for OptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind {
         self
     }
-    fn _mut_optional_dynamic_test_kind(&mut self) -> &mut OptionalDynamicTestKind {
+    fn _optional_dynamic_test_kind_mut(&mut self) -> &mut OptionalDynamicTestKind {
         self
     }
 }
@@ -2952,29 +2952,29 @@ mod ens_dynamic_test_kind {
 }
 pub trait IsEnsDynamicTestKind {
     fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind;
-    fn _mut_ens_dynamic_test_kind(&mut self) -> &mut EnsDynamicTestKind;
+    fn _ens_dynamic_test_kind_mut(&mut self) -> &mut EnsDynamicTestKind;
     fn q(&self) -> &Quality {
         self._ens_dynamic_test_kind().q.as_ref().unwrap_or(&ens_dynamic_test_kind::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_ens_dynamic_test_kind().q.get_or_insert(ens_dynamic_test_kind::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._ens_dynamic_test_kind_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._ens_dynamic_test_kind().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_ens_dynamic_test_kind().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_dynamic_test_kind_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._ens_dynamic_test_kind().t.as_ref().unwrap_or(&ens_dynamic_test_kind::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_ens_dynamic_test_kind().t.get_or_insert(ens_dynamic_test_kind::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._ens_dynamic_test_kind_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsEnsDynamicTestKind for EnsDynamicTestKind {
     fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind {
         self
     }
-    fn _mut_ens_dynamic_test_kind(&mut self) -> &mut EnsDynamicTestKind {
+    fn _ens_dynamic_test_kind_mut(&mut self) -> &mut EnsDynamicTestKind {
         self
     }
 }
@@ -3008,21 +3008,21 @@ mod ens_grid_connect_mode_kind {
 }
 pub trait IsEnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind;
-    fn _mut_ens_grid_connect_mode_kind(&mut self) -> &mut EnsGridConnectModeKind;
+    fn _ens_grid_connect_mode_kind_mut(&mut self) -> &mut EnsGridConnectModeKind;
     fn st_val(&self) -> &i32 {
         &self._ens_grid_connect_mode_kind().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_ens_grid_connect_mode_kind().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_grid_connect_mode_kind_mut().st_val    }
     fn st_val_extension(&self) -> &std::string::String {
         &self._ens_grid_connect_mode_kind().st_val_extension    }
-    fn mut_st_val_extension(&mut self) -> &mut std::string::String {
-        &mut self._mut_ens_grid_connect_mode_kind().st_val_extension    }
+    fn st_val_extension_mut(&mut self) -> &mut std::string::String {
+        &mut self._ens_grid_connect_mode_kind_mut().st_val_extension    }
 }
 impl IsEnsGridConnectModeKind for EnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind {
         self
     }
-    fn _mut_ens_grid_connect_mode_kind(&mut self) -> &mut EnsGridConnectModeKind {
+    fn _ens_grid_connect_mode_kind_mut(&mut self) -> &mut EnsGridConnectModeKind {
         self
     }
 }
@@ -3039,17 +3039,17 @@ mod optional_health_kind {
 }
 pub trait IsOptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind;
-    fn _mut_optional_health_kind(&mut self) -> &mut OptionalHealthKind;
+    fn _optional_health_kind_mut(&mut self) -> &mut OptionalHealthKind;
     fn value(&self) -> &i32 {
         &self._optional_health_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_health_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_health_kind_mut().value    }
 }
 impl IsOptionalHealthKind for OptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind {
         self
     }
-    fn _mut_optional_health_kind(&mut self) -> &mut OptionalHealthKind {
+    fn _optional_health_kind_mut(&mut self) -> &mut OptionalHealthKind {
         self
     }
 }
@@ -3079,23 +3079,23 @@ mod ens_health_kind {
 }
 pub trait IsEnsHealthKind {
     fn _ens_health_kind(&self) -> &EnsHealthKind;
-    fn _mut_ens_health_kind(&mut self) -> &mut EnsHealthKind;
+    fn _ens_health_kind_mut(&mut self) -> &mut EnsHealthKind;
     fn d(&self) -> &::std::string::String {
         self._ens_health_kind().d.as_ref().unwrap_or(&ens_health_kind::D)
     }
-    fn mut_d(&mut self) -> &mut ::std::string::String {
-        self._mut_ens_health_kind().d.get_or_insert(ens_health_kind::D.clone())
+    fn d_mut(&mut self) -> &mut ::std::string::String {
+        self._ens_health_kind_mut().d.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._ens_health_kind().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_ens_health_kind().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_health_kind_mut().st_val    }
 }
 impl IsEnsHealthKind for EnsHealthKind {
     fn _ens_health_kind(&self) -> &EnsHealthKind {
         self
     }
-    fn _mut_ens_health_kind(&mut self) -> &mut EnsHealthKind {
+    fn _ens_health_kind_mut(&mut self) -> &mut EnsHealthKind {
         self
     }
 }
@@ -3121,19 +3121,19 @@ mod ess {
 }
 pub trait IsEss {
     fn _ess(&self) -> &Ess;
-    fn _mut_ess(&mut self) -> &mut Ess;
+    fn _ess_mut(&mut self) -> &mut Ess;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._ess().conducting_equipment.as_ref().unwrap_or(&ess::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        self._mut_ess().conducting_equipment.get_or_insert(ess::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self._ess_mut().conducting_equipment.get_or_insert(Default::default())
     }
 }
 impl IsEss for Ess {
     fn _ess(&self) -> &Ess {
         self
     }
-    fn _mut_ess(&mut self) -> &mut Ess {
+    fn _ess_mut(&mut self) -> &mut Ess {
         self
     }
 }
@@ -3159,19 +3159,19 @@ mod event_message_info {
 }
 pub trait IsEventMessageInfo {
     fn _event_message_info(&self) -> &EventMessageInfo;
-    fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo;
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._event_message_info().message_info.as_ref().unwrap_or(&event_message_info::MESSAGE_INFO)
     }
-    fn mut_message_info(&mut self) -> &mut MessageInfo {
-        self._mut_event_message_info().message_info.get_or_insert(event_message_info::MESSAGE_INFO.clone())
+    fn message_info_mut(&mut self) -> &mut MessageInfo {
+        self._event_message_info_mut().message_info.get_or_insert(Default::default())
     }
 }
 impl IsEventMessageInfo for EventMessageInfo {
     fn _event_message_info(&self) -> &EventMessageInfo {
         self
     }
-    fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
         self
     }
 }
@@ -3197,19 +3197,19 @@ mod event_value {
 }
 pub trait IsEventValue {
     fn _event_value(&self) -> &EventValue;
-    fn _mut_event_value(&mut self) -> &mut EventValue;
+    fn _event_value_mut(&mut self) -> &mut EventValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._event_value().identified_object.as_ref().unwrap_or(&event_value::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_event_value().identified_object.get_or_insert(event_value::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._event_value_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsEventValue for EventValue {
     fn _event_value(&self) -> &EventValue {
         self
     }
-    fn _mut_event_value(&mut self) -> &mut EventValue {
+    fn _event_value_mut(&mut self) -> &mut EventValue {
         self
     }
 }
@@ -3235,19 +3235,19 @@ mod forecast_value_source {
 }
 pub trait IsForecastValueSource {
     fn _forecast_value_source(&self) -> &ForecastValueSource;
-    fn _mut_forecast_value_source(&mut self) -> &mut ForecastValueSource;
+    fn _forecast_value_source_mut(&mut self) -> &mut ForecastValueSource;
     fn identified_object(&self) -> &IdentifiedObject {
         self._forecast_value_source().identified_object.as_ref().unwrap_or(&forecast_value_source::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_forecast_value_source().identified_object.get_or_insert(forecast_value_source::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._forecast_value_source_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsForecastValueSource for ForecastValueSource {
     fn _forecast_value_source(&self) -> &ForecastValueSource {
         self
     }
-    fn _mut_forecast_value_source(&mut self) -> &mut ForecastValueSource {
+    fn _forecast_value_source_mut(&mut self) -> &mut ForecastValueSource {
         self
     }
 }
@@ -3299,27 +3299,27 @@ mod forecast_ied {
 }
 pub trait IsForecastIed {
     fn _forecast_ied(&self) -> &ForecastIed;
-    fn _mut_forecast_ied(&mut self) -> &mut ForecastIed;
+    fn _forecast_ied_mut(&mut self) -> &mut ForecastIed;
     fn forecast_value_source(&self) -> &ForecastValueSource {
         self._forecast_ied().forecast_value_source.as_ref().unwrap_or(&forecast_ied::FORECAST_VALUE_SOURCE)
     }
-    fn mut_forecast_value_source(&mut self) -> &mut ForecastValueSource {
-        self._mut_forecast_ied().forecast_value_source.get_or_insert(forecast_ied::FORECAST_VALUE_SOURCE.clone())
+    fn forecast_value_source_mut(&mut self) -> &mut ForecastValueSource {
+        self._forecast_ied_mut().forecast_value_source.get_or_insert(Default::default())
     }
     fn source_application_id(&self) -> &std::string::String {
         &self._forecast_ied().source_application_id    }
-    fn mut_source_application_id(&mut self) -> &mut std::string::String {
-        &mut self._mut_forecast_ied().source_application_id    }
+    fn source_application_id_mut(&mut self) -> &mut std::string::String {
+        &mut self._forecast_ied_mut().source_application_id    }
     fn source_date_time(&self) -> &i64 {
         &self._forecast_ied().source_date_time    }
-    fn mut_source_date_time(&mut self) -> &mut i64 {
-        &mut self._mut_forecast_ied().source_date_time    }
+    fn source_date_time_mut(&mut self) -> &mut i64 {
+        &mut self._forecast_ied_mut().source_date_time    }
 }
 impl IsForecastIed for ForecastIed {
     fn _forecast_ied(&self) -> &ForecastIed {
         self
     }
-    fn _mut_forecast_ied(&mut self) -> &mut ForecastIed {
+    fn _forecast_ied_mut(&mut self) -> &mut ForecastIed {
         self
     }
 }
@@ -3345,19 +3345,19 @@ mod forecast_value {
 }
 pub trait IsForecastValue {
     fn _forecast_value(&self) -> &ForecastValue;
-    fn _mut_forecast_value(&mut self) -> &mut ForecastValue;
+    fn _forecast_value_mut(&mut self) -> &mut ForecastValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._forecast_value().identified_object.as_ref().unwrap_or(&forecast_value::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_forecast_value().identified_object.get_or_insert(forecast_value::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._forecast_value_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsForecastValue for ForecastValue {
     fn _forecast_value(&self) -> &ForecastValue {
         self
     }
-    fn _mut_forecast_value(&mut self) -> &mut ForecastValue {
+    fn _forecast_value_mut(&mut self) -> &mut ForecastValue {
         self
     }
 }
@@ -3390,19 +3390,19 @@ mod ied {
 }
 pub trait IsIed {
     fn _ied(&self) -> &Ied;
-    fn _mut_ied(&mut self) -> &mut Ied;
+    fn _ied_mut(&mut self) -> &mut Ied;
     fn identified_object(&self) -> &IdentifiedObject {
         self._ied().identified_object.as_ref().unwrap_or(&ied::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_ied().identified_object.get_or_insert(ied::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._ied_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsIed for Ied {
     fn _ied(&self) -> &Ied {
         self
     }
-    fn _mut_ied(&mut self) -> &mut Ied {
+    fn _ied_mut(&mut self) -> &mut Ied {
         self
     }
 }
@@ -3439,35 +3439,35 @@ mod status_ins {
 }
 pub trait IsStatusIns {
     fn _status_ins(&self) -> &StatusIns;
-    fn _mut_status_ins(&mut self) -> &mut StatusIns;
+    fn _status_ins_mut(&mut self) -> &mut StatusIns;
     fn q(&self) -> &Quality {
         self._status_ins().q.as_ref().unwrap_or(&status_ins::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_status_ins().q.get_or_insert(status_ins::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_ins_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._status_ins().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_status_ins().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._status_ins_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._status_ins().t.as_ref().unwrap_or(&status_ins::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_status_ins().t.get_or_insert(status_ins::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_ins_mut().t.get_or_insert(Default::default())
     }
     fn units(&self) -> &Unit {
         self._status_ins().units.as_ref().unwrap_or(&status_ins::UNITS)
     }
-    fn mut_units(&mut self) -> &mut Unit {
-        self._mut_status_ins().units.get_or_insert(status_ins::UNITS.clone())
+    fn units_mut(&mut self) -> &mut Unit {
+        self._status_ins_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsStatusIns for StatusIns {
     fn _status_ins(&self) -> &StatusIns {
         self
     }
-    fn _mut_status_ins(&mut self) -> &mut StatusIns {
+    fn _status_ins_mut(&mut self) -> &mut StatusIns {
         self
     }
 }
@@ -3507,31 +3507,31 @@ mod integer_status_ggio {
 }
 pub trait IsIntegerStatusGgio {
     fn _integer_status_ggio(&self) -> &IntegerStatusGgio;
-    fn _mut_integer_status_ggio(&mut self) -> &mut IntegerStatusGgio;
+    fn _integer_status_ggio_mut(&mut self) -> &mut IntegerStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._integer_status_ggio().logical_node.as_ref().unwrap_or(&integer_status_ggio::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_integer_status_ggio().logical_node.get_or_insert(integer_status_ggio::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._integer_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn int_in(&self) -> &StatusIns {
         self._integer_status_ggio().int_in.as_ref().unwrap_or(&integer_status_ggio::INT_IN)
     }
-    fn mut_int_in(&mut self) -> &mut StatusIns {
-        self._mut_integer_status_ggio().int_in.get_or_insert(integer_status_ggio::INT_IN.clone())
+    fn int_in_mut(&mut self) -> &mut StatusIns {
+        self._integer_status_ggio_mut().int_in.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
         self._integer_status_ggio().phase.as_ref().unwrap_or(&integer_status_ggio::PHASE)
     }
-    fn mut_phase(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._mut_integer_status_ggio().phase.get_or_insert(integer_status_ggio::PHASE.clone())
+    fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
+        self._integer_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
 impl IsIntegerStatusGgio for IntegerStatusGgio {
     fn _integer_status_ggio(&self) -> &IntegerStatusGgio {
         self
     }
-    fn _mut_integer_status_ggio(&mut self) -> &mut IntegerStatusGgio {
+    fn _integer_status_ggio_mut(&mut self) -> &mut IntegerStatusGgio {
         self
     }
 }
@@ -3565,31 +3565,31 @@ mod logical_node_for_event_and_status {
 }
 pub trait IsLogicalNodeForEventAndStatus {
     fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus;
-    fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus;
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus;
     fn logical_node(&self) -> &LogicalNode {
         self._logical_node_for_event_and_status().logical_node.as_ref().unwrap_or(&logical_node_for_event_and_status::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_logical_node_for_event_and_status().logical_node.get_or_insert(logical_node_for_event_and_status::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._logical_node_for_event_and_status_mut().logical_node.get_or_insert(Default::default())
     }
     fn beh(&self) -> &EnsBehaviourModeKind {
         self._logical_node_for_event_and_status().beh.as_ref().unwrap_or(&logical_node_for_event_and_status::BEH)
     }
-    fn mut_beh(&mut self) -> &mut EnsBehaviourModeKind {
-        self._mut_logical_node_for_event_and_status().beh.get_or_insert(logical_node_for_event_and_status::BEH.clone())
+    fn beh_mut(&mut self) -> &mut EnsBehaviourModeKind {
+        self._logical_node_for_event_and_status_mut().beh.get_or_insert(Default::default())
     }
     fn ee_health(&self) -> &EnsHealthKind {
         self._logical_node_for_event_and_status().ee_health.as_ref().unwrap_or(&logical_node_for_event_and_status::EE_HEALTH)
     }
-    fn mut_ee_health(&mut self) -> &mut EnsHealthKind {
-        self._mut_logical_node_for_event_and_status().ee_health.get_or_insert(logical_node_for_event_and_status::EE_HEALTH.clone())
+    fn ee_health_mut(&mut self) -> &mut EnsHealthKind {
+        self._logical_node_for_event_and_status_mut().ee_health.get_or_insert(Default::default())
     }
 }
 impl IsLogicalNodeForEventAndStatus for LogicalNodeForEventAndStatus {
     fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
         self
     }
-    fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
         self
     }
 }
@@ -3617,19 +3617,19 @@ mod measurement_value {
 }
 pub trait IsMeasurementValue {
     fn _measurement_value(&self) -> &MeasurementValue;
-    fn _mut_measurement_value(&mut self) -> &mut MeasurementValue;
+    fn _measurement_value_mut(&mut self) -> &mut MeasurementValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._measurement_value().identified_object.as_ref().unwrap_or(&measurement_value::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_measurement_value().identified_object.get_or_insert(measurement_value::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._measurement_value_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsMeasurementValue for MeasurementValue {
     fn _measurement_value(&self) -> &MeasurementValue {
         self
     }
-    fn _mut_measurement_value(&mut self) -> &mut MeasurementValue {
+    fn _measurement_value_mut(&mut self) -> &mut MeasurementValue {
         self
     }
 }
@@ -3656,19 +3656,19 @@ mod meter {
 }
 pub trait IsMeter {
     fn _meter(&self) -> &Meter;
-    fn _mut_meter(&mut self) -> &mut Meter;
+    fn _meter_mut(&mut self) -> &mut Meter;
     fn conducting_equipment(&self) -> &ConductingEquipment {
         self._meter().conducting_equipment.as_ref().unwrap_or(&meter::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        self._mut_meter().conducting_equipment.get_or_insert(meter::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self._meter_mut().conducting_equipment.get_or_insert(Default::default())
     }
 }
 impl IsMeter for Meter {
     fn _meter(&self) -> &Meter {
         self
     }
-    fn _mut_meter(&mut self) -> &mut Meter {
+    fn _meter_mut(&mut self) -> &mut Meter {
         self
     }
 }
@@ -3694,19 +3694,19 @@ mod optimization_message_info {
 }
 pub trait IsOptimizationMessageInfo {
     fn _optimization_message_info(&self) -> &OptimizationMessageInfo;
-    fn _mut_optimization_message_info(&mut self) -> &mut OptimizationMessageInfo;
+    fn _optimization_message_info_mut(&mut self) -> &mut OptimizationMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._optimization_message_info().message_info.as_ref().unwrap_or(&optimization_message_info::MESSAGE_INFO)
     }
-    fn mut_message_info(&mut self) -> &mut MessageInfo {
-        self._mut_optimization_message_info().message_info.get_or_insert(optimization_message_info::MESSAGE_INFO.clone())
+    fn message_info_mut(&mut self) -> &mut MessageInfo {
+        self._optimization_message_info_mut().message_info.get_or_insert(Default::default())
     }
 }
 impl IsOptimizationMessageInfo for OptimizationMessageInfo {
     fn _optimization_message_info(&self) -> &OptimizationMessageInfo {
         self
     }
-    fn _mut_optimization_message_info(&mut self) -> &mut OptimizationMessageInfo {
+    fn _optimization_message_info_mut(&mut self) -> &mut OptimizationMessageInfo {
         self
     }
 }
@@ -3768,73 +3768,73 @@ mod reading_mmtn {
 }
 pub trait IsReadingMmtn {
     fn _reading_mmtn(&self) -> &ReadingMmtn;
-    fn _mut_reading_mmtn(&mut self) -> &mut ReadingMmtn;
+    fn _reading_mmtn_mut(&mut self) -> &mut ReadingMmtn;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmtn().logical_node.as_ref().unwrap_or(&reading_mmtn::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_reading_mmtn().logical_node.get_or_insert(reading_mmtn::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmtn_mut().logical_node.get_or_insert(Default::default())
     }
     fn dmd_v_ah(&self) -> &Bcr {
         self._reading_mmtn().dmd_v_ah.as_ref().unwrap_or(&reading_mmtn::DMD_V_AH)
     }
-    fn mut_dmd_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().dmd_v_ah.get_or_insert(reading_mmtn::DMD_V_AH.clone())
+    fn dmd_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().dmd_v_ah.get_or_insert(Default::default())
     }
     fn dmd_v_arh(&self) -> &Bcr {
         self._reading_mmtn().dmd_v_arh.as_ref().unwrap_or(&reading_mmtn::DMD_V_ARH)
     }
-    fn mut_dmd_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().dmd_v_arh.get_or_insert(reading_mmtn::DMD_V_ARH.clone())
+    fn dmd_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().dmd_v_arh.get_or_insert(Default::default())
     }
     fn dmd_wh(&self) -> &Bcr {
         self._reading_mmtn().dmd_wh.as_ref().unwrap_or(&reading_mmtn::DMD_WH)
     }
-    fn mut_dmd_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().dmd_wh.get_or_insert(reading_mmtn::DMD_WH.clone())
+    fn dmd_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().dmd_wh.get_or_insert(Default::default())
     }
     fn sup_v_ah(&self) -> &Bcr {
         self._reading_mmtn().sup_v_ah.as_ref().unwrap_or(&reading_mmtn::SUP_V_AH)
     }
-    fn mut_sup_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().sup_v_ah.get_or_insert(reading_mmtn::SUP_V_AH.clone())
+    fn sup_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().sup_v_ah.get_or_insert(Default::default())
     }
     fn sup_v_arh(&self) -> &Bcr {
         self._reading_mmtn().sup_v_arh.as_ref().unwrap_or(&reading_mmtn::SUP_V_ARH)
     }
-    fn mut_sup_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().sup_v_arh.get_or_insert(reading_mmtn::SUP_V_ARH.clone())
+    fn sup_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().sup_v_arh.get_or_insert(Default::default())
     }
     fn sup_wh(&self) -> &Bcr {
         self._reading_mmtn().sup_wh.as_ref().unwrap_or(&reading_mmtn::SUP_WH)
     }
-    fn mut_sup_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().sup_wh.get_or_insert(reading_mmtn::SUP_WH.clone())
+    fn sup_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().sup_wh.get_or_insert(Default::default())
     }
     fn tot_v_ah(&self) -> &Bcr {
         self._reading_mmtn().tot_v_ah.as_ref().unwrap_or(&reading_mmtn::TOT_V_AH)
     }
-    fn mut_tot_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().tot_v_ah.get_or_insert(reading_mmtn::TOT_V_AH.clone())
+    fn tot_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().tot_v_ah.get_or_insert(Default::default())
     }
     fn tot_v_arh(&self) -> &Bcr {
         self._reading_mmtn().tot_v_arh.as_ref().unwrap_or(&reading_mmtn::TOT_V_ARH)
     }
-    fn mut_tot_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().tot_v_arh.get_or_insert(reading_mmtn::TOT_V_ARH.clone())
+    fn tot_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().tot_v_arh.get_or_insert(Default::default())
     }
     fn tot_wh(&self) -> &Bcr {
         self._reading_mmtn().tot_wh.as_ref().unwrap_or(&reading_mmtn::TOT_WH)
     }
-    fn mut_tot_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtn().tot_wh.get_or_insert(reading_mmtn::TOT_WH.clone())
+    fn tot_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtn_mut().tot_wh.get_or_insert(Default::default())
     }
 }
 impl IsReadingMmtn for ReadingMmtn {
     fn _reading_mmtn(&self) -> &ReadingMmtn {
         self
     }
-    fn _mut_reading_mmtn(&mut self) -> &mut ReadingMmtn {
+    fn _reading_mmtn_mut(&mut self) -> &mut ReadingMmtn {
         self
     }
 }
@@ -3874,49 +3874,49 @@ mod phase_mmtn {
 }
 pub trait IsPhaseMmtn {
     fn _phase_mmtn(&self) -> &PhaseMmtn;
-    fn _mut_phase_mmtn(&mut self) -> &mut PhaseMmtn;
+    fn _phase_mmtn_mut(&mut self) -> &mut PhaseMmtn;
     fn phs_a(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_a.as_ref().unwrap_or(&phase_mmtn::PHS_A)
     }
-    fn mut_phs_a(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_a.get_or_insert(phase_mmtn::PHS_A.clone())
+    fn phs_a_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_a.get_or_insert(Default::default())
     }
     fn phs_ab(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_ab.as_ref().unwrap_or(&phase_mmtn::PHS_AB)
     }
-    fn mut_phs_ab(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_ab.get_or_insert(phase_mmtn::PHS_AB.clone())
+    fn phs_ab_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_ab.get_or_insert(Default::default())
     }
     fn phs_b(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_b.as_ref().unwrap_or(&phase_mmtn::PHS_B)
     }
-    fn mut_phs_b(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_b.get_or_insert(phase_mmtn::PHS_B.clone())
+    fn phs_b_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_b.get_or_insert(Default::default())
     }
     fn phs_bc(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_bc.as_ref().unwrap_or(&phase_mmtn::PHS_BC)
     }
-    fn mut_phs_bc(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_bc.get_or_insert(phase_mmtn::PHS_BC.clone())
+    fn phs_bc_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_bc.get_or_insert(Default::default())
     }
     fn phs_c(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_c.as_ref().unwrap_or(&phase_mmtn::PHS_C)
     }
-    fn mut_phs_c(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_c.get_or_insert(phase_mmtn::PHS_C.clone())
+    fn phs_c_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_c.get_or_insert(Default::default())
     }
     fn phs_ca(&self) -> &ReadingMmtn {
         self._phase_mmtn().phs_ca.as_ref().unwrap_or(&phase_mmtn::PHS_CA)
     }
-    fn mut_phs_ca(&mut self) -> &mut ReadingMmtn {
-        self._mut_phase_mmtn().phs_ca.get_or_insert(phase_mmtn::PHS_CA.clone())
+    fn phs_ca_mut(&mut self) -> &mut ReadingMmtn {
+        self._phase_mmtn_mut().phs_ca.get_or_insert(Default::default())
     }
 }
 impl IsPhaseMmtn for PhaseMmtn {
     fn _phase_mmtn(&self) -> &PhaseMmtn {
         self
     }
-    fn _mut_phase_mmtn(&mut self) -> &mut PhaseMmtn {
+    fn _phase_mmtn_mut(&mut self) -> &mut PhaseMmtn {
         self
     }
 }
@@ -3948,37 +3948,37 @@ mod ramp_rate {
 }
 pub trait IsRampRate {
     fn _ramp_rate(&self) -> &RampRate;
-    fn _mut_ramp_rate(&mut self) -> &mut RampRate;
+    fn _ramp_rate_mut(&mut self) -> &mut RampRate;
     fn negative_reactive_power_kv_ar_per_min(&self) -> &f32 {
         self._ramp_rate().negative_reactive_power_kv_ar_per_min.as_ref().unwrap_or(&ramp_rate::NEGATIVE_REACTIVE_POWER_KV_AR_PER_MIN)
     }
-    fn mut_negative_reactive_power_kv_ar_per_min(&mut self) -> &mut f32 {
-        self._mut_ramp_rate().negative_reactive_power_kv_ar_per_min.get_or_insert(ramp_rate::NEGATIVE_REACTIVE_POWER_KV_AR_PER_MIN.clone())
+    fn negative_reactive_power_kv_ar_per_min_mut(&mut self) -> &mut f32 {
+        self._ramp_rate_mut().negative_reactive_power_kv_ar_per_min.get_or_insert(Default::default())
     }
     fn negative_real_power_kw_per_min(&self) -> &f32 {
         self._ramp_rate().negative_real_power_kw_per_min.as_ref().unwrap_or(&ramp_rate::NEGATIVE_REAL_POWER_KW_PER_MIN)
     }
-    fn mut_negative_real_power_kw_per_min(&mut self) -> &mut f32 {
-        self._mut_ramp_rate().negative_real_power_kw_per_min.get_or_insert(ramp_rate::NEGATIVE_REAL_POWER_KW_PER_MIN.clone())
+    fn negative_real_power_kw_per_min_mut(&mut self) -> &mut f32 {
+        self._ramp_rate_mut().negative_real_power_kw_per_min.get_or_insert(Default::default())
     }
     fn positive_reactive_power_kv_ar_per_min(&self) -> &f32 {
         self._ramp_rate().positive_reactive_power_kv_ar_per_min.as_ref().unwrap_or(&ramp_rate::POSITIVE_REACTIVE_POWER_KV_AR_PER_MIN)
     }
-    fn mut_positive_reactive_power_kv_ar_per_min(&mut self) -> &mut f32 {
-        self._mut_ramp_rate().positive_reactive_power_kv_ar_per_min.get_or_insert(ramp_rate::POSITIVE_REACTIVE_POWER_KV_AR_PER_MIN.clone())
+    fn positive_reactive_power_kv_ar_per_min_mut(&mut self) -> &mut f32 {
+        self._ramp_rate_mut().positive_reactive_power_kv_ar_per_min.get_or_insert(Default::default())
     }
     fn positive_real_power_kw_per_min(&self) -> &f32 {
         self._ramp_rate().positive_real_power_kw_per_min.as_ref().unwrap_or(&ramp_rate::POSITIVE_REAL_POWER_KW_PER_MIN)
     }
-    fn mut_positive_real_power_kw_per_min(&mut self) -> &mut f32 {
-        self._mut_ramp_rate().positive_real_power_kw_per_min.get_or_insert(ramp_rate::POSITIVE_REAL_POWER_KW_PER_MIN.clone())
+    fn positive_real_power_kw_per_min_mut(&mut self) -> &mut f32 {
+        self._ramp_rate_mut().positive_real_power_kw_per_min.get_or_insert(Default::default())
     }
 }
 impl IsRampRate for RampRate {
     fn _ramp_rate(&self) -> &RampRate {
         self
     }
-    fn _mut_ramp_rate(&mut self) -> &mut RampRate {
+    fn _ramp_rate_mut(&mut self) -> &mut RampRate {
         self
     }
 }
@@ -4004,19 +4004,19 @@ mod reading_message_info {
 }
 pub trait IsReadingMessageInfo {
     fn _reading_message_info(&self) -> &ReadingMessageInfo;
-    fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo;
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._reading_message_info().message_info.as_ref().unwrap_or(&reading_message_info::MESSAGE_INFO)
     }
-    fn mut_message_info(&mut self) -> &mut MessageInfo {
-        self._mut_reading_message_info().message_info.get_or_insert(reading_message_info::MESSAGE_INFO.clone())
+    fn message_info_mut(&mut self) -> &mut MessageInfo {
+        self._reading_message_info_mut().message_info.get_or_insert(Default::default())
     }
 }
 impl IsReadingMessageInfo for ReadingMessageInfo {
     fn _reading_message_info(&self) -> &ReadingMessageInfo {
         self
     }
-    fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
         self
     }
 }
@@ -4078,73 +4078,73 @@ mod reading_mmtr {
 }
 pub trait IsReadingMmtr {
     fn _reading_mmtr(&self) -> &ReadingMmtr;
-    fn _mut_reading_mmtr(&mut self) -> &mut ReadingMmtr;
+    fn _reading_mmtr_mut(&mut self) -> &mut ReadingMmtr;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmtr().logical_node.as_ref().unwrap_or(&reading_mmtr::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_reading_mmtr().logical_node.get_or_insert(reading_mmtr::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmtr_mut().logical_node.get_or_insert(Default::default())
     }
     fn dmd_v_ah(&self) -> &Bcr {
         self._reading_mmtr().dmd_v_ah.as_ref().unwrap_or(&reading_mmtr::DMD_V_AH)
     }
-    fn mut_dmd_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().dmd_v_ah.get_or_insert(reading_mmtr::DMD_V_AH.clone())
+    fn dmd_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().dmd_v_ah.get_or_insert(Default::default())
     }
     fn dmd_v_arh(&self) -> &Bcr {
         self._reading_mmtr().dmd_v_arh.as_ref().unwrap_or(&reading_mmtr::DMD_V_ARH)
     }
-    fn mut_dmd_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().dmd_v_arh.get_or_insert(reading_mmtr::DMD_V_ARH.clone())
+    fn dmd_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().dmd_v_arh.get_or_insert(Default::default())
     }
     fn dmd_wh(&self) -> &Bcr {
         self._reading_mmtr().dmd_wh.as_ref().unwrap_or(&reading_mmtr::DMD_WH)
     }
-    fn mut_dmd_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().dmd_wh.get_or_insert(reading_mmtr::DMD_WH.clone())
+    fn dmd_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().dmd_wh.get_or_insert(Default::default())
     }
     fn sup_v_ah(&self) -> &Bcr {
         self._reading_mmtr().sup_v_ah.as_ref().unwrap_or(&reading_mmtr::SUP_V_AH)
     }
-    fn mut_sup_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().sup_v_ah.get_or_insert(reading_mmtr::SUP_V_AH.clone())
+    fn sup_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().sup_v_ah.get_or_insert(Default::default())
     }
     fn sup_v_arh(&self) -> &Bcr {
         self._reading_mmtr().sup_v_arh.as_ref().unwrap_or(&reading_mmtr::SUP_V_ARH)
     }
-    fn mut_sup_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().sup_v_arh.get_or_insert(reading_mmtr::SUP_V_ARH.clone())
+    fn sup_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().sup_v_arh.get_or_insert(Default::default())
     }
     fn sup_wh(&self) -> &Bcr {
         self._reading_mmtr().sup_wh.as_ref().unwrap_or(&reading_mmtr::SUP_WH)
     }
-    fn mut_sup_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().sup_wh.get_or_insert(reading_mmtr::SUP_WH.clone())
+    fn sup_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().sup_wh.get_or_insert(Default::default())
     }
     fn tot_v_ah(&self) -> &Bcr {
         self._reading_mmtr().tot_v_ah.as_ref().unwrap_or(&reading_mmtr::TOT_V_AH)
     }
-    fn mut_tot_v_ah(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().tot_v_ah.get_or_insert(reading_mmtr::TOT_V_AH.clone())
+    fn tot_v_ah_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().tot_v_ah.get_or_insert(Default::default())
     }
     fn tot_v_arh(&self) -> &Bcr {
         self._reading_mmtr().tot_v_arh.as_ref().unwrap_or(&reading_mmtr::TOT_V_ARH)
     }
-    fn mut_tot_v_arh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().tot_v_arh.get_or_insert(reading_mmtr::TOT_V_ARH.clone())
+    fn tot_v_arh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().tot_v_arh.get_or_insert(Default::default())
     }
     fn tot_wh(&self) -> &Bcr {
         self._reading_mmtr().tot_wh.as_ref().unwrap_or(&reading_mmtr::TOT_WH)
     }
-    fn mut_tot_wh(&mut self) -> &mut Bcr {
-        self._mut_reading_mmtr().tot_wh.get_or_insert(reading_mmtr::TOT_WH.clone())
+    fn tot_wh_mut(&mut self) -> &mut Bcr {
+        self._reading_mmtr_mut().tot_wh.get_or_insert(Default::default())
     }
 }
 impl IsReadingMmtr for ReadingMmtr {
     fn _reading_mmtr(&self) -> &ReadingMmtr {
         self
     }
-    fn _mut_reading_mmtr(&mut self) -> &mut ReadingMmtr {
+    fn _reading_mmtr_mut(&mut self) -> &mut ReadingMmtr {
         self
     }
 }
@@ -4185,43 +4185,43 @@ mod wye {
 }
 pub trait IsWye {
     fn _wye(&self) -> &Wye;
-    fn _mut_wye(&mut self) -> &mut Wye;
+    fn _wye_mut(&mut self) -> &mut Wye;
     fn net(&self) -> &Cmv {
         self._wye().net.as_ref().unwrap_or(&wye::NET)
     }
-    fn mut_net(&mut self) -> &mut Cmv {
-        self._mut_wye().net.get_or_insert(wye::NET.clone())
+    fn net_mut(&mut self) -> &mut Cmv {
+        self._wye_mut().net.get_or_insert(Default::default())
     }
     fn neut(&self) -> &Cmv {
         self._wye().neut.as_ref().unwrap_or(&wye::NEUT)
     }
-    fn mut_neut(&mut self) -> &mut Cmv {
-        self._mut_wye().neut.get_or_insert(wye::NEUT.clone())
+    fn neut_mut(&mut self) -> &mut Cmv {
+        self._wye_mut().neut.get_or_insert(Default::default())
     }
     fn phs_a(&self) -> &Cmv {
         self._wye().phs_a.as_ref().unwrap_or(&wye::PHS_A)
     }
-    fn mut_phs_a(&mut self) -> &mut Cmv {
-        self._mut_wye().phs_a.get_or_insert(wye::PHS_A.clone())
+    fn phs_a_mut(&mut self) -> &mut Cmv {
+        self._wye_mut().phs_a.get_or_insert(Default::default())
     }
     fn phs_b(&self) -> &Cmv {
         self._wye().phs_b.as_ref().unwrap_or(&wye::PHS_B)
     }
-    fn mut_phs_b(&mut self) -> &mut Cmv {
-        self._mut_wye().phs_b.get_or_insert(wye::PHS_B.clone())
+    fn phs_b_mut(&mut self) -> &mut Cmv {
+        self._wye_mut().phs_b.get_or_insert(Default::default())
     }
     fn phs_c(&self) -> &Cmv {
         self._wye().phs_c.as_ref().unwrap_or(&wye::PHS_C)
     }
-    fn mut_phs_c(&mut self) -> &mut Cmv {
-        self._mut_wye().phs_c.get_or_insert(wye::PHS_C.clone())
+    fn phs_c_mut(&mut self) -> &mut Cmv {
+        self._wye_mut().phs_c.get_or_insert(Default::default())
     }
 }
 impl IsWye for Wye {
     fn _wye(&self) -> &Wye {
         self
     }
-    fn _mut_wye(&mut self) -> &mut Wye {
+    fn _wye_mut(&mut self) -> &mut Wye {
         self
     }
 }
@@ -4295,79 +4295,79 @@ mod reading_mmxu {
 }
 pub trait IsReadingMmxu {
     fn _reading_mmxu(&self) -> &ReadingMmxu;
-    fn _mut_reading_mmxu(&mut self) -> &mut ReadingMmxu;
+    fn _reading_mmxu_mut(&mut self) -> &mut ReadingMmxu;
     fn logical_node(&self) -> &LogicalNode {
         self._reading_mmxu().logical_node.as_ref().unwrap_or(&reading_mmxu::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_reading_mmxu().logical_node.get_or_insert(reading_mmxu::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmxu_mut().logical_node.get_or_insert(Default::default())
     }
     fn a(&self) -> &Wye {
         self._reading_mmxu().a.as_ref().unwrap_or(&reading_mmxu::A)
     }
-    fn mut_a(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().a.get_or_insert(reading_mmxu::A.clone())
+    fn a_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().a.get_or_insert(Default::default())
     }
     fn clc_mth(&self) -> &EngCalcMethodKind {
         self._reading_mmxu().clc_mth.as_ref().unwrap_or(&reading_mmxu::CLC_MTH)
     }
-    fn mut_clc_mth(&mut self) -> &mut EngCalcMethodKind {
-        self._mut_reading_mmxu().clc_mth.get_or_insert(reading_mmxu::CLC_MTH.clone())
+    fn clc_mth_mut(&mut self) -> &mut EngCalcMethodKind {
+        self._reading_mmxu_mut().clc_mth.get_or_insert(Default::default())
     }
     fn hz(&self) -> &Mv {
         self._reading_mmxu().hz.as_ref().unwrap_or(&reading_mmxu::HZ)
     }
-    fn mut_hz(&mut self) -> &mut Mv {
-        self._mut_reading_mmxu().hz.get_or_insert(reading_mmxu::HZ.clone())
+    fn hz_mut(&mut self) -> &mut Mv {
+        self._reading_mmxu_mut().hz.get_or_insert(Default::default())
     }
     fn pf(&self) -> &Wye {
         self._reading_mmxu().pf.as_ref().unwrap_or(&reading_mmxu::PF)
     }
-    fn mut_pf(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().pf.get_or_insert(reading_mmxu::PF.clone())
+    fn pf_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().pf.get_or_insert(Default::default())
     }
     fn pf_sign(&self) -> &EngPfSignKind {
         self._reading_mmxu().pf_sign.as_ref().unwrap_or(&reading_mmxu::PF_SIGN)
     }
-    fn mut_pf_sign(&mut self) -> &mut EngPfSignKind {
-        self._mut_reading_mmxu().pf_sign.get_or_insert(reading_mmxu::PF_SIGN.clone())
+    fn pf_sign_mut(&mut self) -> &mut EngPfSignKind {
+        self._reading_mmxu_mut().pf_sign.get_or_insert(Default::default())
     }
     fn ph_v(&self) -> &Wye {
         self._reading_mmxu().ph_v.as_ref().unwrap_or(&reading_mmxu::PH_V)
     }
-    fn mut_ph_v(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().ph_v.get_or_insert(reading_mmxu::PH_V.clone())
+    fn ph_v_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().ph_v.get_or_insert(Default::default())
     }
     fn ppv(&self) -> &Del {
         self._reading_mmxu().ppv.as_ref().unwrap_or(&reading_mmxu::PPV)
     }
-    fn mut_ppv(&mut self) -> &mut Del {
-        self._mut_reading_mmxu().ppv.get_or_insert(reading_mmxu::PPV.clone())
+    fn ppv_mut(&mut self) -> &mut Del {
+        self._reading_mmxu_mut().ppv.get_or_insert(Default::default())
     }
     fn va(&self) -> &Wye {
         self._reading_mmxu().va.as_ref().unwrap_or(&reading_mmxu::VA)
     }
-    fn mut_va(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().va.get_or_insert(reading_mmxu::VA.clone())
+    fn va_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().va.get_or_insert(Default::default())
     }
     fn v_ar(&self) -> &Wye {
         self._reading_mmxu().v_ar.as_ref().unwrap_or(&reading_mmxu::V_AR)
     }
-    fn mut_v_ar(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().v_ar.get_or_insert(reading_mmxu::V_AR.clone())
+    fn v_ar_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().v_ar.get_or_insert(Default::default())
     }
     fn w(&self) -> &Wye {
         self._reading_mmxu().w.as_ref().unwrap_or(&reading_mmxu::W)
     }
-    fn mut_w(&mut self) -> &mut Wye {
-        self._mut_reading_mmxu().w.get_or_insert(reading_mmxu::W.clone())
+    fn w_mut(&mut self) -> &mut Wye {
+        self._reading_mmxu_mut().w.get_or_insert(Default::default())
     }
 }
 impl IsReadingMmxu for ReadingMmxu {
     fn _reading_mmxu(&self) -> &ReadingMmxu {
         self
     }
-    fn _mut_reading_mmxu(&mut self) -> &mut ReadingMmxu {
+    fn _reading_mmxu_mut(&mut self) -> &mut ReadingMmxu {
         self
     }
 }
@@ -4384,17 +4384,17 @@ mod optional_db_pos_kind {
 }
 pub trait IsOptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
-    fn _mut_optional_db_pos_kind(&mut self) -> &mut OptionalDbPosKind;
+    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind;
     fn value(&self) -> &i32 {
         &self._optional_db_pos_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_db_pos_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_db_pos_kind_mut().value    }
 }
 impl IsOptionalDbPosKind for OptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind {
         self
     }
-    fn _mut_optional_db_pos_kind(&mut self) -> &mut OptionalDbPosKind {
+    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind {
         self
     }
 }
@@ -4439,29 +4439,29 @@ mod status_dps {
 }
 pub trait IsStatusDps {
     fn _status_dps(&self) -> &StatusDps;
-    fn _mut_status_dps(&mut self) -> &mut StatusDps;
+    fn _status_dps_mut(&mut self) -> &mut StatusDps;
     fn q(&self) -> &Quality {
         self._status_dps().q.as_ref().unwrap_or(&status_dps::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_status_dps().q.get_or_insert(status_dps::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_dps_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._status_dps().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_status_dps().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._status_dps_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._status_dps().t.as_ref().unwrap_or(&status_dps::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_status_dps().t.get_or_insert(status_dps::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_dps_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsStatusDps for StatusDps {
     fn _status_dps(&self) -> &StatusDps {
         self
     }
-    fn _mut_status_dps(&mut self) -> &mut StatusDps {
+    fn _status_dps_mut(&mut self) -> &mut StatusDps {
         self
     }
 }
@@ -4502,31 +4502,31 @@ mod status_and_event_xcbr {
 }
 pub trait IsStatusAndEventXcbr {
     fn _status_and_event_xcbr(&self) -> &StatusAndEventXcbr;
-    fn _mut_status_and_event_xcbr(&mut self) -> &mut StatusAndEventXcbr;
+    fn _status_and_event_xcbr_mut(&mut self) -> &mut StatusAndEventXcbr;
     fn logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
         self._status_and_event_xcbr().logical_node_for_event_and_status.as_ref().unwrap_or(&status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        self._mut_status_and_event_xcbr().logical_node_for_event_and_status.get_or_insert(status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self._status_and_event_xcbr_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &EnsDynamicTestKind {
         self._status_and_event_xcbr().dynamic_test.as_ref().unwrap_or(&status_and_event_xcbr::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut EnsDynamicTestKind {
-        self._mut_status_and_event_xcbr().dynamic_test.get_or_insert(status_and_event_xcbr::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut EnsDynamicTestKind {
+        self._status_and_event_xcbr_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn pos(&self) -> &StatusDps {
         self._status_and_event_xcbr().pos.as_ref().unwrap_or(&status_and_event_xcbr::POS)
     }
-    fn mut_pos(&mut self) -> &mut StatusDps {
-        self._mut_status_and_event_xcbr().pos.get_or_insert(status_and_event_xcbr::POS.clone())
+    fn pos_mut(&mut self) -> &mut StatusDps {
+        self._status_and_event_xcbr_mut().pos.get_or_insert(Default::default())
     }
 }
 impl IsStatusAndEventXcbr for StatusAndEventXcbr {
     fn _status_and_event_xcbr(&self) -> &StatusAndEventXcbr {
         self
     }
-    fn _mut_status_and_event_xcbr(&mut self) -> &mut StatusAndEventXcbr {
+    fn _status_and_event_xcbr_mut(&mut self) -> &mut StatusAndEventXcbr {
         self
     }
 }
@@ -4559,29 +4559,29 @@ mod status_isc {
 }
 pub trait IsStatusIsc {
     fn _status_isc(&self) -> &StatusIsc;
-    fn _mut_status_isc(&mut self) -> &mut StatusIsc;
+    fn _status_isc_mut(&mut self) -> &mut StatusIsc;
     fn q(&self) -> &Quality {
         self._status_isc().q.as_ref().unwrap_or(&status_isc::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_status_isc().q.get_or_insert(status_isc::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_isc_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &i32 {
         &self._status_isc().st_val    }
-    fn mut_st_val(&mut self) -> &mut i32 {
-        &mut self._mut_status_isc().st_val    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._status_isc_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._status_isc().t.as_ref().unwrap_or(&status_isc::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_status_isc().t.get_or_insert(status_isc::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_isc_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsStatusIsc for StatusIsc {
     fn _status_isc(&self) -> &StatusIsc {
         self
     }
-    fn _mut_status_isc(&mut self) -> &mut StatusIsc {
+    fn _status_isc_mut(&mut self) -> &mut StatusIsc {
         self
     }
 }
@@ -4607,19 +4607,19 @@ mod status_message_info {
 }
 pub trait IsStatusMessageInfo {
     fn _status_message_info(&self) -> &StatusMessageInfo;
-    fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo;
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo;
     fn message_info(&self) -> &MessageInfo {
         self._status_message_info().message_info.as_ref().unwrap_or(&status_message_info::MESSAGE_INFO)
     }
-    fn mut_message_info(&mut self) -> &mut MessageInfo {
-        self._mut_status_message_info().message_info.get_or_insert(status_message_info::MESSAGE_INFO.clone())
+    fn message_info_mut(&mut self) -> &mut MessageInfo {
+        self._status_message_info_mut().message_info.get_or_insert(Default::default())
     }
 }
 impl IsStatusMessageInfo for StatusMessageInfo {
     fn _status_message_info(&self) -> &StatusMessageInfo {
         self
     }
-    fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
         self
     }
 }
@@ -4652,29 +4652,29 @@ mod status_spc {
 }
 pub trait IsStatusSpc {
     fn _status_spc(&self) -> &StatusSpc;
-    fn _mut_status_spc(&mut self) -> &mut StatusSpc;
+    fn _status_spc_mut(&mut self) -> &mut StatusSpc;
     fn q(&self) -> &Quality {
         self._status_spc().q.as_ref().unwrap_or(&status_spc::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_status_spc().q.get_or_insert(status_spc::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_spc_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &bool {
         &self._status_spc().st_val    }
-    fn mut_st_val(&mut self) -> &mut bool {
-        &mut self._mut_status_spc().st_val    }
+    fn st_val_mut(&mut self) -> &mut bool {
+        &mut self._status_spc_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._status_spc().t.as_ref().unwrap_or(&status_spc::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_status_spc().t.get_or_insert(status_spc::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_spc_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsStatusSpc for StatusSpc {
     fn _status_spc(&self) -> &StatusSpc {
         self
     }
-    fn _mut_status_spc(&mut self) -> &mut StatusSpc {
+    fn _status_spc_mut(&mut self) -> &mut StatusSpc {
         self
     }
 }
@@ -4700,19 +4700,19 @@ mod status_value {
 }
 pub trait IsStatusValue {
     fn _status_value(&self) -> &StatusValue;
-    fn _mut_status_value(&mut self) -> &mut StatusValue;
+    fn _status_value_mut(&mut self) -> &mut StatusValue;
     fn identified_object(&self) -> &IdentifiedObject {
         self._status_value().identified_object.as_ref().unwrap_or(&status_value::IDENTIFIED_OBJECT)
     }
-    fn mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        self._mut_status_value().identified_object.get_or_insert(status_value::IDENTIFIED_OBJECT.clone())
+    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self._status_value_mut().identified_object.get_or_insert(Default::default())
     }
 }
 impl IsStatusValue for StatusValue {
     fn _status_value(&self) -> &StatusValue {
         self
     }
-    fn _mut_status_value(&mut self) -> &mut StatusValue {
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
         self
     }
 }
@@ -4757,29 +4757,29 @@ mod vss {
 }
 pub trait IsVss {
     fn _vss(&self) -> &Vss;
-    fn _mut_vss(&mut self) -> &mut Vss;
+    fn _vss_mut(&mut self) -> &mut Vss;
     fn q(&self) -> &Quality {
         self._vss().q.as_ref().unwrap_or(&vss::Q)
     }
-    fn mut_q(&mut self) -> &mut Quality {
-        self._mut_vss().q.get_or_insert(vss::Q.clone())
+    fn q_mut(&mut self) -> &mut Quality {
+        self._vss_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &std::string::String {
         &self._vss().st_val    }
-    fn mut_st_val(&mut self) -> &mut std::string::String {
-        &mut self._mut_vss().st_val    }
+    fn st_val_mut(&mut self) -> &mut std::string::String {
+        &mut self._vss_mut().st_val    }
     fn t(&self) -> &Timestamp {
         self._vss().t.as_ref().unwrap_or(&vss::T)
     }
-    fn mut_t(&mut self) -> &mut Timestamp {
-        self._mut_vss().t.get_or_insert(vss::T.clone())
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._vss_mut().t.get_or_insert(Default::default())
     }
 }
 impl IsVss for Vss {
     fn _vss(&self) -> &Vss {
         self
     }
-    fn _mut_vss(&mut self) -> &mut Vss {
+    fn _vss_mut(&mut self) -> &mut Vss {
         self
     }
 }
@@ -4819,31 +4819,31 @@ mod string_status_ggio {
 }
 pub trait IsStringStatusGgio {
     fn _string_status_ggio(&self) -> &StringStatusGgio;
-    fn _mut_string_status_ggio(&mut self) -> &mut StringStatusGgio;
+    fn _string_status_ggio_mut(&mut self) -> &mut StringStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
         self._string_status_ggio().logical_node.as_ref().unwrap_or(&string_status_ggio::LOGICAL_NODE)
     }
-    fn mut_logical_node(&mut self) -> &mut LogicalNode {
-        self._mut_string_status_ggio().logical_node.get_or_insert(string_status_ggio::LOGICAL_NODE.clone())
+    fn logical_node_mut(&mut self) -> &mut LogicalNode {
+        self._string_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
         self._string_status_ggio().phase.as_ref().unwrap_or(&string_status_ggio::PHASE)
     }
-    fn mut_phase(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._mut_string_status_ggio().phase.get_or_insert(string_status_ggio::PHASE.clone())
+    fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
+        self._string_status_ggio_mut().phase.get_or_insert(Default::default())
     }
     fn str_in(&self) -> &Vss {
         self._string_status_ggio().str_in.as_ref().unwrap_or(&string_status_ggio::STR_IN)
     }
-    fn mut_str_in(&mut self) -> &mut Vss {
-        self._mut_string_status_ggio().str_in.get_or_insert(string_status_ggio::STR_IN.clone())
+    fn str_in_mut(&mut self) -> &mut Vss {
+        self._string_status_ggio_mut().str_in.get_or_insert(Default::default())
     }
 }
 impl IsStringStatusGgio for StringStatusGgio {
     fn _string_status_ggio(&self) -> &StringStatusGgio {
         self
     }
-    fn _mut_string_status_ggio(&mut self) -> &mut StringStatusGgio {
+    fn _string_status_ggio_mut(&mut self) -> &mut StringStatusGgio {
         self
     }
 }
@@ -4879,25 +4879,25 @@ mod switch_point {
 }
 pub trait IsSwitchPoint {
     fn _switch_point(&self) -> &SwitchPoint;
-    fn _mut_switch_point(&mut self) -> &mut SwitchPoint;
+    fn _switch_point_mut(&mut self) -> &mut SwitchPoint;
     fn pos(&self) -> &ControlDpc {
         self._switch_point().pos.as_ref().unwrap_or(&switch_point::POS)
     }
-    fn mut_pos(&mut self) -> &mut ControlDpc {
-        self._mut_switch_point().pos.get_or_insert(switch_point::POS.clone())
+    fn pos_mut(&mut self) -> &mut ControlDpc {
+        self._switch_point_mut().pos.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &ControlTimestamp {
         self._switch_point().start_time.as_ref().unwrap_or(&switch_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut ControlTimestamp {
-        self._mut_switch_point().start_time.get_or_insert(switch_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut ControlTimestamp {
+        self._switch_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsSwitchPoint for SwitchPoint {
     fn _switch_point(&self) -> &SwitchPoint {
         self
     }
-    fn _mut_switch_point(&mut self) -> &mut SwitchPoint {
+    fn _switch_point_mut(&mut self) -> &mut SwitchPoint {
         self
     }
 }
@@ -4922,17 +4922,17 @@ mod switch_csg {
 }
 pub trait IsSwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg;
-    fn _mut_switch_csg(&mut self) -> &mut SwitchCsg;
+    fn _switch_csg_mut(&mut self) -> &mut SwitchCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<SwitchPoint> {
         &self._switch_csg().crv_pts    }
-    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<SwitchPoint> {
-        &mut self._mut_switch_csg().crv_pts    }
+    fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<SwitchPoint> {
+        &mut self._switch_csg_mut().crv_pts    }
 }
 impl IsSwitchCsg for SwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg {
         self
     }
-    fn _mut_switch_csg(&mut self) -> &mut SwitchCsg {
+    fn _switch_csg_mut(&mut self) -> &mut SwitchCsg {
         self
     }
 }
@@ -4958,19 +4958,19 @@ mod switch_control_schedule_fsch {
 }
 pub trait IsSwitchControlScheduleFsch {
     fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch;
-    fn _mut_switch_control_schedule_fsch(&mut self) -> &mut SwitchControlScheduleFsch;
+    fn _switch_control_schedule_fsch_mut(&mut self) -> &mut SwitchControlScheduleFsch;
     fn val_dcsg(&self) -> &SwitchCsg {
         self._switch_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&switch_control_schedule_fsch::VAL_DCSG)
     }
-    fn mut_val_dcsg(&mut self) -> &mut SwitchCsg {
-        self._mut_switch_control_schedule_fsch().val_dcsg.get_or_insert(switch_control_schedule_fsch::VAL_DCSG.clone())
+    fn val_dcsg_mut(&mut self) -> &mut SwitchCsg {
+        self._switch_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
     }
 }
 impl IsSwitchControlScheduleFsch for SwitchControlScheduleFsch {
     fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch {
         self
     }
-    fn _mut_switch_control_schedule_fsch(&mut self) -> &mut SwitchControlScheduleFsch {
+    fn _switch_control_schedule_fsch_mut(&mut self) -> &mut SwitchControlScheduleFsch {
         self
     }
 }
@@ -4987,17 +4987,17 @@ mod optional_state_kind {
 }
 pub trait IsOptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind;
-    fn _mut_optional_state_kind(&mut self) -> &mut OptionalStateKind;
+    fn _optional_state_kind_mut(&mut self) -> &mut OptionalStateKind;
     fn value(&self) -> &i32 {
         &self._optional_state_kind().value    }
-    fn mut_value(&mut self) -> &mut i32 {
-        &mut self._mut_optional_state_kind().value    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_state_kind_mut().value    }
 }
 impl IsOptionalStateKind for OptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind {
         self
     }
-    fn _mut_optional_state_kind(&mut self) -> &mut OptionalStateKind {
+    fn _optional_state_kind_mut(&mut self) -> &mut OptionalStateKind {
         self
     }
 }

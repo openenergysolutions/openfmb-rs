@@ -40,49 +40,49 @@ mod ess_event_zbat {
 }
 pub trait IsEssEventZbat {
     fn _ess_event_zbat(&self) -> &EssEventZbat;
-    fn _mut_ess_event_zbat(&mut self) -> &mut EssEventZbat;
+    fn _ess_event_zbat_mut(&mut self) -> &mut EssEventZbat;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_event_zbat().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_ess_event_zbat().logical_node_for_event_and_status.get_or_insert(ess_event_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_event_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn bat_hi(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_zbat().bat_hi.as_ref().unwrap_or(&ess_event_zbat::BAT_HI)
     }
-    fn mut_bat_hi(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_zbat().bat_hi.get_or_insert(ess_event_zbat::BAT_HI.clone())
+    fn bat_hi_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_zbat_mut().bat_hi.get_or_insert(Default::default())
     }
     fn bat_lo(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_zbat().bat_lo.as_ref().unwrap_or(&ess_event_zbat::BAT_LO)
     }
-    fn mut_bat_lo(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_zbat().bat_lo.get_or_insert(ess_event_zbat::BAT_LO.clone())
+    fn bat_lo_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_zbat_mut().bat_lo.get_or_insert(Default::default())
     }
     fn bat_st(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_zbat().bat_st.as_ref().unwrap_or(&ess_event_zbat::BAT_ST)
     }
-    fn mut_bat_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_zbat().bat_st.get_or_insert(ess_event_zbat::BAT_ST.clone())
+    fn bat_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_zbat_mut().bat_st.get_or_insert(Default::default())
     }
     fn soc(&self) -> &super::commonmodule::Mv {
         self._ess_event_zbat().soc.as_ref().unwrap_or(&ess_event_zbat::SOC)
     }
-    fn mut_soc(&mut self) -> &mut super::commonmodule::Mv {
-        self._mut_ess_event_zbat().soc.get_or_insert(ess_event_zbat::SOC.clone())
+    fn soc_mut(&mut self) -> &mut super::commonmodule::Mv {
+        self._ess_event_zbat_mut().soc.get_or_insert(Default::default())
     }
     fn stdby(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_zbat().stdby.as_ref().unwrap_or(&ess_event_zbat::STDBY)
     }
-    fn mut_stdby(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_zbat().stdby.get_or_insert(ess_event_zbat::STDBY.clone())
+    fn stdby_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_zbat_mut().stdby.get_or_insert(Default::default())
     }
 }
 impl IsEssEventZbat for EssEventZbat {
     fn _ess_event_zbat(&self) -> &EssEventZbat {
         self
     }
-    fn _mut_ess_event_zbat(&mut self) -> &mut EssEventZbat {
+    fn _ess_event_zbat_mut(&mut self) -> &mut EssEventZbat {
         self
     }
 }
@@ -142,61 +142,61 @@ mod frequency_regulation {
 }
 pub trait IsFrequencyRegulation {
     fn _frequency_regulation(&self) -> &FrequencyRegulation;
-    fn _mut_frequency_regulation(&mut self) -> &mut FrequencyRegulation;
+    fn _frequency_regulation_mut(&mut self) -> &mut FrequencyRegulation;
     fn frequency_dead_band_minus(&self) -> &f32 {
         self._frequency_regulation().frequency_dead_band_minus.as_ref().unwrap_or(&frequency_regulation::FREQUENCY_DEAD_BAND_MINUS)
     }
-    fn mut_frequency_dead_band_minus(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().frequency_dead_band_minus.get_or_insert(frequency_regulation::FREQUENCY_DEAD_BAND_MINUS.clone())
+    fn frequency_dead_band_minus_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().frequency_dead_band_minus.get_or_insert(Default::default())
     }
     fn frequency_dead_band_plus(&self) -> &f32 {
         self._frequency_regulation().frequency_dead_band_plus.as_ref().unwrap_or(&frequency_regulation::FREQUENCY_DEAD_BAND_PLUS)
     }
-    fn mut_frequency_dead_band_plus(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().frequency_dead_band_plus.get_or_insert(frequency_regulation::FREQUENCY_DEAD_BAND_PLUS.clone())
+    fn frequency_dead_band_plus_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().frequency_dead_band_plus.get_or_insert(Default::default())
     }
     fn frequency_regulation_ctl(&self) -> &bool {
         self._frequency_regulation().frequency_regulation_ctl.as_ref().unwrap_or(&frequency_regulation::FREQUENCY_REGULATION_CTL)
     }
-    fn mut_frequency_regulation_ctl(&mut self) -> &mut bool {
-        self._mut_frequency_regulation().frequency_regulation_ctl.get_or_insert(frequency_regulation::FREQUENCY_REGULATION_CTL.clone())
+    fn frequency_regulation_ctl_mut(&mut self) -> &mut bool {
+        self._frequency_regulation_mut().frequency_regulation_ctl.get_or_insert(Default::default())
     }
     fn frequency_set_point(&self) -> &f32 {
         self._frequency_regulation().frequency_set_point.as_ref().unwrap_or(&frequency_regulation::FREQUENCY_SET_POINT)
     }
-    fn mut_frequency_set_point(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().frequency_set_point.get_or_insert(frequency_regulation::FREQUENCY_SET_POINT.clone())
+    fn frequency_set_point_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().frequency_set_point.get_or_insert(Default::default())
     }
     fn grid_frequency_stable_band_minus(&self) -> &f32 {
         self._frequency_regulation().grid_frequency_stable_band_minus.as_ref().unwrap_or(&frequency_regulation::GRID_FREQUENCY_STABLE_BAND_MINUS)
     }
-    fn mut_grid_frequency_stable_band_minus(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().grid_frequency_stable_band_minus.get_or_insert(frequency_regulation::GRID_FREQUENCY_STABLE_BAND_MINUS.clone())
+    fn grid_frequency_stable_band_minus_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().grid_frequency_stable_band_minus.get_or_insert(Default::default())
     }
     fn grid_frequency_stable_band_plus(&self) -> &f32 {
         self._frequency_regulation().grid_frequency_stable_band_plus.as_ref().unwrap_or(&frequency_regulation::GRID_FREQUENCY_STABLE_BAND_PLUS)
     }
-    fn mut_grid_frequency_stable_band_plus(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().grid_frequency_stable_band_plus.get_or_insert(frequency_regulation::GRID_FREQUENCY_STABLE_BAND_PLUS.clone())
+    fn grid_frequency_stable_band_plus_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().grid_frequency_stable_band_plus.get_or_insert(Default::default())
     }
     fn over_frequency_droop(&self) -> &f32 {
         self._frequency_regulation().over_frequency_droop.as_ref().unwrap_or(&frequency_regulation::OVER_FREQUENCY_DROOP)
     }
-    fn mut_over_frequency_droop(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().over_frequency_droop.get_or_insert(frequency_regulation::OVER_FREQUENCY_DROOP.clone())
+    fn over_frequency_droop_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().over_frequency_droop.get_or_insert(Default::default())
     }
     fn under_frequency_droop(&self) -> &f32 {
         self._frequency_regulation().under_frequency_droop.as_ref().unwrap_or(&frequency_regulation::UNDER_FREQUENCY_DROOP)
     }
-    fn mut_under_frequency_droop(&mut self) -> &mut f32 {
-        self._mut_frequency_regulation().under_frequency_droop.get_or_insert(frequency_regulation::UNDER_FREQUENCY_DROOP.clone())
+    fn under_frequency_droop_mut(&mut self) -> &mut f32 {
+        self._frequency_regulation_mut().under_frequency_droop.get_or_insert(Default::default())
     }
 }
 impl IsFrequencyRegulation for FrequencyRegulation {
     fn _frequency_regulation(&self) -> &FrequencyRegulation {
         self
     }
-    fn _mut_frequency_regulation(&mut self) -> &mut FrequencyRegulation {
+    fn _frequency_regulation_mut(&mut self) -> &mut FrequencyRegulation {
         self
     }
 }
@@ -235,43 +235,43 @@ mod peak_shaving {
 }
 pub trait IsPeakShaving {
     fn _peak_shaving(&self) -> &PeakShaving;
-    fn _mut_peak_shaving(&mut self) -> &mut PeakShaving;
+    fn _peak_shaving_mut(&mut self) -> &mut PeakShaving;
     fn base_shaving_limit(&self) -> &f32 {
         self._peak_shaving().base_shaving_limit.as_ref().unwrap_or(&peak_shaving::BASE_SHAVING_LIMIT)
     }
-    fn mut_base_shaving_limit(&mut self) -> &mut f32 {
-        self._mut_peak_shaving().base_shaving_limit.get_or_insert(peak_shaving::BASE_SHAVING_LIMIT.clone())
+    fn base_shaving_limit_mut(&mut self) -> &mut f32 {
+        self._peak_shaving_mut().base_shaving_limit.get_or_insert(Default::default())
     }
     fn peak_shaving_ctl(&self) -> &bool {
         self._peak_shaving().peak_shaving_ctl.as_ref().unwrap_or(&peak_shaving::PEAK_SHAVING_CTL)
     }
-    fn mut_peak_shaving_ctl(&mut self) -> &mut bool {
-        self._mut_peak_shaving().peak_shaving_ctl.get_or_insert(peak_shaving::PEAK_SHAVING_CTL.clone())
+    fn peak_shaving_ctl_mut(&mut self) -> &mut bool {
+        self._peak_shaving_mut().peak_shaving_ctl.get_or_insert(Default::default())
     }
     fn peak_shaving_limit(&self) -> &f32 {
         self._peak_shaving().peak_shaving_limit.as_ref().unwrap_or(&peak_shaving::PEAK_SHAVING_LIMIT)
     }
-    fn mut_peak_shaving_limit(&mut self) -> &mut f32 {
-        self._mut_peak_shaving().peak_shaving_limit.get_or_insert(peak_shaving::PEAK_SHAVING_LIMIT.clone())
+    fn peak_shaving_limit_mut(&mut self) -> &mut f32 {
+        self._peak_shaving_mut().peak_shaving_limit.get_or_insert(Default::default())
     }
     fn soc_management_allowed_high_limit(&self) -> &f32 {
         self._peak_shaving().soc_management_allowed_high_limit.as_ref().unwrap_or(&peak_shaving::SOC_MANAGEMENT_ALLOWED_HIGH_LIMIT)
     }
-    fn mut_soc_management_allowed_high_limit(&mut self) -> &mut f32 {
-        self._mut_peak_shaving().soc_management_allowed_high_limit.get_or_insert(peak_shaving::SOC_MANAGEMENT_ALLOWED_HIGH_LIMIT.clone())
+    fn soc_management_allowed_high_limit_mut(&mut self) -> &mut f32 {
+        self._peak_shaving_mut().soc_management_allowed_high_limit.get_or_insert(Default::default())
     }
     fn soc_management_allowed_low_limit(&self) -> &f32 {
         self._peak_shaving().soc_management_allowed_low_limit.as_ref().unwrap_or(&peak_shaving::SOC_MANAGEMENT_ALLOWED_LOW_LIMIT)
     }
-    fn mut_soc_management_allowed_low_limit(&mut self) -> &mut f32 {
-        self._mut_peak_shaving().soc_management_allowed_low_limit.get_or_insert(peak_shaving::SOC_MANAGEMENT_ALLOWED_LOW_LIMIT.clone())
+    fn soc_management_allowed_low_limit_mut(&mut self) -> &mut f32 {
+        self._peak_shaving_mut().soc_management_allowed_low_limit.get_or_insert(Default::default())
     }
 }
 impl IsPeakShaving for PeakShaving {
     fn _peak_shaving(&self) -> &PeakShaving {
         self
     }
-    fn _mut_peak_shaving(&mut self) -> &mut PeakShaving {
+    fn _peak_shaving_mut(&mut self) -> &mut PeakShaving {
         self
     }
 }
@@ -319,43 +319,43 @@ mod soc_limit {
 }
 pub trait IsSocLimit {
     fn _soc_limit(&self) -> &SocLimit;
-    fn _mut_soc_limit(&mut self) -> &mut SocLimit;
+    fn _soc_limit_mut(&mut self) -> &mut SocLimit;
     fn soc_high_limit(&self) -> &f32 {
         self._soc_limit().soc_high_limit.as_ref().unwrap_or(&soc_limit::SOC_HIGH_LIMIT)
     }
-    fn mut_soc_high_limit(&mut self) -> &mut f32 {
-        self._mut_soc_limit().soc_high_limit.get_or_insert(soc_limit::SOC_HIGH_LIMIT.clone())
+    fn soc_high_limit_mut(&mut self) -> &mut f32 {
+        self._soc_limit_mut().soc_high_limit.get_or_insert(Default::default())
     }
     fn soc_high_limit_hysteresis(&self) -> &f32 {
         self._soc_limit().soc_high_limit_hysteresis.as_ref().unwrap_or(&soc_limit::SOC_HIGH_LIMIT_HYSTERESIS)
     }
-    fn mut_soc_high_limit_hysteresis(&mut self) -> &mut f32 {
-        self._mut_soc_limit().soc_high_limit_hysteresis.get_or_insert(soc_limit::SOC_HIGH_LIMIT_HYSTERESIS.clone())
+    fn soc_high_limit_hysteresis_mut(&mut self) -> &mut f32 {
+        self._soc_limit_mut().soc_high_limit_hysteresis.get_or_insert(Default::default())
     }
     fn soc_limit_ctl(&self) -> &bool {
         self._soc_limit().soc_limit_ctl.as_ref().unwrap_or(&soc_limit::SOC_LIMIT_CTL)
     }
-    fn mut_soc_limit_ctl(&mut self) -> &mut bool {
-        self._mut_soc_limit().soc_limit_ctl.get_or_insert(soc_limit::SOC_LIMIT_CTL.clone())
+    fn soc_limit_ctl_mut(&mut self) -> &mut bool {
+        self._soc_limit_mut().soc_limit_ctl.get_or_insert(Default::default())
     }
     fn soc_low_limit(&self) -> &f32 {
         self._soc_limit().soc_low_limit.as_ref().unwrap_or(&soc_limit::SOC_LOW_LIMIT)
     }
-    fn mut_soc_low_limit(&mut self) -> &mut f32 {
-        self._mut_soc_limit().soc_low_limit.get_or_insert(soc_limit::SOC_LOW_LIMIT.clone())
+    fn soc_low_limit_mut(&mut self) -> &mut f32 {
+        self._soc_limit_mut().soc_low_limit.get_or_insert(Default::default())
     }
     fn soc_low_limit_hysteresis(&self) -> &f32 {
         self._soc_limit().soc_low_limit_hysteresis.as_ref().unwrap_or(&soc_limit::SOC_LOW_LIMIT_HYSTERESIS)
     }
-    fn mut_soc_low_limit_hysteresis(&mut self) -> &mut f32 {
-        self._mut_soc_limit().soc_low_limit_hysteresis.get_or_insert(soc_limit::SOC_LOW_LIMIT_HYSTERESIS.clone())
+    fn soc_low_limit_hysteresis_mut(&mut self) -> &mut f32 {
+        self._soc_limit_mut().soc_low_limit_hysteresis.get_or_insert(Default::default())
     }
 }
 impl IsSocLimit for SocLimit {
     fn _soc_limit(&self) -> &SocLimit {
         self
     }
-    fn _mut_soc_limit(&mut self) -> &mut SocLimit {
+    fn _soc_limit_mut(&mut self) -> &mut SocLimit {
         self
     }
 }
@@ -395,43 +395,43 @@ mod soc_management {
 }
 pub trait IsSocManagement {
     fn _soc_management(&self) -> &SocManagement;
-    fn _mut_soc_management(&mut self) -> &mut SocManagement;
+    fn _soc_management_mut(&mut self) -> &mut SocManagement;
     fn soc_dead_band_minus(&self) -> &f32 {
         self._soc_management().soc_dead_band_minus.as_ref().unwrap_or(&soc_management::SOC_DEAD_BAND_MINUS)
     }
-    fn mut_soc_dead_band_minus(&mut self) -> &mut f32 {
-        self._mut_soc_management().soc_dead_band_minus.get_or_insert(soc_management::SOC_DEAD_BAND_MINUS.clone())
+    fn soc_dead_band_minus_mut(&mut self) -> &mut f32 {
+        self._soc_management_mut().soc_dead_band_minus.get_or_insert(Default::default())
     }
     fn soc_dead_band_plus(&self) -> &f32 {
         self._soc_management().soc_dead_band_plus.as_ref().unwrap_or(&soc_management::SOC_DEAD_BAND_PLUS)
     }
-    fn mut_soc_dead_band_plus(&mut self) -> &mut f32 {
-        self._mut_soc_management().soc_dead_band_plus.get_or_insert(soc_management::SOC_DEAD_BAND_PLUS.clone())
+    fn soc_dead_band_plus_mut(&mut self) -> &mut f32 {
+        self._soc_management_mut().soc_dead_band_plus.get_or_insert(Default::default())
     }
     fn soc_management_ctl(&self) -> &bool {
         self._soc_management().soc_management_ctl.as_ref().unwrap_or(&soc_management::SOC_MANAGEMENT_CTL)
     }
-    fn mut_soc_management_ctl(&mut self) -> &mut bool {
-        self._mut_soc_management().soc_management_ctl.get_or_insert(soc_management::SOC_MANAGEMENT_CTL.clone())
+    fn soc_management_ctl_mut(&mut self) -> &mut bool {
+        self._soc_management_mut().soc_management_ctl.get_or_insert(Default::default())
     }
     fn soc_power_set_point(&self) -> &f32 {
         self._soc_management().soc_power_set_point.as_ref().unwrap_or(&soc_management::SOC_POWER_SET_POINT)
     }
-    fn mut_soc_power_set_point(&mut self) -> &mut f32 {
-        self._mut_soc_management().soc_power_set_point.get_or_insert(soc_management::SOC_POWER_SET_POINT.clone())
+    fn soc_power_set_point_mut(&mut self) -> &mut f32 {
+        self._soc_management_mut().soc_power_set_point.get_or_insert(Default::default())
     }
     fn soc_set_point(&self) -> &f32 {
         self._soc_management().soc_set_point.as_ref().unwrap_or(&soc_management::SOC_SET_POINT)
     }
-    fn mut_soc_set_point(&mut self) -> &mut f32 {
-        self._mut_soc_management().soc_set_point.get_or_insert(soc_management::SOC_SET_POINT.clone())
+    fn soc_set_point_mut(&mut self) -> &mut f32 {
+        self._soc_management_mut().soc_set_point.get_or_insert(Default::default())
     }
 }
 impl IsSocManagement for SocManagement {
     fn _soc_management(&self) -> &SocManagement {
         self
     }
-    fn _mut_soc_management(&mut self) -> &mut SocManagement {
+    fn _soc_management_mut(&mut self) -> &mut SocManagement {
         self
     }
 }
@@ -477,43 +477,43 @@ mod voltage_regulation {
 }
 pub trait IsVoltageRegulation {
     fn _voltage_regulation(&self) -> &VoltageRegulation;
-    fn _mut_voltage_regulation(&mut self) -> &mut VoltageRegulation;
+    fn _voltage_regulation_mut(&mut self) -> &mut VoltageRegulation;
     fn over_voltage_droop(&self) -> &f32 {
         self._voltage_regulation().over_voltage_droop.as_ref().unwrap_or(&voltage_regulation::OVER_VOLTAGE_DROOP)
     }
-    fn mut_over_voltage_droop(&mut self) -> &mut f32 {
-        self._mut_voltage_regulation().over_voltage_droop.get_or_insert(voltage_regulation::OVER_VOLTAGE_DROOP.clone())
+    fn over_voltage_droop_mut(&mut self) -> &mut f32 {
+        self._voltage_regulation_mut().over_voltage_droop.get_or_insert(Default::default())
     }
     fn under_voltage_droop(&self) -> &f32 {
         self._voltage_regulation().under_voltage_droop.as_ref().unwrap_or(&voltage_regulation::UNDER_VOLTAGE_DROOP)
     }
-    fn mut_under_voltage_droop(&mut self) -> &mut f32 {
-        self._mut_voltage_regulation().under_voltage_droop.get_or_insert(voltage_regulation::UNDER_VOLTAGE_DROOP.clone())
+    fn under_voltage_droop_mut(&mut self) -> &mut f32 {
+        self._voltage_regulation_mut().under_voltage_droop.get_or_insert(Default::default())
     }
     fn voltage_dead_band_minus(&self) -> &f32 {
         self._voltage_regulation().voltage_dead_band_minus.as_ref().unwrap_or(&voltage_regulation::VOLTAGE_DEAD_BAND_MINUS)
     }
-    fn mut_voltage_dead_band_minus(&mut self) -> &mut f32 {
-        self._mut_voltage_regulation().voltage_dead_band_minus.get_or_insert(voltage_regulation::VOLTAGE_DEAD_BAND_MINUS.clone())
+    fn voltage_dead_band_minus_mut(&mut self) -> &mut f32 {
+        self._voltage_regulation_mut().voltage_dead_band_minus.get_or_insert(Default::default())
     }
     fn voltage_dead_band_plus(&self) -> &f32 {
         self._voltage_regulation().voltage_dead_band_plus.as_ref().unwrap_or(&voltage_regulation::VOLTAGE_DEAD_BAND_PLUS)
     }
-    fn mut_voltage_dead_band_plus(&mut self) -> &mut f32 {
-        self._mut_voltage_regulation().voltage_dead_band_plus.get_or_insert(voltage_regulation::VOLTAGE_DEAD_BAND_PLUS.clone())
+    fn voltage_dead_band_plus_mut(&mut self) -> &mut f32 {
+        self._voltage_regulation_mut().voltage_dead_band_plus.get_or_insert(Default::default())
     }
     fn voltage_set_point(&self) -> &f32 {
         self._voltage_regulation().voltage_set_point.as_ref().unwrap_or(&voltage_regulation::VOLTAGE_SET_POINT)
     }
-    fn mut_voltage_set_point(&mut self) -> &mut f32 {
-        self._mut_voltage_regulation().voltage_set_point.get_or_insert(voltage_regulation::VOLTAGE_SET_POINT.clone())
+    fn voltage_set_point_mut(&mut self) -> &mut f32 {
+        self._voltage_regulation_mut().voltage_set_point.get_or_insert(Default::default())
     }
 }
 impl IsVoltageRegulation for VoltageRegulation {
     fn _voltage_regulation(&self) -> &VoltageRegulation {
         self
     }
-    fn _mut_voltage_regulation(&mut self) -> &mut VoltageRegulation {
+    fn _voltage_regulation_mut(&mut self) -> &mut VoltageRegulation {
         self
     }
 }
@@ -537,25 +537,25 @@ mod voltage_droop {
 }
 pub trait IsVoltageDroop {
     fn _voltage_droop(&self) -> &VoltageDroop;
-    fn _mut_voltage_droop(&mut self) -> &mut VoltageDroop;
+    fn _voltage_droop_mut(&mut self) -> &mut VoltageDroop;
     fn voltage_droop_ctl(&self) -> &bool {
         self._voltage_droop().voltage_droop_ctl.as_ref().unwrap_or(&voltage_droop::VOLTAGE_DROOP_CTL)
     }
-    fn mut_voltage_droop_ctl(&mut self) -> &mut bool {
-        self._mut_voltage_droop().voltage_droop_ctl.get_or_insert(voltage_droop::VOLTAGE_DROOP_CTL.clone())
+    fn voltage_droop_ctl_mut(&mut self) -> &mut bool {
+        self._voltage_droop_mut().voltage_droop_ctl.get_or_insert(Default::default())
     }
     fn voltage_regulation(&self) -> &VoltageRegulation {
         self._voltage_droop().voltage_regulation.as_ref().unwrap_or(&voltage_droop::VOLTAGE_REGULATION)
     }
-    fn mut_voltage_regulation(&mut self) -> &mut VoltageRegulation {
-        self._mut_voltage_droop().voltage_regulation.get_or_insert(voltage_droop::VOLTAGE_REGULATION.clone())
+    fn voltage_regulation_mut(&mut self) -> &mut VoltageRegulation {
+        self._voltage_droop_mut().voltage_regulation.get_or_insert(Default::default())
     }
 }
 impl IsVoltageDroop for VoltageDroop {
     fn _voltage_droop(&self) -> &VoltageDroop {
         self
     }
-    fn _mut_voltage_droop(&mut self) -> &mut VoltageDroop {
+    fn _voltage_droop_mut(&mut self) -> &mut VoltageDroop {
         self
     }
 }
@@ -579,25 +579,25 @@ mod voltage_pi {
 }
 pub trait IsVoltagePi {
     fn _voltage_pi(&self) -> &VoltagePi;
-    fn _mut_voltage_pi(&mut self) -> &mut VoltagePi;
+    fn _voltage_pi_mut(&mut self) -> &mut VoltagePi;
     fn voltage_pi_ctl(&self) -> &bool {
         self._voltage_pi().voltage_pi_ctl.as_ref().unwrap_or(&voltage_pi::VOLTAGE_PI_CTL)
     }
-    fn mut_voltage_pi_ctl(&mut self) -> &mut bool {
-        self._mut_voltage_pi().voltage_pi_ctl.get_or_insert(voltage_pi::VOLTAGE_PI_CTL.clone())
+    fn voltage_pi_ctl_mut(&mut self) -> &mut bool {
+        self._voltage_pi_mut().voltage_pi_ctl.get_or_insert(Default::default())
     }
     fn voltage_regulation(&self) -> &VoltageRegulation {
         self._voltage_pi().voltage_regulation.as_ref().unwrap_or(&voltage_pi::VOLTAGE_REGULATION)
     }
-    fn mut_voltage_regulation(&mut self) -> &mut VoltageRegulation {
-        self._mut_voltage_pi().voltage_regulation.get_or_insert(voltage_pi::VOLTAGE_REGULATION.clone())
+    fn voltage_regulation_mut(&mut self) -> &mut VoltageRegulation {
+        self._voltage_pi_mut().voltage_regulation.get_or_insert(Default::default())
     }
 }
 impl IsVoltagePi for VoltagePi {
     fn _voltage_pi(&self) -> &VoltagePi {
         self
     }
-    fn _mut_voltage_pi(&mut self) -> &mut VoltagePi {
+    fn _voltage_pi_mut(&mut self) -> &mut VoltagePi {
         self
     }
 }
@@ -629,31 +629,31 @@ mod capacity_firming {
 }
 pub trait IsCapacityFirming {
     fn _capacity_firming(&self) -> &CapacityFirming;
-    fn _mut_capacity_firming(&mut self) -> &mut CapacityFirming;
+    fn _capacity_firming_mut(&mut self) -> &mut CapacityFirming;
     fn capacity_firming_ctl(&self) -> &bool {
         self._capacity_firming().capacity_firming_ctl.as_ref().unwrap_or(&capacity_firming::CAPACITY_FIRMING_CTL)
     }
-    fn mut_capacity_firming_ctl(&mut self) -> &mut bool {
-        self._mut_capacity_firming().capacity_firming_ctl.get_or_insert(capacity_firming::CAPACITY_FIRMING_CTL.clone())
+    fn capacity_firming_ctl_mut(&mut self) -> &mut bool {
+        self._capacity_firming_mut().capacity_firming_ctl.get_or_insert(Default::default())
     }
     fn limit_negative_dp_dt(&self) -> &f32 {
         self._capacity_firming().limit_negative_dp_dt.as_ref().unwrap_or(&capacity_firming::LIMIT_NEGATIVE_DP_DT)
     }
-    fn mut_limit_negative_dp_dt(&mut self) -> &mut f32 {
-        self._mut_capacity_firming().limit_negative_dp_dt.get_or_insert(capacity_firming::LIMIT_NEGATIVE_DP_DT.clone())
+    fn limit_negative_dp_dt_mut(&mut self) -> &mut f32 {
+        self._capacity_firming_mut().limit_negative_dp_dt.get_or_insert(Default::default())
     }
     fn limit_positive_dp_dt(&self) -> &f32 {
         self._capacity_firming().limit_positive_dp_dt.as_ref().unwrap_or(&capacity_firming::LIMIT_POSITIVE_DP_DT)
     }
-    fn mut_limit_positive_dp_dt(&mut self) -> &mut f32 {
-        self._mut_capacity_firming().limit_positive_dp_dt.get_or_insert(capacity_firming::LIMIT_POSITIVE_DP_DT.clone())
+    fn limit_positive_dp_dt_mut(&mut self) -> &mut f32 {
+        self._capacity_firming_mut().limit_positive_dp_dt.get_or_insert(Default::default())
     }
 }
 impl IsCapacityFirming for CapacityFirming {
     fn _capacity_firming(&self) -> &CapacityFirming {
         self
     }
-    fn _mut_capacity_firming(&mut self) -> &mut CapacityFirming {
+    fn _capacity_firming_mut(&mut self) -> &mut CapacityFirming {
         self
     }
 }
@@ -697,55 +697,55 @@ mod ess_function {
 }
 pub trait IsEssFunction {
     fn _ess_function(&self) -> &EssFunction;
-    fn _mut_ess_function(&mut self) -> &mut EssFunction;
+    fn _ess_function_mut(&mut self) -> &mut EssFunction;
     fn capacity_firming(&self) -> &CapacityFirming {
         self._ess_function().capacity_firming.as_ref().unwrap_or(&ess_function::CAPACITY_FIRMING)
     }
-    fn mut_capacity_firming(&mut self) -> &mut CapacityFirming {
-        self._mut_ess_function().capacity_firming.get_or_insert(ess_function::CAPACITY_FIRMING.clone())
+    fn capacity_firming_mut(&mut self) -> &mut CapacityFirming {
+        self._ess_function_mut().capacity_firming.get_or_insert(Default::default())
     }
     fn frequency_regulation(&self) -> &FrequencyRegulation {
         self._ess_function().frequency_regulation.as_ref().unwrap_or(&ess_function::FREQUENCY_REGULATION)
     }
-    fn mut_frequency_regulation(&mut self) -> &mut FrequencyRegulation {
-        self._mut_ess_function().frequency_regulation.get_or_insert(ess_function::FREQUENCY_REGULATION.clone())
+    fn frequency_regulation_mut(&mut self) -> &mut FrequencyRegulation {
+        self._ess_function_mut().frequency_regulation.get_or_insert(Default::default())
     }
     fn peak_shaving(&self) -> &PeakShaving {
         self._ess_function().peak_shaving.as_ref().unwrap_or(&ess_function::PEAK_SHAVING)
     }
-    fn mut_peak_shaving(&mut self) -> &mut PeakShaving {
-        self._mut_ess_function().peak_shaving.get_or_insert(ess_function::PEAK_SHAVING.clone())
+    fn peak_shaving_mut(&mut self) -> &mut PeakShaving {
+        self._ess_function_mut().peak_shaving.get_or_insert(Default::default())
     }
     fn soc_limit(&self) -> &SocLimit {
         self._ess_function().soc_limit.as_ref().unwrap_or(&ess_function::SOC_LIMIT)
     }
-    fn mut_soc_limit(&mut self) -> &mut SocLimit {
-        self._mut_ess_function().soc_limit.get_or_insert(ess_function::SOC_LIMIT.clone())
+    fn soc_limit_mut(&mut self) -> &mut SocLimit {
+        self._ess_function_mut().soc_limit.get_or_insert(Default::default())
     }
     fn soc_management(&self) -> &SocManagement {
         self._ess_function().soc_management.as_ref().unwrap_or(&ess_function::SOC_MANAGEMENT)
     }
-    fn mut_soc_management(&mut self) -> &mut SocManagement {
-        self._mut_ess_function().soc_management.get_or_insert(ess_function::SOC_MANAGEMENT.clone())
+    fn soc_management_mut(&mut self) -> &mut SocManagement {
+        self._ess_function_mut().soc_management.get_or_insert(Default::default())
     }
     fn voltage_droop(&self) -> &VoltageDroop {
         self._ess_function().voltage_droop.as_ref().unwrap_or(&ess_function::VOLTAGE_DROOP)
     }
-    fn mut_voltage_droop(&mut self) -> &mut VoltageDroop {
-        self._mut_ess_function().voltage_droop.get_or_insert(ess_function::VOLTAGE_DROOP.clone())
+    fn voltage_droop_mut(&mut self) -> &mut VoltageDroop {
+        self._ess_function_mut().voltage_droop.get_or_insert(Default::default())
     }
     fn voltage_pi(&self) -> &VoltagePi {
         self._ess_function().voltage_pi.as_ref().unwrap_or(&ess_function::VOLTAGE_PI)
     }
-    fn mut_voltage_pi(&mut self) -> &mut VoltagePi {
-        self._mut_ess_function().voltage_pi.get_or_insert(ess_function::VOLTAGE_PI.clone())
+    fn voltage_pi_mut(&mut self) -> &mut VoltagePi {
+        self._ess_function_mut().voltage_pi.get_or_insert(Default::default())
     }
 }
 impl IsEssFunction for EssFunction {
     fn _ess_function(&self) -> &EssFunction {
         self
     }
-    fn _mut_ess_function(&mut self) -> &mut EssFunction {
+    fn _ess_function_mut(&mut self) -> &mut EssFunction {
         self
     }
 }
@@ -813,91 +813,91 @@ mod ess_point_status {
 }
 pub trait IsEssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus;
-    fn _mut_ess_point_status(&mut self) -> &mut EssPointStatus;
+    fn _ess_point_status_mut(&mut self) -> &mut EssPointStatus;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().black_start_enabled.as_ref().unwrap_or(&ess_point_status::BLACK_START_ENABLED)
     }
-    fn mut_black_start_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().black_start_enabled.get_or_insert(ess_point_status::BLACK_START_ENABLED.clone())
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&ess_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().frequency_set_point_enabled.get_or_insert(ess_point_status::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn function(&self) -> &EssFunction {
         self._ess_point_status().function.as_ref().unwrap_or(&ess_point_status::FUNCTION)
     }
-    fn mut_function(&mut self) -> &mut EssFunction {
-        self._mut_ess_point_status().function.get_or_insert(ess_point_status::FUNCTION.clone())
+    fn function_mut(&mut self) -> &mut EssFunction {
+        self._ess_point_status_mut().function.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._ess_point_status().mode.as_ref().unwrap_or(&ess_point_status::MODE)
     }
-    fn mut_mode(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_ess_point_status().mode.get_or_insert(ess_point_status::MODE.clone())
+    fn mode_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._ess_point_status_mut().mode.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._ess_point_status().pct_hz_droop.as_ref().unwrap_or(&ess_point_status::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_ess_point_status().pct_hz_droop.get_or_insert(ess_point_status::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._ess_point_status_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._ess_point_status().pct_v_droop.as_ref().unwrap_or(&ess_point_status::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_ess_point_status().pct_v_droop.get_or_insert(ess_point_status::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._ess_point_status_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._ess_point_status().ramp_rates.as_ref().unwrap_or(&ess_point_status::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_ess_point_status().ramp_rates.get_or_insert(ess_point_status::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._ess_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().reactive_pwr_set_point_enabled.get_or_insert(ess_point_status::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().real_pwr_set_point_enabled.get_or_insert(ess_point_status::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._ess_point_status().state.as_ref().unwrap_or(&ess_point_status::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_ess_point_status().state.get_or_insert(ess_point_status::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._ess_point_status_mut().state.get_or_insert(Default::default())
     }
     fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().sync_back_to_grid.as_ref().unwrap_or(&ess_point_status::SYNC_BACK_TO_GRID)
     }
-    fn mut_sync_back_to_grid(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().sync_back_to_grid.get_or_insert(ess_point_status::SYNC_BACK_TO_GRID.clone())
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
     fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&ess_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn mut_trans_to_islnd_on_grid_loss_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().trans_to_islnd_on_grid_loss_enabled.get_or_insert(ess_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED.clone())
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&ess_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point_status().voltage_set_point_enabled.get_or_insert(ess_point_status::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
 impl IsEssPointStatus for EssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus {
         self
     }
-    fn _mut_ess_point_status(&mut self) -> &mut EssPointStatus {
+    fn _ess_point_status_mut(&mut self) -> &mut EssPointStatus {
         self
     }
 }
@@ -943,49 +943,49 @@ mod ess_event_and_status_zgen {
 }
 pub trait IsEssEventAndStatusZgen {
     fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen;
-    fn _mut_ess_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen;
+    fn _ess_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_event_and_status_zgen().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_ess_event_and_status_zgen().logical_node_for_event_and_status.get_or_insert(ess_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn aux_pwr_st(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_and_status_zgen().aux_pwr_st.as_ref().unwrap_or(&ess_event_and_status_zgen::AUX_PWR_ST)
     }
-    fn mut_aux_pwr_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_and_status_zgen().aux_pwr_st.get_or_insert(ess_event_and_status_zgen::AUX_PWR_ST.clone())
+    fn aux_pwr_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_and_status_zgen_mut().aux_pwr_st.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._ess_event_and_status_zgen().dynamic_test.as_ref().unwrap_or(&ess_event_and_status_zgen::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
-        self._mut_ess_event_and_status_zgen().dynamic_test.get_or_insert(ess_event_and_status_zgen::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._ess_event_and_status_zgen_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn emg_stop(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_and_status_zgen().emg_stop.as_ref().unwrap_or(&ess_event_and_status_zgen::EMG_STOP)
     }
-    fn mut_emg_stop(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_and_status_zgen().emg_stop.get_or_insert(ess_event_and_status_zgen::EMG_STOP.clone())
+    fn emg_stop_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_and_status_zgen_mut().emg_stop.get_or_insert(Default::default())
     }
     fn gn_syn_st(&self) -> &super::commonmodule::StatusSps {
         self._ess_event_and_status_zgen().gn_syn_st.as_ref().unwrap_or(&ess_event_and_status_zgen::GN_SYN_ST)
     }
-    fn mut_gn_syn_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_event_and_status_zgen().gn_syn_st.get_or_insert(ess_event_and_status_zgen::GN_SYN_ST.clone())
+    fn gn_syn_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_event_and_status_zgen_mut().gn_syn_st.get_or_insert(Default::default())
     }
     fn point_status(&self) -> &EssPointStatus {
         self._ess_event_and_status_zgen().point_status.as_ref().unwrap_or(&ess_event_and_status_zgen::POINT_STATUS)
     }
-    fn mut_point_status(&mut self) -> &mut EssPointStatus {
-        self._mut_ess_event_and_status_zgen().point_status.get_or_insert(ess_event_and_status_zgen::POINT_STATUS.clone())
+    fn point_status_mut(&mut self) -> &mut EssPointStatus {
+        self._ess_event_and_status_zgen_mut().point_status.get_or_insert(Default::default())
     }
 }
 impl IsEssEventAndStatusZgen for EssEventAndStatusZgen {
     fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
         self
     }
-    fn _mut_ess_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen {
+    fn _ess_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen {
         self
     }
 }
@@ -1011,19 +1011,19 @@ mod ess_event_zgen {
 }
 pub trait IsEssEventZgen {
     fn _ess_event_zgen(&self) -> &EssEventZgen;
-    fn _mut_ess_event_zgen(&mut self) -> &mut EssEventZgen;
+    fn _ess_event_zgen_mut(&mut self) -> &mut EssEventZgen;
     fn e_ss_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
         self._ess_event_zgen().e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_event_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_e_ss_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen {
-        self._mut_ess_event_zgen().e_ss_event_and_status_zgen.get_or_insert(ess_event_zgen::E_SS_EVENT_AND_STATUS_ZGEN.clone())
+    fn e_ss_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self._ess_event_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsEssEventZgen for EssEventZgen {
     fn _ess_event_zgen(&self) -> &EssEventZgen {
         self
     }
-    fn _mut_ess_event_zgen(&mut self) -> &mut EssEventZgen {
+    fn _ess_event_zgen_mut(&mut self) -> &mut EssEventZgen {
         self
     }
 }
@@ -1057,31 +1057,31 @@ mod ess_event {
 }
 pub trait IsEssEvent {
     fn _ess_event(&self) -> &EssEvent;
-    fn _mut_ess_event(&mut self) -> &mut EssEvent;
+    fn _ess_event_mut(&mut self) -> &mut EssEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._ess_event().event_value.as_ref().unwrap_or(&ess_event::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_ess_event().event_value.get_or_insert(ess_event::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._ess_event_mut().event_value.get_or_insert(Default::default())
     }
     fn ess_event_zbat(&self) -> &EssEventZbat {
         self._ess_event().ess_event_zbat.as_ref().unwrap_or(&ess_event::ESS_EVENT_ZBAT)
     }
-    fn mut_ess_event_zbat(&mut self) -> &mut EssEventZbat {
-        self._mut_ess_event().ess_event_zbat.get_or_insert(ess_event::ESS_EVENT_ZBAT.clone())
+    fn ess_event_zbat_mut(&mut self) -> &mut EssEventZbat {
+        self._ess_event_mut().ess_event_zbat.get_or_insert(Default::default())
     }
     fn ess_event_zgen(&self) -> &EssEventZgen {
         self._ess_event().ess_event_zgen.as_ref().unwrap_or(&ess_event::ESS_EVENT_ZGEN)
     }
-    fn mut_ess_event_zgen(&mut self) -> &mut EssEventZgen {
-        self._mut_ess_event().ess_event_zgen.get_or_insert(ess_event::ESS_EVENT_ZGEN.clone())
+    fn ess_event_zgen_mut(&mut self) -> &mut EssEventZgen {
+        self._ess_event_mut().ess_event_zgen.get_or_insert(Default::default())
     }
 }
 impl IsEssEvent for EssEvent {
     fn _ess_event(&self) -> &EssEvent {
         self
     }
-    fn _mut_ess_event(&mut self) -> &mut EssEvent {
+    fn _ess_event_mut(&mut self) -> &mut EssEvent {
         self
     }
 }
@@ -1138,37 +1138,37 @@ mod ess_event_profile {
 }
 pub trait IsEssEventProfile {
     fn _ess_event_profile(&self) -> &EssEventProfile;
-    fn _mut_ess_event_profile(&mut self) -> &mut EssEventProfile;
+    fn _ess_event_profile_mut(&mut self) -> &mut EssEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._ess_event_profile().event_message_info.as_ref().unwrap_or(&ess_event_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_ess_event_profile().event_message_info.get_or_insert(ess_event_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._ess_event_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn ess(&self) -> &super::commonmodule::Ess {
         self._ess_event_profile().ess.as_ref().unwrap_or(&ess_event_profile::ESS)
     }
-    fn mut_ess(&mut self) -> &mut super::commonmodule::Ess {
-        self._mut_ess_event_profile().ess.get_or_insert(ess_event_profile::ESS.clone())
+    fn ess_mut(&mut self) -> &mut super::commonmodule::Ess {
+        self._ess_event_profile_mut().ess.get_or_insert(Default::default())
     }
     fn ess_event(&self) -> &EssEvent {
         self._ess_event_profile().ess_event.as_ref().unwrap_or(&ess_event_profile::ESS_EVENT)
     }
-    fn mut_ess_event(&mut self) -> &mut EssEvent {
-        self._mut_ess_event_profile().ess_event.get_or_insert(ess_event_profile::ESS_EVENT.clone())
+    fn ess_event_mut(&mut self) -> &mut EssEvent {
+        self._ess_event_profile_mut().ess_event.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._ess_event_profile().ied.as_ref().unwrap_or(&ess_event_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_ess_event_profile().ied.get_or_insert(ess_event_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._ess_event_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssEventProfile for EssEventProfile {
     fn _ess_event_profile(&self) -> &EssEventProfile {
         self
     }
-    fn _mut_ess_event_profile(&mut self) -> &mut EssEventProfile {
+    fn _ess_event_profile_mut(&mut self) -> &mut EssEventProfile {
         self
     }
 }
@@ -1206,37 +1206,37 @@ mod ess_reading {
 }
 pub trait IsEssReading {
     fn _ess_reading(&self) -> &EssReading;
-    fn _mut_ess_reading(&mut self) -> &mut EssReading;
+    fn _ess_reading_mut(&mut self) -> &mut EssReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._ess_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&ess_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
-    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._mut_ess_reading().conducting_equipment_terminal_reading.get_or_insert(ess_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
+    fn conducting_equipment_terminal_reading_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._ess_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._ess_reading().phase_mmtn.as_ref().unwrap_or(&ess_reading::PHASE_MMTN)
     }
-    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
-        self._mut_ess_reading().phase_mmtn.get_or_insert(ess_reading::PHASE_MMTN.clone())
+    fn phase_mmtn_mut(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._ess_reading_mut().phase_mmtn.get_or_insert(Default::default())
     }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._ess_reading().reading_mmtr.as_ref().unwrap_or(&ess_reading::READING_MMTR)
     }
-    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
-        self._mut_ess_reading().reading_mmtr.get_or_insert(ess_reading::READING_MMTR.clone())
+    fn reading_mmtr_mut(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._ess_reading_mut().reading_mmtr.get_or_insert(Default::default())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._ess_reading().reading_mmxu.as_ref().unwrap_or(&ess_reading::READING_MMXU)
     }
-    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_ess_reading().reading_mmxu.get_or_insert(ess_reading::READING_MMXU.clone())
+    fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._ess_reading_mut().reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsEssReading for EssReading {
     fn _ess_reading(&self) -> &EssReading {
         self
     }
-    fn _mut_ess_reading(&mut self) -> &mut EssReading {
+    fn _ess_reading_mut(&mut self) -> &mut EssReading {
         self
     }
 }
@@ -1293,37 +1293,37 @@ mod ess_reading_profile {
 }
 pub trait IsEssReadingProfile {
     fn _ess_reading_profile(&self) -> &EssReadingProfile;
-    fn _mut_ess_reading_profile(&mut self) -> &mut EssReadingProfile;
+    fn _ess_reading_profile_mut(&mut self) -> &mut EssReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._ess_reading_profile().reading_message_info.as_ref().unwrap_or(&ess_reading_profile::READING_MESSAGE_INFO)
     }
-    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._mut_ess_reading_profile().reading_message_info.get_or_insert(ess_reading_profile::READING_MESSAGE_INFO.clone())
+    fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._ess_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
     }
     fn ess(&self) -> &super::commonmodule::Ess {
         self._ess_reading_profile().ess.as_ref().unwrap_or(&ess_reading_profile::ESS)
     }
-    fn mut_ess(&mut self) -> &mut super::commonmodule::Ess {
-        self._mut_ess_reading_profile().ess.get_or_insert(ess_reading_profile::ESS.clone())
+    fn ess_mut(&mut self) -> &mut super::commonmodule::Ess {
+        self._ess_reading_profile_mut().ess.get_or_insert(Default::default())
     }
     fn ess_reading(&self) -> &EssReading {
         self._ess_reading_profile().ess_reading.as_ref().unwrap_or(&ess_reading_profile::ESS_READING)
     }
-    fn mut_ess_reading(&mut self) -> &mut EssReading {
-        self._mut_ess_reading_profile().ess_reading.get_or_insert(ess_reading_profile::ESS_READING.clone())
+    fn ess_reading_mut(&mut self) -> &mut EssReading {
+        self._ess_reading_profile_mut().ess_reading.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._ess_reading_profile().ied.as_ref().unwrap_or(&ess_reading_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_ess_reading_profile().ied.get_or_insert(ess_reading_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._ess_reading_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssReadingProfile for EssReadingProfile {
     fn _ess_reading_profile(&self) -> &EssReadingProfile {
         self
     }
-    fn _mut_ess_reading_profile(&mut self) -> &mut EssReadingProfile {
+    fn _ess_reading_profile_mut(&mut self) -> &mut EssReadingProfile {
         self
     }
 }
@@ -1371,43 +1371,43 @@ mod ess_status_zbat {
 }
 pub trait IsEssStatusZbat {
     fn _ess_status_zbat(&self) -> &EssStatusZbat;
-    fn _mut_ess_status_zbat(&mut self) -> &mut EssStatusZbat;
+    fn _ess_status_zbat_mut(&mut self) -> &mut EssStatusZbat;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._ess_status_zbat().logical_node_for_event_and_status.as_ref().unwrap_or(&ess_status_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_ess_status_zbat().logical_node_for_event_and_status.get_or_insert(ess_status_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_status_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn bat_st(&self) -> &super::commonmodule::StatusSps {
         self._ess_status_zbat().bat_st.as_ref().unwrap_or(&ess_status_zbat::BAT_ST)
     }
-    fn mut_bat_st(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_status_zbat().bat_st.get_or_insert(ess_status_zbat::BAT_ST.clone())
+    fn bat_st_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_status_zbat_mut().bat_st.get_or_insert(Default::default())
     }
     fn gri_mod(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._ess_status_zbat().gri_mod.as_ref().unwrap_or(&ess_status_zbat::GRI_MOD)
     }
-    fn mut_gri_mod(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_ess_status_zbat().gri_mod.get_or_insert(ess_status_zbat::GRI_MOD.clone())
+    fn gri_mod_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._ess_status_zbat_mut().gri_mod.get_or_insert(Default::default())
     }
     fn soc(&self) -> &super::commonmodule::Mv {
         self._ess_status_zbat().soc.as_ref().unwrap_or(&ess_status_zbat::SOC)
     }
-    fn mut_soc(&mut self) -> &mut super::commonmodule::Mv {
-        self._mut_ess_status_zbat().soc.get_or_insert(ess_status_zbat::SOC.clone())
+    fn soc_mut(&mut self) -> &mut super::commonmodule::Mv {
+        self._ess_status_zbat_mut().soc.get_or_insert(Default::default())
     }
     fn stdby(&self) -> &super::commonmodule::StatusSps {
         self._ess_status_zbat().stdby.as_ref().unwrap_or(&ess_status_zbat::STDBY)
     }
-    fn mut_stdby(&mut self) -> &mut super::commonmodule::StatusSps {
-        self._mut_ess_status_zbat().stdby.get_or_insert(ess_status_zbat::STDBY.clone())
+    fn stdby_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+        self._ess_status_zbat_mut().stdby.get_or_insert(Default::default())
     }
 }
 impl IsEssStatusZbat for EssStatusZbat {
     fn _ess_status_zbat(&self) -> &EssStatusZbat {
         self
     }
-    fn _mut_ess_status_zbat(&mut self) -> &mut EssStatusZbat {
+    fn _ess_status_zbat_mut(&mut self) -> &mut EssStatusZbat {
         self
     }
 }
@@ -1433,19 +1433,19 @@ mod ess_status_zgen {
 }
 pub trait IsEssStatusZgen {
     fn _ess_status_zgen(&self) -> &EssStatusZgen;
-    fn _mut_ess_status_zgen(&mut self) -> &mut EssStatusZgen;
+    fn _ess_status_zgen_mut(&mut self) -> &mut EssStatusZgen;
     fn e_ss_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
         self._ess_status_zgen().e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_status_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
     }
-    fn mut_e_ss_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen {
-        self._mut_ess_status_zgen().e_ss_event_and_status_zgen.get_or_insert(ess_status_zgen::E_SS_EVENT_AND_STATUS_ZGEN.clone())
+    fn e_ss_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self._ess_status_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsEssStatusZgen for EssStatusZgen {
     fn _ess_status_zgen(&self) -> &EssStatusZgen {
         self
     }
-    fn _mut_ess_status_zgen(&mut self) -> &mut EssStatusZgen {
+    fn _ess_status_zgen_mut(&mut self) -> &mut EssStatusZgen {
         self
     }
 }
@@ -1479,31 +1479,31 @@ mod ess_status {
 }
 pub trait IsEssStatus {
     fn _ess_status(&self) -> &EssStatus;
-    fn _mut_ess_status(&mut self) -> &mut EssStatus;
+    fn _ess_status_mut(&mut self) -> &mut EssStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._ess_status().status_value.as_ref().unwrap_or(&ess_status::STATUS_VALUE)
     }
-    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._mut_ess_status().status_value.get_or_insert(ess_status::STATUS_VALUE.clone())
+    fn status_value_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._ess_status_mut().status_value.get_or_insert(Default::default())
     }
     fn ess_status_zbat(&self) -> &EssStatusZbat {
         self._ess_status().ess_status_zbat.as_ref().unwrap_or(&ess_status::ESS_STATUS_ZBAT)
     }
-    fn mut_ess_status_zbat(&mut self) -> &mut EssStatusZbat {
-        self._mut_ess_status().ess_status_zbat.get_or_insert(ess_status::ESS_STATUS_ZBAT.clone())
+    fn ess_status_zbat_mut(&mut self) -> &mut EssStatusZbat {
+        self._ess_status_mut().ess_status_zbat.get_or_insert(Default::default())
     }
     fn ess_status_zgen(&self) -> &EssStatusZgen {
         self._ess_status().ess_status_zgen.as_ref().unwrap_or(&ess_status::ESS_STATUS_ZGEN)
     }
-    fn mut_ess_status_zgen(&mut self) -> &mut EssStatusZgen {
-        self._mut_ess_status().ess_status_zgen.get_or_insert(ess_status::ESS_STATUS_ZGEN.clone())
+    fn ess_status_zgen_mut(&mut self) -> &mut EssStatusZgen {
+        self._ess_status_mut().ess_status_zgen.get_or_insert(Default::default())
     }
 }
 impl IsEssStatus for EssStatus {
     fn _ess_status(&self) -> &EssStatus {
         self
     }
-    fn _mut_ess_status(&mut self) -> &mut EssStatus {
+    fn _ess_status_mut(&mut self) -> &mut EssStatus {
         self
     }
 }
@@ -1560,37 +1560,37 @@ mod ess_status_profile {
 }
 pub trait IsEssStatusProfile {
     fn _ess_status_profile(&self) -> &EssStatusProfile;
-    fn _mut_ess_status_profile(&mut self) -> &mut EssStatusProfile;
+    fn _ess_status_profile_mut(&mut self) -> &mut EssStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._ess_status_profile().status_message_info.as_ref().unwrap_or(&ess_status_profile::STATUS_MESSAGE_INFO)
     }
-    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._mut_ess_status_profile().status_message_info.get_or_insert(ess_status_profile::STATUS_MESSAGE_INFO.clone())
+    fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._ess_status_profile_mut().status_message_info.get_or_insert(Default::default())
     }
     fn ess(&self) -> &super::commonmodule::Ess {
         self._ess_status_profile().ess.as_ref().unwrap_or(&ess_status_profile::ESS)
     }
-    fn mut_ess(&mut self) -> &mut super::commonmodule::Ess {
-        self._mut_ess_status_profile().ess.get_or_insert(ess_status_profile::ESS.clone())
+    fn ess_mut(&mut self) -> &mut super::commonmodule::Ess {
+        self._ess_status_profile_mut().ess.get_or_insert(Default::default())
     }
     fn ess_status(&self) -> &EssStatus {
         self._ess_status_profile().ess_status.as_ref().unwrap_or(&ess_status_profile::ESS_STATUS)
     }
-    fn mut_ess_status(&mut self) -> &mut EssStatus {
-        self._mut_ess_status_profile().ess_status.get_or_insert(ess_status_profile::ESS_STATUS.clone())
+    fn ess_status_mut(&mut self) -> &mut EssStatus {
+        self._ess_status_profile_mut().ess_status.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._ess_status_profile().ied.as_ref().unwrap_or(&ess_status_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_ess_status_profile().ied.get_or_insert(ess_status_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._ess_status_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssStatusProfile for EssStatusProfile {
     fn _ess_status_profile(&self) -> &EssStatusProfile {
         self
     }
-    fn _mut_ess_status_profile(&mut self) -> &mut EssStatusProfile {
+    fn _ess_status_profile_mut(&mut self) -> &mut EssStatusProfile {
         self
     }
 }
@@ -1672,103 +1672,103 @@ mod ess_point {
 }
 pub trait IsEssPoint {
     fn _ess_point(&self) -> &EssPoint;
-    fn _mut_ess_point(&mut self) -> &mut EssPoint;
+    fn _ess_point_mut(&mut self) -> &mut EssPoint;
     fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().black_start_enabled.as_ref().unwrap_or(&ess_point::BLACK_START_ENABLED)
     }
-    fn mut_black_start_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().black_start_enabled.get_or_insert(ess_point::BLACK_START_ENABLED.clone())
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
     fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().frequency_set_point_enabled.as_ref().unwrap_or(&ess_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn mut_frequency_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().frequency_set_point_enabled.get_or_insert(ess_point::FREQUENCY_SET_POINT_ENABLED.clone())
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn function(&self) -> &EssFunction {
         self._ess_point().function.as_ref().unwrap_or(&ess_point::FUNCTION)
     }
-    fn mut_function(&mut self) -> &mut EssFunction {
-        self._mut_ess_point().function.get_or_insert(ess_point::FUNCTION.clone())
+    fn function_mut(&mut self) -> &mut EssFunction {
+        self._ess_point_mut().function.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
         self._ess_point().mode.as_ref().unwrap_or(&ess_point::MODE)
     }
-    fn mut_mode(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
-        self._mut_ess_point().mode.get_or_insert(ess_point::MODE.clone())
+    fn mode_mut(&mut self) -> &mut super::commonmodule::EngGridConnectModeKind {
+        self._ess_point_mut().mode.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
         self._ess_point().pct_hz_droop.as_ref().unwrap_or(&ess_point::PCT_HZ_DROOP)
     }
-    fn mut_pct_hz_droop(&mut self) -> &mut f32 {
-        self._mut_ess_point().pct_hz_droop.get_or_insert(ess_point::PCT_HZ_DROOP.clone())
+    fn pct_hz_droop_mut(&mut self) -> &mut f32 {
+        self._ess_point_mut().pct_hz_droop.get_or_insert(Default::default())
     }
     fn pct_v_droop(&self) -> &f32 {
         self._ess_point().pct_v_droop.as_ref().unwrap_or(&ess_point::PCT_V_DROOP)
     }
-    fn mut_pct_v_droop(&mut self) -> &mut f32 {
-        self._mut_ess_point().pct_v_droop.get_or_insert(ess_point::PCT_V_DROOP.clone())
+    fn pct_v_droop_mut(&mut self) -> &mut f32 {
+        self._ess_point_mut().pct_v_droop.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
         self._ess_point().ramp_rates.as_ref().unwrap_or(&ess_point::RAMP_RATES)
     }
-    fn mut_ramp_rates(&mut self) -> &mut super::commonmodule::RampRate {
-        self._mut_ess_point().ramp_rates.get_or_insert(ess_point::RAMP_RATES.clone())
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._ess_point_mut().ramp_rates.get_or_insert(Default::default())
     }
     fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn mut_reactive_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().reactive_pwr_set_point_enabled.get_or_insert(ess_point::REACTIVE_PWR_SET_POINT_ENABLED.clone())
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn mut_real_pwr_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().real_pwr_set_point_enabled.get_or_insert(ess_point::REAL_PWR_SET_POINT_ENABLED.clone())
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn reset(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().reset.as_ref().unwrap_or(&ess_point::RESET)
     }
-    fn mut_reset(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().reset.get_or_insert(ess_point::RESET.clone())
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
         self._ess_point().state.as_ref().unwrap_or(&ess_point::STATE)
     }
-    fn mut_state(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._mut_ess_point().state.get_or_insert(ess_point::STATE.clone())
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._ess_point_mut().state.get_or_insert(Default::default())
     }
     fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().sync_back_to_grid.as_ref().unwrap_or(&ess_point::SYNC_BACK_TO_GRID)
     }
-    fn mut_sync_back_to_grid(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().sync_back_to_grid.get_or_insert(ess_point::SYNC_BACK_TO_GRID.clone())
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
     fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&ess_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn mut_trans_to_islnd_on_grid_loss_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().trans_to_islnd_on_grid_loss_enabled.get_or_insert(ess_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED.clone())
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
     fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
         self._ess_point().voltage_set_point_enabled.as_ref().unwrap_or(&ess_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn mut_voltage_set_point_enabled(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_ess_point().voltage_set_point_enabled.get_or_insert(ess_point::VOLTAGE_SET_POINT_ENABLED.clone())
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._ess_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
         self._ess_point().start_time.as_ref().unwrap_or(&ess_point::START_TIME)
     }
-    fn mut_start_time(&mut self) -> &mut super::commonmodule::ControlTimestamp {
-        self._mut_ess_point().start_time.get_or_insert(ess_point::START_TIME.clone())
+    fn start_time_mut(&mut self) -> &mut super::commonmodule::ControlTimestamp {
+        self._ess_point_mut().start_time.get_or_insert(Default::default())
     }
 }
 impl IsEssPoint for EssPoint {
     fn _ess_point(&self) -> &EssPoint {
         self
     }
-    fn _mut_ess_point(&mut self) -> &mut EssPoint {
+    fn _ess_point_mut(&mut self) -> &mut EssPoint {
         self
     }
 }
@@ -1793,17 +1793,17 @@ mod esscsg {
 }
 pub trait IsEsscsg {
     fn _esscsg(&self) -> &Esscsg;
-    fn _mut_esscsg(&mut self) -> &mut Esscsg;
+    fn _esscsg_mut(&mut self) -> &mut Esscsg;
     fn crv_pts(&self) -> &::std::vec::Vec<EssPoint> {
         &self._esscsg().crv_pts    }
-    fn mut_crv_pts(&mut self) -> &mut ::std::vec::Vec<EssPoint> {
-        &mut self._mut_esscsg().crv_pts    }
+    fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<EssPoint> {
+        &mut self._esscsg_mut().crv_pts    }
 }
 impl IsEsscsg for Esscsg {
     fn _esscsg(&self) -> &Esscsg {
         self
     }
-    fn _mut_esscsg(&mut self) -> &mut Esscsg {
+    fn _esscsg_mut(&mut self) -> &mut Esscsg {
         self
     }
 }
@@ -1829,19 +1829,19 @@ mod ess_control_schedule_fsch {
 }
 pub trait IsEssControlScheduleFsch {
     fn _ess_control_schedule_fsch(&self) -> &EssControlScheduleFsch;
-    fn _mut_ess_control_schedule_fsch(&mut self) -> &mut EssControlScheduleFsch;
+    fn _ess_control_schedule_fsch_mut(&mut self) -> &mut EssControlScheduleFsch;
     fn val_dcsg(&self) -> &Esscsg {
         self._ess_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&ess_control_schedule_fsch::VAL_DCSG)
     }
-    fn mut_val_dcsg(&mut self) -> &mut Esscsg {
-        self._mut_ess_control_schedule_fsch().val_dcsg.get_or_insert(ess_control_schedule_fsch::VAL_DCSG.clone())
+    fn val_dcsg_mut(&mut self) -> &mut Esscsg {
+        self._ess_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
     }
 }
 impl IsEssControlScheduleFsch for EssControlScheduleFsch {
     fn _ess_control_schedule_fsch(&self) -> &EssControlScheduleFsch {
         self
     }
-    fn _mut_ess_control_schedule_fsch(&mut self) -> &mut EssControlScheduleFsch {
+    fn _ess_control_schedule_fsch_mut(&mut self) -> &mut EssControlScheduleFsch {
         self
     }
 }
@@ -1871,25 +1871,25 @@ mod ess_control_fscc {
 }
 pub trait IsEssControlFscc {
     fn _ess_control_fscc(&self) -> &EssControlFscc;
-    fn _mut_ess_control_fscc(&mut self) -> &mut EssControlFscc;
+    fn _ess_control_fscc_mut(&mut self) -> &mut EssControlFscc;
     fn control_fscc(&self) -> &super::commonmodule::ControlFscc {
         self._ess_control_fscc().control_fscc.as_ref().unwrap_or(&ess_control_fscc::CONTROL_FSCC)
     }
-    fn mut_control_fscc(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._mut_ess_control_fscc().control_fscc.get_or_insert(ess_control_fscc::CONTROL_FSCC.clone())
+    fn control_fscc_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._ess_control_fscc_mut().control_fscc.get_or_insert(Default::default())
     }
     fn ess_control_schedule_fsch(&self) -> &EssControlScheduleFsch {
         self._ess_control_fscc().ess_control_schedule_fsch.as_ref().unwrap_or(&ess_control_fscc::ESS_CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_ess_control_schedule_fsch(&mut self) -> &mut EssControlScheduleFsch {
-        self._mut_ess_control_fscc().ess_control_schedule_fsch.get_or_insert(ess_control_fscc::ESS_CONTROL_SCHEDULE_FSCH.clone())
+    fn ess_control_schedule_fsch_mut(&mut self) -> &mut EssControlScheduleFsch {
+        self._ess_control_fscc_mut().ess_control_schedule_fsch.get_or_insert(Default::default())
     }
 }
 impl IsEssControlFscc for EssControlFscc {
     fn _ess_control_fscc(&self) -> &EssControlFscc {
         self
     }
-    fn _mut_ess_control_fscc(&mut self) -> &mut EssControlFscc {
+    fn _ess_control_fscc_mut(&mut self) -> &mut EssControlFscc {
         self
     }
 }
@@ -1929,31 +1929,31 @@ mod ess_control {
 }
 pub trait IsEssControl {
     fn _ess_control(&self) -> &EssControl;
-    fn _mut_ess_control(&mut self) -> &mut EssControl;
+    fn _ess_control_mut(&mut self) -> &mut EssControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._ess_control().control_value.as_ref().unwrap_or(&ess_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_ess_control().control_value.get_or_insert(ess_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._ess_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._ess_control().check.as_ref().unwrap_or(&ess_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_ess_control().check.get_or_insert(ess_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._ess_control_mut().check.get_or_insert(Default::default())
     }
     fn ess_control_fscc(&self) -> &EssControlFscc {
         self._ess_control().ess_control_fscc.as_ref().unwrap_or(&ess_control::ESS_CONTROL_FSCC)
     }
-    fn mut_ess_control_fscc(&mut self) -> &mut EssControlFscc {
-        self._mut_ess_control().ess_control_fscc.get_or_insert(ess_control::ESS_CONTROL_FSCC.clone())
+    fn ess_control_fscc_mut(&mut self) -> &mut EssControlFscc {
+        self._ess_control_mut().ess_control_fscc.get_or_insert(Default::default())
     }
 }
 impl IsEssControl for EssControl {
     fn _ess_control(&self) -> &EssControl {
         self
     }
-    fn _mut_ess_control(&mut self) -> &mut EssControl {
+    fn _ess_control_mut(&mut self) -> &mut EssControl {
         self
     }
 }
@@ -2010,37 +2010,37 @@ mod ess_control_profile {
 }
 pub trait IsEssControlProfile {
     fn _ess_control_profile(&self) -> &EssControlProfile;
-    fn _mut_ess_control_profile(&mut self) -> &mut EssControlProfile;
+    fn _ess_control_profile_mut(&mut self) -> &mut EssControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._ess_control_profile().control_message_info.as_ref().unwrap_or(&ess_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_ess_control_profile().control_message_info.get_or_insert(ess_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._ess_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn ess(&self) -> &super::commonmodule::Ess {
         self._ess_control_profile().ess.as_ref().unwrap_or(&ess_control_profile::ESS)
     }
-    fn mut_ess(&mut self) -> &mut super::commonmodule::Ess {
-        self._mut_ess_control_profile().ess.get_or_insert(ess_control_profile::ESS.clone())
+    fn ess_mut(&mut self) -> &mut super::commonmodule::Ess {
+        self._ess_control_profile_mut().ess.get_or_insert(Default::default())
     }
     fn ess_control(&self) -> &EssControl {
         self._ess_control_profile().ess_control.as_ref().unwrap_or(&ess_control_profile::ESS_CONTROL)
     }
-    fn mut_ess_control(&mut self) -> &mut EssControl {
-        self._mut_ess_control_profile().ess_control.get_or_insert(ess_control_profile::ESS_CONTROL.clone())
+    fn ess_control_mut(&mut self) -> &mut EssControl {
+        self._ess_control_profile_mut().ess_control.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._ess_control_profile().ied.as_ref().unwrap_or(&ess_control_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_ess_control_profile().ied.get_or_insert(ess_control_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._ess_control_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssControlProfile for EssControlProfile {
     fn _ess_control_profile(&self) -> &EssControlProfile {
         self
     }
-    fn _mut_ess_control_profile(&mut self) -> &mut EssControlProfile {
+    fn _ess_control_profile_mut(&mut self) -> &mut EssControlProfile {
         self
     }
 }

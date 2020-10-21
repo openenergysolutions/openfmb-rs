@@ -24,25 +24,25 @@ mod switch_discrete_control_xswi {
 }
 pub trait IsSwitchDiscreteControlXswi {
     fn _switch_discrete_control_xswi(&self) -> &SwitchDiscreteControlXswi;
-    fn _mut_switch_discrete_control_xswi(&mut self) -> &mut SwitchDiscreteControlXswi;
+    fn _switch_discrete_control_xswi_mut(&mut self) -> &mut SwitchDiscreteControlXswi;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._switch_discrete_control_xswi().logical_node_for_control.as_ref().unwrap_or(&switch_discrete_control_xswi::LOGICAL_NODE_FOR_CONTROL)
     }
-    fn mut_logical_node_for_control(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._mut_switch_discrete_control_xswi().logical_node_for_control.get_or_insert(switch_discrete_control_xswi::LOGICAL_NODE_FOR_CONTROL.clone())
+    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._switch_discrete_control_xswi_mut().logical_node_for_control.get_or_insert(Default::default())
     }
     fn pos(&self) -> &super::commonmodule::ControlDpc {
         self._switch_discrete_control_xswi().pos.as_ref().unwrap_or(&switch_discrete_control_xswi::POS)
     }
-    fn mut_pos(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._mut_switch_discrete_control_xswi().pos.get_or_insert(switch_discrete_control_xswi::POS.clone())
+    fn pos_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._switch_discrete_control_xswi_mut().pos.get_or_insert(Default::default())
     }
 }
 impl IsSwitchDiscreteControlXswi for SwitchDiscreteControlXswi {
     fn _switch_discrete_control_xswi(&self) -> &SwitchDiscreteControlXswi {
         self
     }
-    fn _mut_switch_discrete_control_xswi(&mut self) -> &mut SwitchDiscreteControlXswi {
+    fn _switch_discrete_control_xswi_mut(&mut self) -> &mut SwitchDiscreteControlXswi {
         self
     }
 }
@@ -82,31 +82,31 @@ mod switch_discrete_control {
 }
 pub trait IsSwitchDiscreteControl {
     fn _switch_discrete_control(&self) -> &SwitchDiscreteControl;
-    fn _mut_switch_discrete_control(&mut self) -> &mut SwitchDiscreteControl;
+    fn _switch_discrete_control_mut(&mut self) -> &mut SwitchDiscreteControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._switch_discrete_control().control_value.as_ref().unwrap_or(&switch_discrete_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_switch_discrete_control().control_value.get_or_insert(switch_discrete_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._switch_discrete_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._switch_discrete_control().check.as_ref().unwrap_or(&switch_discrete_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_switch_discrete_control().check.get_or_insert(switch_discrete_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._switch_discrete_control_mut().check.get_or_insert(Default::default())
     }
     fn switch_discrete_control_xswi(&self) -> &SwitchDiscreteControlXswi {
         self._switch_discrete_control().switch_discrete_control_xswi.as_ref().unwrap_or(&switch_discrete_control::SWITCH_DISCRETE_CONTROL_XSWI)
     }
-    fn mut_switch_discrete_control_xswi(&mut self) -> &mut SwitchDiscreteControlXswi {
-        self._mut_switch_discrete_control().switch_discrete_control_xswi.get_or_insert(switch_discrete_control::SWITCH_DISCRETE_CONTROL_XSWI.clone())
+    fn switch_discrete_control_xswi_mut(&mut self) -> &mut SwitchDiscreteControlXswi {
+        self._switch_discrete_control_mut().switch_discrete_control_xswi.get_or_insert(Default::default())
     }
 }
 impl IsSwitchDiscreteControl for SwitchDiscreteControl {
     fn _switch_discrete_control(&self) -> &SwitchDiscreteControl {
         self
     }
-    fn _mut_switch_discrete_control(&mut self) -> &mut SwitchDiscreteControl {
+    fn _switch_discrete_control_mut(&mut self) -> &mut SwitchDiscreteControl {
         self
     }
 }
@@ -132,19 +132,19 @@ mod protected_switch {
 }
 pub trait IsProtectedSwitch {
     fn _protected_switch(&self) -> &ProtectedSwitch;
-    fn _mut_protected_switch(&mut self) -> &mut ProtectedSwitch;
+    fn _protected_switch_mut(&mut self) -> &mut ProtectedSwitch;
     fn conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
         self._protected_switch().conducting_equipment.as_ref().unwrap_or(&protected_switch::CONDUCTING_EQUIPMENT)
     }
-    fn mut_conducting_equipment(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._mut_protected_switch().conducting_equipment.get_or_insert(protected_switch::CONDUCTING_EQUIPMENT.clone())
+    fn conducting_equipment_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._protected_switch_mut().conducting_equipment.get_or_insert(Default::default())
     }
 }
 impl IsProtectedSwitch for ProtectedSwitch {
     fn _protected_switch(&self) -> &ProtectedSwitch {
         self
     }
-    fn _mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
+    fn _protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
         self
     }
 }
@@ -201,37 +201,37 @@ mod switch_discrete_control_profile {
 }
 pub trait IsSwitchDiscreteControlProfile {
     fn _switch_discrete_control_profile(&self) -> &SwitchDiscreteControlProfile;
-    fn _mut_switch_discrete_control_profile(&mut self) -> &mut SwitchDiscreteControlProfile;
+    fn _switch_discrete_control_profile_mut(&mut self) -> &mut SwitchDiscreteControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._switch_discrete_control_profile().control_message_info.as_ref().unwrap_or(&switch_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_switch_discrete_control_profile().control_message_info.get_or_insert(switch_discrete_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._switch_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._switch_discrete_control_profile().ied.as_ref().unwrap_or(&switch_discrete_control_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_switch_discrete_control_profile().ied.get_or_insert(switch_discrete_control_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._switch_discrete_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_discrete_control_profile().protected_switch.as_ref().unwrap_or(&switch_discrete_control_profile::PROTECTED_SWITCH)
     }
-    fn mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
-        self._mut_switch_discrete_control_profile().protected_switch.get_or_insert(switch_discrete_control_profile::PROTECTED_SWITCH.clone())
+    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
+        self._switch_discrete_control_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_discrete_control(&self) -> &SwitchDiscreteControl {
         self._switch_discrete_control_profile().switch_discrete_control.as_ref().unwrap_or(&switch_discrete_control_profile::SWITCH_DISCRETE_CONTROL)
     }
-    fn mut_switch_discrete_control(&mut self) -> &mut SwitchDiscreteControl {
-        self._mut_switch_discrete_control_profile().switch_discrete_control.get_or_insert(switch_discrete_control_profile::SWITCH_DISCRETE_CONTROL.clone())
+    fn switch_discrete_control_mut(&mut self) -> &mut SwitchDiscreteControl {
+        self._switch_discrete_control_profile_mut().switch_discrete_control.get_or_insert(Default::default())
     }
 }
 impl IsSwitchDiscreteControlProfile for SwitchDiscreteControlProfile {
     fn _switch_discrete_control_profile(&self) -> &SwitchDiscreteControlProfile {
         self
     }
-    fn _mut_switch_discrete_control_profile(&mut self) -> &mut SwitchDiscreteControlProfile {
+    fn _switch_discrete_control_profile_mut(&mut self) -> &mut SwitchDiscreteControlProfile {
         self
     }
 }
@@ -271,31 +271,31 @@ mod switch_event_xswi {
 }
 pub trait IsSwitchEventXswi {
     fn _switch_event_xswi(&self) -> &SwitchEventXswi;
-    fn _mut_switch_event_xswi(&mut self) -> &mut SwitchEventXswi;
+    fn _switch_event_xswi_mut(&mut self) -> &mut SwitchEventXswi;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._switch_event_xswi().logical_node_for_event_and_status.as_ref().unwrap_or(&switch_event_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_switch_event_xswi().logical_node_for_event_and_status.get_or_insert(switch_event_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._switch_event_xswi_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._switch_event_xswi().dynamic_test.as_ref().unwrap_or(&switch_event_xswi::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
-        self._mut_switch_event_xswi().dynamic_test.get_or_insert(switch_event_xswi::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._switch_event_xswi_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn pos(&self) -> &super::commonmodule::StatusDps {
         self._switch_event_xswi().pos.as_ref().unwrap_or(&switch_event_xswi::POS)
     }
-    fn mut_pos(&mut self) -> &mut super::commonmodule::StatusDps {
-        self._mut_switch_event_xswi().pos.get_or_insert(switch_event_xswi::POS.clone())
+    fn pos_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+        self._switch_event_xswi_mut().pos.get_or_insert(Default::default())
     }
 }
 impl IsSwitchEventXswi for SwitchEventXswi {
     fn _switch_event_xswi(&self) -> &SwitchEventXswi {
         self
     }
-    fn _mut_switch_event_xswi(&mut self) -> &mut SwitchEventXswi {
+    fn _switch_event_xswi_mut(&mut self) -> &mut SwitchEventXswi {
         self
     }
 }
@@ -331,25 +331,25 @@ mod switch_event {
 }
 pub trait IsSwitchEvent {
     fn _switch_event(&self) -> &SwitchEvent;
-    fn _mut_switch_event(&mut self) -> &mut SwitchEvent;
+    fn _switch_event_mut(&mut self) -> &mut SwitchEvent;
     fn event_value(&self) -> &super::commonmodule::EventValue {
         self._switch_event().event_value.as_ref().unwrap_or(&switch_event::EVENT_VALUE)
     }
-    fn mut_event_value(&mut self) -> &mut super::commonmodule::EventValue {
-        self._mut_switch_event().event_value.get_or_insert(switch_event::EVENT_VALUE.clone())
+    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._switch_event_mut().event_value.get_or_insert(Default::default())
     }
     fn switch_event_xswi(&self) -> &SwitchEventXswi {
         self._switch_event().switch_event_xswi.as_ref().unwrap_or(&switch_event::SWITCH_EVENT_XSWI)
     }
-    fn mut_switch_event_xswi(&mut self) -> &mut SwitchEventXswi {
-        self._mut_switch_event().switch_event_xswi.get_or_insert(switch_event::SWITCH_EVENT_XSWI.clone())
+    fn switch_event_xswi_mut(&mut self) -> &mut SwitchEventXswi {
+        self._switch_event_mut().switch_event_xswi.get_or_insert(Default::default())
     }
 }
 impl IsSwitchEvent for SwitchEvent {
     fn _switch_event(&self) -> &SwitchEvent {
         self
     }
-    fn _mut_switch_event(&mut self) -> &mut SwitchEvent {
+    fn _switch_event_mut(&mut self) -> &mut SwitchEvent {
         self
     }
 }
@@ -406,37 +406,37 @@ mod switch_event_profile {
 }
 pub trait IsSwitchEventProfile {
     fn _switch_event_profile(&self) -> &SwitchEventProfile;
-    fn _mut_switch_event_profile(&mut self) -> &mut SwitchEventProfile;
+    fn _switch_event_profile_mut(&mut self) -> &mut SwitchEventProfile;
     fn event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
         self._switch_event_profile().event_message_info.as_ref().unwrap_or(&switch_event_profile::EVENT_MESSAGE_INFO)
     }
-    fn mut_event_message_info(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._mut_switch_event_profile().event_message_info.get_or_insert(switch_event_profile::EVENT_MESSAGE_INFO.clone())
+    fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._switch_event_profile_mut().event_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._switch_event_profile().ied.as_ref().unwrap_or(&switch_event_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_switch_event_profile().ied.get_or_insert(switch_event_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._switch_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_event_profile().protected_switch.as_ref().unwrap_or(&switch_event_profile::PROTECTED_SWITCH)
     }
-    fn mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
-        self._mut_switch_event_profile().protected_switch.get_or_insert(switch_event_profile::PROTECTED_SWITCH.clone())
+    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
+        self._switch_event_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_event(&self) -> &SwitchEvent {
         self._switch_event_profile().switch_event.as_ref().unwrap_or(&switch_event_profile::SWITCH_EVENT)
     }
-    fn mut_switch_event(&mut self) -> &mut SwitchEvent {
-        self._mut_switch_event_profile().switch_event.get_or_insert(switch_event_profile::SWITCH_EVENT.clone())
+    fn switch_event_mut(&mut self) -> &mut SwitchEvent {
+        self._switch_event_profile_mut().switch_event.get_or_insert(Default::default())
     }
 }
 impl IsSwitchEventProfile for SwitchEventProfile {
     fn _switch_event_profile(&self) -> &SwitchEventProfile {
         self
     }
-    fn _mut_switch_event_profile(&mut self) -> &mut SwitchEventProfile {
+    fn _switch_event_profile_mut(&mut self) -> &mut SwitchEventProfile {
         self
     }
 }
@@ -478,43 +478,43 @@ mod switch_reading {
 }
 pub trait IsSwitchReading {
     fn _switch_reading(&self) -> &SwitchReading;
-    fn _mut_switch_reading(&mut self) -> &mut SwitchReading;
+    fn _switch_reading_mut(&mut self) -> &mut SwitchReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._switch_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&switch_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
-    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._mut_switch_reading().conducting_equipment_terminal_reading.get_or_insert(switch_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
+    fn conducting_equipment_terminal_reading_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._switch_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
     fn diff_reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._switch_reading().diff_reading_mmxu.as_ref().unwrap_or(&switch_reading::DIFF_READING_MMXU)
     }
-    fn mut_diff_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_switch_reading().diff_reading_mmxu.get_or_insert(switch_reading::DIFF_READING_MMXU.clone())
+    fn diff_reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._switch_reading_mut().diff_reading_mmxu.get_or_insert(Default::default())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._switch_reading().phase_mmtn.as_ref().unwrap_or(&switch_reading::PHASE_MMTN)
     }
-    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
-        self._mut_switch_reading().phase_mmtn.get_or_insert(switch_reading::PHASE_MMTN.clone())
+    fn phase_mmtn_mut(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._switch_reading_mut().phase_mmtn.get_or_insert(Default::default())
     }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._switch_reading().reading_mmtr.as_ref().unwrap_or(&switch_reading::READING_MMTR)
     }
-    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
-        self._mut_switch_reading().reading_mmtr.get_or_insert(switch_reading::READING_MMTR.clone())
+    fn reading_mmtr_mut(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._switch_reading_mut().reading_mmtr.get_or_insert(Default::default())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._switch_reading().reading_mmxu.as_ref().unwrap_or(&switch_reading::READING_MMXU)
     }
-    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_switch_reading().reading_mmxu.get_or_insert(switch_reading::READING_MMXU.clone())
+    fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._switch_reading_mut().reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsSwitchReading for SwitchReading {
     fn _switch_reading(&self) -> &SwitchReading {
         self
     }
-    fn _mut_switch_reading(&mut self) -> &mut SwitchReading {
+    fn _switch_reading_mut(&mut self) -> &mut SwitchReading {
         self
     }
 }
@@ -570,35 +570,35 @@ mod switch_reading_profile {
 }
 pub trait IsSwitchReadingProfile {
     fn _switch_reading_profile(&self) -> &SwitchReadingProfile;
-    fn _mut_switch_reading_profile(&mut self) -> &mut SwitchReadingProfile;
+    fn _switch_reading_profile_mut(&mut self) -> &mut SwitchReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._switch_reading_profile().reading_message_info.as_ref().unwrap_or(&switch_reading_profile::READING_MESSAGE_INFO)
     }
-    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._mut_switch_reading_profile().reading_message_info.get_or_insert(switch_reading_profile::READING_MESSAGE_INFO.clone())
+    fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._switch_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._switch_reading_profile().ied.as_ref().unwrap_or(&switch_reading_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_switch_reading_profile().ied.get_or_insert(switch_reading_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._switch_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_reading_profile().protected_switch.as_ref().unwrap_or(&switch_reading_profile::PROTECTED_SWITCH)
     }
-    fn mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
-        self._mut_switch_reading_profile().protected_switch.get_or_insert(switch_reading_profile::PROTECTED_SWITCH.clone())
+    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
+        self._switch_reading_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_reading(&self) -> &::std::vec::Vec<SwitchReading> {
         &self._switch_reading_profile().switch_reading    }
-    fn mut_switch_reading(&mut self) -> &mut ::std::vec::Vec<SwitchReading> {
-        &mut self._mut_switch_reading_profile().switch_reading    }
+    fn switch_reading_mut(&mut self) -> &mut ::std::vec::Vec<SwitchReading> {
+        &mut self._switch_reading_profile_mut().switch_reading    }
 }
 impl IsSwitchReadingProfile for SwitchReadingProfile {
     fn _switch_reading_profile(&self) -> &SwitchReadingProfile {
         self
     }
-    fn _mut_switch_reading_profile(&mut self) -> &mut SwitchReadingProfile {
+    fn _switch_reading_profile_mut(&mut self) -> &mut SwitchReadingProfile {
         self
     }
 }
@@ -638,31 +638,31 @@ mod switch_status_xswi {
 }
 pub trait IsSwitchStatusXswi {
     fn _switch_status_xswi(&self) -> &SwitchStatusXswi;
-    fn _mut_switch_status_xswi(&mut self) -> &mut SwitchStatusXswi;
+    fn _switch_status_xswi_mut(&mut self) -> &mut SwitchStatusXswi;
     fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
         self._switch_status_xswi().logical_node_for_event_and_status.as_ref().unwrap_or(&switch_status_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
-    fn mut_logical_node_for_event_and_status(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._mut_switch_status_xswi().logical_node_for_event_and_status.get_or_insert(switch_status_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS.clone())
+    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._switch_status_xswi_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._switch_status_xswi().dynamic_test.as_ref().unwrap_or(&switch_status_xswi::DYNAMIC_TEST)
     }
-    fn mut_dynamic_test(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
-        self._mut_switch_status_xswi().dynamic_test.get_or_insert(switch_status_xswi::DYNAMIC_TEST.clone())
+    fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
+        self._switch_status_xswi_mut().dynamic_test.get_or_insert(Default::default())
     }
     fn pos(&self) -> &super::commonmodule::StatusDps {
         self._switch_status_xswi().pos.as_ref().unwrap_or(&switch_status_xswi::POS)
     }
-    fn mut_pos(&mut self) -> &mut super::commonmodule::StatusDps {
-        self._mut_switch_status_xswi().pos.get_or_insert(switch_status_xswi::POS.clone())
+    fn pos_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+        self._switch_status_xswi_mut().pos.get_or_insert(Default::default())
     }
 }
 impl IsSwitchStatusXswi for SwitchStatusXswi {
     fn _switch_status_xswi(&self) -> &SwitchStatusXswi {
         self
     }
-    fn _mut_switch_status_xswi(&mut self) -> &mut SwitchStatusXswi {
+    fn _switch_status_xswi_mut(&mut self) -> &mut SwitchStatusXswi {
         self
     }
 }
@@ -698,25 +698,25 @@ mod switch_status {
 }
 pub trait IsSwitchStatus {
     fn _switch_status(&self) -> &SwitchStatus;
-    fn _mut_switch_status(&mut self) -> &mut SwitchStatus;
+    fn _switch_status_mut(&mut self) -> &mut SwitchStatus;
     fn status_value(&self) -> &super::commonmodule::StatusValue {
         self._switch_status().status_value.as_ref().unwrap_or(&switch_status::STATUS_VALUE)
     }
-    fn mut_status_value(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._mut_switch_status().status_value.get_or_insert(switch_status::STATUS_VALUE.clone())
+    fn status_value_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._switch_status_mut().status_value.get_or_insert(Default::default())
     }
     fn switch_status_xswi(&self) -> &SwitchStatusXswi {
         self._switch_status().switch_status_xswi.as_ref().unwrap_or(&switch_status::SWITCH_STATUS_XSWI)
     }
-    fn mut_switch_status_xswi(&mut self) -> &mut SwitchStatusXswi {
-        self._mut_switch_status().switch_status_xswi.get_or_insert(switch_status::SWITCH_STATUS_XSWI.clone())
+    fn switch_status_xswi_mut(&mut self) -> &mut SwitchStatusXswi {
+        self._switch_status_mut().switch_status_xswi.get_or_insert(Default::default())
     }
 }
 impl IsSwitchStatus for SwitchStatus {
     fn _switch_status(&self) -> &SwitchStatus {
         self
     }
-    fn _mut_switch_status(&mut self) -> &mut SwitchStatus {
+    fn _switch_status_mut(&mut self) -> &mut SwitchStatus {
         self
     }
 }
@@ -773,37 +773,37 @@ mod switch_status_profile {
 }
 pub trait IsSwitchStatusProfile {
     fn _switch_status_profile(&self) -> &SwitchStatusProfile;
-    fn _mut_switch_status_profile(&mut self) -> &mut SwitchStatusProfile;
+    fn _switch_status_profile_mut(&mut self) -> &mut SwitchStatusProfile;
     fn status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
         self._switch_status_profile().status_message_info.as_ref().unwrap_or(&switch_status_profile::STATUS_MESSAGE_INFO)
     }
-    fn mut_status_message_info(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._mut_switch_status_profile().status_message_info.get_or_insert(switch_status_profile::STATUS_MESSAGE_INFO.clone())
+    fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._switch_status_profile_mut().status_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._switch_status_profile().ied.as_ref().unwrap_or(&switch_status_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_switch_status_profile().ied.get_or_insert(switch_status_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._switch_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_status_profile().protected_switch.as_ref().unwrap_or(&switch_status_profile::PROTECTED_SWITCH)
     }
-    fn mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
-        self._mut_switch_status_profile().protected_switch.get_or_insert(switch_status_profile::PROTECTED_SWITCH.clone())
+    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
+        self._switch_status_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_status(&self) -> &SwitchStatus {
         self._switch_status_profile().switch_status.as_ref().unwrap_or(&switch_status_profile::SWITCH_STATUS)
     }
-    fn mut_switch_status(&mut self) -> &mut SwitchStatus {
-        self._mut_switch_status_profile().switch_status.get_or_insert(switch_status_profile::SWITCH_STATUS.clone())
+    fn switch_status_mut(&mut self) -> &mut SwitchStatus {
+        self._switch_status_profile_mut().switch_status.get_or_insert(Default::default())
     }
 }
 impl IsSwitchStatusProfile for SwitchStatusProfile {
     fn _switch_status_profile(&self) -> &SwitchStatusProfile {
         self
     }
-    fn _mut_switch_status_profile(&mut self) -> &mut SwitchStatusProfile {
+    fn _switch_status_profile_mut(&mut self) -> &mut SwitchStatusProfile {
         self
     }
 }
@@ -833,25 +833,25 @@ mod switch_control_fscc {
 }
 pub trait IsSwitchControlFscc {
     fn _switch_control_fscc(&self) -> &SwitchControlFscc;
-    fn _mut_switch_control_fscc(&mut self) -> &mut SwitchControlFscc;
+    fn _switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc;
     fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
         self._switch_control_fscc().logical_node_for_control.as_ref().unwrap_or(&switch_control_fscc::LOGICAL_NODE_FOR_CONTROL)
     }
-    fn mut_logical_node_for_control(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._mut_switch_control_fscc().logical_node_for_control.get_or_insert(switch_control_fscc::LOGICAL_NODE_FOR_CONTROL.clone())
+    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._switch_control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
     }
     fn switch_control_schedule_fsch(&self) -> &super::commonmodule::SwitchControlScheduleFsch {
         self._switch_control_fscc().switch_control_schedule_fsch.as_ref().unwrap_or(&switch_control_fscc::SWITCH_CONTROL_SCHEDULE_FSCH)
     }
-    fn mut_switch_control_schedule_fsch(&mut self) -> &mut super::commonmodule::SwitchControlScheduleFsch {
-        self._mut_switch_control_fscc().switch_control_schedule_fsch.get_or_insert(switch_control_fscc::SWITCH_CONTROL_SCHEDULE_FSCH.clone())
+    fn switch_control_schedule_fsch_mut(&mut self) -> &mut super::commonmodule::SwitchControlScheduleFsch {
+        self._switch_control_fscc_mut().switch_control_schedule_fsch.get_or_insert(Default::default())
     }
 }
 impl IsSwitchControlFscc for SwitchControlFscc {
     fn _switch_control_fscc(&self) -> &SwitchControlFscc {
         self
     }
-    fn _mut_switch_control_fscc(&mut self) -> &mut SwitchControlFscc {
+    fn _switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc {
         self
     }
 }
@@ -891,31 +891,31 @@ mod switch_control {
 }
 pub trait IsSwitchControl {
     fn _switch_control(&self) -> &SwitchControl;
-    fn _mut_switch_control(&mut self) -> &mut SwitchControl;
+    fn _switch_control_mut(&mut self) -> &mut SwitchControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
         self._switch_control().control_value.as_ref().unwrap_or(&switch_control::CONTROL_VALUE)
     }
-    fn mut_control_value(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._mut_switch_control().control_value.get_or_insert(switch_control::CONTROL_VALUE.clone())
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._switch_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._switch_control().check.as_ref().unwrap_or(&switch_control::CHECK)
     }
-    fn mut_check(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._mut_switch_control().check.get_or_insert(switch_control::CHECK.clone())
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._switch_control_mut().check.get_or_insert(Default::default())
     }
     fn switch_control_fscc(&self) -> &SwitchControlFscc {
         self._switch_control().switch_control_fscc.as_ref().unwrap_or(&switch_control::SWITCH_CONTROL_FSCC)
     }
-    fn mut_switch_control_fscc(&mut self) -> &mut SwitchControlFscc {
-        self._mut_switch_control().switch_control_fscc.get_or_insert(switch_control::SWITCH_CONTROL_FSCC.clone())
+    fn switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc {
+        self._switch_control_mut().switch_control_fscc.get_or_insert(Default::default())
     }
 }
 impl IsSwitchControl for SwitchControl {
     fn _switch_control(&self) -> &SwitchControl {
         self
     }
-    fn _mut_switch_control(&mut self) -> &mut SwitchControl {
+    fn _switch_control_mut(&mut self) -> &mut SwitchControl {
         self
     }
 }
@@ -972,37 +972,37 @@ mod switch_control_profile {
 }
 pub trait IsSwitchControlProfile {
     fn _switch_control_profile(&self) -> &SwitchControlProfile;
-    fn _mut_switch_control_profile(&mut self) -> &mut SwitchControlProfile;
+    fn _switch_control_profile_mut(&mut self) -> &mut SwitchControlProfile;
     fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
         self._switch_control_profile().control_message_info.as_ref().unwrap_or(&switch_control_profile::CONTROL_MESSAGE_INFO)
     }
-    fn mut_control_message_info(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._mut_switch_control_profile().control_message_info.get_or_insert(switch_control_profile::CONTROL_MESSAGE_INFO.clone())
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._switch_control_profile_mut().control_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._switch_control_profile().ied.as_ref().unwrap_or(&switch_control_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_switch_control_profile().ied.get_or_insert(switch_control_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._switch_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_control_profile().protected_switch.as_ref().unwrap_or(&switch_control_profile::PROTECTED_SWITCH)
     }
-    fn mut_protected_switch(&mut self) -> &mut ProtectedSwitch {
-        self._mut_switch_control_profile().protected_switch.get_or_insert(switch_control_profile::PROTECTED_SWITCH.clone())
+    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
+        self._switch_control_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_control(&self) -> &SwitchControl {
         self._switch_control_profile().switch_control.as_ref().unwrap_or(&switch_control_profile::SWITCH_CONTROL)
     }
-    fn mut_switch_control(&mut self) -> &mut SwitchControl {
-        self._mut_switch_control_profile().switch_control.get_or_insert(switch_control_profile::SWITCH_CONTROL.clone())
+    fn switch_control_mut(&mut self) -> &mut SwitchControl {
+        self._switch_control_profile_mut().switch_control.get_or_insert(Default::default())
     }
 }
 impl IsSwitchControlProfile for SwitchControlProfile {
     fn _switch_control_profile(&self) -> &SwitchControlProfile {
         self
     }
-    fn _mut_switch_control_profile(&mut self) -> &mut SwitchControlProfile {
+    fn _switch_control_profile_mut(&mut self) -> &mut SwitchControlProfile {
         self
     }
 }

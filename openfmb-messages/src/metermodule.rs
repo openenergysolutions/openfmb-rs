@@ -32,37 +32,37 @@ mod meter_reading {
 }
 pub trait IsMeterReading {
     fn _meter_reading(&self) -> &MeterReading;
-    fn _mut_meter_reading(&mut self) -> &mut MeterReading;
+    fn _meter_reading_mut(&mut self) -> &mut MeterReading;
     fn conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
         self._meter_reading().conducting_equipment_terminal_reading.as_ref().unwrap_or(&meter_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
-    fn mut_conducting_equipment_terminal_reading(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._mut_meter_reading().conducting_equipment_terminal_reading.get_or_insert(meter_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING.clone())
+    fn conducting_equipment_terminal_reading_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._meter_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
     fn phase_mmtn(&self) -> &super::commonmodule::PhaseMmtn {
         self._meter_reading().phase_mmtn.as_ref().unwrap_or(&meter_reading::PHASE_MMTN)
     }
-    fn mut_phase_mmtn(&mut self) -> &mut super::commonmodule::PhaseMmtn {
-        self._mut_meter_reading().phase_mmtn.get_or_insert(meter_reading::PHASE_MMTN.clone())
+    fn phase_mmtn_mut(&mut self) -> &mut super::commonmodule::PhaseMmtn {
+        self._meter_reading_mut().phase_mmtn.get_or_insert(Default::default())
     }
     fn reading_mmtr(&self) -> &super::commonmodule::ReadingMmtr {
         self._meter_reading().reading_mmtr.as_ref().unwrap_or(&meter_reading::READING_MMTR)
     }
-    fn mut_reading_mmtr(&mut self) -> &mut super::commonmodule::ReadingMmtr {
-        self._mut_meter_reading().reading_mmtr.get_or_insert(meter_reading::READING_MMTR.clone())
+    fn reading_mmtr_mut(&mut self) -> &mut super::commonmodule::ReadingMmtr {
+        self._meter_reading_mut().reading_mmtr.get_or_insert(Default::default())
     }
     fn reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
         self._meter_reading().reading_mmxu.as_ref().unwrap_or(&meter_reading::READING_MMXU)
     }
-    fn mut_reading_mmxu(&mut self) -> &mut super::commonmodule::ReadingMmxu {
-        self._mut_meter_reading().reading_mmxu.get_or_insert(meter_reading::READING_MMXU.clone())
+    fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._meter_reading_mut().reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsMeterReading for MeterReading {
     fn _meter_reading(&self) -> &MeterReading {
         self
     }
-    fn _mut_meter_reading(&mut self) -> &mut MeterReading {
+    fn _meter_reading_mut(&mut self) -> &mut MeterReading {
         self
     }
 }
@@ -119,37 +119,37 @@ mod meter_reading_profile {
 }
 pub trait IsMeterReadingProfile {
     fn _meter_reading_profile(&self) -> &MeterReadingProfile;
-    fn _mut_meter_reading_profile(&mut self) -> &mut MeterReadingProfile;
+    fn _meter_reading_profile_mut(&mut self) -> &mut MeterReadingProfile;
     fn reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
         self._meter_reading_profile().reading_message_info.as_ref().unwrap_or(&meter_reading_profile::READING_MESSAGE_INFO)
     }
-    fn mut_reading_message_info(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._mut_meter_reading_profile().reading_message_info.get_or_insert(meter_reading_profile::READING_MESSAGE_INFO.clone())
+    fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._meter_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
     }
     fn ied(&self) -> &super::commonmodule::Ied {
         self._meter_reading_profile().ied.as_ref().unwrap_or(&meter_reading_profile::IED)
     }
-    fn mut_ied(&mut self) -> &mut super::commonmodule::Ied {
-        self._mut_meter_reading_profile().ied.get_or_insert(meter_reading_profile::IED.clone())
+    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
+        self._meter_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn meter(&self) -> &super::commonmodule::Meter {
         self._meter_reading_profile().meter.as_ref().unwrap_or(&meter_reading_profile::METER)
     }
-    fn mut_meter(&mut self) -> &mut super::commonmodule::Meter {
-        self._mut_meter_reading_profile().meter.get_or_insert(meter_reading_profile::METER.clone())
+    fn meter_mut(&mut self) -> &mut super::commonmodule::Meter {
+        self._meter_reading_profile_mut().meter.get_or_insert(Default::default())
     }
     fn meter_reading(&self) -> &MeterReading {
         self._meter_reading_profile().meter_reading.as_ref().unwrap_or(&meter_reading_profile::METER_READING)
     }
-    fn mut_meter_reading(&mut self) -> &mut MeterReading {
-        self._mut_meter_reading_profile().meter_reading.get_or_insert(meter_reading_profile::METER_READING.clone())
+    fn meter_reading_mut(&mut self) -> &mut MeterReading {
+        self._meter_reading_profile_mut().meter_reading.get_or_insert(Default::default())
     }
 }
 impl IsMeterReadingProfile for MeterReadingProfile {
     fn _meter_reading_profile(&self) -> &MeterReadingProfile {
         self
     }
-    fn _mut_meter_reading_profile(&mut self) -> &mut MeterReadingProfile {
+    fn _meter_reading_profile_mut(&mut self) -> &mut MeterReadingProfile {
         self
     }
 }

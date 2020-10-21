@@ -275,9 +275,9 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(";\n");
         self.push_indent();
-        self.buf.push_str("fn _mut_");
+        self.buf.push_str("fn _");
         self.buf.push_str(&to_snake(&message_name));
-        self.buf.push_str("(&mut self) -> &mut ");
+        self.buf.push_str("_mut(&mut self) -> &mut ");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(";\n");
         for (field, _idx) in &fields {
@@ -320,9 +320,9 @@ impl<'a> CodeGenerator<'a> {
 
             // mutator, ex fn mut_some_field(&mut self) -> &mut SomeFieldType
             self.push_indent();
-            self.buf.push_str("fn mut_");
+            self.buf.push_str("fn ");
             self.buf.push_str(&to_snake(field.name()));
-            self.buf.push_str("(&mut self) -> &mut ");
+            self.buf.push_str("_mut(&mut self) -> &mut ");
             if repeated {
                 self.buf.push_str("::std::vec::Vec<");
             }
@@ -336,17 +336,13 @@ impl<'a> CodeGenerator<'a> {
             if !optional {
                 self.buf.push_str("&mut ");
             }
-            self.buf.push_str("self._mut_");
+            self.buf.push_str("self._");
             self.buf.push_str(&to_snake(&message_name));
+            self.buf.push_str("_mut");
             self.buf.push_str("().");
             self.buf.push_str(&to_snake(field.name()));
             if optional {
-                self.buf.push_str(".get_or_insert(");
-                self.buf.push_str(&to_snake(&message_name));
-                self.buf.push_str("::");
-                self.buf.push_str(&to_shouty_snake(field.name()));
-                self.buf.push_str(".clone()");
-                self.buf.push_str(")\n");
+                self.buf.push_str(".get_or_insert(Default::default())\n");
             }
             self.depth -= 1;
             self.push_indent();
@@ -377,9 +373,9 @@ impl<'a> CodeGenerator<'a> {
         self.push_indent();
         self.buf.push_str("}\n");
         self.push_indent();
-        self.buf.push_str("fn _mut_");
+        self.buf.push_str("fn _");
         self.buf.push_str(&to_snake(&message_name));
-        self.buf.push_str("(&mut self) -> &mut ");
+        self.buf.push_str("_mut(&mut self) -> &mut ");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(" {\n");
         self.depth += 1;
