@@ -14,7 +14,7 @@
 //!
 //! let bus = bus::nats::connect::<encoding::protobufs::MessageEncoding>("127.0.0.1").await?;
 //! let switch = client::Switch::new(bus, "06fb668d-f87a-4b1b-8d99-0949513126ff");
-//! if switch.is_closed().await? {
+//! if switch.is_closed().next().await? {
 //!     switch.open().await?;
 //! }
 //! ```

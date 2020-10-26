@@ -22,7 +22,7 @@ pub trait Subscriber<T> {
 
 /// A message bus provides functionality to publish messages to a topic
 /// and subscribe to messages on a topic. The publish and subscribe are
-/// typed and require a MessageEncoding to encode/decode.
+/// typed
 pub trait MessageBus<T>: Publisher<T> + Subscriber<T> {}
 
 #[cfg(feature = "nats")]

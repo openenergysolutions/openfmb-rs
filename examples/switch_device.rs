@@ -1,4 +1,5 @@
 use futures::stream::StreamExt;
+use log::info;
 use openfmb::encoding::ProtobufEncoding;
 use openfmb_messages::{
     commonmodule::{
@@ -11,10 +12,16 @@ use tokio::time;
 
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    pretty_env_logger::init();
     let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;
+    let nats_url = env::var("NATS_URL")?;
     let nc = nats::connect(&env::var("NATS_URL")?)?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
     let mut switch = openfmb::device::Switch::new(bus, mrid);
+    info!(
+        "Connected to switch {:?} using nats at {:?}",
+        mrid, nats_url
+    );
     let mut controls = switch.control()?;
     let mut poll_interval = time::interval(time::Duration::from_secs(1));
     let mut identified_object: IdentifiedObject = Default::default();
@@ -40,10 +47,10 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         tokio::select! {
             ctl = controls.next() => {
-                println!("Got control {:?}", ctl);
+                info!("Got control {:?}", ctl);
             },
             _ = poll_interval.tick() => {
-                println!("Tick, publishing status");
+                info!("Tick, publishing status");
                 let status = status.clone();
                 let mut switch = switch.clone();
                 tokio::spawn(async move {
