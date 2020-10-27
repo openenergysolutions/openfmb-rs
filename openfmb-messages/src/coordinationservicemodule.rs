@@ -12,10 +12,12 @@ mod optional_coordination_service_mode_kind {
 pub trait IsOptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind;
     fn _optional_coordination_service_mode_kind_mut(&mut self) -> &mut OptionalCoordinationServiceModeKind;
-    fn value(&self) -> &i32 {
-        &self._optional_coordination_service_mode_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_coordination_service_mode_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_coordination_service_mode_kind_mut().value    }
+        &mut self._optional_coordination_service_mode_kind_mut().value
+    }
 }
 impl IsOptionalCoordinationServiceModeKind for OptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind {
@@ -32,8 +34,8 @@ pub struct EngCoordinationServiceModeKind {
     /// The value of the coordination service mode.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="CoordinationServiceModeKind", tag="1")]
@@ -51,10 +53,12 @@ mod eng_coordination_service_mode_kind {
 pub trait IsEngCoordinationServiceModeKind {
     fn _eng_coordination_service_mode_kind(&self) -> &EngCoordinationServiceModeKind;
     fn _eng_coordination_service_mode_kind_mut(&mut self) -> &mut EngCoordinationServiceModeKind;
-    fn set_val(&self) -> &i32 {
-        &self._eng_coordination_service_mode_kind().set_val    }
+    fn set_val(&self) -> i32 {
+        self._eng_coordination_service_mode_kind().set_val
+    }
     fn set_val_mut(&mut self) -> &mut i32 {
-        &mut self._eng_coordination_service_mode_kind_mut().set_val    }
+        &mut self._eng_coordination_service_mode_kind_mut().set_val
+    }
     fn set_val_extension(&self) -> &::std::string::String {
         self._eng_coordination_service_mode_kind().set_val_extension.as_ref().unwrap_or(&eng_coordination_service_mode_kind::SET_VAL_EXTENSION)
     }
@@ -78,8 +82,8 @@ pub struct CoordinationControlDcsc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -129,6 +133,30 @@ impl IsCoordinationControlDcsc for CoordinationControlDcsc {
         self
     }
 }
+//impl IsLogicalNodeForControl for CoordinationControlDcsc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for CoordinationControlDcsc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationControlDcsc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -136,8 +164,8 @@ pub struct CoordinationControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -148,8 +176,8 @@ pub struct CoordinationControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -193,6 +221,22 @@ impl IsCoordinationControl for CoordinationControl {
         self
     }
 }
+//impl IsControlValue for CoordinationControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -201,8 +245,8 @@ pub struct CoordinationControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -210,8 +254,8 @@ pub struct CoordinationControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -219,8 +263,8 @@ pub struct CoordinationControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -264,6 +308,30 @@ impl IsCoordinationControlProfile for CoordinationControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for CoordinationControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for CoordinationControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -272,8 +340,8 @@ pub struct CoordinationEventDcsc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -373,6 +441,30 @@ impl IsCoordinationEventDcsc for CoordinationEventDcsc {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for CoordinationEventDcsc {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for CoordinationEventDcsc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationEventDcsc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -380,8 +472,8 @@ pub struct CoordinationEvent {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -389,8 +481,8 @@ pub struct CoordinationEvent {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -427,6 +519,22 @@ impl IsCoordinationEvent for CoordinationEvent {
         self
     }
 }
+//impl IsEventValue for CoordinationEvent {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationEvent {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -435,8 +543,8 @@ pub struct CoordinationEventProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -444,8 +552,8 @@ pub struct CoordinationEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -453,8 +561,8 @@ pub struct CoordinationEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -498,6 +606,30 @@ impl IsCoordinationEventProfile for CoordinationEventProfile {
         self
     }
 }
+//impl IsEventMessageInfo for CoordinationEventProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for CoordinationEventProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationEventProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -506,8 +638,8 @@ pub struct CoordinationStatusDcsc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -607,6 +739,30 @@ impl IsCoordinationStatusDcsc for CoordinationStatusDcsc {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for CoordinationStatusDcsc {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for CoordinationStatusDcsc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationStatusDcsc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -614,8 +770,8 @@ pub struct CoordinationStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -623,8 +779,8 @@ pub struct CoordinationStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -661,6 +817,22 @@ impl IsCoordinationStatus for CoordinationStatus {
         self
     }
 }
+//impl IsEventValue for CoordinationStatus {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -669,8 +841,8 @@ pub struct CoordinationStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -678,8 +850,8 @@ pub struct CoordinationStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -687,8 +859,8 @@ pub struct CoordinationStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -732,6 +904,30 @@ impl IsCoordinationStatusProfile for CoordinationStatusProfile {
         self
     }
 }
+//impl IsEventMessageInfo for CoordinationStatusProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for CoordinationStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for CoordinationStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// State kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

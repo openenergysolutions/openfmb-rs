@@ -1,6 +1,6 @@
 //! Utility functions for working with identifiers.
 
-use heck::{CamelCase, SnakeCase, ShoutySnakeCase};
+use heck::{CamelCase, ShoutySnakeCase, SnakeCase};
 
 pub fn to_shouty_snake(s: &str) -> String {
     s.to_shouty_snake_case()

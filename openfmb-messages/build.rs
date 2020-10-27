@@ -1,4 +1,8 @@
+use env_logger;
+
 fn main() {
+    env_logger::init();
+
     const PROTOS: [&str; 15] = [
             "proto/breakermodule/breakermodule.proto",
             "proto/commonmodule/commonmodule.proto",

@@ -5,8 +5,8 @@ pub struct RecloserControlFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -46,6 +46,30 @@ impl IsRecloserControlFscc for RecloserControlFscc {
         self
     }
 }
+//impl IsLogicalNodeForControl for RecloserControlFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for RecloserControlFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserControlFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -53,8 +77,8 @@ pub struct RecloserControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -65,8 +89,8 @@ pub struct RecloserControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -110,6 +134,22 @@ impl IsRecloserControl for RecloserControl {
         self
     }
 }
+//impl IsControlValue for RecloserControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
 /// and supplemental controls.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -118,8 +158,8 @@ pub struct Recloser {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -159,6 +199,22 @@ impl IsRecloser for Recloser {
         self
     }
 }
+//impl IsConductingEquipment for Recloser {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for Recloser {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Recloser control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
@@ -168,8 +224,8 @@ pub struct RecloserControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -177,8 +233,8 @@ pub struct RecloserControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -186,8 +242,8 @@ pub struct RecloserControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -195,8 +251,8 @@ pub struct RecloserControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -247,6 +303,30 @@ impl IsRecloserControlProfile for RecloserControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for RecloserControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RecloserControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// OpenFMB specialization for RecloserDiscreteControlProfile: Added blk  LN: Circuit
 /// breaker   Name: XCBR
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -255,8 +335,8 @@ pub struct RecloserDiscreteControlXcbr {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -296,6 +376,30 @@ impl IsRecloserDiscreteControlXcbr for RecloserDiscreteControlXcbr {
         self
     }
 }
+//impl IsLogicalNodeForControl for RecloserDiscreteControlXcbr {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for RecloserDiscreteControlXcbr {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserDiscreteControlXcbr {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -303,8 +407,8 @@ pub struct RecloserDiscreteControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -315,8 +419,8 @@ pub struct RecloserDiscreteControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -360,6 +464,22 @@ impl IsRecloserDiscreteControl for RecloserDiscreteControl {
         self
     }
 }
+//impl IsControlValue for RecloserDiscreteControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserDiscreteControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
@@ -369,8 +489,8 @@ pub struct RecloserDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -378,8 +498,8 @@ pub struct RecloserDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -387,8 +507,8 @@ pub struct RecloserDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -396,8 +516,8 @@ pub struct RecloserDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -448,6 +568,30 @@ impl IsRecloserDiscreteControlProfile for RecloserDiscreteControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for RecloserDiscreteControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RecloserDiscreteControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserDiscreteControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -455,8 +599,8 @@ pub struct RecloserEvent {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -464,8 +608,8 @@ pub struct RecloserEvent {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -502,6 +646,22 @@ impl IsRecloserEvent for RecloserEvent {
         self
     }
 }
+//impl IsEventValue for RecloserEvent {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserEvent {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -510,8 +670,8 @@ pub struct RecloserEventProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -519,8 +679,8 @@ pub struct RecloserEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -528,8 +688,8 @@ pub struct RecloserEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -537,8 +697,8 @@ pub struct RecloserEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -589,6 +749,30 @@ impl IsRecloserEventProfile for RecloserEventProfile {
         self
     }
 }
+//impl IsEventMessageInfo for RecloserEventProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RecloserEventProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserEventProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -596,8 +780,8 @@ pub struct RecloserReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -667,6 +851,14 @@ impl IsRecloserReading for RecloserReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for RecloserReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Recloser reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -675,8 +867,8 @@ pub struct RecloserReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -684,8 +876,8 @@ pub struct RecloserReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -693,8 +885,8 @@ pub struct RecloserReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -702,8 +894,8 @@ pub struct RecloserReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 2
+    // multiplicity_min: Some(1)
+    // multiplicity_max: Some(2)
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
@@ -739,9 +931,11 @@ pub trait IsRecloserReadingProfile {
         self._recloser_reading_profile_mut().recloser.get_or_insert(Default::default())
     }
     fn recloser_reading(&self) -> &::std::vec::Vec<RecloserReading> {
-        &self._recloser_reading_profile().recloser_reading    }
+        &self._recloser_reading_profile().recloser_reading
+    }
     fn recloser_reading_mut(&mut self) -> &mut ::std::vec::Vec<RecloserReading> {
-        &mut self._recloser_reading_profile_mut().recloser_reading    }
+        &mut self._recloser_reading_profile_mut().recloser_reading
+    }
 }
 impl IsRecloserReadingProfile for RecloserReadingProfile {
     fn _recloser_reading_profile(&self) -> &RecloserReadingProfile {
@@ -751,6 +945,30 @@ impl IsRecloserReadingProfile for RecloserReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for RecloserReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RecloserReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -758,8 +976,8 @@ pub struct RecloserStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -767,8 +985,8 @@ pub struct RecloserStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -805,6 +1023,22 @@ impl IsRecloserStatus for RecloserStatus {
         self
     }
 }
+//impl IsStatusValue for RecloserStatus {
+    //fn _status_value(&self) -> &StatusValue {
+        //
+    //}
+//fn _mut_status_value(&mut self) -> &mut StatusValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Recloser status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -813,8 +1047,8 @@ pub struct RecloserStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -822,8 +1056,8 @@ pub struct RecloserStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -831,8 +1065,8 @@ pub struct RecloserStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -840,8 +1074,8 @@ pub struct RecloserStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -892,3 +1126,27 @@ impl IsRecloserStatusProfile for RecloserStatusProfile {
         self
     }
 }
+//impl IsStatusMessageInfo for RecloserStatusProfile {
+    //fn _status_message_info(&self) -> &StatusMessageInfo {
+        //
+    //}
+//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RecloserStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RecloserStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

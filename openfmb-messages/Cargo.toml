@@ -16,3 +16,4 @@ prost-types = "0.6.1"
 
 [build-dependencies]
 openfmb-codegen  = { path = "../openfmb-codegen" }
+env_logger = "0.8"

@@ -5,8 +5,8 @@ pub struct RegulatorControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -21,9 +21,11 @@ pub trait IsRegulatorControlScheduleProfileList {
     fn _regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList;
     fn _regulator_control_schedule_profile_list_mut(&mut self) -> &mut RegulatorControlScheduleProfileList;
     fn regulator_control_profile(&self) -> &::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
-        &self._regulator_control_schedule_profile_list().regulator_control_profile    }
+        &self._regulator_control_schedule_profile_list().regulator_control_profile
+    }
     fn regulator_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::regulatormodule::RegulatorControlProfile> {
-        &mut self._regulator_control_schedule_profile_list_mut().regulator_control_profile    }
+        &mut self._regulator_control_schedule_profile_list_mut().regulator_control_profile
+    }
 }
 impl IsRegulatorControlScheduleProfileList for RegulatorControlScheduleProfileList {
     fn _regulator_control_schedule_profile_list(&self) -> &RegulatorControlScheduleProfileList {
@@ -40,8 +42,8 @@ pub struct SolarControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -56,9 +58,11 @@ pub trait IsSolarControlScheduleProfileList {
     fn _solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList;
     fn _solar_control_schedule_profile_list_mut(&mut self) -> &mut SolarControlScheduleProfileList;
     fn solar_control_profile(&self) -> &::std::vec::Vec<super::solarmodule::SolarControlProfile> {
-        &self._solar_control_schedule_profile_list().solar_control_profile    }
+        &self._solar_control_schedule_profile_list().solar_control_profile
+    }
     fn solar_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::solarmodule::SolarControlProfile> {
-        &mut self._solar_control_schedule_profile_list_mut().solar_control_profile    }
+        &mut self._solar_control_schedule_profile_list_mut().solar_control_profile
+    }
 }
 impl IsSolarControlScheduleProfileList for SolarControlScheduleProfileList {
     fn _solar_control_schedule_profile_list(&self) -> &SolarControlScheduleProfileList {
@@ -75,8 +79,8 @@ pub struct PlannedInterconnectionScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -91,9 +95,11 @@ pub trait IsPlannedInterconnectionScheduleProfileList {
     fn _planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList;
     fn _planned_interconnection_schedule_profile_list_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfileList;
     fn planned_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
-        &self._planned_interconnection_schedule_profile_list().planned_interconnection_schedule_profile    }
+        &self._planned_interconnection_schedule_profile_list().planned_interconnection_schedule_profile
+    }
     fn planned_interconnection_schedule_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::PlannedInterconnectionScheduleProfile> {
-        &mut self._planned_interconnection_schedule_profile_list_mut().planned_interconnection_schedule_profile    }
+        &mut self._planned_interconnection_schedule_profile_list_mut().planned_interconnection_schedule_profile
+    }
 }
 impl IsPlannedInterconnectionScheduleProfileList for PlannedInterconnectionScheduleProfileList {
     fn _planned_interconnection_schedule_profile_list(&self) -> &PlannedInterconnectionScheduleProfileList {
@@ -110,8 +116,8 @@ pub struct LoadControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -126,9 +132,11 @@ pub trait IsLoadControlScheduleProfileList {
     fn _load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList;
     fn _load_control_schedule_profile_list_mut(&mut self) -> &mut LoadControlScheduleProfileList;
     fn load_control_profile(&self) -> &::std::vec::Vec<super::loadmodule::LoadControlProfile> {
-        &self._load_control_schedule_profile_list().load_control_profile    }
+        &self._load_control_schedule_profile_list().load_control_profile
+    }
     fn load_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::loadmodule::LoadControlProfile> {
-        &mut self._load_control_schedule_profile_list_mut().load_control_profile    }
+        &mut self._load_control_schedule_profile_list_mut().load_control_profile
+    }
 }
 impl IsLoadControlScheduleProfileList for LoadControlScheduleProfileList {
     fn _load_control_schedule_profile_list(&self) -> &LoadControlScheduleProfileList {
@@ -145,8 +153,8 @@ pub struct EssControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -161,9 +169,11 @@ pub trait IsEssControlScheduleProfileList {
     fn _ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList;
     fn _ess_control_schedule_profile_list_mut(&mut self) -> &mut EssControlScheduleProfileList;
     fn ess_control_profile(&self) -> &::std::vec::Vec<super::essmodule::EssControlProfile> {
-        &self._ess_control_schedule_profile_list().ess_control_profile    }
+        &self._ess_control_schedule_profile_list().ess_control_profile
+    }
     fn ess_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::essmodule::EssControlProfile> {
-        &mut self._ess_control_schedule_profile_list_mut().ess_control_profile    }
+        &mut self._ess_control_schedule_profile_list_mut().ess_control_profile
+    }
 }
 impl IsEssControlScheduleProfileList for EssControlScheduleProfileList {
     fn _ess_control_schedule_profile_list(&self) -> &EssControlScheduleProfileList {
@@ -180,8 +190,8 @@ pub struct SwitchControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -196,9 +206,11 @@ pub trait IsSwitchControlScheduleProfileList {
     fn _switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList;
     fn _switch_control_schedule_profile_list_mut(&mut self) -> &mut SwitchControlScheduleProfileList;
     fn switch_control_profile(&self) -> &::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
-        &self._switch_control_schedule_profile_list().switch_control_profile    }
+        &self._switch_control_schedule_profile_list().switch_control_profile
+    }
     fn switch_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::switchmodule::SwitchControlProfile> {
-        &mut self._switch_control_schedule_profile_list_mut().switch_control_profile    }
+        &mut self._switch_control_schedule_profile_list_mut().switch_control_profile
+    }
 }
 impl IsSwitchControlScheduleProfileList for SwitchControlScheduleProfileList {
     fn _switch_control_schedule_profile_list(&self) -> &SwitchControlScheduleProfileList {
@@ -215,8 +227,8 @@ pub struct GenerationControlScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -231,9 +243,11 @@ pub trait IsGenerationControlScheduleProfileList {
     fn _generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList;
     fn _generation_control_schedule_profile_list_mut(&mut self) -> &mut GenerationControlScheduleProfileList;
     fn generation_control_profile(&self) -> &::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
-        &self._generation_control_schedule_profile_list().generation_control_profile    }
+        &self._generation_control_schedule_profile_list().generation_control_profile
+    }
     fn generation_control_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::generationmodule::GenerationControlProfile> {
-        &mut self._generation_control_schedule_profile_list_mut().generation_control_profile    }
+        &mut self._generation_control_schedule_profile_list_mut().generation_control_profile
+    }
 }
 impl IsGenerationControlScheduleProfileList for GenerationControlScheduleProfileList {
     fn _generation_control_schedule_profile_list(&self) -> &GenerationControlScheduleProfileList {
@@ -251,8 +265,8 @@ pub struct PlannedOptimizerScheduleProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -260,8 +274,8 @@ pub struct PlannedOptimizerScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -368,6 +382,30 @@ impl IsPlannedOptimizerScheduleProfile for PlannedOptimizerScheduleProfile {
         self
     }
 }
+//impl IsOptimizationMessageInfo for PlannedOptimizerScheduleProfile {
+    //fn _optimization_message_info(&self) -> &OptimizationMessageInfo {
+        //
+    //}
+//fn _mut_optimization_message_info(&mut self) -> &mut OptimizationMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for PlannedOptimizerScheduleProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for PlannedOptimizerScheduleProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -375,8 +413,8 @@ pub struct RequestedInterconnectionScheduleProfileList {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -391,9 +429,11 @@ pub trait IsRequestedInterconnectionScheduleProfileList {
     fn _requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList;
     fn _requested_interconnection_schedule_profile_list_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfileList;
     fn requested_interconnection_schedule_profile(&self) -> &::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
-        &self._requested_interconnection_schedule_profile_list().requested_interconnection_schedule_profile    }
+        &self._requested_interconnection_schedule_profile_list().requested_interconnection_schedule_profile
+    }
     fn requested_interconnection_schedule_profile_mut(&mut self) -> &mut ::std::vec::Vec<super::interconnectionmodule::RequestedInterconnectionScheduleProfile> {
-        &mut self._requested_interconnection_schedule_profile_list_mut().requested_interconnection_schedule_profile    }
+        &mut self._requested_interconnection_schedule_profile_list_mut().requested_interconnection_schedule_profile
+    }
 }
 impl IsRequestedInterconnectionScheduleProfileList for RequestedInterconnectionScheduleProfileList {
     fn _requested_interconnection_schedule_profile_list(&self) -> &RequestedInterconnectionScheduleProfileList {
@@ -411,8 +451,8 @@ pub struct RequestedOptimizerScheduleProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -420,8 +460,8 @@ pub struct RequestedOptimizerScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -528,3 +568,27 @@ impl IsRequestedOptimizerScheduleProfile for RequestedOptimizerScheduleProfile {
         self
     }
 }
+//impl IsOptimizationMessageInfo for RequestedOptimizerScheduleProfile {
+    //fn _optimization_message_info(&self) -> &OptimizationMessageInfo {
+        //
+    //}
+//fn _mut_optimization_message_info(&mut self) -> &mut OptimizationMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RequestedOptimizerScheduleProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RequestedOptimizerScheduleProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

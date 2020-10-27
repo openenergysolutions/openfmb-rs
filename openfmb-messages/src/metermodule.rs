@@ -5,8 +5,8 @@ pub struct MeterReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -66,6 +66,14 @@ impl IsMeterReading for MeterReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for MeterReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Resource reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -74,8 +82,8 @@ pub struct MeterReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -83,8 +91,8 @@ pub struct MeterReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -92,8 +100,8 @@ pub struct MeterReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -101,8 +109,8 @@ pub struct MeterReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -153,3 +161,27 @@ impl IsMeterReadingProfile for MeterReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for MeterReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for MeterReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for MeterReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

@@ -32,8 +32,8 @@ pub struct InterconnectionPoint {
     /// Start time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="10")]
@@ -133,8 +133,8 @@ pub struct InterconnectionCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -149,9 +149,11 @@ pub trait IsInterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg;
     fn _interconnection_csg_mut(&mut self) -> &mut InterconnectionCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<InterconnectionPoint> {
-        &self._interconnection_csg().crv_pts    }
+        &self._interconnection_csg().crv_pts
+    }
     fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<InterconnectionPoint> {
-        &mut self._interconnection_csg_mut().crv_pts    }
+        &mut self._interconnection_csg_mut().crv_pts
+    }
 }
 impl IsInterconnectionCsg for InterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg {
@@ -168,8 +170,8 @@ pub struct InterconnectionControlScheduleFsch {
     /// Discrete value in InterconnectionCSG type
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -206,8 +208,8 @@ pub struct InterconnectionScheduleFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -215,8 +217,8 @@ pub struct InterconnectionScheduleFscc {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: Some(0)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
@@ -238,9 +240,11 @@ pub trait IsInterconnectionScheduleFscc {
         self._interconnection_schedule_fscc_mut().control_fscc.get_or_insert(Default::default())
     }
     fn interconnection_control_schedule_fsch(&self) -> &::std::vec::Vec<InterconnectionControlScheduleFsch> {
-        &self._interconnection_schedule_fscc().interconnection_control_schedule_fsch    }
+        &self._interconnection_schedule_fscc().interconnection_control_schedule_fsch
+    }
     fn interconnection_control_schedule_fsch_mut(&mut self) -> &mut ::std::vec::Vec<InterconnectionControlScheduleFsch> {
-        &mut self._interconnection_schedule_fscc_mut().interconnection_control_schedule_fsch    }
+        &mut self._interconnection_schedule_fscc_mut().interconnection_control_schedule_fsch
+    }
 }
 impl IsInterconnectionScheduleFscc for InterconnectionScheduleFscc {
     fn _interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc {
@@ -250,6 +254,38 @@ impl IsInterconnectionScheduleFscc for InterconnectionScheduleFscc {
         self
     }
 }
+//impl IsControlFSCC for InterconnectionScheduleFscc {
+    //fn _control_fscc(&self) -> &ControlFscc {
+        //
+    //}
+//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
+        //
+    //}
+//}
+//impl IsLogicalNodeForControl for InterconnectionScheduleFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for InterconnectionScheduleFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for InterconnectionScheduleFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Interconnection schedule
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -257,8 +293,8 @@ pub struct InterconnectionSchedule {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -269,8 +305,8 @@ pub struct InterconnectionSchedule {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -314,6 +350,22 @@ impl IsInterconnectionSchedule for InterconnectionSchedule {
         self
     }
 }
+//impl IsControlValue for InterconnectionSchedule {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for InterconnectionSchedule {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Planned interconnection schedule profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -322,8 +374,8 @@ pub struct PlannedInterconnectionScheduleProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -331,8 +383,8 @@ pub struct PlannedInterconnectionScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -340,8 +392,8 @@ pub struct PlannedInterconnectionScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -385,6 +437,30 @@ impl IsPlannedInterconnectionScheduleProfile for PlannedInterconnectionScheduleP
         self
     }
 }
+//impl IsControlMessageInfo for PlannedInterconnectionScheduleProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for PlannedInterconnectionScheduleProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for PlannedInterconnectionScheduleProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Requested interconnection schedule profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -393,8 +469,8 @@ pub struct RequestedInterconnectionScheduleProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -402,8 +478,8 @@ pub struct RequestedInterconnectionScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -411,8 +487,8 @@ pub struct RequestedInterconnectionScheduleProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -456,3 +532,27 @@ impl IsRequestedInterconnectionScheduleProfile for RequestedInterconnectionSched
         self
     }
 }
+//impl IsControlMessageInfo for RequestedInterconnectionScheduleProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RequestedInterconnectionScheduleProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RequestedInterconnectionScheduleProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

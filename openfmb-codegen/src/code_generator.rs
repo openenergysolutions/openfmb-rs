@@ -15,8 +15,9 @@ use proto_types::{
 
 use crate::ast::{Comments, Method, Service};
 use crate::extern_paths::ExternPaths;
-use crate::ident::{match_ident, to_snake, to_upper_camel, to_shouty_snake};
+use crate::ident::{match_ident, to_shouty_snake, to_snake, to_upper_camel};
 use crate::message_graph::MessageGraph;
+use crate::message_inheritance::MessageInheritance;
 use crate::Config;
 
 #[derive(PartialEq)]
@@ -32,6 +33,7 @@ pub struct CodeGenerator<'a> {
     syntax: Syntax,
     message_graph: &'a MessageGraph,
     extern_paths: &'a ExternPaths,
+    message_inherits: &'a MessageInheritance,
     depth: u8,
     path: Vec<i32>,
     buf: &'a mut String,
@@ -42,6 +44,7 @@ impl<'a> CodeGenerator<'a> {
         config: &mut Config,
         message_graph: &MessageGraph,
         extern_paths: &ExternPaths,
+        message_inherits: &MessageInheritance,
         file: FileDescriptorProto,
         buf: &mut String,
     ) {
@@ -69,6 +72,7 @@ impl<'a> CodeGenerator<'a> {
             syntax,
             message_graph,
             extern_paths,
+            message_inherits,
             depth: 0,
             path: Vec::new(),
             buf,
@@ -177,7 +181,10 @@ impl<'a> CodeGenerator<'a> {
         self.append_doc();
         if let Some(message_options) = message.options {
             self.push_indent();
-            let comment = format!("/// OpenFMB Profile Message: {}\n", message_options.openfmb_profile.unwrap_or(false));
+            let comment = format!(
+                "/// OpenFMB Profile Message: {}\n",
+                message_options.openfmb_profile.unwrap_or(false)
+            );
             self.buf.push_str(&comment);
         }
         self.push_indent();
@@ -263,6 +270,8 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str("}\n");
 
         // generate a trait type
+        let full_type = format!(".{}.{}", self.package, message_name);
+
         self.push_indent();
         self.buf.push_str("pub trait Is");
         self.buf.push_str(&to_upper_camel(&message_name));
@@ -282,6 +291,7 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str(";\n");
         for (field, _idx) in &fields {
             let ty = self.resolve_type(&field);
+            let copyable = self.copyable(&field);
             let optional = self.optional(&field);
             let repeated = field.label == Some(Label::Repeated as i32);
 
@@ -289,7 +299,10 @@ impl<'a> CodeGenerator<'a> {
             self.push_indent();
             self.buf.push_str("fn ");
             self.buf.push_str(&to_snake(field.name()));
-            self.buf.push_str("(&self) -> &");
+            self.buf.push_str("(&self) -> ");
+            if !copyable {
+                self.buf.push_str("&");
+            }
             if repeated {
                 self.buf.push_str("::std::vec::Vec<");
             }
@@ -300,7 +313,7 @@ impl<'a> CodeGenerator<'a> {
             self.buf.push_str(" {\n");
             self.depth += 1;
             self.push_indent();
-            if !optional {
+            if !optional && !copyable {
                 self.buf.push_str("&");
             }
             self.buf.push_str("self._");
@@ -312,8 +325,9 @@ impl<'a> CodeGenerator<'a> {
                 self.buf.push_str(&to_snake(&message_name));
                 self.buf.push_str("::");
                 self.buf.push_str(&to_shouty_snake(field.name()));
-                self.buf.push_str(")\n");
+                self.buf.push_str(")");
             }
+            self.buf.push_str("\n");
             self.depth -= 1;
             self.push_indent();
             self.buf.push_str("}\n");
@@ -342,8 +356,9 @@ impl<'a> CodeGenerator<'a> {
             self.buf.push_str("().");
             self.buf.push_str(&to_snake(field.name()));
             if optional {
-                self.buf.push_str(".get_or_insert(Default::default())\n");
+                self.buf.push_str(".get_or_insert(Default::default())");
             }
+            self.buf.push_str("\n");
             self.depth -= 1;
             self.push_indent();
             self.buf.push_str("}\n");
@@ -390,6 +405,62 @@ impl<'a> CodeGenerator<'a> {
 
         //TODO generate trait impls for all inherited types
         //must be done until trait specialization exists
+        let mut cur_type = full_type;
+        loop {
+            if let Some(parent_type) = self.message_inherits.parent_typemap.get(&cur_type) {
+                let parent_name = parent_type.split(".").last().unwrap();
+                let trait_name = format!("Is{}", parent_name);
+                self.push_indent();
+                self.buf.push_str("//impl ");
+                self.buf.push_str(&trait_name);
+                self.buf.push_str(" for " );
+                self.buf.push_str(&to_upper_camel(&message_name));
+                self.buf.push_str(" {\n");
+
+                self.depth += 1;
+                self.push_indent();
+
+                //TODO impl accessor
+                self.buf.push_str("//fn _");
+                self.buf.push_str(&to_snake(&parent_name));
+                self.buf.push_str("(&self) -> &");
+                self.buf.push_str(&to_upper_camel(&parent_name));
+                self.buf.push_str(" {\n");
+
+                self.depth += 1;
+                self.push_indent();
+
+                self.buf.push_str("//\n");
+
+                self.depth -= 1;
+                self.push_indent();
+                self.buf.push_str("//}\n");
+
+                //TODO impl mutator
+                self.buf.push_str("//fn _mut_");
+                self.buf.push_str(&to_snake(&parent_name));
+                self.buf.push_str("(&mut self) -> &mut ");
+                self.buf.push_str(&to_upper_camel(&parent_name));
+                self.buf.push_str(" {\n");
+
+                self.depth += 1;
+                self.push_indent();
+
+                self.buf.push_str("//\n");
+
+                self.depth -= 1;
+                self.push_indent();
+                self.buf.push_str("//}\n");
+
+                self.depth -= 1;
+                self.buf.push_str("//}\n");
+
+                // look for the next parent type to impl in the chain
+                cur_type = parent_type.to_string();
+            } else {
+                break;
+            }
+        }
 
         if !message.enum_type.is_empty() || !nested_types.is_empty() || !oneof_fields.is_empty() {
             self.push_mod(&message_name);
@@ -477,17 +548,35 @@ impl<'a> CodeGenerator<'a> {
             );
 
             self.push_indent();
-            self.buf.push_str(&format!("// parent_message: {:?}\n", field_options.parent_message.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// parent_message: {:?}\n",
+                field_options.parent_message.unwrap_or_default()
+            ));
             self.push_indent();
-            self.buf.push_str(&format!("// required_field: {:?}\n", field_options.required_field.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// required_field: {:?}\n",
+                field_options.required_field.unwrap_or_default()
+            ));
             self.push_indent();
-            self.buf.push_str(&format!("// multiplicity_min: {:?}\n", field_options.multiplicity_min.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// multiplicity_min: {:?}\n",
+                field_options.multiplicity_min
+            ));
             self.push_indent();
-            self.buf.push_str(&format!("// multiplicity_max: {:?}\n", field_options.multiplicity_max.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// multiplicity_max: {:?}\n",
+                field_options.multiplicity_max
+            ));
             self.push_indent();
-            self.buf.push_str(&format!("// uuid: {:?}\n", field_options.uuid.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// uuid: {:?}\n",
+                field_options.uuid.unwrap_or_default()
+            ));
             self.push_indent();
-            self.buf.push_str(&format!("// key: {:?}\n", field_options.key.unwrap_or_default()));
+            self.buf.push_str(&format!(
+                "// key: {:?}\n",
+                field_options.key.unwrap_or_default()
+            ));
         }
         self.push_indent();
         self.buf.push_str("#[prost(");
@@ -899,6 +988,26 @@ impl<'a> CodeGenerator<'a> {
         self.buf.push_str("}\n");
     }
 
+    fn copyable(&self, field: &FieldDescriptorProto) -> bool {
+        match field.r#type() {
+            Type::Float
+            | Type::Double
+            | Type::Uint32
+            | Type::Fixed32
+            | Type::Uint64
+            | Type::Fixed64
+            | Type::Int32
+            | Type::Sfixed32
+            | Type::Sint32
+            | Type::Enum
+            | Type::Int64
+            | Type::Sfixed64
+            | Type::Sint64
+            | Type::Bool => true,
+            _ => false,
+        }
+    }
+
     fn resolve_type(&self, field: &FieldDescriptorProto) -> String {
         match field.r#type() {
             Type::Float => String::from("f32"),
@@ -913,7 +1022,6 @@ impl<'a> CodeGenerator<'a> {
             Type::Group | Type::Message => self.resolve_ident(field.type_name()),
         }
     }
-
 
     fn resolve_ident(&self, pb_ident: &str) -> String {
         // protoc should always give fully qualified identifiers.
@@ -984,7 +1092,6 @@ impl<'a> CodeGenerator<'a> {
             .chain(iter::once(to_upper_camel(ident_type)))
             .join("::")
     }
-
 
     fn field_type_tag(&self, field: &FieldDescriptorProto) -> Cow<'static, str> {
         match field.r#type() {

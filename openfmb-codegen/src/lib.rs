@@ -109,6 +109,7 @@ mod code_generator;
 mod extern_paths;
 mod ident;
 mod message_graph;
+mod message_inheritance;
 
 use std::collections::HashMap;
 use std::default;
@@ -127,6 +128,7 @@ use crate::code_generator::CodeGenerator;
 use crate::extern_paths::ExternPaths;
 use crate::ident::to_snake;
 use crate::message_graph::MessageGraph;
+use crate::message_inheritance::message_inheritance;
 
 type Module = Vec<String>;
 
@@ -581,6 +583,10 @@ impl Config {
         let extern_paths = ExternPaths::new(&self.extern_paths, self.prost_types)
             .map_err(|error| Error::new(ErrorKind::InvalidInput, error))?;
 
+        let message_inherits = message_inheritance(&extern_paths, &files);
+
+        trace!("Message parent mapping {:?}", message_inherits);
+
         for file in files {
             let module = self.module(&file);
 
@@ -590,7 +596,14 @@ impl Config {
             }
 
             let mut buf = modules.entry(module).or_insert_with(String::new);
-            CodeGenerator::generate(self, &message_graph, &extern_paths, file, &mut buf);
+            CodeGenerator::generate(
+                self,
+                &message_graph,
+                &extern_paths,
+                &message_inherits,
+                file,
+                &mut buf,
+            );
         }
 
         if let Some(ref mut service_generator) = self.service_generator {

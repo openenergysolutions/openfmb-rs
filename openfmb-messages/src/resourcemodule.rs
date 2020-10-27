@@ -5,8 +5,8 @@ pub struct ResourceReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -66,6 +66,14 @@ impl IsResourceReading for ResourceReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for ResourceReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Resource reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -74,8 +82,8 @@ pub struct ResourceReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -83,8 +91,8 @@ pub struct ResourceReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -92,8 +100,8 @@ pub struct ResourceReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -101,8 +109,8 @@ pub struct ResourceReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -153,6 +161,30 @@ impl IsResourceReadingProfile for ResourceReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for ResourceReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for ResourceReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ResourceReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Current status information relevant to an entity.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -160,8 +192,8 @@ pub struct ResourceStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -169,8 +201,8 @@ pub struct ResourceStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: Some(0)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
@@ -178,8 +210,8 @@ pub struct ResourceStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: Some(0)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
@@ -187,8 +219,8 @@ pub struct ResourceStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: Some(0)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
@@ -196,8 +228,8 @@ pub struct ResourceStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: Some(0)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="5")]
@@ -219,21 +251,29 @@ pub trait IsResourceStatus {
         self._resource_status_mut().status_value.get_or_insert(Default::default())
     }
     fn analog_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::AnalogStatusGgio> {
-        &self._resource_status().analog_status_ggio    }
+        &self._resource_status().analog_status_ggio
+    }
     fn analog_status_ggio_mut(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::AnalogStatusGgio> {
-        &mut self._resource_status_mut().analog_status_ggio    }
+        &mut self._resource_status_mut().analog_status_ggio
+    }
     fn boolean_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::BooleanStatusGgio> {
-        &self._resource_status().boolean_status_ggio    }
+        &self._resource_status().boolean_status_ggio
+    }
     fn boolean_status_ggio_mut(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::BooleanStatusGgio> {
-        &mut self._resource_status_mut().boolean_status_ggio    }
+        &mut self._resource_status_mut().boolean_status_ggio
+    }
     fn integer_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::IntegerStatusGgio> {
-        &self._resource_status().integer_status_ggio    }
+        &self._resource_status().integer_status_ggio
+    }
     fn integer_status_ggio_mut(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::IntegerStatusGgio> {
-        &mut self._resource_status_mut().integer_status_ggio    }
+        &mut self._resource_status_mut().integer_status_ggio
+    }
     fn string_status_ggio(&self) -> &::std::vec::Vec<super::commonmodule::StringStatusGgio> {
-        &self._resource_status().string_status_ggio    }
+        &self._resource_status().string_status_ggio
+    }
     fn string_status_ggio_mut(&mut self) -> &mut ::std::vec::Vec<super::commonmodule::StringStatusGgio> {
-        &mut self._resource_status_mut().string_status_ggio    }
+        &mut self._resource_status_mut().string_status_ggio
+    }
 }
 impl IsResourceStatus for ResourceStatus {
     fn _resource_status(&self) -> &ResourceStatus {
@@ -243,6 +283,22 @@ impl IsResourceStatus for ResourceStatus {
         self
     }
 }
+//impl IsStatusValue for ResourceStatus {
+    //fn _status_value(&self) -> &StatusValue {
+        //
+    //}
+//fn _mut_status_value(&mut self) -> &mut StatusValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ResourceStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Resource status module
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -251,8 +307,8 @@ pub struct ResourceStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -260,8 +316,8 @@ pub struct ResourceStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -269,8 +325,8 @@ pub struct ResourceStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -278,8 +334,8 @@ pub struct ResourceStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -330,3 +386,27 @@ impl IsResourceStatusProfile for ResourceStatusProfile {
         self
     }
 }
+//impl IsStatusMessageInfo for ResourceStatusProfile {
+    //fn _status_message_info(&self) -> &StatusMessageInfo {
+        //
+    //}
+//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for ResourceStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ResourceStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

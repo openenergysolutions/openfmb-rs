@@ -41,8 +41,8 @@ pub struct GenerationPoint {
     /// Start time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="13")]
@@ -163,8 +163,8 @@ pub struct GenerationCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -179,9 +179,11 @@ pub trait IsGenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg;
     fn _generation_csg_mut(&mut self) -> &mut GenerationCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<GenerationPoint> {
-        &self._generation_csg().crv_pts    }
+        &self._generation_csg().crv_pts
+    }
     fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<GenerationPoint> {
-        &mut self._generation_csg_mut().crv_pts    }
+        &mut self._generation_csg_mut().crv_pts
+    }
 }
 impl IsGenerationCsg for GenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg {
@@ -198,8 +200,8 @@ pub struct GenerationControlScheduleFsch {
     /// Discrete value in GenerationCSG type
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -236,8 +238,8 @@ pub struct GenerationControlFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -277,6 +279,38 @@ impl IsGenerationControlFscc for GenerationControlFscc {
         self
     }
 }
+//impl IsControlFSCC for GenerationControlFscc {
+    //fn _control_fscc(&self) -> &ControlFscc {
+        //
+    //}
+//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
+        //
+    //}
+//}
+//impl IsLogicalNodeForControl for GenerationControlFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for GenerationControlFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationControlFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -284,8 +318,8 @@ pub struct GenerationControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -296,8 +330,8 @@ pub struct GenerationControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -341,6 +375,22 @@ impl IsGenerationControl for GenerationControl {
         self
     }
 }
+//impl IsControlValue for GenerationControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// A single or set of synchronous machines for converting mechanical power into alternating-current
 /// power. For example, individual machines within a set may be defined for scheduling purposes while a
 /// single control signal is derived for the set. In this case there would be a GeneratingUnit for each
@@ -351,8 +401,8 @@ pub struct GeneratingUnit {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -392,6 +442,22 @@ impl IsGeneratingUnit for GeneratingUnit {
         self
     }
 }
+//impl IsConductingEquipment for GeneratingUnit {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for GeneratingUnit {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Generation control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -400,8 +466,8 @@ pub struct GenerationControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -409,8 +475,8 @@ pub struct GenerationControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -418,8 +484,8 @@ pub struct GenerationControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -427,8 +493,8 @@ pub struct GenerationControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -479,6 +545,30 @@ impl IsGenerationControlProfile for GenerationControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for GenerationControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for GenerationControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -486,8 +576,8 @@ pub struct GenerationReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -547,6 +637,14 @@ impl IsGenerationReading for GenerationReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for GenerationReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Generation reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -555,8 +653,8 @@ pub struct GenerationReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -564,8 +662,8 @@ pub struct GenerationReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -573,8 +671,8 @@ pub struct GenerationReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -582,8 +680,8 @@ pub struct GenerationReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -634,6 +732,30 @@ impl IsGenerationReadingProfile for GenerationReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for GenerationReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for GenerationReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -773,8 +895,8 @@ pub struct GenerationEventAndStatusZgen {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -854,6 +976,30 @@ impl IsGenerationEventAndStatusZgen for GenerationEventAndStatusZgen {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for GenerationEventAndStatusZgen {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for GenerationEventAndStatusZgen {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationEventAndStatusZgen {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized generation event ZGEN
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -861,8 +1007,8 @@ pub struct GenerationEventZgen {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -892,6 +1038,38 @@ impl IsGenerationEventZgen for GenerationEventZgen {
         self
     }
 }
+//impl IsGenerationEventAndStatusZGEN for GenerationEventZgen {
+    //fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
+        //
+    //}
+//fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
+        //
+    //}
+//}
+//impl IsLogicalNodeForEventAndStatus for GenerationEventZgen {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for GenerationEventZgen {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationEventZgen {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -899,8 +1077,8 @@ pub struct GenerationEvent {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -908,8 +1086,8 @@ pub struct GenerationEvent {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -946,6 +1124,22 @@ impl IsGenerationEvent for GenerationEvent {
         self
     }
 }
+//impl IsEventValue for GenerationEvent {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationEvent {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -954,8 +1148,8 @@ pub struct GenerationEventProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -963,8 +1157,8 @@ pub struct GenerationEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -972,8 +1166,8 @@ pub struct GenerationEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -981,8 +1175,8 @@ pub struct GenerationEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -1033,6 +1227,30 @@ impl IsGenerationEventProfile for GenerationEventProfile {
         self
     }
 }
+//impl IsEventMessageInfo for GenerationEventProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for GenerationEventProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationEventProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 ZGEN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1040,8 +1258,8 @@ pub struct GenerationStatusZgen {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1071,6 +1289,38 @@ impl IsGenerationStatusZgen for GenerationStatusZgen {
         self
     }
 }
+//impl IsGenerationEventAndStatusZGEN for GenerationStatusZgen {
+    //fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
+        //
+    //}
+//fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
+        //
+    //}
+//}
+//impl IsLogicalNodeForEventAndStatus for GenerationStatusZgen {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for GenerationStatusZgen {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationStatusZgen {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1078,8 +1328,8 @@ pub struct GenerationStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1087,8 +1337,8 @@ pub struct GenerationStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1125,6 +1375,22 @@ impl IsGenerationStatus for GenerationStatus {
         self
     }
 }
+//impl IsStatusValue for GenerationStatus {
+    //fn _status_value(&self) -> &StatusValue {
+        //
+    //}
+//fn _mut_status_value(&mut self) -> &mut StatusValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generation status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1133,8 +1399,8 @@ pub struct GenerationStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1142,8 +1408,8 @@ pub struct GenerationStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1151,8 +1417,8 @@ pub struct GenerationStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -1160,8 +1426,8 @@ pub struct GenerationStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -1212,3 +1478,27 @@ impl IsGenerationStatusProfile for GenerationStatusProfile {
         self
     }
 }
+//impl IsStatusMessageInfo for GenerationStatusProfile {
+    //fn _status_message_info(&self) -> &StatusMessageInfo {
+        //
+    //}
+//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for GenerationStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

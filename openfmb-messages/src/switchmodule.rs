@@ -5,8 +5,8 @@ pub struct SwitchDiscreteControlXswi {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -46,6 +46,30 @@ impl IsSwitchDiscreteControlXswi for SwitchDiscreteControlXswi {
         self
     }
 }
+//impl IsLogicalNodeForControl for SwitchDiscreteControlXswi {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for SwitchDiscreteControlXswi {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchDiscreteControlXswi {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -53,8 +77,8 @@ pub struct SwitchDiscreteControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -65,8 +89,8 @@ pub struct SwitchDiscreteControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -110,6 +134,22 @@ impl IsSwitchDiscreteControl for SwitchDiscreteControl {
         self
     }
 }
+//impl IsControlValue for SwitchDiscreteControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchDiscreteControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -117,8 +157,8 @@ pub struct ProtectedSwitch {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -148,6 +188,22 @@ impl IsProtectedSwitch for ProtectedSwitch {
         self
     }
 }
+//impl IsConductingEquipment for ProtectedSwitch {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for ProtectedSwitch {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Switch control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -156,8 +212,8 @@ pub struct SwitchDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -165,8 +221,8 @@ pub struct SwitchDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -174,8 +230,8 @@ pub struct SwitchDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -183,8 +239,8 @@ pub struct SwitchDiscreteControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -235,6 +291,30 @@ impl IsSwitchDiscreteControlProfile for SwitchDiscreteControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for SwitchDiscreteControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for SwitchDiscreteControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchDiscreteControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// OpenFMB specialization for SwitchEventProfile
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -242,8 +322,8 @@ pub struct SwitchEventXswi {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -254,8 +334,8 @@ pub struct SwitchEventXswi {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -299,6 +379,30 @@ impl IsSwitchEventXswi for SwitchEventXswi {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for SwitchEventXswi {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for SwitchEventXswi {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchEventXswi {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -306,8 +410,8 @@ pub struct SwitchEvent {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -315,8 +419,8 @@ pub struct SwitchEvent {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -353,6 +457,22 @@ impl IsSwitchEvent for SwitchEvent {
         self
     }
 }
+//impl IsEventValue for SwitchEvent {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchEvent {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -361,8 +481,8 @@ pub struct SwitchEventProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -370,8 +490,8 @@ pub struct SwitchEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -379,8 +499,8 @@ pub struct SwitchEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -388,8 +508,8 @@ pub struct SwitchEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -440,6 +560,30 @@ impl IsSwitchEventProfile for SwitchEventProfile {
         self
     }
 }
+//impl IsEventMessageInfo for SwitchEventProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for SwitchEventProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchEventProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -447,8 +591,8 @@ pub struct SwitchReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -518,6 +662,14 @@ impl IsSwitchReading for SwitchReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for SwitchReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Switch reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -526,8 +678,8 @@ pub struct SwitchReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -535,8 +687,8 @@ pub struct SwitchReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -544,8 +696,8 @@ pub struct SwitchReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -553,8 +705,8 @@ pub struct SwitchReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 2
+    // multiplicity_min: Some(1)
+    // multiplicity_max: Some(2)
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
@@ -590,9 +742,11 @@ pub trait IsSwitchReadingProfile {
         self._switch_reading_profile_mut().protected_switch.get_or_insert(Default::default())
     }
     fn switch_reading(&self) -> &::std::vec::Vec<SwitchReading> {
-        &self._switch_reading_profile().switch_reading    }
+        &self._switch_reading_profile().switch_reading
+    }
     fn switch_reading_mut(&mut self) -> &mut ::std::vec::Vec<SwitchReading> {
-        &mut self._switch_reading_profile_mut().switch_reading    }
+        &mut self._switch_reading_profile_mut().switch_reading
+    }
 }
 impl IsSwitchReadingProfile for SwitchReadingProfile {
     fn _switch_reading_profile(&self) -> &SwitchReadingProfile {
@@ -602,6 +756,30 @@ impl IsSwitchReadingProfile for SwitchReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for SwitchReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for SwitchReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// OpenFMB specialization for SwitchStatusProfile
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -609,8 +787,8 @@ pub struct SwitchStatusXswi {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -621,8 +799,8 @@ pub struct SwitchStatusXswi {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -666,6 +844,30 @@ impl IsSwitchStatusXswi for SwitchStatusXswi {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for SwitchStatusXswi {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for SwitchStatusXswi {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchStatusXswi {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -673,8 +875,8 @@ pub struct SwitchStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -682,8 +884,8 @@ pub struct SwitchStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -720,6 +922,22 @@ impl IsSwitchStatus for SwitchStatus {
         self
     }
 }
+//impl IsStatusValue for SwitchStatus {
+    //fn _status_value(&self) -> &StatusValue {
+        //
+    //}
+//fn _mut_status_value(&mut self) -> &mut StatusValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -728,8 +946,8 @@ pub struct SwitchStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -737,8 +955,8 @@ pub struct SwitchStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -746,8 +964,8 @@ pub struct SwitchStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -755,8 +973,8 @@ pub struct SwitchStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -807,6 +1025,30 @@ impl IsSwitchStatusProfile for SwitchStatusProfile {
         self
     }
 }
+//impl IsStatusMessageInfo for SwitchStatusProfile {
+    //fn _status_message_info(&self) -> &StatusMessageInfo {
+        //
+    //}
+//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for SwitchStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -814,8 +1056,8 @@ pub struct SwitchControlFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -855,6 +1097,30 @@ impl IsSwitchControlFscc for SwitchControlFscc {
         self
     }
 }
+//impl IsLogicalNodeForControl for SwitchControlFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for SwitchControlFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchControlFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -862,8 +1128,8 @@ pub struct SwitchControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -874,8 +1140,8 @@ pub struct SwitchControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -919,6 +1185,22 @@ impl IsSwitchControl for SwitchControl {
         self
     }
 }
+//impl IsControlValue for SwitchControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Switch control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -927,8 +1209,8 @@ pub struct SwitchControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -936,8 +1218,8 @@ pub struct SwitchControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -945,8 +1227,8 @@ pub struct SwitchControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -954,8 +1236,8 @@ pub struct SwitchControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -1006,3 +1288,27 @@ impl IsSwitchControlProfile for SwitchControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for SwitchControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for SwitchControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for SwitchControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

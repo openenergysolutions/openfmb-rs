@@ -20,8 +20,8 @@ pub struct LoadPoint {
     /// Start time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="6")]
@@ -93,8 +93,8 @@ pub struct LoadCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -109,9 +109,11 @@ pub trait IsLoadCsg {
     fn _load_csg(&self) -> &LoadCsg;
     fn _load_csg_mut(&mut self) -> &mut LoadCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<LoadPoint> {
-        &self._load_csg().crv_pts    }
+        &self._load_csg().crv_pts
+    }
     fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<LoadPoint> {
-        &mut self._load_csg_mut().crv_pts    }
+        &mut self._load_csg_mut().crv_pts
+    }
 }
 impl IsLoadCsg for LoadCsg {
     fn _load_csg(&self) -> &LoadCsg {
@@ -128,8 +130,8 @@ pub struct LoadControlScheduleFsch {
     /// Discrete value in LoadCSG type
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -166,8 +168,8 @@ pub struct LoadControlFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -207,6 +209,38 @@ impl IsLoadControlFscc for LoadControlFscc {
         self
     }
 }
+//impl IsControlFSCC for LoadControlFscc {
+    //fn _control_fscc(&self) -> &ControlFscc {
+        //
+    //}
+//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
+        //
+    //}
+//}
+//impl IsLogicalNodeForControl for LoadControlFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for LoadControlFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadControlFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -214,8 +248,8 @@ pub struct LoadControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -226,8 +260,8 @@ pub struct LoadControl {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -271,6 +305,22 @@ impl IsLoadControl for LoadControl {
         self
     }
 }
+//impl IsControlValue for LoadControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -279,8 +329,8 @@ pub struct LoadControlProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -288,8 +338,8 @@ pub struct LoadControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -297,8 +347,8 @@ pub struct LoadControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -306,8 +356,8 @@ pub struct LoadControlProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -358,6 +408,30 @@ impl IsLoadControlProfile for LoadControlProfile {
         self
     }
 }
+//impl IsControlMessageInfo for LoadControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for LoadControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -437,8 +511,8 @@ pub struct LoadEventAndStatusZgld {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -498,6 +572,30 @@ impl IsLoadEventAndStatusZgld for LoadEventAndStatusZgld {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for LoadEventAndStatusZgld {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for LoadEventAndStatusZgld {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadEventAndStatusZgld {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 ZGLD LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -505,8 +603,8 @@ pub struct LoadEventZgld {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -536,6 +634,38 @@ impl IsLoadEventZgld for LoadEventZgld {
         self
     }
 }
+//impl IsLoadEventAndStatusZGLD for LoadEventZgld {
+    //fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
+        //
+    //}
+//fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
+        //
+    //}
+//}
+//impl IsLogicalNodeForEventAndStatus for LoadEventZgld {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for LoadEventZgld {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadEventZgld {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -543,8 +673,8 @@ pub struct LoadEvent {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -552,8 +682,8 @@ pub struct LoadEvent {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -590,6 +720,22 @@ impl IsLoadEvent for LoadEvent {
         self
     }
 }
+//impl IsEventValue for LoadEvent {
+    //fn _event_value(&self) -> &EventValue {
+        //
+    //}
+//fn _mut_event_value(&mut self) -> &mut EventValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadEvent {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -598,8 +744,8 @@ pub struct LoadEventProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -607,8 +753,8 @@ pub struct LoadEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -616,8 +762,8 @@ pub struct LoadEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -625,8 +771,8 @@ pub struct LoadEventProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -677,6 +823,30 @@ impl IsLoadEventProfile for LoadEventProfile {
         self
     }
 }
+//impl IsEventMessageInfo for LoadEventProfile {
+    //fn _event_message_info(&self) -> &EventMessageInfo {
+        //
+    //}
+//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for LoadEventProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadEventProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -684,8 +854,8 @@ pub struct LoadReading {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -745,6 +915,14 @@ impl IsLoadReading for LoadReading {
         self
     }
 }
+//impl IsConductingEquipmentTerminalReading for LoadReading {
+    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
+        //
+    //}
+//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        //
+    //}
+//}
 /// Load reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -753,8 +931,8 @@ pub struct LoadReadingProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -762,8 +940,8 @@ pub struct LoadReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -771,8 +949,8 @@ pub struct LoadReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -780,8 +958,8 @@ pub struct LoadReadingProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -832,6 +1010,30 @@ impl IsLoadReadingProfile for LoadReadingProfile {
         self
     }
 }
+//impl IsReadingMessageInfo for LoadReadingProfile {
+    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
+        //
+    //}
+//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for LoadReadingProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadReadingProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 ZGLD LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -839,8 +1041,8 @@ pub struct LoadStatusZgld {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -870,6 +1072,38 @@ impl IsLoadStatusZgld for LoadStatusZgld {
         self
     }
 }
+//impl IsLoadEventAndStatusZGLD for LoadStatusZgld {
+    //fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
+        //
+    //}
+//fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
+        //
+    //}
+//}
+//impl IsLogicalNodeForEventAndStatus for LoadStatusZgld {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for LoadStatusZgld {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadStatusZgld {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -877,8 +1111,8 @@ pub struct LoadStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -886,8 +1120,8 @@ pub struct LoadStatus {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -924,6 +1158,22 @@ impl IsLoadStatus for LoadStatus {
         self
     }
 }
+//impl IsStatusValue for LoadStatus {
+    //fn _status_value(&self) -> &StatusValue {
+        //
+    //}
+//fn _mut_status_value(&mut self) -> &mut StatusValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Load status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -932,8 +1182,8 @@ pub struct LoadStatusProfile {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -941,8 +1191,8 @@ pub struct LoadStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -950,8 +1200,8 @@ pub struct LoadStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -959,8 +1209,8 @@ pub struct LoadStatusProfile {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
@@ -1011,3 +1261,27 @@ impl IsLoadStatusProfile for LoadStatusProfile {
         self
     }
 }
+//impl IsStatusMessageInfo for LoadStatusProfile {
+    //fn _status_message_info(&self) -> &StatusMessageInfo {
+        //
+    //}
+//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for LoadStatusProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LoadStatusProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}

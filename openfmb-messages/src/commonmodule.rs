@@ -10,8 +10,8 @@ pub struct IdentifiedObject {
     /// specified in RFC 4122. The mRID is globally unique.
     // parent_message: false
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: true
     // key: false
     #[prost(message, optional, tag="2")]
@@ -66,8 +66,8 @@ pub struct AcdcTerminal {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -125,6 +125,14 @@ impl IsAcdcTerminal for AcdcTerminal {
         self
     }
 }
+//impl IsIdentifiedObject for AcdcTerminal {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitSymbolKind {
@@ -139,10 +147,12 @@ mod optional_unit_symbol_kind {
 pub trait IsOptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind;
     fn _optional_unit_symbol_kind_mut(&mut self) -> &mut OptionalUnitSymbolKind;
-    fn value(&self) -> &i32 {
-        &self._optional_unit_symbol_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_unit_symbol_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_unit_symbol_kind_mut().value    }
+        &mut self._optional_unit_symbol_kind_mut().value
+    }
 }
 impl IsOptionalUnitSymbolKind for OptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind {
@@ -166,10 +176,12 @@ mod optional_unit_multiplier_kind {
 pub trait IsOptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind;
     fn _optional_unit_multiplier_kind_mut(&mut self) -> &mut OptionalUnitMultiplierKind;
-    fn value(&self) -> &i32 {
-        &self._optional_unit_multiplier_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_unit_multiplier_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_unit_multiplier_kind_mut().value    }
+        &mut self._optional_unit_multiplier_kind_mut().value
+    }
 }
 impl IsOptionalUnitMultiplierKind for OptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind {
@@ -245,10 +257,12 @@ mod optional_phase_code_kind {
 pub trait IsOptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind;
     fn _optional_phase_code_kind_mut(&mut self) -> &mut OptionalPhaseCodeKind;
-    fn value(&self) -> &i32 {
-        &self._optional_phase_code_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_phase_code_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_phase_code_kind_mut().value    }
+        &mut self._optional_phase_code_kind_mut().value
+    }
 }
 impl IsOptionalPhaseCodeKind for OptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind {
@@ -317,10 +331,12 @@ mod optional_validity_kind {
 pub trait IsOptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind;
     fn _optional_validity_kind_mut(&mut self) -> &mut OptionalValidityKind;
-    fn value(&self) -> &i32 {
-        &self._optional_validity_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_validity_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_validity_kind_mut().value    }
+        &mut self._optional_validity_kind_mut().value
+    }
 }
 impl IsOptionalValidityKind for OptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind {
@@ -339,8 +355,8 @@ pub struct DetailQual {
     /// measurand information and binary counter information only).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
@@ -348,8 +364,8 @@ pub struct DetailQual {
     /// (default=false) If true, a supervision function has detected an internal or external failure.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
@@ -358,8 +374,8 @@ pub struct DetailQual {
     /// measured value of power factor may be noisy (inaccurate) when the current is very small.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="3")]
@@ -367,8 +383,8 @@ pub struct DetailQual {
     /// (default=false) If true, an evaluation function has detected an inconsistency.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="4")]
@@ -379,8 +395,8 @@ pub struct DetailQual {
     /// setting this flag to true. In this case, the last received information was correct.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="5")]
@@ -398,8 +414,8 @@ pub struct DetailQual {
     /// information only).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="6")]
@@ -412,8 +428,8 @@ pub struct DetailQual {
     /// 535 it is considered to be out of range.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="7")]
@@ -424,8 +440,8 @@ pub struct DetailQual {
     /// the data type is a 16-bit unsigned integer and the value exceeds 65 535.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="8")]
@@ -439,38 +455,54 @@ mod detail_qual {
 pub trait IsDetailQual {
     fn _detail_qual(&self) -> &DetailQual;
     fn _detail_qual_mut(&mut self) -> &mut DetailQual;
-    fn bad_reference(&self) -> &bool {
-        &self._detail_qual().bad_reference    }
+    fn bad_reference(&self) -> bool {
+        self._detail_qual().bad_reference
+    }
     fn bad_reference_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().bad_reference    }
-    fn failure(&self) -> &bool {
-        &self._detail_qual().failure    }
+        &mut self._detail_qual_mut().bad_reference
+    }
+    fn failure(&self) -> bool {
+        self._detail_qual().failure
+    }
     fn failure_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().failure    }
-    fn inaccurate(&self) -> &bool {
-        &self._detail_qual().inaccurate    }
+        &mut self._detail_qual_mut().failure
+    }
+    fn inaccurate(&self) -> bool {
+        self._detail_qual().inaccurate
+    }
     fn inaccurate_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().inaccurate    }
-    fn inconsistent(&self) -> &bool {
-        &self._detail_qual().inconsistent    }
+        &mut self._detail_qual_mut().inaccurate
+    }
+    fn inconsistent(&self) -> bool {
+        self._detail_qual().inconsistent
+    }
     fn inconsistent_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().inconsistent    }
-    fn old_data(&self) -> &bool {
-        &self._detail_qual().old_data    }
+        &mut self._detail_qual_mut().inconsistent
+    }
+    fn old_data(&self) -> bool {
+        self._detail_qual().old_data
+    }
     fn old_data_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().old_data    }
-    fn oscillatory(&self) -> &bool {
-        &self._detail_qual().oscillatory    }
+        &mut self._detail_qual_mut().old_data
+    }
+    fn oscillatory(&self) -> bool {
+        self._detail_qual().oscillatory
+    }
     fn oscillatory_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().oscillatory    }
-    fn out_of_range(&self) -> &bool {
-        &self._detail_qual().out_of_range    }
+        &mut self._detail_qual_mut().oscillatory
+    }
+    fn out_of_range(&self) -> bool {
+        self._detail_qual().out_of_range
+    }
     fn out_of_range_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().out_of_range    }
-    fn overflow(&self) -> &bool {
-        &self._detail_qual().overflow    }
+        &mut self._detail_qual_mut().out_of_range
+    }
+    fn overflow(&self) -> bool {
+        self._detail_qual().overflow
+    }
     fn overflow_mut(&mut self) -> &mut bool {
-        &mut self._detail_qual_mut().overflow    }
+        &mut self._detail_qual_mut().overflow
+    }
 }
 impl IsDetailQual for DetailQual {
     fn _detail_qual(&self) -> &DetailQual {
@@ -494,10 +526,12 @@ mod optional_source_kind {
 pub trait IsOptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind;
     fn _optional_source_kind_mut(&mut self) -> &mut OptionalSourceKind;
-    fn value(&self) -> &i32 {
-        &self._optional_source_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_source_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_source_kind_mut().value    }
+        &mut self._optional_source_kind_mut().value
+    }
 }
 impl IsOptionalSourceKind for OptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind {
@@ -518,8 +552,8 @@ pub struct Quality {
     /// Describes some reasons in case 'validity' is not 'good'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -533,8 +567,8 @@ pub struct Quality {
     /// is required to clear the condition.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
@@ -546,8 +580,8 @@ pub struct Quality {
     /// However, this is a local issue and therefore not within the scope of this standard.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="SourceKind", tag="3")]
@@ -557,8 +591,8 @@ pub struct Quality {
     /// other bits within the quality descriptor.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="4")]
@@ -567,8 +601,8 @@ pub struct Quality {
     /// 'good', some reasons may be found in the 'detailQual'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="ValidityKind", tag="5")]
@@ -589,22 +623,30 @@ pub trait IsQuality {
     fn detail_qual_mut(&mut self) -> &mut DetailQual {
         self._quality_mut().detail_qual.get_or_insert(Default::default())
     }
-    fn operator_blocked(&self) -> &bool {
-        &self._quality().operator_blocked    }
+    fn operator_blocked(&self) -> bool {
+        self._quality().operator_blocked
+    }
     fn operator_blocked_mut(&mut self) -> &mut bool {
-        &mut self._quality_mut().operator_blocked    }
-    fn source(&self) -> &i32 {
-        &self._quality().source    }
+        &mut self._quality_mut().operator_blocked
+    }
+    fn source(&self) -> i32 {
+        self._quality().source
+    }
     fn source_mut(&mut self) -> &mut i32 {
-        &mut self._quality_mut().source    }
-    fn test(&self) -> &bool {
-        &self._quality().test    }
+        &mut self._quality_mut().source
+    }
+    fn test(&self) -> bool {
+        self._quality().test
+    }
     fn test_mut(&mut self) -> &mut bool {
-        &mut self._quality_mut().test    }
-    fn validity(&self) -> &i32 {
-        &self._quality().validity    }
+        &mut self._quality_mut().test
+    }
+    fn validity(&self) -> i32 {
+        self._quality().validity
+    }
     fn validity_mut(&mut self) -> &mut i32 {
-        &mut self._quality_mut().validity    }
+        &mut self._quality_mut().validity
+    }
 }
 impl IsQuality for Quality {
     fn _quality(&self) -> &Quality {
@@ -628,10 +670,12 @@ mod optional_time_accuracy_kind {
 pub trait IsOptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind;
     fn _optional_time_accuracy_kind_mut(&mut self) -> &mut OptionalTimeAccuracyKind;
-    fn value(&self) -> &i32 {
-        &self._optional_time_accuracy_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_time_accuracy_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_time_accuracy_kind_mut().value    }
+        &mut self._optional_time_accuracy_kind_mut().value
+    }
 }
 impl IsOptionalTimeAccuracyKind for OptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind {
@@ -649,8 +693,8 @@ pub struct TimeQuality {
     /// shall be ignored.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
@@ -658,8 +702,8 @@ pub struct TimeQuality {
     /// If true, the time source of the sending device is not synchronised with the external UTC time.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
@@ -671,8 +715,8 @@ pub struct TimeQuality {
     /// used and accessible, this value should always be true.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="3")]
@@ -680,8 +724,8 @@ pub struct TimeQuality {
     /// Information about the quality of the time source of the sending IED.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="TimeAccuracyKind", tag="4")]
@@ -695,22 +739,30 @@ mod time_quality {
 pub trait IsTimeQuality {
     fn _time_quality(&self) -> &TimeQuality;
     fn _time_quality_mut(&mut self) -> &mut TimeQuality;
-    fn clock_failure(&self) -> &bool {
-        &self._time_quality().clock_failure    }
+    fn clock_failure(&self) -> bool {
+        self._time_quality().clock_failure
+    }
     fn clock_failure_mut(&mut self) -> &mut bool {
-        &mut self._time_quality_mut().clock_failure    }
-    fn clock_not_synchronized(&self) -> &bool {
-        &self._time_quality().clock_not_synchronized    }
+        &mut self._time_quality_mut().clock_failure
+    }
+    fn clock_not_synchronized(&self) -> bool {
+        self._time_quality().clock_not_synchronized
+    }
     fn clock_not_synchronized_mut(&mut self) -> &mut bool {
-        &mut self._time_quality_mut().clock_not_synchronized    }
-    fn leap_seconds_known(&self) -> &bool {
-        &self._time_quality().leap_seconds_known    }
+        &mut self._time_quality_mut().clock_not_synchronized
+    }
+    fn leap_seconds_known(&self) -> bool {
+        self._time_quality().leap_seconds_known
+    }
     fn leap_seconds_known_mut(&mut self) -> &mut bool {
-        &mut self._time_quality_mut().leap_seconds_known    }
-    fn time_accuracy(&self) -> &i32 {
-        &self._time_quality().time_accuracy    }
+        &mut self._time_quality_mut().leap_seconds_known
+    }
+    fn time_accuracy(&self) -> i32 {
+        self._time_quality().time_accuracy
+    }
     fn time_accuracy_mut(&mut self) -> &mut i32 {
-        &mut self._time_quality_mut().time_accuracy    }
+        &mut self._time_quality_mut().time_accuracy
+    }
 }
 impl IsTimeQuality for TimeQuality {
     fn _time_quality(&self) -> &TimeQuality {
@@ -731,8 +783,8 @@ pub struct Timestamp {
     /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(uint32, tag="1")]
@@ -740,8 +792,8 @@ pub struct Timestamp {
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(uint64, tag="2")]
@@ -759,14 +811,18 @@ mod timestamp {
 pub trait IsTimestamp {
     fn _timestamp(&self) -> &Timestamp;
     fn _timestamp_mut(&mut self) -> &mut Timestamp;
-    fn fraction(&self) -> &u32 {
-        &self._timestamp().fraction    }
+    fn fraction(&self) -> u32 {
+        self._timestamp().fraction
+    }
     fn fraction_mut(&mut self) -> &mut u32 {
-        &mut self._timestamp_mut().fraction    }
-    fn seconds(&self) -> &u64 {
-        &self._timestamp().seconds    }
+        &mut self._timestamp_mut().fraction
+    }
+    fn seconds(&self) -> u64 {
+        self._timestamp().seconds
+    }
     fn seconds_mut(&mut self) -> &mut u64 {
-        &mut self._timestamp_mut().seconds    }
+        &mut self._timestamp_mut().seconds
+    }
     fn tq(&self) -> &TimeQuality {
         self._timestamp().tq.as_ref().unwrap_or(&timestamp::TQ)
     }
@@ -792,8 +848,8 @@ pub struct Unit {
     /// SI unit of measure.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="UnitSymbolKind", tag="2")]
@@ -814,10 +870,12 @@ pub trait IsUnit {
     fn multiplier_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
         self._unit_mut().multiplier.get_or_insert(Default::default())
     }
-    fn si_unit(&self) -> &i32 {
-        &self._unit().si_unit    }
+    fn si_unit(&self) -> i32 {
+        self._unit().si_unit
+    }
     fn si_unit_mut(&mut self) -> &mut i32 {
-        &mut self._unit_mut().si_unit    }
+        &mut self._unit_mut().si_unit
+    }
 }
 impl IsUnit for Unit {
     fn _unit(&self) -> &Unit {
@@ -839,8 +897,8 @@ pub struct Mv {
     /// is not the same as 'mag' of the constructed attribute class 'Vector'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -848,8 +906,8 @@ pub struct Mv {
     /// Quality of the values in 'instMag', 'mag', 'range'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -858,8 +916,8 @@ pub struct Mv {
     /// 'range' or 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -920,8 +978,8 @@ pub struct LogicalNode {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -951,6 +1009,14 @@ impl IsLogicalNode for LogicalNode {
         self
     }
 }
+//impl IsIdentifiedObject for LogicalNode {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -958,8 +1024,8 @@ pub struct AnalogStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -967,8 +1033,8 @@ pub struct AnalogStatusGgio {
     /// Generic analogue input <i>n</i>.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1015,6 +1081,22 @@ impl IsAnalogStatusGgio for AnalogStatusGgio {
         self
     }
 }
+//impl IsLogicalNode for AnalogStatusGgio {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for AnalogStatusGgio {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Analogue value control (AnalogueValueCtl)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1108,8 +1190,8 @@ pub struct ApplicationSystem {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1117,8 +1199,8 @@ pub struct ApplicationSystem {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: true
     // key: false
     #[prost(string, tag="2")]
@@ -1140,9 +1222,11 @@ pub trait IsApplicationSystem {
         self._application_system_mut().named_object.get_or_insert(Default::default())
     }
     fn m_rid(&self) -> &std::string::String {
-        &self._application_system().m_rid    }
+        &self._application_system().m_rid
+    }
     fn m_rid_mut(&mut self) -> &mut std::string::String {
-        &mut self._application_system_mut().m_rid    }
+        &mut self._application_system_mut().m_rid
+    }
 }
 impl IsApplicationSystem for ApplicationSystem {
     fn _application_system(&self) -> &ApplicationSystem {
@@ -1152,6 +1236,14 @@ impl IsApplicationSystem for ApplicationSystem {
         self
     }
 }
+//impl IsNamedObject for ApplicationSystem {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Analogue setting (FC=SP) (ASG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1159,8 +1251,8 @@ pub struct Asg {
     /// The value of the analogue setting.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1208,8 +1300,8 @@ pub struct Bcr {
     /// value of INT64.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int64, tag="1")]
@@ -1217,8 +1309,8 @@ pub struct Bcr {
     /// Quality of the values in 'actVal', 'frVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1226,8 +1318,8 @@ pub struct Bcr {
     /// Timestamp of the last change of value in 'actVal' or 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -1247,10 +1339,12 @@ mod bcr {
 pub trait IsBcr {
     fn _bcr(&self) -> &Bcr;
     fn _bcr_mut(&mut self) -> &mut Bcr;
-    fn act_val(&self) -> &i64 {
-        &self._bcr().act_val    }
+    fn act_val(&self) -> i64 {
+        self._bcr().act_val
+    }
     fn act_val_mut(&mut self) -> &mut i64 {
-        &mut self._bcr_mut().act_val    }
+        &mut self._bcr_mut().act_val
+    }
     fn q(&self) -> &Quality {
         self._bcr().q.as_ref().unwrap_or(&bcr::Q)
     }
@@ -1288,8 +1382,8 @@ pub struct StatusSps {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
@@ -1314,10 +1408,12 @@ pub trait IsStatusSps {
     fn q_mut(&mut self) -> &mut Quality {
         self._status_sps_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &bool {
-        &self._status_sps().st_val    }
+    fn st_val(&self) -> bool {
+        self._status_sps().st_val
+    }
     fn st_val_mut(&mut self) -> &mut bool {
-        &mut self._status_sps_mut().st_val    }
+        &mut self._status_sps_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._status_sps().t.as_ref().unwrap_or(&status_sps::T)
     }
@@ -1340,8 +1436,8 @@ pub struct BooleanStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1349,8 +1445,8 @@ pub struct BooleanStatusGgio {
     /// If true, indication <i>n</i> is present.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1397,6 +1493,22 @@ impl IsBooleanStatusGgio for BooleanStatusGgio {
         self
     }
 }
+//impl IsLogicalNode for BooleanStatusGgio {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for BooleanStatusGgio {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// IEC61850-7-2 Service parameter for conditions checking
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1452,8 +1564,8 @@ pub struct Vector {
     /// Magnitude of the complex value.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1499,8 +1611,8 @@ pub struct Cmv {
     /// 'dbAng'), independently. See  'MV.mag'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1508,8 +1620,8 @@ pub struct Cmv {
     /// Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1518,8 +1630,8 @@ pub struct Cmv {
     /// of 'range', 'rangeAng' or 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -1580,8 +1692,8 @@ pub struct ConductingEquipment {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1589,8 +1701,8 @@ pub struct ConductingEquipment {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: true
     // key: true
     #[prost(string, tag="2")]
@@ -1612,9 +1724,11 @@ pub trait IsConductingEquipment {
         self._conducting_equipment_mut().named_object.get_or_insert(Default::default())
     }
     fn m_rid(&self) -> &std::string::String {
-        &self._conducting_equipment().m_rid    }
+        &self._conducting_equipment().m_rid
+    }
     fn m_rid_mut(&mut self) -> &mut std::string::String {
-        &mut self._conducting_equipment_mut().m_rid    }
+        &mut self._conducting_equipment_mut().m_rid
+    }
 }
 impl IsConductingEquipment for ConductingEquipment {
     fn _conducting_equipment(&self) -> &ConductingEquipment {
@@ -1624,6 +1738,14 @@ impl IsConductingEquipment for ConductingEquipment {
         self
     }
 }
+//impl IsNamedObject for ConductingEquipment {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// An AC electrical connection point to a piece of conducting equipment. Terminals are connected at
 /// physical connection points called connectivity nodes.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1632,8 +1754,8 @@ pub struct Terminal {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1674,6 +1796,22 @@ impl IsTerminal for Terminal {
         self
     }
 }
+//impl IsACDCTerminal for Terminal {
+    //fn _acdc_terminal(&self) -> &AcdcTerminal {
+        //
+    //}
+//fn _mut_acdc_terminal(&mut self) -> &mut AcdcTerminal {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for Terminal {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Reading associated with an equipment such as a recloser.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1681,8 +1819,8 @@ pub struct ConductingEquipmentTerminalReading {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -1719,8 +1857,8 @@ pub struct ControlDpc {
     /// Service parameter that determines the control activity ('false' for off, 'true' for on).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
@@ -1734,10 +1872,12 @@ mod control_dpc {
 pub trait IsControlDpc {
     fn _control_dpc(&self) -> &ControlDpc;
     fn _control_dpc_mut(&mut self) -> &mut ControlDpc;
-    fn ctl_val(&self) -> &bool {
-        &self._control_dpc().ctl_val    }
+    fn ctl_val(&self) -> bool {
+        self._control_dpc().ctl_val
+    }
     fn ctl_val_mut(&mut self) -> &mut bool {
-        &mut self._control_dpc_mut().ctl_val    }
+        &mut self._control_dpc_mut().ctl_val
+    }
 }
 impl IsControlDpc for ControlDpc {
     fn _control_dpc(&self) -> &ControlDpc {
@@ -1760,8 +1900,8 @@ pub struct ControlTimestamp {
     /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(uint32, tag="1")]
@@ -1769,8 +1909,8 @@ pub struct ControlTimestamp {
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(uint64, tag="2")]
@@ -1784,14 +1924,18 @@ mod control_timestamp {
 pub trait IsControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp;
     fn _control_timestamp_mut(&mut self) -> &mut ControlTimestamp;
-    fn fraction(&self) -> &u32 {
-        &self._control_timestamp().fraction    }
+    fn fraction(&self) -> u32 {
+        self._control_timestamp().fraction
+    }
     fn fraction_mut(&mut self) -> &mut u32 {
-        &mut self._control_timestamp_mut().fraction    }
-    fn seconds(&self) -> &u64 {
-        &self._control_timestamp().seconds    }
+        &mut self._control_timestamp_mut().fraction
+    }
+    fn seconds(&self) -> u64 {
+        self._control_timestamp().seconds
+    }
     fn seconds_mut(&mut self) -> &mut u64 {
-        &mut self._control_timestamp_mut().seconds    }
+        &mut self._control_timestamp_mut().seconds
+    }
 }
 impl IsControlTimestamp for ControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp {
@@ -1815,10 +1959,12 @@ mod optional_schedule_parameter_kind {
 pub trait IsOptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind;
     fn _optional_schedule_parameter_kind_mut(&mut self) -> &mut OptionalScheduleParameterKind;
-    fn value(&self) -> &i32 {
-        &self._optional_schedule_parameter_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_schedule_parameter_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_schedule_parameter_kind_mut().value    }
+        &mut self._optional_schedule_parameter_kind_mut().value
+    }
 }
 impl IsOptionalScheduleParameterKind for OptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind {
@@ -1835,8 +1981,8 @@ pub struct EngScheduleParameter {
     /// Schedule parameter type
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="ScheduleParameterKind", tag="1")]
@@ -1844,8 +1990,8 @@ pub struct EngScheduleParameter {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(float, tag="2")]
@@ -1859,14 +2005,18 @@ mod eng_schedule_parameter {
 pub trait IsEngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter;
     fn _eng_schedule_parameter_mut(&mut self) -> &mut EngScheduleParameter;
-    fn schedule_parameter_type(&self) -> &i32 {
-        &self._eng_schedule_parameter().schedule_parameter_type    }
+    fn schedule_parameter_type(&self) -> i32 {
+        self._eng_schedule_parameter().schedule_parameter_type
+    }
     fn schedule_parameter_type_mut(&mut self) -> &mut i32 {
-        &mut self._eng_schedule_parameter_mut().schedule_parameter_type    }
-    fn value(&self) -> &f32 {
-        &self._eng_schedule_parameter().value    }
+        &mut self._eng_schedule_parameter_mut().schedule_parameter_type
+    }
+    fn value(&self) -> f32 {
+        self._eng_schedule_parameter().value
+    }
     fn value_mut(&mut self) -> &mut f32 {
-        &mut self._eng_schedule_parameter_mut().value    }
+        &mut self._eng_schedule_parameter_mut().value
+    }
 }
 impl IsEngScheduleParameter for EngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter {
@@ -1883,8 +2033,8 @@ pub struct SchedulePoint {
     /// Schedule parameter
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -1892,8 +2042,8 @@ pub struct SchedulePoint {
     /// Start time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -1909,9 +2059,11 @@ pub trait IsSchedulePoint {
     fn _schedule_point(&self) -> &SchedulePoint;
     fn _schedule_point_mut(&mut self) -> &mut SchedulePoint;
     fn schedule_parameter(&self) -> &::std::vec::Vec<EngScheduleParameter> {
-        &self._schedule_point().schedule_parameter    }
+        &self._schedule_point().schedule_parameter
+    }
     fn schedule_parameter_mut(&mut self) -> &mut ::std::vec::Vec<EngScheduleParameter> {
-        &mut self._schedule_point_mut().schedule_parameter    }
+        &mut self._schedule_point_mut().schedule_parameter
+    }
     fn start_time(&self) -> &ControlTimestamp {
         self._schedule_point().start_time.as_ref().unwrap_or(&schedule_point::START_TIME)
     }
@@ -1934,8 +2086,8 @@ pub struct ScheduleCsg {
     /// The array with the points specifying a time schedule
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -1950,9 +2102,11 @@ pub trait IsScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg;
     fn _schedule_csg_mut(&mut self) -> &mut ScheduleCsg;
     fn sch_pts(&self) -> &::std::vec::Vec<SchedulePoint> {
-        &self._schedule_csg().sch_pts    }
+        &self._schedule_csg().sch_pts
+    }
     fn sch_pts_mut(&mut self) -> &mut ::std::vec::Vec<SchedulePoint> {
-        &mut self._schedule_csg_mut().sch_pts    }
+        &mut self._schedule_csg_mut().sch_pts
+    }
 }
 impl IsScheduleCsg for ScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg {
@@ -1969,8 +2123,8 @@ pub struct ControlScheduleFsch {
     /// Analog CSG
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2007,8 +2161,8 @@ pub struct LogicalNodeForControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2038,6 +2192,22 @@ impl IsLogicalNodeForControl for LogicalNodeForControl {
         self
     }
 }
+//impl IsLogicalNode for LogicalNodeForControl {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LogicalNodeForControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:
 /// Control (execution)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2046,8 +2216,8 @@ pub struct ControlFscc {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2097,6 +2267,30 @@ impl IsControlFscc for ControlFscc {
         self
     }
 }
+//impl IsLogicalNodeForControl for ControlFscc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for ControlFscc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ControlFscc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Integer status setting (FC=SP) (ING_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2104,8 +2298,8 @@ pub struct ControlIng {
     /// The value of the status setting.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int32, tag="1")]
@@ -2123,10 +2317,12 @@ mod control_ing {
 pub trait IsControlIng {
     fn _control_ing(&self) -> &ControlIng;
     fn _control_ing_mut(&mut self) -> &mut ControlIng;
-    fn set_val(&self) -> &i32 {
-        &self._control_ing().set_val    }
+    fn set_val(&self) -> i32 {
+        self._control_ing().set_val
+    }
     fn set_val_mut(&mut self) -> &mut i32 {
-        &mut self._control_ing_mut().set_val    }
+        &mut self._control_ing_mut().set_val
+    }
     fn units(&self) -> &Unit {
         self._control_ing().units.as_ref().unwrap_or(&control_ing::UNITS)
     }
@@ -2149,8 +2345,8 @@ pub struct ControlIsc {
     /// Service parameter that determines the control activity.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int32, tag="1")]
@@ -2164,10 +2360,12 @@ mod control_isc {
 pub trait IsControlIsc {
     fn _control_isc(&self) -> &ControlIsc;
     fn _control_isc_mut(&mut self) -> &mut ControlIsc;
-    fn ctl_val(&self) -> &i32 {
-        &self._control_isc().ctl_val    }
+    fn ctl_val(&self) -> i32 {
+        self._control_isc().ctl_val
+    }
     fn ctl_val_mut(&mut self) -> &mut i32 {
-        &mut self._control_isc_mut().ctl_val    }
+        &mut self._control_isc_mut().ctl_val
+    }
 }
 impl IsControlIsc for ControlIsc {
     fn _control_isc(&self) -> &ControlIsc {
@@ -2184,8 +2382,8 @@ pub struct MessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2193,8 +2391,8 @@ pub struct MessageInfo {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -2231,6 +2429,14 @@ impl IsMessageInfo for MessageInfo {
         self
     }
 }
+//impl IsIdentifiedObject for MessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generic control message info.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2238,8 +2444,8 @@ pub struct ControlMessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2269,6 +2475,22 @@ impl IsControlMessageInfo for ControlMessageInfo {
         self
     }
 }
+//impl IsMessageInfo for ControlMessageInfo {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ControlMessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2277,8 +2499,8 @@ pub struct ControlSpc {
     /// for on or activation).
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
@@ -2292,10 +2514,12 @@ mod control_spc {
 pub trait IsControlSpc {
     fn _control_spc(&self) -> &ControlSpc;
     fn _control_spc_mut(&mut self) -> &mut ControlSpc;
-    fn ctl_val(&self) -> &bool {
-        &self._control_spc().ctl_val    }
+    fn ctl_val(&self) -> bool {
+        self._control_spc().ctl_val
+    }
     fn ctl_val_mut(&mut self) -> &mut bool {
-        &mut self._control_spc_mut().ctl_val    }
+        &mut self._control_spc_mut().ctl_val
+    }
 }
 impl IsControlSpc for ControlSpc {
     fn _control_spc(&self) -> &ControlSpc {
@@ -2315,8 +2539,8 @@ pub struct ControlValue {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2358,6 +2582,14 @@ impl IsControlValue for ControlValue {
         self
     }
 }
+//impl IsIdentifiedObject for ControlValue {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Interval between two date and time points.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2459,8 +2691,8 @@ pub struct EnergyConsumer {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2500,6 +2732,22 @@ impl IsEnergyConsumer for EnergyConsumer {
         self
     }
 }
+//impl IsConductingEquipment for EnergyConsumer {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for EnergyConsumer {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalCalcMethodKind {
@@ -2514,10 +2762,12 @@ mod optional_calc_method_kind {
 pub trait IsOptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind;
     fn _optional_calc_method_kind_mut(&mut self) -> &mut OptionalCalcMethodKind;
-    fn value(&self) -> &i32 {
-        &self._optional_calc_method_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_calc_method_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_calc_method_kind_mut().value    }
+        &mut self._optional_calc_method_kind_mut().value
+    }
 }
 impl IsOptionalCalcMethodKind for OptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind {
@@ -2534,8 +2784,8 @@ pub struct EngCalcMethodKind {
     /// The value of the status setting.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="CalcMethodKind", tag="1")]
@@ -2549,10 +2799,12 @@ mod eng_calc_method_kind {
 pub trait IsEngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind;
     fn _eng_calc_method_kind_mut(&mut self) -> &mut EngCalcMethodKind;
-    fn set_val(&self) -> &i32 {
-        &self._eng_calc_method_kind().set_val    }
+    fn set_val(&self) -> i32 {
+        self._eng_calc_method_kind().set_val
+    }
     fn set_val_mut(&mut self) -> &mut i32 {
-        &mut self._eng_calc_method_kind_mut().set_val    }
+        &mut self._eng_calc_method_kind_mut().set_val
+    }
 }
 impl IsEngCalcMethodKind for EngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind {
@@ -2576,10 +2828,12 @@ mod optional_grid_connect_mode_kind {
 pub trait IsOptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind;
     fn _optional_grid_connect_mode_kind_mut(&mut self) -> &mut OptionalGridConnectModeKind;
-    fn value(&self) -> &i32 {
-        &self._optional_grid_connect_mode_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_grid_connect_mode_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_grid_connect_mode_kind_mut().value    }
+        &mut self._optional_grid_connect_mode_kind_mut().value
+    }
 }
 impl IsOptionalGridConnectModeKind for OptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind {
@@ -2596,8 +2850,8 @@ pub struct EngGridConnectModeKind {
     /// The value of the status setting.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
@@ -2615,10 +2869,12 @@ mod eng_grid_connect_mode_kind {
 pub trait IsEngGridConnectModeKind {
     fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind;
     fn _eng_grid_connect_mode_kind_mut(&mut self) -> &mut EngGridConnectModeKind;
-    fn set_val(&self) -> &i32 {
-        &self._eng_grid_connect_mode_kind().set_val    }
+    fn set_val(&self) -> i32 {
+        self._eng_grid_connect_mode_kind().set_val
+    }
     fn set_val_mut(&mut self) -> &mut i32 {
-        &mut self._eng_grid_connect_mode_kind_mut().set_val    }
+        &mut self._eng_grid_connect_mode_kind_mut().set_val
+    }
     fn set_val_extension(&self) -> &::std::string::String {
         self._eng_grid_connect_mode_kind().set_val_extension.as_ref().unwrap_or(&eng_grid_connect_mode_kind::SET_VAL_EXTENSION)
     }
@@ -2648,10 +2904,12 @@ mod optional_pf_sign_kind {
 pub trait IsOptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind;
     fn _optional_pf_sign_kind_mut(&mut self) -> &mut OptionalPfSignKind;
-    fn value(&self) -> &i32 {
-        &self._optional_pf_sign_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_pf_sign_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_pf_sign_kind_mut().value    }
+        &mut self._optional_pf_sign_kind_mut().value
+    }
 }
 impl IsOptionalPfSignKind for OptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind {
@@ -2668,8 +2926,8 @@ pub struct EngPfSignKind {
     /// The value of the status setting.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="PfSignKind", tag="1")]
@@ -2683,10 +2941,12 @@ mod eng_pf_sign_kind {
 pub trait IsEngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind;
     fn _eng_pf_sign_kind_mut(&mut self) -> &mut EngPfSignKind;
-    fn set_val(&self) -> &i32 {
-        &self._eng_pf_sign_kind().set_val    }
+    fn set_val(&self) -> i32 {
+        self._eng_pf_sign_kind().set_val
+    }
     fn set_val_mut(&mut self) -> &mut i32 {
-        &mut self._eng_pf_sign_kind_mut().set_val    }
+        &mut self._eng_pf_sign_kind_mut().set_val
+    }
 }
 impl IsEngPfSignKind for EngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind {
@@ -2710,10 +2970,12 @@ mod optional_behaviour_mode_kind {
 pub trait IsOptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind;
     fn _optional_behaviour_mode_kind_mut(&mut self) -> &mut OptionalBehaviourModeKind;
-    fn value(&self) -> &i32 {
-        &self._optional_behaviour_mode_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_behaviour_mode_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_behaviour_mode_kind_mut().value    }
+        &mut self._optional_behaviour_mode_kind_mut().value
+    }
 }
 impl IsOptionalBehaviourModeKind for OptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind {
@@ -2730,8 +2992,8 @@ pub struct EnsBehaviourModeKind {
     /// Quality of the value in 'stVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2739,8 +3001,8 @@ pub struct EnsBehaviourModeKind {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="BehaviourModeKind", tag="2")]
@@ -2748,8 +3010,8 @@ pub struct EnsBehaviourModeKind {
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -2771,10 +3033,12 @@ pub trait IsEnsBehaviourModeKind {
     fn q_mut(&mut self) -> &mut Quality {
         self._ens_behaviour_mode_kind_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._ens_behaviour_mode_kind().st_val    }
+    fn st_val(&self) -> i32 {
+        self._ens_behaviour_mode_kind().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._ens_behaviour_mode_kind_mut().st_val    }
+        &mut self._ens_behaviour_mode_kind_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._ens_behaviour_mode_kind().t.as_ref().unwrap_or(&ens_behaviour_mode_kind::T)
     }
@@ -2804,10 +3068,12 @@ mod optional_der_generator_state_kind {
 pub trait IsOptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind;
     fn _optional_der_generator_state_kind_mut(&mut self) -> &mut OptionalDerGeneratorStateKind;
-    fn value(&self) -> &i32 {
-        &self._optional_der_generator_state_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_der_generator_state_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_der_generator_state_kind_mut().value    }
+        &mut self._optional_der_generator_state_kind_mut().value
+    }
 }
 impl IsOptionalDerGeneratorStateKind for OptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind {
@@ -2824,8 +3090,8 @@ pub struct EnsDerGeneratorStateKind {
     /// Quality of the value in 'stVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2833,8 +3099,8 @@ pub struct EnsDerGeneratorStateKind {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="DerGeneratorStateKind", tag="2")]
@@ -2842,8 +3108,8 @@ pub struct EnsDerGeneratorStateKind {
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -2865,10 +3131,12 @@ pub trait IsEnsDerGeneratorStateKind {
     fn q_mut(&mut self) -> &mut Quality {
         self._ens_der_generator_state_kind_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._ens_der_generator_state_kind().st_val    }
+    fn st_val(&self) -> i32 {
+        self._ens_der_generator_state_kind().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._ens_der_generator_state_kind_mut().st_val    }
+        &mut self._ens_der_generator_state_kind_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._ens_der_generator_state_kind().t.as_ref().unwrap_or(&ens_der_generator_state_kind::T)
     }
@@ -2898,10 +3166,12 @@ mod optional_dynamic_test_kind {
 pub trait IsOptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind;
     fn _optional_dynamic_test_kind_mut(&mut self) -> &mut OptionalDynamicTestKind;
-    fn value(&self) -> &i32 {
-        &self._optional_dynamic_test_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_dynamic_test_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_dynamic_test_kind_mut().value    }
+        &mut self._optional_dynamic_test_kind_mut().value
+    }
 }
 impl IsOptionalDynamicTestKind for OptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind {
@@ -2918,8 +3188,8 @@ pub struct EnsDynamicTestKind {
     /// Quality of the value in 'stVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -2927,8 +3197,8 @@ pub struct EnsDynamicTestKind {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="DynamicTestKind", tag="2")]
@@ -2936,8 +3206,8 @@ pub struct EnsDynamicTestKind {
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -2959,10 +3229,12 @@ pub trait IsEnsDynamicTestKind {
     fn q_mut(&mut self) -> &mut Quality {
         self._ens_dynamic_test_kind_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._ens_dynamic_test_kind().st_val    }
+    fn st_val(&self) -> i32 {
+        self._ens_dynamic_test_kind().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._ens_dynamic_test_kind_mut().st_val    }
+        &mut self._ens_dynamic_test_kind_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._ens_dynamic_test_kind().t.as_ref().unwrap_or(&ens_dynamic_test_kind::T)
     }
@@ -2985,8 +3257,8 @@ pub struct EnsGridConnectModeKind {
     /// Actual Grid Connection Mode
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
@@ -2994,8 +3266,8 @@ pub struct EnsGridConnectModeKind {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
@@ -3009,14 +3281,18 @@ mod ens_grid_connect_mode_kind {
 pub trait IsEnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind;
     fn _ens_grid_connect_mode_kind_mut(&mut self) -> &mut EnsGridConnectModeKind;
-    fn st_val(&self) -> &i32 {
-        &self._ens_grid_connect_mode_kind().st_val    }
+    fn st_val(&self) -> i32 {
+        self._ens_grid_connect_mode_kind().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._ens_grid_connect_mode_kind_mut().st_val    }
+        &mut self._ens_grid_connect_mode_kind_mut().st_val
+    }
     fn st_val_extension(&self) -> &std::string::String {
-        &self._ens_grid_connect_mode_kind().st_val_extension    }
+        &self._ens_grid_connect_mode_kind().st_val_extension
+    }
     fn st_val_extension_mut(&mut self) -> &mut std::string::String {
-        &mut self._ens_grid_connect_mode_kind_mut().st_val_extension    }
+        &mut self._ens_grid_connect_mode_kind_mut().st_val_extension
+    }
 }
 impl IsEnsGridConnectModeKind for EnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind {
@@ -3040,10 +3316,12 @@ mod optional_health_kind {
 pub trait IsOptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind;
     fn _optional_health_kind_mut(&mut self) -> &mut OptionalHealthKind;
-    fn value(&self) -> &i32 {
-        &self._optional_health_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_health_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_health_kind_mut().value    }
+        &mut self._optional_health_kind_mut().value
+    }
 }
 impl IsOptionalHealthKind for OptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind {
@@ -3064,8 +3342,8 @@ pub struct EnsHealthKind {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="HealthKind", tag="2")]
@@ -3086,10 +3364,12 @@ pub trait IsEnsHealthKind {
     fn d_mut(&mut self) -> &mut ::std::string::String {
         self._ens_health_kind_mut().d.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._ens_health_kind().st_val    }
+    fn st_val(&self) -> i32 {
+        self._ens_health_kind().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._ens_health_kind_mut().st_val    }
+        &mut self._ens_health_kind_mut().st_val
+    }
 }
 impl IsEnsHealthKind for EnsHealthKind {
     fn _ens_health_kind(&self) -> &EnsHealthKind {
@@ -3106,8 +3386,8 @@ pub struct Ess {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3137,6 +3417,22 @@ impl IsEss for Ess {
         self
     }
 }
+//impl IsConductingEquipment for Ess {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for Ess {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3144,8 +3440,8 @@ pub struct EventMessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3175,6 +3471,22 @@ impl IsEventMessageInfo for EventMessageInfo {
         self
     }
 }
+//impl IsMessageInfo for EventMessageInfo {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for EventMessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Event value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3182,8 +3494,8 @@ pub struct EventValue {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3213,6 +3525,14 @@ impl IsEventValue for EventValue {
         self
     }
 }
+//impl IsIdentifiedObject for EventValue {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// The source where a forecast value is issued.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3220,8 +3540,8 @@ pub struct ForecastValueSource {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3251,6 +3571,14 @@ impl IsForecastValueSource for ForecastValueSource {
         self
     }
 }
+//impl IsIdentifiedObject for ForecastValueSource {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
 /// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
 /// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
@@ -3265,8 +3593,8 @@ pub struct ForecastIed {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3275,8 +3603,8 @@ pub struct ForecastIed {
     /// is transformed between gateway the original source application ID should be kept.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
@@ -3284,8 +3612,8 @@ pub struct ForecastIed {
     /// Message publication date time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int64, tag="3")]
@@ -3307,13 +3635,17 @@ pub trait IsForecastIed {
         self._forecast_ied_mut().forecast_value_source.get_or_insert(Default::default())
     }
     fn source_application_id(&self) -> &std::string::String {
-        &self._forecast_ied().source_application_id    }
+        &self._forecast_ied().source_application_id
+    }
     fn source_application_id_mut(&mut self) -> &mut std::string::String {
-        &mut self._forecast_ied_mut().source_application_id    }
-    fn source_date_time(&self) -> &i64 {
-        &self._forecast_ied().source_date_time    }
+        &mut self._forecast_ied_mut().source_application_id
+    }
+    fn source_date_time(&self) -> i64 {
+        self._forecast_ied().source_date_time
+    }
     fn source_date_time_mut(&mut self) -> &mut i64 {
-        &mut self._forecast_ied_mut().source_date_time    }
+        &mut self._forecast_ied_mut().source_date_time
+    }
 }
 impl IsForecastIed for ForecastIed {
     fn _forecast_ied(&self) -> &ForecastIed {
@@ -3323,6 +3655,22 @@ impl IsForecastIed for ForecastIed {
         self
     }
 }
+//impl IsForecastValueSource for ForecastIed {
+    //fn _forecast_value_source(&self) -> &ForecastValueSource {
+        //
+    //}
+//fn _mut_forecast_value_source(&mut self) -> &mut ForecastValueSource {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ForecastIed {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Forecast value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3330,8 +3678,8 @@ pub struct ForecastValue {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3361,6 +3709,14 @@ impl IsForecastValue for ForecastValue {
         self
     }
 }
+//impl IsIdentifiedObject for ForecastValue {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
 /// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
 /// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
@@ -3375,8 +3731,8 @@ pub struct Ied {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3406,6 +3762,14 @@ impl IsIed for Ied {
         self
     }
 }
+//impl IsIdentifiedObject for Ied {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// <<statistics>> Integer status (INS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3416,8 +3780,8 @@ pub struct StatusIns {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int32, tag="2")]
@@ -3446,10 +3810,12 @@ pub trait IsStatusIns {
     fn q_mut(&mut self) -> &mut Quality {
         self._status_ins_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._status_ins().st_val    }
+    fn st_val(&self) -> i32 {
+        self._status_ins().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._status_ins_mut().st_val    }
+        &mut self._status_ins_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._status_ins().t.as_ref().unwrap_or(&status_ins::T)
     }
@@ -3478,8 +3844,8 @@ pub struct IntegerStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3487,8 +3853,8 @@ pub struct IntegerStatusGgio {
     /// Generic integer status input <i>n</i>.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -3535,6 +3901,22 @@ impl IsIntegerStatusGgio for IntegerStatusGgio {
         self
     }
 }
+//impl IsLogicalNode for IntegerStatusGgio {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for IntegerStatusGgio {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Logical node for event and status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3542,8 +3924,8 @@ pub struct LogicalNodeForEventAndStatus {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3593,6 +3975,22 @@ impl IsLogicalNodeForEventAndStatus for LogicalNodeForEventAndStatus {
         self
     }
 }
+//impl IsLogicalNode for LogicalNodeForEventAndStatus {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for LogicalNodeForEventAndStatus {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// The current state for a measurement. A state value is an instance of a measurement from a
 /// specific source. Measurements can be associated with many state values, each representing a
 /// different source for the measurement.
@@ -3602,8 +4000,8 @@ pub struct MeasurementValue {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3633,6 +4031,14 @@ impl IsMeasurementValue for MeasurementValue {
         self
     }
 }
+//impl IsIdentifiedObject for MeasurementValue {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Physical asset that performs the metering role of the usage point. Used for measuring
 /// consumption and detection of events.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -3641,8 +4047,8 @@ pub struct Meter {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3672,6 +4078,22 @@ impl IsMeter for Meter {
         self
     }
 }
+//impl IsConductingEquipment for Meter {
+    //fn _conducting_equipment(&self) -> &ConductingEquipment {
+        //
+    //}
+//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
+        //
+    //}
+//}
+//impl IsNamedObject for Meter {
+    //fn _named_object(&self) -> &NamedObject {
+        //
+    //}
+//fn _mut_named_object(&mut self) -> &mut NamedObject {
+        //
+    //}
+//}
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3679,8 +4101,8 @@ pub struct OptimizationMessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3710,6 +4132,22 @@ impl IsOptimizationMessageInfo for OptimizationMessageInfo {
         self
     }
 }
+//impl IsMessageInfo for OptimizationMessageInfo {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for OptimizationMessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3717,8 +4155,8 @@ pub struct ReadingMmtn {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -3838,6 +4276,22 @@ impl IsReadingMmtn for ReadingMmtn {
         self
     }
 }
+//impl IsLogicalNode for ReadingMmtn {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ReadingMmtn {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3989,8 +4443,8 @@ pub struct ReadingMessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4020,6 +4474,22 @@ impl IsReadingMessageInfo for ReadingMessageInfo {
         self
     }
 }
+//impl IsMessageInfo for ReadingMessageInfo {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ReadingMessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Specialized 61850 MMTR class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4027,8 +4497,8 @@ pub struct ReadingMmtr {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4148,6 +4618,22 @@ impl IsReadingMmtr for ReadingMmtr {
         self
     }
 }
+//impl IsLogicalNode for ReadingMmtr {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ReadingMmtr {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Phase to ground/neutral related measured values of a three-phase system (WYE)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4232,8 +4718,8 @@ pub struct ReadingMmxu {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4371,6 +4857,22 @@ impl IsReadingMmxu for ReadingMmxu {
         self
     }
 }
+//impl IsLogicalNode for ReadingMmxu {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for ReadingMmxu {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalDbPosKind {
@@ -4385,10 +4887,12 @@ mod optional_db_pos_kind {
 pub trait IsOptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
     fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind;
-    fn value(&self) -> &i32 {
-        &self._optional_db_pos_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_db_pos_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_db_pos_kind_mut().value    }
+        &mut self._optional_db_pos_kind_mut().value
+    }
 }
 impl IsOptionalDbPosKind for OptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind {
@@ -4405,8 +4909,8 @@ pub struct StatusDps {
     /// Quality of the value in 'stVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4414,8 +4918,8 @@ pub struct StatusDps {
     /// Status value of the controllable data object.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(enumeration="DbPosKind", tag="2")]
@@ -4423,8 +4927,8 @@ pub struct StatusDps {
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -4446,10 +4950,12 @@ pub trait IsStatusDps {
     fn q_mut(&mut self) -> &mut Quality {
         self._status_dps_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._status_dps().st_val    }
+    fn st_val(&self) -> i32 {
+        self._status_dps().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._status_dps_mut().st_val    }
+        &mut self._status_dps_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._status_dps().t.as_ref().unwrap_or(&status_dps::T)
     }
@@ -4473,8 +4979,8 @@ pub struct StatusAndEventXcbr {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4485,8 +4991,8 @@ pub struct StatusAndEventXcbr {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -4530,6 +5036,30 @@ impl IsStatusAndEventXcbr for StatusAndEventXcbr {
         self
     }
 }
+//impl IsLogicalNodeForEventAndStatus for StatusAndEventXcbr {
+    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        //
+    //}
+//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        //
+    //}
+//}
+//impl IsLogicalNode for StatusAndEventXcbr {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for StatusAndEventXcbr {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4540,8 +5070,8 @@ pub struct StatusIsc {
     /// Status value
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(int32, tag="2")]
@@ -4566,10 +5096,12 @@ pub trait IsStatusIsc {
     fn q_mut(&mut self) -> &mut Quality {
         self._status_isc_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &i32 {
-        &self._status_isc().st_val    }
+    fn st_val(&self) -> i32 {
+        self._status_isc().st_val
+    }
     fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._status_isc_mut().st_val    }
+        &mut self._status_isc_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._status_isc().t.as_ref().unwrap_or(&status_isc::T)
     }
@@ -4592,8 +5124,8 @@ pub struct StatusMessageInfo {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4623,6 +5155,22 @@ impl IsStatusMessageInfo for StatusMessageInfo {
         self
     }
 }
+//impl IsMessageInfo for StatusMessageInfo {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for StatusMessageInfo {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4633,8 +5181,8 @@ pub struct StatusSpc {
     /// Status value of the controllable data object.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
@@ -4659,10 +5207,12 @@ pub trait IsStatusSpc {
     fn q_mut(&mut self) -> &mut Quality {
         self._status_spc_mut().q.get_or_insert(Default::default())
     }
-    fn st_val(&self) -> &bool {
-        &self._status_spc().st_val    }
+    fn st_val(&self) -> bool {
+        self._status_spc().st_val
+    }
     fn st_val_mut(&mut self) -> &mut bool {
-        &mut self._status_spc_mut().st_val    }
+        &mut self._status_spc_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._status_spc().t.as_ref().unwrap_or(&status_spc::T)
     }
@@ -4685,8 +5235,8 @@ pub struct StatusValue {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4716,6 +5266,14 @@ impl IsStatusValue for StatusValue {
         self
     }
 }
+//impl IsIdentifiedObject for StatusValue {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Visible string status (VSS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4723,8 +5281,8 @@ pub struct Vss {
     /// Quality of the value in 'stVal'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4732,8 +5290,8 @@ pub struct Vss {
     /// Value of the data.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
@@ -4741,8 +5299,8 @@ pub struct Vss {
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -4765,9 +5323,11 @@ pub trait IsVss {
         self._vss_mut().q.get_or_insert(Default::default())
     }
     fn st_val(&self) -> &std::string::String {
-        &self._vss().st_val    }
+        &self._vss().st_val
+    }
     fn st_val_mut(&mut self) -> &mut std::string::String {
-        &mut self._vss_mut().st_val    }
+        &mut self._vss_mut().st_val
+    }
     fn t(&self) -> &Timestamp {
         self._vss().t.as_ref().unwrap_or(&vss::T)
     }
@@ -4790,8 +5350,8 @@ pub struct StringStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
-    // multiplicity_min: 0
-    // multiplicity_max: 0
+    // multiplicity_min: None
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4802,8 +5362,8 @@ pub struct StringStatusGgio {
     /// String status
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
@@ -4847,6 +5407,22 @@ impl IsStringStatusGgio for StringStatusGgio {
         self
     }
 }
+//impl IsLogicalNode for StringStatusGgio {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for StringStatusGgio {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4854,8 +5430,8 @@ pub struct SwitchPoint {
     /// Switch position
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4863,8 +5439,8 @@ pub struct SwitchPoint {
     /// Start time
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
@@ -4908,8 +5484,8 @@ pub struct SwitchCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
@@ -4924,9 +5500,11 @@ pub trait IsSwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg;
     fn _switch_csg_mut(&mut self) -> &mut SwitchCsg;
     fn crv_pts(&self) -> &::std::vec::Vec<SwitchPoint> {
-        &self._switch_csg().crv_pts    }
+        &self._switch_csg().crv_pts
+    }
     fn crv_pts_mut(&mut self) -> &mut ::std::vec::Vec<SwitchPoint> {
-        &mut self._switch_csg_mut().crv_pts    }
+        &mut self._switch_csg_mut().crv_pts
+    }
 }
 impl IsSwitchCsg for SwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg {
@@ -4943,8 +5521,8 @@ pub struct SwitchControlScheduleFsch {
     /// Discrete value in SwitchCSG type
     // parent_message: false
     // required_field: true
-    // multiplicity_min: 1
-    // multiplicity_max: 0
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
@@ -4988,10 +5566,12 @@ mod optional_state_kind {
 pub trait IsOptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind;
     fn _optional_state_kind_mut(&mut self) -> &mut OptionalStateKind;
-    fn value(&self) -> &i32 {
-        &self._optional_state_kind().value    }
+    fn value(&self) -> i32 {
+        self._optional_state_kind().value
+    }
     fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_state_kind_mut().value    }
+        &mut self._optional_state_kind_mut().value
+    }
 }
 impl IsOptionalStateKind for OptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind {
