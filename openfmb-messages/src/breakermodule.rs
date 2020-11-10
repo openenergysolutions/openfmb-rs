@@ -1,5 +1,4 @@
-/// OpenFMB specialization for BreakerDiscreteControlProfile: Added blk  LN: Circuit breaker   Name:
-/// XCBR
+/// Reclose enabled
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct BreakerDiscreteControlXcbr {
@@ -11,38 +10,22 @@ pub struct BreakerDiscreteControlXcbr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="2")]
-    pub pos: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub discrete_control_xcbr: ::std::option::Option<super::commonmodule::DiscreteControlXcbr>,
 }
 mod breaker_discrete_control_xcbr {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref DISCRETE_CONTROL_XCBR: crate::commonmodule::DiscreteControlXcbr = Default::default();
     }
 }
 pub trait IsBreakerDiscreteControlXcbr {
     fn _breaker_discrete_control_xcbr(&self) -> &BreakerDiscreteControlXcbr;
     fn _breaker_discrete_control_xcbr_mut(&mut self) -> &mut BreakerDiscreteControlXcbr;
-    fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
-        self._breaker_discrete_control_xcbr().logical_node_for_control.as_ref().unwrap_or(&breaker_discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
+    fn discrete_control_xcbr(&self) -> &super::commonmodule::DiscreteControlXcbr {
+        self._breaker_discrete_control_xcbr().discrete_control_xcbr.as_ref().unwrap_or(&breaker_discrete_control_xcbr::DISCRETE_CONTROL_XCBR)
     }
-    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._breaker_discrete_control_xcbr_mut().logical_node_for_control.get_or_insert(Default::default())
-    }
-    fn pos(&self) -> &super::commonmodule::ControlDpc {
-        self._breaker_discrete_control_xcbr().pos.as_ref().unwrap_or(&breaker_discrete_control_xcbr::POS)
-    }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._breaker_discrete_control_xcbr_mut().pos.get_or_insert(Default::default())
+    fn discrete_control_xcbr_mut(&mut self) -> &mut super::commonmodule::DiscreteControlXcbr {
+        self._breaker_discrete_control_xcbr_mut().discrete_control_xcbr.get_or_insert(Default::default())
     }
 }
 impl IsBreakerDiscreteControlXcbr for BreakerDiscreteControlXcbr {
@@ -53,6 +36,14 @@ impl IsBreakerDiscreteControlXcbr for BreakerDiscreteControlXcbr {
         self
     }
 }
+//impl IsDiscreteControlXCBR for BreakerDiscreteControlXcbr {
+    //fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr {
+        //
+    //}
+//fn _mut_discrete_control_xcbr(&mut self) -> &mut DiscreteControlXcbr {
+        //
+    //}
+//}
 //impl IsLogicalNodeForControl for BreakerDiscreteControlXcbr {
     //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
         //
@@ -94,12 +85,6 @@ pub struct BreakerDiscreteControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub breaker_discrete_control_xcbr: ::std::option::Option<BreakerDiscreteControlXcbr>,
 }
@@ -245,15 +230,6 @@ pub struct BreakerDiscreteControlProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub breaker_discrete_control: ::std::option::Option<BreakerDiscreteControl>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod breaker_discrete_control_profile {
     use lazy_static::lazy_static;
@@ -261,7 +237,6 @@ mod breaker_discrete_control_profile {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
         pub(super) static ref BREAKER: crate::breakermodule::Breaker = Default::default();
         pub(super) static ref BREAKER_DISCRETE_CONTROL: crate::breakermodule::BreakerDiscreteControl = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsBreakerDiscreteControlProfile {
@@ -284,12 +259,6 @@ pub trait IsBreakerDiscreteControlProfile {
     }
     fn breaker_discrete_control_mut(&mut self) -> &mut BreakerDiscreteControl {
         self._breaker_discrete_control_profile_mut().breaker_discrete_control.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._breaker_discrete_control_profile().ied.as_ref().unwrap_or(&breaker_discrete_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._breaker_discrete_control_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsBreakerDiscreteControlProfile for BreakerDiscreteControlProfile {
@@ -338,12 +307,6 @@ pub struct BreakerEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
@@ -426,15 +389,6 @@ pub struct BreakerEventProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub breaker_event: ::std::option::Option<BreakerEvent>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod breaker_event_profile {
     use lazy_static::lazy_static;
@@ -442,7 +396,6 @@ mod breaker_event_profile {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
         pub(super) static ref BREAKER: crate::breakermodule::Breaker = Default::default();
         pub(super) static ref BREAKER_EVENT: crate::breakermodule::BreakerEvent = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsBreakerEventProfile {
@@ -465,12 +418,6 @@ pub trait IsBreakerEventProfile {
     }
     fn breaker_event_mut(&mut self) -> &mut BreakerEvent {
         self._breaker_event_profile_mut().breaker_event.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._breaker_event_profile().ied.as_ref().unwrap_or(&breaker_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._breaker_event_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsBreakerEventProfile for BreakerEventProfile {
@@ -623,22 +570,12 @@ pub struct BreakerReadingProfile {
     // key: false
     #[prost(message, repeated, tag="3")]
     pub breaker_reading: ::std::vec::Vec<BreakerReading>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod breaker_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
         pub(super) static ref BREAKER: crate::breakermodule::Breaker = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsBreakerReadingProfile {
@@ -661,12 +598,6 @@ pub trait IsBreakerReadingProfile {
     }
     fn breaker_reading_mut(&mut self) -> &mut ::std::vec::Vec<BreakerReading> {
         &mut self._breaker_reading_profile_mut().breaker_reading
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._breaker_reading_profile().ied.as_ref().unwrap_or(&breaker_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._breaker_reading_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsBreakerReadingProfile for BreakerReadingProfile {
@@ -715,12 +646,6 @@ pub struct BreakerStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
@@ -803,15 +728,6 @@ pub struct BreakerStatusProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub breaker_status: ::std::option::Option<BreakerStatus>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod breaker_status_profile {
     use lazy_static::lazy_static;
@@ -819,7 +735,6 @@ mod breaker_status_profile {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
         pub(super) static ref BREAKER: crate::breakermodule::Breaker = Default::default();
         pub(super) static ref BREAKER_STATUS: crate::breakermodule::BreakerStatus = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsBreakerStatusProfile {
@@ -842,12 +757,6 @@ pub trait IsBreakerStatusProfile {
     }
     fn breaker_status_mut(&mut self) -> &mut BreakerStatus {
         self._breaker_status_profile_mut().breaker_status.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._breaker_status_profile().ied.as_ref().unwrap_or(&breaker_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._breaker_status_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsBreakerStatusProfile for BreakerStatusProfile {

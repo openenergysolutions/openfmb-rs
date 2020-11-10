@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package breakermodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/breakermodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/breakermodule";
 option java_package = "openfmb.breakermodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.breakermodule";
@@ -12,14 +12,11 @@ option csharp_namespace = "openfmb.breakermodule";
 import "uml.proto";
 import "commonmodule/commonmodule.proto";
 
-// OpenFMB specialization for BreakerDiscreteControlProfile: Added blk  LN: Circuit breaker   Name:
-// XCBR
+// Reclose enabled
 message BreakerDiscreteControlXCBR
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ControlDPC Pos = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.DiscreteControlXCBR discreteControlXCBR = 1 [(uml.option_parent_message) = true];
 }
 
 // Breaker discrete control class
@@ -30,7 +27,7 @@ message BreakerDiscreteControl
     // IEC61850 enhanced control parameters.
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3;
 }
 
 // A mechanical switching device capable of making, carrying, and breaking currents under normal
@@ -52,8 +49,6 @@ message BreakerDiscreteControlProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerDiscreteControl breakerDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Breaker event class
@@ -62,7 +57,7 @@ message BreakerEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Breaker event profile
@@ -75,8 +70,6 @@ message BreakerEventProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerEvent breakerEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -104,8 +97,6 @@ message BreakerReadingProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     repeated BreakerReading breakerReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Status of a breaker
@@ -114,7 +105,7 @@ message BreakerStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Breaker status profile
@@ -127,7 +118,5 @@ message BreakerStatusProfile
     Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     BreakerStatus breakerStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

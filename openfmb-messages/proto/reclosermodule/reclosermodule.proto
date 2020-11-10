@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package reclosermodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/reclosermodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/reclosermodule";
 option java_package = "openfmb.reclosermodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.reclosermodule";
@@ -13,24 +13,23 @@ import "uml.proto";
 import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
-// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-message RecloserControlFSCC
+// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+// by a circuit segment service.
+message RecloserDiscreteControlXCBR
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.SwitchControlScheduleFSCH switchControlScheduleFSCH = 2;
+    commonmodule.DiscreteControlXCBR discreteControlXCBR = 1 [(uml.option_parent_message) = true];
 }
 
 // Recloser discrete control
-message RecloserControl
+message RecloserDiscreteControl
 {
     // UML inherited base object
     commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    RecloserControlFSCC recloserControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserDiscreteControlXCBR recloserDiscreteControlXCBR = 3;
 }
 
 // Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
@@ -45,53 +44,15 @@ message Recloser
 
 // Recloser control profile.  Instructs an end device (or an end device group) to perform a
 // specified action.
-message RecloserControlProfile
-{
-    option (uml.option_openfmb_profile) = true;
-    // UML inherited base object
-    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserControl recloserControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// OpenFMB specialization for RecloserDiscreteControlProfile: Added blk  LN: Circuit
-// breaker   Name: XCBR
-message RecloserDiscreteControlXCBR
-{
-    // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ControlDPC Pos = 2;
-}
-
-// Recloser discrete control
-message RecloserDiscreteControl
-{
-    // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.CheckConditions check = 2;
-    // MISSING DOCUMENTATION!!!
-    RecloserDiscreteControlXCBR recloserDiscreteControlXCBR = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Recloser control profile.  Instructs an end device (or an end device group) to perform a
-// specified action.
 message RecloserDiscreteControlProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserDiscreteControl recloserDiscreteControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserDiscreteControl recloserDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Recloser event
@@ -100,7 +61,7 @@ message RecloserEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Recloser event profile
@@ -110,11 +71,9 @@ message RecloserEventProfile
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserEvent recloserEvent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserEvent recloserEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Recloser reading value
@@ -139,11 +98,9 @@ message RecloserReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    repeated RecloserReading recloserReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
+    repeated RecloserReading recloserReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
 }
 
 // Recloser status
@@ -152,7 +109,7 @@ message RecloserStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
 }
 
 // Recloser status profile
@@ -162,10 +119,8 @@ message RecloserStatusProfile
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    Recloser recloser = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    Recloser recloser = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RecloserStatus recloserStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RecloserStatus recloserStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

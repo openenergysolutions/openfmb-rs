@@ -9,7 +9,7 @@ pub use reading::*;
 pub use status::*;
 
 pub trait ESSStatusExt {
-    fn soc(&self) -> Result<f32, OpenFMBError>;
+    fn soc(&self) -> Result<f64, OpenFMBError>;
 }
 
 pub trait ESSReadingExt {}

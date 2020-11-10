@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package coordinationservicemodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/coordinationservicemodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/coordinationservicemodule";
 option java_package = "openfmb.coordinationservicemodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.coordinationservicemodule";
@@ -60,7 +60,7 @@ message CoordinationControlDCSC
 message CoordinationControl
 {
     // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
@@ -84,7 +84,7 @@ message CoordinationControlProfile
 message CoordinationEventDCSC
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
     // MISSING DOCUMENTATION!!!
@@ -105,7 +105,7 @@ message CoordinationEventDCSC
 message CoordinationEvent
 {
     // UML inherited base object
-    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     CoordinationEventDCSC coordinationEventDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -127,7 +127,7 @@ message CoordinationEventProfile
 message CoordinationStatusDCSC
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
     // MISSING DOCUMENTATION!!!
@@ -148,7 +148,7 @@ message CoordinationStatusDCSC
 message CoordinationStatus
 {
     // UML inherited base object
-    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     CoordinationStatusDCSC coordinationStatusDCSC = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }

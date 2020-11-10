@@ -1,3 +1,195 @@
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalFaultDirectionKind {
+    #[prost(enumeration="FaultDirectionKind", tag="1")]
+    pub value: i32,
+}
+mod optional_fault_direction_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalFaultDirectionKind {
+    fn _optional_fault_direction_kind(&self) -> &OptionalFaultDirectionKind;
+    fn _optional_fault_direction_kind_mut(&mut self) -> &mut OptionalFaultDirectionKind;
+    fn value(&self) -> i32 {
+        self._optional_fault_direction_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_fault_direction_kind_mut().value
+    }
+}
+impl IsOptionalFaultDirectionKind for OptionalFaultDirectionKind {
+    fn _optional_fault_direction_kind(&self) -> &OptionalFaultDirectionKind {
+        self
+    }
+    fn _optional_fault_direction_kind_mut(&mut self) -> &mut OptionalFaultDirectionKind {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalPhaseFaultDirectionKind {
+    #[prost(enumeration="PhaseFaultDirectionKind", tag="1")]
+    pub value: i32,
+}
+mod optional_phase_fault_direction_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalPhaseFaultDirectionKind {
+    fn _optional_phase_fault_direction_kind(&self) -> &OptionalPhaseFaultDirectionKind;
+    fn _optional_phase_fault_direction_kind_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind;
+    fn value(&self) -> i32 {
+        self._optional_phase_fault_direction_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_phase_fault_direction_kind_mut().value
+    }
+}
+impl IsOptionalPhaseFaultDirectionKind for OptionalPhaseFaultDirectionKind {
+    fn _optional_phase_fault_direction_kind(&self) -> &OptionalPhaseFaultDirectionKind {
+        self
+    }
+    fn _optional_phase_fault_direction_kind_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind {
+        self
+    }
+}
+/// Directional protection indication information (ACD)
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct Acd {
+    /// General direction of the fault. If the faults of individual phases have different directions,
+    /// this attribute shall be set to 'dirGeneral'='both'.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(enumeration="FaultDirectionKind", tag="1")]
+    pub dir_general: i32,
+    /// Direction of the fault for earth current.
+    #[prost(message, optional, tag="2")]
+    pub dir_neut: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
+    /// Direction of the fault for phase A.
+    #[prost(message, optional, tag="3")]
+    pub dir_phs_a: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
+    /// Direction of the fault for phase B.
+    #[prost(message, optional, tag="4")]
+    pub dir_phs_b: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
+    /// Direction of the fault for phase C.
+    #[prost(message, optional, tag="5")]
+    pub dir_phs_c: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
+    /// General indication of a protection activation (e.g. by the fault). Depending on the function,
+    /// 'general' may or may not be resulting from the phase attributes (phsA', 'phsB', 'phsC', 'neut').
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(bool, tag="6")]
+    pub general: bool,
+    /// See 'ACT.neut'.
+    #[prost(message, optional, tag="7")]
+    pub neut: ::std::option::Option<bool>,
+    /// Value true indicates a trip or a start event of phase A.
+    #[prost(message, optional, tag="8")]
+    pub phs_a: ::std::option::Option<bool>,
+    /// Value true indicates a trip or a start event of phase B.
+    #[prost(message, optional, tag="9")]
+    pub phs_b: ::std::option::Option<bool>,
+    /// Value true indicates a trip or a start event of phase C.
+    #[prost(message, optional, tag="10")]
+    pub phs_c: ::std::option::Option<bool>,
+}
+mod acd {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DIR_NEUT: crate::commonmodule::OptionalPhaseFaultDirectionKind = Default::default();
+        pub(super) static ref DIR_PHS_A: crate::commonmodule::OptionalPhaseFaultDirectionKind = Default::default();
+        pub(super) static ref DIR_PHS_B: crate::commonmodule::OptionalPhaseFaultDirectionKind = Default::default();
+        pub(super) static ref DIR_PHS_C: crate::commonmodule::OptionalPhaseFaultDirectionKind = Default::default();
+        pub(super) static ref NEUT: bool = Default::default();
+        pub(super) static ref PHS_A: bool = Default::default();
+        pub(super) static ref PHS_B: bool = Default::default();
+        pub(super) static ref PHS_C: bool = Default::default();
+    }
+}
+pub trait IsAcd {
+    fn _acd(&self) -> &Acd;
+    fn _acd_mut(&mut self) -> &mut Acd;
+    fn dir_general(&self) -> i32 {
+        self._acd().dir_general
+    }
+    fn dir_general_mut(&mut self) -> &mut i32 {
+        &mut self._acd_mut().dir_general
+    }
+    fn dir_neut(&self) -> &OptionalPhaseFaultDirectionKind {
+        self._acd().dir_neut.as_ref().unwrap_or(&acd::DIR_NEUT)
+    }
+    fn dir_neut_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind {
+        self._acd_mut().dir_neut.get_or_insert(Default::default())
+    }
+    fn dir_phs_a(&self) -> &OptionalPhaseFaultDirectionKind {
+        self._acd().dir_phs_a.as_ref().unwrap_or(&acd::DIR_PHS_A)
+    }
+    fn dir_phs_a_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind {
+        self._acd_mut().dir_phs_a.get_or_insert(Default::default())
+    }
+    fn dir_phs_b(&self) -> &OptionalPhaseFaultDirectionKind {
+        self._acd().dir_phs_b.as_ref().unwrap_or(&acd::DIR_PHS_B)
+    }
+    fn dir_phs_b_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind {
+        self._acd_mut().dir_phs_b.get_or_insert(Default::default())
+    }
+    fn dir_phs_c(&self) -> &OptionalPhaseFaultDirectionKind {
+        self._acd().dir_phs_c.as_ref().unwrap_or(&acd::DIR_PHS_C)
+    }
+    fn dir_phs_c_mut(&mut self) -> &mut OptionalPhaseFaultDirectionKind {
+        self._acd_mut().dir_phs_c.get_or_insert(Default::default())
+    }
+    fn general(&self) -> bool {
+        self._acd().general
+    }
+    fn general_mut(&mut self) -> &mut bool {
+        &mut self._acd_mut().general
+    }
+    fn neut(&self) -> &bool {
+        self._acd().neut.as_ref().unwrap_or(&acd::NEUT)
+    }
+    fn neut_mut(&mut self) -> &mut bool {
+        self._acd_mut().neut.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &bool {
+        self._acd().phs_a.as_ref().unwrap_or(&acd::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut bool {
+        self._acd_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &bool {
+        self._acd().phs_b.as_ref().unwrap_or(&acd::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut bool {
+        self._acd_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &bool {
+        self._acd().phs_c.as_ref().unwrap_or(&acd::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut bool {
+        self._acd_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsAcd for Acd {
+    fn _acd(&self) -> &Acd {
+        self
+    }
+    fn _acd_mut(&mut self) -> &mut Acd {
+        self
+    }
+}
 /// This is a root class to provide common identification for all classes needing identification and
 /// naming attributes.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -272,48 +464,50 @@ impl IsOptionalPhaseCodeKind for OptionalPhaseCodeKind {
         self
     }
 }
-/// Analogue value (AnalogueValue)
+/// Unit definition (Unit)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct AnalogueValue {
-    /// Floating point representation of the measured value. The formula to convert between 'f' and the
-    /// process value (pVal) shall be: <i>pVal</i>='f'*10exp('Unit.multiplier') in ['Unit.SIUnit'].
+pub struct Unit {
+    /// (default='') Unit multiplier.
     #[prost(message, optional, tag="1")]
-    pub f: ::std::option::Option<f32>,
-    /// Integer representation of the measured value. The formula to convert between 'i' and the process
-    /// value (pVal) shall be: <i>pVal</i>=(('i'*'ScaledValueConfig.scaleFactor')+'ScaledValueConfig.offset'
-    ///  in ['Unit.SIUnit'].
-    #[prost(message, optional, tag="2")]
-    pub i: ::std::option::Option<i32>,
+    pub multiplier: ::std::option::Option<OptionalUnitMultiplierKind>,
+    /// SI unit of measure.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(enumeration="UnitSymbolKind", tag="2")]
+    pub si_unit: i32,
 }
-mod analogue_value {
+mod unit {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref F: f32 = Default::default();
-        pub(super) static ref I: i32 = Default::default();
+        pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
     }
 }
-pub trait IsAnalogueValue {
-    fn _analogue_value(&self) -> &AnalogueValue;
-    fn _analogue_value_mut(&mut self) -> &mut AnalogueValue;
-    fn f(&self) -> &f32 {
-        self._analogue_value().f.as_ref().unwrap_or(&analogue_value::F)
+pub trait IsUnit {
+    fn _unit(&self) -> &Unit;
+    fn _unit_mut(&mut self) -> &mut Unit;
+    fn multiplier(&self) -> &OptionalUnitMultiplierKind {
+        self._unit().multiplier.as_ref().unwrap_or(&unit::MULTIPLIER)
     }
-    fn f_mut(&mut self) -> &mut f32 {
-        self._analogue_value_mut().f.get_or_insert(Default::default())
+    fn multiplier_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
+        self._unit_mut().multiplier.get_or_insert(Default::default())
     }
-    fn i(&self) -> &i32 {
-        self._analogue_value().i.as_ref().unwrap_or(&analogue_value::I)
+    fn si_unit(&self) -> i32 {
+        self._unit().si_unit
     }
-    fn i_mut(&mut self) -> &mut i32 {
-        self._analogue_value_mut().i.get_or_insert(Default::default())
+    fn si_unit_mut(&mut self) -> &mut i32 {
+        &mut self._unit_mut().si_unit
     }
 }
-impl IsAnalogueValue for AnalogueValue {
-    fn _analogue_value(&self) -> &AnalogueValue {
+impl IsUnit for Unit {
+    fn _unit(&self) -> &Unit {
         self
     }
-    fn _analogue_value_mut(&mut self) -> &mut AnalogueValue {
+    fn _unit_mut(&mut self) -> &mut Unit {
         self
     }
 }
@@ -779,16 +973,6 @@ impl IsTimeQuality for TimeQuality {
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Timestamp {
-    /// Fractional of the current second when the value of time stamp has been determined. It shall be
-    /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(uint32, tag="1")]
-    pub fraction: u32,
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
     // required_field: true
@@ -801,6 +985,15 @@ pub struct Timestamp {
     /// IEC61850 time quality
     #[prost(message, optional, tag="3")]
     pub tq: ::std::option::Option<TimeQuality>,
+    /// Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(uint32, tag="4")]
+    pub nanoseconds: u32,
 }
 mod timestamp {
     use lazy_static::lazy_static;
@@ -811,12 +1004,6 @@ mod timestamp {
 pub trait IsTimestamp {
     fn _timestamp(&self) -> &Timestamp;
     fn _timestamp_mut(&mut self) -> &mut Timestamp;
-    fn fraction(&self) -> u32 {
-        self._timestamp().fraction
-    }
-    fn fraction_mut(&mut self) -> &mut u32 {
-        &mut self._timestamp_mut().fraction
-    }
     fn seconds(&self) -> u64 {
         self._timestamp().seconds
     }
@@ -829,59 +1016,18 @@ pub trait IsTimestamp {
     fn tq_mut(&mut self) -> &mut TimeQuality {
         self._timestamp_mut().tq.get_or_insert(Default::default())
     }
+    fn nanoseconds(&self) -> u32 {
+        self._timestamp().nanoseconds
+    }
+    fn nanoseconds_mut(&mut self) -> &mut u32 {
+        &mut self._timestamp_mut().nanoseconds
+    }
 }
 impl IsTimestamp for Timestamp {
     fn _timestamp(&self) -> &Timestamp {
         self
     }
     fn _timestamp_mut(&mut self) -> &mut Timestamp {
-        self
-    }
-}
-/// Unit definition (Unit)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct Unit {
-    /// (default='') Unit multiplier.
-    #[prost(message, optional, tag="1")]
-    pub multiplier: ::std::option::Option<OptionalUnitMultiplierKind>,
-    /// SI unit of measure.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(enumeration="UnitSymbolKind", tag="2")]
-    pub si_unit: i32,
-}
-mod unit {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
-    }
-}
-pub trait IsUnit {
-    fn _unit(&self) -> &Unit;
-    fn _unit_mut(&mut self) -> &mut Unit;
-    fn multiplier(&self) -> &OptionalUnitMultiplierKind {
-        self._unit().multiplier.as_ref().unwrap_or(&unit::MULTIPLIER)
-    }
-    fn multiplier_mut(&mut self) -> &mut OptionalUnitMultiplierKind {
-        self._unit_mut().multiplier.get_or_insert(Default::default())
-    }
-    fn si_unit(&self) -> i32 {
-        self._unit().si_unit
-    }
-    fn si_unit_mut(&mut self) -> &mut i32 {
-        &mut self._unit_mut().si_unit
-    }
-}
-impl IsUnit for Unit {
-    fn _unit(&self) -> &Unit {
-        self
-    }
-    fn _unit_mut(&mut self) -> &mut Unit {
         self
     }
 }
@@ -901,25 +1047,13 @@ pub struct Mv {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="1")]
-    pub mag: ::std::option::Option<AnalogueValue>,
+    #[prost(double, tag="1")]
+    pub mag: f64,
     /// Quality of the values in 'instMag', 'mag', 'range'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
     /// 'range' or 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
     /// Unit for: 'instMag', 'mag', 'subMag', 'rangeC'.
@@ -929,7 +1063,6 @@ pub struct Mv {
 mod mv {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref MAG: crate::commonmodule::AnalogueValue = Default::default();
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
@@ -938,11 +1071,11 @@ mod mv {
 pub trait IsMv {
     fn _mv(&self) -> &Mv;
     fn _mv_mut(&mut self) -> &mut Mv;
-    fn mag(&self) -> &AnalogueValue {
-        self._mv().mag.as_ref().unwrap_or(&mv::MAG)
+    fn mag(&self) -> f64 {
+        self._mv().mag
     }
-    fn mag_mut(&mut self) -> &mut AnalogueValue {
-        self._mv_mut().mag.get_or_insert(Default::default())
+    fn mag_mut(&mut self) -> &mut f64 {
+        &mut self._mv_mut().mag
     }
     fn q(&self) -> &Quality {
         self._mv().q.as_ref().unwrap_or(&mv::Q)
@@ -1020,7 +1153,7 @@ impl IsLogicalNode for LogicalNode {
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct AnalogStatusGgio {
+pub struct AnalogEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -1043,7 +1176,7 @@ pub struct AnalogStatusGgio {
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
-mod analog_status_ggio {
+mod analog_event_and_status_ggio {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
@@ -1051,37 +1184,37 @@ mod analog_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-pub trait IsAnalogStatusGgio {
-    fn _analog_status_ggio(&self) -> &AnalogStatusGgio;
-    fn _analog_status_ggio_mut(&mut self) -> &mut AnalogStatusGgio;
+pub trait IsAnalogEventAndStatusGgio {
+    fn _analog_event_and_status_ggio(&self) -> &AnalogEventAndStatusGgio;
+    fn _analog_event_and_status_ggio_mut(&mut self) -> &mut AnalogEventAndStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
-        self._analog_status_ggio().logical_node.as_ref().unwrap_or(&analog_status_ggio::LOGICAL_NODE)
+        self._analog_event_and_status_ggio().logical_node.as_ref().unwrap_or(&analog_event_and_status_ggio::LOGICAL_NODE)
     }
     fn logical_node_mut(&mut self) -> &mut LogicalNode {
-        self._analog_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self._analog_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn an_in(&self) -> &Mv {
-        self._analog_status_ggio().an_in.as_ref().unwrap_or(&analog_status_ggio::AN_IN)
+        self._analog_event_and_status_ggio().an_in.as_ref().unwrap_or(&analog_event_and_status_ggio::AN_IN)
     }
     fn an_in_mut(&mut self) -> &mut Mv {
-        self._analog_status_ggio_mut().an_in.get_or_insert(Default::default())
+        self._analog_event_and_status_ggio_mut().an_in.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
-        self._analog_status_ggio().phase.as_ref().unwrap_or(&analog_status_ggio::PHASE)
+        self._analog_event_and_status_ggio().phase.as_ref().unwrap_or(&analog_event_and_status_ggio::PHASE)
     }
     fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._analog_status_ggio_mut().phase.get_or_insert(Default::default())
+        self._analog_event_and_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
-impl IsAnalogStatusGgio for AnalogStatusGgio {
-    fn _analog_status_ggio(&self) -> &AnalogStatusGgio {
+impl IsAnalogEventAndStatusGgio for AnalogEventAndStatusGgio {
+    fn _analog_event_and_status_ggio(&self) -> &AnalogEventAndStatusGgio {
         self
     }
-    fn _analog_status_ggio_mut(&mut self) -> &mut AnalogStatusGgio {
+    fn _analog_event_and_status_ggio_mut(&mut self) -> &mut AnalogEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for AnalogStatusGgio {
+//impl IsLogicalNode for AnalogEventAndStatusGgio {
     //fn _logical_node(&self) -> &LogicalNode {
         //
     //}
@@ -1089,7 +1222,7 @@ impl IsAnalogStatusGgio for AnalogStatusGgio {
         //
     //}
 //}
-//impl IsIdentifiedObject for AnalogStatusGgio {
+//impl IsIdentifiedObject for AnalogEventAndStatusGgio {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -1097,48 +1230,6 @@ impl IsAnalogStatusGgio for AnalogStatusGgio {
         //
     //}
 //}
-/// Analogue value control (AnalogueValueCtl)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct AnalogueValueCtl {
-    /// Floating point representation of the measured value.  See 'AnalogueValue.f'.
-    #[prost(message, optional, tag="1")]
-    pub f: ::std::option::Option<f32>,
-    /// Integer representation of the measured value. See 'AnalogueValue.i'.
-    #[prost(message, optional, tag="2")]
-    pub i: ::std::option::Option<i32>,
-}
-mod analogue_value_ctl {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref F: f32 = Default::default();
-        pub(super) static ref I: i32 = Default::default();
-    }
-}
-pub trait IsAnalogueValueCtl {
-    fn _analogue_value_ctl(&self) -> &AnalogueValueCtl;
-    fn _analogue_value_ctl_mut(&mut self) -> &mut AnalogueValueCtl;
-    fn f(&self) -> &f32 {
-        self._analogue_value_ctl().f.as_ref().unwrap_or(&analogue_value_ctl::F)
-    }
-    fn f_mut(&mut self) -> &mut f32 {
-        self._analogue_value_ctl_mut().f.get_or_insert(Default::default())
-    }
-    fn i(&self) -> &i32 {
-        self._analogue_value_ctl().i.as_ref().unwrap_or(&analogue_value_ctl::I)
-    }
-    fn i_mut(&mut self) -> &mut i32 {
-        self._analogue_value_ctl_mut().i.get_or_insert(Default::default())
-    }
-}
-impl IsAnalogueValueCtl for AnalogueValueCtl {
-    fn _analogue_value_ctl(&self) -> &AnalogueValueCtl {
-        self
-    }
-    fn _analogue_value_ctl_mut(&mut self) -> &mut AnalogueValueCtl {
-        self
-    }
-}
 /// This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
 /// the two classes is because the mRID may need to be defined as a separate key field for technology
 /// such as the DDS implementation.
@@ -1255,8 +1346,8 @@ pub struct Asg {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="1")]
-    pub set_mag: ::std::option::Option<AnalogueValueCtl>,
+    #[prost(double, tag="1")]
+    pub set_mag: f64,
     /// Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
     #[prost(message, optional, tag="2")]
     pub units: ::std::option::Option<Unit>,
@@ -1264,18 +1355,17 @@ pub struct Asg {
 mod asg {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref SET_MAG: crate::commonmodule::AnalogueValueCtl = Default::default();
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
 pub trait IsAsg {
     fn _asg(&self) -> &Asg;
     fn _asg_mut(&mut self) -> &mut Asg;
-    fn set_mag(&self) -> &AnalogueValueCtl {
-        self._asg().set_mag.as_ref().unwrap_or(&asg::SET_MAG)
+    fn set_mag(&self) -> f64 {
+        self._asg().set_mag
     }
-    fn set_mag_mut(&mut self) -> &mut AnalogueValueCtl {
-        self._asg_mut().set_mag.get_or_insert(Default::default())
+    fn set_mag_mut(&mut self) -> &mut f64 {
+        &mut self._asg_mut().set_mag
     }
     fn units(&self) -> &Unit {
         self._asg().units.as_ref().unwrap_or(&asg::UNITS)
@@ -1307,33 +1397,17 @@ pub struct Bcr {
     #[prost(int64, tag="1")]
     pub act_val: i64,
     /// Quality of the values in 'actVal', 'frVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last change of value in 'actVal' or 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
-    /// Unit for value in 'pulsQty'.
-    #[prost(message, optional, tag="4")]
-    pub units: ::std::option::Option<OptionalUnitSymbolKind>,
 }
 mod bcr {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
-        pub(super) static ref UNITS: crate::commonmodule::OptionalUnitSymbolKind = Default::default();
     }
 }
 pub trait IsBcr {
@@ -1356,12 +1430,6 @@ pub trait IsBcr {
     }
     fn t_mut(&mut self) -> &mut Timestamp {
         self._bcr_mut().t.get_or_insert(Default::default())
-    }
-    fn units(&self) -> &OptionalUnitSymbolKind {
-        self._bcr().units.as_ref().unwrap_or(&bcr::UNITS)
-    }
-    fn units_mut(&mut self) -> &mut OptionalUnitSymbolKind {
-        self._bcr_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsBcr for Bcr {
@@ -1432,7 +1500,7 @@ impl IsStatusSps for StatusSps {
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct BooleanStatusGgio {
+pub struct BooleanEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -1455,7 +1523,7 @@ pub struct BooleanStatusGgio {
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
-mod boolean_status_ggio {
+mod boolean_event_and_status_ggio {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
@@ -1463,37 +1531,37 @@ mod boolean_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-pub trait IsBooleanStatusGgio {
-    fn _boolean_status_ggio(&self) -> &BooleanStatusGgio;
-    fn _boolean_status_ggio_mut(&mut self) -> &mut BooleanStatusGgio;
+pub trait IsBooleanEventAndStatusGgio {
+    fn _boolean_event_and_status_ggio(&self) -> &BooleanEventAndStatusGgio;
+    fn _boolean_event_and_status_ggio_mut(&mut self) -> &mut BooleanEventAndStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
-        self._boolean_status_ggio().logical_node.as_ref().unwrap_or(&boolean_status_ggio::LOGICAL_NODE)
+        self._boolean_event_and_status_ggio().logical_node.as_ref().unwrap_or(&boolean_event_and_status_ggio::LOGICAL_NODE)
     }
     fn logical_node_mut(&mut self) -> &mut LogicalNode {
-        self._boolean_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self._boolean_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn ind(&self) -> &StatusSps {
-        self._boolean_status_ggio().ind.as_ref().unwrap_or(&boolean_status_ggio::IND)
+        self._boolean_event_and_status_ggio().ind.as_ref().unwrap_or(&boolean_event_and_status_ggio::IND)
     }
     fn ind_mut(&mut self) -> &mut StatusSps {
-        self._boolean_status_ggio_mut().ind.get_or_insert(Default::default())
+        self._boolean_event_and_status_ggio_mut().ind.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
-        self._boolean_status_ggio().phase.as_ref().unwrap_or(&boolean_status_ggio::PHASE)
+        self._boolean_event_and_status_ggio().phase.as_ref().unwrap_or(&boolean_event_and_status_ggio::PHASE)
     }
     fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._boolean_status_ggio_mut().phase.get_or_insert(Default::default())
+        self._boolean_event_and_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
-impl IsBooleanStatusGgio for BooleanStatusGgio {
-    fn _boolean_status_ggio(&self) -> &BooleanStatusGgio {
+impl IsBooleanEventAndStatusGgio for BooleanEventAndStatusGgio {
+    fn _boolean_event_and_status_ggio(&self) -> &BooleanEventAndStatusGgio {
         self
     }
-    fn _boolean_status_ggio_mut(&mut self) -> &mut BooleanStatusGgio {
+    fn _boolean_event_and_status_ggio_mut(&mut self) -> &mut BooleanEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for BooleanStatusGgio {
+//impl IsLogicalNode for BooleanEventAndStatusGgio {
     //fn _logical_node(&self) -> &LogicalNode {
         //
     //}
@@ -1501,7 +1569,7 @@ impl IsBooleanStatusGgio for BooleanStatusGgio {
         //
     //}
 //}
-//impl IsIdentifiedObject for BooleanStatusGgio {
+//impl IsIdentifiedObject for BooleanEventAndStatusGgio {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -1560,7 +1628,7 @@ pub struct Vector {
     /// (range=[-180...180]) Angle of the complex value (Unit.SIUnit='deg' and Unit.multiplier='');
     /// angle reference is defined in the context where this type is used.
     #[prost(message, optional, tag="1")]
-    pub ang: ::std::option::Option<AnalogueValue>,
+    pub ang: ::std::option::Option<f64>,
     /// Magnitude of the complex value.
     // parent_message: false
     // required_field: true
@@ -1568,30 +1636,29 @@ pub struct Vector {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="2")]
-    pub mag: ::std::option::Option<AnalogueValue>,
+    #[prost(double, tag="2")]
+    pub mag: f64,
 }
 mod vector {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref ANG: crate::commonmodule::AnalogueValue = Default::default();
-        pub(super) static ref MAG: crate::commonmodule::AnalogueValue = Default::default();
+        pub(super) static ref ANG: f64 = Default::default();
     }
 }
 pub trait IsVector {
     fn _vector(&self) -> &Vector;
     fn _vector_mut(&mut self) -> &mut Vector;
-    fn ang(&self) -> &AnalogueValue {
+    fn ang(&self) -> &f64 {
         self._vector().ang.as_ref().unwrap_or(&vector::ANG)
     }
-    fn ang_mut(&mut self) -> &mut AnalogueValue {
+    fn ang_mut(&mut self) -> &mut f64 {
         self._vector_mut().ang.get_or_insert(Default::default())
     }
-    fn mag(&self) -> &AnalogueValue {
-        self._vector().mag.as_ref().unwrap_or(&vector::MAG)
+    fn mag(&self) -> f64 {
+        self._vector().mag
     }
-    fn mag_mut(&mut self) -> &mut AnalogueValue {
-        self._vector_mut().mag.get_or_insert(Default::default())
+    fn mag_mut(&mut self) -> &mut f64 {
+        &mut self._vector_mut().mag
     }
 }
 impl IsVector for Vector {
@@ -1618,27 +1685,12 @@ pub struct Cmv {
     #[prost(message, optional, tag="1")]
     pub c_val: ::std::option::Option<Vector>,
     /// Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     /// of 'range', 'rangeAng' or 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
-    /// Units for: 'instCVal.mag', 'cVal.mag', 'subCVal.mag', 'rangeC'.
-    #[prost(message, optional, tag="4")]
-    pub units: ::std::option::Option<Unit>,
 }
 mod cmv {
     use lazy_static::lazy_static;
@@ -1646,7 +1698,6 @@ mod cmv {
         pub(super) static ref C_VAL: crate::commonmodule::Vector = Default::default();
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
-        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
 pub trait IsCmv {
@@ -1669,12 +1720,6 @@ pub trait IsCmv {
     }
     fn t_mut(&mut self) -> &mut Timestamp {
         self._cmv_mut().t.get_or_insert(Default::default())
-    }
-    fn units(&self) -> &Unit {
-        self._cmv().units.as_ref().unwrap_or(&cmv::UNITS)
-    }
-    fn units_mut(&mut self) -> &mut Unit {
-        self._cmv_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsCmv for Cmv {
@@ -1850,6 +1895,43 @@ impl IsConductingEquipmentTerminalReading for ConductingEquipmentTerminalReading
         self
     }
 }
+/// <<statistics>> Controllable analogue process value (APC)
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct ControlApc {
+    /// Service parameter that determines the control activity.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(double, tag="1")]
+    pub ctl_val: f64,
+}
+mod control_apc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsControlApc {
+    fn _control_apc(&self) -> &ControlApc;
+    fn _control_apc_mut(&mut self) -> &mut ControlApc;
+    fn ctl_val(&self) -> f64 {
+        self._control_apc().ctl_val
+    }
+    fn ctl_val_mut(&mut self) -> &mut f64 {
+        &mut self._control_apc_mut().ctl_val
+    }
+}
+impl IsControlApc for ControlApc {
+    fn _control_apc(&self) -> &ControlApc {
+        self
+    }
+    fn _control_apc_mut(&mut self) -> &mut ControlApc {
+        self
+    }
+}
 /// Specialized DPC 61850 CDC class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1896,16 +1978,6 @@ impl IsControlDpc for ControlDpc {
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct ControlTimestamp {
-    /// Fractional of the current second when the value of time stamp has been determined. It shall be
-    /// calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(uint32, tag="1")]
-    pub fraction: u32,
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
     // required_field: true
@@ -1915,6 +1987,15 @@ pub struct ControlTimestamp {
     // key: false
     #[prost(uint64, tag="2")]
     pub seconds: u64,
+    /// Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(uint32, tag="3")]
+    pub nanoseconds: u32,
 }
 mod control_timestamp {
     use lazy_static::lazy_static;
@@ -1924,17 +2005,17 @@ mod control_timestamp {
 pub trait IsControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp;
     fn _control_timestamp_mut(&mut self) -> &mut ControlTimestamp;
-    fn fraction(&self) -> u32 {
-        self._control_timestamp().fraction
-    }
-    fn fraction_mut(&mut self) -> &mut u32 {
-        &mut self._control_timestamp_mut().fraction
-    }
     fn seconds(&self) -> u64 {
         self._control_timestamp().seconds
     }
     fn seconds_mut(&mut self) -> &mut u64 {
         &mut self._control_timestamp_mut().seconds
+    }
+    fn nanoseconds(&self) -> u32 {
+        self._control_timestamp().nanoseconds
+    }
+    fn nanoseconds_mut(&mut self) -> &mut u32 {
+        &mut self._control_timestamp_mut().nanoseconds
     }
 }
 impl IsControlTimestamp for ControlTimestamp {
@@ -1994,8 +2075,8 @@ pub struct EngScheduleParameter {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(float, tag="2")]
-    pub value: f32,
+    #[prost(double, tag="2")]
+    pub value: f64,
 }
 mod eng_schedule_parameter {
     use lazy_static::lazy_static;
@@ -2011,10 +2092,10 @@ pub trait IsEngScheduleParameter {
     fn schedule_parameter_type_mut(&mut self) -> &mut i32 {
         &mut self._eng_schedule_parameter_mut().schedule_parameter_type
     }
-    fn value(&self) -> f32 {
+    fn value(&self) -> f64 {
         self._eng_schedule_parameter().value
     }
-    fn value_mut(&mut self) -> &mut f32 {
+    fn value_mut(&mut self) -> &mut f64 {
         &mut self._eng_schedule_parameter_mut().value
     }
 }
@@ -2208,7 +2289,7 @@ impl IsLogicalNodeForControl for LogicalNodeForControl {
         //
     //}
 //}
-/// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:
+/// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:   
 /// Control (execution)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2291,6 +2372,43 @@ impl IsControlFscc for ControlFscc {
         //
     //}
 //}
+/// &lt;&lt;statistics&gt;&gt; Controllable integer status (INC)
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct ControlInc {
+    /// Service parameter that determines the control activity.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(int32, tag="1")]
+    pub ctl_val: i32,
+}
+mod control_inc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsControlInc {
+    fn _control_inc(&self) -> &ControlInc;
+    fn _control_inc_mut(&mut self) -> &mut ControlInc;
+    fn ctl_val(&self) -> i32 {
+        self._control_inc().ctl_val
+    }
+    fn ctl_val_mut(&mut self) -> &mut i32 {
+        &mut self._control_inc_mut().ctl_val
+    }
+}
+impl IsControlInc for ControlInc {
+    fn _control_inc(&self) -> &ControlInc {
+        self
+    }
+    fn _control_inc_mut(&mut self) -> &mut ControlInc {
+        self
+    }
+}
 /// Integer status setting (FC=SP) (ING_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2529,7 +2647,7 @@ impl IsControlSpc for ControlSpc {
         self
     }
 }
-/// The value of a control command which could either be a setpoint or a control schedule in curve.
+/// The value of a control command which could either be a setpoint or a control schedule in curve. 
 /// The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control schedule
 /// in a message payload should be ignored.   It should also be presented in a status profile.  Any
 /// modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
@@ -2545,17 +2663,21 @@ pub struct ControlValue {
     // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
-    /// The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control
-    /// schedule in a message payload should be ignored.   It should also be presented in a status profile.
-    /// Any modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
-    #[prost(message, optional, tag="2")]
+    /// The attribute modBlk is used to tag out a device. If it is TRUE, any setpoints and control in a
+    /// message payload should be ignored.   It should also be presented in a status profile.  Any modBlk
+    /// value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
+    #[prost(message, optional, tag="3")]
     pub mod_blk: ::std::option::Option<bool>,
+    /// If true, reset the device before executing any other controls.
+    #[prost(message, optional, tag="4")]
+    pub reset: ::std::option::Option<bool>,
 }
 mod control_value {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref MOD_BLK: bool = Default::default();
+        pub(super) static ref RESET: bool = Default::default();
     }
 }
 pub trait IsControlValue {
@@ -2572,6 +2694,12 @@ pub trait IsControlValue {
     }
     fn mod_blk_mut(&mut self) -> &mut bool {
         self._control_value_mut().mod_blk.get_or_insert(Default::default())
+    }
+    fn reset(&self) -> &bool {
+        self._control_value().reset.as_ref().unwrap_or(&control_value::RESET)
+    }
+    fn reset_mut(&mut self) -> &mut bool {
+        self._control_value_mut().reset.get_or_insert(Default::default())
     }
 }
 impl IsControlValue for ControlValue {
@@ -2684,6 +2812,171 @@ impl IsDel for Del {
         self
     }
 }
+/// [OpenFMB CDC extension] Per Phase DPC.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseDpc {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<ControlDpc>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<ControlDpc>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<ControlDpc>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<ControlDpc>,
+}
+mod phase_dpc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::ControlDpc = Default::default();
+    }
+}
+pub trait IsPhaseDpc {
+    fn _phase_dpc(&self) -> &PhaseDpc;
+    fn _phase_dpc_mut(&mut self) -> &mut PhaseDpc;
+    fn phs3(&self) -> &ControlDpc {
+        self._phase_dpc().phs3.as_ref().unwrap_or(&phase_dpc::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut ControlDpc {
+        self._phase_dpc_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &ControlDpc {
+        self._phase_dpc().phs_a.as_ref().unwrap_or(&phase_dpc::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut ControlDpc {
+        self._phase_dpc_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &ControlDpc {
+        self._phase_dpc().phs_b.as_ref().unwrap_or(&phase_dpc::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut ControlDpc {
+        self._phase_dpc_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &ControlDpc {
+        self._phase_dpc().phs_c.as_ref().unwrap_or(&phase_dpc::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut ControlDpc {
+        self._phase_dpc_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseDpc for PhaseDpc {
+    fn _phase_dpc(&self) -> &PhaseDpc {
+        self
+    }
+    fn _phase_dpc_mut(&mut self) -> &mut PhaseDpc {
+        self
+    }
+}
+/// Reclose enabled
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct DiscreteControlXcbr {
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="1")]
+    pub logical_node_for_control: ::std::option::Option<LogicalNodeForControl>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub pos: ::std::option::Option<PhaseDpc>,
+    /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    /// by a circuit segment service.
+    #[prost(message, optional, tag="3")]
+    pub protection_mode: ::std::option::Option<ControlInc>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="4")]
+    pub reclose_enabled: ::std::option::Option<ControlSpc>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="5")]
+    pub reset_protection_pickup: ::std::option::Option<ControlSpc>,
+}
+mod discrete_control_xcbr {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseDpc = Default::default();
+        pub(super) static ref PROTECTION_MODE: crate::commonmodule::ControlInc = Default::default();
+        pub(super) static ref RECLOSE_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref RESET_PROTECTION_PICKUP: crate::commonmodule::ControlSpc = Default::default();
+    }
+}
+pub trait IsDiscreteControlXcbr {
+    fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr;
+    fn _discrete_control_xcbr_mut(&mut self) -> &mut DiscreteControlXcbr;
+    fn logical_node_for_control(&self) -> &LogicalNodeForControl {
+        self._discrete_control_xcbr().logical_node_for_control.as_ref().unwrap_or(&discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
+    }
+    fn logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self._discrete_control_xcbr_mut().logical_node_for_control.get_or_insert(Default::default())
+    }
+    fn pos(&self) -> &PhaseDpc {
+        self._discrete_control_xcbr().pos.as_ref().unwrap_or(&discrete_control_xcbr::POS)
+    }
+    fn pos_mut(&mut self) -> &mut PhaseDpc {
+        self._discrete_control_xcbr_mut().pos.get_or_insert(Default::default())
+    }
+    fn protection_mode(&self) -> &ControlInc {
+        self._discrete_control_xcbr().protection_mode.as_ref().unwrap_or(&discrete_control_xcbr::PROTECTION_MODE)
+    }
+    fn protection_mode_mut(&mut self) -> &mut ControlInc {
+        self._discrete_control_xcbr_mut().protection_mode.get_or_insert(Default::default())
+    }
+    fn reclose_enabled(&self) -> &ControlSpc {
+        self._discrete_control_xcbr().reclose_enabled.as_ref().unwrap_or(&discrete_control_xcbr::RECLOSE_ENABLED)
+    }
+    fn reclose_enabled_mut(&mut self) -> &mut ControlSpc {
+        self._discrete_control_xcbr_mut().reclose_enabled.get_or_insert(Default::default())
+    }
+    fn reset_protection_pickup(&self) -> &ControlSpc {
+        self._discrete_control_xcbr().reset_protection_pickup.as_ref().unwrap_or(&discrete_control_xcbr::RESET_PROTECTION_PICKUP)
+    }
+    fn reset_protection_pickup_mut(&mut self) -> &mut ControlSpc {
+        self._discrete_control_xcbr_mut().reset_protection_pickup.get_or_insert(Default::default())
+    }
+}
+impl IsDiscreteControlXcbr for DiscreteControlXcbr {
+    fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr {
+        self
+    }
+    fn _discrete_control_xcbr_mut(&mut self) -> &mut DiscreteControlXcbr {
+        self
+    }
+}
+//impl IsLogicalNodeForControl for DiscreteControlXcbr {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for DiscreteControlXcbr {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for DiscreteControlXcbr {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Generic user of energy - a  point of consumption on the power system model.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2990,12 +3283,6 @@ impl IsOptionalBehaviourModeKind for OptionalBehaviourModeKind {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsBehaviourModeKind {
     /// Quality of the value in 'stVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
@@ -3008,12 +3295,6 @@ pub struct EnsBehaviourModeKind {
     #[prost(enumeration="BehaviourModeKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
@@ -3088,12 +3369,6 @@ impl IsOptionalDerGeneratorStateKind for OptionalDerGeneratorStateKind {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsDerGeneratorStateKind {
     /// Quality of the value in 'stVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
@@ -3106,12 +3381,6 @@ pub struct EnsDerGeneratorStateKind {
     #[prost(enumeration="DerGeneratorStateKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
@@ -3186,12 +3455,6 @@ impl IsOptionalDynamicTestKind for OptionalDynamicTestKind {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct EnsDynamicTestKind {
     /// Quality of the value in 'stVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
@@ -3204,12 +3467,6 @@ pub struct EnsDynamicTestKind {
     #[prost(enumeration="DynamicTestKind", tag="2")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
@@ -3379,6 +3636,82 @@ impl IsEnsHealthKind for EnsHealthKind {
         self
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalSwitchingCapabilityKind {
+    #[prost(enumeration="SwitchingCapabilityKind", tag="1")]
+    pub value: i32,
+}
+mod optional_switching_capability_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalSwitchingCapabilityKind {
+    fn _optional_switching_capability_kind(&self) -> &OptionalSwitchingCapabilityKind;
+    fn _optional_switching_capability_kind_mut(&mut self) -> &mut OptionalSwitchingCapabilityKind;
+    fn value(&self) -> i32 {
+        self._optional_switching_capability_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_switching_capability_kind_mut().value
+    }
+}
+impl IsOptionalSwitchingCapabilityKind for OptionalSwitchingCapabilityKind {
+    fn _optional_switching_capability_kind(&self) -> &OptionalSwitchingCapabilityKind {
+        self
+    }
+    fn _optional_switching_capability_kind_mut(&mut self) -> &mut OptionalSwitchingCapabilityKind {
+        self
+    }
+}
+/// <<abstract>> Enumerated status (ENS)
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct EnsSwitchingCapabilityKind {
+    /// If true, 'q.operatorBlocked'=true, and the process value is no longer updated.
+    #[prost(message, optional, tag="1")]
+    pub blk_ena: ::std::option::Option<bool>,
+    /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(enumeration="SwitchingCapabilityKind", tag="2")]
+    pub st_val: i32,
+}
+mod ens_switching_capability_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref BLK_ENA: bool = Default::default();
+    }
+}
+pub trait IsEnsSwitchingCapabilityKind {
+    fn _ens_switching_capability_kind(&self) -> &EnsSwitchingCapabilityKind;
+    fn _ens_switching_capability_kind_mut(&mut self) -> &mut EnsSwitchingCapabilityKind;
+    fn blk_ena(&self) -> &bool {
+        self._ens_switching_capability_kind().blk_ena.as_ref().unwrap_or(&ens_switching_capability_kind::BLK_ENA)
+    }
+    fn blk_ena_mut(&mut self) -> &mut bool {
+        self._ens_switching_capability_kind_mut().blk_ena.get_or_insert(Default::default())
+    }
+    fn st_val(&self) -> i32 {
+        self._ens_switching_capability_kind().st_val
+    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._ens_switching_capability_kind_mut().st_val
+    }
+}
+impl IsEnsSwitchingCapabilityKind for EnsSwitchingCapabilityKind {
+    fn _ens_switching_capability_kind(&self) -> &EnsSwitchingCapabilityKind {
+        self
+    }
+    fn _ens_switching_capability_kind_mut(&mut self) -> &mut EnsSwitchingCapabilityKind {
+        self
+    }
+}
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3500,11 +3833,15 @@ pub struct EventValue {
     // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub mod_blk: ::std::option::Option<bool>,
 }
 mod event_value {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+        pub(super) static ref MOD_BLK: bool = Default::default();
     }
 }
 pub trait IsEventValue {
@@ -3515,6 +3852,12 @@ pub trait IsEventValue {
     }
     fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
         self._event_value_mut().identified_object.get_or_insert(Default::default())
+    }
+    fn mod_blk(&self) -> &bool {
+        self._event_value().mod_blk.as_ref().unwrap_or(&event_value::MOD_BLK)
+    }
+    fn mod_blk_mut(&mut self) -> &mut bool {
+        self._event_value_mut().mod_blk.get_or_insert(Default::default())
     }
 }
 impl IsEventValue for EventValue {
@@ -3717,59 +4060,6 @@ impl IsForecastValue for ForecastValue {
         //
     //}
 //}
-/// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
-/// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
-/// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
-/// defined in IEC61850-7-2 (but only in SCL: IEC61850-6). However, it is an important concept that
-/// deserves its place in the meta-model. When the meta-model gets instantiated from a direct link to an
-/// IED with an IEC61850 SERVER, we typically create an instance of the meta-model IED per connection.
-/// When the meta-model gets instantiated from an SCL file, there is the full description of IED and its
-/// functions.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct Ied {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub identified_object: ::std::option::Option<IdentifiedObject>,
-}
-mod ied {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
-    }
-}
-pub trait IsIed {
-    fn _ied(&self) -> &Ied;
-    fn _ied_mut(&mut self) -> &mut Ied;
-    fn identified_object(&self) -> &IdentifiedObject {
-        self._ied().identified_object.as_ref().unwrap_or(&ied::IDENTIFIED_OBJECT)
-    }
-    fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
-        self._ied_mut().identified_object.get_or_insert(Default::default())
-    }
-}
-impl IsIed for Ied {
-    fn _ied(&self) -> &Ied {
-        self
-    }
-    fn _ied_mut(&mut self) -> &mut Ied {
-        self
-    }
-}
-//impl IsIdentifiedObject for Ied {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
 /// <<statistics>> Integer status (INS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3789,16 +4079,12 @@ pub struct StatusIns {
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
-    /// Units for: 'stVal', 'subVal'.
-    #[prost(message, optional, tag="4")]
-    pub units: ::std::option::Option<Unit>,
 }
 mod status_ins {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
-        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
 pub trait IsStatusIns {
@@ -3822,12 +4108,6 @@ pub trait IsStatusIns {
     fn t_mut(&mut self) -> &mut Timestamp {
         self._status_ins_mut().t.get_or_insert(Default::default())
     }
-    fn units(&self) -> &Unit {
-        self._status_ins().units.as_ref().unwrap_or(&status_ins::UNITS)
-    }
-    fn units_mut(&mut self) -> &mut Unit {
-        self._status_ins_mut().units.get_or_insert(Default::default())
-    }
 }
 impl IsStatusIns for StatusIns {
     fn _status_ins(&self) -> &StatusIns {
@@ -3840,7 +4120,7 @@ impl IsStatusIns for StatusIns {
 /// Status expressed in integer based on IEC61850 GGIO.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct IntegerStatusGgio {
+pub struct IntegerEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -3863,7 +4143,7 @@ pub struct IntegerStatusGgio {
     #[prost(message, optional, tag="3")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
-mod integer_status_ggio {
+mod integer_event_and_status_ggio {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
@@ -3871,37 +4151,37 @@ mod integer_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
-pub trait IsIntegerStatusGgio {
-    fn _integer_status_ggio(&self) -> &IntegerStatusGgio;
-    fn _integer_status_ggio_mut(&mut self) -> &mut IntegerStatusGgio;
+pub trait IsIntegerEventAndStatusGgio {
+    fn _integer_event_and_status_ggio(&self) -> &IntegerEventAndStatusGgio;
+    fn _integer_event_and_status_ggio_mut(&mut self) -> &mut IntegerEventAndStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
-        self._integer_status_ggio().logical_node.as_ref().unwrap_or(&integer_status_ggio::LOGICAL_NODE)
+        self._integer_event_and_status_ggio().logical_node.as_ref().unwrap_or(&integer_event_and_status_ggio::LOGICAL_NODE)
     }
     fn logical_node_mut(&mut self) -> &mut LogicalNode {
-        self._integer_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self._integer_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn int_in(&self) -> &StatusIns {
-        self._integer_status_ggio().int_in.as_ref().unwrap_or(&integer_status_ggio::INT_IN)
+        self._integer_event_and_status_ggio().int_in.as_ref().unwrap_or(&integer_event_and_status_ggio::INT_IN)
     }
     fn int_in_mut(&mut self) -> &mut StatusIns {
-        self._integer_status_ggio_mut().int_in.get_or_insert(Default::default())
+        self._integer_event_and_status_ggio_mut().int_in.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
-        self._integer_status_ggio().phase.as_ref().unwrap_or(&integer_status_ggio::PHASE)
+        self._integer_event_and_status_ggio().phase.as_ref().unwrap_or(&integer_event_and_status_ggio::PHASE)
     }
     fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._integer_status_ggio_mut().phase.get_or_insert(Default::default())
+        self._integer_event_and_status_ggio_mut().phase.get_or_insert(Default::default())
     }
 }
-impl IsIntegerStatusGgio for IntegerStatusGgio {
-    fn _integer_status_ggio(&self) -> &IntegerStatusGgio {
+impl IsIntegerEventAndStatusGgio for IntegerEventAndStatusGgio {
+    fn _integer_event_and_status_ggio(&self) -> &IntegerEventAndStatusGgio {
         self
     }
-    fn _integer_status_ggio_mut(&mut self) -> &mut IntegerStatusGgio {
+    fn _integer_event_and_status_ggio_mut(&mut self) -> &mut IntegerEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for IntegerStatusGgio {
+//impl IsLogicalNode for IntegerEventAndStatusGgio {
     //fn _logical_node(&self) -> &LogicalNode {
         //
     //}
@@ -3909,7 +4189,7 @@ impl IsIntegerStatusGgio for IntegerStatusGgio {
         //
     //}
 //}
-//impl IsIdentifiedObject for IntegerStatusGgio {
+//impl IsIdentifiedObject for IntegerEventAndStatusGgio {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -3936,6 +4216,12 @@ pub struct LogicalNodeForEventAndStatus {
     /// Asset health
     #[prost(message, optional, tag="3")]
     pub ee_health: ::std::option::Option<EnsHealthKind>,
+    /// Hot line tag.
+    #[prost(message, optional, tag="4")]
+    pub hot_line_tag: ::std::option::Option<StatusSps>,
+    /// Remote control block.
+    #[prost(message, optional, tag="5")]
+    pub remote_blk: ::std::option::Option<StatusSps>,
 }
 mod logical_node_for_event_and_status {
     use lazy_static::lazy_static;
@@ -3943,6 +4229,8 @@ mod logical_node_for_event_and_status {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
         pub(super) static ref BEH: crate::commonmodule::EnsBehaviourModeKind = Default::default();
         pub(super) static ref EE_HEALTH: crate::commonmodule::EnsHealthKind = Default::default();
+        pub(super) static ref HOT_LINE_TAG: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref REMOTE_BLK: crate::commonmodule::StatusSps = Default::default();
     }
 }
 pub trait IsLogicalNodeForEventAndStatus {
@@ -3965,6 +4253,18 @@ pub trait IsLogicalNodeForEventAndStatus {
     }
     fn ee_health_mut(&mut self) -> &mut EnsHealthKind {
         self._logical_node_for_event_and_status_mut().ee_health.get_or_insert(Default::default())
+    }
+    fn hot_line_tag(&self) -> &StatusSps {
+        self._logical_node_for_event_and_status().hot_line_tag.as_ref().unwrap_or(&logical_node_for_event_and_status::HOT_LINE_TAG)
+    }
+    fn hot_line_tag_mut(&mut self) -> &mut StatusSps {
+        self._logical_node_for_event_and_status_mut().hot_line_tag.get_or_insert(Default::default())
+    }
+    fn remote_blk(&self) -> &StatusSps {
+        self._logical_node_for_event_and_status().remote_blk.as_ref().unwrap_or(&logical_node_for_event_and_status::REMOTE_BLK)
+    }
+    fn remote_blk_mut(&mut self) -> &mut StatusSps {
+        self._logical_node_for_event_and_status_mut().remote_blk.get_or_insert(Default::default())
     }
 }
 impl IsLogicalNodeForEventAndStatus for LogicalNodeForEventAndStatus {
@@ -4148,6 +4448,340 @@ impl IsOptimizationMessageInfo for OptimizationMessageInfo {
         //
     //}
 //}
+/// [OpenFMB CDC extension] Per Phase ISC.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseApc {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<ControlApc>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<ControlApc>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<ControlApc>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<ControlApc>,
+}
+mod phase_apc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::ControlApc = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::ControlApc = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::ControlApc = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::ControlApc = Default::default();
+    }
+}
+pub trait IsPhaseApc {
+    fn _phase_apc(&self) -> &PhaseApc;
+    fn _phase_apc_mut(&mut self) -> &mut PhaseApc;
+    fn phs3(&self) -> &ControlApc {
+        self._phase_apc().phs3.as_ref().unwrap_or(&phase_apc::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut ControlApc {
+        self._phase_apc_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &ControlApc {
+        self._phase_apc().phs_a.as_ref().unwrap_or(&phase_apc::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut ControlApc {
+        self._phase_apc_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &ControlApc {
+        self._phase_apc().phs_b.as_ref().unwrap_or(&phase_apc::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut ControlApc {
+        self._phase_apc_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &ControlApc {
+        self._phase_apc().phs_c.as_ref().unwrap_or(&phase_apc::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut ControlApc {
+        self._phase_apc_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseApc for PhaseApc {
+    fn _phase_apc(&self) -> &PhaseApc {
+        self
+    }
+    fn _phase_apc_mut(&mut self) -> &mut PhaseApc {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalDbPosKind {
+    #[prost(enumeration="DbPosKind", tag="1")]
+    pub value: i32,
+}
+mod optional_db_pos_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalDbPosKind {
+    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
+    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind;
+    fn value(&self) -> i32 {
+        self._optional_db_pos_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_db_pos_kind_mut().value
+    }
+}
+impl IsOptionalDbPosKind for OptionalDbPosKind {
+    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind {
+        self
+    }
+    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind {
+        self
+    }
+}
+/// Specialized 61850 DPS class
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct StatusDps {
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="1")]
+    pub q: ::std::option::Option<Quality>,
+    /// Status value of the controllable data object.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(enumeration="DbPosKind", tag="2")]
+    pub st_val: i32,
+    /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    #[prost(message, optional, tag="3")]
+    pub t: ::std::option::Option<Timestamp>,
+}
+mod status_dps {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+pub trait IsStatusDps {
+    fn _status_dps(&self) -> &StatusDps;
+    fn _status_dps_mut(&mut self) -> &mut StatusDps;
+    fn q(&self) -> &Quality {
+        self._status_dps().q.as_ref().unwrap_or(&status_dps::Q)
+    }
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_dps_mut().q.get_or_insert(Default::default())
+    }
+    fn st_val(&self) -> i32 {
+        self._status_dps().st_val
+    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._status_dps_mut().st_val
+    }
+    fn t(&self) -> &Timestamp {
+        self._status_dps().t.as_ref().unwrap_or(&status_dps::T)
+    }
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_dps_mut().t.get_or_insert(Default::default())
+    }
+}
+impl IsStatusDps for StatusDps {
+    fn _status_dps(&self) -> &StatusDps {
+        self
+    }
+    fn _status_dps_mut(&mut self) -> &mut StatusDps {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Per Phase DPS.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseDps {
+    /// 3 Phase status.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<StatusDps>,
+    /// Phase A status.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<StatusDps>,
+    /// Phase B status.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<StatusDps>,
+    /// Phase C status.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<StatusDps>,
+}
+mod phase_dps {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::StatusDps = Default::default();
+    }
+}
+pub trait IsPhaseDps {
+    fn _phase_dps(&self) -> &PhaseDps;
+    fn _phase_dps_mut(&mut self) -> &mut PhaseDps;
+    fn phs3(&self) -> &StatusDps {
+        self._phase_dps().phs3.as_ref().unwrap_or(&phase_dps::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut StatusDps {
+        self._phase_dps_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &StatusDps {
+        self._phase_dps().phs_a.as_ref().unwrap_or(&phase_dps::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut StatusDps {
+        self._phase_dps_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &StatusDps {
+        self._phase_dps().phs_b.as_ref().unwrap_or(&phase_dps::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut StatusDps {
+        self._phase_dps_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &StatusDps {
+        self._phase_dps().phs_c.as_ref().unwrap_or(&phase_dps::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut StatusDps {
+        self._phase_dps_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseDps for PhaseDps {
+    fn _phase_dps(&self) -> &PhaseDps {
+        self
+    }
+    fn _phase_dps_mut(&mut self) -> &mut PhaseDps {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Per Phase INS.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseIns {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<StatusIns>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<StatusIns>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<StatusIns>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<StatusIns>,
+}
+mod phase_ins {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::StatusIns = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::StatusIns = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::StatusIns = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::StatusIns = Default::default();
+    }
+}
+pub trait IsPhaseIns {
+    fn _phase_ins(&self) -> &PhaseIns;
+    fn _phase_ins_mut(&mut self) -> &mut PhaseIns;
+    fn phs3(&self) -> &StatusIns {
+        self._phase_ins().phs3.as_ref().unwrap_or(&phase_ins::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut StatusIns {
+        self._phase_ins_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &StatusIns {
+        self._phase_ins().phs_a.as_ref().unwrap_or(&phase_ins::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut StatusIns {
+        self._phase_ins_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &StatusIns {
+        self._phase_ins().phs_b.as_ref().unwrap_or(&phase_ins::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut StatusIns {
+        self._phase_ins_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &StatusIns {
+        self._phase_ins().phs_c.as_ref().unwrap_or(&phase_ins::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut StatusIns {
+        self._phase_ins_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseIns for PhaseIns {
+    fn _phase_ins(&self) -> &PhaseIns {
+        self
+    }
+    fn _phase_ins_mut(&mut self) -> &mut PhaseIns {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Per Phase ISC.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseIsc {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<ControlIsc>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<ControlIsc>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<ControlIsc>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<ControlIsc>,
+}
+mod phase_isc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::ControlIsc = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::ControlIsc = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::ControlIsc = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::ControlIsc = Default::default();
+    }
+}
+pub trait IsPhaseIsc {
+    fn _phase_isc(&self) -> &PhaseIsc;
+    fn _phase_isc_mut(&mut self) -> &mut PhaseIsc;
+    fn phs3(&self) -> &ControlIsc {
+        self._phase_isc().phs3.as_ref().unwrap_or(&phase_isc::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut ControlIsc {
+        self._phase_isc_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &ControlIsc {
+        self._phase_isc().phs_a.as_ref().unwrap_or(&phase_isc::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut ControlIsc {
+        self._phase_isc_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &ControlIsc {
+        self._phase_isc().phs_b.as_ref().unwrap_or(&phase_isc::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut ControlIsc {
+        self._phase_isc_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &ControlIsc {
+        self._phase_isc().phs_c.as_ref().unwrap_or(&phase_isc::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut ControlIsc {
+        self._phase_isc_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseIsc for PhaseIsc {
+    fn _phase_isc(&self) -> &PhaseIsc {
+        self
+    }
+    fn _phase_isc_mut(&mut self) -> &mut PhaseIsc {
+        self
+    }
+}
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4371,6 +5005,224 @@ impl IsPhaseMmtn for PhaseMmtn {
         self
     }
     fn _phase_mmtn_mut(&mut self) -> &mut PhaseMmtn {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalRecloseActionKind {
+    #[prost(enumeration="RecloseActionKind", tag="1")]
+    pub value: i32,
+}
+mod optional_reclose_action_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalRecloseActionKind {
+    fn _optional_reclose_action_kind(&self) -> &OptionalRecloseActionKind;
+    fn _optional_reclose_action_kind_mut(&mut self) -> &mut OptionalRecloseActionKind;
+    fn value(&self) -> i32 {
+        self._optional_reclose_action_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_reclose_action_kind_mut().value
+    }
+}
+impl IsOptionalRecloseActionKind for OptionalRecloseActionKind {
+    fn _optional_reclose_action_kind(&self) -> &OptionalRecloseActionKind {
+        self
+    }
+    fn _optional_reclose_action_kind_mut(&mut self) -> &mut OptionalRecloseActionKind {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Per Phase reclose action kind.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseRecloseAction {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<OptionalRecloseActionKind>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<OptionalRecloseActionKind>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<OptionalRecloseActionKind>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<OptionalRecloseActionKind>,
+}
+mod phase_reclose_action {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::OptionalRecloseActionKind = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::OptionalRecloseActionKind = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::OptionalRecloseActionKind = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::OptionalRecloseActionKind = Default::default();
+    }
+}
+pub trait IsPhaseRecloseAction {
+    fn _phase_reclose_action(&self) -> &PhaseRecloseAction;
+    fn _phase_reclose_action_mut(&mut self) -> &mut PhaseRecloseAction;
+    fn phs3(&self) -> &OptionalRecloseActionKind {
+        self._phase_reclose_action().phs3.as_ref().unwrap_or(&phase_reclose_action::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut OptionalRecloseActionKind {
+        self._phase_reclose_action_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &OptionalRecloseActionKind {
+        self._phase_reclose_action().phs_a.as_ref().unwrap_or(&phase_reclose_action::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut OptionalRecloseActionKind {
+        self._phase_reclose_action_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &OptionalRecloseActionKind {
+        self._phase_reclose_action().phs_b.as_ref().unwrap_or(&phase_reclose_action::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut OptionalRecloseActionKind {
+        self._phase_reclose_action_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &OptionalRecloseActionKind {
+        self._phase_reclose_action().phs_c.as_ref().unwrap_or(&phase_reclose_action::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut OptionalRecloseActionKind {
+        self._phase_reclose_action_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseRecloseAction for PhaseRecloseAction {
+    fn _phase_reclose_action(&self) -> &PhaseRecloseAction {
+        self
+    }
+    fn _phase_reclose_action_mut(&mut self) -> &mut PhaseRecloseAction {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Per Phase DPS.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct PhaseSps {
+    /// 3 Phase status.
+    #[prost(message, optional, tag="1")]
+    pub phs3: ::std::option::Option<StatusSps>,
+    /// Phase A status.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<StatusSps>,
+    /// Phase B status.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<StatusSps>,
+    /// Phase C status.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<StatusSps>,
+}
+mod phase_sps {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+pub trait IsPhaseSps {
+    fn _phase_sps(&self) -> &PhaseSps;
+    fn _phase_sps_mut(&mut self) -> &mut PhaseSps;
+    fn phs3(&self) -> &StatusSps {
+        self._phase_sps().phs3.as_ref().unwrap_or(&phase_sps::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut StatusSps {
+        self._phase_sps_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &StatusSps {
+        self._phase_sps().phs_a.as_ref().unwrap_or(&phase_sps::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut StatusSps {
+        self._phase_sps_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &StatusSps {
+        self._phase_sps().phs_b.as_ref().unwrap_or(&phase_sps::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut StatusSps {
+        self._phase_sps_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &StatusSps {
+        self._phase_sps().phs_c.as_ref().unwrap_or(&phase_sps::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut StatusSps {
+        self._phase_sps_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseSps for PhaseSps {
+    fn _phase_sps(&self) -> &PhaseSps {
+        self
+    }
+    fn _phase_sps_mut(&mut self) -> &mut PhaseSps {
+        self
+    }
+}
+/// [OpenFMB CDC extension] Phase magnitude (PMG). Phase to ground/neutral related per-phase
+/// measured values.
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct Pmg {
+    /// Net current, as the algebraic sum of the instantaneous values of currents flowing through all
+    /// live conductors and the neutral of a circuit at one point of the electrical installation ('phsA
+    /// instCVal'+'phsB.instCVal'+'phsC.instCVal'+'neut.instCVal').
+    #[prost(message, optional, tag="1")]
+    pub net: ::std::option::Option<Mv>,
+    /// Value of phase A.
+    #[prost(message, optional, tag="2")]
+    pub phs_a: ::std::option::Option<Mv>,
+    /// Value of phase B.
+    #[prost(message, optional, tag="3")]
+    pub phs_b: ::std::option::Option<Mv>,
+    /// Value of phase C.
+    #[prost(message, optional, tag="4")]
+    pub phs_c: ::std::option::Option<Mv>,
+}
+mod pmg {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref NET: crate::commonmodule::Mv = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::Mv = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::Mv = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::Mv = Default::default();
+    }
+}
+pub trait IsPmg {
+    fn _pmg(&self) -> &Pmg;
+    fn _pmg_mut(&mut self) -> &mut Pmg;
+    fn net(&self) -> &Mv {
+        self._pmg().net.as_ref().unwrap_or(&pmg::NET)
+    }
+    fn net_mut(&mut self) -> &mut Mv {
+        self._pmg_mut().net.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &Mv {
+        self._pmg().phs_a.as_ref().unwrap_or(&pmg::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut Mv {
+        self._pmg_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &Mv {
+        self._pmg().phs_b.as_ref().unwrap_or(&pmg::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut Mv {
+        self._pmg_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &Mv {
+        self._pmg().phs_c.as_ref().unwrap_or(&pmg::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut Mv {
+        self._pmg_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPmg for Pmg {
+    fn _pmg(&self) -> &Pmg {
+        self
+    }
+    fn _pmg_mut(&mut self) -> &mut Pmg {
         self
     }
 }
@@ -4873,104 +5725,6 @@ impl IsReadingMmxu for ReadingMmxu {
         //
     //}
 //}
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct OptionalDbPosKind {
-    #[prost(enumeration="DbPosKind", tag="1")]
-    pub value: i32,
-}
-mod optional_db_pos_kind {
-    use lazy_static::lazy_static;
-    lazy_static! {
-    }
-}
-pub trait IsOptionalDbPosKind {
-    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
-    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind;
-    fn value(&self) -> i32 {
-        self._optional_db_pos_kind().value
-    }
-    fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_db_pos_kind_mut().value
-    }
-}
-impl IsOptionalDbPosKind for OptionalDbPosKind {
-    fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind {
-        self
-    }
-    fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind {
-        self
-    }
-}
-/// Specialized 61850 DPS class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct StatusDps {
-    /// Quality of the value in 'stVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub q: ::std::option::Option<Quality>,
-    /// Status value of the controllable data object.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(enumeration="DbPosKind", tag="2")]
-    pub st_val: i32,
-    /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
-    pub t: ::std::option::Option<Timestamp>,
-}
-mod status_dps {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
-        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
-    }
-}
-pub trait IsStatusDps {
-    fn _status_dps(&self) -> &StatusDps;
-    fn _status_dps_mut(&mut self) -> &mut StatusDps;
-    fn q(&self) -> &Quality {
-        self._status_dps().q.as_ref().unwrap_or(&status_dps::Q)
-    }
-    fn q_mut(&mut self) -> &mut Quality {
-        self._status_dps_mut().q.get_or_insert(Default::default())
-    }
-    fn st_val(&self) -> i32 {
-        self._status_dps().st_val
-    }
-    fn st_val_mut(&mut self) -> &mut i32 {
-        &mut self._status_dps_mut().st_val
-    }
-    fn t(&self) -> &Timestamp {
-        self._status_dps().t.as_ref().unwrap_or(&status_dps::T)
-    }
-    fn t_mut(&mut self) -> &mut Timestamp {
-        self._status_dps_mut().t.get_or_insert(Default::default())
-    }
-}
-impl IsStatusDps for StatusDps {
-    fn _status_dps(&self) -> &StatusDps {
-        self
-    }
-    fn _status_dps_mut(&mut self) -> &mut StatusDps {
-        self
-    }
-}
 /// OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 /// breaker   Name: XCBR
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -4989,21 +5743,32 @@ pub struct StatusAndEventXcbr {
     #[prost(message, optional, tag="2")]
     pub dynamic_test: ::std::option::Option<EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
-    pub pos: ::std::option::Option<StatusDps>,
+    pub pos: ::std::option::Option<PhaseDps>,
+    /// Fault latch: LT01=51A OR 51B OR 51C
+    #[prost(message, optional, tag="4")]
+    pub protection_pickup: ::std::option::Option<Acd>,
+    /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    /// by a circuit segment service.
+    #[prost(message, optional, tag="5")]
+    pub protection_mode: ::std::option::Option<StatusIns>,
+    /// Reclose enabled
+    #[prost(message, optional, tag="6")]
+    pub reclose_enabled: ::std::option::Option<PhaseSps>,
+    /// Reclose mode such idle, cycling and lockout.
+    #[prost(message, optional, tag="7")]
+    pub reclosing_action: ::std::option::Option<PhaseRecloseAction>,
 }
 mod status_and_event_xcbr {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
-        pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseDps = Default::default();
+        pub(super) static ref PROTECTION_PICKUP: crate::commonmodule::Acd = Default::default();
+        pub(super) static ref PROTECTION_MODE: crate::commonmodule::StatusIns = Default::default();
+        pub(super) static ref RECLOSE_ENABLED: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref RECLOSING_ACTION: crate::commonmodule::PhaseRecloseAction = Default::default();
     }
 }
 pub trait IsStatusAndEventXcbr {
@@ -5021,11 +5786,35 @@ pub trait IsStatusAndEventXcbr {
     fn dynamic_test_mut(&mut self) -> &mut EnsDynamicTestKind {
         self._status_and_event_xcbr_mut().dynamic_test.get_or_insert(Default::default())
     }
-    fn pos(&self) -> &StatusDps {
+    fn pos(&self) -> &PhaseDps {
         self._status_and_event_xcbr().pos.as_ref().unwrap_or(&status_and_event_xcbr::POS)
     }
-    fn pos_mut(&mut self) -> &mut StatusDps {
+    fn pos_mut(&mut self) -> &mut PhaseDps {
         self._status_and_event_xcbr_mut().pos.get_or_insert(Default::default())
+    }
+    fn protection_pickup(&self) -> &Acd {
+        self._status_and_event_xcbr().protection_pickup.as_ref().unwrap_or(&status_and_event_xcbr::PROTECTION_PICKUP)
+    }
+    fn protection_pickup_mut(&mut self) -> &mut Acd {
+        self._status_and_event_xcbr_mut().protection_pickup.get_or_insert(Default::default())
+    }
+    fn protection_mode(&self) -> &StatusIns {
+        self._status_and_event_xcbr().protection_mode.as_ref().unwrap_or(&status_and_event_xcbr::PROTECTION_MODE)
+    }
+    fn protection_mode_mut(&mut self) -> &mut StatusIns {
+        self._status_and_event_xcbr_mut().protection_mode.get_or_insert(Default::default())
+    }
+    fn reclose_enabled(&self) -> &PhaseSps {
+        self._status_and_event_xcbr().reclose_enabled.as_ref().unwrap_or(&status_and_event_xcbr::RECLOSE_ENABLED)
+    }
+    fn reclose_enabled_mut(&mut self) -> &mut PhaseSps {
+        self._status_and_event_xcbr_mut().reclose_enabled.get_or_insert(Default::default())
+    }
+    fn reclosing_action(&self) -> &PhaseRecloseAction {
+        self._status_and_event_xcbr().reclosing_action.as_ref().unwrap_or(&status_and_event_xcbr::RECLOSING_ACTION)
+    }
+    fn reclosing_action_mut(&mut self) -> &mut PhaseRecloseAction {
+        self._status_and_event_xcbr_mut().reclosing_action.get_or_insert(Default::default())
     }
 }
 impl IsStatusAndEventXcbr for StatusAndEventXcbr {
@@ -5060,6 +5849,63 @@ impl IsStatusAndEventXcbr for StatusAndEventXcbr {
         //
     //}
 //}
+/// Integer control status
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct StatusInc {
+    /// Quality of the value in 'stVal'.
+    #[prost(message, optional, tag="1")]
+    pub q: ::std::option::Option<Quality>,
+    /// Value of the data.
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(int32, tag="2")]
+    pub st_val: i32,
+    /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    #[prost(message, optional, tag="3")]
+    pub t: ::std::option::Option<Timestamp>,
+}
+mod status_inc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
+        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
+    }
+}
+pub trait IsStatusInc {
+    fn _status_inc(&self) -> &StatusInc;
+    fn _status_inc_mut(&mut self) -> &mut StatusInc;
+    fn q(&self) -> &Quality {
+        self._status_inc().q.as_ref().unwrap_or(&status_inc::Q)
+    }
+    fn q_mut(&mut self) -> &mut Quality {
+        self._status_inc_mut().q.get_or_insert(Default::default())
+    }
+    fn st_val(&self) -> i32 {
+        self._status_inc().st_val
+    }
+    fn st_val_mut(&mut self) -> &mut i32 {
+        &mut self._status_inc_mut().st_val
+    }
+    fn t(&self) -> &Timestamp {
+        self._status_inc().t.as_ref().unwrap_or(&status_inc::T)
+    }
+    fn t_mut(&mut self) -> &mut Timestamp {
+        self._status_inc_mut().t.get_or_insert(Default::default())
+    }
+}
+impl IsStatusInc for StatusInc {
+    fn _status_inc(&self) -> &StatusInc {
+        self
+    }
+    fn _status_inc_mut(&mut self) -> &mut StatusInc {
+        self
+    }
+}
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -5241,11 +6087,15 @@ pub struct StatusValue {
     // key: false
     #[prost(message, optional, tag="1")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub mod_blk: ::std::option::Option<bool>,
 }
 mod status_value {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
+        pub(super) static ref MOD_BLK: bool = Default::default();
     }
 }
 pub trait IsStatusValue {
@@ -5256,6 +6106,12 @@ pub trait IsStatusValue {
     }
     fn identified_object_mut(&mut self) -> &mut IdentifiedObject {
         self._status_value_mut().identified_object.get_or_insert(Default::default())
+    }
+    fn mod_blk(&self) -> &bool {
+        self._status_value().mod_blk.as_ref().unwrap_or(&status_value::MOD_BLK)
+    }
+    fn mod_blk_mut(&mut self) -> &mut bool {
+        self._status_value_mut().mod_blk.get_or_insert(Default::default())
     }
 }
 impl IsStatusValue for StatusValue {
@@ -5279,12 +6135,6 @@ impl IsStatusValue for StatusValue {
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct Vss {
     /// Quality of the value in 'stVal'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="1")]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
@@ -5297,12 +6147,6 @@ pub struct Vss {
     #[prost(string, tag="2")]
     pub st_val: std::string::String,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub t: ::std::option::Option<Timestamp>,
 }
@@ -5346,7 +6190,7 @@ impl IsVss for Vss {
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct StringStatusGgio {
+pub struct StringEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -5369,7 +6213,7 @@ pub struct StringStatusGgio {
     #[prost(message, optional, tag="3")]
     pub str_in: ::std::option::Option<Vss>,
 }
-mod string_status_ggio {
+mod string_event_and_status_ggio {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
@@ -5377,37 +6221,37 @@ mod string_status_ggio {
         pub(super) static ref STR_IN: crate::commonmodule::Vss = Default::default();
     }
 }
-pub trait IsStringStatusGgio {
-    fn _string_status_ggio(&self) -> &StringStatusGgio;
-    fn _string_status_ggio_mut(&mut self) -> &mut StringStatusGgio;
+pub trait IsStringEventAndStatusGgio {
+    fn _string_event_and_status_ggio(&self) -> &StringEventAndStatusGgio;
+    fn _string_event_and_status_ggio_mut(&mut self) -> &mut StringEventAndStatusGgio;
     fn logical_node(&self) -> &LogicalNode {
-        self._string_status_ggio().logical_node.as_ref().unwrap_or(&string_status_ggio::LOGICAL_NODE)
+        self._string_event_and_status_ggio().logical_node.as_ref().unwrap_or(&string_event_and_status_ggio::LOGICAL_NODE)
     }
     fn logical_node_mut(&mut self) -> &mut LogicalNode {
-        self._string_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self._string_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
     }
     fn phase(&self) -> &OptionalPhaseCodeKind {
-        self._string_status_ggio().phase.as_ref().unwrap_or(&string_status_ggio::PHASE)
+        self._string_event_and_status_ggio().phase.as_ref().unwrap_or(&string_event_and_status_ggio::PHASE)
     }
     fn phase_mut(&mut self) -> &mut OptionalPhaseCodeKind {
-        self._string_status_ggio_mut().phase.get_or_insert(Default::default())
+        self._string_event_and_status_ggio_mut().phase.get_or_insert(Default::default())
     }
     fn str_in(&self) -> &Vss {
-        self._string_status_ggio().str_in.as_ref().unwrap_or(&string_status_ggio::STR_IN)
+        self._string_event_and_status_ggio().str_in.as_ref().unwrap_or(&string_event_and_status_ggio::STR_IN)
     }
     fn str_in_mut(&mut self) -> &mut Vss {
-        self._string_status_ggio_mut().str_in.get_or_insert(Default::default())
+        self._string_event_and_status_ggio_mut().str_in.get_or_insert(Default::default())
     }
 }
-impl IsStringStatusGgio for StringStatusGgio {
-    fn _string_status_ggio(&self) -> &StringStatusGgio {
+impl IsStringEventAndStatusGgio for StringEventAndStatusGgio {
+    fn _string_event_and_status_ggio(&self) -> &StringEventAndStatusGgio {
         self
     }
-    fn _string_status_ggio_mut(&mut self) -> &mut StringStatusGgio {
+    fn _string_event_and_status_ggio_mut(&mut self) -> &mut StringEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for StringStatusGgio {
+//impl IsLogicalNode for StringEventAndStatusGgio {
     //fn _logical_node(&self) -> &LogicalNode {
         //
     //}
@@ -5415,7 +6259,7 @@ impl IsStringStatusGgio for StringStatusGgio {
         //
     //}
 //}
-//impl IsIdentifiedObject for StringStatusGgio {
+//impl IsIdentifiedObject for StringEventAndStatusGgio {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -5514,41 +6358,40 @@ impl IsSwitchCsg for SwitchCsg {
         self
     }
 }
-/// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+/// Visible string status (VSS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct SwitchControlScheduleFsch {
-    /// Discrete value in SwitchCSG type
+pub struct Vsc {
+    /// [OpenFMB Extension]  String control value.
     // parent_message: false
     // required_field: true
     // multiplicity_min: Some(1)
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="1")]
-    pub val_dcsg: ::std::option::Option<SwitchCsg>,
+    #[prost(string, tag="1")]
+    pub ctl_val: std::string::String,
 }
-mod switch_control_schedule_fsch {
+mod vsc {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref VAL_DCSG: crate::commonmodule::SwitchCsg = Default::default();
     }
 }
-pub trait IsSwitchControlScheduleFsch {
-    fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch;
-    fn _switch_control_schedule_fsch_mut(&mut self) -> &mut SwitchControlScheduleFsch;
-    fn val_dcsg(&self) -> &SwitchCsg {
-        self._switch_control_schedule_fsch().val_dcsg.as_ref().unwrap_or(&switch_control_schedule_fsch::VAL_DCSG)
+pub trait IsVsc {
+    fn _vsc(&self) -> &Vsc;
+    fn _vsc_mut(&mut self) -> &mut Vsc;
+    fn ctl_val(&self) -> &std::string::String {
+        &self._vsc().ctl_val
     }
-    fn val_dcsg_mut(&mut self) -> &mut SwitchCsg {
-        self._switch_control_schedule_fsch_mut().val_dcsg.get_or_insert(Default::default())
+    fn ctl_val_mut(&mut self) -> &mut std::string::String {
+        &mut self._vsc_mut().ctl_val
     }
 }
-impl IsSwitchControlScheduleFsch for SwitchControlScheduleFsch {
-    fn _switch_control_schedule_fsch(&self) -> &SwitchControlScheduleFsch {
+impl IsVsc for Vsc {
+    fn _vsc(&self) -> &Vsc {
         self
     }
-    fn _switch_control_schedule_fsch_mut(&mut self) -> &mut SwitchControlScheduleFsch {
+    fn _vsc_mut(&mut self) -> &mut Vsc {
         self
     }
 }
@@ -5580,6 +6423,32 @@ impl IsOptionalStateKind for OptionalStateKind {
     fn _optional_state_kind_mut(&mut self) -> &mut OptionalStateKind {
         self
     }
+}
+/// Reclose action kind such as idle, cycling, or lockout.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum FaultDirectionKind {
+    /// MISSING DOCUMENTATION!!!
+    Unknown = 0,
+    /// MISSING DOCUMENTATION!!!
+    Forward = 1,
+    /// MISSING DOCUMENTATION!!!
+    Backward = 2,
+    /// MISSING DOCUMENTATION!!!
+    Both = 3,
+}
+/// Reclose action kind such as idle, cycling, or lockout.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum PhaseFaultDirectionKind {
+    /// MISSING DOCUMENTATION!!!
+    Unknown = 0,
+    /// MISSING DOCUMENTATION!!!
+    Forward = 1,
+    /// MISSING DOCUMENTATION!!!
+    Backward = 2,
 }
 /// The units defined for usage in the CIM.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -6036,6 +6905,20 @@ pub enum HealthKind {
     /// Severe problem, no operation possible ("red").
     Alarm = 3,
 }
+/// MISSING DOCUMENTATION!!!
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum SwitchingCapabilityKind {
+    /// MISSING DOCUMENTATION!!!
+    None = 0,
+    /// Open
+    Open = 1,
+    /// Close
+    Close = 2,
+    /// Open and Close
+    OpenAndClose = 3,
+}
 /// Double point position status
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
@@ -6049,6 +6932,18 @@ pub enum DbPosKind {
     Open = 2,
     /// Invalid status
     Invalid = 3,
+}
+/// Reclose action kind such as idle, cycling, or lockout.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum RecloseActionKind {
+    /// Idle state
+    Idle = 0,
+    /// Cycling state
+    Cycling = 1,
+    /// Lockout state
+    Lockout = 2,
 }
 /// State kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]

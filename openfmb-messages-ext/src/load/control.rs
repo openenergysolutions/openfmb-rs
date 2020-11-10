@@ -68,11 +68,10 @@ impl OpenFMBExt for LoadControlProfile {
 }
 
 pub trait LoadControlExt: ControlProfileExt {
-    fn loadbank_on_msg(m_rid: &str, load_value: f32) -> LoadControlProfile {
+    fn loadbank_on_msg(m_rid: &str, load_value: f64) -> LoadControlProfile {
         LoadControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             energy_consumer: Self::build_energy_consumer(Uuid::from_str(m_rid).unwrap()),
-            ied: None,
             load_control: Self::build_load_control(load_value, 1),
         }
     }
@@ -81,7 +80,6 @@ pub trait LoadControlExt: ControlProfileExt {
         LoadControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             energy_consumer: Self::build_energy_consumer(Uuid::from_str(m_rid).unwrap()),
-            ied: None,
             load_control: Self::build_load_control(0.0, 0),
         }
     }
@@ -91,7 +89,6 @@ pub trait LoadControlExt: ControlProfileExt {
             control_message_info: Some(Self::build_control_message_info()),
             energy_consumer: None,
             load_control: None,
-            ied: None,
         }
     }
 
@@ -128,7 +125,8 @@ pub trait LoadControlExt: ControlProfileExt {
     //        })
     //    }
 
-    fn build_load_control(load_value: f32, state: i32) -> Option<LoadControl> {
+    fn build_load_control(load_value: f64, state: i32) -> Option<LoadControl> {
+    let start_time = SystemTime::now();
         Some(LoadControl {
             control_value: None,
             check: None,
@@ -143,8 +141,8 @@ pub trait LoadControlExt: ControlProfileExt {
                                     value: load_value,
                                 }],
                                 start_time: Some(ControlTimestamp {
-                                    fraction: 0,
-                                    seconds: SystemTime::now()
+                                    nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                    seconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
                                         .as_secs(), /*+28800*/
@@ -162,8 +160,8 @@ pub trait LoadControlExt: ControlProfileExt {
                             real_pwr_set_point_enabled: None,
                             reset: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
-                                seconds: SystemTime::now()
+                                nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                seconds: start_time
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
                                     .as_secs(), /*+28800*/

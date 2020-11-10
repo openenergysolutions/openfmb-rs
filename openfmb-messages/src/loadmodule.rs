@@ -258,12 +258,6 @@ pub struct LoadControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub load_control_fscc: ::std::option::Option<LoadControlFscc>,
 }
@@ -352,15 +346,6 @@ pub struct LoadControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
     pub load_control: ::std::option::Option<LoadControl>,
 }
 mod load_control_profile {
@@ -368,7 +353,6 @@ mod load_control_profile {
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
         pub(super) static ref ENERGY_CONSUMER: crate::commonmodule::EnergyConsumer = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref LOAD_CONTROL: crate::loadmodule::LoadControl = Default::default();
     }
 }
@@ -386,12 +370,6 @@ pub trait IsLoadControlProfile {
     }
     fn energy_consumer_mut(&mut self) -> &mut super::commonmodule::EnergyConsumer {
         self._load_control_profile_mut().energy_consumer.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._load_control_profile().ied.as_ref().unwrap_or(&load_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._load_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn load_control(&self) -> &LoadControl {
         self._load_control_profile().load_control.as_ref().unwrap_or(&load_control_profile::LOAD_CONTROL)
@@ -441,13 +419,13 @@ pub struct LoadPointStatus {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="2")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="3")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Reset device
     #[prost(message, optional, tag="4")]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reset: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="5")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
@@ -456,9 +434,9 @@ mod load_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
     }
 }
@@ -471,22 +449,22 @@ pub trait IsLoadPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._load_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._load_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._load_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._load_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._load_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
+    fn reset(&self) -> &super::commonmodule::StatusDps {
         self._load_point_status().reset.as_ref().unwrap_or(&load_point_status::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._load_point_status_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -680,12 +658,6 @@ pub struct LoadEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub load_event_zgld: ::std::option::Option<LoadEventZgld>,
 }
@@ -767,15 +739,6 @@ pub struct LoadEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
     pub load_event: ::std::option::Option<LoadEvent>,
 }
 mod load_event_profile {
@@ -783,7 +746,6 @@ mod load_event_profile {
     lazy_static! {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
         pub(super) static ref ENERGY_CONSUMER: crate::commonmodule::EnergyConsumer = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref LOAD_EVENT: crate::loadmodule::LoadEvent = Default::default();
     }
 }
@@ -801,12 +763,6 @@ pub trait IsLoadEventProfile {
     }
     fn energy_consumer_mut(&mut self) -> &mut super::commonmodule::EnergyConsumer {
         self._load_event_profile_mut().energy_consumer.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._load_event_profile().ied.as_ref().unwrap_or(&load_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._load_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn load_event(&self) -> &LoadEvent {
         self._load_event_profile().load_event.as_ref().unwrap_or(&load_event_profile::LOAD_EVENT)
@@ -954,15 +910,6 @@ pub struct LoadReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
     pub load_reading: ::std::option::Option<LoadReading>,
 }
 mod load_reading_profile {
@@ -970,7 +917,6 @@ mod load_reading_profile {
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
         pub(super) static ref ENERGY_CONSUMER: crate::commonmodule::EnergyConsumer = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref LOAD_READING: crate::loadmodule::LoadReading = Default::default();
     }
 }
@@ -988,12 +934,6 @@ pub trait IsLoadReadingProfile {
     }
     fn energy_consumer_mut(&mut self) -> &mut super::commonmodule::EnergyConsumer {
         self._load_reading_profile_mut().energy_consumer.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._load_reading_profile().ied.as_ref().unwrap_or(&load_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._load_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn load_reading(&self) -> &LoadReading {
         self._load_reading_profile().load_reading.as_ref().unwrap_or(&load_reading_profile::LOAD_READING)
@@ -1117,20 +1057,18 @@ pub struct LoadStatus {
     // key: false
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
+    /// True if the load is uncontrollable.
     #[prost(message, optional, tag="2")]
+    pub is_uncontrollable: ::std::option::Option<bool>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
     pub load_status_zgld: ::std::option::Option<LoadStatusZgld>,
 }
 mod load_status {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
+        pub(super) static ref IS_UNCONTROLLABLE: bool = Default::default();
         pub(super) static ref LOAD_STATUS_ZGLD: crate::loadmodule::LoadStatusZgld = Default::default();
     }
 }
@@ -1142,6 +1080,12 @@ pub trait IsLoadStatus {
     }
     fn status_value_mut(&mut self) -> &mut super::commonmodule::StatusValue {
         self._load_status_mut().status_value.get_or_insert(Default::default())
+    }
+    fn is_uncontrollable(&self) -> &bool {
+        self._load_status().is_uncontrollable.as_ref().unwrap_or(&load_status::IS_UNCONTROLLABLE)
+    }
+    fn is_uncontrollable_mut(&mut self) -> &mut bool {
+        self._load_status_mut().is_uncontrollable.get_or_insert(Default::default())
     }
     fn load_status_zgld(&self) -> &LoadStatusZgld {
         self._load_status().load_status_zgld.as_ref().unwrap_or(&load_status::LOAD_STATUS_ZGLD)
@@ -1205,15 +1149,6 @@ pub struct LoadStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
     pub load_status: ::std::option::Option<LoadStatus>,
 }
 mod load_status_profile {
@@ -1221,7 +1156,6 @@ mod load_status_profile {
     lazy_static! {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
         pub(super) static ref ENERGY_CONSUMER: crate::commonmodule::EnergyConsumer = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref LOAD_STATUS: crate::loadmodule::LoadStatus = Default::default();
     }
 }
@@ -1239,12 +1173,6 @@ pub trait IsLoadStatusProfile {
     }
     fn energy_consumer_mut(&mut self) -> &mut super::commonmodule::EnergyConsumer {
         self._load_status_profile_mut().energy_consumer.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._load_status_profile().ied.as_ref().unwrap_or(&load_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._load_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn load_status(&self) -> &LoadStatus {
         self._load_status_profile().load_status.as_ref().unwrap_or(&load_status_profile::LOAD_STATUS)

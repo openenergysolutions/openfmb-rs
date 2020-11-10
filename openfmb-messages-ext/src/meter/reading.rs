@@ -2,13 +2,13 @@ use std::str::FromStr;
 
 use metermodule::MeterReadingProfile;
 use openfmb_messages::{
-    commonmodule::{Ied, MessageInfo, ReadingMessageInfo},
+    commonmodule::{MessageInfo, ReadingMessageInfo},
     *,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{common::*, error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for MeterReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -27,9 +27,6 @@ impl OpenFMBExt for MeterReadingProfile {
                 .c_val
                 .unwrap()
                 .mag
-                .unwrap()
-                .f
-                .unwrap()
                 .to_string(),
         );
         state.push_str(" kWh");
@@ -87,46 +84,24 @@ impl OpenFMBExtReading for MeterReadingProfile {
 }
 
 pub trait MeterReadingExt: ReadingProfileExt {
-    fn meter_reading(&self) -> f32;
+    fn meter_reading(&self) -> f64;
 }
 
 impl MeterReadingExt for MeterReadingProfile {
-    fn meter_reading(&self) -> f32 {
-        {
-            self.meter_reading
-                .clone()
-                .unwrap()
-                .reading_mmxu
-                .unwrap()
-                .w
-                .unwrap()
-                .net
-                .unwrap()
-                .c_val
-                .unwrap()
-                .mag
-                .unwrap()
-                .f
-                .unwrap()
-        }
+    fn meter_reading(&self) -> f64 {
+        self.meter_reading
+            .clone()
+            .unwrap()
+            .reading_mmxu
+            .unwrap()
+            .w
+            .unwrap()
+            .net
+            .unwrap()
+            .c_val
+            .unwrap()
+            .mag
     }
 }
 
 impl ReadingProfileExt for MeterReadingProfile {}
-
-/// MeterReadingProfile has ReadingMessageInfo
-impl HasReadingMessageInfo for MeterReadingProfile {
-    fn get_reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo> {
-        Ok(self
-            .reading_message_info
-            .as_ref()
-            .context(NoReadingMessageInfo)?)
-    }
-}
-
-/// MeterReadingProfile has ReadingMessageInfo
-impl HasIED for MeterReadingProfile {
-    fn get_ied(&self) -> OpenFMBResult<&Ied> {
-        Ok(self.ied.as_ref().context(NoIED)?)
-    }
-}

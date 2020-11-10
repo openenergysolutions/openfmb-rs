@@ -2,7 +2,6 @@ use std::collections::{HashMap, HashSet};
 use std::iter;
 
 use itertools::Itertools;
-use log::trace;
 
 use proto_types::field_descriptor_proto::Type;
 use proto_types::{FieldDescriptorProto, FileDescriptorProto};
@@ -81,13 +80,13 @@ pub fn message_inheritance(
 
     for file in files {
         let package = file.package.as_ref().unwrap();
-        let module = module(file);
+        let _module = module(file);
         for message in file.message_type.iter() {
             for field in message.field.iter() {
                 if let Some(ref field_options) = field.options {
                     if let Some(true) = field_options.parent_message {
                         //TODO add minimum stuff to mapping to impl IsXyz for Abc {}
-                        //let field_type = field_type_ident(paths, package, field);
+                        let _field_type = field_type_ident(paths, package, field);
                         //trace!("package {:?}, message name: {:?}, field name: {:?}", package, message.name(), field.type_name());
                         let message_type = format!(".{}.{}", package, message.name());
                         assert_eq!(

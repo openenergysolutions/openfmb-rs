@@ -117,11 +117,11 @@ pub trait EssControlExt: ControlProfileExt {
             //                            control_value: None,
             //                            switch_control_fscc:  None
             //                        }),
-            ied: None,
+           // ied: None,
         }
     }
 
-    fn start_now_gridconnected_msg(m_rid: &str, charge_rate_kw: f32) -> EssControlProfile {
+    fn start_now_gridconnected_msg(m_rid: &str, charge_rate_kw: f64) -> EssControlProfile {
         Ctrl::build_charge_control_profile(
             m_rid,
             charge_rate_kw,
@@ -131,7 +131,7 @@ pub trait EssControlExt: ControlProfileExt {
         )
     }
 
-    fn discharge_now_msg(m_rid: &str, charge_rate_kw: f32) -> EssControlProfile {
+    fn discharge_now_msg(m_rid: &str, charge_rate_kw: f64) -> EssControlProfile {
         Ctrl::build_discharge_control_profile(
             m_rid,
             charge_rate_kw,
@@ -163,7 +163,7 @@ pub trait EssControlExt: ControlProfileExt {
 
     fn build_charge_control_profile(
         m_rid: &str,
-        charge_rate_kw: f32,
+        charge_rate_kw: f64,
         start_time: SystemTime,
         mod_val: GridConnectModeKind,
         state: i32,
@@ -185,7 +185,7 @@ pub trait EssControlExt: ControlProfileExt {
                 mod_val,
                 start_time,
             )),
-            ied: None,
+            //ied: None,
         }
     }
     fn build_stop_control_profile(m_rid: &str, start_time: SystemTime) -> EssControlProfile {
@@ -223,7 +223,7 @@ pub trait EssControlExt: ControlProfileExt {
                                 trans_to_islnd_on_grid_loss_enabled: None,
                                 voltage_set_point_enabled: None,
                                 start_time: Some(ControlTimestamp {
-                                    fraction: 0,
+                                    nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                     seconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
@@ -234,7 +234,6 @@ pub trait EssControlExt: ControlProfileExt {
                     }),
                 }),
             }),
-            ied: None,
         }
     }
 
@@ -256,13 +255,12 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
             ess_control: Some(Self::build_ess_soclimit_control(high, low, start_time)),
-            ied: None,
         }
     }
 
     fn build_discharge_control_profile(
         m_rid: &str,
-        charge_rate_kw: f32,
+        charge_rate_kw: f64,
         start_time: SystemTime,
         mod_val: GridConnectModeKind,
         state: i32,
@@ -284,7 +282,6 @@ pub trait EssControlExt: ControlProfileExt {
                 mod_val,
                 start_time,
             )),
-            ied: None,
         }
     }
 
@@ -308,7 +305,6 @@ pub trait EssControlExt: ControlProfileExt {
             ess_control: Some(Self::build_ess_socmanage_control(
                 high_limit, low_limit, start_time,
             )),
-            ied: None,
         }
     }
 
@@ -330,7 +326,6 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
             ess_control: Some(Self::build_ess_vsi_iso_control(start_time)),
-            ied: None,
         }
     }
 
@@ -347,12 +342,11 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
             ess_control: Some(Self::build_ess_vsi_pq_control(start_time)),
-            ied: None,
         }
     }
 
     fn build_ess_charge_control(
-        charge_rate_kw: f32,
+        charge_rate_kw: f64,
         state: i32,
         mod_val: GridConnectModeKind,
         when: SystemTime,
@@ -375,7 +369,7 @@ pub trait EssControlExt: ControlProfileExt {
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        fraction: 0,
+                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -388,7 +382,7 @@ pub trait EssControlExt: ControlProfileExt {
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        fraction: 0,
+                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -421,7 +415,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -479,7 +473,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -541,7 +535,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -589,7 +583,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -640,7 +634,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -654,7 +648,7 @@ pub trait EssControlExt: ControlProfileExt {
     }
 
     fn build_ess_discharge_control(
-        charge_rate_kw: f32,
+        charge_rate_kw: f64,
         state: i32,
         mod_val: GridConnectModeKind,
         when: SystemTime,
@@ -677,7 +671,7 @@ pub trait EssControlExt: ControlProfileExt {
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        fraction: 0,
+                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -690,7 +684,7 @@ pub trait EssControlExt: ControlProfileExt {
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        fraction: 0,
+                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -723,7 +717,7 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()

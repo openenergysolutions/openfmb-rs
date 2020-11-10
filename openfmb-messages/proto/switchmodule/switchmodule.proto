@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package switchmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/switchmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/switchmodule";
 option java_package = "openfmb.switchmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.switchmodule";
@@ -16,27 +16,29 @@ import "commonmodule/commonmodule.proto";
 message SwitchDiscreteControlXSWI
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.ControlDPC Pos = 2;
+    commonmodule.PhaseDPC Pos = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ControlSPC ResetProtectionPickup = 3;
 }
 
 // Switch discrete control
 message SwitchDiscreteControl
 {
     // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    SwitchDiscreteControlXSWI switchDiscreteControlXSWI = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchDiscreteControlXSWI switchDiscreteControlXSWI = 3;
 }
 
 // A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
 message ProtectedSwitch
 {
     // UML inherited base object
-    commonmodule.ConductingEquipment conductingEquipment = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
 }
 
 // Switch control profile
@@ -44,33 +46,31 @@ message SwitchDiscreteControlProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
-    commonmodule.ControlMessageInfo controlMessageInfo = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ProtectedSwitch protectedSwitch = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    ProtectedSwitch protectedSwitch = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    SwitchDiscreteControl switchDiscreteControl = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchDiscreteControl switchDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for SwitchEventProfile
 message SwitchEventXSWI
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // Dynamic test status
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusDPS Pos = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    commonmodule.PhaseDPS Pos = 3;
 }
 
 // Switch event
 message SwitchEvent
 {
     // UML inherited base object
-    commonmodule.EventValue eventValue = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    SwitchEventXSWI switchEventXSWI = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchEventXSWI switchEventXSWI = 2;
 }
 
 // Switch event profile
@@ -78,20 +78,18 @@ message SwitchEventProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
-    commonmodule.EventMessageInfo eventMessageInfo = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ProtectedSwitch protectedSwitch = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    ProtectedSwitch protectedSwitch = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    SwitchEvent switchEvent = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchEvent switchEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch reading value
 message SwitchReading
 {
     // UML inherited base object
-    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.ReadingMMXU diffReadingMMXU = 2;
     // MISSING DOCUMENTATION!!!
@@ -107,33 +105,33 @@ message SwitchReadingProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
-    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ProtectedSwitch protectedSwitch = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    ProtectedSwitch protectedSwitch = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    repeated SwitchReading switchReading = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2 ];
+    repeated SwitchReading switchReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
 }
 
 // OpenFMB specialization for SwitchStatusProfile
 message SwitchStatusXSWI
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusDPS Pos = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    commonmodule.PhaseDPS Pos = 4;
+    // Fault latch: LT01=51A OR 51B OR 51C
+    commonmodule.PhaseSPS ProtectionPickup = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Switch status
 message SwitchStatus
 {
     // UML inherited base object
-    commonmodule.StatusValue statusValue = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    SwitchStatusXSWI switchStatusXSWI = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchStatusXSWI switchStatusXSWI = 2;
 }
 
 // Switch status profile
@@ -141,45 +139,10 @@ message SwitchStatusProfile
 {
     option (uml.option_openfmb_profile) = true;
     // UML inherited base object
-    commonmodule.StatusMessageInfo statusMessageInfo = 1 [ (uml.option_parent_message) = true ];
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ProtectedSwitch protectedSwitch = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    ProtectedSwitch protectedSwitch = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    SwitchStatus switchStatus = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SwitchStatus switchStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-message SwitchControlFSCC
-{
-    // UML inherited base object
-    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [ (uml.option_parent_message) = true ];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.SwitchControlScheduleFSCH switchControlScheduleFSCH = 2;
-}
-
-// Switch discrete control
-message SwitchControl
-{
-    // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [ (uml.option_parent_message) = true ];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.CheckConditions check = 2;
-    // MISSING DOCUMENTATION!!!
-    SwitchControlFSCC SwitchControlFSCC = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-}
-
-// Switch control profile
-message SwitchControlProfile
-{
-    option (uml.option_openfmb_profile) = true;
-    // UML inherited base object
-    commonmodule.ControlMessageInfo controlMessageInfo = 1 [ (uml.option_parent_message) = true ];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    ProtectedSwitch protectedSwitch = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // MISSING DOCUMENTATION!!!
-    SwitchControl switchControl = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-}

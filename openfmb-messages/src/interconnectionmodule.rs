@@ -298,7 +298,7 @@ pub struct InterconnectionSchedule {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
+    pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
@@ -315,7 +315,7 @@ pub struct InterconnectionSchedule {
 mod interconnection_schedule {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref INTERCONNECTION_SCHEDULE_FSCC: crate::interconnectionmodule::InterconnectionScheduleFscc = Default::default();
     }
@@ -323,11 +323,11 @@ mod interconnection_schedule {
 pub trait IsInterconnectionSchedule {
     fn _interconnection_schedule(&self) -> &InterconnectionSchedule;
     fn _interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule;
-    fn control_value(&self) -> &super::commonmodule::ControlValue {
-        self._interconnection_schedule().control_value.as_ref().unwrap_or(&interconnection_schedule::CONTROL_VALUE)
+    fn identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self._interconnection_schedule().identified_object.as_ref().unwrap_or(&interconnection_schedule::IDENTIFIED_OBJECT)
     }
-    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._interconnection_schedule_mut().control_value.get_or_insert(Default::default())
+    fn identified_object_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._interconnection_schedule_mut().identified_object.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._interconnection_schedule().check.as_ref().unwrap_or(&interconnection_schedule::CHECK)
@@ -350,14 +350,6 @@ impl IsInterconnectionSchedule for InterconnectionSchedule {
         self
     }
 }
-//impl IsControlValue for InterconnectionSchedule {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
 //impl IsIdentifiedObject for InterconnectionSchedule {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
@@ -388,7 +380,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub application_system: ::std::option::Option<super::commonmodule::ApplicationSystem>,
+    pub requester_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
@@ -398,13 +390,33 @@ pub struct PlannedInterconnectionScheduleProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub interconnection_schedule: ::std::option::Option<InterconnectionSchedule>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="4")]
+    pub tie_point: ::std::option::Option<super::commonmodule::ConductingEquipment>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="5")]
+    pub responder_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
 }
 mod planned_interconnection_schedule_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref APPLICATION_SYSTEM: crate::commonmodule::ApplicationSystem = Default::default();
+        pub(super) static ref REQUESTER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
         pub(super) static ref INTERCONNECTION_SCHEDULE: crate::interconnectionmodule::InterconnectionSchedule = Default::default();
+        pub(super) static ref TIE_POINT: crate::commonmodule::ConductingEquipment = Default::default();
+        pub(super) static ref RESPONDER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
     }
 }
 pub trait IsPlannedInterconnectionScheduleProfile {
@@ -416,17 +428,29 @@ pub trait IsPlannedInterconnectionScheduleProfile {
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._planned_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
     }
-    fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
-        self._planned_interconnection_schedule_profile().application_system.as_ref().unwrap_or(&planned_interconnection_schedule_profile::APPLICATION_SYSTEM)
+    fn requester_circuit_segment_service(&self) -> &super::commonmodule::ApplicationSystem {
+        self._planned_interconnection_schedule_profile().requester_circuit_segment_service.as_ref().unwrap_or(&planned_interconnection_schedule_profile::REQUESTER_CIRCUIT_SEGMENT_SERVICE)
     }
-    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._planned_interconnection_schedule_profile_mut().application_system.get_or_insert(Default::default())
+    fn requester_circuit_segment_service_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._planned_interconnection_schedule_profile_mut().requester_circuit_segment_service.get_or_insert(Default::default())
     }
     fn interconnection_schedule(&self) -> &InterconnectionSchedule {
         self._planned_interconnection_schedule_profile().interconnection_schedule.as_ref().unwrap_or(&planned_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE)
     }
     fn interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule {
         self._planned_interconnection_schedule_profile_mut().interconnection_schedule.get_or_insert(Default::default())
+    }
+    fn tie_point(&self) -> &super::commonmodule::ConductingEquipment {
+        self._planned_interconnection_schedule_profile().tie_point.as_ref().unwrap_or(&planned_interconnection_schedule_profile::TIE_POINT)
+    }
+    fn tie_point_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._planned_interconnection_schedule_profile_mut().tie_point.get_or_insert(Default::default())
+    }
+    fn responder_circuit_segment_service(&self) -> &super::commonmodule::ApplicationSystem {
+        self._planned_interconnection_schedule_profile().responder_circuit_segment_service.as_ref().unwrap_or(&planned_interconnection_schedule_profile::RESPONDER_CIRCUIT_SEGMENT_SERVICE)
+    }
+    fn responder_circuit_segment_service_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._planned_interconnection_schedule_profile_mut().responder_circuit_segment_service.get_or_insert(Default::default())
     }
 }
 impl IsPlannedInterconnectionScheduleProfile for PlannedInterconnectionScheduleProfile {
@@ -483,7 +507,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub application_system: ::std::option::Option<super::commonmodule::ApplicationSystem>,
+    pub requester_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
@@ -493,13 +517,33 @@ pub struct RequestedInterconnectionScheduleProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub interconnection_schedule: ::std::option::Option<InterconnectionSchedule>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="4")]
+    pub tie_point: ::std::option::Option<super::commonmodule::ConductingEquipment>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="5")]
+    pub responder_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
 }
 mod requested_interconnection_schedule_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref APPLICATION_SYSTEM: crate::commonmodule::ApplicationSystem = Default::default();
+        pub(super) static ref REQUESTER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
         pub(super) static ref INTERCONNECTION_SCHEDULE: crate::interconnectionmodule::InterconnectionSchedule = Default::default();
+        pub(super) static ref TIE_POINT: crate::commonmodule::ConductingEquipment = Default::default();
+        pub(super) static ref RESPONDER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
     }
 }
 pub trait IsRequestedInterconnectionScheduleProfile {
@@ -511,17 +555,29 @@ pub trait IsRequestedInterconnectionScheduleProfile {
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._requested_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
     }
-    fn application_system(&self) -> &super::commonmodule::ApplicationSystem {
-        self._requested_interconnection_schedule_profile().application_system.as_ref().unwrap_or(&requested_interconnection_schedule_profile::APPLICATION_SYSTEM)
+    fn requester_circuit_segment_service(&self) -> &super::commonmodule::ApplicationSystem {
+        self._requested_interconnection_schedule_profile().requester_circuit_segment_service.as_ref().unwrap_or(&requested_interconnection_schedule_profile::REQUESTER_CIRCUIT_SEGMENT_SERVICE)
     }
-    fn application_system_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
-        self._requested_interconnection_schedule_profile_mut().application_system.get_or_insert(Default::default())
+    fn requester_circuit_segment_service_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._requested_interconnection_schedule_profile_mut().requester_circuit_segment_service.get_or_insert(Default::default())
     }
     fn interconnection_schedule(&self) -> &InterconnectionSchedule {
         self._requested_interconnection_schedule_profile().interconnection_schedule.as_ref().unwrap_or(&requested_interconnection_schedule_profile::INTERCONNECTION_SCHEDULE)
     }
     fn interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule {
         self._requested_interconnection_schedule_profile_mut().interconnection_schedule.get_or_insert(Default::default())
+    }
+    fn tie_point(&self) -> &super::commonmodule::ConductingEquipment {
+        self._requested_interconnection_schedule_profile().tie_point.as_ref().unwrap_or(&requested_interconnection_schedule_profile::TIE_POINT)
+    }
+    fn tie_point_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._requested_interconnection_schedule_profile_mut().tie_point.get_or_insert(Default::default())
+    }
+    fn responder_circuit_segment_service(&self) -> &super::commonmodule::ApplicationSystem {
+        self._requested_interconnection_schedule_profile().responder_circuit_segment_service.as_ref().unwrap_or(&requested_interconnection_schedule_profile::RESPONDER_CIRCUIT_SEGMENT_SERVICE)
+    }
+    fn responder_circuit_segment_service_mut(&mut self) -> &mut super::commonmodule::ApplicationSystem {
+        self._requested_interconnection_schedule_profile_mut().responder_circuit_segment_service.get_or_insert(Default::default())
     }
 }
 impl IsRequestedInterconnectionScheduleProfile for RequestedInterconnectionScheduleProfile {

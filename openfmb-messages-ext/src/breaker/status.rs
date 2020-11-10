@@ -29,9 +29,12 @@ impl OpenFMBExt for BreakerStatusProfile {
             .as_ref()
             .context(NoStatusAndEventXcbr)?
             .pos
-            .as_ref()
-            .context(NoPos)?
-            .st_val
+           .as_ref()
+           .context(NoPos)?
+           .phs3
+           .as_ref()
+           .context(NoPhs3)?
+           .st_val
         {
             0 => "Transient",
             1 => "Closed",

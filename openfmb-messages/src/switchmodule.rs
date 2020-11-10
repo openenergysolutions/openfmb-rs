@@ -13,13 +13,17 @@ pub struct SwitchDiscreteControlXswi {
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
-    pub pos: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
+    pub reset_protection_pickup: ::std::option::Option<super::commonmodule::ControlSpc>,
 }
 mod switch_discrete_control_xswi {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseDpc = Default::default();
+        pub(super) static ref RESET_PROTECTION_PICKUP: crate::commonmodule::ControlSpc = Default::default();
     }
 }
 pub trait IsSwitchDiscreteControlXswi {
@@ -31,11 +35,17 @@ pub trait IsSwitchDiscreteControlXswi {
     fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
         self._switch_discrete_control_xswi_mut().logical_node_for_control.get_or_insert(Default::default())
     }
-    fn pos(&self) -> &super::commonmodule::ControlDpc {
+    fn pos(&self) -> &super::commonmodule::PhaseDpc {
         self._switch_discrete_control_xswi().pos.as_ref().unwrap_or(&switch_discrete_control_xswi::POS)
     }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDpc {
         self._switch_discrete_control_xswi_mut().pos.get_or_insert(Default::default())
+    }
+    fn reset_protection_pickup(&self) -> &super::commonmodule::ControlSpc {
+        self._switch_discrete_control_xswi().reset_protection_pickup.as_ref().unwrap_or(&switch_discrete_control_xswi::RESET_PROTECTION_PICKUP)
+    }
+    fn reset_protection_pickup_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._switch_discrete_control_xswi_mut().reset_protection_pickup.get_or_insert(Default::default())
     }
 }
 impl IsSwitchDiscreteControlXswi for SwitchDiscreteControlXswi {
@@ -87,12 +97,6 @@ pub struct SwitchDiscreteControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub switch_discrete_control_xswi: ::std::option::Option<SwitchDiscreteControlXswi>,
 }
@@ -226,15 +230,6 @@ pub struct SwitchDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -243,14 +238,13 @@ pub struct SwitchDiscreteControlProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub switch_discrete_control: ::std::option::Option<SwitchDiscreteControl>,
 }
 mod switch_discrete_control_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
         pub(super) static ref SWITCH_DISCRETE_CONTROL: crate::switchmodule::SwitchDiscreteControl = Default::default();
     }
@@ -263,12 +257,6 @@ pub trait IsSwitchDiscreteControlProfile {
     }
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._switch_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._switch_discrete_control_profile().ied.as_ref().unwrap_or(&switch_discrete_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._switch_discrete_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_discrete_control_profile().protected_switch.as_ref().unwrap_or(&switch_discrete_control_profile::PROTECTED_SWITCH)
@@ -332,21 +320,15 @@ pub struct SwitchEventXswi {
     #[prost(message, optional, tag="2")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
-    pub pos: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
 }
 mod switch_event_xswi {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
-        pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseDps = Default::default();
     }
 }
 pub trait IsSwitchEventXswi {
@@ -364,10 +346,10 @@ pub trait IsSwitchEventXswi {
     fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
         self._switch_event_xswi_mut().dynamic_test.get_or_insert(Default::default())
     }
-    fn pos(&self) -> &super::commonmodule::StatusDps {
+    fn pos(&self) -> &super::commonmodule::PhaseDps {
         self._switch_event_xswi().pos.as_ref().unwrap_or(&switch_event_xswi::POS)
     }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDps {
         self._switch_event_xswi_mut().pos.get_or_insert(Default::default())
     }
 }
@@ -417,12 +399,6 @@ pub struct SwitchEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub switch_event_xswi: ::std::option::Option<SwitchEventXswi>,
 }
@@ -495,15 +471,6 @@ pub struct SwitchEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -512,14 +479,13 @@ pub struct SwitchEventProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub switch_event: ::std::option::Option<SwitchEvent>,
 }
 mod switch_event_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
         pub(super) static ref SWITCH_EVENT: crate::switchmodule::SwitchEvent = Default::default();
     }
@@ -532,12 +498,6 @@ pub trait IsSwitchEventProfile {
     }
     fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
         self._switch_event_profile_mut().event_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._switch_event_profile().ied.as_ref().unwrap_or(&switch_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._switch_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_event_profile().protected_switch.as_ref().unwrap_or(&switch_event_profile::PROTECTED_SWITCH)
@@ -692,15 +652,6 @@ pub struct SwitchReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -709,14 +660,13 @@ pub struct SwitchReadingProfile {
     // multiplicity_max: Some(2)
     // uuid: false
     // key: false
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag="3")]
     pub switch_reading: ::std::vec::Vec<SwitchReading>,
 }
 mod switch_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
     }
 }
@@ -728,12 +678,6 @@ pub trait IsSwitchReadingProfile {
     }
     fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
         self._switch_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._switch_reading_profile().ied.as_ref().unwrap_or(&switch_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._switch_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_reading_profile().protected_switch.as_ref().unwrap_or(&switch_reading_profile::PROTECTED_SWITCH)
@@ -797,21 +741,25 @@ pub struct SwitchStatusXswi {
     #[prost(message, optional, tag="2")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="4")]
+    pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
+    /// Fault latch: LT01=51A OR 51B OR 51C
     // parent_message: false
     // required_field: true
     // multiplicity_min: Some(1)
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="3")]
-    pub pos: ::std::option::Option<super::commonmodule::StatusDps>,
+    #[prost(message, optional, tag="5")]
+    pub protection_pickup: ::std::option::Option<super::commonmodule::PhaseSps>,
 }
 mod switch_status_xswi {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
-        pub(super) static ref POS: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseDps = Default::default();
+        pub(super) static ref PROTECTION_PICKUP: crate::commonmodule::PhaseSps = Default::default();
     }
 }
 pub trait IsSwitchStatusXswi {
@@ -829,11 +777,17 @@ pub trait IsSwitchStatusXswi {
     fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
         self._switch_status_xswi_mut().dynamic_test.get_or_insert(Default::default())
     }
-    fn pos(&self) -> &super::commonmodule::StatusDps {
+    fn pos(&self) -> &super::commonmodule::PhaseDps {
         self._switch_status_xswi().pos.as_ref().unwrap_or(&switch_status_xswi::POS)
     }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDps {
         self._switch_status_xswi_mut().pos.get_or_insert(Default::default())
+    }
+    fn protection_pickup(&self) -> &super::commonmodule::PhaseSps {
+        self._switch_status_xswi().protection_pickup.as_ref().unwrap_or(&switch_status_xswi::PROTECTION_PICKUP)
+    }
+    fn protection_pickup_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._switch_status_xswi_mut().protection_pickup.get_or_insert(Default::default())
     }
 }
 impl IsSwitchStatusXswi for SwitchStatusXswi {
@@ -882,12 +836,6 @@ pub struct SwitchStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub switch_status_xswi: ::std::option::Option<SwitchStatusXswi>,
 }
@@ -960,15 +908,6 @@ pub struct SwitchStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -977,14 +916,13 @@ pub struct SwitchStatusProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub switch_status: ::std::option::Option<SwitchStatus>,
 }
 mod switch_status_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
         pub(super) static ref SWITCH_STATUS: crate::switchmodule::SwitchStatus = Default::default();
     }
@@ -997,12 +935,6 @@ pub trait IsSwitchStatusProfile {
     }
     fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
         self._switch_status_profile_mut().status_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._switch_status_profile().ied.as_ref().unwrap_or(&switch_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._switch_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn protected_switch(&self) -> &ProtectedSwitch {
         self._switch_status_profile().protected_switch.as_ref().unwrap_or(&switch_status_profile::PROTECTED_SWITCH)
@@ -1042,269 +974,6 @@ impl IsSwitchStatusProfile for SwitchStatusProfile {
     //}
 //}
 //impl IsIdentifiedObject for SwitchStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct SwitchControlFscc {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
-    /// MISSING DOCUMENTATION!!!
-    #[prost(message, optional, tag="2")]
-    pub switch_control_schedule_fsch: ::std::option::Option<super::commonmodule::SwitchControlScheduleFsch>,
-}
-mod switch_control_fscc {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref SWITCH_CONTROL_SCHEDULE_FSCH: crate::commonmodule::SwitchControlScheduleFsch = Default::default();
-    }
-}
-pub trait IsSwitchControlFscc {
-    fn _switch_control_fscc(&self) -> &SwitchControlFscc;
-    fn _switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc;
-    fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
-        self._switch_control_fscc().logical_node_for_control.as_ref().unwrap_or(&switch_control_fscc::LOGICAL_NODE_FOR_CONTROL)
-    }
-    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._switch_control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
-    }
-    fn switch_control_schedule_fsch(&self) -> &super::commonmodule::SwitchControlScheduleFsch {
-        self._switch_control_fscc().switch_control_schedule_fsch.as_ref().unwrap_or(&switch_control_fscc::SWITCH_CONTROL_SCHEDULE_FSCH)
-    }
-    fn switch_control_schedule_fsch_mut(&mut self) -> &mut super::commonmodule::SwitchControlScheduleFsch {
-        self._switch_control_fscc_mut().switch_control_schedule_fsch.get_or_insert(Default::default())
-    }
-}
-impl IsSwitchControlFscc for SwitchControlFscc {
-    fn _switch_control_fscc(&self) -> &SwitchControlFscc {
-        self
-    }
-    fn _switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc {
-        self
-    }
-}
-//impl IsLogicalNodeForControl for SwitchControlFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for SwitchControlFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchControlFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// Switch discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct SwitchControl {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
-    /// MISSING DOCUMENTATION!!!
-    #[prost(message, optional, tag="2")]
-    pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
-    pub switch_control_fscc: ::std::option::Option<SwitchControlFscc>,
-}
-mod switch_control {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
-        pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
-        pub(super) static ref SWITCH_CONTROL_FSCC: crate::switchmodule::SwitchControlFscc = Default::default();
-    }
-}
-pub trait IsSwitchControl {
-    fn _switch_control(&self) -> &SwitchControl;
-    fn _switch_control_mut(&mut self) -> &mut SwitchControl;
-    fn control_value(&self) -> &super::commonmodule::ControlValue {
-        self._switch_control().control_value.as_ref().unwrap_or(&switch_control::CONTROL_VALUE)
-    }
-    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._switch_control_mut().control_value.get_or_insert(Default::default())
-    }
-    fn check(&self) -> &super::commonmodule::CheckConditions {
-        self._switch_control().check.as_ref().unwrap_or(&switch_control::CHECK)
-    }
-    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._switch_control_mut().check.get_or_insert(Default::default())
-    }
-    fn switch_control_fscc(&self) -> &SwitchControlFscc {
-        self._switch_control().switch_control_fscc.as_ref().unwrap_or(&switch_control::SWITCH_CONTROL_FSCC)
-    }
-    fn switch_control_fscc_mut(&mut self) -> &mut SwitchControlFscc {
-        self._switch_control_mut().switch_control_fscc.get_or_insert(Default::default())
-    }
-}
-impl IsSwitchControl for SwitchControl {
-    fn _switch_control(&self) -> &SwitchControl {
-        self
-    }
-    fn _switch_control_mut(&mut self) -> &mut SwitchControl {
-        self
-    }
-}
-//impl IsControlValue for SwitchControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// Switch control profile
-/// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct SwitchControlProfile {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
-    pub protected_switch: ::std::option::Option<ProtectedSwitch>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub switch_control: ::std::option::Option<SwitchControl>,
-}
-mod switch_control_profile {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
-        pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
-        pub(super) static ref SWITCH_CONTROL: crate::switchmodule::SwitchControl = Default::default();
-    }
-}
-pub trait IsSwitchControlProfile {
-    fn _switch_control_profile(&self) -> &SwitchControlProfile;
-    fn _switch_control_profile_mut(&mut self) -> &mut SwitchControlProfile;
-    fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
-        self._switch_control_profile().control_message_info.as_ref().unwrap_or(&switch_control_profile::CONTROL_MESSAGE_INFO)
-    }
-    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._switch_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._switch_control_profile().ied.as_ref().unwrap_or(&switch_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._switch_control_profile_mut().ied.get_or_insert(Default::default())
-    }
-    fn protected_switch(&self) -> &ProtectedSwitch {
-        self._switch_control_profile().protected_switch.as_ref().unwrap_or(&switch_control_profile::PROTECTED_SWITCH)
-    }
-    fn protected_switch_mut(&mut self) -> &mut ProtectedSwitch {
-        self._switch_control_profile_mut().protected_switch.get_or_insert(Default::default())
-    }
-    fn switch_control(&self) -> &SwitchControl {
-        self._switch_control_profile().switch_control.as_ref().unwrap_or(&switch_control_profile::SWITCH_CONTROL)
-    }
-    fn switch_control_mut(&mut self) -> &mut SwitchControl {
-        self._switch_control_profile_mut().switch_control.get_or_insert(Default::default())
-    }
-}
-impl IsSwitchControlProfile for SwitchControlProfile {
-    fn _switch_control_profile(&self) -> &SwitchControlProfile {
-        self
-    }
-    fn _switch_control_profile_mut(&mut self) -> &mut SwitchControlProfile {
-        self
-    }
-}
-//impl IsControlMessageInfo for SwitchControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for SwitchControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchControlProfile {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}

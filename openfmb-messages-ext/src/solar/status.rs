@@ -1,12 +1,13 @@
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, StatusProfileExt};
-use openfmb_messages::commonmodule::StateKind;
+use std::str::FromStr;
+
 use openfmb_messages::{
     commonmodule::{MessageInfo, StatusMessageInfo},
     solarmodule::SolarStatusProfile,
 };
 use snafu::{OptionExt, ResultExt};
-use std::str::FromStr;
 use uuid::Uuid;
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, StatusProfileExt};
+use openfmb_messages::commonmodule::StateKind;
 
 impl OpenFMBExt for SolarStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {

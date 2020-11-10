@@ -1,7 +1,8 @@
-/// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
+/// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+/// by a circuit segment service.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct RecloserControlFscc {
+pub struct RecloserDiscreteControlXcbr {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -10,43 +11,41 @@ pub struct RecloserControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
-    /// MISSING DOCUMENTATION!!!
-    #[prost(message, optional, tag="2")]
-    pub switch_control_schedule_fsch: ::std::option::Option<super::commonmodule::SwitchControlScheduleFsch>,
+    pub discrete_control_xcbr: ::std::option::Option<super::commonmodule::DiscreteControlXcbr>,
 }
-mod recloser_control_fscc {
+mod recloser_discrete_control_xcbr {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref SWITCH_CONTROL_SCHEDULE_FSCH: crate::commonmodule::SwitchControlScheduleFsch = Default::default();
+        pub(super) static ref DISCRETE_CONTROL_XCBR: crate::commonmodule::DiscreteControlXcbr = Default::default();
     }
 }
-pub trait IsRecloserControlFscc {
-    fn _recloser_control_fscc(&self) -> &RecloserControlFscc;
-    fn _recloser_control_fscc_mut(&mut self) -> &mut RecloserControlFscc;
-    fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
-        self._recloser_control_fscc().logical_node_for_control.as_ref().unwrap_or(&recloser_control_fscc::LOGICAL_NODE_FOR_CONTROL)
+pub trait IsRecloserDiscreteControlXcbr {
+    fn _recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr;
+    fn _recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr;
+    fn discrete_control_xcbr(&self) -> &super::commonmodule::DiscreteControlXcbr {
+        self._recloser_discrete_control_xcbr().discrete_control_xcbr.as_ref().unwrap_or(&recloser_discrete_control_xcbr::DISCRETE_CONTROL_XCBR)
     }
-    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._recloser_control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
-    }
-    fn switch_control_schedule_fsch(&self) -> &super::commonmodule::SwitchControlScheduleFsch {
-        self._recloser_control_fscc().switch_control_schedule_fsch.as_ref().unwrap_or(&recloser_control_fscc::SWITCH_CONTROL_SCHEDULE_FSCH)
-    }
-    fn switch_control_schedule_fsch_mut(&mut self) -> &mut super::commonmodule::SwitchControlScheduleFsch {
-        self._recloser_control_fscc_mut().switch_control_schedule_fsch.get_or_insert(Default::default())
+    fn discrete_control_xcbr_mut(&mut self) -> &mut super::commonmodule::DiscreteControlXcbr {
+        self._recloser_discrete_control_xcbr_mut().discrete_control_xcbr.get_or_insert(Default::default())
     }
 }
-impl IsRecloserControlFscc for RecloserControlFscc {
-    fn _recloser_control_fscc(&self) -> &RecloserControlFscc {
+impl IsRecloserDiscreteControlXcbr for RecloserDiscreteControlXcbr {
+    fn _recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr {
         self
     }
-    fn _recloser_control_fscc_mut(&mut self) -> &mut RecloserControlFscc {
+    fn _recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr {
         self
     }
 }
-//impl IsLogicalNodeForControl for RecloserControlFscc {
+//impl IsDiscreteControlXCBR for RecloserDiscreteControlXcbr {
+    //fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr {
+        //
+    //}
+//fn _mut_discrete_control_xcbr(&mut self) -> &mut DiscreteControlXcbr {
+        //
+    //}
+//}
+//impl IsLogicalNodeForControl for RecloserDiscreteControlXcbr {
     //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
         //
     //}
@@ -54,7 +53,7 @@ impl IsRecloserControlFscc for RecloserControlFscc {
         //
     //}
 //}
-//impl IsLogicalNode for RecloserControlFscc {
+//impl IsLogicalNode for RecloserDiscreteControlXcbr {
     //fn _logical_node(&self) -> &LogicalNode {
         //
     //}
@@ -62,7 +61,7 @@ impl IsRecloserControlFscc for RecloserControlFscc {
         //
     //}
 //}
-//impl IsIdentifiedObject for RecloserControlFscc {
+//impl IsIdentifiedObject for RecloserDiscreteControlXcbr {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -73,7 +72,7 @@ impl IsRecloserControlFscc for RecloserControlFscc {
 /// Recloser discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct RecloserControl {
+pub struct RecloserDiscreteControl {
     /// UML inherited base object
     // parent_message: true
     // required_field: false
@@ -87,54 +86,48 @@ pub struct RecloserControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
-    pub recloser_control_fscc: ::std::option::Option<RecloserControlFscc>,
+    pub recloser_discrete_control_xcbr: ::std::option::Option<RecloserDiscreteControlXcbr>,
 }
-mod recloser_control {
+mod recloser_discrete_control {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
-        pub(super) static ref RECLOSER_CONTROL_FSCC: crate::reclosermodule::RecloserControlFscc = Default::default();
+        pub(super) static ref RECLOSER_DISCRETE_CONTROL_XCBR: crate::reclosermodule::RecloserDiscreteControlXcbr = Default::default();
     }
 }
-pub trait IsRecloserControl {
-    fn _recloser_control(&self) -> &RecloserControl;
-    fn _recloser_control_mut(&mut self) -> &mut RecloserControl;
+pub trait IsRecloserDiscreteControl {
+    fn _recloser_discrete_control(&self) -> &RecloserDiscreteControl;
+    fn _recloser_discrete_control_mut(&mut self) -> &mut RecloserDiscreteControl;
     fn control_value(&self) -> &super::commonmodule::ControlValue {
-        self._recloser_control().control_value.as_ref().unwrap_or(&recloser_control::CONTROL_VALUE)
+        self._recloser_discrete_control().control_value.as_ref().unwrap_or(&recloser_discrete_control::CONTROL_VALUE)
     }
     fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._recloser_control_mut().control_value.get_or_insert(Default::default())
+        self._recloser_discrete_control_mut().control_value.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
-        self._recloser_control().check.as_ref().unwrap_or(&recloser_control::CHECK)
+        self._recloser_discrete_control().check.as_ref().unwrap_or(&recloser_discrete_control::CHECK)
     }
     fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._recloser_control_mut().check.get_or_insert(Default::default())
+        self._recloser_discrete_control_mut().check.get_or_insert(Default::default())
     }
-    fn recloser_control_fscc(&self) -> &RecloserControlFscc {
-        self._recloser_control().recloser_control_fscc.as_ref().unwrap_or(&recloser_control::RECLOSER_CONTROL_FSCC)
+    fn recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr {
+        self._recloser_discrete_control().recloser_discrete_control_xcbr.as_ref().unwrap_or(&recloser_discrete_control::RECLOSER_DISCRETE_CONTROL_XCBR)
     }
-    fn recloser_control_fscc_mut(&mut self) -> &mut RecloserControlFscc {
-        self._recloser_control_mut().recloser_control_fscc.get_or_insert(Default::default())
-    }
-}
-impl IsRecloserControl for RecloserControl {
-    fn _recloser_control(&self) -> &RecloserControl {
-        self
-    }
-    fn _recloser_control_mut(&mut self) -> &mut RecloserControl {
-        self
+    fn recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr {
+        self._recloser_discrete_control_mut().recloser_discrete_control_xcbr.get_or_insert(Default::default())
     }
 }
-//impl IsControlValue for RecloserControl {
+impl IsRecloserDiscreteControl for RecloserDiscreteControl {
+    fn _recloser_discrete_control(&self) -> &RecloserDiscreteControl {
+        self
+    }
+    fn _recloser_discrete_control_mut(&mut self) -> &mut RecloserDiscreteControl {
+        self
+    }
+}
+//impl IsControlValue for RecloserDiscreteControl {
     //fn _control_value(&self) -> &ControlValue {
         //
     //}
@@ -142,7 +135,7 @@ impl IsRecloserControl for RecloserControl {
         //
     //}
 //}
-//impl IsIdentifiedObject for RecloserControl {
+//impl IsIdentifiedObject for RecloserDiscreteControl {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -220,271 +213,6 @@ impl IsRecloser for Recloser {
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
-pub struct RecloserControlProfile {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
-    pub recloser: ::std::option::Option<Recloser>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub recloser_control: ::std::option::Option<RecloserControl>,
-}
-mod recloser_control_profile {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
-        pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
-        pub(super) static ref RECLOSER_CONTROL: crate::reclosermodule::RecloserControl = Default::default();
-    }
-}
-pub trait IsRecloserControlProfile {
-    fn _recloser_control_profile(&self) -> &RecloserControlProfile;
-    fn _recloser_control_profile_mut(&mut self) -> &mut RecloserControlProfile;
-    fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
-        self._recloser_control_profile().control_message_info.as_ref().unwrap_or(&recloser_control_profile::CONTROL_MESSAGE_INFO)
-    }
-    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._recloser_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._recloser_control_profile().ied.as_ref().unwrap_or(&recloser_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._recloser_control_profile_mut().ied.get_or_insert(Default::default())
-    }
-    fn recloser(&self) -> &Recloser {
-        self._recloser_control_profile().recloser.as_ref().unwrap_or(&recloser_control_profile::RECLOSER)
-    }
-    fn recloser_mut(&mut self) -> &mut Recloser {
-        self._recloser_control_profile_mut().recloser.get_or_insert(Default::default())
-    }
-    fn recloser_control(&self) -> &RecloserControl {
-        self._recloser_control_profile().recloser_control.as_ref().unwrap_or(&recloser_control_profile::RECLOSER_CONTROL)
-    }
-    fn recloser_control_mut(&mut self) -> &mut RecloserControl {
-        self._recloser_control_profile_mut().recloser_control.get_or_insert(Default::default())
-    }
-}
-impl IsRecloserControlProfile for RecloserControlProfile {
-    fn _recloser_control_profile(&self) -> &RecloserControlProfile {
-        self
-    }
-    fn _recloser_control_profile_mut(&mut self) -> &mut RecloserControlProfile {
-        self
-    }
-}
-//impl IsControlMessageInfo for RecloserControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for RecloserControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for RecloserControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// OpenFMB specialization for RecloserDiscreteControlProfile: Added blk  LN: Circuit
-/// breaker   Name: XCBR
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct RecloserDiscreteControlXcbr {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
-    /// MISSING DOCUMENTATION!!!
-    #[prost(message, optional, tag="2")]
-    pub pos: ::std::option::Option<super::commonmodule::ControlDpc>,
-}
-mod recloser_discrete_control_xcbr {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
-    }
-}
-pub trait IsRecloserDiscreteControlXcbr {
-    fn _recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr;
-    fn _recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr;
-    fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
-        self._recloser_discrete_control_xcbr().logical_node_for_control.as_ref().unwrap_or(&recloser_discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
-    }
-    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._recloser_discrete_control_xcbr_mut().logical_node_for_control.get_or_insert(Default::default())
-    }
-    fn pos(&self) -> &super::commonmodule::ControlDpc {
-        self._recloser_discrete_control_xcbr().pos.as_ref().unwrap_or(&recloser_discrete_control_xcbr::POS)
-    }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._recloser_discrete_control_xcbr_mut().pos.get_or_insert(Default::default())
-    }
-}
-impl IsRecloserDiscreteControlXcbr for RecloserDiscreteControlXcbr {
-    fn _recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr {
-        self
-    }
-    fn _recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr {
-        self
-    }
-}
-//impl IsLogicalNodeForControl for RecloserDiscreteControlXcbr {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for RecloserDiscreteControlXcbr {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for RecloserDiscreteControlXcbr {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// Recloser discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct RecloserDiscreteControl {
-    /// UML inherited base object
-    // parent_message: true
-    // required_field: false
-    // multiplicity_min: None
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="1")]
-    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
-    /// MISSING DOCUMENTATION!!!
-    #[prost(message, optional, tag="2")]
-    pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
-    pub recloser_discrete_control_xcbr: ::std::option::Option<RecloserDiscreteControlXcbr>,
-}
-mod recloser_discrete_control {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
-        pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
-        pub(super) static ref RECLOSER_DISCRETE_CONTROL_XCBR: crate::reclosermodule::RecloserDiscreteControlXcbr = Default::default();
-    }
-}
-pub trait IsRecloserDiscreteControl {
-    fn _recloser_discrete_control(&self) -> &RecloserDiscreteControl;
-    fn _recloser_discrete_control_mut(&mut self) -> &mut RecloserDiscreteControl;
-    fn control_value(&self) -> &super::commonmodule::ControlValue {
-        self._recloser_discrete_control().control_value.as_ref().unwrap_or(&recloser_discrete_control::CONTROL_VALUE)
-    }
-    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._recloser_discrete_control_mut().control_value.get_or_insert(Default::default())
-    }
-    fn check(&self) -> &super::commonmodule::CheckConditions {
-        self._recloser_discrete_control().check.as_ref().unwrap_or(&recloser_discrete_control::CHECK)
-    }
-    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
-        self._recloser_discrete_control_mut().check.get_or_insert(Default::default())
-    }
-    fn recloser_discrete_control_xcbr(&self) -> &RecloserDiscreteControlXcbr {
-        self._recloser_discrete_control().recloser_discrete_control_xcbr.as_ref().unwrap_or(&recloser_discrete_control::RECLOSER_DISCRETE_CONTROL_XCBR)
-    }
-    fn recloser_discrete_control_xcbr_mut(&mut self) -> &mut RecloserDiscreteControlXcbr {
-        self._recloser_discrete_control_mut().recloser_discrete_control_xcbr.get_or_insert(Default::default())
-    }
-}
-impl IsRecloserDiscreteControl for RecloserDiscreteControl {
-    fn _recloser_discrete_control(&self) -> &RecloserDiscreteControl {
-        self
-    }
-    fn _recloser_discrete_control_mut(&mut self) -> &mut RecloserDiscreteControl {
-        self
-    }
-}
-//impl IsControlValue for RecloserDiscreteControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for RecloserDiscreteControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
-/// Recloser control profile.  Instructs an end device (or an end device group) to perform a
-/// specified action.
-/// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub struct RecloserDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -503,15 +231,6 @@ pub struct RecloserDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -520,14 +239,13 @@ pub struct RecloserDiscreteControlProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub recloser_discrete_control: ::std::option::Option<RecloserDiscreteControl>,
 }
 mod recloser_discrete_control_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
         pub(super) static ref RECLOSER_DISCRETE_CONTROL: crate::reclosermodule::RecloserDiscreteControl = Default::default();
     }
@@ -540,12 +258,6 @@ pub trait IsRecloserDiscreteControlProfile {
     }
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._recloser_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._recloser_discrete_control_profile().ied.as_ref().unwrap_or(&recloser_discrete_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._recloser_discrete_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn recloser(&self) -> &Recloser {
         self._recloser_discrete_control_profile().recloser.as_ref().unwrap_or(&recloser_discrete_control_profile::RECLOSER)
@@ -606,12 +318,6 @@ pub struct RecloserEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
@@ -684,15 +390,6 @@ pub struct RecloserEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -701,14 +398,13 @@ pub struct RecloserEventProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub recloser_event: ::std::option::Option<RecloserEvent>,
 }
 mod recloser_event_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
         pub(super) static ref RECLOSER_EVENT: crate::reclosermodule::RecloserEvent = Default::default();
     }
@@ -721,12 +417,6 @@ pub trait IsRecloserEventProfile {
     }
     fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
         self._recloser_event_profile_mut().event_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._recloser_event_profile().ied.as_ref().unwrap_or(&recloser_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._recloser_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn recloser(&self) -> &Recloser {
         self._recloser_event_profile().recloser.as_ref().unwrap_or(&recloser_event_profile::RECLOSER)
@@ -881,15 +571,6 @@ pub struct RecloserReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -898,14 +579,13 @@ pub struct RecloserReadingProfile {
     // multiplicity_max: Some(2)
     // uuid: false
     // key: false
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag="3")]
     pub recloser_reading: ::std::vec::Vec<RecloserReading>,
 }
 mod recloser_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
     }
 }
@@ -917,12 +597,6 @@ pub trait IsRecloserReadingProfile {
     }
     fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
         self._recloser_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._recloser_reading_profile().ied.as_ref().unwrap_or(&recloser_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._recloser_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn recloser(&self) -> &Recloser {
         self._recloser_reading_profile().recloser.as_ref().unwrap_or(&recloser_reading_profile::RECLOSER)
@@ -983,12 +657,6 @@ pub struct RecloserStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
@@ -1061,15 +729,6 @@ pub struct RecloserStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1078,14 +737,13 @@ pub struct RecloserStatusProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub recloser_status: ::std::option::Option<RecloserStatus>,
 }
 mod recloser_status_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref RECLOSER: crate::reclosermodule::Recloser = Default::default();
         pub(super) static ref RECLOSER_STATUS: crate::reclosermodule::RecloserStatus = Default::default();
     }
@@ -1098,12 +756,6 @@ pub trait IsRecloserStatusProfile {
     }
     fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
         self._recloser_status_profile_mut().status_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._recloser_status_profile().ied.as_ref().unwrap_or(&recloser_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._recloser_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn recloser(&self) -> &Recloser {
         self._recloser_status_profile().recloser.as_ref().unwrap_or(&recloser_status_profile::RECLOSER)

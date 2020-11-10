@@ -169,7 +169,7 @@ pub struct CoordinationControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
+    pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
@@ -186,7 +186,7 @@ pub struct CoordinationControl {
 mod coordination_control {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref COORDINATION_CONTROL_DCSC: crate::coordinationservicemodule::CoordinationControlDcsc = Default::default();
     }
@@ -194,11 +194,11 @@ mod coordination_control {
 pub trait IsCoordinationControl {
     fn _coordination_control(&self) -> &CoordinationControl;
     fn _coordination_control_mut(&mut self) -> &mut CoordinationControl;
-    fn control_value(&self) -> &super::commonmodule::ControlValue {
-        self._coordination_control().control_value.as_ref().unwrap_or(&coordination_control::CONTROL_VALUE)
+    fn identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self._coordination_control().identified_object.as_ref().unwrap_or(&coordination_control::IDENTIFIED_OBJECT)
     }
-    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._coordination_control_mut().control_value.get_or_insert(Default::default())
+    fn identified_object_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_control_mut().identified_object.get_or_insert(Default::default())
     }
     fn check(&self) -> &super::commonmodule::CheckConditions {
         self._coordination_control().check.as_ref().unwrap_or(&coordination_control::CHECK)
@@ -221,14 +221,6 @@ impl IsCoordinationControl for CoordinationControl {
         self
     }
 }
-//impl IsControlValue for CoordinationControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
 //impl IsIdentifiedObject for CoordinationControl {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
@@ -345,7 +337,7 @@ pub struct CoordinationEventDcsc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
+    pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
@@ -371,7 +363,7 @@ pub struct CoordinationEventDcsc {
 mod coordination_event_dcsc {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
         pub(super) static ref COORDINATION_SERVICE_MODE: crate::coordinationservicemodule::EngCoordinationServiceModeKind = Default::default();
         pub(super) static ref ISLAND: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_AUTO: crate::commonmodule::StatusSps = Default::default();
@@ -384,11 +376,11 @@ mod coordination_event_dcsc {
 pub trait IsCoordinationEventDcsc {
     fn _coordination_event_dcsc(&self) -> &CoordinationEventDcsc;
     fn _coordination_event_dcsc_mut(&mut self) -> &mut CoordinationEventDcsc;
-    fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
-        self._coordination_event_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    fn logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self._coordination_event_dcsc().logical_node.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE)
     }
-    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._coordination_event_dcsc_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    fn logical_node_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._coordination_event_dcsc_mut().logical_node.get_or_insert(Default::default())
     }
     fn coordination_service_mode(&self) -> &EngCoordinationServiceModeKind {
         self._coordination_event_dcsc().coordination_service_mode.as_ref().unwrap_or(&coordination_event_dcsc::COORDINATION_SERVICE_MODE)
@@ -441,14 +433,6 @@ impl IsCoordinationEventDcsc for CoordinationEventDcsc {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for CoordinationEventDcsc {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
 //impl IsLogicalNode for CoordinationEventDcsc {
     //fn _logical_node(&self) -> &LogicalNode {
         //
@@ -477,7 +461,7 @@ pub struct CoordinationEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
+    pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
@@ -491,18 +475,18 @@ pub struct CoordinationEvent {
 mod coordination_event {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref COORDINATION_EVENT_DCSC: crate::coordinationservicemodule::CoordinationEventDcsc = Default::default();
     }
 }
 pub trait IsCoordinationEvent {
     fn _coordination_event(&self) -> &CoordinationEvent;
     fn _coordination_event_mut(&mut self) -> &mut CoordinationEvent;
-    fn event_value(&self) -> &super::commonmodule::EventValue {
-        self._coordination_event().event_value.as_ref().unwrap_or(&coordination_event::EVENT_VALUE)
+    fn identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self._coordination_event().identified_object.as_ref().unwrap_or(&coordination_event::IDENTIFIED_OBJECT)
     }
-    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._coordination_event_mut().event_value.get_or_insert(Default::default())
+    fn identified_object_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_event_mut().identified_object.get_or_insert(Default::default())
     }
     fn coordination_event_dcsc(&self) -> &CoordinationEventDcsc {
         self._coordination_event().coordination_event_dcsc.as_ref().unwrap_or(&coordination_event::COORDINATION_EVENT_DCSC)
@@ -519,14 +503,6 @@ impl IsCoordinationEvent for CoordinationEvent {
         self
     }
 }
-//impl IsEventValue for CoordinationEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
 //impl IsIdentifiedObject for CoordinationEvent {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
@@ -643,7 +619,7 @@ pub struct CoordinationStatusDcsc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
+    pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
@@ -669,7 +645,7 @@ pub struct CoordinationStatusDcsc {
 mod coordination_status_dcsc {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
+        pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
         pub(super) static ref COORDINATION_SERVICE_MODE: crate::coordinationservicemodule::EngCoordinationServiceModeKind = Default::default();
         pub(super) static ref ISLAND: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_AUTO: crate::commonmodule::StatusSps = Default::default();
@@ -682,11 +658,11 @@ mod coordination_status_dcsc {
 pub trait IsCoordinationStatusDcsc {
     fn _coordination_status_dcsc(&self) -> &CoordinationStatusDcsc;
     fn _coordination_status_dcsc_mut(&mut self) -> &mut CoordinationStatusDcsc;
-    fn logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
-        self._coordination_status_dcsc().logical_node_for_event_and_status.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    fn logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self._coordination_status_dcsc().logical_node.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE)
     }
-    fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._coordination_status_dcsc_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    fn logical_node_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._coordination_status_dcsc_mut().logical_node.get_or_insert(Default::default())
     }
     fn coordination_service_mode(&self) -> &EngCoordinationServiceModeKind {
         self._coordination_status_dcsc().coordination_service_mode.as_ref().unwrap_or(&coordination_status_dcsc::COORDINATION_SERVICE_MODE)
@@ -739,14 +715,6 @@ impl IsCoordinationStatusDcsc for CoordinationStatusDcsc {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for CoordinationStatusDcsc {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
 //impl IsLogicalNode for CoordinationStatusDcsc {
     //fn _logical_node(&self) -> &LogicalNode {
         //
@@ -775,7 +743,7 @@ pub struct CoordinationStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
-    pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
+    pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
     // required_field: true
@@ -789,18 +757,18 @@ pub struct CoordinationStatus {
 mod coordination_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
+        pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref COORDINATION_STATUS_DCSC: crate::coordinationservicemodule::CoordinationStatusDcsc = Default::default();
     }
 }
 pub trait IsCoordinationStatus {
     fn _coordination_status(&self) -> &CoordinationStatus;
     fn _coordination_status_mut(&mut self) -> &mut CoordinationStatus;
-    fn event_value(&self) -> &super::commonmodule::EventValue {
-        self._coordination_status().event_value.as_ref().unwrap_or(&coordination_status::EVENT_VALUE)
+    fn identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self._coordination_status().identified_object.as_ref().unwrap_or(&coordination_status::IDENTIFIED_OBJECT)
     }
-    fn event_value_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._coordination_status_mut().event_value.get_or_insert(Default::default())
+    fn identified_object_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_status_mut().identified_object.get_or_insert(Default::default())
     }
     fn coordination_status_dcsc(&self) -> &CoordinationStatusDcsc {
         self._coordination_status().coordination_status_dcsc.as_ref().unwrap_or(&coordination_status::COORDINATION_STATUS_DCSC)
@@ -817,14 +785,6 @@ impl IsCoordinationStatus for CoordinationStatus {
         self
     }
 }
-//impl IsEventValue for CoordinationStatus {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
 //impl IsIdentifiedObject for CoordinationStatus {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //

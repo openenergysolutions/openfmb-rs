@@ -96,15 +96,6 @@ pub struct MeterReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub meter: ::std::option::Option<super::commonmodule::Meter>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -113,14 +104,13 @@ pub struct MeterReadingProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub meter_reading: ::std::option::Option<MeterReading>,
 }
 mod meter_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref METER: crate::commonmodule::Meter = Default::default();
         pub(super) static ref METER_READING: crate::metermodule::MeterReading = Default::default();
     }
@@ -133,12 +123,6 @@ pub trait IsMeterReadingProfile {
     }
     fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
         self._meter_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._meter_reading_profile().ied.as_ref().unwrap_or(&meter_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._meter_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn meter(&self) -> &super::commonmodule::Meter {
         self._meter_reading_profile().meter.as_ref().unwrap_or(&meter_reading_profile::METER)

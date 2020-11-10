@@ -28,9 +28,6 @@ impl OpenFMBExt for SolarReadingProfile {
                 .c_val
                 .unwrap()
                 .mag
-                .unwrap()
-                .f
-                .unwrap()
                 .to_string(),
         );
         state.push_str(" kWh");
@@ -88,28 +85,23 @@ impl OpenFMBExtReading for SolarReadingProfile {
 }
 
 pub trait SolarReadingExt: ReadingProfileExt {
-    fn solar_reading(&self) -> f32;
+    fn solar_reading(&self) -> f64;
 }
 
 impl SolarReadingExt for SolarReadingProfile {
-    fn solar_reading(&self) -> f32 {
-        {
-            self.solar_reading
-                .clone()
-                .unwrap()
-                .reading_mmxu
-                .unwrap()
-                .w
-                .unwrap()
-                .net
-                .unwrap()
-                .c_val
-                .unwrap()
-                .mag
-                .unwrap()
-                .f
-                .unwrap()
-        }
+    fn solar_reading(&self) -> f64 {
+        self.solar_reading
+            .clone()
+            .unwrap()
+            .reading_mmxu
+            .unwrap()
+            .w
+            .unwrap()
+            .net
+            .unwrap()
+            .c_val
+            .unwrap()
+            .mag
     }
 }
 

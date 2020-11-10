@@ -1,38 +1,45 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package regulatormodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/regulatormodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/regulatormodule";
 option java_package = "openfmb.regulatormodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.regulatormodule";
 
 import "uml.proto";
-import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
 // LN: Automatic tap changer controller   Name: ATCC
 message RegulatorControlATCC
 {
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // Centre of voltage control bandwidth (forward power flow presumed).
-    commonmodule.ASG BndCtr = 1;
+    commonmodule.ASG BndCtr = 2;
     // Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
     // of the nominal voltage (forward power flow presumed).
-    commonmodule.ASG BndWid = 2;
+    commonmodule.ASG BndWid = 3;
     // Time to wait before operating, after reaching the control point (forward power flow presumed).
-    commonmodule.ControlING CtlDlTmms = 3;
+    commonmodule.ControlING CtlDlTmms = 4;
     // Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCR = 4;
+    commonmodule.ASG LDCR = 5;
     // Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCX = 5;
-    // Line drop voltage due to line total impedance (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCZ = 6;
+    commonmodule.ASG LDCX = 6;
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
     commonmodule.ControlSPC ParOp = 7;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 8;
     // (controllable) Tap position change to the specified value.
-    commonmodule.ControlISC TapPos = 8;
+    commonmodule.Optional_StateKind state = 9;
+    // (controllable) Tap position change to the specified value.
+    commonmodule.PhaseISC TapPos = 10;
+    // (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    commonmodule.PhaseAPC VolSpt = 11;
+    // Enable voltage set point
+    commonmodule.ControlDPC voltageSetPointEnabled = 12;
 }
 
 // Point definition (Point)
@@ -40,18 +47,6 @@ message RegulatorPoint
 {
     // Regulator control
     RegulatorControlATCC control = 1;
-    // Black start enable
-    google.protobuf.FloatValue pctVDroop = 2;
-    // Ramp rates
-    commonmodule.RampRate rampRates = 3;
-    // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 4;
-    // Reset device
-    commonmodule.ControlDPC reset = 5;
-    // State
-    commonmodule.Optional_StateKind state = 6;
-    // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 7;
     // Start time
     commonmodule.Timestamp startTime = 8 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -87,7 +82,7 @@ message RegulatorControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    RegulatorControlFSCC regulatorControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorControlFSCC regulatorControlFSCC = 3;
 }
 
 // Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
@@ -106,11 +101,33 @@ message RegulatorControlProfile
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorControl regulatorControl = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    RegulatorControl regulatorControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorSystem regulatorSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Regulator control
+message RegulatorDiscreteControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    RegulatorSystem regulatorSystem = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    RegulatorControlATCC regulatorControlATCC = 3;
+}
+
+// Regulator control profile.  Instructs an end device (or an end device group) to perform a
+// specified action.
+message RegulatorDiscreteControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    RegulatorDiscreteControl regulatorDiscreteControl = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    RegulatorSystem regulatorSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // LN: Automatic tap changer controller   Name: ATCC
@@ -125,32 +142,23 @@ message RegulatorEventAndStatusATCC
     commonmodule.ASG LDCR = 3;
     // Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
     commonmodule.ASG LDCX = 4;
-    // Line drop voltage due to line total impedance (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCZ = 5;
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    commonmodule.StatusSPC ParOp = 6;
+    commonmodule.StatusSPS ParOp = 5;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 6;
+    // State
+    commonmodule.Optional_StateKind state = 7;
+    // OpenFMB extension:  Status for the time to wait before operating (CtrlDlTmms)
+    commonmodule.StatusINC StDlTmms = 8;
     // If true, there was an error in tap position change, or in tap indication (for instance, wrong
     // Binary Coded Decimal (BCD) code).
-    commonmodule.StatusSPS TapOpErr = 7;
+    commonmodule.StatusSPS TapOpErr = 9;
     // (controllable) Tap position change to the specified value.
-    commonmodule.StatusISC TapPos = 8;
-}
-
-// Point definition (Point)
-message RegulatorEventAndStatusPoint
-{
-    // Regulator event and status
-    RegulatorEventAndStatusATCC eventAndStatus = 1;
-    // Black start enable
-    google.protobuf.FloatValue pctVDroop = 2;
-    // Ramp rates
-    commonmodule.RampRate rampRates = 3;
-    // Enable reactive power set point
-    commonmodule.StatusSPC reactivePwrSetPointEnabled = 4;
-    // State
-    commonmodule.Optional_StateKind state = 5;
-    // Enable voltage set point
-    commonmodule.StatusSPC voltageSetPointEnabled = 6;
+    commonmodule.PhaseINS TapPos = 10;
+    // (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    commonmodule.PhaseAPC VolSpt = 11;
+    // Voltage set point status
+    commonmodule.StatusSPC voltageSetPointEnabled = 12;
 }
 
 // OpenFMB 61850 specialization for both RegulatorEventProfile and RegulatorStatusProfile
@@ -161,7 +169,7 @@ message RegulatorEventAndStatusANCR
     // MISSING DOCUMENTATION!!!
     commonmodule.ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusPoint PointStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusATCC PointStatus = 3;
 }
 
 // Regulator event
@@ -170,7 +178,7 @@ message RegulatorEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2;
 }
 
 // Regulator event profile
@@ -180,11 +188,9 @@ message RegulatorEventProfile
     // UML inherited base object
     commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEvent regulatorEvent = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    RegulatorEvent regulatorEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RegulatorSystem regulatorSystem = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorSystem regulatorSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Regulator reading value
@@ -207,11 +213,9 @@ message RegulatorReadingProfile
     // UML inherited base object
     commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    repeated RegulatorReading regulatorReading = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
     // MISSING DOCUMENTATION!!!
-    repeated RegulatorReading regulatorReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
-    // MISSING DOCUMENTATION!!!
-    RegulatorSystem regulatorSystem = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorSystem regulatorSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Regulator status
@@ -220,7 +224,7 @@ message RegulatorStatus
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorEventAndStatusANCR regulatorEventAndStatusANCR = 2;
 }
 
 // Regulator status profile
@@ -230,10 +234,8 @@ message RegulatorStatusProfile
     // UML inherited base object
     commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorStatus regulatorStatus = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    RegulatorStatus regulatorStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    RegulatorSystem regulatorSystem = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    RegulatorSystem regulatorSystem = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

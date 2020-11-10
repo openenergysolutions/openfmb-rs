@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package essmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/essmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/essmodule";
 option java_package = "openfmb.essmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.essmodule";
@@ -208,9 +208,9 @@ message ESSFunction
 message ESSPointStatus
 {
     // Black start enable
-    commonmodule.ControlDPC blackStartEnabled = 1;
+    commonmodule.StatusDPS blackStartEnabled = 1;
     // Enable frequency set point
-    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    commonmodule.StatusDPS frequencySetPointEnabled = 2;
     // ESS function parameter
     ESSFunction function = 3;
     // Grid connect mode
@@ -222,17 +222,17 @@ message ESSPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 8;
+    commonmodule.StatusDPS reactivePwrSetPointEnabled = 8;
     // Enable real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 9;
+    commonmodule.StatusDPS realPwrSetPointEnabled = 9;
     // ESS state
     commonmodule.Optional_StateKind state = 10;
     // Synchronize back to grid
-    commonmodule.ControlDPC syncBackToGrid = 11;
+    commonmodule.StatusDPS syncBackToGrid = 11;
     // Transition to island on grid loss enable
-    commonmodule.ControlDPC transToIslndOnGridLossEnabled = 12;
+    commonmodule.StatusDPS transToIslndOnGridLossEnabled = 12;
     // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 13;
+    commonmodule.StatusDPS voltageSetPointEnabled = 13;
 }
 
 // Specialized 61850 ZGEN class
@@ -280,8 +280,6 @@ message ESSEventProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSEvent essEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // ESS reading value
@@ -307,8 +305,6 @@ message ESSReadingProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSReading essReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZBAT
@@ -317,7 +313,7 @@ message EssStatusZBAT
     // UML inherited base object
     commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // Battery system status &ndash; True: on
-    commonmodule.StatusSPS BatSt = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.StatusSPS BatSt = 2;
     // MISSING DOCUMENTATION!!!
     commonmodule.ENG_GridConnectModeKind GriMod = 3;
     // State of charge (in percentage)
@@ -354,8 +350,6 @@ message ESSStatusProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSStatus essStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
@@ -424,7 +418,7 @@ message ESSControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    EssControlFSCC essControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    EssControlFSCC essControlFSCC = 3;
 }
 
 // ESS control profile
@@ -437,7 +431,5 @@ message ESSControlProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSControl essControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

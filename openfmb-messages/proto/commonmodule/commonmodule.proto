@@ -1,16 +1,77 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package commonmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/commonmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
 option java_package = "openfmb.commonmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.commonmodule";
 
 import "uml.proto";
 import "google/protobuf/wrappers.proto";
+
+// Reclose action kind such as idle, cycling, or lockout.
+enum FaultDirectionKind
+{
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_unknown = 0;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_forward = 1;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_backward = 2;
+    // MISSING DOCUMENTATION!!!
+     FaultDirectionKind_both = 3;
+}
+
+message Optional_FaultDirectionKind
+{
+    FaultDirectionKind value = 1;
+}
+
+// Reclose action kind such as idle, cycling, or lockout.
+enum PhaseFaultDirectionKind
+{
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_unknown = 0;
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_forward = 1;
+    // MISSING DOCUMENTATION!!!
+     PhaseFaultDirectionKind_backward = 2;
+}
+
+message Optional_PhaseFaultDirectionKind
+{
+    PhaseFaultDirectionKind value = 1;
+}
+
+// Directional protection indication information (ACD)
+message ACD
+{
+    // General direction of the fault. If the faults of individual phases have different directions,
+    // this attribute shall be set to 'dirGeneral'='both'.
+    FaultDirectionKind dirGeneral = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Direction of the fault for earth current.
+    Optional_PhaseFaultDirectionKind dirNeut = 2;
+    // Direction of the fault for phase A.
+    Optional_PhaseFaultDirectionKind dirPhsA = 3;
+    // Direction of the fault for phase B.
+    Optional_PhaseFaultDirectionKind dirPhsB = 4;
+    // Direction of the fault for phase C.
+    Optional_PhaseFaultDirectionKind dirPhsC = 5;
+    // General indication of a protection activation (e.g. by the fault). Depending on the function,
+    // 'general' may or may not be resulting from the phase attributes (phsA', 'phsB', 'phsC', 'neut').
+    bool general = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // See 'ACT.neut'.
+    google.protobuf.BoolValue neut = 7;
+    // Value true indicates a trip or a start event of phase A.
+    google.protobuf.BoolValue phsA = 8;
+    // Value true indicates a trip or a start event of phase B.
+    google.protobuf.BoolValue phsB = 9;
+    // Value true indicates a trip or a start event of phase C.
+    google.protobuf.BoolValue phsC = 10;
+}
 
 // This is a root class to provide common identification for all classes needing identification and
 // naming attributes.
@@ -20,7 +81,7 @@ message IdentifiedObject
     google.protobuf.StringValue description = 1;
     // Master resource identifier issued by a model authority. The mRID must semantically be a UUID as
     // specified in RFC 4122. The mRID is globally unique.
-    google.protobuf.StringValue mRID = 2 [ (uml.option_uuid) = true ];
+    google.protobuf.StringValue mRID = 2 [(uml.option_uuid) = true];
     // The name is any free human readable and possibly non unique text naming the object.
     google.protobuf.StringValue name = 3;
 }
@@ -30,7 +91,7 @@ message IdentifiedObject
 message ACDCTerminal
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // The connected status is related to a bus-branch model and the topological node to terminal
     // relation.  True implies the terminal is connected to the related topological node and false implies
     // it is not.  In a bus-branch model, the connected status is used to tell if equipment is disconnected
@@ -46,80 +107,81 @@ message ACDCTerminal
 }
 
 // The units defined for usage in the CIM.
-enum UnitSymbolKind {
+enum UnitSymbolKind
+{
     // Dimension less quantity, e.g. count, per unit, etc.
-    UnitSymbolKind_none = 0;
+     UnitSymbolKind_none = 0;
     // Length in meter.
-    UnitSymbolKind_meter = 2;
+     UnitSymbolKind_meter = 2;
     // Mass in gram.
-    UnitSymbolKind_gram = 3;
+     UnitSymbolKind_gram = 3;
     // Current in ampere.
-    UnitSymbolKind_Amp = 5;
+     UnitSymbolKind_Amp = 5;
     // Plane angle in degrees.
-    UnitSymbolKind_deg = 9;
+     UnitSymbolKind_deg = 9;
     // Plane angle in radians.
-    UnitSymbolKind_rad = 10;
+     UnitSymbolKind_rad = 10;
     // Relative temperature in degrees Celsius. In the SI unit system the symbol is ºC. Electric charge
     // is measured in coulomb that has the unit symbol C. To distinguish degree Celsius form coulomb the
     // symbol used in the UML is degC. Reason for not using ºC is the special character º is difficult to
     // manage in software.
-    UnitSymbolKind_degC = 23;
+     UnitSymbolKind_degC = 23;
     // Capacitance in farad.
-    UnitSymbolKind_Farad = 25;
+     UnitSymbolKind_Farad = 25;
     // Time in seconds.
-    UnitSymbolKind_sec = 27;
+     UnitSymbolKind_sec = 27;
     // Inductance in Henry.
-    UnitSymbolKind_Henry = 28;
+     UnitSymbolKind_Henry = 28;
     // Voltage in volt.
-    UnitSymbolKind_V = 29;
+     UnitSymbolKind_V = 29;
     // Resistance in ohm.
-    UnitSymbolKind_ohm = 30;
+     UnitSymbolKind_ohm = 30;
     // Energy in joule.
-    UnitSymbolKind_Joule = 31;
+     UnitSymbolKind_Joule = 31;
     // Force in newton.
-    UnitSymbolKind_Newton = 32;
+     UnitSymbolKind_Newton = 32;
     // Frequency in hertz.
-    UnitSymbolKind_Hz = 33;
+     UnitSymbolKind_Hz = 33;
     // Active power in watt.
-    UnitSymbolKind_W = 38;
+     UnitSymbolKind_W = 38;
     // Pressure in pascal (n/m2).
-    UnitSymbolKind_Pa = 39;
+     UnitSymbolKind_Pa = 39;
     // Area in square meters.
-    UnitSymbolKind_m2 = 41;
+     UnitSymbolKind_m2 = 41;
     // Conductance in siemens.
-    UnitSymbolKind_Siemens = 53;
+     UnitSymbolKind_Siemens = 53;
     // Apparent power in volt ampere.
-    UnitSymbolKind_VA = 61;
+     UnitSymbolKind_VA = 61;
     // Reactive power in volt ampere reactive.
-    UnitSymbolKind_VAr = 63;
+     UnitSymbolKind_VAr = 63;
     // Power factor
-    UnitSymbolKind_wPerVA = 65;
+     UnitSymbolKind_wPerVA = 65;
     // Apparent energy in volt ampere hours.
-    UnitSymbolKind_VAh = 71;
+     UnitSymbolKind_VAh = 71;
     // Real energy in what hours.
-    UnitSymbolKind_Wh = 72;
+     UnitSymbolKind_Wh = 72;
     // Reactive energy in volt ampere reactive hours.
-    UnitSymbolKind_VArh = 73;
+     UnitSymbolKind_VArh = 73;
     // MISSING DOCUMENTATION!!!
-    UnitSymbolKind_hzPerS = 75;
+     UnitSymbolKind_hzPerS = 75;
     // MISSING DOCUMENTATION!!!
-    UnitSymbolKind_wPerS = 81;
+     UnitSymbolKind_wPerS = 81;
     // Other enum not listed
-    UnitSymbolKind_other = 100;
+     UnitSymbolKind_other = 100;
     // Amp hour
-    UnitSymbolKind_Ah = 106;
+     UnitSymbolKind_Ah = 106;
     // Time in minutes.
-    UnitSymbolKind_min = 159;
+     UnitSymbolKind_min = 159;
     // Time in hours.
-    UnitSymbolKind_hour = 160;
+     UnitSymbolKind_hour = 160;
     // Volume in cubic meters.
-    UnitSymbolKind_m3 = 166;
+     UnitSymbolKind_m3 = 166;
     // Watts per square meter
-    UnitSymbolKind_wPerM2 = 179;
+     UnitSymbolKind_wPerM2 = 179;
     // Relative temperature in degree fahrenheit.
-    UnitSymbolKind_degF = 279;
+     UnitSymbolKind_degF = 279;
     // Mile per hour
-    UnitSymbolKind_mph = 500;
+     UnitSymbolKind_mph = 500;
 }
 
 message Optional_UnitSymbolKind
@@ -128,31 +190,32 @@ message Optional_UnitSymbolKind
 }
 
 // The unit multipliers defined for the CIM.
-enum UnitMultiplierKind {
+enum UnitMultiplierKind
+{
     // No multiplier or equivalently multiply by 1.
-    UnitMultiplierKind_none = 0;
+     UnitMultiplierKind_none = 0;
     // Other enum not listed
-    UnitMultiplierKind_other = 1;
+     UnitMultiplierKind_other = 1;
     // Centi 10**-2.
-    UnitMultiplierKind_centi = 2;
+     UnitMultiplierKind_centi = 2;
     // Deci 10**-1.
-    UnitMultiplierKind_deci = 3;
+     UnitMultiplierKind_deci = 3;
     // Giga 10**9.
-    UnitMultiplierKind_Giga = 4;
+     UnitMultiplierKind_Giga = 4;
     // Kilo 10**3.
-    UnitMultiplierKind_kilo = 5;
+     UnitMultiplierKind_kilo = 5;
     // Mega 10**6.
-    UnitMultiplierKind_Mega = 6;
+     UnitMultiplierKind_Mega = 6;
     // Micro 10**-6.
-    UnitMultiplierKind_micro = 7;
+     UnitMultiplierKind_micro = 7;
     // Milli 10**-3.
-    UnitMultiplierKind_milli = 8;
+     UnitMultiplierKind_milli = 8;
     // Nano 10**-9.
-    UnitMultiplierKind_nano = 9;
+     UnitMultiplierKind_nano = 9;
     // Pico 10**-12.
-    UnitMultiplierKind_pico = 10;
+     UnitMultiplierKind_pico = 10;
     // Tera 10**12.
-    UnitMultiplierKind_Tera = 11;
+     UnitMultiplierKind_Tera = 11;
 }
 
 message Optional_UnitMultiplierKind
@@ -177,53 +240,54 @@ message ActivePower
 // hot wires that are 180 degrees out of phase, while N refers to the neutral wire. Through single
 // phase transformer connections, these secondary circuits may be served from one or two of the primary
 // phases A, B, and C. For three-phase loads, use the A, B, C phase codes instead of s12N.
-enum PhaseCodeKind {
+enum PhaseCodeKind
+{
     // Not applicable
-    PhaseCodeKind_none = 0;
+     PhaseCodeKind_none = 0;
     // Other enum not listed
-    PhaseCodeKind_other = 1;
+     PhaseCodeKind_other = 1;
     // Neutral phase.
-    PhaseCodeKind_N = 16;
+     PhaseCodeKind_N = 16;
     // Phase C.
-    PhaseCodeKind_C = 32;
+     PhaseCodeKind_C = 32;
     // Phases C and neutral.
-    PhaseCodeKind_CN = 33;
+     PhaseCodeKind_CN = 33;
     // Phases A and C.
-    PhaseCodeKind_AC = 40;
+     PhaseCodeKind_AC = 40;
     // Phases A, C and neutral.
-    PhaseCodeKind_ACN = 41;
+     PhaseCodeKind_ACN = 41;
     // Phase B.
-    PhaseCodeKind_B = 64;
+     PhaseCodeKind_B = 64;
     // Phases B and neutral.
-    PhaseCodeKind_BN = 65;
+     PhaseCodeKind_BN = 65;
     // Phases B and C.
-    PhaseCodeKind_BC = 66;
+     PhaseCodeKind_BC = 66;
     // Phases B, C, and neutral.
-    PhaseCodeKind_BCN = 97;
+     PhaseCodeKind_BCN = 97;
     // Phase A.
-    PhaseCodeKind_A = 128;
+     PhaseCodeKind_A = 128;
     // Phases A and neutral.
-    PhaseCodeKind_AN = 129;
+     PhaseCodeKind_AN = 129;
     // Phases A and B.
-    PhaseCodeKind_AB = 132;
+     PhaseCodeKind_AB = 132;
     // Phases A, B, and neutral.
-    PhaseCodeKind_ABN = 193;
+     PhaseCodeKind_ABN = 193;
     // Phases A, B, and C.
-    PhaseCodeKind_ABC = 224;
+     PhaseCodeKind_ABC = 224;
     // Phases A, B, C, and N.
-    PhaseCodeKind_ABCN = 225;
+     PhaseCodeKind_ABCN = 225;
     // Secondary phase 2.
-    PhaseCodeKind_s2 = 256;
+     PhaseCodeKind_s2 = 256;
     // Secondary phase 2 and neutral.
-    PhaseCodeKind_s2N = 257;
+     PhaseCodeKind_s2N = 257;
     // Secondary phase 1.
-    PhaseCodeKind_s1 = 512;
+     PhaseCodeKind_s1 = 512;
     // Secondary phase 1 and neutral.
-    PhaseCodeKind_s1N = 513;
+     PhaseCodeKind_s1N = 513;
     // Secondary phase 1 and 2.
-    PhaseCodeKind_s12 = 768;
+     PhaseCodeKind_s12 = 768;
     // Secondary phases 1, 2, and neutral.
-    PhaseCodeKind_s12N = 769;
+     PhaseCodeKind_s12N = 769;
 }
 
 message Optional_PhaseCodeKind
@@ -231,35 +295,33 @@ message Optional_PhaseCodeKind
     PhaseCodeKind value = 1;
 }
 
-// Analogue value (AnalogueValue)
-message AnalogueValue
+// Unit definition (Unit)
+message Unit
 {
-    // Floating point representation of the measured value. The formula to convert between 'f' and the
-    // process value (pVal) shall be: <i>pVal</i>='f'*10exp('Unit.multiplier') in ['Unit.SIUnit'].
-    google.protobuf.FloatValue f = 1;
-    // Integer representation of the measured value. The formula to convert between 'i' and the process
-    // value (pVal) shall be: <i>pVal</i>=(('i'*'ScaledValueConfig.scaleFactor')+'ScaledValueConfig.offset'
-    //  in ['Unit.SIUnit'].
-    google.protobuf.Int32Value i = 2;
+    // (default='') Unit multiplier.
+    Optional_UnitMultiplierKind multiplier = 1;
+    // SI unit of measure.
+    UnitSymbolKind SIUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Validity of the value, as condensed information for the client. In case this value is not
 // 'good', some reasons may be found in the 'detailQual'.
-enum ValidityKind {
+enum ValidityKind
+{
     // Supervision function has detected no abnormal condition of either the acquisition function or
     // the information source.
-    ValidityKind_good = 0;
+     ValidityKind_good = 0;
     // Supervision function has detected an abnormal condition of the acquisition function or the
     // information source (missing or non-operating updating devices). The value is not defined under this
     // condition. It shall be used to indicate to the client that the value may be incorrect and shall not
     // be used.  EXAMPLE If an input unit detects an oscillation of one input it will mark the related
     // information as invalid.
-    ValidityKind_invalid = 1;
+     ValidityKind_invalid = 1;
     // Reserved
-    ValidityKind_reserved = 2;
+     ValidityKind_reserved = 2;
     // Supervision function has detected any abnormal behaviour. However, the value could still be
     // valid. It is client's responsibility to determine whether the values should be used.
-    ValidityKind_questionable = 3;
+     ValidityKind_questionable = 3;
 }
 
 message Optional_ValidityKind
@@ -273,19 +335,19 @@ message DetailQual
     // (default=false) If true, the value may not be a correct value due to a reference being out of
     // calibration. The server shall decide if validity shall be set to invalid or questionable (used for
     // measurand information and binary counter information only).
-    bool badReference = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool badReference = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, a supervision function has detected an internal or external failure.
-    bool failure = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool failure = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, the value does not meet the stated accuracy of the source. EXAMPLE The
     // measured value of power factor may be noisy (inaccurate) when the current is very small.
-    bool inaccurate = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool inaccurate = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, an evaluation function has detected an inconsistency.
-    bool inconsistent = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool inconsistent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, an update is not made during a specific time interval. The value may be
     // an old value that may have changed in the meantime. This specific time interval may be defined by an
     // allowed-age attribute. NOTE "Fail silent" errors, where the equipment stops sending data, will cause
     // setting this flag to true. In this case, the last received information was correct.
-    bool oldData = 5 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool oldData = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) To prevent overloading of event driven communication channels, it is desirable
     // to detect and suppress oscillating (fast changing) binary inputs. If a signal changes in a defined
     // time (tosc) twice in the same direction (from 0 to 1 or from 1 to 0), then it shall be defined as an
@@ -297,19 +359,19 @@ message DetailQual
     // oscillating.  If the configuration is such that all transient changes should be suppressed, the
     // 'Quality.validity' shall be set immediately to 'invalid' and this flag to true (used for status
     // information only).
-    bool oscillatory = 6 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool oscillatory = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, the attribute to which the quality has been associated is beyond a
     // predefined range of values. The server shall decide if validity shall be set to invalid or
     // questionable (used for measurand information only). EXAMPLE A measured value may exceed a predefined
     // range, however the selected data type can still represent the value, for example the data type is a
     // 16-bit unsigned integer, the predefined range is 0 to 40 000, if the value is between 40 001 and 65
     // 535 it is considered to be out of range.
-    bool outOfRange = 7 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool outOfRange = 7 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, the value of the attribute to which the quality has been associated is
     // beyond the capability of being represented properly (used for measurand information only). EXAMPLE A
     // measured value may exceed the range that may be represented by the selected data type, for example
     // the data type is a 16-bit unsigned integer and the value exceeds 65 535.
-    bool overflow = 8 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool overflow = 8 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
@@ -317,12 +379,13 @@ message DetailQual
 // There are various means to clear a substitution. As an example, a substitution that was done
 // following an invalid condition may be cleared automatically if the invalid condition is cleared.
 // However, this is a local issue and therefore
-enum SourceKind {
+enum SourceKind
+{
     // The value is provided by an input function from the process I/O or is calculated from some
     // application function.
-    SourceKind_process = 0;
+     SourceKind_process = 0;
     // The value is provided by an operator input or by an automatic source.
-    SourceKind_substituted = 1;
+     SourceKind_substituted = 1;
 }
 
 message Optional_SourceKind
@@ -338,7 +401,7 @@ message Optional_SourceKind
 message Quality
 {
     // Describes some reasons in case 'validity' is not 'good'.
-    DetailQual detailQual = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    DetailQual detailQual = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, further update of the value has been blocked by an operator. The value
     // shall be the information that was acquired before blocking. If this flag is set, then the
     // 'detailQual.oldData' shall also be set. The operator shall use the data attribute 'CDC.blkEna' to
@@ -346,41 +409,42 @@ message Quality
     // communication updating as well as input updating. In both cases, 'detailQual.oldData' will be set.
     // If the blocking is done by an operator, then this flag is set additionally, and an operator activity
     // is required to clear the condition.
-    bool operatorBlocked = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool operatorBlocked = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
     // the communication services. In the second case, specific attributes with a FC=SV are used. NOTE 2
     // There are various means to clear a substitution. As an example, a substitution that was done
     // following an invalid condition may be cleared automatically if the invalid condition is cleared.
     // However, this is a local issue and therefore not within the scope of this standard.
-    SourceKind source = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    SourceKind source = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // (default=false) If true, the value is a test value. The processing of the test quality in the
     // client shall be as described in IEC 61850-7-4. This bit shall be completely independent from the
     // other bits within the quality descriptor.
-    bool test = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool test = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Validity of the value, as condensed information for the client. In case this value is not
     // 'good', some reasons may be found in the 'detailQual'.
-    ValidityKind validity = 5 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ValidityKind validity = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Validity of the value, as condensed information for the client. In case this value is not
 // 'good', some reasons may be found in the 'detailQual'.
-enum TimeAccuracyKind {
+enum TimeAccuracyKind
+{
     // Undefined
-    TimeAccuracyKind_UNDEFINED = 0;
+     TimeAccuracyKind_UNDEFINED = 0;
     // 10 ms (class T0)
-    TimeAccuracyKind_T0 = 7;
+     TimeAccuracyKind_T0 = 7;
     // 1 ms (class T1)
-    TimeAccuracyKind_T1 = 10;
+     TimeAccuracyKind_T1 = 10;
     // 100 us (class T2)
-    TimeAccuracyKind_T2 = 14;
+     TimeAccuracyKind_T2 = 14;
     // 25 us (class T3)
-    TimeAccuracyKind_T3 = 16;
+     TimeAccuracyKind_T3 = 16;
     // 4 us (class T4)
-    TimeAccuracyKind_T4 = 18;
+     TimeAccuracyKind_T4 = 18;
     // 1 us (class T5)
-    TimeAccuracyKind_T5 = 20;
+     TimeAccuracyKind_T5 = 20;
     // Undefined
-    TimeAccuracyKind_unspecified = 31;
+     TimeAccuracyKind_unspecified = 31;
 }
 
 message Optional_TimeAccuracyKind
@@ -393,17 +457,17 @@ message TimeQuality
 {
     // If true, the time source of the sending device is unreliable and the value of the time stamp
     // shall be ignored.
-    bool clockFailure = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool clockFailure = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // If true, the time source of the sending device is not synchronised with the external UTC time.
-    bool clockNotSynchronized = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool clockNotSynchronized = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // If true, the value in 'P_Timestamp.SecondSinceEpoch' contains all leap seconds occurred.
     // Otherwise, it does not take into account the leap seconds that occurred before the initialization of
     // the time source of the device. Instead, the seconds since start of the epoch are calculated from the
     // current date assuming a constant day length of 86 400 seconds. Note: If a UTC time master clock is
     // used and accessible, this value should always be true.
-    bool leapSecondsKnown = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool leapSecondsKnown = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Information about the quality of the time source of the sending IED.
-    TimeAccuracyKind timeAccuracy = 4 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    TimeAccuracyKind timeAccuracy = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // UTC time with the epoch of midnight (00:00:00) of 1970-01-01. The presentation is defined in the
@@ -412,22 +476,13 @@ message TimeQuality
 // information related to time model are available as requirements in Clause 21.
 message Timestamp
 {
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    uint32 fraction = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    reserved 1;
     // Second since epoch (1970-01-01T00:00:00Z)
-    uint64 seconds = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // IEC61850 time quality
     TimeQuality tq = 3;
-}
-
-// Unit definition (Unit)
-message Unit
-{
-    // (default='') Unit multiplier.
-    Optional_UnitMultiplierKind multiplier = 1;
-    // SI unit of measure.
-    UnitSymbolKind SIUnit = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    uint32 nanoseconds = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Measured value (MV)
@@ -439,12 +494,12 @@ message MV
     // is typically used to create reports for analogue values. Such a report sent "by exception" is not
     // comparable to the transfer of sampled measured values as supported by the CDC SAV.NOTE 2 This 'mag'
     // is not the same as 'mag' of the constructed attribute class 'Vector'.
-    AnalogueValue mag = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    double mag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'instMag', 'mag', 'range'.
-    Quality q = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 2;
     // Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
     // 'range' or 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp t = 3;
     // Unit for: 'instMag', 'mag', 'subMag', 'rangeC'.
     Unit units = 4;
 }
@@ -453,27 +508,18 @@ message MV
 message LogicalNode
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
 // LN: Generic process I/O   Name: GGIO
-message AnalogStatusGGIO
+message AnalogEventAndStatusGGIO
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Generic analogue input <i>n</i>.
-    MV AnIn = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    MV AnIn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
-}
-
-// Analogue value control (AnalogueValueCtl)
-message AnalogueValueCtl
-{
-    // Floating point representation of the measured value.  See 'AnalogueValue.f'.
-    google.protobuf.FloatValue f = 1;
-    // Integer representation of the measured value. See 'AnalogueValue.i'.
-    google.protobuf.Int32Value i = 2;
 }
 
 // This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
@@ -491,16 +537,16 @@ message NamedObject
 message ApplicationSystem
 {
     // UML inherited base object
-    NamedObject namedObject = 1 [ (uml.option_parent_message) = true ];
+    NamedObject namedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    string mRID = 2 [ (uml.option_uuid) = true, (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    string mRID = 2 [(uml.option_uuid) = true, (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Analogue setting (FC=SP) (ASG_SP)
 message ASG
 {
     // The value of the analogue setting.
-    AnalogueValueCtl setMag = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    double setMag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
     Unit units = 2;
 }
@@ -508,15 +554,14 @@ message ASG
 // Binary counter reading (BCR)
 message BCR
 {
+    reserved 4;
     // Binary counter status represented as an integer value; wraps to 0 at the maximum or minimum
     // value of INT64.
-    int64 actVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int64 actVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'actVal', 'frVal'.
-    Quality q = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 2;
     // Timestamp of the last change of value in 'actVal' or 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // Unit for value in 'pulsQty'.
-    Optional_UnitSymbolKind units = 4;
+    Timestamp t = 3;
 }
 
 // Specialized 61850 SPS class
@@ -525,18 +570,18 @@ message StatusSPS
     // MISSING DOCUMENTATION!!!
     Quality q = 1;
     // MISSING DOCUMENTATION!!!
-    bool stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     Timestamp t = 3;
 }
 
 // LN: Generic process I/O   Name: GGIO
-message BooleanStatusGGIO
+message BooleanEventAndStatusGGIO
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // If true, indication <i>n</i> is present.
-    StatusSPS Ind = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    StatusSPS Ind = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
 }
@@ -557,34 +602,33 @@ message Vector
 {
     // (range=[-180...180]) Angle of the complex value (Unit.SIUnit='deg' and Unit.multiplier='');
     // angle reference is defined in the context where this type is used.
-    AnalogueValue ang = 1;
+    google.protobuf.DoubleValue ang = 1;
     // Magnitude of the complex value.
-    AnalogueValue mag = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    double mag = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Complex measured value (CMV)
 message CMV
 {
+    reserved 4;
     // Complex value based on a deadband calculation from the instantaneous value 'instCVal.mag'. The
     // deadband calculation is done both on 'instCVal.mag' (based on 'db') and on 'instCVal.ang' (based on
     // 'dbAng'), independently. See  'MV.mag'.
-    Vector cVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Vector cVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
-    Quality q = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 2;
     // Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     // of 'range', 'rangeAng' or 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // Units for: 'instCVal.mag', 'cVal.mag', 'subCVal.mag', 'rangeC'.
-    Unit units = 4;
+    Timestamp t = 3;
 }
 
 // Asset representation of a ConductingEquipment.
 message ConductingEquipment
 {
     // UML inherited base object
-    NamedObject namedObject = 1 [ (uml.option_parent_message) = true ];
+    NamedObject namedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    string mRID = 2 [ (uml.option_key) = true, (uml.option_uuid) = true, (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    string mRID = 2 [(uml.option_key) = true, (uml.option_uuid) = true, (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // An AC electrical connection point to a piece of conducting equipment. Terminals are connected at
@@ -592,7 +636,7 @@ message ConductingEquipment
 message Terminal
 {
     // UML inherited base object
-    ACDCTerminal aCDCTerminal = 1 [ (uml.option_parent_message) = true ];
+    ACDCTerminal aCDCTerminal = 1 [(uml.option_parent_message) = true];
     // Represents the normal network phasing condition. If the attribute is missing three phases (ABC
     // or ABCN) shall be assumed.
     Optional_PhaseCodeKind phases = 2;
@@ -602,14 +646,21 @@ message Terminal
 message ConductingEquipmentTerminalReading
 {
     // MISSING DOCUMENTATION!!!
-    Terminal terminal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Terminal terminal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// <<statistics>> Controllable analogue process value (APC)
+message ControlAPC
+{
+    // Service parameter that determines the control activity.
+    double ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized DPC 61850 CDC class
 message ControlDPC
 {
     // Service parameter that determines the control activity ('false' for off, 'true' for on).
-    bool ctlVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // UTC time with the epoch of midnight (00:00:00) of 1970-01-01. The presentation is defined in the
@@ -620,103 +671,104 @@ message ControlDPC
 // normal Timestamp data type.
 message ControlTimestamp
 {
-    // Fractional of the current second when the value of time stamp has been determined. It shall be
-    // calculated as (SUM from i=0 to 31 of bi*2**-(i+1)).
-    uint32 fraction = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    reserved 1;
     // Second since epoch (1970-01-01T00:00:00Z)
-    uint64 seconds = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // ESS function kind
-enum ScheduleParameterKind {
+enum ScheduleParameterKind
+{
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_none = 0;
+     ScheduleParameterKind_none = 0;
     // Other enum not listed
-    ScheduleParameterKind_other = 1;
+     ScheduleParameterKind_other = 1;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_A_net_mag = 2;
+     ScheduleParameterKind_A_net_mag = 2;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_A_neut_mag = 3;
+     ScheduleParameterKind_A_neut_mag = 3;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_A_phsA_mag = 4;
+     ScheduleParameterKind_A_phsA_mag = 4;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_A_phsB_mag = 5;
+     ScheduleParameterKind_A_phsB_mag = 5;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_A_phsC_mag = 6;
+     ScheduleParameterKind_A_phsC_mag = 6;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_Hz_mag = 7;
+     ScheduleParameterKind_Hz_mag = 7;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PF_net_mag = 8;
+     ScheduleParameterKind_PF_net_mag = 8;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PF_neut_mag = 9;
+     ScheduleParameterKind_PF_neut_mag = 9;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PF_phsA_mag = 10;
+     ScheduleParameterKind_PF_phsA_mag = 10;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PF_phsB_mag = 11;
+     ScheduleParameterKind_PF_phsB_mag = 11;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PF_phsC_mag = 12;
+     ScheduleParameterKind_PF_phsC_mag = 12;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_net_ang = 13;
+     ScheduleParameterKind_PhV_net_ang = 13;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_net_mag = 14;
+     ScheduleParameterKind_PhV_net_mag = 14;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_neut_ang = 15;
+     ScheduleParameterKind_PhV_neut_ang = 15;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_neut_mag = 16;
+     ScheduleParameterKind_PhV_neut_mag = 16;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsA_ang = 17;
+     ScheduleParameterKind_PhV_phsA_ang = 17;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsA_mag = 18;
+     ScheduleParameterKind_PhV_phsA_mag = 18;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsB_ang = 19;
+     ScheduleParameterKind_PhV_phsB_ang = 19;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsB_mag = 20;
+     ScheduleParameterKind_PhV_phsB_mag = 20;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsC_ang = 21;
+     ScheduleParameterKind_PhV_phsC_ang = 21;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PhV_phsC_mag = 22;
+     ScheduleParameterKind_PhV_phsC_mag = 22;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsAB_ang = 23;
+     ScheduleParameterKind_PPV_phsAB_ang = 23;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsAB_mag = 24;
+     ScheduleParameterKind_PPV_phsAB_mag = 24;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsBC_ang = 25;
+     ScheduleParameterKind_PPV_phsBC_ang = 25;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsBC_mag = 26;
+     ScheduleParameterKind_PPV_phsBC_mag = 26;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsCA_ang = 27;
+     ScheduleParameterKind_PPV_phsCA_ang = 27;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_PPV_phsCA_mag = 28;
+     ScheduleParameterKind_PPV_phsCA_mag = 28;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VA_net_mag = 29;
+     ScheduleParameterKind_VA_net_mag = 29;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VA_neut_mag = 30;
+     ScheduleParameterKind_VA_neut_mag = 30;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VA_phsA_mag = 31;
+     ScheduleParameterKind_VA_phsA_mag = 31;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VA_phsB_mag = 32;
+     ScheduleParameterKind_VA_phsB_mag = 32;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VA_phsC_mag = 33;
+     ScheduleParameterKind_VA_phsC_mag = 33;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VAr_net_mag = 34;
+     ScheduleParameterKind_VAr_net_mag = 34;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VAr_neut_mag = 35;
+     ScheduleParameterKind_VAr_neut_mag = 35;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VAr_phsA_mag = 36;
+     ScheduleParameterKind_VAr_phsA_mag = 36;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VAr_phsB_mag = 37;
+     ScheduleParameterKind_VAr_phsB_mag = 37;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_VAr_phsC_mag = 38;
+     ScheduleParameterKind_VAr_phsC_mag = 38;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_W_net_mag = 39;
+     ScheduleParameterKind_W_net_mag = 39;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_W_neut_mag = 40;
+     ScheduleParameterKind_W_neut_mag = 40;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_W_phsA_mag = 41;
+     ScheduleParameterKind_W_phsA_mag = 41;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_W_phsB_mag = 42;
+     ScheduleParameterKind_W_phsB_mag = 42;
     // MISSING DOCUMENTATION!!!
-    ScheduleParameterKind_W_phsC_mag = 43;
+     ScheduleParameterKind_W_phsC_mag = 43;
 }
 
 message Optional_ScheduleParameterKind
@@ -728,58 +780,65 @@ message Optional_ScheduleParameterKind
 message ENG_ScheduleParameter
 {
     // Schedule parameter type
-    ScheduleParameterKind scheduleParameterType = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ScheduleParameterKind scheduleParameterType = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    float value = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    double value = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
 message SchedulePoint
 {
     // Schedule parameter
-    repeated ENG_ScheduleParameter scheduleParameter = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    repeated ENG_ScheduleParameter scheduleParameter = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Start time
-    ControlTimestamp startTime = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ControlTimestamp startTime = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Curve shape setting (FC=SP) (CSG_SP)
 message ScheduleCSG
 {
     // The array with the points specifying a time schedule
-    repeated SchedulePoint schPts = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    repeated SchedulePoint schPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
 message ControlScheduleFSCH
 {
     // Analog CSG
-    ScheduleCSG ValACSG = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ScheduleCSG ValACSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for logical node control
 message LogicalNodeForControl
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
 }
 
-// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:
+// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:   
 // Control (execution)
 message ControlFSCC
 {
     // UML inherited base object
-    LogicalNodeForControl logicalNodeForControl = 1 [ (uml.option_parent_message) = true ];
+    LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     ControlScheduleFSCH controlScheduleFSCH = 2;
     // MISSING DOCUMENTATION!!!
     ControlScheduleFSCH islandControlScheduleFSCH = 3;
 }
 
+// &lt;&lt;statistics&gt;&gt; Controllable integer status (INC)
+message ControlINC
+{
+    // Service parameter that determines the control activity.
+    int32 ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Integer status setting (FC=SP) (ING_SP)
 message ControlING
 {
     // The value of the status setting.
-    int32 setVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int32 setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Unit for 'setVal', 'minVal', 'maxVal', 'stepSize'.
     Unit units = 2;
 }
@@ -788,23 +847,23 @@ message ControlING
 message ControlISC
 {
     // Service parameter that determines the control activity.
-    int32 ctlVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int32 ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Generic control message info.
 message MessageInfo
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    Timestamp messageTimeStamp = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp messageTimeStamp = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Generic control message info.
 message ControlMessageInfo
 {
     // UML inherited base object
-    MessageInfo messageInfo = 1 [ (uml.option_parent_message) = true ];
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
 // Controllable single point (SPC)
@@ -812,21 +871,23 @@ message ControlSPC
 {
     // Service parameter that determines the control activity ('false' for off or deactivation, 'true'
     // for on or activation).
-    bool ctlVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// The value of a control command which could either be a setpoint or a control schedule in curve.
+// The value of a control command which could either be a setpoint or a control schedule in curve. 
 // The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control schedule
 // in a message payload should be ignored.   It should also be presented in a status profile.  Any
 // modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
 message ControlValue
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
-    // The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control
-    // schedule in a message payload should be ignored.   It should also be presented in a status profile.
-    // Any modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
-    google.protobuf.BoolValue modBlk = 2;
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // The attribute modBlk is used to tag out a device. If it is TRUE, any setpoints and control in a
+    // message payload should be ignored.   It should also be presented in a status profile.  Any modBlk
+    // value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
+    google.protobuf.BoolValue modBlk = 3;
+    // If true, reset the device before executing any other controls.
+    google.protobuf.BoolValue reset = 4;
 }
 
 // Interval between two date and time points.
@@ -849,29 +910,59 @@ message DEL
     CMV phsCA = 3;
 }
 
+// [OpenFMB CDC extension] Per Phase DPC.
+message PhaseDPC
+{
+    // 3 Phase control.
+    ControlDPC phs3 = 1;
+    // Phase A control.
+    ControlDPC phsA = 2;
+    // Phase B control.
+    ControlDPC phsB = 3;
+    // Phase C control.
+    ControlDPC phsC = 4;
+}
+
+// Reclose enabled
+message DiscreteControlXCBR
+{
+    // UML inherited base object
+    LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    PhaseDPC Pos = 2;
+    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    // by a circuit segment service.
+    ControlINC ProtectionMode = 3;
+    // MISSING DOCUMENTATION!!!
+    ControlSPC RecloseEnabled = 4;
+    // MISSING DOCUMENTATION!!!
+    ControlSPC ResetProtectionPickup = 5;
+}
+
 // Generic user of energy - a  point of consumption on the power system model.
 message EnergyConsumer
 {
     // UML inherited base object
-    ConductingEquipment conductingEquipment = 1 [ (uml.option_parent_message) = true ];
+    ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     google.protobuf.StringValue operatingLimit = 2;
 }
 
 // Calculation method (CalcMethodKind enumeration)
-enum CalcMethodKind {
+enum CalcMethodKind
+{
     // Undefined enum value which can be used for Protobuf generation and be consistent with other
     // technologies.
-    CalcMethodKind_UNDEFINED = 0;
+     CalcMethodKind_UNDEFINED = 0;
     // All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     // characteristics specified in IEEE C37.118.1 for P-CLASS.
-    CalcMethodKind_P_CLASS = 11;
+     CalcMethodKind_P_CLASS = 11;
     // All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     // characteristics specified in IEEE C37.118.1 for M-CLASS.
-    CalcMethodKind_M_CLASS = 12;
+     CalcMethodKind_M_CLASS = 12;
     // All analogue values are [F(t+T)-F(t)] for a calculation interval T (in the same unit as the
     // original entity). Note: The client can still calculate rate so: RATE = DIFF/T.
-    CalcMethodKind_DIFF = 13;
+     CalcMethodKind_DIFF = 13;
 }
 
 message Optional_CalcMethodKind
@@ -883,31 +974,32 @@ message Optional_CalcMethodKind
 message ENG_CalcMethodKind
 {
     // The value of the status setting.
-    CalcMethodKind setVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    CalcMethodKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Power system connect modes to the power grid (GridConnectModeKind)
-enum GridConnectModeKind {
+enum GridConnectModeKind
+{
     // Undefined
-    GridConnectModeKind_UNDEFINED = 0;
+     GridConnectModeKind_UNDEFINED = 0;
     // Current-source inverter (CSI)
-    GridConnectModeKind_CSI = 1;
+     GridConnectModeKind_CSI = 1;
     // Voltage-controlled voltage-source inverter (VC-VSI)
-    GridConnectModeKind_VC_VSI = 2;
+     GridConnectModeKind_VC_VSI = 2;
     // Current-controlled voltage-source inverter (CC-VSI)
-    GridConnectModeKind_CC_VSI = 3;
+     GridConnectModeKind_CC_VSI = 3;
     // Not applicable / Unknown
-    GridConnectModeKind_none = 98;
+     GridConnectModeKind_none = 98;
     // MISSING DOCUMENTATION!!!
-    GridConnectModeKind_other = 99;
+     GridConnectModeKind_other = 99;
     // Voltage source inverter regulating to P and Q references (VSI PQ)
-    GridConnectModeKind_VSI_PQ = 2000;
+     GridConnectModeKind_VSI_PQ = 2000;
     // Voltage source inverter regulating to voltage and frequency references paralleling other
     // generation and not grid forming (VSI VF).
-    GridConnectModeKind_VSI_VF = 2001;
+     GridConnectModeKind_VSI_VF = 2001;
     // Voltage source inverter regulating to voltage and frequency references as primary grid forming
     // generation (VSI ISO).
-    GridConnectModeKind_VSI_ISO = 2002;
+     GridConnectModeKind_VSI_ISO = 2002;
 }
 
 message Optional_GridConnectModeKind
@@ -919,22 +1011,23 @@ message Optional_GridConnectModeKind
 message ENG_GridConnectModeKind
 {
     // The value of the status setting.
-    GridConnectModeKind setVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    GridConnectModeKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     google.protobuf.StringValue setValExtension = 2;
 }
 
 // Power factor sign (PFSignKind enumeration)
-enum PFSignKind {
+enum PFSignKind
+{
     // Undefined enum value which can be used for Protobuf generation and be consistent with other
     // technologies.
-    PFSignKind_UNDEFINED = 0;
+     PFSignKind_UNDEFINED = 0;
     // All analogue values are [F(t+T)-F(t)] for a calculation interval T (in the same unit as the
     // original entity). Note: The client can still calculate rate so: RATE = DIFF/T.
-    PFSignKind_IEC = 1;
+     PFSignKind_IEC = 1;
     // All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     // characteristics specified in IEEE C37.118.1 for M-CLASS.
-    PFSignKind_EEI = 2;
+     PFSignKind_EEI = 2;
 }
 
 message Optional_PFSignKind
@@ -946,23 +1039,24 @@ message Optional_PFSignKind
 message ENG_PFSignKind
 {
     // The value of the status setting.
-    PFSignKind setVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    PFSignKind setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Behaviour or mode (BehaviourModeKind enumeration)
-enum BehaviourModeKind {
+enum BehaviourModeKind
+{
     // Undefined
-    BehaviourModeKind_UNDEFINED = 0;
+     BehaviourModeKind_UNDEFINED = 0;
     // Normal enabled state.
-    BehaviourModeKind_on = 1;
+     BehaviourModeKind_on = 1;
     // Process is passively supervised.
-    BehaviourModeKind_blocked = 2;
+     BehaviourModeKind_blocked = 2;
     // Function is operated but results are indicated as test results.
-    BehaviourModeKind_test = 3;
+     BehaviourModeKind_test = 3;
     // Function is operated in test mode, but with no impact to the process.
-    BehaviourModeKind_test_blocked = 4;
+     BehaviourModeKind_test_blocked = 4;
     // Function is inactive but shows its configuration capability.
-    BehaviourModeKind_off = 5;
+     BehaviourModeKind_off = 5;
 }
 
 message Optional_BehaviourModeKind
@@ -974,38 +1068,39 @@ message Optional_BehaviourModeKind
 message ENS_BehaviourModeKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 1;
     // Value of the data.
-    BehaviourModeKind stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    BehaviourModeKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp t = 3;
 }
 
 // DER operational state (DERGeneratorStateKind)
-enum DERGeneratorStateKind {
+enum DERGeneratorStateKind
+{
     // Undefined enum value which can be used for Protobuf generation and be consistent with other
     // technologies.
-    DERGeneratorStateKind_UNDEFINED = 0;
+     DERGeneratorStateKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Not_operating = 1;
+     DERGeneratorStateKind_Not_operating = 1;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Operating = 2;
+     DERGeneratorStateKind_Operating = 2;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Starting_up = 3;
+     DERGeneratorStateKind_Starting_up = 3;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Shutting_down = 4;
+     DERGeneratorStateKind_Shutting_down = 4;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_At_disconnect_level = 5;
+     DERGeneratorStateKind_At_disconnect_level = 5;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Ramping_in_power = 6;
+     DERGeneratorStateKind_Ramping_in_power = 6;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Ramping_in_reactive_power = 7;
+     DERGeneratorStateKind_Ramping_in_reactive_power = 7;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Standby = 8;
+     DERGeneratorStateKind_Standby = 8;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Not_applicable_Unknown = 98;
+     DERGeneratorStateKind_Not_applicable_Unknown = 98;
     // MISSING DOCUMENTATION!!!
-    DERGeneratorStateKind_Other = 99;
+     DERGeneratorStateKind_Other = 99;
 }
 
 message Optional_DERGeneratorStateKind
@@ -1017,24 +1112,25 @@ message Optional_DERGeneratorStateKind
 message ENS_DERGeneratorStateKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 1;
     // Value of the data.
-    DERGeneratorStateKind stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    DERGeneratorStateKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp t = 3;
 }
 
 // Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
 // machine diagram)   A simplified state machine diagram (from Herb F.) is provided.
-enum DynamicTestKind {
+enum DynamicTestKind
+{
     // None
-    DynamicTestKind_none = 0;
+     DynamicTestKind_none = 0;
     // Testing status
-    DynamicTestKind_testing = 1;
+     DynamicTestKind_testing = 1;
     // Operating status
-    DynamicTestKind_operating = 2;
+     DynamicTestKind_operating = 2;
     // Failed status
-    DynamicTestKind_failed = 3;
+     DynamicTestKind_failed = 3;
 }
 
 message Optional_DynamicTestKind
@@ -1046,33 +1142,34 @@ message Optional_DynamicTestKind
 message ENS_DynamicTestKind
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 1;
     // Value of the data.
-    DynamicTestKind stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    DynamicTestKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp t = 3;
 }
 
 // Grid connect event &amp; status mode kind
 message ENS_GridConnectModeKind
 {
     // Actual Grid Connection Mode
-    GridConnectModeKind stVal = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    GridConnectModeKind stVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    string stValExtension = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    string stValExtension = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // State kind
-enum HealthKind {
+enum HealthKind
+{
     // MISSING DOCUMENTATION!!!
-    HealthKind_none = 0;
+     HealthKind_none = 0;
     // No problems, normal operation ("green").
-    HealthKind_OK = 1;
+     HealthKind_OK = 1;
     // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
     // depending on the dedicated function/device.
-    HealthKind_Warning = 2;
+     HealthKind_Warning = 2;
     // Severe problem, no operation possible ("red").
-    HealthKind_Alarm = 3;
+     HealthKind_Alarm = 3;
 }
 
 message Optional_HealthKind
@@ -1087,35 +1184,64 @@ message ENS_HealthKind
     // to the logical node.
     google.protobuf.StringValue d = 1;
     // Value of the data.
-    HealthKind stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    HealthKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+enum SwitchingCapabilityKind
+{
+    // MISSING DOCUMENTATION!!!
+     SwitchingCapabilityKind_none = 0;
+    // Open
+     SwitchingCapabilityKind_open = 1;
+    // Close
+     SwitchingCapabilityKind_close = 2;
+    // Open and Close
+     SwitchingCapabilityKind_open_and_close = 3;
+}
+
+message Optional_SwitchingCapabilityKind
+{
+    SwitchingCapabilityKind value = 1;
+}
+
+// <<abstract>> Enumerated status (ENS)
+message ENS_SwitchingCapabilityKind
+{
+    // If true, 'q.operatorBlocked'=true, and the process value is no longer updated.
+    google.protobuf.BoolValue blkEna = 1;
+    // Value of the data.
+    SwitchingCapabilityKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
 message ESS
 {
     // UML inherited base object
-    ConductingEquipment conductingEquipment = 1 [ (uml.option_parent_message) = true ];
+    ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
 }
 
 // Generic event message information
 message EventMessageInfo
 {
     // UML inherited base object
-    MessageInfo messageInfo = 1 [ (uml.option_parent_message) = true ];
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
 // Event value
 message EventValue
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.BoolValue modBlk = 2;
 }
 
 // The source where a forecast value is issued.
 message ForecastValueSource
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
 // Intelligent Electronic Device is a device with a microprocessor that can contain one or more
@@ -1129,33 +1255,19 @@ message ForecastValueSource
 message ForecastIED
 {
     // UML inherited base object
-    ForecastValueSource forecastValueSource = 1 [ (uml.option_parent_message) = true ];
+    ForecastValueSource forecastValueSource = 1 [(uml.option_parent_message) = true];
     // For control, this is an application ID, unique within communication system, and if the message
     // is transformed between gateway the original source application ID should be kept.
-    string sourceApplicationID = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    string sourceApplicationID = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Message publication date time
-    int64 sourceDateTime = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int64 sourceDateTime = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Forecast value
 message ForecastValue
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
-}
-
-// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
-// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
-// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
-// defined in IEC61850-7-2 (but only in SCL: IEC61850-6). However, it is an important concept that
-// deserves its place in the meta-model. When the meta-model gets instantiated from a direct link to an
-// IED with an IEC61850 SERVER, we typically create an instance of the meta-model IED per connection.
-// When the meta-model gets instantiated from an SCL file, there is the full description of IED and its
-// functions.
-message IED
-{
-    // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
 // <<statistics>> Integer status (INS)
@@ -1164,20 +1276,18 @@ message StatusINS
     // Quality of the value in 'stVal'.
     Quality q = 1;
     // Value of the data.
-    int32 stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int32 stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     Timestamp t = 3;
-    // Units for: 'stVal', 'subVal'.
-    Unit units = 4;
 }
 
 // Status expressed in integer based on IEC61850 GGIO.
-message IntegerStatusGGIO
+message IntegerEventAndStatusGGIO
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Generic integer status input <i>n</i>.
-    StatusINS IntIn = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    StatusINS IntIn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
 }
@@ -1186,11 +1296,15 @@ message IntegerStatusGGIO
 message LogicalNodeForEventAndStatus
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Behavior of the function
     ENS_BehaviourModeKind Beh = 2;
     // Asset health
     ENS_HealthKind EEHealth = 3;
+    // Hot line tag.
+    StatusSPS HotLineTag = 4;
+    // Remote control block.
+    StatusSPS RemoteBlk = 5;
 }
 
 // The current state for a measurement. A state value is an instance of a measurement from a
@@ -1199,7 +1313,7 @@ message LogicalNodeForEventAndStatus
 message MeasurementValue
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
 // Physical asset that performs the metering role of the usage point. Used for measuring
@@ -1207,21 +1321,102 @@ message MeasurementValue
 message Meter
 {
     // UML inherited base object
-    ConductingEquipment conductingEquipment = 1 [ (uml.option_parent_message) = true ];
+    ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
 }
 
 // Generic event message information
 message OptimizationMessageInfo
 {
     // UML inherited base object
-    MessageInfo messageInfo = 1 [ (uml.option_parent_message) = true ];
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// [OpenFMB CDC extension] Per Phase ISC.
+message PhaseAPC
+{
+    // 3 Phase control.
+    ControlAPC phs3 = 1;
+    // Phase A control.
+    ControlAPC phsA = 2;
+    // Phase B control.
+    ControlAPC phsB = 3;
+    // Phase C control.
+    ControlAPC phsC = 4;
+}
+
+// Double point position status
+enum DbPosKind
+{
+    // Transient status
+     DbPosKind_transient = 0;
+    // Closed status
+     DbPosKind_closed = 1;
+    // Open status
+     DbPosKind_open = 2;
+    // Invalid status
+     DbPosKind_invalid = 3;
+}
+
+message Optional_DbPosKind
+{
+    DbPosKind value = 1;
+}
+
+// Specialized 61850 DPS class
+message StatusDPS
+{
+    // MISSING DOCUMENTATION!!!
+    Quality q = 1;
+    // Status value of the controllable data object.
+    DbPosKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
+    Timestamp t = 3;
+}
+
+// [OpenFMB CDC extension] Per Phase DPS.
+message PhaseDPS
+{
+    // 3 Phase status.
+    StatusDPS phs3 = 1;
+    // Phase A status.
+    StatusDPS phsA = 2;
+    // Phase B status.
+    StatusDPS phsB = 3;
+    // Phase C status.
+    StatusDPS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase INS.
+message PhaseINS
+{
+    // 3 Phase control.
+    StatusINS phs3 = 1;
+    // Phase A control.
+    StatusINS phsA = 2;
+    // Phase B control.
+    StatusINS phsB = 3;
+    // Phase C control.
+    StatusINS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase ISC.
+message PhaseISC
+{
+    // 3 Phase control.
+    ControlISC phs3 = 1;
+    // Phase A control.
+    ControlISC phsA = 2;
+    // Phase B control.
+    ControlISC phsB = 3;
+    // Phase C control.
+    ControlISC phsC = 4;
 }
 
 // Specialized 61850 MMTN LN class
 message ReadingMMTN
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Apparent energy demand (direction: from busbar).
     BCR DmdVAh = 2;
     // Reactive energy demand (direction: from busbar).
@@ -1259,6 +1454,64 @@ message PhaseMMTN
     ReadingMMTN phsCA = 6;
 }
 
+// Reclose action kind such as idle, cycling, or lockout.
+enum RecloseActionKind
+{
+    // Idle state
+     RecloseActionKind_idle = 0;
+    // Cycling state
+     RecloseActionKind_cycling = 1;
+    // Lockout state
+     RecloseActionKind_lockout = 2;
+}
+
+message Optional_RecloseActionKind
+{
+    RecloseActionKind value = 1;
+}
+
+// [OpenFMB CDC extension] Per Phase reclose action kind.
+message PhaseRecloseAction
+{
+    // 3 Phase control.
+    Optional_RecloseActionKind phs3 = 1;
+    // Phase A control.
+    Optional_RecloseActionKind phsA = 2;
+    // Phase B control.
+    Optional_RecloseActionKind phsB = 3;
+    // Phase C control.
+    Optional_RecloseActionKind phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase DPS.
+message PhaseSPS
+{
+    // 3 Phase status.
+    StatusSPS phs3 = 1;
+    // Phase A status.
+    StatusSPS phsA = 2;
+    // Phase B status.
+    StatusSPS phsB = 3;
+    // Phase C status.
+    StatusSPS phsC = 4;
+}
+
+// [OpenFMB CDC extension] Phase magnitude (PMG). Phase to ground/neutral related per-phase
+// measured values.
+message PMG
+{
+    // Net current, as the algebraic sum of the instantaneous values of currents flowing through all
+    // live conductors and the neutral of a circuit at one point of the electrical installation ('phsA
+    // instCVal'+'phsB.instCVal'+'phsC.instCVal'+'neut.instCVal').
+    MV net = 1;
+    // Value of phase A.
+    MV phsA = 2;
+    // Value of phase B.
+    MV phsB = 3;
+    // Value of phase C.
+    MV phsC = 4;
+}
+
 // Grid connect mode kind
 message RampRate
 {
@@ -1276,14 +1529,14 @@ message RampRate
 message ReadingMessageInfo
 {
     // UML inherited base object
-    MessageInfo messageInfo = 1 [ (uml.option_parent_message) = true ];
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
 // Specialized 61850 MMTR class
 message ReadingMMTR
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Apparent energy demand (direction: from busbar).
     BCR DmdVAh = 2;
     // Reactive energy demand (direction: from busbar).
@@ -1328,7 +1581,7 @@ message WYE
 message ReadingMMXU
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Phase to ground/phase to neutral three phase currents.
     WYE A = 2;
     // Kind of statistical calculation, specifying how the data attributes that represent analogue
@@ -1359,44 +1612,36 @@ message ReadingMMXU
     WYE W = 11;
 }
 
-// Double point position status
-enum DbPosKind {
-    // Transient status
-    DbPosKind_transient = 0;
-    // Closed status
-    DbPosKind_closed = 1;
-    // Open status
-    DbPosKind_open = 2;
-    // Invalid status
-    DbPosKind_invalid = 3;
-}
-
-message Optional_DbPosKind
-{
-    DbPosKind value = 1;
-}
-
-// Specialized 61850 DPS class
-message StatusDPS
-{
-    // Quality of the value in 'stVal'.
-    Quality q = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // Status value of the controllable data object.
-    DbPosKind stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
-}
-
 // OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 // breaker   Name: XCBR
 message StatusAndEventXCBR
 {
     // UML inherited base object
-    LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [ (uml.option_parent_message) = true ];
+    LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     ENS_DynamicTestKind DynamicTest = 2;
     // MISSING DOCUMENTATION!!!
-    StatusDPS Pos = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    PhaseDPS Pos = 3;
+    // Fault latch: LT01=51A OR 51B OR 51C
+    ACD ProtectionPickup = 4;
+    // Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
+    // by a circuit segment service.
+    StatusINS ProtectionMode = 5;
+    // Reclose enabled
+    PhaseSPS RecloseEnabled = 6;
+    // Reclose mode such idle, cycling and lockout.
+    PhaseRecloseAction ReclosingAction = 7;
+}
+
+// Integer control status
+message StatusINC
+{
+    // Quality of the value in 'stVal'.
+    Quality q = 1;
+    // Value of the data.
+    int32 stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    Timestamp t = 3;
 }
 
 // &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
@@ -1405,7 +1650,7 @@ message StatusISC
     // Quality of the value in 'valWTr'.
     Quality q = 1;
     // Status value
-    int32 stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    int32 stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change of the value in any of 'valWTr' or 'q'.
     Timestamp t = 3;
 }
@@ -1414,7 +1659,7 @@ message StatusISC
 message StatusMessageInfo
 {
     // UML inherited base object
-    MessageInfo messageInfo = 1 [ (uml.option_parent_message) = true ];
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
 // Controllable single point (SPC)
@@ -1423,7 +1668,7 @@ message StatusSPC
     // Quality of the value in 'stVal'.
     Quality q = 1;
     // Status value of the controllable data object.
-    bool stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    bool stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change of the value in any of 'stVal' or 'q'.
     Timestamp t = 3;
 }
@@ -1432,65 +1677,69 @@ message StatusSPC
 message StatusValue
 {
     // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [ (uml.option_parent_message) = true ];
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.BoolValue modBlk = 2;
 }
 
 // Visible string status (VSS)
 message VSS
 {
     // Quality of the value in 'stVal'.
-    Quality q = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Quality q = 1;
     // Value of the data.
-    string stVal = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    string stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    Timestamp t = 3;
 }
 
 // LN: Generic process I/O   Name: GGIO
-message StringStatusGGIO
+message StringEventAndStatusGGIO
 {
     // UML inherited base object
-    LogicalNode logicalNode = 1 [ (uml.option_parent_message) = true ];
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
     // Phase code
     Optional_PhaseCodeKind Phase = 2;
     // String status
-    VSS StrIn = 3 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    VSS StrIn = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
 message SwitchPoint
 {
     // Switch position
-    ControlDPC Pos = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ControlDPC Pos = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Start time
-    ControlTimestamp startTime = 2 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    ControlTimestamp startTime = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Curve shape setting (FC=SP) (CSG_SP)
 message SwitchCSG
 {
     // The array with the points specifying a curve shape.
-    repeated SwitchPoint crvPts = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    repeated SwitchPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-message SwitchControlScheduleFSCH
+// Visible string status (VSS)
+message VSC
 {
-    // Discrete value in SwitchCSG type
-    SwitchCSG ValDCSG = 1 [ (uml.option_required_field) = true, (uml.option_multiplicity_min) = 1 ];
+    // [OpenFMB Extension]  String control value.
+    string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // State kind
-enum StateKind {
+enum StateKind
+{
     // MISSING DOCUMENTATION!!!
-    StateKind_off = 0;
+     StateKind_off = 0;
     // MISSING DOCUMENTATION!!!
-    StateKind_on = 1;
+     StateKind_on = 1;
     // MISSING DOCUMENTATION!!!
-    StateKind_standby = 2;
+     StateKind_standby = 2;
 }
 
 message Optional_StateKind
 {
     StateKind value = 1;
 }
+

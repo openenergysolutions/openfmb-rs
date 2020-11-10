@@ -12,7 +12,6 @@ use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
 pub mod breaker;
-pub mod common;
 pub mod error;
 pub mod ess;
 pub mod generation;
@@ -34,6 +33,9 @@ pub trait StatusProfileExt {}
 
 pub trait ControlProfileExt {
     fn build_control_message_info() -> ControlMessageInfo {
+        let time_since_epoch = SystemTime::now()
+            .duration_since(SystemTime::UNIX_EPOCH)
+            .expect("Now since epoch should always be valid");
         ControlMessageInfo {
             message_info: Some(MessageInfo {
                 identified_object: Some(IdentifiedObject {
@@ -42,11 +44,9 @@ pub trait ControlProfileExt {
                     name: None,
                 }),
                 message_time_stamp: Some(Timestamp {
-                    fraction: 0,
-                    seconds: SystemTime::now()
-                        .duration_since(SystemTime::UNIX_EPOCH)
-                        .expect("Now since epoch should always be valid")
-                        .as_secs(), /*+28800*/
+                    //fraction: 0,
+                    nanoseconds: time_since_epoch.subsec_nanos(),
+                    seconds: time_since_epoch.as_secs(), /*+28800*/
                     tq: None,
                 }),
             }),
@@ -54,7 +54,7 @@ pub trait ControlProfileExt {
     }
 }
 
-pub trait OpenFMBExt: Debug {
+pub trait OpenFMBExt {
     fn device_mrid(&self) -> OpenFMBResult<Uuid>;
     fn device_state(&self) -> OpenFMBResult<String>;
     fn device_name(&self) -> OpenFMBResult<String>;

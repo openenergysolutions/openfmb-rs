@@ -77,7 +77,7 @@ impl OpenFMBExt for SolarControlProfile {
 }
 
 pub trait SolarControlExt: ControlProfileExt {
-    fn solar_on_msg(m_rid: &str, val: f32) -> SolarControlProfile {
+    fn solar_on_msg(m_rid: &str, val: f64) -> SolarControlProfile {
         Self::build_control_profile(m_rid, val, SystemTime::now(), 1)
     }
 
@@ -87,13 +87,13 @@ pub trait SolarControlExt: ControlProfileExt {
 
     fn build_control_profile(
         m_rid: &str,
-        sch_param_value: f32,
+        sch_param_value: f64,
         start_time: SystemTime,
         state: i32,
     ) -> SolarControlProfile;
 
     fn build_solar_control(
-        solar_acsg: f32,
+        solar_acsg: f64,
         state: OptionalStateKind,
         when: SystemTime,
     ) -> SolarControl {
@@ -118,7 +118,7 @@ pub trait SolarControlExt: ControlProfileExt {
                                     },
                                 ],
                                 start_time: Some(ControlTimestamp {
-                                    fraction: 0,
+                                    nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                     seconds: when
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
@@ -142,7 +142,7 @@ pub trait SolarControlExt: ControlProfileExt {
                             reset: None,
                             state: Some(state),
                             start_time: Some(ControlTimestamp {
-                                fraction: 0,
+                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -163,13 +163,12 @@ impl SolarControlExt for SolarControlProfile {
     fn build_control_profile(
         m_rid: &str,
         //        sch_param_type: i32,
-        sch_param_value: f32,
+        sch_param_value: f64,
         start_time: SystemTime,
         state: i32,
     ) -> SolarControlProfile {
         SolarControlProfile {
             control_message_info: Some(SolarControlProfile::build_control_message_info()),
-            ied: None,
             solar_control: Some(Self::build_solar_control(
                 sch_param_value,
                 OptionalStateKind { value: state },

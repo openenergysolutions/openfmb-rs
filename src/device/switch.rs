@@ -1,6 +1,6 @@
 use crate::prelude::*;
 use openfmb_messages::switchmodule::{
-    SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+    SwitchDiscreteControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
 };
 use uuid::Uuid;
 
@@ -14,7 +14,7 @@ where
         + Publisher<SwitchStatusProfile>
         + Publisher<SwitchEventProfile>
         + Publisher<SwitchReadingProfile>
-        + Subscriber<SwitchControlProfile>,
+        + Subscriber<SwitchDiscreteControlProfile>,
 {
     bus: MB,
     mrid: Uuid,
@@ -32,7 +32,7 @@ where
         + Publisher<SwitchStatusProfile>
         + Publisher<SwitchEventProfile>
         + Publisher<SwitchReadingProfile>
-        + Subscriber<SwitchControlProfile>,
+        + Subscriber<SwitchDiscreteControlProfile>,
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
@@ -64,8 +64,8 @@ where
     }
 
     /// Subscribe to control messages
-    pub fn control(&mut self) -> SubscribeResult<SwitchControlProfile> {
+    pub fn control(&mut self) -> SubscribeResult<SwitchDiscreteControlProfile> {
         self.bus
-            .subscribe(&topic("SwitchControlProfile", &self.mrid))
+            .subscribe(&topic("SwitchDiscreteControlProfile", &self.mrid))
     }
 }

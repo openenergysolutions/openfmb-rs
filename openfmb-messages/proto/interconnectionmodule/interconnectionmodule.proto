@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package interconnectionmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/interconnectionmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/interconnectionmodule";
 option java_package = "openfmb.interconnectionmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.interconnectionmodule";
@@ -65,7 +65,7 @@ message InterconnectionScheduleFSCC
 message InterconnectionSchedule
 {
     // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
@@ -79,9 +79,13 @@ message PlannedInterconnectionScheduleProfile
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ApplicationSystem requesterCircuitSegmentService = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     InterconnectionSchedule interconnectionSchedule = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment tiePoint = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem responderCircuitSegmentService = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Requested interconnection schedule profile
@@ -91,8 +95,12 @@ message RequestedInterconnectionScheduleProfile
     // UML inherited base object
     commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.ApplicationSystem applicationSystem = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    commonmodule.ApplicationSystem requesterCircuitSegmentService = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     InterconnectionSchedule interconnectionSchedule = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment tiePoint = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem responderCircuitSegmentService = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

@@ -441,15 +441,6 @@ pub struct SolarControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub solar_control: ::std::option::Option<SolarControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -458,14 +449,13 @@ pub struct SolarControlProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub solar_inverter: ::std::option::Option<SolarInverter>,
 }
 mod solar_control_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref SOLAR_CONTROL: crate::solarmodule::SolarControl = Default::default();
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
     }
@@ -478,12 +468,6 @@ pub trait IsSolarControlProfile {
     }
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._solar_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._solar_control_profile().ied.as_ref().unwrap_or(&solar_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._solar_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_control(&self) -> &SolarControl {
         self._solar_control_profile().solar_control.as_ref().unwrap_or(&solar_control_profile::SOLAR_CONTROL)
@@ -536,7 +520,7 @@ impl IsSolarControlProfile for SolarControlProfile {
 pub struct SolarPointStatus {
     /// Enable frequency set point
     #[prost(message, optional, tag="1")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Grid connect mode
     #[prost(message, optional, tag="2")]
     pub mode: ::std::option::Option<super::commonmodule::EngGridConnectModeKind>,
@@ -551,38 +535,38 @@ pub struct SolarPointStatus {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="8")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Enable voltage set point
     #[prost(message, optional, tag="9")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
 }
 mod solar_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
     }
 }
 pub trait IsSolarPointStatus {
     fn _solar_point_status(&self) -> &SolarPointStatus;
     fn _solar_point_status_mut(&mut self) -> &mut SolarPointStatus;
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._solar_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._solar_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
@@ -609,16 +593,16 @@ pub trait IsSolarPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._solar_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._solar_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._solar_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._solar_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._solar_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -627,10 +611,10 @@ pub trait IsSolarPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._solar_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._solar_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&solar_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._solar_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -838,12 +822,6 @@ pub struct SolarEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub solar_event_zgen: ::std::option::Option<SolarEventZgen>,
 }
@@ -916,15 +894,6 @@ pub struct SolarEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub solar_event: ::std::option::Option<SolarEvent>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -933,14 +902,13 @@ pub struct SolarEventProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub solar_inverter: ::std::option::Option<SolarInverter>,
 }
 mod solar_event_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref SOLAR_EVENT: crate::solarmodule::SolarEvent = Default::default();
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
     }
@@ -953,12 +921,6 @@ pub trait IsSolarEventProfile {
     }
     fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
         self._solar_event_profile_mut().event_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._solar_event_profile().ied.as_ref().unwrap_or(&solar_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._solar_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_event(&self) -> &SolarEvent {
         self._solar_event_profile().solar_event.as_ref().unwrap_or(&solar_event_profile::SOLAR_EVENT)
@@ -1103,15 +1065,6 @@ pub struct SolarReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub solar_inverter: ::std::option::Option<SolarInverter>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1120,14 +1073,13 @@ pub struct SolarReadingProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub solar_reading: ::std::option::Option<SolarReading>,
 }
 mod solar_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
         pub(super) static ref SOLAR_READING: crate::solarmodule::SolarReading = Default::default();
     }
@@ -1140,12 +1092,6 @@ pub trait IsSolarReadingProfile {
     }
     fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
         self._solar_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._solar_reading_profile().ied.as_ref().unwrap_or(&solar_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._solar_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_reading_profile().solar_inverter.as_ref().unwrap_or(&solar_reading_profile::SOLAR_INVERTER)
@@ -1286,12 +1232,6 @@ pub struct SolarStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub solar_status_zgen: ::std::option::Option<SolarStatusZgen>,
 }
@@ -1364,15 +1304,6 @@ pub struct SolarStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub solar_inverter: ::std::option::Option<SolarInverter>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1381,14 +1312,13 @@ pub struct SolarStatusProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub solar_status: ::std::option::Option<SolarStatus>,
 }
 mod solar_status_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref SOLAR_INVERTER: crate::solarmodule::SolarInverter = Default::default();
         pub(super) static ref SOLAR_STATUS: crate::solarmodule::SolarStatus = Default::default();
     }
@@ -1401,12 +1331,6 @@ pub trait IsSolarStatusProfile {
     }
     fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
         self._solar_status_profile_mut().status_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._solar_status_profile().ied.as_ref().unwrap_or(&solar_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._solar_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn solar_inverter(&self) -> &SolarInverter {
         self._solar_status_profile().solar_inverter.as_ref().unwrap_or(&solar_status_profile::SOLAR_INVERTER)

@@ -64,7 +64,7 @@ impl OpenFMBExt for GenerationControlProfile {
 }
 
 pub trait GenerationControlExt: ControlProfileExt {
-    fn generator_on_msg(m_rid: &str, val: f32) -> GenerationControlProfile {
+    fn generator_on_msg(m_rid: &str, val: f64) -> GenerationControlProfile {
         Self::build_control_profile(m_rid, 39, val, SystemTime::now(), 1)
     }
 
@@ -75,7 +75,7 @@ pub trait GenerationControlExt: ControlProfileExt {
     fn build_control_profile(
         m_rid: &str,
         sch_param_type: i32,
-        sch_param_value: f32,
+        sch_param_value: f64,
         start_time: SystemTime,
         state: i32,
     ) -> GenerationControlProfile;
@@ -87,11 +87,12 @@ impl GenerationControlExt for GenerationControlProfile {
     fn build_control_profile(
         m_rid: &str,
         sch_param_type: i32,
-        sch_param_value: f32,
+        sch_param_value: f64,
         start_time: SystemTime,
         state: i32,
     ) -> GenerationControlProfile {
         let msg_info: ControlMessageInfo = GenerationControlProfile::build_control_message_info();
+        let when = SystemTime::now();
         GenerationControlProfile {
             control_message_info: Some(msg_info),
             generating_unit: Some(GeneratingUnit {
@@ -116,8 +117,8 @@ impl GenerationControlExt for GenerationControlProfile {
                                         value: sch_param_value,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        fraction: 0,
-                                        seconds: SystemTime::now()
+                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                        seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
                                             .as_secs(),
@@ -141,7 +142,7 @@ impl GenerationControlExt for GenerationControlProfile {
                                 state: Some(OptionalStateKind { value: state }),
                                 sync_back_to_grid: None,
                                 start_time: Some(ControlTimestamp {
-                                    fraction: 0,
+                                    nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                                     seconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
@@ -154,7 +155,6 @@ impl GenerationControlExt for GenerationControlProfile {
                     }),
                 }),
             }),
-            ied: None,
         }
     }
 }

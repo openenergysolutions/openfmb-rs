@@ -779,10 +779,10 @@ impl IsEssFunction for EssFunction {
 pub struct EssPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS function parameter
     #[prost(message, optional, tag="3")]
     pub function: ::std::option::Option<EssFunction>,
@@ -800,54 +800,54 @@ pub struct EssPointStatus {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="8")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable real power set point
     #[prost(message, optional, tag="9")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="10")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="11")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="12")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="13")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
 }
 mod ess_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref FUNCTION: crate::essmodule::EssFunction = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
     }
 }
 pub trait IsEssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus;
     fn _ess_point_status_mut(&mut self) -> &mut EssPointStatus;
-    fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn black_start_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().black_start_enabled.as_ref().unwrap_or(&ess_point_status::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&ess_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn function(&self) -> &EssFunction {
@@ -880,16 +880,16 @@ pub trait IsEssPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._ess_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -898,22 +898,22 @@ pub trait IsEssPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._ess_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().sync_back_to_grid.as_ref().unwrap_or(&ess_point_status::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&ess_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._ess_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&ess_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._ess_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -1213,15 +1213,6 @@ pub struct EssEventProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub ess_event: ::std::option::Option<EssEvent>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod ess_event_profile {
     use lazy_static::lazy_static;
@@ -1229,7 +1220,6 @@ mod ess_event_profile {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
         pub(super) static ref ESS: crate::commonmodule::Ess = Default::default();
         pub(super) static ref ESS_EVENT: crate::essmodule::EssEvent = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsEssEventProfile {
@@ -1252,12 +1242,6 @@ pub trait IsEssEventProfile {
     }
     fn ess_event_mut(&mut self) -> &mut EssEvent {
         self._ess_event_profile_mut().ess_event.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._ess_event_profile().ied.as_ref().unwrap_or(&ess_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._ess_event_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssEventProfile for EssEventProfile {
@@ -1400,15 +1384,6 @@ pub struct EssReadingProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub ess_reading: ::std::option::Option<EssReading>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod ess_reading_profile {
     use lazy_static::lazy_static;
@@ -1416,7 +1391,6 @@ mod ess_reading_profile {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
         pub(super) static ref ESS: crate::commonmodule::Ess = Default::default();
         pub(super) static ref ESS_READING: crate::essmodule::EssReading = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsEssReadingProfile {
@@ -1439,12 +1413,6 @@ pub trait IsEssReadingProfile {
     }
     fn ess_reading_mut(&mut self) -> &mut EssReading {
         self._ess_reading_profile_mut().ess_reading.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._ess_reading_profile().ied.as_ref().unwrap_or(&ess_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._ess_reading_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssReadingProfile for EssReadingProfile {
@@ -1493,12 +1461,6 @@ pub struct EssStatusZbat {
     #[prost(message, optional, tag="1")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// Battery system status &ndash; True: on
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub bat_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
@@ -1763,15 +1725,6 @@ pub struct EssStatusProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub ess_status: ::std::option::Option<EssStatus>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod ess_status_profile {
     use lazy_static::lazy_static;
@@ -1779,7 +1732,6 @@ mod ess_status_profile {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
         pub(super) static ref ESS: crate::commonmodule::Ess = Default::default();
         pub(super) static ref ESS_STATUS: crate::essmodule::EssStatus = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsEssStatusProfile {
@@ -1802,12 +1754,6 @@ pub trait IsEssStatusProfile {
     }
     fn ess_status_mut(&mut self) -> &mut EssStatus {
         self._ess_status_profile_mut().ess_status.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._ess_status_profile().ied.as_ref().unwrap_or(&ess_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._ess_status_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssStatusProfile for EssStatusProfile {
@@ -2192,12 +2138,6 @@ pub struct EssControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub ess_control_fscc: ::std::option::Option<EssControlFscc>,
 }
@@ -2287,15 +2227,6 @@ pub struct EssControlProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub ess_control: ::std::option::Option<EssControl>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod ess_control_profile {
     use lazy_static::lazy_static;
@@ -2303,7 +2234,6 @@ mod ess_control_profile {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
         pub(super) static ref ESS: crate::commonmodule::Ess = Default::default();
         pub(super) static ref ESS_CONTROL: crate::essmodule::EssControl = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsEssControlProfile {
@@ -2326,12 +2256,6 @@ pub trait IsEssControlProfile {
     }
     fn ess_control_mut(&mut self) -> &mut EssControl {
         self._ess_control_profile_mut().ess_control.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._ess_control_profile().ied.as_ref().unwrap_or(&ess_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._ess_control_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsEssControlProfile for EssControlProfile {

@@ -23,9 +23,6 @@ impl OpenFMBExt for SwitchReadingProfile {
             .c_val
             .unwrap()
             .mag
-            .unwrap()
-            .f
-            .unwrap()
             .to_string())
         //panic!("{:?}", self);
     }
@@ -81,33 +78,27 @@ impl OpenFMBExtReading for SwitchReadingProfile {
 }
 
 pub trait SwitchReadingExt: ReadingProfileExt {
-    fn switch_reading(&self) -> f32;
+    fn switch_reading(&self) -> f64;
 }
 
 impl SwitchReadingExt for SwitchReadingProfile {
-    fn switch_reading(&self) -> f32 {
-        {
-            self.switch_reading
-                .first()
-                .unwrap()
-                .reading_mmxu
-                .as_ref()
-                .unwrap()
-                .w
-                .as_ref()
-                .unwrap()
-                .net
-                .as_ref()
-                .unwrap()
-                .c_val
-                .as_ref()
-                .unwrap()
-                .mag
-                .as_ref()
-                .unwrap()
-                .f
-                .unwrap()
-        }
+    fn switch_reading(&self) -> f64 {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .w
+            .as_ref()
+            .unwrap()
+            .net
+            .as_ref()
+            .unwrap()
+            .c_val
+            .as_ref()
+            .unwrap()
+            .mag
     }
 }
 

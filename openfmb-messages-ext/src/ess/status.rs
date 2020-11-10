@@ -26,10 +26,6 @@ impl OpenFMBExt for EssStatusProfile {
             .as_ref()
             .context(NoSoc)?
             .mag
-            .as_ref()
-            .context(NoMag)?
-            .f
-            .context(NoF)?
             / 100.0)
             .to_string())
     }
@@ -89,7 +85,7 @@ impl OpenFMBExtStatus for EssStatusProfile {
 }
 
 impl ESSStatusExt for EssStatusProfile {
-    fn soc(&self) -> OpenFMBResult<f32> {
+    fn soc(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_status
             .as_ref()
@@ -100,21 +96,17 @@ impl ESSStatusExt for EssStatusProfile {
             .soc
             .as_ref()
             .context(NoSoc)?
-            .mag
-            .as_ref()
-            .context(NoMag)?
-            .f
-            .context(NoF)?)
+            .mag)
     }
 }
 
 pub trait EssStatusExt: StatusProfileExt {
-    fn ess_soc(&self) -> OpenFMBResult<f32>;
+    fn ess_soc(&self) -> OpenFMBResult<f64>;
     fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind>;
 }
 
 impl EssStatusExt for EssStatusProfile {
-    fn ess_soc(&self) -> OpenFMBResult<f32> {
+    fn ess_soc(&self) -> OpenFMBResult<f64> {
         {
             Ok(self
                 .ess_status
@@ -127,10 +119,6 @@ impl EssStatusExt for EssStatusProfile {
                 .as_ref()
                 .context(NoSoc)?
                 .mag
-                .as_ref()
-                .context(NoMag)?
-                .f
-                .context(NoF)?
                 / 100.0)
         }
     }

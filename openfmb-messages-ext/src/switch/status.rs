@@ -17,6 +17,8 @@ impl OpenFMBExt for SwitchStatusProfile {
             .unwrap()
             .pos
             .unwrap()
+            .phs3
+            .unwrap()
             .st_val
         {
             0 => "Transient",

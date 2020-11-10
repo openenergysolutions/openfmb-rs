@@ -24,9 +24,6 @@ impl OpenFMBExt for GenerationReadingProfile {
             .c_val
             .unwrap()
             .mag
-            .unwrap()
-            .f
-            .unwrap()
             .to_string())
     }
 
@@ -80,11 +77,11 @@ impl OpenFMBExtReading for GenerationReadingProfile {
 }
 
 pub trait GenerationReadingExt: ReadingProfileExt {
-    fn generation_reading(&self) -> f32;
+    fn generation_reading(&self) -> f64;
 }
 
 impl GenerationReadingExt for GenerationReadingProfile {
-    fn generation_reading(&self) -> f32 {
+    fn generation_reading(&self) -> f64 {
         {
             self.generation_reading
                 .clone()
@@ -98,9 +95,6 @@ impl GenerationReadingExt for GenerationReadingProfile {
                 .c_val
                 .unwrap()
                 .mag
-                .unwrap()
-                .f
-                .unwrap()
         }
     }
 }

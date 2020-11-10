@@ -66,11 +66,11 @@ impl OpenFMBExtReading for LoadReadingProfile {
 }
 
 pub trait LoadReadingExt: ReadingProfileExt {
-    fn load_reading(&self) -> f32;
+    fn load_reading(&self) -> f64;
 }
 
 impl LoadReadingExt for LoadReadingProfile {
-    fn load_reading(&self) -> f32 {
+    fn load_reading(&self) -> f64 {
         {
             self.load_reading
                 .clone()
@@ -84,9 +84,6 @@ impl LoadReadingExt for LoadReadingProfile {
                 .c_val
                 .unwrap()
                 .mag
-                .unwrap()
-                .f
-                .unwrap()
         }
     }
 }

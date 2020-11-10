@@ -21,7 +21,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         switch.is_open().await?.next().await,
     ) {
         info!(
-            "{}: position: {:?}, is_closed: {:?}, is_open: {:?}",
+            "{}: position: {:?}, is_closed: {:?}, is_open: {:?}, Toggling position...",
             mrid, position, closed, open
         );
         match switch.toggle_position().await {

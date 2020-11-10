@@ -1,15 +1,16 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM).eap
-// Thursday, April 25, 2019 1:26:42 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
 
 package loadmodule;
-option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/openfmb/loadmodule";
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";
 option java_package = "openfmb.loadmodule";
 option java_multiple_files = true;
 option csharp_namespace = "openfmb.loadmodule";
 
 import "uml.proto";
+import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
 // Point definition (Point)
@@ -60,7 +61,7 @@ message LoadControl
     // MISSING DOCUMENTATION!!!
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
-    LoadControlFSCC loadControlFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadControlFSCC loadControlFSCC = 3;
 }
 
 // Load control profile
@@ -72,9 +73,7 @@ message LoadControlProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadControl loadControl = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadControl loadControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Point definition (Point)
@@ -83,11 +82,11 @@ message LoadPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 1;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 2;
+    commonmodule.StatusDPS reactivePwrSetPointEnabled = 2;
     // Enable joint real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 3;
+    commonmodule.StatusDPS realPwrSetPointEnabled = 3;
     // Reset device
-    commonmodule.ControlDPC reset = 4;
+    commonmodule.StatusDPS reset = 4;
     // ESS state
     commonmodule.Optional_StateKind state = 5;
 }
@@ -118,7 +117,7 @@ message LoadEvent
     // UML inherited base object
     commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    LoadEventZGLD loadEventZGLD = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadEventZGLD loadEventZGLD = 2;
 }
 
 // Load event profile
@@ -130,9 +129,7 @@ message LoadEventProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadEvent loadEvent = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadEvent loadEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Load reading value
@@ -157,9 +154,7 @@ message LoadReadingProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadReading loadReading = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadReading loadReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZGLD LN class
@@ -174,8 +169,10 @@ message LoadStatus
 {
     // UML inherited base object
     commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // True if the load is uncontrollable.
+    google.protobuf.BoolValue isUncontrollable = 2;
     // MISSING DOCUMENTATION!!!
-    LoadStatusZGLD loadStatusZGLD = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadStatusZGLD loadStatusZGLD = 3;
 }
 
 // Load status profile
@@ -187,8 +184,6 @@ message LoadStatusProfile
     // MISSING DOCUMENTATION!!!
     commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    commonmodule.IED ied = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    LoadStatus loadStatus = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    LoadStatus loadStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

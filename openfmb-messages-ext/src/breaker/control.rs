@@ -1,8 +1,6 @@
 use openfmb_messages::{
-    breakermodule::{
-        Breaker, BreakerDiscreteControl, BreakerDiscreteControlProfile, BreakerDiscreteControlXcbr,
-    },
-    commonmodule::{ConductingEquipment, ControlDpc, ControlMessageInfo, MessageInfo},
+    commonmodule::*,
+    breakermodule::*,
 };
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
@@ -19,9 +17,15 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
             .breaker_discrete_control_xcbr
             .as_ref()
             .context(NoBreakerDiscreteControlXcbr)?
+            .discrete_control_xcbr
+            .as_ref()
+            .context(NoDiscreteControlXcbr)?
             .pos
             .as_ref()
             .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
             .ctl_val
         {
             "Request Closed"
@@ -93,12 +97,16 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
             breaker_discrete_control: Some(BreakerDiscreteControl {
                 control_value: None,
                 check: None,
-                //FIXME when should this be parameterized?
                 breaker_discrete_control_xcbr: Some(BreakerDiscreteControlXcbr {
-                    logical_node_for_control: None,
-                    pos: Some(ControlDpc { ctl_val: pos }),
+                    discrete_control_xcbr: Some(DiscreteControlXcbr {
+                        pos: Some(PhaseDpc {
+                            phs3: Some(ControlDpc { ctl_val: pos }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
                 }),
-                //device_control: None,
             }),
 
             //                        breaker_discrete_control: Some(BreakerDiscreteControl {
@@ -122,7 +130,7 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
             //                               }),
             //                           }),
             //                       }),
-            ied: None,
+
         }
     }
 }

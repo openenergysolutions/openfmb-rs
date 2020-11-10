@@ -328,12 +328,6 @@ pub struct GenerationControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub generation_control_fscc: ::std::option::Option<GenerationControlFscc>,
 }
@@ -490,15 +484,6 @@ pub struct GenerationControlProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub generation_control: ::std::option::Option<GenerationControl>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod generation_control_profile {
     use lazy_static::lazy_static;
@@ -506,7 +491,6 @@ mod generation_control_profile {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
         pub(super) static ref GENERATING_UNIT: crate::generationmodule::GeneratingUnit = Default::default();
         pub(super) static ref GENERATION_CONTROL: crate::generationmodule::GenerationControl = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsGenerationControlProfile {
@@ -529,12 +513,6 @@ pub trait IsGenerationControlProfile {
     }
     fn generation_control_mut(&mut self) -> &mut GenerationControl {
         self._generation_control_profile_mut().generation_control.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._generation_control_profile().ied.as_ref().unwrap_or(&generation_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._generation_control_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationControlProfile for GenerationControlProfile {
@@ -562,6 +540,419 @@ impl IsGenerationControlProfile for GenerationControlProfile {
     //}
 //}
 //impl IsIdentifiedObject for GenerationControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalRealPowerControlKind {
+    #[prost(enumeration="RealPowerControlKind", tag="1")]
+    pub value: i32,
+}
+mod optional_real_power_control_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalRealPowerControlKind {
+    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind;
+    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind;
+    fn value(&self) -> i32 {
+        self._optional_real_power_control_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_real_power_control_kind_mut().value
+    }
+}
+impl IsOptionalRealPowerControlKind for OptionalRealPowerControlKind {
+    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind {
+        self
+    }
+    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind {
+        self
+    }
+}
+/// Generation discrete control
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct DroopParameter {
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="1")]
+    pub slope: ::std::option::Option<f32>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub unloaded_offset: ::std::option::Option<f32>,
+}
+mod droop_parameter {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref SLOPE: f32 = Default::default();
+        pub(super) static ref UNLOADED_OFFSET: f32 = Default::default();
+    }
+}
+pub trait IsDroopParameter {
+    fn _droop_parameter(&self) -> &DroopParameter;
+    fn _droop_parameter_mut(&mut self) -> &mut DroopParameter;
+    fn slope(&self) -> &f32 {
+        self._droop_parameter().slope.as_ref().unwrap_or(&droop_parameter::SLOPE)
+    }
+    fn slope_mut(&mut self) -> &mut f32 {
+        self._droop_parameter_mut().slope.get_or_insert(Default::default())
+    }
+    fn unloaded_offset(&self) -> &f32 {
+        self._droop_parameter().unloaded_offset.as_ref().unwrap_or(&droop_parameter::UNLOADED_OFFSET)
+    }
+    fn unloaded_offset_mut(&mut self) -> &mut f32 {
+        self._droop_parameter_mut().unloaded_offset.get_or_insert(Default::default())
+    }
+}
+impl IsDroopParameter for DroopParameter {
+    fn _droop_parameter(&self) -> &DroopParameter {
+        self
+    }
+    fn _droop_parameter_mut(&mut self) -> &mut DroopParameter {
+        self
+    }
+}
+/// Generation real power control
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct RealPowerControl {
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="1")]
+    pub droop_setpoint: ::std::option::Option<DroopParameter>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub isochronous_setpoint: ::std::option::Option<f32>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
+    pub real_power_control_mode: ::std::option::Option<OptionalRealPowerControlKind>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="4")]
+    pub real_power_setpoint: ::std::option::Option<f32>,
+}
+mod real_power_control {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DROOP_SETPOINT: crate::generationmodule::DroopParameter = Default::default();
+        pub(super) static ref ISOCHRONOUS_SETPOINT: f32 = Default::default();
+        pub(super) static ref REAL_POWER_CONTROL_MODE: crate::generationmodule::OptionalRealPowerControlKind = Default::default();
+        pub(super) static ref REAL_POWER_SETPOINT: f32 = Default::default();
+    }
+}
+pub trait IsRealPowerControl {
+    fn _real_power_control(&self) -> &RealPowerControl;
+    fn _real_power_control_mut(&mut self) -> &mut RealPowerControl;
+    fn droop_setpoint(&self) -> &DroopParameter {
+        self._real_power_control().droop_setpoint.as_ref().unwrap_or(&real_power_control::DROOP_SETPOINT)
+    }
+    fn droop_setpoint_mut(&mut self) -> &mut DroopParameter {
+        self._real_power_control_mut().droop_setpoint.get_or_insert(Default::default())
+    }
+    fn isochronous_setpoint(&self) -> &f32 {
+        self._real_power_control().isochronous_setpoint.as_ref().unwrap_or(&real_power_control::ISOCHRONOUS_SETPOINT)
+    }
+    fn isochronous_setpoint_mut(&mut self) -> &mut f32 {
+        self._real_power_control_mut().isochronous_setpoint.get_or_insert(Default::default())
+    }
+    fn real_power_control_mode(&self) -> &OptionalRealPowerControlKind {
+        self._real_power_control().real_power_control_mode.as_ref().unwrap_or(&real_power_control::REAL_POWER_CONTROL_MODE)
+    }
+    fn real_power_control_mode_mut(&mut self) -> &mut OptionalRealPowerControlKind {
+        self._real_power_control_mut().real_power_control_mode.get_or_insert(Default::default())
+    }
+    fn real_power_setpoint(&self) -> &f32 {
+        self._real_power_control().real_power_setpoint.as_ref().unwrap_or(&real_power_control::REAL_POWER_SETPOINT)
+    }
+    fn real_power_setpoint_mut(&mut self) -> &mut f32 {
+        self._real_power_control_mut().real_power_setpoint.get_or_insert(Default::default())
+    }
+}
+impl IsRealPowerControl for RealPowerControl {
+    fn _real_power_control(&self) -> &RealPowerControl {
+        self
+    }
+    fn _real_power_control_mut(&mut self) -> &mut RealPowerControl {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct OptionalReactivePowerControlKind {
+    #[prost(enumeration="ReactivePowerControlKind", tag="1")]
+    pub value: i32,
+}
+mod optional_reactive_power_control_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+pub trait IsOptionalReactivePowerControlKind {
+    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind;
+    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind;
+    fn value(&self) -> i32 {
+        self._optional_reactive_power_control_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_reactive_power_control_kind_mut().value
+    }
+}
+impl IsOptionalReactivePowerControlKind for OptionalReactivePowerControlKind {
+    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind {
+        self
+    }
+    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind {
+        self
+    }
+}
+/// Generation real power control
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct ReactivePowerControl {
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="1")]
+    pub droop_setpoint: ::std::option::Option<DroopParameter>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub power_factor_setpoint: ::std::option::Option<f32>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
+    pub reactive_power_control_mode: ::std::option::Option<OptionalReactivePowerControlKind>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="4")]
+    pub reactive_power_setpoint: ::std::option::Option<f32>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="5")]
+    pub voltage_setpoint: ::std::option::Option<f32>,
+}
+mod reactive_power_control {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref DROOP_SETPOINT: crate::generationmodule::DroopParameter = Default::default();
+        pub(super) static ref POWER_FACTOR_SETPOINT: f32 = Default::default();
+        pub(super) static ref REACTIVE_POWER_CONTROL_MODE: crate::generationmodule::OptionalReactivePowerControlKind = Default::default();
+        pub(super) static ref REACTIVE_POWER_SETPOINT: f32 = Default::default();
+        pub(super) static ref VOLTAGE_SETPOINT: f32 = Default::default();
+    }
+}
+pub trait IsReactivePowerControl {
+    fn _reactive_power_control(&self) -> &ReactivePowerControl;
+    fn _reactive_power_control_mut(&mut self) -> &mut ReactivePowerControl;
+    fn droop_setpoint(&self) -> &DroopParameter {
+        self._reactive_power_control().droop_setpoint.as_ref().unwrap_or(&reactive_power_control::DROOP_SETPOINT)
+    }
+    fn droop_setpoint_mut(&mut self) -> &mut DroopParameter {
+        self._reactive_power_control_mut().droop_setpoint.get_or_insert(Default::default())
+    }
+    fn power_factor_setpoint(&self) -> &f32 {
+        self._reactive_power_control().power_factor_setpoint.as_ref().unwrap_or(&reactive_power_control::POWER_FACTOR_SETPOINT)
+    }
+    fn power_factor_setpoint_mut(&mut self) -> &mut f32 {
+        self._reactive_power_control_mut().power_factor_setpoint.get_or_insert(Default::default())
+    }
+    fn reactive_power_control_mode(&self) -> &OptionalReactivePowerControlKind {
+        self._reactive_power_control().reactive_power_control_mode.as_ref().unwrap_or(&reactive_power_control::REACTIVE_POWER_CONTROL_MODE)
+    }
+    fn reactive_power_control_mode_mut(&mut self) -> &mut OptionalReactivePowerControlKind {
+        self._reactive_power_control_mut().reactive_power_control_mode.get_or_insert(Default::default())
+    }
+    fn reactive_power_setpoint(&self) -> &f32 {
+        self._reactive_power_control().reactive_power_setpoint.as_ref().unwrap_or(&reactive_power_control::REACTIVE_POWER_SETPOINT)
+    }
+    fn reactive_power_setpoint_mut(&mut self) -> &mut f32 {
+        self._reactive_power_control_mut().reactive_power_setpoint.get_or_insert(Default::default())
+    }
+    fn voltage_setpoint(&self) -> &f32 {
+        self._reactive_power_control().voltage_setpoint.as_ref().unwrap_or(&reactive_power_control::VOLTAGE_SETPOINT)
+    }
+    fn voltage_setpoint_mut(&mut self) -> &mut f32 {
+        self._reactive_power_control_mut().voltage_setpoint.get_or_insert(Default::default())
+    }
+}
+impl IsReactivePowerControl for ReactivePowerControl {
+    fn _reactive_power_control(&self) -> &ReactivePowerControl {
+        self
+    }
+    fn _reactive_power_control_mut(&mut self) -> &mut ReactivePowerControl {
+        self
+    }
+}
+/// Generation discrete control
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct GenerationDiscreteControl {
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="1")]
+    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
+    pub reactive_power_control: ::std::option::Option<ReactivePowerControl>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="4")]
+    pub real_power_control: ::std::option::Option<RealPowerControl>,
+}
+mod generation_discrete_control {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
+        pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
+        pub(super) static ref REACTIVE_POWER_CONTROL: crate::generationmodule::ReactivePowerControl = Default::default();
+        pub(super) static ref REAL_POWER_CONTROL: crate::generationmodule::RealPowerControl = Default::default();
+    }
+}
+pub trait IsGenerationDiscreteControl {
+    fn _generation_discrete_control(&self) -> &GenerationDiscreteControl;
+    fn _generation_discrete_control_mut(&mut self) -> &mut GenerationDiscreteControl;
+    fn control_value(&self) -> &super::commonmodule::ControlValue {
+        self._generation_discrete_control().control_value.as_ref().unwrap_or(&generation_discrete_control::CONTROL_VALUE)
+    }
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._generation_discrete_control_mut().control_value.get_or_insert(Default::default())
+    }
+    fn check(&self) -> &super::commonmodule::CheckConditions {
+        self._generation_discrete_control().check.as_ref().unwrap_or(&generation_discrete_control::CHECK)
+    }
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._generation_discrete_control_mut().check.get_or_insert(Default::default())
+    }
+    fn reactive_power_control(&self) -> &ReactivePowerControl {
+        self._generation_discrete_control().reactive_power_control.as_ref().unwrap_or(&generation_discrete_control::REACTIVE_POWER_CONTROL)
+    }
+    fn reactive_power_control_mut(&mut self) -> &mut ReactivePowerControl {
+        self._generation_discrete_control_mut().reactive_power_control.get_or_insert(Default::default())
+    }
+    fn real_power_control(&self) -> &RealPowerControl {
+        self._generation_discrete_control().real_power_control.as_ref().unwrap_or(&generation_discrete_control::REAL_POWER_CONTROL)
+    }
+    fn real_power_control_mut(&mut self) -> &mut RealPowerControl {
+        self._generation_discrete_control_mut().real_power_control.get_or_insert(Default::default())
+    }
+}
+impl IsGenerationDiscreteControl for GenerationDiscreteControl {
+    fn _generation_discrete_control(&self) -> &GenerationDiscreteControl {
+        self
+    }
+    fn _generation_discrete_control_mut(&mut self) -> &mut GenerationDiscreteControl {
+        self
+    }
+}
+//impl IsControlValue for GenerationDiscreteControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationDiscreteControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
+/// Generation discrete control profile
+/// OpenFMB Profile Message: true
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct GenerationDiscreteControlProfile {
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="1")]
+    pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="2")]
+    pub generating_unit: ::std::option::Option<GeneratingUnit>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="3")]
+    pub generation_discrete_control: ::std::option::Option<GenerationDiscreteControl>,
+}
+mod generation_discrete_control_profile {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
+        pub(super) static ref GENERATING_UNIT: crate::generationmodule::GeneratingUnit = Default::default();
+        pub(super) static ref GENERATION_DISCRETE_CONTROL: crate::generationmodule::GenerationDiscreteControl = Default::default();
+    }
+}
+pub trait IsGenerationDiscreteControlProfile {
+    fn _generation_discrete_control_profile(&self) -> &GenerationDiscreteControlProfile;
+    fn _generation_discrete_control_profile_mut(&mut self) -> &mut GenerationDiscreteControlProfile;
+    fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self._generation_discrete_control_profile().control_message_info.as_ref().unwrap_or(&generation_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._generation_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+    fn generating_unit(&self) -> &GeneratingUnit {
+        self._generation_discrete_control_profile().generating_unit.as_ref().unwrap_or(&generation_discrete_control_profile::GENERATING_UNIT)
+    }
+    fn generating_unit_mut(&mut self) -> &mut GeneratingUnit {
+        self._generation_discrete_control_profile_mut().generating_unit.get_or_insert(Default::default())
+    }
+    fn generation_discrete_control(&self) -> &GenerationDiscreteControl {
+        self._generation_discrete_control_profile().generation_discrete_control.as_ref().unwrap_or(&generation_discrete_control_profile::GENERATION_DISCRETE_CONTROL)
+    }
+    fn generation_discrete_control_mut(&mut self) -> &mut GenerationDiscreteControl {
+        self._generation_discrete_control_profile_mut().generation_discrete_control.get_or_insert(Default::default())
+    }
+}
+impl IsGenerationDiscreteControlProfile for GenerationDiscreteControlProfile {
+    fn _generation_discrete_control_profile(&self) -> &GenerationDiscreteControlProfile {
+        self
+    }
+    fn _generation_discrete_control_profile_mut(&mut self) -> &mut GenerationDiscreteControlProfile {
+        self
+    }
+}
+//impl IsControlMessageInfo for GenerationDiscreteControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for GenerationDiscreteControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for GenerationDiscreteControlProfile {
     //fn _identified_object(&self) -> &IdentifiedObject {
         //
     //}
@@ -677,15 +1068,6 @@ pub struct GenerationReadingProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub generation_reading: ::std::option::Option<GenerationReading>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod generation_reading_profile {
     use lazy_static::lazy_static;
@@ -693,7 +1075,6 @@ mod generation_reading_profile {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
         pub(super) static ref GENERATING_UNIT: crate::generationmodule::GeneratingUnit = Default::default();
         pub(super) static ref GENERATION_READING: crate::generationmodule::GenerationReading = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsGenerationReadingProfile {
@@ -716,12 +1097,6 @@ pub trait IsGenerationReadingProfile {
     }
     fn generation_reading_mut(&mut self) -> &mut GenerationReading {
         self._generation_reading_profile_mut().generation_reading.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._generation_reading_profile().ied.as_ref().unwrap_or(&generation_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._generation_reading_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationReadingProfile for GenerationReadingProfile {
@@ -762,10 +1137,10 @@ impl IsGenerationReadingProfile for GenerationReadingProfile {
 pub struct GenerationPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Black start enable
     #[prost(message, optional, tag="3")]
     pub pct_hz_droop: ::std::option::Option<f32>,
@@ -777,52 +1152,52 @@ pub struct GenerationPointStatus {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="8")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="9")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="10")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="11")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
 }
 mod generation_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
     }
 }
 pub trait IsGenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus;
     fn _generation_point_status_mut(&mut self) -> &mut GenerationPointStatus;
-    fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn black_start_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().black_start_enabled.as_ref().unwrap_or(&generation_point_status::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&generation_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
@@ -843,16 +1218,16 @@ pub trait IsGenerationPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._generation_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -861,22 +1236,22 @@ pub trait IsGenerationPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._generation_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().sync_back_to_grid.as_ref().unwrap_or(&generation_point_status::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&generation_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
         self._generation_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&generation_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._generation_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -1084,12 +1459,6 @@ pub struct GenerationEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub generation_event_zgen: ::std::option::Option<GenerationEventZgen>,
 }
@@ -1172,15 +1541,6 @@ pub struct GenerationEventProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub generation_event: ::std::option::Option<GenerationEvent>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod generation_event_profile {
     use lazy_static::lazy_static;
@@ -1188,7 +1548,6 @@ mod generation_event_profile {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
         pub(super) static ref GENERATING_UNIT: crate::generationmodule::GeneratingUnit = Default::default();
         pub(super) static ref GENERATION_EVENT: crate::generationmodule::GenerationEvent = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsGenerationEventProfile {
@@ -1211,12 +1570,6 @@ pub trait IsGenerationEventProfile {
     }
     fn generation_event_mut(&mut self) -> &mut GenerationEvent {
         self._generation_event_profile_mut().generation_event.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._generation_event_profile().ied.as_ref().unwrap_or(&generation_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._generation_event_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationEventProfile for GenerationEventProfile {
@@ -1335,12 +1688,6 @@ pub struct GenerationStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub generation_status_zgen: ::std::option::Option<GenerationStatusZgen>,
 }
@@ -1423,15 +1770,6 @@ pub struct GenerationStatusProfile {
     // key: false
     #[prost(message, optional, tag="3")]
     pub generation_status: ::std::option::Option<GenerationStatus>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="4")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
 }
 mod generation_status_profile {
     use lazy_static::lazy_static;
@@ -1439,7 +1777,6 @@ mod generation_status_profile {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
         pub(super) static ref GENERATING_UNIT: crate::generationmodule::GeneratingUnit = Default::default();
         pub(super) static ref GENERATION_STATUS: crate::generationmodule::GenerationStatus = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
     }
 }
 pub trait IsGenerationStatusProfile {
@@ -1462,12 +1799,6 @@ pub trait IsGenerationStatusProfile {
     }
     fn generation_status_mut(&mut self) -> &mut GenerationStatus {
         self._generation_status_profile_mut().generation_status.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._generation_status_profile().ied.as_ref().unwrap_or(&generation_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._generation_status_profile_mut().ied.get_or_insert(Default::default())
     }
 }
 impl IsGenerationStatusProfile for GenerationStatusProfile {
@@ -1502,3 +1833,37 @@ impl IsGenerationStatusProfile for GenerationStatusProfile {
         //
     //}
 //}
+/// Real power control kind
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum RealPowerControlKind {
+    /// MISSING DOCUMENTATION!!!
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
+    Advanced = 1,
+    /// MISSING DOCUMENTATION!!!
+    Droop = 2,
+    /// MISSING DOCUMENTATION!!!
+    Isochronous = 3,
+    /// Real power setpoint
+    RealPower = 4,
+}
+/// Real power control kind
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub enum ReactivePowerControlKind {
+    /// MISSING DOCUMENTATION!!!
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
+    Advanced = 1,
+    /// MISSING DOCUMENTATION!!!
+    Droop = 2,
+    /// Voltage setpoint
+    Voltage = 3,
+    /// Reactive power setpoint
+    ReactivePower = 4,
+    /// MISSING DOCUMENTATION!!!
+    PowerFactor = 5,
+}

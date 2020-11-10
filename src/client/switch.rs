@@ -3,11 +3,12 @@ use futures::{stream, StreamExt};
 use openfmb_messages::{
     commonmodule::{DbPosKind, DynamicTestKind},
     switchmodule::{
-        SwitchControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+        SwitchDiscreteControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
     },
 };
 use openfmb_messages_ext::switch::SwitchControlExt;
 use uuid::Uuid;
+use log::trace;
 
 /// Control and wait on updates from a switch
 ///
@@ -23,7 +24,7 @@ where
     MB: Subscriber<SwitchStatusProfile>
         + Subscriber<SwitchEventProfile>
         + Subscriber<SwitchReadingProfile>
-        + Publisher<SwitchControlProfile>,
+        + Publisher<SwitchDiscreteControlProfile>,
 {
     bus: MB,
     mrid: Uuid,
@@ -39,7 +40,7 @@ where
     MB: Subscriber<SwitchStatusProfile>
         + Subscriber<SwitchEventProfile>
         + Subscriber<SwitchReadingProfile>
-        + Publisher<SwitchControlProfile>,
+        + Publisher<SwitchDiscreteControlProfile>,
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
@@ -75,10 +76,12 @@ where
     /// Send a control message to the device asynchronously
     ///
     /// Awaits on publishing but no change awaited on.
-    pub async fn control(&mut self, msg: SwitchControlProfile) -> PublishResult<()> {
+    pub async fn control(&mut self, msg: SwitchDiscreteControlProfile) -> PublishResult<()> {
+        let topic = topic("SwitchDiscreteControlProfile", &self.mrid);
+        trace!("publishing to topic: {:?}", topic);
         Ok(self
             .bus
-            .publish(&topic("SwitchControlProfile", &self.mrid), msg)
+            .publish(&topic, msg)
             .await?)
     }
 
@@ -135,6 +138,8 @@ where
                     .unwrap_or_default()
                     .pos
                     .unwrap_or_default()
+                    .phs3
+                    .unwrap_or_default()
                     .st_val,
             )
             .unwrap()),
@@ -148,7 +153,9 @@ where
                     .unwrap_or_default()
                     .pos
                     .unwrap_or_default()
-                    .st_val,
+                    .phs3
+                    .unwrap_or_default()
+                    .st_val
             )
             .unwrap()),
             Err(err) => Err(err),
@@ -210,7 +217,7 @@ where
     pub async fn close(&mut self) -> ControlResult<()> {
         let mut is_open = self.is_open().await?;
         while let Some(Ok(true)) = is_open.next().await {
-            let msg = SwitchControlProfile::switch_close_msg(&self.mrid_as_string());
+            let msg = SwitchDiscreteControlProfile::switch_close_msg(&self.mrid_as_string());
             self.control(msg).await?
         }
         Ok(())
@@ -222,7 +229,7 @@ where
     pub async fn open(&mut self) -> ControlResult<()> {
         let mut is_closed = self.is_closed().await?;
         while let Some(Ok(true)) = is_closed.next().await {
-            let msg = SwitchControlProfile::switch_open_msg(&self.mrid_as_string());
+            let msg = SwitchDiscreteControlProfile::switch_open_msg(&self.mrid_as_string());
             self.control(msg).await?;
         }
         Ok(())
@@ -233,8 +240,10 @@ where
     /// TODO add timeout and retry support
     pub async fn toggle_position(&mut self) -> ControlResult<()> {
         if let Some(Ok(true)) = self.is_closed().await?.next().await {
+            trace!("Switch {:?} is closed, opening", self.mrid);
             Ok(self.open().await?)
         } else {
+            trace!("Switch {:?} is open, closing", self.mrid);
             Ok(self.close().await?)
         }
     }
@@ -256,7 +265,7 @@ where
     pub async fn enable_synchro_check(&mut self) -> ControlResult<()> {
         let mut dynamic_test = self.dynamic_test().await?;
         while let Some(Ok(DynamicTestKind::None)) = dynamic_test.next().await {
-            let msg = SwitchControlProfile::switch_synchro_msg(&self.mrid_as_string(), true);
+            let msg = SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), true);
             self.control(msg).await?;
         }
         Ok(())
@@ -271,7 +280,7 @@ where
             if testing == DynamicTestKind::None {
                 break;
             }
-            let msg = SwitchControlProfile::switch_synchro_msg(&self.mrid_as_string(), false);
+            let msg = SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), false);
             self.control(msg).await?;
         }
         Ok(())

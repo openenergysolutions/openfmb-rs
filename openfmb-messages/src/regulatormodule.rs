@@ -2,48 +2,76 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlAtcc {
-    /// Centre of voltage control bandwidth (forward power flow presumed).
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
     #[prost(message, optional, tag="1")]
+    pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
+    /// Centre of voltage control bandwidth (forward power flow presumed).
+    #[prost(message, optional, tag="2")]
     pub bnd_ctr: ::std::option::Option<super::commonmodule::Asg>,
     /// Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
     /// of the nominal voltage (forward power flow presumed).
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag="3")]
     pub bnd_wid: ::std::option::Option<super::commonmodule::Asg>,
     /// Time to wait before operating, after reaching the control point (forward power flow presumed).
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag="4")]
     pub ctl_dl_tmms: ::std::option::Option<super::commonmodule::ControlIng>,
     /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="5")]
     pub ldcr: ::std::option::Option<super::commonmodule::Asg>,
     /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    #[prost(message, optional, tag="5")]
-    pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
-    /// Line drop voltage due to line total impedance (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="6")]
-    pub ldcz: ::std::option::Option<super::commonmodule::Asg>,
+    pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
     #[prost(message, optional, tag="7")]
     pub par_op: ::std::option::Option<super::commonmodule::ControlSpc>,
-    /// (controllable) Tap position change to the specified value.
+    /// Ramp rates
     #[prost(message, optional, tag="8")]
-    pub tap_pos: ::std::option::Option<super::commonmodule::ControlIsc>,
+    pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
+    /// (controllable) Tap position change to the specified value.
+    #[prost(message, optional, tag="9")]
+    pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
+    /// (controllable) Tap position change to the specified value.
+    #[prost(message, optional, tag="10")]
+    pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIsc>,
+    /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    #[prost(message, optional, tag="11")]
+    pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Enable voltage set point
+    #[prost(message, optional, tag="12")]
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
 }
 mod regulator_control_atcc {
     use lazy_static::lazy_static;
     lazy_static! {
+        pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
         pub(super) static ref BND_CTR: crate::commonmodule::Asg = Default::default();
         pub(super) static ref BND_WID: crate::commonmodule::Asg = Default::default();
         pub(super) static ref CTL_DL_TMMS: crate::commonmodule::ControlIng = Default::default();
         pub(super) static ref LDCR: crate::commonmodule::Asg = Default::default();
         pub(super) static ref LDCX: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref LDCZ: crate::commonmodule::Asg = Default::default();
         pub(super) static ref PAR_OP: crate::commonmodule::ControlSpc = Default::default();
-        pub(super) static ref TAP_POS: crate::commonmodule::ControlIsc = Default::default();
+        pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
+        pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
+        pub(super) static ref TAP_POS: crate::commonmodule::PhaseIsc = Default::default();
+        pub(super) static ref VOL_SPT: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
     }
 }
 pub trait IsRegulatorControlAtcc {
     fn _regulator_control_atcc(&self) -> &RegulatorControlAtcc;
     fn _regulator_control_atcc_mut(&mut self) -> &mut RegulatorControlAtcc;
+    fn logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self._regulator_control_atcc().logical_node_for_control.as_ref().unwrap_or(&regulator_control_atcc::LOGICAL_NODE_FOR_CONTROL)
+    }
+    fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._regulator_control_atcc_mut().logical_node_for_control.get_or_insert(Default::default())
+    }
     fn bnd_ctr(&self) -> &super::commonmodule::Asg {
         self._regulator_control_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_control_atcc::BND_CTR)
     }
@@ -74,23 +102,41 @@ pub trait IsRegulatorControlAtcc {
     fn ldcx_mut(&mut self) -> &mut super::commonmodule::Asg {
         self._regulator_control_atcc_mut().ldcx.get_or_insert(Default::default())
     }
-    fn ldcz(&self) -> &super::commonmodule::Asg {
-        self._regulator_control_atcc().ldcz.as_ref().unwrap_or(&regulator_control_atcc::LDCZ)
-    }
-    fn ldcz_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_control_atcc_mut().ldcz.get_or_insert(Default::default())
-    }
     fn par_op(&self) -> &super::commonmodule::ControlSpc {
         self._regulator_control_atcc().par_op.as_ref().unwrap_or(&regulator_control_atcc::PAR_OP)
     }
     fn par_op_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._regulator_control_atcc_mut().par_op.get_or_insert(Default::default())
     }
-    fn tap_pos(&self) -> &super::commonmodule::ControlIsc {
+    fn ramp_rates(&self) -> &super::commonmodule::RampRate {
+        self._regulator_control_atcc().ramp_rates.as_ref().unwrap_or(&regulator_control_atcc::RAMP_RATES)
+    }
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._regulator_control_atcc_mut().ramp_rates.get_or_insert(Default::default())
+    }
+    fn state(&self) -> &super::commonmodule::OptionalStateKind {
+        self._regulator_control_atcc().state.as_ref().unwrap_or(&regulator_control_atcc::STATE)
+    }
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._regulator_control_atcc_mut().state.get_or_insert(Default::default())
+    }
+    fn tap_pos(&self) -> &super::commonmodule::PhaseIsc {
         self._regulator_control_atcc().tap_pos.as_ref().unwrap_or(&regulator_control_atcc::TAP_POS)
     }
-    fn tap_pos_mut(&mut self) -> &mut super::commonmodule::ControlIsc {
+    fn tap_pos_mut(&mut self) -> &mut super::commonmodule::PhaseIsc {
         self._regulator_control_atcc_mut().tap_pos.get_or_insert(Default::default())
+    }
+    fn vol_spt(&self) -> &super::commonmodule::PhaseApc {
+        self._regulator_control_atcc().vol_spt.as_ref().unwrap_or(&regulator_control_atcc::VOL_SPT)
+    }
+    fn vol_spt_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._regulator_control_atcc_mut().vol_spt.get_or_insert(Default::default())
+    }
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+        self._regulator_control_atcc().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_control_atcc::VOLTAGE_SET_POINT_ENABLED)
+    }
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+        self._regulator_control_atcc_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
 impl IsRegulatorControlAtcc for RegulatorControlAtcc {
@@ -101,6 +147,30 @@ impl IsRegulatorControlAtcc for RegulatorControlAtcc {
         self
     }
 }
+//impl IsLogicalNodeForControl for RegulatorControlAtcc {
+    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        //
+    //}
+//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
+        //
+    //}
+//}
+//impl IsLogicalNode for RegulatorControlAtcc {
+    //fn _logical_node(&self) -> &LogicalNode {
+        //
+    //}
+//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RegulatorControlAtcc {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -108,24 +178,6 @@ pub struct RegulatorPoint {
     /// Regulator control
     #[prost(message, optional, tag="1")]
     pub control: ::std::option::Option<RegulatorControlAtcc>,
-    /// Black start enable
-    #[prost(message, optional, tag="2")]
-    pub pct_v_droop: ::std::option::Option<f32>,
-    /// Ramp rates
-    #[prost(message, optional, tag="3")]
-    pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
-    /// Enable reactive power set point
-    #[prost(message, optional, tag="4")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
-    /// Reset device
-    #[prost(message, optional, tag="5")]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
-    /// State
-    #[prost(message, optional, tag="6")]
-    pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
-    /// Enable voltage set point
-    #[prost(message, optional, tag="7")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Start time
     // parent_message: false
     // required_field: true
@@ -140,12 +192,6 @@ mod regulator_point {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL: crate::regulatormodule::RegulatorControlAtcc = Default::default();
-        pub(super) static ref PCT_V_DROOP: f32 = Default::default();
-        pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::Timestamp = Default::default();
     }
 }
@@ -157,42 +203,6 @@ pub trait IsRegulatorPoint {
     }
     fn control_mut(&mut self) -> &mut RegulatorControlAtcc {
         self._regulator_point_mut().control.get_or_insert(Default::default())
-    }
-    fn pct_v_droop(&self) -> &f32 {
-        self._regulator_point().pct_v_droop.as_ref().unwrap_or(&regulator_point::PCT_V_DROOP)
-    }
-    fn pct_v_droop_mut(&mut self) -> &mut f32 {
-        self._regulator_point_mut().pct_v_droop.get_or_insert(Default::default())
-    }
-    fn ramp_rates(&self) -> &super::commonmodule::RampRate {
-        self._regulator_point().ramp_rates.as_ref().unwrap_or(&regulator_point::RAMP_RATES)
-    }
-    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
-        self._regulator_point_mut().ramp_rates.get_or_insert(Default::default())
-    }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
-        self._regulator_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&regulator_point::REACTIVE_PWR_SET_POINT_ENABLED)
-    }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._regulator_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
-    }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
-        self._regulator_point().reset.as_ref().unwrap_or(&regulator_point::RESET)
-    }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._regulator_point_mut().reset.get_or_insert(Default::default())
-    }
-    fn state(&self) -> &super::commonmodule::OptionalStateKind {
-        self._regulator_point().state.as_ref().unwrap_or(&regulator_point::STATE)
-    }
-    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._regulator_point_mut().state.get_or_insert(Default::default())
-    }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
-        self._regulator_point().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_point::VOLTAGE_SET_POINT_ENABLED)
-    }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._regulator_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::Timestamp {
         self._regulator_point().start_time.as_ref().unwrap_or(&regulator_point::START_TIME)
@@ -381,12 +391,6 @@ pub struct RegulatorControl {
     #[prost(message, optional, tag="2")]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
     pub regulator_control_fscc: ::std::option::Option<RegulatorControlFscc>,
 }
@@ -522,15 +526,6 @@ pub struct RegulatorControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub regulator_control: ::std::option::Option<RegulatorControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -539,14 +534,13 @@ pub struct RegulatorControlProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_control_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref REGULATOR_CONTROL: crate::regulatormodule::RegulatorControl = Default::default();
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
@@ -559,12 +553,6 @@ pub trait IsRegulatorControlProfile {
     }
     fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
         self._regulator_control_profile_mut().control_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._regulator_control_profile().ied.as_ref().unwrap_or(&regulator_control_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._regulator_control_profile_mut().ied.get_or_insert(Default::default())
     }
     fn regulator_control(&self) -> &RegulatorControl {
         self._regulator_control_profile().regulator_control.as_ref().unwrap_or(&regulator_control_profile::REGULATOR_CONTROL)
@@ -611,6 +599,176 @@ impl IsRegulatorControlProfile for RegulatorControlProfile {
         //
     //}
 //}
+/// Regulator control
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct RegulatorDiscreteControl {
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="1")]
+    pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="2")]
+    pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="3")]
+    pub regulator_control_atcc: ::std::option::Option<RegulatorControlAtcc>,
+}
+mod regulator_discrete_control {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
+        pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
+        pub(super) static ref REGULATOR_CONTROL_ATCC: crate::regulatormodule::RegulatorControlAtcc = Default::default();
+    }
+}
+pub trait IsRegulatorDiscreteControl {
+    fn _regulator_discrete_control(&self) -> &RegulatorDiscreteControl;
+    fn _regulator_discrete_control_mut(&mut self) -> &mut RegulatorDiscreteControl;
+    fn control_value(&self) -> &super::commonmodule::ControlValue {
+        self._regulator_discrete_control().control_value.as_ref().unwrap_or(&regulator_discrete_control::CONTROL_VALUE)
+    }
+    fn control_value_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._regulator_discrete_control_mut().control_value.get_or_insert(Default::default())
+    }
+    fn check(&self) -> &super::commonmodule::CheckConditions {
+        self._regulator_discrete_control().check.as_ref().unwrap_or(&regulator_discrete_control::CHECK)
+    }
+    fn check_mut(&mut self) -> &mut super::commonmodule::CheckConditions {
+        self._regulator_discrete_control_mut().check.get_or_insert(Default::default())
+    }
+    fn regulator_control_atcc(&self) -> &RegulatorControlAtcc {
+        self._regulator_discrete_control().regulator_control_atcc.as_ref().unwrap_or(&regulator_discrete_control::REGULATOR_CONTROL_ATCC)
+    }
+    fn regulator_control_atcc_mut(&mut self) -> &mut RegulatorControlAtcc {
+        self._regulator_discrete_control_mut().regulator_control_atcc.get_or_insert(Default::default())
+    }
+}
+impl IsRegulatorDiscreteControl for RegulatorDiscreteControl {
+    fn _regulator_discrete_control(&self) -> &RegulatorDiscreteControl {
+        self
+    }
+    fn _regulator_discrete_control_mut(&mut self) -> &mut RegulatorDiscreteControl {
+        self
+    }
+}
+//impl IsControlValue for RegulatorDiscreteControl {
+    //fn _control_value(&self) -> &ControlValue {
+        //
+    //}
+//fn _mut_control_value(&mut self) -> &mut ControlValue {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RegulatorDiscreteControl {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
+/// Regulator control profile.  Instructs an end device (or an end device group) to perform a
+/// specified action.
+/// OpenFMB Profile Message: true
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
+pub struct RegulatorDiscreteControlProfile {
+    /// UML inherited base object
+    // parent_message: true
+    // required_field: false
+    // multiplicity_min: None
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="1")]
+    pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="2")]
+    pub regulator_discrete_control: ::std::option::Option<RegulatorDiscreteControl>,
+    /// MISSING DOCUMENTATION!!!
+    // parent_message: false
+    // required_field: true
+    // multiplicity_min: Some(1)
+    // multiplicity_max: None
+    // uuid: false
+    // key: false
+    #[prost(message, optional, tag="3")]
+    pub regulator_system: ::std::option::Option<RegulatorSystem>,
+}
+mod regulator_discrete_control_profile {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref CONTROL_MESSAGE_INFO: crate::commonmodule::ControlMessageInfo = Default::default();
+        pub(super) static ref REGULATOR_DISCRETE_CONTROL: crate::regulatormodule::RegulatorDiscreteControl = Default::default();
+        pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
+    }
+}
+pub trait IsRegulatorDiscreteControlProfile {
+    fn _regulator_discrete_control_profile(&self) -> &RegulatorDiscreteControlProfile;
+    fn _regulator_discrete_control_profile_mut(&mut self) -> &mut RegulatorDiscreteControlProfile;
+    fn control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self._regulator_discrete_control_profile().control_message_info.as_ref().unwrap_or(&regulator_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    fn control_message_info_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._regulator_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+    fn regulator_discrete_control(&self) -> &RegulatorDiscreteControl {
+        self._regulator_discrete_control_profile().regulator_discrete_control.as_ref().unwrap_or(&regulator_discrete_control_profile::REGULATOR_DISCRETE_CONTROL)
+    }
+    fn regulator_discrete_control_mut(&mut self) -> &mut RegulatorDiscreteControl {
+        self._regulator_discrete_control_profile_mut().regulator_discrete_control.get_or_insert(Default::default())
+    }
+    fn regulator_system(&self) -> &RegulatorSystem {
+        self._regulator_discrete_control_profile().regulator_system.as_ref().unwrap_or(&regulator_discrete_control_profile::REGULATOR_SYSTEM)
+    }
+    fn regulator_system_mut(&mut self) -> &mut RegulatorSystem {
+        self._regulator_discrete_control_profile_mut().regulator_system.get_or_insert(Default::default())
+    }
+}
+impl IsRegulatorDiscreteControlProfile for RegulatorDiscreteControlProfile {
+    fn _regulator_discrete_control_profile(&self) -> &RegulatorDiscreteControlProfile {
+        self
+    }
+    fn _regulator_discrete_control_profile_mut(&mut self) -> &mut RegulatorDiscreteControlProfile {
+        self
+    }
+}
+//impl IsControlMessageInfo for RegulatorDiscreteControlProfile {
+    //fn _control_message_info(&self) -> &ControlMessageInfo {
+        //
+    //}
+//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
+        //
+    //}
+//}
+//impl IsMessageInfo for RegulatorDiscreteControlProfile {
+    //fn _message_info(&self) -> &MessageInfo {
+        //
+    //}
+//fn _mut_message_info(&mut self) -> &mut MessageInfo {
+        //
+    //}
+//}
+//impl IsIdentifiedObject for RegulatorDiscreteControlProfile {
+    //fn _identified_object(&self) -> &IdentifiedObject {
+        //
+    //}
+//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
+        //
+    //}
+//}
 /// LN: Automatic tap changer controller   Name: ATCC
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -628,19 +786,31 @@ pub struct RegulatorEventAndStatusAtcc {
     /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="4")]
     pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
-    /// Line drop voltage due to line total impedance (forward power flow presumed) at rated current.
-    #[prost(message, optional, tag="5")]
-    pub ldcz: ::std::option::Option<super::commonmodule::Asg>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
+    #[prost(message, optional, tag="5")]
+    pub par_op: ::std::option::Option<super::commonmodule::StatusSps>,
+    /// Ramp rates
     #[prost(message, optional, tag="6")]
-    pub par_op: ::std::option::Option<super::commonmodule::StatusSpc>,
+    pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
+    /// State
+    #[prost(message, optional, tag="7")]
+    pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
+    /// OpenFMB extension:  Status for the time to wait before operating (CtrlDlTmms)
+    #[prost(message, optional, tag="8")]
+    pub st_dl_tmms: ::std::option::Option<super::commonmodule::StatusInc>,
     /// If true, there was an error in tap position change, or in tap indication (for instance, wrong
     /// Binary Coded Decimal (BCD) code).
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag="9")]
     pub tap_op_err: ::std::option::Option<super::commonmodule::StatusSps>,
     /// (controllable) Tap position change to the specified value.
-    #[prost(message, optional, tag="8")]
-    pub tap_pos: ::std::option::Option<super::commonmodule::StatusIsc>,
+    #[prost(message, optional, tag="10")]
+    pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIns>,
+    /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    #[prost(message, optional, tag="11")]
+    pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Voltage set point status
+    #[prost(message, optional, tag="12")]
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSpc>,
 }
 mod regulator_event_and_status_atcc {
     use lazy_static::lazy_static;
@@ -649,10 +819,14 @@ mod regulator_event_and_status_atcc {
         pub(super) static ref BND_WID: crate::commonmodule::Asg = Default::default();
         pub(super) static ref LDCR: crate::commonmodule::Asg = Default::default();
         pub(super) static ref LDCX: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref LDCZ: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref PAR_OP: crate::commonmodule::StatusSpc = Default::default();
+        pub(super) static ref PAR_OP: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
+        pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
+        pub(super) static ref ST_DL_TMMS: crate::commonmodule::StatusInc = Default::default();
         pub(super) static ref TAP_OP_ERR: crate::commonmodule::StatusSps = Default::default();
-        pub(super) static ref TAP_POS: crate::commonmodule::StatusIsc = Default::default();
+        pub(super) static ref TAP_POS: crate::commonmodule::PhaseIns = Default::default();
+        pub(super) static ref VOL_SPT: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSpc = Default::default();
     }
 }
 pub trait IsRegulatorEventAndStatusAtcc {
@@ -682,17 +856,29 @@ pub trait IsRegulatorEventAndStatusAtcc {
     fn ldcx_mut(&mut self) -> &mut super::commonmodule::Asg {
         self._regulator_event_and_status_atcc_mut().ldcx.get_or_insert(Default::default())
     }
-    fn ldcz(&self) -> &super::commonmodule::Asg {
-        self._regulator_event_and_status_atcc().ldcz.as_ref().unwrap_or(&regulator_event_and_status_atcc::LDCZ)
-    }
-    fn ldcz_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_event_and_status_atcc_mut().ldcz.get_or_insert(Default::default())
-    }
-    fn par_op(&self) -> &super::commonmodule::StatusSpc {
+    fn par_op(&self) -> &super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc().par_op.as_ref().unwrap_or(&regulator_event_and_status_atcc::PAR_OP)
     }
-    fn par_op_mut(&mut self) -> &mut super::commonmodule::StatusSpc {
+    fn par_op_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc_mut().par_op.get_or_insert(Default::default())
+    }
+    fn ramp_rates(&self) -> &super::commonmodule::RampRate {
+        self._regulator_event_and_status_atcc().ramp_rates.as_ref().unwrap_or(&regulator_event_and_status_atcc::RAMP_RATES)
+    }
+    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
+        self._regulator_event_and_status_atcc_mut().ramp_rates.get_or_insert(Default::default())
+    }
+    fn state(&self) -> &super::commonmodule::OptionalStateKind {
+        self._regulator_event_and_status_atcc().state.as_ref().unwrap_or(&regulator_event_and_status_atcc::STATE)
+    }
+    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
+        self._regulator_event_and_status_atcc_mut().state.get_or_insert(Default::default())
+    }
+    fn st_dl_tmms(&self) -> &super::commonmodule::StatusInc {
+        self._regulator_event_and_status_atcc().st_dl_tmms.as_ref().unwrap_or(&regulator_event_and_status_atcc::ST_DL_TMMS)
+    }
+    fn st_dl_tmms_mut(&mut self) -> &mut super::commonmodule::StatusInc {
+        self._regulator_event_and_status_atcc_mut().st_dl_tmms.get_or_insert(Default::default())
     }
     fn tap_op_err(&self) -> &super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc().tap_op_err.as_ref().unwrap_or(&regulator_event_and_status_atcc::TAP_OP_ERR)
@@ -700,11 +886,23 @@ pub trait IsRegulatorEventAndStatusAtcc {
     fn tap_op_err_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc_mut().tap_op_err.get_or_insert(Default::default())
     }
-    fn tap_pos(&self) -> &super::commonmodule::StatusIsc {
+    fn tap_pos(&self) -> &super::commonmodule::PhaseIns {
         self._regulator_event_and_status_atcc().tap_pos.as_ref().unwrap_or(&regulator_event_and_status_atcc::TAP_POS)
     }
-    fn tap_pos_mut(&mut self) -> &mut super::commonmodule::StatusIsc {
+    fn tap_pos_mut(&mut self) -> &mut super::commonmodule::PhaseIns {
         self._regulator_event_and_status_atcc_mut().tap_pos.get_or_insert(Default::default())
+    }
+    fn vol_spt(&self) -> &super::commonmodule::PhaseApc {
+        self._regulator_event_and_status_atcc().vol_spt.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOL_SPT)
+    }
+    fn vol_spt_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._regulator_event_and_status_atcc_mut().vol_spt.get_or_insert(Default::default())
+    }
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
+        self._regulator_event_and_status_atcc().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOLTAGE_SET_POINT_ENABLED)
+    }
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSpc {
+        self._regulator_event_and_status_atcc_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
 impl IsRegulatorEventAndStatusAtcc for RegulatorEventAndStatusAtcc {
@@ -712,88 +910,6 @@ impl IsRegulatorEventAndStatusAtcc for RegulatorEventAndStatusAtcc {
         self
     }
     fn _regulator_event_and_status_atcc_mut(&mut self) -> &mut RegulatorEventAndStatusAtcc {
-        self
-    }
-}
-/// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
-pub struct RegulatorEventAndStatusPoint {
-    /// Regulator event and status
-    #[prost(message, optional, tag="1")]
-    pub event_and_status: ::std::option::Option<RegulatorEventAndStatusAtcc>,
-    /// Black start enable
-    #[prost(message, optional, tag="2")]
-    pub pct_v_droop: ::std::option::Option<f32>,
-    /// Ramp rates
-    #[prost(message, optional, tag="3")]
-    pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
-    /// Enable reactive power set point
-    #[prost(message, optional, tag="4")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSpc>,
-    /// State
-    #[prost(message, optional, tag="5")]
-    pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
-    /// Enable voltage set point
-    #[prost(message, optional, tag="6")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSpc>,
-}
-mod regulator_event_and_status_point {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref EVENT_AND_STATUS: crate::regulatormodule::RegulatorEventAndStatusAtcc = Default::default();
-        pub(super) static ref PCT_V_DROOP: f32 = Default::default();
-        pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSpc = Default::default();
-        pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSpc = Default::default();
-    }
-}
-pub trait IsRegulatorEventAndStatusPoint {
-    fn _regulator_event_and_status_point(&self) -> &RegulatorEventAndStatusPoint;
-    fn _regulator_event_and_status_point_mut(&mut self) -> &mut RegulatorEventAndStatusPoint;
-    fn event_and_status(&self) -> &RegulatorEventAndStatusAtcc {
-        self._regulator_event_and_status_point().event_and_status.as_ref().unwrap_or(&regulator_event_and_status_point::EVENT_AND_STATUS)
-    }
-    fn event_and_status_mut(&mut self) -> &mut RegulatorEventAndStatusAtcc {
-        self._regulator_event_and_status_point_mut().event_and_status.get_or_insert(Default::default())
-    }
-    fn pct_v_droop(&self) -> &f32 {
-        self._regulator_event_and_status_point().pct_v_droop.as_ref().unwrap_or(&regulator_event_and_status_point::PCT_V_DROOP)
-    }
-    fn pct_v_droop_mut(&mut self) -> &mut f32 {
-        self._regulator_event_and_status_point_mut().pct_v_droop.get_or_insert(Default::default())
-    }
-    fn ramp_rates(&self) -> &super::commonmodule::RampRate {
-        self._regulator_event_and_status_point().ramp_rates.as_ref().unwrap_or(&regulator_event_and_status_point::RAMP_RATES)
-    }
-    fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
-        self._regulator_event_and_status_point_mut().ramp_rates.get_or_insert(Default::default())
-    }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
-        self._regulator_event_and_status_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_point::REACTIVE_PWR_SET_POINT_ENABLED)
-    }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSpc {
-        self._regulator_event_and_status_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
-    }
-    fn state(&self) -> &super::commonmodule::OptionalStateKind {
-        self._regulator_event_and_status_point().state.as_ref().unwrap_or(&regulator_event_and_status_point::STATE)
-    }
-    fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
-        self._regulator_event_and_status_point_mut().state.get_or_insert(Default::default())
-    }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
-        self._regulator_event_and_status_point().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_point::VOLTAGE_SET_POINT_ENABLED)
-    }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSpc {
-        self._regulator_event_and_status_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
-    }
-}
-impl IsRegulatorEventAndStatusPoint for RegulatorEventAndStatusPoint {
-    fn _regulator_event_and_status_point(&self) -> &RegulatorEventAndStatusPoint {
-        self
-    }
-    fn _regulator_event_and_status_point_mut(&mut self) -> &mut RegulatorEventAndStatusPoint {
         self
     }
 }
@@ -814,21 +930,15 @@ pub struct RegulatorEventAndStatusAncr {
     #[prost(message, optional, tag="2")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="3")]
-    pub point_status: ::std::option::Option<RegulatorEventAndStatusPoint>,
+    pub point_status: ::std::option::Option<RegulatorEventAndStatusAtcc>,
 }
 mod regulator_event_and_status_ancr {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
-        pub(super) static ref POINT_STATUS: crate::regulatormodule::RegulatorEventAndStatusPoint = Default::default();
+        pub(super) static ref POINT_STATUS: crate::regulatormodule::RegulatorEventAndStatusAtcc = Default::default();
     }
 }
 pub trait IsRegulatorEventAndStatusAncr {
@@ -846,10 +956,10 @@ pub trait IsRegulatorEventAndStatusAncr {
     fn dynamic_test_mut(&mut self) -> &mut super::commonmodule::EnsDynamicTestKind {
         self._regulator_event_and_status_ancr_mut().dynamic_test.get_or_insert(Default::default())
     }
-    fn point_status(&self) -> &RegulatorEventAndStatusPoint {
+    fn point_status(&self) -> &RegulatorEventAndStatusAtcc {
         self._regulator_event_and_status_ancr().point_status.as_ref().unwrap_or(&regulator_event_and_status_ancr::POINT_STATUS)
     }
-    fn point_status_mut(&mut self) -> &mut RegulatorEventAndStatusPoint {
+    fn point_status_mut(&mut self) -> &mut RegulatorEventAndStatusAtcc {
         self._regulator_event_and_status_ancr_mut().point_status.get_or_insert(Default::default())
     }
 }
@@ -899,12 +1009,6 @@ pub struct RegulatorEvent {
     #[prost(message, optional, tag="1")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub regulator_event_and_status_ancr: ::std::option::Option<RegulatorEventAndStatusAncr>,
 }
@@ -977,15 +1081,6 @@ pub struct RegulatorEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub regulator_event: ::std::option::Option<RegulatorEvent>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -994,14 +1089,13 @@ pub struct RegulatorEventProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_event_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref EVENT_MESSAGE_INFO: crate::commonmodule::EventMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref REGULATOR_EVENT: crate::regulatormodule::RegulatorEvent = Default::default();
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
@@ -1014,12 +1108,6 @@ pub trait IsRegulatorEventProfile {
     }
     fn event_message_info_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
         self._regulator_event_profile_mut().event_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._regulator_event_profile().ied.as_ref().unwrap_or(&regulator_event_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._regulator_event_profile_mut().ied.get_or_insert(Default::default())
     }
     fn regulator_event(&self) -> &RegulatorEvent {
         self._regulator_event_profile().regulator_event.as_ref().unwrap_or(&regulator_event_profile::REGULATOR_EVENT)
@@ -1160,19 +1248,10 @@ pub struct RegulatorReadingProfile {
     // parent_message: false
     // required_field: true
     // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
     // multiplicity_max: Some(2)
     // uuid: false
     // key: false
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag="2")]
     pub regulator_reading: ::std::vec::Vec<RegulatorReading>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1181,14 +1260,13 @@ pub struct RegulatorReadingProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_reading_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref READING_MESSAGE_INFO: crate::commonmodule::ReadingMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
 }
@@ -1200,12 +1278,6 @@ pub trait IsRegulatorReadingProfile {
     }
     fn reading_message_info_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
         self._regulator_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._regulator_reading_profile().ied.as_ref().unwrap_or(&regulator_reading_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._regulator_reading_profile_mut().ied.get_or_insert(Default::default())
     }
     fn regulator_reading(&self) -> &::std::vec::Vec<RegulatorReading> {
         &self._regulator_reading_profile().regulator_reading
@@ -1266,12 +1338,6 @@ pub struct RegulatorStatus {
     #[prost(message, optional, tag="1")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
     #[prost(message, optional, tag="2")]
     pub regulator_event_and_status_ancr: ::std::option::Option<RegulatorEventAndStatusAncr>,
 }
@@ -1344,15 +1410,6 @@ pub struct RegulatorStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
-    pub ied: ::std::option::Option<super::commonmodule::Ied>,
-    /// MISSING DOCUMENTATION!!!
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(message, optional, tag="3")]
     pub regulator_status: ::std::option::Option<RegulatorStatus>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1361,14 +1418,13 @@ pub struct RegulatorStatusProfile {
     // multiplicity_max: None
     // uuid: false
     // key: false
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="3")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_status_profile {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref STATUS_MESSAGE_INFO: crate::commonmodule::StatusMessageInfo = Default::default();
-        pub(super) static ref IED: crate::commonmodule::Ied = Default::default();
         pub(super) static ref REGULATOR_STATUS: crate::regulatormodule::RegulatorStatus = Default::default();
         pub(super) static ref REGULATOR_SYSTEM: crate::regulatormodule::RegulatorSystem = Default::default();
     }
@@ -1381,12 +1437,6 @@ pub trait IsRegulatorStatusProfile {
     }
     fn status_message_info_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
         self._regulator_status_profile_mut().status_message_info.get_or_insert(Default::default())
-    }
-    fn ied(&self) -> &super::commonmodule::Ied {
-        self._regulator_status_profile().ied.as_ref().unwrap_or(&regulator_status_profile::IED)
-    }
-    fn ied_mut(&mut self) -> &mut super::commonmodule::Ied {
-        self._regulator_status_profile_mut().ied.get_or_insert(Default::default())
     }
     fn regulator_status(&self) -> &RegulatorStatus {
         self._regulator_status_profile().regulator_status.as_ref().unwrap_or(&regulator_status_profile::REGULATOR_STATUS)
