@@ -9,25 +9,36 @@
 //!
 //! The goal API is as follows
 //!
-//! ``` rust
-//! use openfmb::prelude::*;
-//!
-//! let bus = bus::nats::connect::<encoding::protobufs::MessageEncoding>("127.0.0.1").await?;
-//! let switch = client::Switch::new(bus, "06fb668d-f87a-4b1b-8d99-0949513126ff");
-//! if switch.is_closed().next().await? {
-//!     switch.open().await?;
+//! ```ignore
+//! use tokio::main;
+//! use openfmb::{prelude::*, encoding::ProtobufEncoding};
+//! use futures::StreamExt;
+//! #[tokio::main]
+//! async fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     let nats_url = "localhost:4222";
+//!     let mrid = uuid::Uuid::parse_str("06fb668d-f87a-4b1b-8d99-0949513126ff")?;
+//!     let nc = nats::asynk::connect(&nats_url).await?;
+//!     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
+//!     let mut switch = openfmb::client::Switch::new(bus, mrid);
+//!     //
+//!     if switch.is_closed().await?.next().await? {
+//!         switch.open().await?;
+//!     }
 //! }
 //! ```
 //!
 //! And also may act as an OpenFMB device which periodically publishes Readings
 //! and Statuses
 //!
-//! ``` rust
+//! ```ignore
 //! use openfmb::prelude::*;
+//!
 //! use tokio::time::{interval_at, Duration, Instant};
 //
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
+//!     let nc = nats::asynk::connect(&nats_url).await?;
+//!     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
 //!     let bus = bus::nats::connect::<encoding::protobufs::MessageEncoding>("127.0.0.1").await?;
 //!
 //!     // initial conditions of the switch to begin publishing status updates

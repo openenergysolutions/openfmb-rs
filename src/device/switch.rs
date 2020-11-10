@@ -64,8 +64,9 @@ where
     }
 
     /// Subscribe to control messages
-    pub fn control(&mut self) -> SubscribeResult<SwitchDiscreteControlProfile> {
+    pub async fn control(&mut self) -> SubscribeResult<SwitchDiscreteControlProfile> {
         self.bus
             .subscribe(&topic("SwitchDiscreteControlProfile", &self.mrid))
+            .await
     }
 }

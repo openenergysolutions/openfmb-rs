@@ -51,26 +51,30 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub fn status(&mut self) -> SubscribeResult<SwitchStatusProfile> {
+    pub async fn status(&mut self) -> SubscribeResult<SwitchStatusProfile> {
         self.bus
             .subscribe(&topic("SwitchStatusProfile", &self.mrid))
+            .await
     }
 
     /// A stream to this devices reading messages
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub fn event(&mut self) -> SubscribeResult<SwitchEventProfile> {
-        self.bus.subscribe(&topic("SwitchEventProfile", &self.mrid))
+    pub async fn event(&mut self) -> SubscribeResult<SwitchEventProfile> {
+        self.bus
+            .subscribe(&topic("SwitchEventProfile", &self.mrid))
+            .await
     }
 
     /// A stream to this devices reading messages
     ///
     /// The return may be treated as a stream or as a future returning the next
     /// reading value.
-    pub fn reading(&mut self) -> SubscribeResult<SwitchReadingProfile> {
+    pub async fn reading(&mut self) -> SubscribeResult<SwitchReadingProfile> {
         self.bus
             .subscribe(&topic("SwitchReadingProfile", &self.mrid))
+            .await
     }
 
     /// Send a control message to the device asynchronously
@@ -123,14 +127,14 @@ where
     ///
     /// Can be used directly in logic to wait for a position to change for example
     ///
-    /// ```
+    /// ```ignore
     /// let position = myswitch.position().await?;
     /// while let Some(Ok(DbPosKind::Open)) = position.next().await {
     ///   myswitch.control(SwitchControlProfile::builder().set_position(DbPosKind::Closed));
     /// }
     /// ```
     pub async fn position(&mut self) -> SubscribeResult<DbPosKind> {
-        let status = self.status()?.map(|s| match s {
+        let status = self.status().await?.map(|s| match s {
             Ok(s) => Ok(DbPosKind::from_i32(
                 s.switch_status
                     .unwrap_or_default()
@@ -145,7 +149,7 @@ where
             .unwrap()),
             Err(err) => Err(err),
         });
-        let event = self.event()?.map(|s| match s {
+        let event = self.event().await?.map(|s| match s {
             Ok(s) => Ok(DbPosKind::from_i32(
                 s.switch_event
                     .unwrap_or_default()
@@ -171,14 +175,14 @@ where
     ///
     /// Can be used directly in logic to wait for a dynamic test change
     ///
-    /// ```
+    /// ```ignore
     /// let dynamic_test = myswitch.dynamic_test().await?;
     /// while let Some(Ok(DynamicTest::None)) = dynamic_test.next().await {
     ///   myswitch.control(SwitchControlProfile::builder().set_synchro_check(true);
     /// }
     /// ```
     pub async fn dynamic_test(&mut self) -> SubscribeResult<DynamicTestKind> {
-        let status = self.status()?.map(|s| match s {
+        let status = self.status().await?.map(|s| match s {
             Ok(s) => Ok(DynamicTestKind::from_i32(
                 s.switch_status
                     .unwrap_or_default()
@@ -191,7 +195,7 @@ where
             .unwrap()),
             Err(err) => Err(err),
         });
-        let event = self.event()?.map(|s| match s {
+        let event = self.event().await?.map(|s| match s {
             Ok(s) => Ok(DynamicTestKind::from_i32(
                 s.switch_event
                     .unwrap_or_default()

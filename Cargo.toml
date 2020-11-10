@@ -19,12 +19,12 @@ openfmb-messages = { path = "./openfmb-messages" }
 openfmb-messages-ext = { path = "./openfmb-messages-ext" }
 
 # nats optional dep
-nats = {version = "0.7", optional = true}
+nats = {version = "0.8", optional = true}
 
 [features]
 default = ["nats"]
 
 [dev-dependencies]
-tokio = { version = "0.2", features = ["full"] }
+tokio = { version = "0.3", features = ["full"] }
 loom = "0.3"
 pretty_env_logger = "0.4"

@@ -12,12 +12,13 @@ pub trait Publisher<T> {
 
 /// Subscriber provides the functionality to subscribe to topics and messages
 /// of a specific type on the bus.
+#[async_trait]
 pub trait Subscriber<T> {
     /// Subscribe to a topic string and return a Stream of results
     //
     /// The idea is that the result type is a stream of decoded typed messages
     /// but that is up to the implemention.
-    fn subscribe(&mut self, topic: &str) -> SubscribeResult<T>;
+    async fn subscribe(&mut self, topic: &str) -> SubscribeResult<T>;
 }
 
 /// A message bus provides functionality to publish messages to a topic

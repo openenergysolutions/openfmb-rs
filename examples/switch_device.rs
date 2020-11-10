@@ -14,14 +14,14 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
     let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;
     let nats_url = env::var("NATS_URL")?;
-    let nc = nats::connect(&env::var("NATS_URL")?)?;
+    let nc = nats::asynk::connect(&env::var("NATS_URL")?).await?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
     let mut switch = openfmb::device::Switch::new(bus, mrid);
     info!(
         "Connected to switch {:?} using nats at {:?}",
         mrid, nats_url
     );
-    let mut controls = switch.control()?;
+    let mut controls = switch.control().await?;
     let mut poll_interval = time::interval(time::Duration::from_secs(1));
     let mut identified_object: IdentifiedObject = Default::default();
     identified_object.description = Some(format!("OpenFMB-RS Example Switch Device {}", mrid));
