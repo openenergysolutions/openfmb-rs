@@ -242,7 +242,7 @@ impl InterconnectionScheduleFscc {
         self.control_fscc.as_ref().unwrap_or(&interconnection_schedule_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._interconnection_schedule_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsInterconnectionScheduleFscc {
@@ -340,7 +340,7 @@ impl InterconnectionSchedule {
         self.identified_object.as_ref().unwrap_or(&interconnection_schedule::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._interconnection_schedule_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsInterconnectionSchedule {
@@ -447,7 +447,7 @@ impl PlannedInterconnectionScheduleProfile {
         self.control_message_info.as_ref().unwrap_or(&planned_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._planned_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsPlannedInterconnectionScheduleProfile {
@@ -582,7 +582,7 @@ impl RequestedInterconnectionScheduleProfile {
         self.control_message_info.as_ref().unwrap_or(&requested_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._requested_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRequestedInterconnectionScheduleProfile {

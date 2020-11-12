@@ -24,7 +24,7 @@ impl CapBankSystem {
         self.conducting_equipment.as_ref().unwrap_or(&cap_bank_system::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._cap_bank_system_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankSystem {
@@ -253,7 +253,7 @@ impl CapBankControlFscc {
         self.control_fscc.as_ref().unwrap_or(&cap_bank_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._cap_bank_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankControlFscc {
@@ -345,7 +345,7 @@ impl CapBankControl {
         self.control_value.as_ref().unwrap_or(&cap_bank_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._cap_bank_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankControl {
@@ -441,7 +441,7 @@ impl CapBankControlProfile {
         self.control_message_info.as_ref().unwrap_or(&cap_bank_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._cap_bank_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankControlProfile {
@@ -527,7 +527,7 @@ impl CapBankDiscreteControlYpsh {
         self.logical_node_for_control.as_ref().unwrap_or(&cap_bank_discrete_control_ypsh::LOGICAL_NODE_FOR_CONTROL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._cap_bank_discrete_control_ypsh_mut().logical_node_for_control.get_or_insert(Default::default())
+        self.logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankDiscreteControlYpsh {
@@ -611,7 +611,7 @@ impl CapBankDiscreteControl {
         self.control_value.as_ref().unwrap_or(&cap_bank_discrete_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._cap_bank_discrete_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankDiscreteControl {
@@ -707,7 +707,7 @@ impl CapBankDiscreteControlProfile {
         self.control_message_info.as_ref().unwrap_or(&cap_bank_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._cap_bank_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankDiscreteControlProfile {
@@ -797,7 +797,7 @@ impl CapBankEventAndStatusYpsh {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._cap_bank_event_and_status_ypsh_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankEventAndStatusYpsh {
@@ -883,7 +883,7 @@ impl CapBankEvent {
         self.event_value.as_ref().unwrap_or(&cap_bank_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._cap_bank_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankEvent {
@@ -972,7 +972,7 @@ impl CapBankEventProfile {
         self.event_message_info.as_ref().unwrap_or(&cap_bank_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._cap_bank_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankEventProfile {
@@ -1066,7 +1066,7 @@ impl CapBankReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&cap_bank_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._cap_bank_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankReading {
@@ -1159,7 +1159,7 @@ impl CapBankReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&cap_bank_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._cap_bank_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankReadingProfile {
@@ -1245,7 +1245,7 @@ impl CapBankStatus {
         self.status_value.as_ref().unwrap_or(&cap_bank_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._cap_bank_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankStatus {
@@ -1334,7 +1334,7 @@ impl CapBankStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&cap_bank_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._cap_bank_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCapBankStatusProfile {

@@ -247,7 +247,7 @@ impl SolarControlFscc {
         self.control_fscc.as_ref().unwrap_or(&solar_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._solar_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarControlFscc {
@@ -339,7 +339,7 @@ impl SolarControl {
         self.control_value.as_ref().unwrap_or(&solar_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._solar_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarControl {
@@ -413,7 +413,7 @@ impl SolarInverter {
         self.conducting_equipment.as_ref().unwrap_or(&solar_inverter::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._solar_inverter_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarInverter {
@@ -496,7 +496,7 @@ impl SolarControlProfile {
         self.control_message_info.as_ref().unwrap_or(&solar_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._solar_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarControlProfile {
@@ -708,7 +708,7 @@ impl SolarEventAndStatusZgen {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&solar_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._solar_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarEventAndStatusZgen {
@@ -806,7 +806,7 @@ impl SolarEventZgen {
         self.solar_event_and_status_zgen.as_ref().unwrap_or(&solar_event_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut SolarEventAndStatusZgen {
-        self._solar_event_zgen_mut().solar_event_and_status_zgen.get_or_insert(Default::default())
+        self.solar_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarEventZgen {
@@ -894,7 +894,7 @@ impl SolarEvent {
         self.event_value.as_ref().unwrap_or(&solar_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._solar_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarEvent {
@@ -983,7 +983,7 @@ impl SolarEventProfile {
         self.event_message_info.as_ref().unwrap_or(&solar_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._solar_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarEventProfile {
@@ -1077,7 +1077,7 @@ impl SolarReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&solar_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._solar_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarReading {
@@ -1170,7 +1170,7 @@ impl SolarReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&solar_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._solar_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarReadingProfile {
@@ -1256,7 +1256,7 @@ impl SolarStatusZgen {
         self.solar_event_and_status_zgen.as_ref().unwrap_or(&solar_status_zgen::SOLAR_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut SolarEventAndStatusZgen {
-        self._solar_status_zgen_mut().solar_event_and_status_zgen.get_or_insert(Default::default())
+        self.solar_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarStatusZgen {
@@ -1344,7 +1344,7 @@ impl SolarStatus {
         self.status_value.as_ref().unwrap_or(&solar_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._solar_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarStatus {
@@ -1433,7 +1433,7 @@ impl SolarStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&solar_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._solar_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsSolarStatusProfile {

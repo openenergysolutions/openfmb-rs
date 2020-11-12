@@ -44,7 +44,7 @@ impl EssEventZbat {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._ess_event_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEventZbat {
@@ -999,7 +999,7 @@ impl EssEventAndStatusZgen {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._ess_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEventAndStatusZgen {
@@ -1099,7 +1099,7 @@ impl EssEventZgen {
         self.e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_event_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut EssEventAndStatusZgen {
-        self._ess_event_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
+        self.e_ss_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEventZgen {
@@ -1185,7 +1185,7 @@ impl EssEvent {
         self.event_value.as_ref().unwrap_or(&ess_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._ess_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEvent {
@@ -1280,7 +1280,7 @@ impl EssEventProfile {
         self.event_message_info.as_ref().unwrap_or(&ess_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._ess_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEventProfile {
@@ -1374,7 +1374,7 @@ impl EssReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&ess_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._ess_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsEssReading {
@@ -1467,7 +1467,7 @@ impl EssReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&ess_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._ess_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsEssReadingProfile {
@@ -1565,7 +1565,7 @@ impl EssStatusZbat {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_status_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._ess_status_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatusZbat {
@@ -1659,7 +1659,7 @@ impl EssStatusZgen {
         self.e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_status_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut EssEventAndStatusZgen {
-        self._ess_status_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
+        self.e_ss_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatusZgen {
@@ -1745,7 +1745,7 @@ impl EssStatus {
         self.status_value.as_ref().unwrap_or(&ess_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._ess_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatus {
@@ -1840,7 +1840,7 @@ impl EssStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&ess_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._ess_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatusProfile {
@@ -2185,7 +2185,7 @@ impl EssControlFscc {
         self.control_fscc.as_ref().unwrap_or(&ess_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._ess_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsEssControlFscc {
@@ -2277,7 +2277,7 @@ impl EssControl {
         self.control_value.as_ref().unwrap_or(&ess_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._ess_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssControl {
@@ -2372,7 +2372,7 @@ impl EssControlProfile {
         self.control_message_info.as_ref().unwrap_or(&ess_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._ess_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsEssControlProfile {

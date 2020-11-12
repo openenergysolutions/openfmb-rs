@@ -69,7 +69,7 @@ impl RegulatorControlAtcc {
         self.logical_node_for_control.as_ref().unwrap_or(&regulator_control_atcc::LOGICAL_NODE_FOR_CONTROL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._regulator_control_atcc_mut().logical_node_for_control.get_or_insert(Default::default())
+        self.logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorControlAtcc {
@@ -338,7 +338,7 @@ impl RegulatorControlFscc {
         self.control_fscc.as_ref().unwrap_or(&regulator_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._regulator_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorControlFscc {
@@ -430,7 +430,7 @@ impl RegulatorControl {
         self.control_value.as_ref().unwrap_or(&regulator_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._regulator_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorControl {
@@ -505,7 +505,7 @@ impl RegulatorSystem {
         self.conducting_equipment.as_ref().unwrap_or(&regulator_system::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._regulator_system_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorSystem {
@@ -589,7 +589,7 @@ impl RegulatorControlProfile {
         self.control_message_info.as_ref().unwrap_or(&regulator_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._regulator_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorControlProfile {
@@ -679,7 +679,7 @@ impl RegulatorDiscreteControl {
         self.control_value.as_ref().unwrap_or(&regulator_discrete_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._regulator_discrete_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorDiscreteControl {
@@ -775,7 +775,7 @@ impl RegulatorDiscreteControlProfile {
         self.control_message_info.as_ref().unwrap_or(&regulator_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._regulator_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorDiscreteControlProfile {
@@ -1011,7 +1011,7 @@ impl RegulatorEventAndStatusAncr {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&regulator_event_and_status_ancr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._regulator_event_and_status_ancr_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorEventAndStatusAncr {
@@ -1097,7 +1097,7 @@ impl RegulatorEvent {
         self.event_value.as_ref().unwrap_or(&regulator_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._regulator_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorEvent {
@@ -1186,7 +1186,7 @@ impl RegulatorEventProfile {
         self.event_message_info.as_ref().unwrap_or(&regulator_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._regulator_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorEventProfile {
@@ -1280,7 +1280,7 @@ impl RegulatorReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&regulator_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._regulator_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorReading {
@@ -1372,7 +1372,7 @@ impl RegulatorReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&regulator_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._regulator_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorReadingProfile {
@@ -1458,7 +1458,7 @@ impl RegulatorStatus {
         self.status_value.as_ref().unwrap_or(&regulator_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._regulator_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorStatus {
@@ -1547,7 +1547,7 @@ impl RegulatorStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&regulator_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._regulator_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRegulatorStatusProfile {

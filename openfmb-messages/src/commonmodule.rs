@@ -300,7 +300,7 @@ impl AcdcTerminal {
         self.identified_object.as_ref().unwrap_or(&acdc_terminal::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._acdc_terminal_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsAcdcTerminal {
@@ -1171,7 +1171,7 @@ impl LogicalNode {
         self.identified_object.as_ref().unwrap_or(&logical_node::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._logical_node_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsLogicalNode {
@@ -1239,7 +1239,7 @@ impl AnalogEventAndStatusGgio {
         self.logical_node.as_ref().unwrap_or(&analog_event_and_status_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._analog_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsAnalogEventAndStatusGgio {
@@ -1368,7 +1368,7 @@ impl ApplicationSystem {
         self.named_object.as_ref().unwrap_or(&application_system::NAMED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut NamedObject {
-        self._application_system_mut().named_object.get_or_insert(Default::default())
+        self.named_object.get_or_insert(Default::default())
     }
 }
 pub trait IsApplicationSystem {
@@ -1610,7 +1610,7 @@ impl BooleanEventAndStatusGgio {
         self.logical_node.as_ref().unwrap_or(&boolean_event_and_status_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._boolean_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsBooleanEventAndStatusGgio {
@@ -1852,7 +1852,7 @@ impl ConductingEquipment {
         self.named_object.as_ref().unwrap_or(&conducting_equipment::NAMED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut NamedObject {
-        self._conducting_equipment_mut().named_object.get_or_insert(Default::default())
+        self.named_object.get_or_insert(Default::default())
     }
 }
 pub trait IsConductingEquipment {
@@ -1918,7 +1918,7 @@ impl Terminal {
         self.a_cdc_terminal.as_ref().unwrap_or(&terminal::A_CDC_TERMINAL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut AcdcTerminal {
-        self._terminal_mut().a_cdc_terminal.get_or_insert(Default::default())
+        self.a_cdc_terminal.get_or_insert(Default::default())
     }
 }
 pub trait IsTerminal {
@@ -2382,7 +2382,7 @@ impl LogicalNodeForControl {
         self.logical_node.as_ref().unwrap_or(&logical_node_for_control::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._logical_node_for_control_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsLogicalNodeForControl {
@@ -2453,7 +2453,7 @@ impl ControlFscc {
         self.logical_node_for_control.as_ref().unwrap_or(&control_fscc::LOGICAL_NODE_FOR_CONTROL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForControl {
-        self._control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
+        self.logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsControlFscc {
@@ -2672,7 +2672,7 @@ impl MessageInfo {
         self.identified_object.as_ref().unwrap_or(&message_info::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._message_info_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsMessageInfo {
@@ -2732,7 +2732,7 @@ impl ControlMessageInfo {
         self.message_info.as_ref().unwrap_or(&control_message_info::MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
-        self._control_message_info_mut().message_info.get_or_insert(Default::default())
+        self.message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsControlMessageInfo {
@@ -2847,7 +2847,7 @@ impl ControlValue {
         self.identified_object.as_ref().unwrap_or(&control_value::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._control_value_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsControlValue {
@@ -3092,7 +3092,7 @@ impl DiscreteControlXcbr {
         self.logical_node_for_control.as_ref().unwrap_or(&discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForControl {
-        self._discrete_control_xcbr_mut().logical_node_for_control.get_or_insert(Default::default())
+        self.logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsDiscreteControlXcbr {
@@ -3190,7 +3190,7 @@ impl EnergyConsumer {
         self.conducting_equipment.as_ref().unwrap_or(&energy_consumer::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
-        self._energy_consumer_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsEnergyConsumer {
@@ -3963,7 +3963,7 @@ impl Ess {
         self.conducting_equipment.as_ref().unwrap_or(&ess::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
-        self._ess_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsEss {
@@ -4025,7 +4025,7 @@ impl EventMessageInfo {
         self.message_info.as_ref().unwrap_or(&event_message_info::MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
-        self._event_message_info_mut().message_info.get_or_insert(Default::default())
+        self.message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsEventMessageInfo {
@@ -4091,7 +4091,7 @@ impl EventValue {
         self.identified_object.as_ref().unwrap_or(&event_value::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._event_value_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsEventValue {
@@ -4151,7 +4151,7 @@ impl ForecastValueSource {
         self.identified_object.as_ref().unwrap_or(&forecast_value_source::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._forecast_value_source_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsForecastValueSource {
@@ -4231,7 +4231,7 @@ impl ForecastIed {
         self.forecast_value_source.as_ref().unwrap_or(&forecast_ied::FORECAST_VALUE_SOURCE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut ForecastValueSource {
-        self._forecast_ied_mut().forecast_value_source.get_or_insert(Default::default())
+        self.forecast_value_source.get_or_insert(Default::default())
     }
 }
 pub trait IsForecastIed {
@@ -4305,7 +4305,7 @@ impl ForecastValue {
         self.identified_object.as_ref().unwrap_or(&forecast_value::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._forecast_value_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsForecastValue {
@@ -4432,7 +4432,7 @@ impl IntegerEventAndStatusGgio {
         self.logical_node.as_ref().unwrap_or(&integer_event_and_status_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._integer_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsIntegerEventAndStatusGgio {
@@ -4522,7 +4522,7 @@ impl LogicalNodeForEventAndStatus {
         self.logical_node.as_ref().unwrap_or(&logical_node_for_event_and_status::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._logical_node_for_event_and_status_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsLogicalNodeForEventAndStatus {
@@ -4610,7 +4610,7 @@ impl MeasurementValue {
         self.identified_object.as_ref().unwrap_or(&measurement_value::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._measurement_value_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsMeasurementValue {
@@ -4665,7 +4665,7 @@ impl Meter {
         self.conducting_equipment.as_ref().unwrap_or(&meter::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
-        self._meter_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsMeter {
@@ -4727,7 +4727,7 @@ impl OptimizationMessageInfo {
         self.message_info.as_ref().unwrap_or(&optimization_message_info::MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
-        self._optimization_message_info_mut().message_info.get_or_insert(Default::default())
+        self.message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsOptimizationMessageInfo {
@@ -5171,7 +5171,7 @@ impl ReadingMmtn {
         self.logical_node.as_ref().unwrap_or(&reading_mmtn::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._reading_mmtn_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsReadingMmtn {
@@ -5661,7 +5661,7 @@ impl ReadingMessageInfo {
         self.message_info.as_ref().unwrap_or(&reading_message_info::MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
-        self._reading_message_info_mut().message_info.get_or_insert(Default::default())
+        self.message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsReadingMessageInfo {
@@ -5759,7 +5759,7 @@ impl ReadingMmtr {
         self.logical_node.as_ref().unwrap_or(&reading_mmtr::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._reading_mmtr_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsReadingMmtr {
@@ -6002,7 +6002,7 @@ impl ReadingMmxu {
         self.logical_node.as_ref().unwrap_or(&reading_mmxu::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._reading_mmxu_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsReadingMmxu {
@@ -6150,7 +6150,7 @@ impl StatusAndEventXcbr {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        self._status_and_event_xcbr_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsStatusAndEventXcbr {
@@ -6374,7 +6374,7 @@ impl StatusMessageInfo {
         self.message_info.as_ref().unwrap_or(&status_message_info::MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
-        self._status_message_info_mut().message_info.get_or_insert(Default::default())
+        self.message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsStatusMessageInfo {
@@ -6499,7 +6499,7 @@ impl StatusValue {
         self.identified_object.as_ref().unwrap_or(&status_value::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
-        self._status_value_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsStatusValue {
@@ -6632,7 +6632,7 @@ impl StringEventAndStatusGgio {
         self.logical_node.as_ref().unwrap_or(&string_event_and_status_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
-        self._string_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsStringEventAndStatusGgio {

@@ -36,7 +36,7 @@ impl MeterReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&meter_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._meter_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsMeterReading {
@@ -129,7 +129,7 @@ impl MeterReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&meter_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._meter_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsMeterReadingProfile {

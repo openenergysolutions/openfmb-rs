@@ -113,7 +113,7 @@ impl CoordinationControlDcsc {
         self.logical_node_for_control.as_ref().unwrap_or(&coordination_control_dcsc::LOGICAL_NODE_FOR_CONTROL)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
-        self._coordination_control_dcsc_mut().logical_node_for_control.get_or_insert(Default::default())
+        self.logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationControlDcsc {
@@ -209,7 +209,7 @@ impl CoordinationControl {
         self.identified_object.as_ref().unwrap_or(&coordination_control::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._coordination_control_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationControl {
@@ -296,7 +296,7 @@ impl CoordinationControlProfile {
         self.control_message_info.as_ref().unwrap_or(&coordination_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._coordination_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationControlProfile {
@@ -407,7 +407,7 @@ impl CoordinationEventDcsc {
         self.logical_node.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._coordination_event_dcsc_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationEventDcsc {
@@ -521,7 +521,7 @@ impl CoordinationEvent {
         self.identified_object.as_ref().unwrap_or(&coordination_event::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._coordination_event_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationEvent {
@@ -602,7 +602,7 @@ impl CoordinationEventProfile {
         self.event_message_info.as_ref().unwrap_or(&coordination_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._coordination_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationEventProfile {
@@ -713,7 +713,7 @@ impl CoordinationStatusDcsc {
         self.logical_node.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._coordination_status_dcsc_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationStatusDcsc {
@@ -827,7 +827,7 @@ impl CoordinationStatus {
         self.identified_object.as_ref().unwrap_or(&coordination_status::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._coordination_status_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationStatus {
@@ -908,7 +908,7 @@ impl CoordinationStatusProfile {
         self.event_message_info.as_ref().unwrap_or(&coordination_status_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._coordination_status_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationStatusProfile {

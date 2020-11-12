@@ -25,7 +25,7 @@ impl RecloserDiscreteControlXcbr {
         self.discrete_control_xcbr.as_ref().unwrap_or(&recloser_discrete_control_xcbr::DISCRETE_CONTROL_XCBR)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::DiscreteControlXcbr {
-        self._recloser_discrete_control_xcbr_mut().discrete_control_xcbr.get_or_insert(Default::default())
+        self.discrete_control_xcbr.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserDiscreteControlXcbr {
@@ -111,7 +111,7 @@ impl RecloserDiscreteControl {
         self.control_value.as_ref().unwrap_or(&recloser_discrete_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._recloser_discrete_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserDiscreteControl {
@@ -190,7 +190,7 @@ impl Recloser {
         self.conducting_equipment.as_ref().unwrap_or(&recloser::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._recloser_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloser {
@@ -280,7 +280,7 @@ impl RecloserDiscreteControlProfile {
         self.control_message_info.as_ref().unwrap_or(&recloser_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._recloser_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserDiscreteControlProfile {
@@ -366,7 +366,7 @@ impl RecloserEvent {
         self.event_value.as_ref().unwrap_or(&recloser_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._recloser_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserEvent {
@@ -455,7 +455,7 @@ impl RecloserEventProfile {
         self.event_message_info.as_ref().unwrap_or(&recloser_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._recloser_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserEventProfile {
@@ -553,7 +553,7 @@ impl RecloserReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&recloser_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._recloser_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserReading {
@@ -651,7 +651,7 @@ impl RecloserReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&recloser_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._recloser_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserReadingProfile {
@@ -737,7 +737,7 @@ impl RecloserStatus {
         self.status_value.as_ref().unwrap_or(&recloser_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._recloser_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserStatus {
@@ -826,7 +826,7 @@ impl RecloserStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&recloser_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._recloser_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsRecloserStatusProfile {

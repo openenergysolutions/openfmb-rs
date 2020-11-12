@@ -197,7 +197,7 @@ impl LoadControlFscc {
         self.control_fscc.as_ref().unwrap_or(&load_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._load_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadControlFscc {
@@ -289,7 +289,7 @@ impl LoadControl {
         self.control_value.as_ref().unwrap_or(&load_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._load_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadControl {
@@ -384,7 +384,7 @@ impl LoadControlProfile {
         self.control_message_info.as_ref().unwrap_or(&load_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._load_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadControlProfile {
@@ -552,7 +552,7 @@ impl LoadEventAndStatusZgld {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&load_event_and_status_zgld::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._load_event_and_status_zgld_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadEventAndStatusZgld {
@@ -640,7 +640,7 @@ impl LoadEventZgld {
         self.load_event_and_status_zgld.as_ref().unwrap_or(&load_event_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LoadEventAndStatusZgld {
-        self._load_event_zgld_mut().load_event_and_status_zgld.get_or_insert(Default::default())
+        self.load_event_and_status_zgld.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadEventZgld {
@@ -722,7 +722,7 @@ impl LoadEvent {
         self.event_value.as_ref().unwrap_or(&load_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._load_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadEvent {
@@ -811,7 +811,7 @@ impl LoadEventProfile {
         self.event_message_info.as_ref().unwrap_or(&load_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._load_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadEventProfile {
@@ -905,7 +905,7 @@ impl LoadReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&load_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._load_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadReading {
@@ -998,7 +998,7 @@ impl LoadReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&load_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._load_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadReadingProfile {
@@ -1080,7 +1080,7 @@ impl LoadStatusZgld {
         self.load_event_and_status_zgld.as_ref().unwrap_or(&load_status_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut LoadEventAndStatusZgld {
-        self._load_status_zgld_mut().load_event_and_status_zgld.get_or_insert(Default::default())
+        self.load_event_and_status_zgld.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadStatusZgld {
@@ -1166,7 +1166,7 @@ impl LoadStatus {
         self.status_value.as_ref().unwrap_or(&load_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._load_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadStatus {
@@ -1261,7 +1261,7 @@ impl LoadStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&load_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._load_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadStatusProfile {

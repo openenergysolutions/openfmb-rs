@@ -39,7 +39,7 @@ impl BooleanControlGgio {
         self.logical_node.as_ref().unwrap_or(&boolean_control_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._boolean_control_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsBooleanControlGgio {
@@ -127,7 +127,7 @@ impl IntegerControlGgio {
         self.logical_node.as_ref().unwrap_or(&integer_control_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._integer_control_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsIntegerControlGgio {
@@ -215,7 +215,7 @@ impl StringControlGgio {
         self.logical_node.as_ref().unwrap_or(&string_control_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._string_control_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsStringControlGgio {
@@ -304,7 +304,7 @@ impl AnalogControlGgio {
         self.logical_node.as_ref().unwrap_or(&analog_control_ggio::LOGICAL_NODE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
-        self._analog_control_ggio_mut().logical_node.get_or_insert(Default::default())
+        self.logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsAnalogControlGgio {
@@ -418,7 +418,7 @@ impl ResourceDiscreteControl {
         self.identified_object.as_ref().unwrap_or(&resource_discrete_control::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._resource_discrete_control_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceDiscreteControl {
@@ -523,7 +523,7 @@ impl ResourceDiscreteControlProfile {
         self.control_message_info.as_ref().unwrap_or(&resource_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._resource_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceDiscreteControlProfile {
@@ -617,7 +617,7 @@ impl ResourceReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&resource_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._resource_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceReading {
@@ -710,7 +710,7 @@ impl ResourceReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&resource_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._resource_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceReadingProfile {
@@ -828,7 +828,7 @@ impl ResourceEvent {
         self.identified_object.as_ref().unwrap_or(&resource_event::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._resource_event_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceEvent {
@@ -927,7 +927,7 @@ impl ResourceEventProfile {
         self.event_message_info.as_ref().unwrap_or(&resource_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._resource_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceEventProfile {
@@ -1045,7 +1045,7 @@ impl ResourceStatus {
         self.identified_object.as_ref().unwrap_or(&resource_status::IDENTIFIED_OBJECT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
-        self._resource_status_mut().identified_object.get_or_insert(Default::default())
+        self.identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceStatus {
@@ -1144,7 +1144,7 @@ impl ResourceStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&resource_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._resource_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceStatusProfile {

@@ -267,7 +267,7 @@ impl GenerationControlFscc {
         self.control_fscc.as_ref().unwrap_or(&generation_control_fscc::CONTROL_FSCC)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
-        self._generation_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+        self.control_fscc.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationControlFscc {
@@ -359,7 +359,7 @@ impl GenerationControl {
         self.control_value.as_ref().unwrap_or(&generation_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._generation_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationControl {
@@ -440,7 +440,7 @@ impl GeneratingUnit {
         self.conducting_equipment.as_ref().unwrap_or(&generating_unit::CONDUCTING_EQUIPMENT)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
-        self._generating_unit_mut().conducting_equipment.get_or_insert(Default::default())
+        self.conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsGeneratingUnit {
@@ -529,7 +529,7 @@ impl GenerationControlProfile {
         self.control_message_info.as_ref().unwrap_or(&generation_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._generation_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationControlProfile {
@@ -867,7 +867,7 @@ impl GenerationDiscreteControl {
         self.control_value.as_ref().unwrap_or(&generation_discrete_control::CONTROL_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
-        self._generation_discrete_control_mut().control_value.get_or_insert(Default::default())
+        self.control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationDiscreteControl {
@@ -968,7 +968,7 @@ impl GenerationDiscreteControlProfile {
         self.control_message_info.as_ref().unwrap_or(&generation_discrete_control_profile::CONTROL_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
-        self._generation_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+        self.control_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationDiscreteControlProfile {
@@ -1062,7 +1062,7 @@ impl GenerationReading {
         self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&generation_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
-        self._generation_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
+        self.conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationReading {
@@ -1155,7 +1155,7 @@ impl GenerationReadingProfile {
         self.reading_message_info.as_ref().unwrap_or(&generation_reading_profile::READING_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
-        self._generation_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+        self.reading_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationReadingProfile {
@@ -1391,7 +1391,7 @@ impl GenerationEventAndStatusZgen {
         self.logical_node_for_event_and_status.as_ref().unwrap_or(&generation_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
-        self._generation_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+        self.logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationEventAndStatusZgen {
@@ -1491,7 +1491,7 @@ impl GenerationEventZgen {
         self.generation_event_and_status_zgen.as_ref().unwrap_or(&generation_event_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
-        self._generation_event_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
+        self.generation_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationEventZgen {
@@ -1573,7 +1573,7 @@ impl GenerationEvent {
         self.event_value.as_ref().unwrap_or(&generation_event::EVENT_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
-        self._generation_event_mut().event_value.get_or_insert(Default::default())
+        self.event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationEvent {
@@ -1662,7 +1662,7 @@ impl GenerationEventProfile {
         self.event_message_info.as_ref().unwrap_or(&generation_event_profile::EVENT_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
-        self._generation_event_profile_mut().event_message_info.get_or_insert(Default::default())
+        self.event_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationEventProfile {
@@ -1744,7 +1744,7 @@ impl GenerationStatusZgen {
         self.generation_event_and_status_zgen.as_ref().unwrap_or(&generation_status_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
-        self._generation_status_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
+        self.generation_event_and_status_zgen.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationStatusZgen {
@@ -1826,7 +1826,7 @@ impl GenerationStatus {
         self.status_value.as_ref().unwrap_or(&generation_status::STATUS_VALUE)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
-        self._generation_status_mut().status_value.get_or_insert(Default::default())
+        self.status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationStatus {
@@ -1915,7 +1915,7 @@ impl GenerationStatusProfile {
         self.status_message_info.as_ref().unwrap_or(&generation_status_profile::STATUS_MESSAGE_INFO)
     }
     pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
-        self._generation_status_profile_mut().status_message_info.get_or_insert(Default::default())
+        self.status_message_info.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationStatusProfile {

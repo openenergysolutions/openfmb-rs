@@ -336,10 +336,7 @@ impl<'a> CodeGenerator<'a> {
                 if !optional {
                     self.buf.push_str("&mut ");
                 }
-                self.buf.push_str("self._");
-                self.buf.push_str(&to_snake(&message_name));
-                self.buf.push_str("_mut");
-                self.buf.push_str("().");
+                self.buf.push_str("self.");
                 self.buf.push_str(&to_snake(field.name()));
                 if optional {
                     self.buf.push_str(".get_or_insert(Default::default())");

@@ -843,7 +843,6 @@ dependencies = [
  "chrono",
  "futures",
  "log",
- "loom",
  "nats",
  "openfmb-messages",
  "openfmb-messages-ext",
