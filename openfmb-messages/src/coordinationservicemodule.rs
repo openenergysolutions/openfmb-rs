@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalCoordinationServiceModeKind {
@@ -8,6 +9,8 @@ mod optional_coordination_service_mode_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalCoordinationServiceModeKind {
 }
 pub trait IsOptionalCoordinationServiceModeKind {
     fn _optional_coordination_service_mode_kind(&self) -> &OptionalCoordinationServiceModeKind;
@@ -49,6 +52,8 @@ mod eng_coordination_service_mode_kind {
     lazy_static! {
         pub(super) static ref SET_VAL_EXTENSION: ::std::string::String = Default::default();
     }
+}
+impl EngCoordinationServiceModeKind {
 }
 pub trait IsEngCoordinationServiceModeKind {
     fn _eng_coordination_service_mode_kind(&self) -> &EngCoordinationServiceModeKind;
@@ -103,6 +108,14 @@ mod coordination_control_dcsc {
         pub(super) static ref ISLAND: crate::commonmodule::ControlDpc = Default::default();
     }
 }
+impl CoordinationControlDcsc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.logical_node_for_control.as_ref().unwrap_or(&coordination_control_dcsc::LOGICAL_NODE_FOR_CONTROL)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._coordination_control_dcsc_mut().logical_node_for_control.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationControlDcsc {
     fn _coordination_control_dcsc(&self) -> &CoordinationControlDcsc;
     fn _coordination_control_dcsc_mut(&mut self) -> &mut CoordinationControlDcsc;
@@ -133,30 +146,30 @@ impl IsCoordinationControlDcsc for CoordinationControlDcsc {
         self
     }
 }
-//impl IsLogicalNodeForControl for CoordinationControlDcsc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for CoordinationControlDcsc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationControlDcsc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForControl for CoordinationControlDcsc {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for CoordinationControlDcsc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationControlDcsc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Switch discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -191,6 +204,14 @@ mod coordination_control {
         pub(super) static ref COORDINATION_CONTROL_DCSC: crate::coordinationservicemodule::CoordinationControlDcsc = Default::default();
     }
 }
+impl CoordinationControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&coordination_control::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_control_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationControl {
     fn _coordination_control(&self) -> &CoordinationControl;
     fn _coordination_control_mut(&mut self) -> &mut CoordinationControl;
@@ -221,14 +242,14 @@ impl IsCoordinationControl for CoordinationControl {
         self
     }
 }
-//impl IsIdentifiedObject for CoordinationControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for CoordinationControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Switch control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -270,6 +291,14 @@ mod coordination_control_profile {
         pub(super) static ref COORDINATION_CONTROL: crate::coordinationservicemodule::CoordinationControl = Default::default();
     }
 }
+impl CoordinationControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&coordination_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._coordination_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationControlProfile {
     fn _coordination_control_profile(&self) -> &CoordinationControlProfile;
     fn _coordination_control_profile_mut(&mut self) -> &mut CoordinationControlProfile;
@@ -300,30 +329,30 @@ impl IsCoordinationControlProfile for CoordinationControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for CoordinationControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for CoordinationControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for CoordinationControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for CoordinationControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -371,6 +400,14 @@ mod coordination_event_dcsc {
         pub(super) static ref PERMISSIBLE_NETZERO: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_START: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_STOP: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+impl CoordinationEventDcsc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&coordination_event_dcsc::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._coordination_event_dcsc_mut().logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationEventDcsc {
@@ -433,22 +470,22 @@ impl IsCoordinationEventDcsc for CoordinationEventDcsc {
         self
     }
 }
-//impl IsLogicalNode for CoordinationEventDcsc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationEventDcsc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for CoordinationEventDcsc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationEventDcsc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -479,6 +516,14 @@ mod coordination_event {
         pub(super) static ref COORDINATION_EVENT_DCSC: crate::coordinationservicemodule::CoordinationEventDcsc = Default::default();
     }
 }
+impl CoordinationEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&coordination_event::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_event_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationEvent {
     fn _coordination_event(&self) -> &CoordinationEvent;
     fn _coordination_event_mut(&mut self) -> &mut CoordinationEvent;
@@ -503,14 +548,14 @@ impl IsCoordinationEvent for CoordinationEvent {
         self
     }
 }
-//impl IsIdentifiedObject for CoordinationEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for CoordinationEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -552,6 +597,14 @@ mod coordination_event_profile {
         pub(super) static ref COORDINATION_EVENT: crate::coordinationservicemodule::CoordinationEvent = Default::default();
     }
 }
+impl CoordinationEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&coordination_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._coordination_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationEventProfile {
     fn _coordination_event_profile(&self) -> &CoordinationEventProfile;
     fn _coordination_event_profile_mut(&mut self) -> &mut CoordinationEventProfile;
@@ -582,30 +635,30 @@ impl IsCoordinationEventProfile for CoordinationEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for CoordinationEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for CoordinationEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for CoordinationEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for CoordinationEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -653,6 +706,14 @@ mod coordination_status_dcsc {
         pub(super) static ref PERMISSIBLE_NETZERO: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_START: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_STOP: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+impl CoordinationStatusDcsc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&coordination_status_dcsc::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._coordination_status_dcsc_mut().logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsCoordinationStatusDcsc {
@@ -715,22 +776,22 @@ impl IsCoordinationStatusDcsc for CoordinationStatusDcsc {
         self
     }
 }
-//impl IsLogicalNode for CoordinationStatusDcsc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationStatusDcsc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for CoordinationStatusDcsc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationStatusDcsc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -761,6 +822,14 @@ mod coordination_status {
         pub(super) static ref COORDINATION_STATUS_DCSC: crate::coordinationservicemodule::CoordinationStatusDcsc = Default::default();
     }
 }
+impl CoordinationStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&coordination_status::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._coordination_status_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationStatus {
     fn _coordination_status(&self) -> &CoordinationStatus;
     fn _coordination_status_mut(&mut self) -> &mut CoordinationStatus;
@@ -785,14 +854,14 @@ impl IsCoordinationStatus for CoordinationStatus {
         self
     }
 }
-//impl IsIdentifiedObject for CoordinationStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for CoordinationStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -834,6 +903,14 @@ mod coordination_status_profile {
         pub(super) static ref COORDINATION_STATUS: crate::coordinationservicemodule::CoordinationStatus = Default::default();
     }
 }
+impl CoordinationStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&coordination_status_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._coordination_status_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsCoordinationStatusProfile {
     fn _coordination_status_profile(&self) -> &CoordinationStatusProfile;
     fn _coordination_status_profile_mut(&mut self) -> &mut CoordinationStatusProfile;
@@ -864,30 +941,30 @@ impl IsCoordinationStatusProfile for CoordinationStatusProfile {
         self
     }
 }
-//impl IsEventMessageInfo for CoordinationStatusProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for CoordinationStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for CoordinationStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for CoordinationStatusProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for CoordinationStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for CoordinationStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// State kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

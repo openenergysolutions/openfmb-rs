@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -36,6 +37,14 @@ mod ess_event_zbat {
         pub(super) static ref BAT_ST: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref SOC: crate::commonmodule::Mv = Default::default();
         pub(super) static ref STDBY: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+impl EssEventZbat {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_event_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEventZbat {
@@ -86,30 +95,30 @@ impl IsEssEventZbat for EssEventZbat {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for EssEventZbat {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssEventZbat {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssEventZbat {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for EssEventZbat {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for EssEventZbat {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssEventZbat {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// ESS inverter high level function to maintain frequency within dead bands.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -163,6 +172,8 @@ mod frequency_regulation {
         pub(super) static ref OVER_FREQUENCY_DROOP: f32 = Default::default();
         pub(super) static ref UNDER_FREQUENCY_DROOP: f32 = Default::default();
     }
+}
+impl FrequencyRegulation {
 }
 pub trait IsFrequencyRegulation {
     fn _frequency_regulation(&self) -> &FrequencyRegulation;
@@ -257,6 +268,8 @@ mod peak_shaving {
         pub(super) static ref SOC_MANAGEMENT_ALLOWED_LOW_LIMIT: f32 = Default::default();
     }
 }
+impl PeakShaving {
+}
 pub trait IsPeakShaving {
     fn _peak_shaving(&self) -> &PeakShaving;
     fn _peak_shaving_mut(&mut self) -> &mut PeakShaving;
@@ -341,6 +354,8 @@ mod soc_limit {
         pub(super) static ref SOC_LOW_LIMIT_HYSTERESIS: f32 = Default::default();
     }
 }
+impl SocLimit {
+}
 pub trait IsSocLimit {
     fn _soc_limit(&self) -> &SocLimit;
     fn _soc_limit_mut(&mut self) -> &mut SocLimit;
@@ -416,6 +431,8 @@ mod soc_management {
         pub(super) static ref SOC_POWER_SET_POINT: f32 = Default::default();
         pub(super) static ref SOC_SET_POINT: f32 = Default::default();
     }
+}
+impl SocManagement {
 }
 pub trait IsSocManagement {
     fn _soc_management(&self) -> &SocManagement;
@@ -499,6 +516,8 @@ mod voltage_regulation {
         pub(super) static ref VOLTAGE_SET_POINT: f32 = Default::default();
     }
 }
+impl VoltageRegulation {
+}
 pub trait IsVoltageRegulation {
     fn _voltage_regulation(&self) -> &VoltageRegulation;
     fn _voltage_regulation_mut(&mut self) -> &mut VoltageRegulation;
@@ -559,6 +578,8 @@ mod voltage_droop {
         pub(super) static ref VOLTAGE_REGULATION: crate::essmodule::VoltageRegulation = Default::default();
     }
 }
+impl VoltageDroop {
+}
 pub trait IsVoltageDroop {
     fn _voltage_droop(&self) -> &VoltageDroop;
     fn _voltage_droop_mut(&mut self) -> &mut VoltageDroop;
@@ -600,6 +621,8 @@ mod voltage_pi {
         pub(super) static ref VOLTAGE_PI_CTL: bool = Default::default();
         pub(super) static ref VOLTAGE_REGULATION: crate::essmodule::VoltageRegulation = Default::default();
     }
+}
+impl VoltagePi {
 }
 pub trait IsVoltagePi {
     fn _voltage_pi(&self) -> &VoltagePi;
@@ -650,6 +673,8 @@ mod capacity_firming {
         pub(super) static ref LIMIT_NEGATIVE_DP_DT: f32 = Default::default();
         pub(super) static ref LIMIT_POSITIVE_DP_DT: f32 = Default::default();
     }
+}
+impl CapacityFirming {
 }
 pub trait IsCapacityFirming {
     fn _capacity_firming(&self) -> &CapacityFirming;
@@ -718,6 +743,8 @@ mod ess_function {
         pub(super) static ref VOLTAGE_DROOP: crate::essmodule::VoltageDroop = Default::default();
         pub(super) static ref VOLTAGE_PI: crate::essmodule::VoltagePi = Default::default();
     }
+}
+impl EssFunction {
 }
 pub trait IsEssFunction {
     fn _ess_function(&self) -> &EssFunction;
@@ -834,6 +861,8 @@ mod ess_point_status {
         pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
     }
+}
+impl EssPointStatus {
 }
 pub trait IsEssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus;
@@ -965,6 +994,14 @@ mod ess_event_and_status_zgen {
         pub(super) static ref POINT_STATUS: crate::essmodule::EssPointStatus = Default::default();
     }
 }
+impl EssEventAndStatusZgen {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssEventAndStatusZgen {
     fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen;
     fn _ess_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen;
@@ -1013,30 +1050,30 @@ impl IsEssEventAndStatusZgen for EssEventAndStatusZgen {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for EssEventAndStatusZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssEventAndStatusZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssEventAndStatusZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for EssEventAndStatusZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for EssEventAndStatusZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssEventAndStatusZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZGEN class for ESS event profile
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1057,6 +1094,14 @@ mod ess_event_zgen {
         pub(super) static ref E_SS_EVENT_AND_STATUS_ZGEN: crate::essmodule::EssEventAndStatusZgen = Default::default();
     }
 }
+impl EssEventZgen {
+    pub(crate) fn parent(&self) -> &EssEventAndStatusZgen {
+        self.e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_event_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self._ess_event_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssEventZgen {
     fn _ess_event_zgen(&self) -> &EssEventZgen;
     fn _ess_event_zgen_mut(&mut self) -> &mut EssEventZgen;
@@ -1075,38 +1120,38 @@ impl IsEssEventZgen for EssEventZgen {
         self
     }
 }
-//impl IsESSEventAndStatusZGEN for EssEventZgen {
-    //fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
-        //
-    //}
-//fn _mut_ess_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for EssEventZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssEventZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssEventZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEssEventAndStatusZgen for EssEventZgen {
+    fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
+        self.parent()
+    }
+    fn _ess_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for EssEventZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for EssEventZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssEventZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// ESS event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1133,6 +1178,14 @@ mod ess_event {
         pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
         pub(super) static ref ESS_EVENT_ZBAT: crate::essmodule::EssEventZbat = Default::default();
         pub(super) static ref ESS_EVENT_ZGEN: crate::essmodule::EssEventZgen = Default::default();
+    }
+}
+impl EssEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventValue {
+        self.event_value.as_ref().unwrap_or(&ess_event::EVENT_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._ess_event_mut().event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssEvent {
@@ -1165,22 +1218,22 @@ impl IsEssEvent for EssEvent {
         self
     }
 }
-//impl IsEventValue for EssEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventValue for EssEvent {
+    fn _event_value(&self) -> &super::commonmodule::EventValue {
+        self.parent()
+    }
+    fn _event_value_mut(&mut self) -> &mut EventValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// ESS event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1222,6 +1275,14 @@ mod ess_event_profile {
         pub(super) static ref ESS_EVENT: crate::essmodule::EssEvent = Default::default();
     }
 }
+impl EssEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&ess_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._ess_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssEventProfile {
     fn _ess_event_profile(&self) -> &EssEventProfile;
     fn _ess_event_profile_mut(&mut self) -> &mut EssEventProfile;
@@ -1252,30 +1313,30 @@ impl IsEssEventProfile for EssEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for EssEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for EssEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for EssEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for EssEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// ESS reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1306,6 +1367,14 @@ mod ess_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl EssReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&ess_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._ess_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsEssReading {
@@ -1344,14 +1413,14 @@ impl IsEssReading for EssReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for EssReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for EssReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// ESS reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1393,6 +1462,14 @@ mod ess_reading_profile {
         pub(super) static ref ESS_READING: crate::essmodule::EssReading = Default::default();
     }
 }
+impl EssReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&ess_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._ess_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssReadingProfile {
     fn _ess_reading_profile(&self) -> &EssReadingProfile;
     fn _ess_reading_profile_mut(&mut self) -> &mut EssReadingProfile;
@@ -1423,30 +1500,30 @@ impl IsEssReadingProfile for EssReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for EssReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for EssReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for EssReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for EssReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZBAT
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1481,6 +1558,14 @@ mod ess_status_zbat {
         pub(super) static ref GRI_MOD: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref SOC: crate::commonmodule::Mv = Default::default();
         pub(super) static ref STDBY: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+impl EssStatusZbat {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&ess_status_zbat::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._ess_status_zbat_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatusZbat {
@@ -1525,30 +1610,30 @@ impl IsEssStatusZbat for EssStatusZbat {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for EssStatusZbat {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssStatusZbat {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssStatusZbat {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for EssStatusZbat {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for EssStatusZbat {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssStatusZbat {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZGEN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1569,6 +1654,14 @@ mod ess_status_zgen {
         pub(super) static ref E_SS_EVENT_AND_STATUS_ZGEN: crate::essmodule::EssEventAndStatusZgen = Default::default();
     }
 }
+impl EssStatusZgen {
+    pub(crate) fn parent(&self) -> &EssEventAndStatusZgen {
+        self.e_ss_event_and_status_zgen.as_ref().unwrap_or(&ess_status_zgen::E_SS_EVENT_AND_STATUS_ZGEN)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self._ess_status_zgen_mut().e_ss_event_and_status_zgen.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssStatusZgen {
     fn _ess_status_zgen(&self) -> &EssStatusZgen;
     fn _ess_status_zgen_mut(&mut self) -> &mut EssStatusZgen;
@@ -1587,38 +1680,38 @@ impl IsEssStatusZgen for EssStatusZgen {
         self
     }
 }
-//impl IsESSEventAndStatusZGEN for EssStatusZgen {
-    //fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
-        //
-    //}
-//fn _mut_ess_event_and_status_zgen(&mut self) -> &mut EssEventAndStatusZgen {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for EssStatusZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssStatusZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssStatusZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEssEventAndStatusZgen for EssStatusZgen {
+    fn _ess_event_and_status_zgen(&self) -> &EssEventAndStatusZgen {
+        self.parent()
+    }
+    fn _ess_event_and_status_zgen_mut(&mut self) -> &mut EssEventAndStatusZgen {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for EssStatusZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for EssStatusZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssStatusZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// ESS status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1645,6 +1738,14 @@ mod ess_status {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
         pub(super) static ref ESS_STATUS_ZBAT: crate::essmodule::EssStatusZbat = Default::default();
         pub(super) static ref ESS_STATUS_ZGEN: crate::essmodule::EssStatusZgen = Default::default();
+    }
+}
+impl EssStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusValue {
+        self.status_value.as_ref().unwrap_or(&ess_status::STATUS_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._ess_status_mut().status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssStatus {
@@ -1677,22 +1778,22 @@ impl IsEssStatus for EssStatus {
         self
     }
 }
-//impl IsStatusValue for EssStatus {
-    //fn _status_value(&self) -> &StatusValue {
-        //
-    //}
-//fn _mut_status_value(&mut self) -> &mut StatusValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusValue for EssStatus {
+    fn _status_value(&self) -> &super::commonmodule::StatusValue {
+        self.parent()
+    }
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// ESS status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1734,6 +1835,14 @@ mod ess_status_profile {
         pub(super) static ref ESS_STATUS: crate::essmodule::EssStatus = Default::default();
     }
 }
+impl EssStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&ess_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._ess_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssStatusProfile {
     fn _ess_status_profile(&self) -> &EssStatusProfile;
     fn _ess_status_profile_mut(&mut self) -> &mut EssStatusProfile;
@@ -1764,30 +1873,30 @@ impl IsEssStatusProfile for EssStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for EssStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for EssStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for EssStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for EssStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1863,6 +1972,8 @@ mod ess_point {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
+}
+impl EssPoint {
 }
 pub trait IsEssPoint {
     fn _ess_point(&self) -> &EssPoint;
@@ -1985,6 +2096,8 @@ mod esscsg {
     lazy_static! {
     }
 }
+impl Esscsg {
+}
 pub trait IsEsscsg {
     fn _esscsg(&self) -> &Esscsg;
     fn _esscsg_mut(&mut self) -> &mut Esscsg;
@@ -2022,6 +2135,8 @@ mod ess_control_schedule_fsch {
     lazy_static! {
         pub(super) static ref VAL_DCSG: crate::essmodule::Esscsg = Default::default();
     }
+}
+impl EssControlScheduleFsch {
 }
 pub trait IsEssControlScheduleFsch {
     fn _ess_control_schedule_fsch(&self) -> &EssControlScheduleFsch;
@@ -2065,6 +2180,14 @@ mod ess_control_fscc {
         pub(super) static ref ESS_CONTROL_SCHEDULE_FSCH: crate::essmodule::EssControlScheduleFsch = Default::default();
     }
 }
+impl EssControlFscc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlFscc {
+        self.control_fscc.as_ref().unwrap_or(&ess_control_fscc::CONTROL_FSCC)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._ess_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssControlFscc {
     fn _ess_control_fscc(&self) -> &EssControlFscc;
     fn _ess_control_fscc_mut(&mut self) -> &mut EssControlFscc;
@@ -2089,38 +2212,38 @@ impl IsEssControlFscc for EssControlFscc {
         self
     }
 }
-//impl IsControlFSCC for EssControlFscc {
-    //fn _control_fscc(&self) -> &ControlFscc {
-        //
-    //}
-//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
-        //
-    //}
-//}
-//impl IsLogicalNodeForControl for EssControlFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for EssControlFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssControlFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlFscc for EssControlFscc {
+    fn _control_fscc(&self) -> &super::commonmodule::ControlFscc {
+        self.parent()
+    }
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForControl for EssControlFscc {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent().parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for EssControlFscc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssControlFscc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// ESS control class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2147,6 +2270,14 @@ mod ess_control {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref ESS_CONTROL_FSCC: crate::essmodule::EssControlFscc = Default::default();
+    }
+}
+impl EssControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&ess_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._ess_control_mut().control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsEssControl {
@@ -2179,22 +2310,22 @@ impl IsEssControl for EssControl {
         self
     }
 }
-//impl IsControlValue for EssControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for EssControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// ESS control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2236,6 +2367,14 @@ mod ess_control_profile {
         pub(super) static ref ESS_CONTROL: crate::essmodule::EssControl = Default::default();
     }
 }
+impl EssControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&ess_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._ess_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsEssControlProfile {
     fn _ess_control_profile(&self) -> &EssControlProfile;
     fn _ess_control_profile_mut(&mut self) -> &mut EssControlProfile;
@@ -2266,27 +2405,27 @@ impl IsEssControlProfile for EssControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for EssControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for EssControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EssControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for EssControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for EssControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for EssControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}

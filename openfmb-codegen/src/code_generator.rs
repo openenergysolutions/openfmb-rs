@@ -84,6 +84,10 @@ impl<'a> CodeGenerator<'a> {
             code_gen.package
         );
 
+        if code_gen.package.as_str() != "commonmodule" && code_gen.package.as_str() != "uml" {
+            code_gen.buf.push_str("use crate::commonmodule::*;\n");
+        }
+
         code_gen.path.push(4);
         for (idx, message) in file.message_type.into_iter().enumerate() {
             code_gen.path.push(idx as i32);
@@ -273,6 +277,84 @@ impl<'a> CodeGenerator<'a> {
         let full_type = format!(".{}.{}", self.package, message_name);
 
         self.push_indent();
+        self.buf.push_str("impl ");
+        self.buf.push_str(&to_upper_camel(&message_name));
+        self.buf.push_str(" {\n");
+        self.depth += 1;
+        for (field, _idx) in &fields {
+            let ty = self.resolve_type(&field);
+            let copyable = self.copyable(&field);
+            let optional = self.optional(&field);
+            let parent =  self.parent(&field);
+            let repeated = field.label == Some(Label::Repeated as i32);
+            if parent {
+                self.push_indent();
+                self.buf.push_str("pub(crate) fn parent(&self) -> ");
+                if !copyable {
+                    self.buf.push_str("&");
+                }
+                if repeated {
+                    self.buf.push_str("::std::vec::Vec<");
+                }
+                self.buf.push_str(&ty);
+                if repeated {
+                    self.buf.push_str(">");
+                }
+                self.buf.push_str(" {\n");
+                self.depth += 1;
+                self.push_indent();
+                if !optional && !copyable {
+                    self.buf.push_str("&");
+                }
+                self.buf.push_str("self.");
+                self.buf.push_str(&to_snake(field.name()));
+                if optional {
+                    self.buf.push_str(".as_ref().unwrap_or(&");
+                    self.buf.push_str(&to_snake(&message_name));
+                    self.buf.push_str("::");
+                    self.buf.push_str(&to_shouty_snake(field.name()));
+                    self.buf.push_str(")");
+                }
+                self.buf.push_str("\n");
+                self.depth -= 1;
+                self.push_indent();
+                self.buf.push_str("}\n");
+
+                // mutator, ex fn mut_some_field(&mut self) -> &mut SomeFieldType
+                self.push_indent();
+                self.buf.push_str("pub(crate) fn parent_mut(&mut self) -> &mut ");
+                if repeated {
+                    self.buf.push_str("::std::vec::Vec<");
+                }
+                self.buf.push_str(&ty);
+                if repeated {
+                    self.buf.push_str(">");
+                }
+                self.buf.push_str(" {\n");
+                self.depth += 1;
+                self.push_indent();
+                if !optional {
+                    self.buf.push_str("&mut ");
+                }
+                self.buf.push_str("self._");
+                self.buf.push_str(&to_snake(&message_name));
+                self.buf.push_str("_mut");
+                self.buf.push_str("().");
+                self.buf.push_str(&to_snake(field.name()));
+                if optional {
+                    self.buf.push_str(".get_or_insert(Default::default())");
+                }
+                self.buf.push_str("\n");
+                self.depth -= 1;
+                self.push_indent();
+                self.buf.push_str("}\n");
+            }
+        }
+        self.depth -= 1;
+        self.push_indent();
+        self.buf.push_str("}\n");
+
+        self.push_indent();
         self.buf.push_str("pub trait Is");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(" {\n");
@@ -369,6 +451,7 @@ impl<'a> CodeGenerator<'a> {
 
         // generate a trait impl for the message type trait
         self.push_indent();
+
         self.buf.push_str("impl Is");
         self.buf.push_str(&to_upper_camel(&message_name));
         self.buf.push_str(" for ");
@@ -406,13 +489,17 @@ impl<'a> CodeGenerator<'a> {
         //TODO generate trait impls for all inherited types
         //must be done until trait specialization exists
         let mut cur_type = full_type;
+        let mut depth = 0;
         loop {
-            if let Some(parent_type) = self.message_inherits.parent_typemap.get(&cur_type) {
+            if let Some((parent_type, field)) = self.message_inherits.parent_typemap.get(&cur_type) {
+                let ty = self.resolve_type(&field);
+                let copyable = self.copyable(&field);
+                let repeated = field.label == Some(Label::Repeated as i32);
                 let parent_name = parent_type.split(".").last().unwrap();
                 let trait_name = format!("Is{}", parent_name);
                 self.push_indent();
-                self.buf.push_str("//impl ");
-                self.buf.push_str(&trait_name);
+                self.buf.push_str("impl ");
+                self.buf.push_str(&to_upper_camel(&trait_name));
                 self.buf.push_str(" for " );
                 self.buf.push_str(&to_upper_camel(&message_name));
                 self.buf.push_str(" {\n");
@@ -421,42 +508,61 @@ impl<'a> CodeGenerator<'a> {
                 self.push_indent();
 
                 //TODO impl accessor
-                self.buf.push_str("//fn _");
+                self.buf.push_str("fn _");
                 self.buf.push_str(&to_snake(&parent_name));
-                self.buf.push_str("(&self) -> &");
+                self.buf.push_str("(&self) -> ");
+                if !copyable {
+                    self.buf.push_str("&");
+                }
+                if repeated {
+                    self.buf.push_str("::std::vec::Vec<");
+                }
+                self.buf.push_str(&ty);
+                if repeated {
+                    self.buf.push_str(">");
+                }
+                self.buf.push_str(" {\n");
+
+                self.depth += 1;
+                self.push_indent();
+
+                self.buf.push_str("self.parent()");
+                for _i in 0..depth {
+                    self.buf.push_str(".parent()");
+                }
+                self.buf.push_str("\n");
+
+                self.depth -= 1;
+                self.push_indent();
+                self.buf.push_str("}\n");
+
+                //impl mutator
+                self.push_indent();
+                self.buf.push_str("fn _");
+                self.buf.push_str(&to_snake(&parent_name));
+                self.buf.push_str("_mut(&mut self) -> &mut ");
                 self.buf.push_str(&to_upper_camel(&parent_name));
                 self.buf.push_str(" {\n");
 
                 self.depth += 1;
                 self.push_indent();
 
-                self.buf.push_str("//\n");
+                self.buf.push_str("self.parent_mut()");
+                for _i in 0..depth {
+                    self.buf.push_str(".parent_mut()");
+                }
+                self.buf.push_str("\n");
 
                 self.depth -= 1;
                 self.push_indent();
-                self.buf.push_str("//}\n");
-
-                //TODO impl mutator
-                self.buf.push_str("//fn _mut_");
-                self.buf.push_str(&to_snake(&parent_name));
-                self.buf.push_str("(&mut self) -> &mut ");
-                self.buf.push_str(&to_upper_camel(&parent_name));
-                self.buf.push_str(" {\n");
-
-                self.depth += 1;
-                self.push_indent();
-
-                self.buf.push_str("//\n");
+                self.buf.push_str("}\n");
 
                 self.depth -= 1;
-                self.push_indent();
-                self.buf.push_str("//}\n");
-
-                self.depth -= 1;
-                self.buf.push_str("//}\n");
+                self.buf.push_str("}\n");
 
                 // look for the next parent type to impl in the chain
                 cur_type = parent_type.to_string();
+                depth += 1;
             } else {
                 break;
             }
@@ -1137,6 +1243,14 @@ impl<'a> CodeGenerator<'a> {
         match field.r#type() {
             Type::Message => true,
             _ => self.syntax == Syntax::Proto2,
+        }
+    }
+
+    fn parent(&self, field: &FieldDescriptorProto) -> bool {
+        if let Some(ref field_options) = field.options {
+            field_options.parent_message.unwrap_or_default()
+        } else {
+            false
         }
     }
 }

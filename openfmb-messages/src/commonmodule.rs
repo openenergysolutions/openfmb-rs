@@ -9,6 +9,8 @@ mod optional_fault_direction_kind {
     lazy_static! {
     }
 }
+impl OptionalFaultDirectionKind {
+}
 pub trait IsOptionalFaultDirectionKind {
     fn _optional_fault_direction_kind(&self) -> &OptionalFaultDirectionKind;
     fn _optional_fault_direction_kind_mut(&mut self) -> &mut OptionalFaultDirectionKind;
@@ -37,6 +39,8 @@ mod optional_phase_fault_direction_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalPhaseFaultDirectionKind {
 }
 pub trait IsOptionalPhaseFaultDirectionKind {
     fn _optional_phase_fault_direction_kind(&self) -> &OptionalPhaseFaultDirectionKind;
@@ -117,6 +121,8 @@ mod acd {
         pub(super) static ref PHS_B: bool = Default::default();
         pub(super) static ref PHS_C: bool = Default::default();
     }
+}
+impl Acd {
 }
 pub trait IsAcd {
     fn _acd(&self) -> &Acd;
@@ -220,6 +226,8 @@ mod identified_object {
         pub(super) static ref NAME: ::std::string::String = Default::default();
     }
 }
+impl IdentifiedObject {
+}
 pub trait IsIdentifiedObject {
     fn _identified_object(&self) -> &IdentifiedObject;
     fn _identified_object_mut(&mut self) -> &mut IdentifiedObject;
@@ -287,6 +295,14 @@ mod acdc_terminal {
         pub(super) static ref SEQUENCE_NUMBER: i32 = Default::default();
     }
 }
+impl AcdcTerminal {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&acdc_terminal::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._acdc_terminal_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsAcdcTerminal {
     fn _acdc_terminal(&self) -> &AcdcTerminal;
     fn _acdc_terminal_mut(&mut self) -> &mut AcdcTerminal;
@@ -317,14 +333,14 @@ impl IsAcdcTerminal for AcdcTerminal {
         self
     }
 }
-//impl IsIdentifiedObject for AcdcTerminal {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for AcdcTerminal {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitSymbolKind {
@@ -335,6 +351,8 @@ mod optional_unit_symbol_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalUnitSymbolKind {
 }
 pub trait IsOptionalUnitSymbolKind {
     fn _optional_unit_symbol_kind(&self) -> &OptionalUnitSymbolKind;
@@ -364,6 +382,8 @@ mod optional_unit_multiplier_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalUnitMultiplierKind {
 }
 pub trait IsOptionalUnitMultiplierKind {
     fn _optional_unit_multiplier_kind(&self) -> &OptionalUnitMultiplierKind;
@@ -404,6 +424,8 @@ mod active_power {
         pub(super) static ref UNIT: crate::commonmodule::OptionalUnitSymbolKind = Default::default();
         pub(super) static ref VALUE: f32 = Default::default();
     }
+}
+impl ActivePower {
 }
 pub trait IsActivePower {
     fn _active_power(&self) -> &ActivePower;
@@ -446,6 +468,8 @@ mod optional_phase_code_kind {
     lazy_static! {
     }
 }
+impl OptionalPhaseCodeKind {
+}
 pub trait IsOptionalPhaseCodeKind {
     fn _optional_phase_code_kind(&self) -> &OptionalPhaseCodeKind;
     fn _optional_phase_code_kind_mut(&mut self) -> &mut OptionalPhaseCodeKind;
@@ -487,6 +511,8 @@ mod unit {
         pub(super) static ref MULTIPLIER: crate::commonmodule::OptionalUnitMultiplierKind = Default::default();
     }
 }
+impl Unit {
+}
 pub trait IsUnit {
     fn _unit(&self) -> &Unit;
     fn _unit_mut(&mut self) -> &mut Unit;
@@ -521,6 +547,8 @@ mod optional_validity_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalValidityKind {
 }
 pub trait IsOptionalValidityKind {
     fn _optional_validity_kind(&self) -> &OptionalValidityKind;
@@ -646,6 +674,8 @@ mod detail_qual {
     lazy_static! {
     }
 }
+impl DetailQual {
+}
 pub trait IsDetailQual {
     fn _detail_qual(&self) -> &DetailQual;
     fn _detail_qual_mut(&mut self) -> &mut DetailQual;
@@ -716,6 +746,8 @@ mod optional_source_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalSourceKind {
 }
 pub trait IsOptionalSourceKind {
     fn _optional_source_kind(&self) -> &OptionalSourceKind;
@@ -808,6 +840,8 @@ mod quality {
         pub(super) static ref DETAIL_QUAL: crate::commonmodule::DetailQual = Default::default();
     }
 }
+impl Quality {
+}
 pub trait IsQuality {
     fn _quality(&self) -> &Quality;
     fn _quality_mut(&mut self) -> &mut Quality;
@@ -860,6 +894,8 @@ mod optional_time_accuracy_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalTimeAccuracyKind {
 }
 pub trait IsOptionalTimeAccuracyKind {
     fn _optional_time_accuracy_kind(&self) -> &OptionalTimeAccuracyKind;
@@ -929,6 +965,8 @@ mod time_quality {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl TimeQuality {
 }
 pub trait IsTimeQuality {
     fn _time_quality(&self) -> &TimeQuality;
@@ -1001,6 +1039,8 @@ mod timestamp {
         pub(super) static ref TQ: crate::commonmodule::TimeQuality = Default::default();
     }
 }
+impl Timestamp {
+}
 pub trait IsTimestamp {
     fn _timestamp(&self) -> &Timestamp;
     fn _timestamp_mut(&mut self) -> &mut Timestamp;
@@ -1068,6 +1108,8 @@ mod mv {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
+impl Mv {
+}
 pub trait IsMv {
     fn _mv(&self) -> &Mv;
     fn _mv_mut(&mut self) -> &mut Mv;
@@ -1124,6 +1166,14 @@ mod logical_node {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl LogicalNode {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&logical_node::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._logical_node_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsLogicalNode {
     fn _logical_node(&self) -> &LogicalNode;
     fn _logical_node_mut(&mut self) -> &mut LogicalNode;
@@ -1142,14 +1192,14 @@ impl IsLogicalNode for LogicalNode {
         self
     }
 }
-//impl IsIdentifiedObject for LogicalNode {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for LogicalNode {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1184,6 +1234,14 @@ mod analog_event_and_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl AnalogEventAndStatusGgio {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&analog_event_and_status_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._analog_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsAnalogEventAndStatusGgio {
     fn _analog_event_and_status_ggio(&self) -> &AnalogEventAndStatusGgio;
     fn _analog_event_and_status_ggio_mut(&mut self) -> &mut AnalogEventAndStatusGgio;
@@ -1214,22 +1272,22 @@ impl IsAnalogEventAndStatusGgio for AnalogEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for AnalogEventAndStatusGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for AnalogEventAndStatusGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for AnalogEventAndStatusGgio {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for AnalogEventAndStatusGgio {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
 /// the two classes is because the mRID may need to be defined as a separate key field for technology
 /// such as the DDS implementation.
@@ -1249,6 +1307,8 @@ mod named_object {
         pub(super) static ref DESCRIPTION: ::std::string::String = Default::default();
         pub(super) static ref NAME: ::std::string::String = Default::default();
     }
+}
+impl NamedObject {
 }
 pub trait IsNamedObject {
     fn _named_object(&self) -> &NamedObject;
@@ -1303,6 +1363,14 @@ mod application_system {
         pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
     }
 }
+impl ApplicationSystem {
+    pub(crate) fn parent(&self) -> &NamedObject {
+        self.named_object.as_ref().unwrap_or(&application_system::NAMED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut NamedObject {
+        self._application_system_mut().named_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsApplicationSystem {
     fn _application_system(&self) -> &ApplicationSystem;
     fn _application_system_mut(&mut self) -> &mut ApplicationSystem;
@@ -1327,14 +1395,14 @@ impl IsApplicationSystem for ApplicationSystem {
         self
     }
 }
-//impl IsNamedObject for ApplicationSystem {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsNamedObject for ApplicationSystem {
+    fn _named_object(&self) -> &NamedObject {
+        self.parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut()
+    }
+}
 /// Analogue setting (FC=SP) (ASG_SP)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1357,6 +1425,8 @@ mod asg {
     lazy_static! {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
+}
+impl Asg {
 }
 pub trait IsAsg {
     fn _asg(&self) -> &Asg;
@@ -1409,6 +1479,8 @@ mod bcr {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl Bcr {
 }
 pub trait IsBcr {
     fn _bcr(&self) -> &Bcr;
@@ -1466,6 +1538,8 @@ mod status_sps {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl StatusSps {
 }
 pub trait IsStatusSps {
     fn _status_sps(&self) -> &StatusSps;
@@ -1531,6 +1605,14 @@ mod boolean_event_and_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl BooleanEventAndStatusGgio {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&boolean_event_and_status_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._boolean_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsBooleanEventAndStatusGgio {
     fn _boolean_event_and_status_ggio(&self) -> &BooleanEventAndStatusGgio;
     fn _boolean_event_and_status_ggio_mut(&mut self) -> &mut BooleanEventAndStatusGgio;
@@ -1561,22 +1643,22 @@ impl IsBooleanEventAndStatusGgio for BooleanEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for BooleanEventAndStatusGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BooleanEventAndStatusGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for BooleanEventAndStatusGgio {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for BooleanEventAndStatusGgio {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// IEC61850-7-2 Service parameter for conditions checking
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1596,6 +1678,8 @@ mod check_conditions {
         pub(super) static ref INTERLOCK_CHECK: bool = Default::default();
         pub(super) static ref SYNCHRO_CHECK: bool = Default::default();
     }
+}
+impl CheckConditions {
 }
 pub trait IsCheckConditions {
     fn _check_conditions(&self) -> &CheckConditions;
@@ -1644,6 +1728,8 @@ mod vector {
     lazy_static! {
         pub(super) static ref ANG: f64 = Default::default();
     }
+}
+impl Vector {
 }
 pub trait IsVector {
     fn _vector(&self) -> &Vector;
@@ -1699,6 +1785,8 @@ mod cmv {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl Cmv {
 }
 pub trait IsCmv {
     fn _cmv(&self) -> &Cmv;
@@ -1759,6 +1847,14 @@ mod conducting_equipment {
         pub(super) static ref NAMED_OBJECT: crate::commonmodule::NamedObject = Default::default();
     }
 }
+impl ConductingEquipment {
+    pub(crate) fn parent(&self) -> &NamedObject {
+        self.named_object.as_ref().unwrap_or(&conducting_equipment::NAMED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut NamedObject {
+        self._conducting_equipment_mut().named_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsConductingEquipment {
     fn _conducting_equipment(&self) -> &ConductingEquipment;
     fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment;
@@ -1783,14 +1879,14 @@ impl IsConductingEquipment for ConductingEquipment {
         self
     }
 }
-//impl IsNamedObject for ConductingEquipment {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsNamedObject for ConductingEquipment {
+    fn _named_object(&self) -> &NamedObject {
+        self.parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut()
+    }
+}
 /// An AC electrical connection point to a piece of conducting equipment. Terminals are connected at
 /// physical connection points called connectivity nodes.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1817,6 +1913,14 @@ mod terminal {
         pub(super) static ref PHASES: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl Terminal {
+    pub(crate) fn parent(&self) -> &AcdcTerminal {
+        self.a_cdc_terminal.as_ref().unwrap_or(&terminal::A_CDC_TERMINAL)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut AcdcTerminal {
+        self._terminal_mut().a_cdc_terminal.get_or_insert(Default::default())
+    }
+}
 pub trait IsTerminal {
     fn _terminal(&self) -> &Terminal;
     fn _terminal_mut(&mut self) -> &mut Terminal;
@@ -1841,22 +1945,22 @@ impl IsTerminal for Terminal {
         self
     }
 }
-//impl IsACDCTerminal for Terminal {
-    //fn _acdc_terminal(&self) -> &AcdcTerminal {
-        //
-    //}
-//fn _mut_acdc_terminal(&mut self) -> &mut AcdcTerminal {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for Terminal {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsAcdcTerminal for Terminal {
+    fn _acdc_terminal(&self) -> &AcdcTerminal {
+        self.parent()
+    }
+    fn _acdc_terminal_mut(&mut self) -> &mut AcdcTerminal {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for Terminal {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Reading associated with an equipment such as a recloser.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1876,6 +1980,8 @@ mod conducting_equipment_terminal_reading {
     lazy_static! {
         pub(super) static ref TERMINAL: crate::commonmodule::Terminal = Default::default();
     }
+}
+impl ConductingEquipmentTerminalReading {
 }
 pub trait IsConductingEquipmentTerminalReading {
     fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading;
@@ -1914,6 +2020,8 @@ mod control_apc {
     lazy_static! {
     }
 }
+impl ControlApc {
+}
 pub trait IsControlApc {
     fn _control_apc(&self) -> &ControlApc;
     fn _control_apc_mut(&mut self) -> &mut ControlApc;
@@ -1950,6 +2058,8 @@ mod control_dpc {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl ControlDpc {
 }
 pub trait IsControlDpc {
     fn _control_dpc(&self) -> &ControlDpc;
@@ -2002,6 +2112,8 @@ mod control_timestamp {
     lazy_static! {
     }
 }
+impl ControlTimestamp {
+}
 pub trait IsControlTimestamp {
     fn _control_timestamp(&self) -> &ControlTimestamp;
     fn _control_timestamp_mut(&mut self) -> &mut ControlTimestamp;
@@ -2036,6 +2148,8 @@ mod optional_schedule_parameter_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalScheduleParameterKind {
 }
 pub trait IsOptionalScheduleParameterKind {
     fn _optional_schedule_parameter_kind(&self) -> &OptionalScheduleParameterKind;
@@ -2082,6 +2196,8 @@ mod eng_schedule_parameter {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl EngScheduleParameter {
 }
 pub trait IsEngScheduleParameter {
     fn _eng_schedule_parameter(&self) -> &EngScheduleParameter;
@@ -2136,6 +2252,8 @@ mod schedule_point {
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
+impl SchedulePoint {
+}
 pub trait IsSchedulePoint {
     fn _schedule_point(&self) -> &SchedulePoint;
     fn _schedule_point_mut(&mut self) -> &mut SchedulePoint;
@@ -2179,6 +2297,8 @@ mod schedule_csg {
     lazy_static! {
     }
 }
+impl ScheduleCsg {
+}
 pub trait IsScheduleCsg {
     fn _schedule_csg(&self) -> &ScheduleCsg;
     fn _schedule_csg_mut(&mut self) -> &mut ScheduleCsg;
@@ -2216,6 +2336,8 @@ mod control_schedule_fsch {
     lazy_static! {
         pub(super) static ref VAL_ACSG: crate::commonmodule::ScheduleCsg = Default::default();
     }
+}
+impl ControlScheduleFsch {
 }
 pub trait IsControlScheduleFsch {
     fn _control_schedule_fsch(&self) -> &ControlScheduleFsch;
@@ -2255,6 +2377,14 @@ mod logical_node_for_control {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
     }
 }
+impl LogicalNodeForControl {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&logical_node_for_control::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._logical_node_for_control_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsLogicalNodeForControl {
     fn _logical_node_for_control(&self) -> &LogicalNodeForControl;
     fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl;
@@ -2273,22 +2403,22 @@ impl IsLogicalNodeForControl for LogicalNodeForControl {
         self
     }
 }
-//impl IsLogicalNode for LogicalNodeForControl {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LogicalNodeForControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for LogicalNodeForControl {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for LogicalNodeForControl {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:   
 /// Control (execution)
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2316,6 +2446,14 @@ mod control_fscc {
         pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
         pub(super) static ref CONTROL_SCHEDULE_FSCH: crate::commonmodule::ControlScheduleFsch = Default::default();
         pub(super) static ref ISLAND_CONTROL_SCHEDULE_FSCH: crate::commonmodule::ControlScheduleFsch = Default::default();
+    }
+}
+impl ControlFscc {
+    pub(crate) fn parent(&self) -> &LogicalNodeForControl {
+        self.logical_node_for_control.as_ref().unwrap_or(&control_fscc::LOGICAL_NODE_FOR_CONTROL)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForControl {
+        self._control_fscc_mut().logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsControlFscc {
@@ -2348,30 +2486,30 @@ impl IsControlFscc for ControlFscc {
         self
     }
 }
-//impl IsLogicalNodeForControl for ControlFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for ControlFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ControlFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForControl for ControlFscc {
+    fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        self.parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for ControlFscc {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for ControlFscc {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// &lt;&lt;statistics&gt;&gt; Controllable integer status (INC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2390,6 +2528,8 @@ mod control_inc {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl ControlInc {
 }
 pub trait IsControlInc {
     fn _control_inc(&self) -> &ControlInc;
@@ -2431,6 +2571,8 @@ mod control_ing {
     lazy_static! {
         pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
+}
+impl ControlIng {
 }
 pub trait IsControlIng {
     fn _control_ing(&self) -> &ControlIng;
@@ -2474,6 +2616,8 @@ mod control_isc {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl ControlIsc {
 }
 pub trait IsControlIsc {
     fn _control_isc(&self) -> &ControlIsc;
@@ -2523,6 +2667,14 @@ mod message_info {
         pub(super) static ref MESSAGE_TIME_STAMP: crate::commonmodule::Timestamp = Default::default();
     }
 }
+impl MessageInfo {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&message_info::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._message_info_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsMessageInfo {
     fn _message_info(&self) -> &MessageInfo;
     fn _message_info_mut(&mut self) -> &mut MessageInfo;
@@ -2547,14 +2699,14 @@ impl IsMessageInfo for MessageInfo {
         self
     }
 }
-//impl IsIdentifiedObject for MessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for MessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Generic control message info.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2575,6 +2727,14 @@ mod control_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
+impl ControlMessageInfo {
+    pub(crate) fn parent(&self) -> &MessageInfo {
+        self.message_info.as_ref().unwrap_or(&control_message_info::MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
+        self._control_message_info_mut().message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsControlMessageInfo {
     fn _control_message_info(&self) -> &ControlMessageInfo;
     fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo;
@@ -2593,22 +2753,22 @@ impl IsControlMessageInfo for ControlMessageInfo {
         self
     }
 }
-//impl IsMessageInfo for ControlMessageInfo {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ControlMessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsMessageInfo for ControlMessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self.parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ControlMessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2628,6 +2788,8 @@ mod control_spc {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl ControlSpc {
 }
 pub trait IsControlSpc {
     fn _control_spc(&self) -> &ControlSpc;
@@ -2680,6 +2842,14 @@ mod control_value {
         pub(super) static ref RESET: bool = Default::default();
     }
 }
+impl ControlValue {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&control_value::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._control_value_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsControlValue {
     fn _control_value(&self) -> &ControlValue;
     fn _control_value_mut(&mut self) -> &mut ControlValue;
@@ -2710,14 +2880,14 @@ impl IsControlValue for ControlValue {
         self
     }
 }
-//impl IsIdentifiedObject for ControlValue {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ControlValue {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Interval between two date and time points.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2735,6 +2905,8 @@ mod date_time_interval {
         pub(super) static ref END: i64 = Default::default();
         pub(super) static ref START: i64 = Default::default();
     }
+}
+impl DateTimeInterval {
 }
 pub trait IsDateTimeInterval {
     fn _date_time_interval(&self) -> &DateTimeInterval;
@@ -2781,6 +2953,8 @@ mod del {
         pub(super) static ref PHS_BC: crate::commonmodule::Cmv = Default::default();
         pub(super) static ref PHS_CA: crate::commonmodule::Cmv = Default::default();
     }
+}
+impl Del {
 }
 pub trait IsDel {
     fn _del(&self) -> &Del;
@@ -2837,6 +3011,8 @@ mod phase_dpc {
         pub(super) static ref PHS_B: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::ControlDpc = Default::default();
     }
+}
+impl PhaseDpc {
 }
 pub trait IsPhaseDpc {
     fn _phase_dpc(&self) -> &PhaseDpc;
@@ -2911,6 +3087,14 @@ mod discrete_control_xcbr {
         pub(super) static ref RESET_PROTECTION_PICKUP: crate::commonmodule::ControlSpc = Default::default();
     }
 }
+impl DiscreteControlXcbr {
+    pub(crate) fn parent(&self) -> &LogicalNodeForControl {
+        self.logical_node_for_control.as_ref().unwrap_or(&discrete_control_xcbr::LOGICAL_NODE_FOR_CONTROL)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForControl {
+        self._discrete_control_xcbr_mut().logical_node_for_control.get_or_insert(Default::default())
+    }
+}
 pub trait IsDiscreteControlXcbr {
     fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr;
     fn _discrete_control_xcbr_mut(&mut self) -> &mut DiscreteControlXcbr;
@@ -2953,30 +3137,30 @@ impl IsDiscreteControlXcbr for DiscreteControlXcbr {
         self
     }
 }
-//impl IsLogicalNodeForControl for DiscreteControlXcbr {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for DiscreteControlXcbr {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for DiscreteControlXcbr {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForControl for DiscreteControlXcbr {
+    fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
+        self.parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for DiscreteControlXcbr {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for DiscreteControlXcbr {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Generic user of energy - a  point of consumption on the power system model.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -2999,6 +3183,14 @@ mod energy_consumer {
     lazy_static! {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
         pub(super) static ref OPERATING_LIMIT: ::std::string::String = Default::default();
+    }
+}
+impl EnergyConsumer {
+    pub(crate) fn parent(&self) -> &ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&energy_consumer::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
+        self._energy_consumer_mut().conducting_equipment.get_or_insert(Default::default())
     }
 }
 pub trait IsEnergyConsumer {
@@ -3025,22 +3217,22 @@ impl IsEnergyConsumer for EnergyConsumer {
         self
     }
 }
-//impl IsConductingEquipment for EnergyConsumer {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for EnergyConsumer {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for EnergyConsumer {
+    fn _conducting_equipment(&self) -> &ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for EnergyConsumer {
+    fn _named_object(&self) -> &NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalCalcMethodKind {
@@ -3051,6 +3243,8 @@ mod optional_calc_method_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalCalcMethodKind {
 }
 pub trait IsOptionalCalcMethodKind {
     fn _optional_calc_method_kind(&self) -> &OptionalCalcMethodKind;
@@ -3089,6 +3283,8 @@ mod eng_calc_method_kind {
     lazy_static! {
     }
 }
+impl EngCalcMethodKind {
+}
 pub trait IsEngCalcMethodKind {
     fn _eng_calc_method_kind(&self) -> &EngCalcMethodKind;
     fn _eng_calc_method_kind_mut(&mut self) -> &mut EngCalcMethodKind;
@@ -3117,6 +3313,8 @@ mod optional_grid_connect_mode_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalGridConnectModeKind {
 }
 pub trait IsOptionalGridConnectModeKind {
     fn _optional_grid_connect_mode_kind(&self) -> &OptionalGridConnectModeKind;
@@ -3159,6 +3357,8 @@ mod eng_grid_connect_mode_kind {
         pub(super) static ref SET_VAL_EXTENSION: ::std::string::String = Default::default();
     }
 }
+impl EngGridConnectModeKind {
+}
 pub trait IsEngGridConnectModeKind {
     fn _eng_grid_connect_mode_kind(&self) -> &EngGridConnectModeKind;
     fn _eng_grid_connect_mode_kind_mut(&mut self) -> &mut EngGridConnectModeKind;
@@ -3193,6 +3393,8 @@ mod optional_pf_sign_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalPfSignKind {
 }
 pub trait IsOptionalPfSignKind {
     fn _optional_pf_sign_kind(&self) -> &OptionalPfSignKind;
@@ -3231,6 +3433,8 @@ mod eng_pf_sign_kind {
     lazy_static! {
     }
 }
+impl EngPfSignKind {
+}
 pub trait IsEngPfSignKind {
     fn _eng_pf_sign_kind(&self) -> &EngPfSignKind;
     fn _eng_pf_sign_kind_mut(&mut self) -> &mut EngPfSignKind;
@@ -3259,6 +3463,8 @@ mod optional_behaviour_mode_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalBehaviourModeKind {
 }
 pub trait IsOptionalBehaviourModeKind {
     fn _optional_behaviour_mode_kind(&self) -> &OptionalBehaviourModeKind;
@@ -3305,6 +3511,8 @@ mod ens_behaviour_mode_kind {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
+impl EnsBehaviourModeKind {
+}
 pub trait IsEnsBehaviourModeKind {
     fn _ens_behaviour_mode_kind(&self) -> &EnsBehaviourModeKind;
     fn _ens_behaviour_mode_kind_mut(&mut self) -> &mut EnsBehaviourModeKind;
@@ -3345,6 +3553,8 @@ mod optional_der_generator_state_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalDerGeneratorStateKind {
 }
 pub trait IsOptionalDerGeneratorStateKind {
     fn _optional_der_generator_state_kind(&self) -> &OptionalDerGeneratorStateKind;
@@ -3391,6 +3601,8 @@ mod ens_der_generator_state_kind {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
+impl EnsDerGeneratorStateKind {
+}
 pub trait IsEnsDerGeneratorStateKind {
     fn _ens_der_generator_state_kind(&self) -> &EnsDerGeneratorStateKind;
     fn _ens_der_generator_state_kind_mut(&mut self) -> &mut EnsDerGeneratorStateKind;
@@ -3431,6 +3643,8 @@ mod optional_dynamic_test_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalDynamicTestKind {
 }
 pub trait IsOptionalDynamicTestKind {
     fn _optional_dynamic_test_kind(&self) -> &OptionalDynamicTestKind;
@@ -3476,6 +3690,8 @@ mod ens_dynamic_test_kind {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl EnsDynamicTestKind {
 }
 pub trait IsEnsDynamicTestKind {
     fn _ens_dynamic_test_kind(&self) -> &EnsDynamicTestKind;
@@ -3535,6 +3751,8 @@ mod ens_grid_connect_mode_kind {
     lazy_static! {
     }
 }
+impl EnsGridConnectModeKind {
+}
 pub trait IsEnsGridConnectModeKind {
     fn _ens_grid_connect_mode_kind(&self) -> &EnsGridConnectModeKind;
     fn _ens_grid_connect_mode_kind_mut(&mut self) -> &mut EnsGridConnectModeKind;
@@ -3569,6 +3787,8 @@ mod optional_health_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalHealthKind {
 }
 pub trait IsOptionalHealthKind {
     fn _optional_health_kind(&self) -> &OptionalHealthKind;
@@ -3612,6 +3832,8 @@ mod ens_health_kind {
         pub(super) static ref D: ::std::string::String = Default::default();
     }
 }
+impl EnsHealthKind {
+}
 pub trait IsEnsHealthKind {
     fn _ens_health_kind(&self) -> &EnsHealthKind;
     fn _ens_health_kind_mut(&mut self) -> &mut EnsHealthKind;
@@ -3646,6 +3868,8 @@ mod optional_switching_capability_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalSwitchingCapabilityKind {
 }
 pub trait IsOptionalSwitchingCapabilityKind {
     fn _optional_switching_capability_kind(&self) -> &OptionalSwitchingCapabilityKind;
@@ -3687,6 +3911,8 @@ mod ens_switching_capability_kind {
     lazy_static! {
         pub(super) static ref BLK_ENA: bool = Default::default();
     }
+}
+impl EnsSwitchingCapabilityKind {
 }
 pub trait IsEnsSwitchingCapabilityKind {
     fn _ens_switching_capability_kind(&self) -> &EnsSwitchingCapabilityKind;
@@ -3732,6 +3958,14 @@ mod ess {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
+impl Ess {
+    pub(crate) fn parent(&self) -> &ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&ess::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
+        self._ess_mut().conducting_equipment.get_or_insert(Default::default())
+    }
+}
 pub trait IsEss {
     fn _ess(&self) -> &Ess;
     fn _ess_mut(&mut self) -> &mut Ess;
@@ -3750,22 +3984,22 @@ impl IsEss for Ess {
         self
     }
 }
-//impl IsConductingEquipment for Ess {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for Ess {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for Ess {
+    fn _conducting_equipment(&self) -> &ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for Ess {
+    fn _named_object(&self) -> &NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3786,6 +4020,14 @@ mod event_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
+impl EventMessageInfo {
+    pub(crate) fn parent(&self) -> &MessageInfo {
+        self.message_info.as_ref().unwrap_or(&event_message_info::MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
+        self._event_message_info_mut().message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsEventMessageInfo {
     fn _event_message_info(&self) -> &EventMessageInfo;
     fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo;
@@ -3804,22 +4046,22 @@ impl IsEventMessageInfo for EventMessageInfo {
         self
     }
 }
-//impl IsMessageInfo for EventMessageInfo {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for EventMessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsMessageInfo for EventMessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self.parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for EventMessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Event value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3842,6 +4084,14 @@ mod event_value {
     lazy_static! {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
         pub(super) static ref MOD_BLK: bool = Default::default();
+    }
+}
+impl EventValue {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&event_value::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._event_value_mut().identified_object.get_or_insert(Default::default())
     }
 }
 pub trait IsEventValue {
@@ -3868,14 +4118,14 @@ impl IsEventValue for EventValue {
         self
     }
 }
-//impl IsIdentifiedObject for EventValue {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for EventValue {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// The source where a forecast value is issued.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -3896,6 +4146,14 @@ mod forecast_value_source {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl ForecastValueSource {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&forecast_value_source::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._forecast_value_source_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsForecastValueSource {
     fn _forecast_value_source(&self) -> &ForecastValueSource;
     fn _forecast_value_source_mut(&mut self) -> &mut ForecastValueSource;
@@ -3914,14 +4172,14 @@ impl IsForecastValueSource for ForecastValueSource {
         self
     }
 }
-//impl IsIdentifiedObject for ForecastValueSource {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ForecastValueSource {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Intelligent Electronic Device is a device with a microprocessor that can contain one or more
 /// (IEC61850) SERVERs. In the context of IEC61850, IED could be an electronic protection device, a
 /// controller or even a laptop/desktop computer. <b>Modelling note</b>: This class is not explicitly
@@ -3968,6 +4226,14 @@ mod forecast_ied {
         pub(super) static ref FORECAST_VALUE_SOURCE: crate::commonmodule::ForecastValueSource = Default::default();
     }
 }
+impl ForecastIed {
+    pub(crate) fn parent(&self) -> &ForecastValueSource {
+        self.forecast_value_source.as_ref().unwrap_or(&forecast_ied::FORECAST_VALUE_SOURCE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut ForecastValueSource {
+        self._forecast_ied_mut().forecast_value_source.get_or_insert(Default::default())
+    }
+}
 pub trait IsForecastIed {
     fn _forecast_ied(&self) -> &ForecastIed;
     fn _forecast_ied_mut(&mut self) -> &mut ForecastIed;
@@ -3998,22 +4264,22 @@ impl IsForecastIed for ForecastIed {
         self
     }
 }
-//impl IsForecastValueSource for ForecastIed {
-    //fn _forecast_value_source(&self) -> &ForecastValueSource {
-        //
-    //}
-//fn _mut_forecast_value_source(&mut self) -> &mut ForecastValueSource {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ForecastIed {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsForecastValueSource for ForecastIed {
+    fn _forecast_value_source(&self) -> &ForecastValueSource {
+        self.parent()
+    }
+    fn _forecast_value_source_mut(&mut self) -> &mut ForecastValueSource {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ForecastIed {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Forecast value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4034,6 +4300,14 @@ mod forecast_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl ForecastValue {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&forecast_value::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._forecast_value_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsForecastValue {
     fn _forecast_value(&self) -> &ForecastValue;
     fn _forecast_value_mut(&mut self) -> &mut ForecastValue;
@@ -4052,14 +4326,14 @@ impl IsForecastValue for ForecastValue {
         self
     }
 }
-//impl IsIdentifiedObject for ForecastValue {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ForecastValue {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// <<statistics>> Integer status (INS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4086,6 +4360,8 @@ mod status_ins {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl StatusIns {
 }
 pub trait IsStatusIns {
     fn _status_ins(&self) -> &StatusIns;
@@ -4151,6 +4427,14 @@ mod integer_event_and_status_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl IntegerEventAndStatusGgio {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&integer_event_and_status_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._integer_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsIntegerEventAndStatusGgio {
     fn _integer_event_and_status_ggio(&self) -> &IntegerEventAndStatusGgio;
     fn _integer_event_and_status_ggio_mut(&mut self) -> &mut IntegerEventAndStatusGgio;
@@ -4181,22 +4465,22 @@ impl IsIntegerEventAndStatusGgio for IntegerEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for IntegerEventAndStatusGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for IntegerEventAndStatusGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for IntegerEventAndStatusGgio {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for IntegerEventAndStatusGgio {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Logical node for event and status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4231,6 +4515,14 @@ mod logical_node_for_event_and_status {
         pub(super) static ref EE_HEALTH: crate::commonmodule::EnsHealthKind = Default::default();
         pub(super) static ref HOT_LINE_TAG: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref REMOTE_BLK: crate::commonmodule::StatusSps = Default::default();
+    }
+}
+impl LogicalNodeForEventAndStatus {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&logical_node_for_event_and_status::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._logical_node_for_event_and_status_mut().logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsLogicalNodeForEventAndStatus {
@@ -4275,22 +4567,22 @@ impl IsLogicalNodeForEventAndStatus for LogicalNodeForEventAndStatus {
         self
     }
 }
-//impl IsLogicalNode for LogicalNodeForEventAndStatus {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LogicalNodeForEventAndStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for LogicalNodeForEventAndStatus {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for LogicalNodeForEventAndStatus {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// The current state for a measurement. A state value is an instance of a measurement from a
 /// specific source. Measurements can be associated with many state values, each representing a
 /// different source for the measurement.
@@ -4313,6 +4605,14 @@ mod measurement_value {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl MeasurementValue {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&measurement_value::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._measurement_value_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsMeasurementValue {
     fn _measurement_value(&self) -> &MeasurementValue;
     fn _measurement_value_mut(&mut self) -> &mut MeasurementValue;
@@ -4331,14 +4631,14 @@ impl IsMeasurementValue for MeasurementValue {
         self
     }
 }
-//impl IsIdentifiedObject for MeasurementValue {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for MeasurementValue {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Physical asset that performs the metering role of the usage point. Used for measuring
 /// consumption and detection of events.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -4360,6 +4660,14 @@ mod meter {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
+impl Meter {
+    pub(crate) fn parent(&self) -> &ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&meter::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut ConductingEquipment {
+        self._meter_mut().conducting_equipment.get_or_insert(Default::default())
+    }
+}
 pub trait IsMeter {
     fn _meter(&self) -> &Meter;
     fn _meter_mut(&mut self) -> &mut Meter;
@@ -4378,22 +4686,22 @@ impl IsMeter for Meter {
         self
     }
 }
-//impl IsConductingEquipment for Meter {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for Meter {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for Meter {
+    fn _conducting_equipment(&self) -> &ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for Meter {
+    fn _named_object(&self) -> &NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generic event message information
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4414,6 +4722,14 @@ mod optimization_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
+impl OptimizationMessageInfo {
+    pub(crate) fn parent(&self) -> &MessageInfo {
+        self.message_info.as_ref().unwrap_or(&optimization_message_info::MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
+        self._optimization_message_info_mut().message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsOptimizationMessageInfo {
     fn _optimization_message_info(&self) -> &OptimizationMessageInfo;
     fn _optimization_message_info_mut(&mut self) -> &mut OptimizationMessageInfo;
@@ -4432,22 +4748,22 @@ impl IsOptimizationMessageInfo for OptimizationMessageInfo {
         self
     }
 }
-//impl IsMessageInfo for OptimizationMessageInfo {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for OptimizationMessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsMessageInfo for OptimizationMessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self.parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for OptimizationMessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// [OpenFMB CDC extension] Per Phase ISC.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4473,6 +4789,8 @@ mod phase_apc {
         pub(super) static ref PHS_B: crate::commonmodule::ControlApc = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::ControlApc = Default::default();
     }
+}
+impl PhaseApc {
 }
 pub trait IsPhaseApc {
     fn _phase_apc(&self) -> &PhaseApc;
@@ -4521,6 +4839,8 @@ mod optional_db_pos_kind {
     lazy_static! {
     }
 }
+impl OptionalDbPosKind {
+}
 pub trait IsOptionalDbPosKind {
     fn _optional_db_pos_kind(&self) -> &OptionalDbPosKind;
     fn _optional_db_pos_kind_mut(&mut self) -> &mut OptionalDbPosKind;
@@ -4565,6 +4885,8 @@ mod status_dps {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl StatusDps {
 }
 pub trait IsStatusDps {
     fn _status_dps(&self) -> &StatusDps;
@@ -4621,6 +4943,8 @@ mod phase_dps {
         pub(super) static ref PHS_B: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::StatusDps = Default::default();
     }
+}
+impl PhaseDps {
 }
 pub trait IsPhaseDps {
     fn _phase_dps(&self) -> &PhaseDps;
@@ -4684,6 +5008,8 @@ mod phase_ins {
         pub(super) static ref PHS_C: crate::commonmodule::StatusIns = Default::default();
     }
 }
+impl PhaseIns {
+}
 pub trait IsPhaseIns {
     fn _phase_ins(&self) -> &PhaseIns;
     fn _phase_ins_mut(&mut self) -> &mut PhaseIns;
@@ -4745,6 +5071,8 @@ mod phase_isc {
         pub(super) static ref PHS_B: crate::commonmodule::ControlIsc = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::ControlIsc = Default::default();
     }
+}
+impl PhaseIsc {
 }
 pub trait IsPhaseIsc {
     fn _phase_isc(&self) -> &PhaseIsc;
@@ -4838,6 +5166,14 @@ mod reading_mmtn {
         pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
     }
 }
+impl ReadingMmtn {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&reading_mmtn::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmtn_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsReadingMmtn {
     fn _reading_mmtn(&self) -> &ReadingMmtn;
     fn _reading_mmtn_mut(&mut self) -> &mut ReadingMmtn;
@@ -4910,22 +5246,22 @@ impl IsReadingMmtn for ReadingMmtn {
         self
     }
 }
-//impl IsLogicalNode for ReadingMmtn {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ReadingMmtn {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for ReadingMmtn {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ReadingMmtn {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 MMTN LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -4959,6 +5295,8 @@ mod phase_mmtn {
         pub(super) static ref PHS_C: crate::commonmodule::ReadingMmtn = Default::default();
         pub(super) static ref PHS_CA: crate::commonmodule::ReadingMmtn = Default::default();
     }
+}
+impl PhaseMmtn {
 }
 pub trait IsPhaseMmtn {
     fn _phase_mmtn(&self) -> &PhaseMmtn;
@@ -5019,6 +5357,8 @@ mod optional_reclose_action_kind {
     lazy_static! {
     }
 }
+impl OptionalRecloseActionKind {
+}
 pub trait IsOptionalRecloseActionKind {
     fn _optional_reclose_action_kind(&self) -> &OptionalRecloseActionKind;
     fn _optional_reclose_action_kind_mut(&mut self) -> &mut OptionalRecloseActionKind;
@@ -5062,6 +5402,8 @@ mod phase_reclose_action {
         pub(super) static ref PHS_B: crate::commonmodule::OptionalRecloseActionKind = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::OptionalRecloseActionKind = Default::default();
     }
+}
+impl PhaseRecloseAction {
 }
 pub trait IsPhaseRecloseAction {
     fn _phase_reclose_action(&self) -> &PhaseRecloseAction;
@@ -5124,6 +5466,8 @@ mod phase_sps {
         pub(super) static ref PHS_B: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::StatusSps = Default::default();
     }
+}
+impl PhaseSps {
 }
 pub trait IsPhaseSps {
     fn _phase_sps(&self) -> &PhaseSps;
@@ -5190,6 +5534,8 @@ mod pmg {
         pub(super) static ref PHS_C: crate::commonmodule::Mv = Default::default();
     }
 }
+impl Pmg {
+}
 pub trait IsPmg {
     fn _pmg(&self) -> &Pmg;
     fn _pmg_mut(&mut self) -> &mut Pmg;
@@ -5252,6 +5598,8 @@ mod ramp_rate {
         pub(super) static ref POSITIVE_REAL_POWER_KW_PER_MIN: f32 = Default::default();
     }
 }
+impl RampRate {
+}
 pub trait IsRampRate {
     fn _ramp_rate(&self) -> &RampRate;
     fn _ramp_rate_mut(&mut self) -> &mut RampRate;
@@ -5308,6 +5656,14 @@ mod reading_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
+impl ReadingMessageInfo {
+    pub(crate) fn parent(&self) -> &MessageInfo {
+        self.message_info.as_ref().unwrap_or(&reading_message_info::MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
+        self._reading_message_info_mut().message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsReadingMessageInfo {
     fn _reading_message_info(&self) -> &ReadingMessageInfo;
     fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo;
@@ -5326,22 +5682,22 @@ impl IsReadingMessageInfo for ReadingMessageInfo {
         self
     }
 }
-//impl IsMessageInfo for ReadingMessageInfo {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ReadingMessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsMessageInfo for ReadingMessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self.parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ReadingMessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 MMTR class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -5396,6 +5752,14 @@ mod reading_mmtr {
         pub(super) static ref TOT_V_AH: crate::commonmodule::Bcr = Default::default();
         pub(super) static ref TOT_V_ARH: crate::commonmodule::Bcr = Default::default();
         pub(super) static ref TOT_WH: crate::commonmodule::Bcr = Default::default();
+    }
+}
+impl ReadingMmtr {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&reading_mmtr::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmtr_mut().logical_node.get_or_insert(Default::default())
     }
 }
 pub trait IsReadingMmtr {
@@ -5470,22 +5834,22 @@ impl IsReadingMmtr for ReadingMmtr {
         self
     }
 }
-//impl IsLogicalNode for ReadingMmtr {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ReadingMmtr {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for ReadingMmtr {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ReadingMmtr {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Phase to ground/neutral related measured values of a three-phase system (WYE)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -5520,6 +5884,8 @@ mod wye {
         pub(super) static ref PHS_B: crate::commonmodule::Cmv = Default::default();
         pub(super) static ref PHS_C: crate::commonmodule::Cmv = Default::default();
     }
+}
+impl Wye {
 }
 pub trait IsWye {
     fn _wye(&self) -> &Wye;
@@ -5631,6 +5997,14 @@ mod reading_mmxu {
         pub(super) static ref W: crate::commonmodule::Wye = Default::default();
     }
 }
+impl ReadingMmxu {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&reading_mmxu::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._reading_mmxu_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsReadingMmxu {
     fn _reading_mmxu(&self) -> &ReadingMmxu;
     fn _reading_mmxu_mut(&mut self) -> &mut ReadingMmxu;
@@ -5709,22 +6083,22 @@ impl IsReadingMmxu for ReadingMmxu {
         self
     }
 }
-//impl IsLogicalNode for ReadingMmxu {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ReadingMmxu {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for ReadingMmxu {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for ReadingMmxu {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 /// breaker   Name: XCBR
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -5769,6 +6143,14 @@ mod status_and_event_xcbr {
         pub(super) static ref PROTECTION_MODE: crate::commonmodule::StatusIns = Default::default();
         pub(super) static ref RECLOSE_ENABLED: crate::commonmodule::PhaseSps = Default::default();
         pub(super) static ref RECLOSING_ACTION: crate::commonmodule::PhaseRecloseAction = Default::default();
+    }
+}
+impl StatusAndEventXcbr {
+    pub(crate) fn parent(&self) -> &LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&status_and_event_xcbr::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self._status_and_event_xcbr_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsStatusAndEventXcbr {
@@ -5825,30 +6207,30 @@ impl IsStatusAndEventXcbr for StatusAndEventXcbr {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for StatusAndEventXcbr {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for StatusAndEventXcbr {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for StatusAndEventXcbr {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for StatusAndEventXcbr {
+    fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for StatusAndEventXcbr {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for StatusAndEventXcbr {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Integer control status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -5875,6 +6257,8 @@ mod status_inc {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl StatusInc {
 }
 pub trait IsStatusInc {
     fn _status_inc(&self) -> &StatusInc;
@@ -5933,6 +6317,8 @@ mod status_isc {
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
 }
+impl StatusIsc {
+}
 pub trait IsStatusIsc {
     fn _status_isc(&self) -> &StatusIsc;
     fn _status_isc_mut(&mut self) -> &mut StatusIsc;
@@ -5983,6 +6369,14 @@ mod status_message_info {
         pub(super) static ref MESSAGE_INFO: crate::commonmodule::MessageInfo = Default::default();
     }
 }
+impl StatusMessageInfo {
+    pub(crate) fn parent(&self) -> &MessageInfo {
+        self.message_info.as_ref().unwrap_or(&status_message_info::MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut MessageInfo {
+        self._status_message_info_mut().message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsStatusMessageInfo {
     fn _status_message_info(&self) -> &StatusMessageInfo;
     fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo;
@@ -6001,22 +6395,22 @@ impl IsStatusMessageInfo for StatusMessageInfo {
         self
     }
 }
-//impl IsMessageInfo for StatusMessageInfo {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for StatusMessageInfo {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsMessageInfo for StatusMessageInfo {
+    fn _message_info(&self) -> &MessageInfo {
+        self.parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for StatusMessageInfo {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Controllable single point (SPC)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -6043,6 +6437,8 @@ mod status_spc {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl StatusSpc {
 }
 pub trait IsStatusSpc {
     fn _status_spc(&self) -> &StatusSpc;
@@ -6098,6 +6494,14 @@ mod status_value {
         pub(super) static ref MOD_BLK: bool = Default::default();
     }
 }
+impl StatusValue {
+    pub(crate) fn parent(&self) -> &IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&status_value::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut IdentifiedObject {
+        self._status_value_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsStatusValue {
     fn _status_value(&self) -> &StatusValue;
     fn _status_value_mut(&mut self) -> &mut StatusValue;
@@ -6122,14 +6526,14 @@ impl IsStatusValue for StatusValue {
         self
     }
 }
-//impl IsIdentifiedObject for StatusValue {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for StatusValue {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Visible string status (VSS)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -6156,6 +6560,8 @@ mod vss {
         pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
         pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl Vss {
 }
 pub trait IsVss {
     fn _vss(&self) -> &Vss;
@@ -6221,6 +6627,14 @@ mod string_event_and_status_ggio {
         pub(super) static ref STR_IN: crate::commonmodule::Vss = Default::default();
     }
 }
+impl StringEventAndStatusGgio {
+    pub(crate) fn parent(&self) -> &LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&string_event_and_status_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LogicalNode {
+        self._string_event_and_status_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsStringEventAndStatusGgio {
     fn _string_event_and_status_ggio(&self) -> &StringEventAndStatusGgio;
     fn _string_event_and_status_ggio_mut(&mut self) -> &mut StringEventAndStatusGgio;
@@ -6251,22 +6665,22 @@ impl IsStringEventAndStatusGgio for StringEventAndStatusGgio {
         self
     }
 }
-//impl IsLogicalNode for StringEventAndStatusGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for StringEventAndStatusGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for StringEventAndStatusGgio {
+    fn _logical_node(&self) -> &LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for StringEventAndStatusGgio {
+    fn _identified_object(&self) -> &IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -6296,6 +6710,8 @@ mod switch_point {
         pub(super) static ref POS: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
+}
+impl SwitchPoint {
 }
 pub trait IsSwitchPoint {
     fn _switch_point(&self) -> &SwitchPoint;
@@ -6340,6 +6756,8 @@ mod switch_csg {
     lazy_static! {
     }
 }
+impl SwitchCsg {
+}
 pub trait IsSwitchCsg {
     fn _switch_csg(&self) -> &SwitchCsg;
     fn _switch_csg_mut(&mut self) -> &mut SwitchCsg;
@@ -6377,6 +6795,8 @@ mod vsc {
     lazy_static! {
     }
 }
+impl Vsc {
+}
 pub trait IsVsc {
     fn _vsc(&self) -> &Vsc;
     fn _vsc_mut(&mut self) -> &mut Vsc;
@@ -6405,6 +6825,8 @@ mod optional_state_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalStateKind {
 }
 pub trait IsOptionalStateKind {
     fn _optional_state_kind(&self) -> &OptionalStateKind;

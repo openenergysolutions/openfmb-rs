@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -37,6 +38,8 @@ mod load_point {
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
+}
+impl LoadPoint {
 }
 pub trait IsLoadPoint {
     fn _load_point(&self) -> &LoadPoint;
@@ -105,6 +108,8 @@ mod load_csg {
     lazy_static! {
     }
 }
+impl LoadCsg {
+}
 pub trait IsLoadCsg {
     fn _load_csg(&self) -> &LoadCsg;
     fn _load_csg_mut(&mut self) -> &mut LoadCsg;
@@ -142,6 +147,8 @@ mod load_control_schedule_fsch {
     lazy_static! {
         pub(super) static ref VAL_DCSG: crate::loadmodule::LoadCsg = Default::default();
     }
+}
+impl LoadControlScheduleFsch {
 }
 pub trait IsLoadControlScheduleFsch {
     fn _load_control_schedule_fsch(&self) -> &LoadControlScheduleFsch;
@@ -185,6 +192,14 @@ mod load_control_fscc {
         pub(super) static ref LOAD_CONTROL_SCHEDULE_FSCH: crate::loadmodule::LoadControlScheduleFsch = Default::default();
     }
 }
+impl LoadControlFscc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlFscc {
+        self.control_fscc.as_ref().unwrap_or(&load_control_fscc::CONTROL_FSCC)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._load_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadControlFscc {
     fn _load_control_fscc(&self) -> &LoadControlFscc;
     fn _load_control_fscc_mut(&mut self) -> &mut LoadControlFscc;
@@ -209,38 +224,38 @@ impl IsLoadControlFscc for LoadControlFscc {
         self
     }
 }
-//impl IsControlFSCC for LoadControlFscc {
-    //fn _control_fscc(&self) -> &ControlFscc {
-        //
-    //}
-//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
-        //
-    //}
-//}
-//impl IsLogicalNodeForControl for LoadControlFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for LoadControlFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadControlFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlFscc for LoadControlFscc {
+    fn _control_fscc(&self) -> &super::commonmodule::ControlFscc {
+        self.parent()
+    }
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForControl for LoadControlFscc {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent().parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for LoadControlFscc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadControlFscc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Load control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -267,6 +282,14 @@ mod load_control {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref LOAD_CONTROL_FSCC: crate::loadmodule::LoadControlFscc = Default::default();
+    }
+}
+impl LoadControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&load_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._load_control_mut().control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadControl {
@@ -299,22 +322,22 @@ impl IsLoadControl for LoadControl {
         self
     }
 }
-//impl IsControlValue for LoadControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for LoadControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Load control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -356,6 +379,14 @@ mod load_control_profile {
         pub(super) static ref LOAD_CONTROL: crate::loadmodule::LoadControl = Default::default();
     }
 }
+impl LoadControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&load_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._load_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadControlProfile {
     fn _load_control_profile(&self) -> &LoadControlProfile;
     fn _load_control_profile_mut(&mut self) -> &mut LoadControlProfile;
@@ -386,30 +417,30 @@ impl IsLoadControlProfile for LoadControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for LoadControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for LoadControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for LoadControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for LoadControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -439,6 +470,8 @@ mod load_point_status {
         pub(super) static ref RESET: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
     }
+}
+impl LoadPointStatus {
 }
 pub trait IsLoadPointStatus {
     fn _load_point_status(&self) -> &LoadPointStatus;
@@ -514,6 +547,14 @@ mod load_event_and_status_zgld {
         pub(super) static ref POINT_STATUS: crate::loadmodule::LoadPointStatus = Default::default();
     }
 }
+impl LoadEventAndStatusZgld {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&load_event_and_status_zgld::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._load_event_and_status_zgld_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadEventAndStatusZgld {
     fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld;
     fn _load_event_and_status_zgld_mut(&mut self) -> &mut LoadEventAndStatusZgld;
@@ -550,30 +591,30 @@ impl IsLoadEventAndStatusZgld for LoadEventAndStatusZgld {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for LoadEventAndStatusZgld {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for LoadEventAndStatusZgld {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadEventAndStatusZgld {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for LoadEventAndStatusZgld {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for LoadEventAndStatusZgld {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadEventAndStatusZgld {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZGLD LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -594,6 +635,14 @@ mod load_event_zgld {
         pub(super) static ref LOAD_EVENT_AND_STATUS_ZGLD: crate::loadmodule::LoadEventAndStatusZgld = Default::default();
     }
 }
+impl LoadEventZgld {
+    pub(crate) fn parent(&self) -> &LoadEventAndStatusZgld {
+        self.load_event_and_status_zgld.as_ref().unwrap_or(&load_event_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LoadEventAndStatusZgld {
+        self._load_event_zgld_mut().load_event_and_status_zgld.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadEventZgld {
     fn _load_event_zgld(&self) -> &LoadEventZgld;
     fn _load_event_zgld_mut(&mut self) -> &mut LoadEventZgld;
@@ -612,38 +661,38 @@ impl IsLoadEventZgld for LoadEventZgld {
         self
     }
 }
-//impl IsLoadEventAndStatusZGLD for LoadEventZgld {
-    //fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
-        //
-    //}
-//fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for LoadEventZgld {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for LoadEventZgld {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadEventZgld {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLoadEventAndStatusZgld for LoadEventZgld {
+    fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
+        self.parent()
+    }
+    fn _load_event_and_status_zgld_mut(&mut self) -> &mut LoadEventAndStatusZgld {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for LoadEventZgld {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for LoadEventZgld {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadEventZgld {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Load event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -666,6 +715,14 @@ mod load_event {
     lazy_static! {
         pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
         pub(super) static ref LOAD_EVENT_ZGLD: crate::loadmodule::LoadEventZgld = Default::default();
+    }
+}
+impl LoadEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventValue {
+        self.event_value.as_ref().unwrap_or(&load_event::EVENT_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._load_event_mut().event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadEvent {
@@ -692,22 +749,22 @@ impl IsLoadEvent for LoadEvent {
         self
     }
 }
-//impl IsEventValue for LoadEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventValue for LoadEvent {
+    fn _event_value(&self) -> &super::commonmodule::EventValue {
+        self.parent()
+    }
+    fn _event_value_mut(&mut self) -> &mut EventValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Load event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -749,6 +806,14 @@ mod load_event_profile {
         pub(super) static ref LOAD_EVENT: crate::loadmodule::LoadEvent = Default::default();
     }
 }
+impl LoadEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&load_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._load_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadEventProfile {
     fn _load_event_profile(&self) -> &LoadEventProfile;
     fn _load_event_profile_mut(&mut self) -> &mut LoadEventProfile;
@@ -779,30 +844,30 @@ impl IsLoadEventProfile for LoadEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for LoadEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for LoadEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for LoadEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for LoadEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Load reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -833,6 +898,14 @@ mod load_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl LoadReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&load_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._load_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadReading {
@@ -871,14 +944,14 @@ impl IsLoadReading for LoadReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for LoadReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for LoadReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// Load reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -920,6 +993,14 @@ mod load_reading_profile {
         pub(super) static ref LOAD_READING: crate::loadmodule::LoadReading = Default::default();
     }
 }
+impl LoadReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&load_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._load_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadReadingProfile {
     fn _load_reading_profile(&self) -> &LoadReadingProfile;
     fn _load_reading_profile_mut(&mut self) -> &mut LoadReadingProfile;
@@ -950,30 +1031,30 @@ impl IsLoadReadingProfile for LoadReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for LoadReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for LoadReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for LoadReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for LoadReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZGLD LN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -994,6 +1075,14 @@ mod load_status_zgld {
         pub(super) static ref LOAD_EVENT_AND_STATUS_ZGLD: crate::loadmodule::LoadEventAndStatusZgld = Default::default();
     }
 }
+impl LoadStatusZgld {
+    pub(crate) fn parent(&self) -> &LoadEventAndStatusZgld {
+        self.load_event_and_status_zgld.as_ref().unwrap_or(&load_status_zgld::LOAD_EVENT_AND_STATUS_ZGLD)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut LoadEventAndStatusZgld {
+        self._load_status_zgld_mut().load_event_and_status_zgld.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadStatusZgld {
     fn _load_status_zgld(&self) -> &LoadStatusZgld;
     fn _load_status_zgld_mut(&mut self) -> &mut LoadStatusZgld;
@@ -1012,38 +1101,38 @@ impl IsLoadStatusZgld for LoadStatusZgld {
         self
     }
 }
-//impl IsLoadEventAndStatusZGLD for LoadStatusZgld {
-    //fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
-        //
-    //}
-//fn _mut_load_event_and_status_zgld(&mut self) -> &mut LoadEventAndStatusZgld {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for LoadStatusZgld {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for LoadStatusZgld {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadStatusZgld {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLoadEventAndStatusZgld for LoadStatusZgld {
+    fn _load_event_and_status_zgld(&self) -> &LoadEventAndStatusZgld {
+        self.parent()
+    }
+    fn _load_event_and_status_zgld_mut(&mut self) -> &mut LoadEventAndStatusZgld {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for LoadStatusZgld {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for LoadStatusZgld {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadStatusZgld {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Load status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1070,6 +1159,14 @@ mod load_status {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
         pub(super) static ref IS_UNCONTROLLABLE: bool = Default::default();
         pub(super) static ref LOAD_STATUS_ZGLD: crate::loadmodule::LoadStatusZgld = Default::default();
+    }
+}
+impl LoadStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusValue {
+        self.status_value.as_ref().unwrap_or(&load_status::STATUS_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._load_status_mut().status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsLoadStatus {
@@ -1102,22 +1199,22 @@ impl IsLoadStatus for LoadStatus {
         self
     }
 }
-//impl IsStatusValue for LoadStatus {
-    //fn _status_value(&self) -> &StatusValue {
-        //
-    //}
-//fn _mut_status_value(&mut self) -> &mut StatusValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusValue for LoadStatus {
+    fn _status_value(&self) -> &super::commonmodule::StatusValue {
+        self.parent()
+    }
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Load status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1159,6 +1256,14 @@ mod load_status_profile {
         pub(super) static ref LOAD_STATUS: crate::loadmodule::LoadStatus = Default::default();
     }
 }
+impl LoadStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&load_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._load_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsLoadStatusProfile {
     fn _load_status_profile(&self) -> &LoadStatusProfile;
     fn _load_status_profile_mut(&mut self) -> &mut LoadStatusProfile;
@@ -1189,27 +1294,27 @@ impl IsLoadStatusProfile for LoadStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for LoadStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for LoadStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for LoadStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for LoadStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for LoadStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for LoadStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}

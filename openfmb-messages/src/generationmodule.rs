@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -65,6 +66,8 @@ mod generation_point {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
+}
+impl GenerationPoint {
 }
 pub trait IsGenerationPoint {
     fn _generation_point(&self) -> &GenerationPoint;
@@ -175,6 +178,8 @@ mod generation_csg {
     lazy_static! {
     }
 }
+impl GenerationCsg {
+}
 pub trait IsGenerationCsg {
     fn _generation_csg(&self) -> &GenerationCsg;
     fn _generation_csg_mut(&mut self) -> &mut GenerationCsg;
@@ -212,6 +217,8 @@ mod generation_control_schedule_fsch {
     lazy_static! {
         pub(super) static ref VAL_DCSG: crate::generationmodule::GenerationCsg = Default::default();
     }
+}
+impl GenerationControlScheduleFsch {
 }
 pub trait IsGenerationControlScheduleFsch {
     fn _generation_control_schedule_fsch(&self) -> &GenerationControlScheduleFsch;
@@ -255,6 +262,14 @@ mod generation_control_fscc {
         pub(super) static ref GENERATION_CONTROL_SCHEDULE_FSCH: crate::generationmodule::GenerationControlScheduleFsch = Default::default();
     }
 }
+impl GenerationControlFscc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlFscc {
+        self.control_fscc.as_ref().unwrap_or(&generation_control_fscc::CONTROL_FSCC)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._generation_control_fscc_mut().control_fscc.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationControlFscc {
     fn _generation_control_fscc(&self) -> &GenerationControlFscc;
     fn _generation_control_fscc_mut(&mut self) -> &mut GenerationControlFscc;
@@ -279,38 +294,38 @@ impl IsGenerationControlFscc for GenerationControlFscc {
         self
     }
 }
-//impl IsControlFSCC for GenerationControlFscc {
-    //fn _control_fscc(&self) -> &ControlFscc {
-        //
-    //}
-//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
-        //
-    //}
-//}
-//impl IsLogicalNodeForControl for GenerationControlFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for GenerationControlFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationControlFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlFscc for GenerationControlFscc {
+    fn _control_fscc(&self) -> &super::commonmodule::ControlFscc {
+        self.parent()
+    }
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForControl for GenerationControlFscc {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent().parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for GenerationControlFscc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationControlFscc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Generation control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -337,6 +352,14 @@ mod generation_control {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref GENERATION_CONTROL_FSCC: crate::generationmodule::GenerationControlFscc = Default::default();
+    }
+}
+impl GenerationControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&generation_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._generation_control_mut().control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationControl {
@@ -369,22 +392,22 @@ impl IsGenerationControl for GenerationControl {
         self
     }
 }
-//impl IsControlValue for GenerationControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for GenerationControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// A single or set of synchronous machines for converting mechanical power into alternating-current
 /// power. For example, individual machines within a set may be defined for scheduling purposes while a
 /// single control signal is derived for the set. In this case there would be a GeneratingUnit for each
@@ -412,6 +435,14 @@ mod generating_unit {
         pub(super) static ref MAX_OPERATING_P: crate::commonmodule::ActivePower = Default::default();
     }
 }
+impl GeneratingUnit {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&generating_unit::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._generating_unit_mut().conducting_equipment.get_or_insert(Default::default())
+    }
+}
 pub trait IsGeneratingUnit {
     fn _generating_unit(&self) -> &GeneratingUnit;
     fn _generating_unit_mut(&mut self) -> &mut GeneratingUnit;
@@ -436,22 +467,22 @@ impl IsGeneratingUnit for GeneratingUnit {
         self
     }
 }
-//impl IsConductingEquipment for GeneratingUnit {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for GeneratingUnit {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for GeneratingUnit {
+    fn _conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for GeneratingUnit {
+    fn _named_object(&self) -> &super::commonmodule::NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generation control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -493,6 +524,14 @@ mod generation_control_profile {
         pub(super) static ref GENERATION_CONTROL: crate::generationmodule::GenerationControl = Default::default();
     }
 }
+impl GenerationControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&generation_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._generation_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationControlProfile {
     fn _generation_control_profile(&self) -> &GenerationControlProfile;
     fn _generation_control_profile_mut(&mut self) -> &mut GenerationControlProfile;
@@ -523,30 +562,30 @@ impl IsGenerationControlProfile for GenerationControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for GenerationControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for GenerationControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for GenerationControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for GenerationControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub struct OptionalRealPowerControlKind {
@@ -557,6 +596,8 @@ mod optional_real_power_control_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalRealPowerControlKind {
 }
 pub trait IsOptionalRealPowerControlKind {
     fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind;
@@ -593,6 +634,8 @@ mod droop_parameter {
         pub(super) static ref SLOPE: f32 = Default::default();
         pub(super) static ref UNLOADED_OFFSET: f32 = Default::default();
     }
+}
+impl DroopParameter {
 }
 pub trait IsDroopParameter {
     fn _droop_parameter(&self) -> &DroopParameter;
@@ -644,6 +687,8 @@ mod real_power_control {
         pub(super) static ref REAL_POWER_SETPOINT: f32 = Default::default();
     }
 }
+impl RealPowerControl {
+}
 pub trait IsRealPowerControl {
     fn _real_power_control(&self) -> &RealPowerControl;
     fn _real_power_control_mut(&mut self) -> &mut RealPowerControl;
@@ -690,6 +735,8 @@ mod optional_reactive_power_control_kind {
     use lazy_static::lazy_static;
     lazy_static! {
     }
+}
+impl OptionalReactivePowerControlKind {
 }
 pub trait IsOptionalReactivePowerControlKind {
     fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind;
@@ -738,6 +785,8 @@ mod reactive_power_control {
         pub(super) static ref REACTIVE_POWER_SETPOINT: f32 = Default::default();
         pub(super) static ref VOLTAGE_SETPOINT: f32 = Default::default();
     }
+}
+impl ReactivePowerControl {
 }
 pub trait IsReactivePowerControl {
     fn _reactive_power_control(&self) -> &ReactivePowerControl;
@@ -813,6 +862,14 @@ mod generation_discrete_control {
         pub(super) static ref REAL_POWER_CONTROL: crate::generationmodule::RealPowerControl = Default::default();
     }
 }
+impl GenerationDiscreteControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&generation_discrete_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._generation_discrete_control_mut().control_value.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationDiscreteControl {
     fn _generation_discrete_control(&self) -> &GenerationDiscreteControl;
     fn _generation_discrete_control_mut(&mut self) -> &mut GenerationDiscreteControl;
@@ -849,22 +906,22 @@ impl IsGenerationDiscreteControl for GenerationDiscreteControl {
         self
     }
 }
-//impl IsControlValue for GenerationDiscreteControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationDiscreteControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for GenerationDiscreteControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationDiscreteControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generation discrete control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -906,6 +963,14 @@ mod generation_discrete_control_profile {
         pub(super) static ref GENERATION_DISCRETE_CONTROL: crate::generationmodule::GenerationDiscreteControl = Default::default();
     }
 }
+impl GenerationDiscreteControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&generation_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._generation_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationDiscreteControlProfile {
     fn _generation_discrete_control_profile(&self) -> &GenerationDiscreteControlProfile;
     fn _generation_discrete_control_profile_mut(&mut self) -> &mut GenerationDiscreteControlProfile;
@@ -936,30 +1001,30 @@ impl IsGenerationDiscreteControlProfile for GenerationDiscreteControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for GenerationDiscreteControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for GenerationDiscreteControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationDiscreteControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for GenerationDiscreteControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for GenerationDiscreteControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationDiscreteControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Generation reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -990,6 +1055,14 @@ mod generation_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl GenerationReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&generation_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._generation_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationReading {
@@ -1028,14 +1101,14 @@ impl IsGenerationReading for GenerationReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for GenerationReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for GenerationReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// Generation reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1077,6 +1150,14 @@ mod generation_reading_profile {
         pub(super) static ref GENERATION_READING: crate::generationmodule::GenerationReading = Default::default();
     }
 }
+impl GenerationReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&generation_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._generation_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationReadingProfile {
     fn _generation_reading_profile(&self) -> &GenerationReadingProfile;
     fn _generation_reading_profile_mut(&mut self) -> &mut GenerationReadingProfile;
@@ -1107,30 +1188,30 @@ impl IsGenerationReadingProfile for GenerationReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for GenerationReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for GenerationReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for GenerationReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for GenerationReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1184,6 +1265,8 @@ mod generation_point_status {
         pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
     }
+}
+impl GenerationPointStatus {
 }
 pub trait IsGenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus;
@@ -1303,6 +1386,14 @@ mod generation_event_and_status_zgen {
         pub(super) static ref POINT_STATUS: crate::generationmodule::GenerationPointStatus = Default::default();
     }
 }
+impl GenerationEventAndStatusZgen {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&generation_event_and_status_zgen::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._generation_event_and_status_zgen_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationEventAndStatusZgen {
     fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen;
     fn _generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen;
@@ -1351,30 +1442,30 @@ impl IsGenerationEventAndStatusZgen for GenerationEventAndStatusZgen {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for GenerationEventAndStatusZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for GenerationEventAndStatusZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationEventAndStatusZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for GenerationEventAndStatusZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for GenerationEventAndStatusZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationEventAndStatusZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized generation event ZGEN
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1395,6 +1486,14 @@ mod generation_event_zgen {
         pub(super) static ref GENERATION_EVENT_AND_STATUS_ZGEN: crate::generationmodule::GenerationEventAndStatusZgen = Default::default();
     }
 }
+impl GenerationEventZgen {
+    pub(crate) fn parent(&self) -> &GenerationEventAndStatusZgen {
+        self.generation_event_and_status_zgen.as_ref().unwrap_or(&generation_event_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self._generation_event_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationEventZgen {
     fn _generation_event_zgen(&self) -> &GenerationEventZgen;
     fn _generation_event_zgen_mut(&mut self) -> &mut GenerationEventZgen;
@@ -1413,38 +1512,38 @@ impl IsGenerationEventZgen for GenerationEventZgen {
         self
     }
 }
-//impl IsGenerationEventAndStatusZGEN for GenerationEventZgen {
-    //fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
-        //
-    //}
-//fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for GenerationEventZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for GenerationEventZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationEventZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsGenerationEventAndStatusZgen for GenerationEventZgen {
+    fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
+        self.parent()
+    }
+    fn _generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for GenerationEventZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for GenerationEventZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationEventZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Generation event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1467,6 +1566,14 @@ mod generation_event {
     lazy_static! {
         pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
         pub(super) static ref GENERATION_EVENT_ZGEN: crate::generationmodule::GenerationEventZgen = Default::default();
+    }
+}
+impl GenerationEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventValue {
+        self.event_value.as_ref().unwrap_or(&generation_event::EVENT_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._generation_event_mut().event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationEvent {
@@ -1493,22 +1600,22 @@ impl IsGenerationEvent for GenerationEvent {
         self
     }
 }
-//impl IsEventValue for GenerationEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventValue for GenerationEvent {
+    fn _event_value(&self) -> &super::commonmodule::EventValue {
+        self.parent()
+    }
+    fn _event_value_mut(&mut self) -> &mut EventValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generation event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1550,6 +1657,14 @@ mod generation_event_profile {
         pub(super) static ref GENERATION_EVENT: crate::generationmodule::GenerationEvent = Default::default();
     }
 }
+impl GenerationEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&generation_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._generation_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationEventProfile {
     fn _generation_event_profile(&self) -> &GenerationEventProfile;
     fn _generation_event_profile_mut(&mut self) -> &mut GenerationEventProfile;
@@ -1580,30 +1695,30 @@ impl IsGenerationEventProfile for GenerationEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for GenerationEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for GenerationEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for GenerationEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for GenerationEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Specialized 61850 ZGEN class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1624,6 +1739,14 @@ mod generation_status_zgen {
         pub(super) static ref GENERATION_EVENT_AND_STATUS_ZGEN: crate::generationmodule::GenerationEventAndStatusZgen = Default::default();
     }
 }
+impl GenerationStatusZgen {
+    pub(crate) fn parent(&self) -> &GenerationEventAndStatusZgen {
+        self.generation_event_and_status_zgen.as_ref().unwrap_or(&generation_status_zgen::GENERATION_EVENT_AND_STATUS_ZGEN)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self._generation_status_zgen_mut().generation_event_and_status_zgen.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationStatusZgen {
     fn _generation_status_zgen(&self) -> &GenerationStatusZgen;
     fn _generation_status_zgen_mut(&mut self) -> &mut GenerationStatusZgen;
@@ -1642,38 +1765,38 @@ impl IsGenerationStatusZgen for GenerationStatusZgen {
         self
     }
 }
-//impl IsGenerationEventAndStatusZGEN for GenerationStatusZgen {
-    //fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
-        //
-    //}
-//fn _mut_generation_event_and_status_zgen(&mut self) -> &mut GenerationEventAndStatusZgen {
-        //
-    //}
-//}
-//impl IsLogicalNodeForEventAndStatus for GenerationStatusZgen {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for GenerationStatusZgen {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationStatusZgen {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsGenerationEventAndStatusZgen for GenerationStatusZgen {
+    fn _generation_event_and_status_zgen(&self) -> &GenerationEventAndStatusZgen {
+        self.parent()
+    }
+    fn _generation_event_and_status_zgen_mut(&mut self) -> &mut GenerationEventAndStatusZgen {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForEventAndStatus for GenerationStatusZgen {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent().parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for GenerationStatusZgen {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationStatusZgen {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Generation status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -1696,6 +1819,14 @@ mod generation_status {
     lazy_static! {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
         pub(super) static ref GENERATION_STATUS_ZGEN: crate::generationmodule::GenerationStatusZgen = Default::default();
+    }
+}
+impl GenerationStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusValue {
+        self.status_value.as_ref().unwrap_or(&generation_status::STATUS_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._generation_status_mut().status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsGenerationStatus {
@@ -1722,22 +1853,22 @@ impl IsGenerationStatus for GenerationStatus {
         self
     }
 }
-//impl IsStatusValue for GenerationStatus {
-    //fn _status_value(&self) -> &StatusValue {
-        //
-    //}
-//fn _mut_status_value(&mut self) -> &mut StatusValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusValue for GenerationStatus {
+    fn _status_value(&self) -> &super::commonmodule::StatusValue {
+        self.parent()
+    }
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Generation status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1779,6 +1910,14 @@ mod generation_status_profile {
         pub(super) static ref GENERATION_STATUS: crate::generationmodule::GenerationStatus = Default::default();
     }
 }
+impl GenerationStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&generation_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._generation_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsGenerationStatusProfile {
     fn _generation_status_profile(&self) -> &GenerationStatusProfile;
     fn _generation_status_profile_mut(&mut self) -> &mut GenerationStatusProfile;
@@ -1809,30 +1948,30 @@ impl IsGenerationStatusProfile for GenerationStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for GenerationStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for GenerationStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for GenerationStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for GenerationStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for GenerationStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for GenerationStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Real power control kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// OpenFMB specialization for switch control:  LN: Circuit switch   Name: XSWI
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -24,6 +25,14 @@ mod switch_discrete_control_xswi {
         pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
         pub(super) static ref POS: crate::commonmodule::PhaseDpc = Default::default();
         pub(super) static ref RESET_PROTECTION_PICKUP: crate::commonmodule::ControlSpc = Default::default();
+    }
+}
+impl SwitchDiscreteControlXswi {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.logical_node_for_control.as_ref().unwrap_or(&switch_discrete_control_xswi::LOGICAL_NODE_FOR_CONTROL)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
+        self._switch_discrete_control_xswi_mut().logical_node_for_control.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchDiscreteControlXswi {
@@ -56,30 +65,30 @@ impl IsSwitchDiscreteControlXswi for SwitchDiscreteControlXswi {
         self
     }
 }
-//impl IsLogicalNodeForControl for SwitchDiscreteControlXswi {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for SwitchDiscreteControlXswi {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchDiscreteControlXswi {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForControl for SwitchDiscreteControlXswi {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for SwitchDiscreteControlXswi {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchDiscreteControlXswi {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Switch discrete control
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -106,6 +115,14 @@ mod switch_discrete_control {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref SWITCH_DISCRETE_CONTROL_XSWI: crate::switchmodule::SwitchDiscreteControlXswi = Default::default();
+    }
+}
+impl SwitchDiscreteControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&switch_discrete_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._switch_discrete_control_mut().control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchDiscreteControl {
@@ -138,22 +155,22 @@ impl IsSwitchDiscreteControl for SwitchDiscreteControl {
         self
     }
 }
-//impl IsControlValue for SwitchDiscreteControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchDiscreteControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for SwitchDiscreteControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchDiscreteControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -174,6 +191,14 @@ mod protected_switch {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
+impl ProtectedSwitch {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&protected_switch::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._protected_switch_mut().conducting_equipment.get_or_insert(Default::default())
+    }
+}
 pub trait IsProtectedSwitch {
     fn _protected_switch(&self) -> &ProtectedSwitch;
     fn _protected_switch_mut(&mut self) -> &mut ProtectedSwitch;
@@ -192,22 +217,22 @@ impl IsProtectedSwitch for ProtectedSwitch {
         self
     }
 }
-//impl IsConductingEquipment for ProtectedSwitch {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for ProtectedSwitch {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for ProtectedSwitch {
+    fn _conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for ProtectedSwitch {
+    fn _named_object(&self) -> &super::commonmodule::NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Switch control profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -249,6 +274,14 @@ mod switch_discrete_control_profile {
         pub(super) static ref SWITCH_DISCRETE_CONTROL: crate::switchmodule::SwitchDiscreteControl = Default::default();
     }
 }
+impl SwitchDiscreteControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&switch_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._switch_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsSwitchDiscreteControlProfile {
     fn _switch_discrete_control_profile(&self) -> &SwitchDiscreteControlProfile;
     fn _switch_discrete_control_profile_mut(&mut self) -> &mut SwitchDiscreteControlProfile;
@@ -279,30 +312,30 @@ impl IsSwitchDiscreteControlProfile for SwitchDiscreteControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for SwitchDiscreteControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for SwitchDiscreteControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchDiscreteControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for SwitchDiscreteControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for SwitchDiscreteControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchDiscreteControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// OpenFMB specialization for SwitchEventProfile
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -329,6 +362,14 @@ mod switch_event_xswi {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
         pub(super) static ref POS: crate::commonmodule::PhaseDps = Default::default();
+    }
+}
+impl SwitchEventXswi {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&switch_event_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._switch_event_xswi_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchEventXswi {
@@ -361,30 +402,30 @@ impl IsSwitchEventXswi for SwitchEventXswi {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for SwitchEventXswi {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for SwitchEventXswi {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchEventXswi {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for SwitchEventXswi {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for SwitchEventXswi {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchEventXswi {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Switch event
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -407,6 +448,14 @@ mod switch_event {
     lazy_static! {
         pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
         pub(super) static ref SWITCH_EVENT_XSWI: crate::switchmodule::SwitchEventXswi = Default::default();
+    }
+}
+impl SwitchEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventValue {
+        self.event_value.as_ref().unwrap_or(&switch_event::EVENT_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._switch_event_mut().event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchEvent {
@@ -433,22 +482,22 @@ impl IsSwitchEvent for SwitchEvent {
         self
     }
 }
-//impl IsEventValue for SwitchEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventValue for SwitchEvent {
+    fn _event_value(&self) -> &super::commonmodule::EventValue {
+        self.parent()
+    }
+    fn _event_value_mut(&mut self) -> &mut EventValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Switch event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -490,6 +539,14 @@ mod switch_event_profile {
         pub(super) static ref SWITCH_EVENT: crate::switchmodule::SwitchEvent = Default::default();
     }
 }
+impl SwitchEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&switch_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._switch_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsSwitchEventProfile {
     fn _switch_event_profile(&self) -> &SwitchEventProfile;
     fn _switch_event_profile_mut(&mut self) -> &mut SwitchEventProfile;
@@ -520,30 +577,30 @@ impl IsSwitchEventProfile for SwitchEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for SwitchEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for SwitchEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for SwitchEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for SwitchEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Switch reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -578,6 +635,14 @@ mod switch_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl SwitchReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&switch_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._switch_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchReading {
@@ -622,14 +687,14 @@ impl IsSwitchReading for SwitchReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for SwitchReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for SwitchReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// Switch reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -670,6 +735,14 @@ mod switch_reading_profile {
         pub(super) static ref PROTECTED_SWITCH: crate::switchmodule::ProtectedSwitch = Default::default();
     }
 }
+impl SwitchReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&switch_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._switch_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsSwitchReadingProfile {
     fn _switch_reading_profile(&self) -> &SwitchReadingProfile;
     fn _switch_reading_profile_mut(&mut self) -> &mut SwitchReadingProfile;
@@ -700,30 +773,30 @@ impl IsSwitchReadingProfile for SwitchReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for SwitchReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for SwitchReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for SwitchReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for SwitchReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// OpenFMB specialization for SwitchStatusProfile
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -762,6 +835,14 @@ mod switch_status_xswi {
         pub(super) static ref PROTECTION_PICKUP: crate::commonmodule::PhaseSps = Default::default();
     }
 }
+impl SwitchStatusXswi {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.logical_node_for_event_and_status.as_ref().unwrap_or(&switch_status_xswi::LOGICAL_NODE_FOR_EVENT_AND_STATUS)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
+        self._switch_status_xswi_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
+    }
+}
 pub trait IsSwitchStatusXswi {
     fn _switch_status_xswi(&self) -> &SwitchStatusXswi;
     fn _switch_status_xswi_mut(&mut self) -> &mut SwitchStatusXswi;
@@ -798,30 +879,30 @@ impl IsSwitchStatusXswi for SwitchStatusXswi {
         self
     }
 }
-//impl IsLogicalNodeForEventAndStatus for SwitchStatusXswi {
-    //fn _logical_node_for_event_and_status(&self) -> &LogicalNodeForEventAndStatus {
-        //
-    //}
-//fn _mut_logical_node_for_event_and_status(&mut self) -> &mut LogicalNodeForEventAndStatus {
-        //
-    //}
-//}
-//impl IsLogicalNode for SwitchStatusXswi {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchStatusXswi {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNodeForEventAndStatus for SwitchStatusXswi {
+    fn _logical_node_for_event_and_status(&self) -> &super::commonmodule::LogicalNodeForEventAndStatus {
+        self.parent()
+    }
+    fn _logical_node_for_event_and_status_mut(&mut self) -> &mut LogicalNodeForEventAndStatus {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNode for SwitchStatusXswi {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchStatusXswi {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Switch status
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -844,6 +925,14 @@ mod switch_status {
     lazy_static! {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
         pub(super) static ref SWITCH_STATUS_XSWI: crate::switchmodule::SwitchStatusXswi = Default::default();
+    }
+}
+impl SwitchStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusValue {
+        self.status_value.as_ref().unwrap_or(&switch_status::STATUS_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._switch_status_mut().status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsSwitchStatus {
@@ -870,22 +959,22 @@ impl IsSwitchStatus for SwitchStatus {
         self
     }
 }
-//impl IsStatusValue for SwitchStatus {
-    //fn _status_value(&self) -> &StatusValue {
-        //
-    //}
-//fn _mut_status_value(&mut self) -> &mut StatusValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusValue for SwitchStatus {
+    fn _status_value(&self) -> &super::commonmodule::StatusValue {
+        self.parent()
+    }
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Switch status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -927,6 +1016,14 @@ mod switch_status_profile {
         pub(super) static ref SWITCH_STATUS: crate::switchmodule::SwitchStatus = Default::default();
     }
 }
+impl SwitchStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&switch_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._switch_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsSwitchStatusProfile {
     fn _switch_status_profile(&self) -> &SwitchStatusProfile;
     fn _switch_status_profile_mut(&mut self) -> &mut SwitchStatusProfile;
@@ -957,27 +1054,27 @@ impl IsSwitchStatusProfile for SwitchStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for SwitchStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for SwitchStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for SwitchStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for SwitchStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for SwitchStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for SwitchStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}

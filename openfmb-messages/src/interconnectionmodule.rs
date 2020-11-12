@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// Point definition (Point)
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -53,6 +54,8 @@ mod interconnection_point {
         pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::Timestamp = Default::default();
     }
+}
+impl InterconnectionPoint {
 }
 pub trait IsInterconnectionPoint {
     fn _interconnection_point(&self) -> &InterconnectionPoint;
@@ -145,6 +148,8 @@ mod interconnection_csg {
     lazy_static! {
     }
 }
+impl InterconnectionCsg {
+}
 pub trait IsInterconnectionCsg {
     fn _interconnection_csg(&self) -> &InterconnectionCsg;
     fn _interconnection_csg_mut(&mut self) -> &mut InterconnectionCsg;
@@ -182,6 +187,8 @@ mod interconnection_control_schedule_fsch {
     lazy_static! {
         pub(super) static ref VAL_DCSG: crate::interconnectionmodule::InterconnectionCsg = Default::default();
     }
+}
+impl InterconnectionControlScheduleFsch {
 }
 pub trait IsInterconnectionControlScheduleFsch {
     fn _interconnection_control_schedule_fsch(&self) -> &InterconnectionControlScheduleFsch;
@@ -230,6 +237,14 @@ mod interconnection_schedule_fscc {
         pub(super) static ref CONTROL_FSCC: crate::commonmodule::ControlFscc = Default::default();
     }
 }
+impl InterconnectionScheduleFscc {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlFscc {
+        self.control_fscc.as_ref().unwrap_or(&interconnection_schedule_fscc::CONTROL_FSCC)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlFscc {
+        self._interconnection_schedule_fscc_mut().control_fscc.get_or_insert(Default::default())
+    }
+}
 pub trait IsInterconnectionScheduleFscc {
     fn _interconnection_schedule_fscc(&self) -> &InterconnectionScheduleFscc;
     fn _interconnection_schedule_fscc_mut(&mut self) -> &mut InterconnectionScheduleFscc;
@@ -254,38 +269,38 @@ impl IsInterconnectionScheduleFscc for InterconnectionScheduleFscc {
         self
     }
 }
-//impl IsControlFSCC for InterconnectionScheduleFscc {
-    //fn _control_fscc(&self) -> &ControlFscc {
-        //
-    //}
-//fn _mut_control_fscc(&mut self) -> &mut ControlFscc {
-        //
-    //}
-//}
-//impl IsLogicalNodeForControl for InterconnectionScheduleFscc {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for InterconnectionScheduleFscc {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for InterconnectionScheduleFscc {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlFscc for InterconnectionScheduleFscc {
+    fn _control_fscc(&self) -> &super::commonmodule::ControlFscc {
+        self.parent()
+    }
+    fn _control_fscc_mut(&mut self) -> &mut ControlFscc {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForControl for InterconnectionScheduleFscc {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent().parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for InterconnectionScheduleFscc {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for InterconnectionScheduleFscc {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Interconnection schedule
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -320,6 +335,14 @@ mod interconnection_schedule {
         pub(super) static ref INTERCONNECTION_SCHEDULE_FSCC: crate::interconnectionmodule::InterconnectionScheduleFscc = Default::default();
     }
 }
+impl InterconnectionSchedule {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&interconnection_schedule::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._interconnection_schedule_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsInterconnectionSchedule {
     fn _interconnection_schedule(&self) -> &InterconnectionSchedule;
     fn _interconnection_schedule_mut(&mut self) -> &mut InterconnectionSchedule;
@@ -350,14 +373,14 @@ impl IsInterconnectionSchedule for InterconnectionSchedule {
         self
     }
 }
-//impl IsIdentifiedObject for InterconnectionSchedule {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for InterconnectionSchedule {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Planned interconnection schedule profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -419,6 +442,14 @@ mod planned_interconnection_schedule_profile {
         pub(super) static ref RESPONDER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
     }
 }
+impl PlannedInterconnectionScheduleProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&planned_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._planned_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsPlannedInterconnectionScheduleProfile {
     fn _planned_interconnection_schedule_profile(&self) -> &PlannedInterconnectionScheduleProfile;
     fn _planned_interconnection_schedule_profile_mut(&mut self) -> &mut PlannedInterconnectionScheduleProfile;
@@ -461,30 +492,30 @@ impl IsPlannedInterconnectionScheduleProfile for PlannedInterconnectionScheduleP
         self
     }
 }
-//impl IsControlMessageInfo for PlannedInterconnectionScheduleProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for PlannedInterconnectionScheduleProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for PlannedInterconnectionScheduleProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for PlannedInterconnectionScheduleProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for PlannedInterconnectionScheduleProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for PlannedInterconnectionScheduleProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Requested interconnection schedule profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -546,6 +577,14 @@ mod requested_interconnection_schedule_profile {
         pub(super) static ref RESPONDER_CIRCUIT_SEGMENT_SERVICE: crate::commonmodule::ApplicationSystem = Default::default();
     }
 }
+impl RequestedInterconnectionScheduleProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&requested_interconnection_schedule_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._requested_interconnection_schedule_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsRequestedInterconnectionScheduleProfile {
     fn _requested_interconnection_schedule_profile(&self) -> &RequestedInterconnectionScheduleProfile;
     fn _requested_interconnection_schedule_profile_mut(&mut self) -> &mut RequestedInterconnectionScheduleProfile;
@@ -588,27 +627,27 @@ impl IsRequestedInterconnectionScheduleProfile for RequestedInterconnectionSched
         self
     }
 }
-//impl IsControlMessageInfo for RequestedInterconnectionScheduleProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for RequestedInterconnectionScheduleProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for RequestedInterconnectionScheduleProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for RequestedInterconnectionScheduleProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for RequestedInterconnectionScheduleProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for RequestedInterconnectionScheduleProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}

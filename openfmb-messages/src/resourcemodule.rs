@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -33,6 +34,14 @@ mod boolean_control_ggio {
         pub(super) static ref SPCSO: crate::commonmodule::ControlSpc = Default::default();
     }
 }
+impl BooleanControlGgio {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&boolean_control_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._boolean_control_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsBooleanControlGgio {
     fn _boolean_control_ggio(&self) -> &BooleanControlGgio;
     fn _boolean_control_ggio_mut(&mut self) -> &mut BooleanControlGgio;
@@ -63,22 +72,22 @@ impl IsBooleanControlGgio for BooleanControlGgio {
         self
     }
 }
-//impl IsLogicalNode for BooleanControlGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BooleanControlGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for BooleanControlGgio {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for BooleanControlGgio {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Status expressed in integer based on IEC61850 GGIO.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -113,6 +122,14 @@ mod integer_control_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl IntegerControlGgio {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&integer_control_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._integer_control_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsIntegerControlGgio {
     fn _integer_control_ggio(&self) -> &IntegerControlGgio;
     fn _integer_control_ggio_mut(&mut self) -> &mut IntegerControlGgio;
@@ -143,22 +160,22 @@ impl IsIntegerControlGgio for IntegerControlGgio {
         self
     }
 }
-//impl IsLogicalNode for IntegerControlGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for IntegerControlGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for IntegerControlGgio {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for IntegerControlGgio {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -193,6 +210,14 @@ mod string_control_ggio {
         pub(super) static ref STR_OUT: crate::commonmodule::Vsc = Default::default();
     }
 }
+impl StringControlGgio {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&string_control_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._string_control_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsStringControlGgio {
     fn _string_control_ggio(&self) -> &StringControlGgio;
     fn _string_control_ggio_mut(&mut self) -> &mut StringControlGgio;
@@ -223,22 +248,22 @@ impl IsStringControlGgio for StringControlGgio {
         self
     }
 }
-//impl IsLogicalNode for StringControlGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for StringControlGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for StringControlGgio {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for StringControlGgio {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// LN: Generic process I/O   Name: GGIO
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -274,6 +299,14 @@ mod analog_control_ggio {
         pub(super) static ref PHASE: crate::commonmodule::OptionalPhaseCodeKind = Default::default();
     }
 }
+impl AnalogControlGgio {
+    pub(crate) fn parent(&self) -> &super::commonmodule::LogicalNode {
+        self.logical_node.as_ref().unwrap_or(&analog_control_ggio::LOGICAL_NODE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::LogicalNode {
+        self._analog_control_ggio_mut().logical_node.get_or_insert(Default::default())
+    }
+}
 pub trait IsAnalogControlGgio {
     fn _analog_control_ggio(&self) -> &AnalogControlGgio;
     fn _analog_control_ggio_mut(&mut self) -> &mut AnalogControlGgio;
@@ -304,22 +337,22 @@ impl IsAnalogControlGgio for AnalogControlGgio {
         self
     }
 }
-//impl IsLogicalNode for AnalogControlGgio {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for AnalogControlGgio {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsLogicalNode for AnalogControlGgio {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for AnalogControlGgio {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Resource discrete control class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -380,6 +413,14 @@ mod resource_discrete_control {
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
     }
 }
+impl ResourceDiscreteControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&resource_discrete_control::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._resource_discrete_control_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceDiscreteControl {
     fn _resource_discrete_control(&self) -> &ResourceDiscreteControl;
     fn _resource_discrete_control_mut(&mut self) -> &mut ResourceDiscreteControl;
@@ -428,14 +469,14 @@ impl IsResourceDiscreteControl for ResourceDiscreteControl {
         self
     }
 }
-//impl IsIdentifiedObject for ResourceDiscreteControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ResourceDiscreteControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Instructs a resource to perform a specified action.
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -477,6 +518,14 @@ mod resource_discrete_control_profile {
         pub(super) static ref RESOURCE_DISCRETE_CONTROL: crate::resourcemodule::ResourceDiscreteControl = Default::default();
     }
 }
+impl ResourceDiscreteControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&resource_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._resource_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceDiscreteControlProfile {
     fn _resource_discrete_control_profile(&self) -> &ResourceDiscreteControlProfile;
     fn _resource_discrete_control_profile_mut(&mut self) -> &mut ResourceDiscreteControlProfile;
@@ -507,30 +556,30 @@ impl IsResourceDiscreteControlProfile for ResourceDiscreteControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for ResourceDiscreteControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for ResourceDiscreteControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ResourceDiscreteControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for ResourceDiscreteControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for ResourceDiscreteControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for ResourceDiscreteControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Resource reading value
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -561,6 +610,14 @@ mod resource_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl ResourceReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&resource_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._resource_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsResourceReading {
@@ -599,14 +656,14 @@ impl IsResourceReading for ResourceReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for ResourceReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for ResourceReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// Resource reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -648,6 +705,14 @@ mod resource_reading_profile {
         pub(super) static ref RESOURCE_READING: crate::resourcemodule::ResourceReading = Default::default();
     }
 }
+impl ResourceReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&resource_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._resource_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceReadingProfile {
     fn _resource_reading_profile(&self) -> &ResourceReadingProfile;
     fn _resource_reading_profile_mut(&mut self) -> &mut ResourceReadingProfile;
@@ -678,30 +743,30 @@ impl IsResourceReadingProfile for ResourceReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for ResourceReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for ResourceReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ResourceReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for ResourceReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for ResourceReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for ResourceReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Current event information relevant to an entity.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -758,6 +823,14 @@ mod resource_event {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl ResourceEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&resource_event::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._resource_event_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceEvent {
     fn _resource_event(&self) -> &ResourceEvent;
     fn _resource_event_mut(&mut self) -> &mut ResourceEvent;
@@ -800,14 +873,14 @@ impl IsResourceEvent for ResourceEvent {
         self
     }
 }
-//impl IsIdentifiedObject for ResourceEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ResourceEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Resource event module
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -849,6 +922,14 @@ mod resource_event_profile {
         pub(super) static ref RESOURCE_EVENT: crate::resourcemodule::ResourceEvent = Default::default();
     }
 }
+impl ResourceEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&resource_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._resource_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceEventProfile {
     fn _resource_event_profile(&self) -> &ResourceEventProfile;
     fn _resource_event_profile_mut(&mut self) -> &mut ResourceEventProfile;
@@ -879,30 +960,30 @@ impl IsResourceEventProfile for ResourceEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for ResourceEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for ResourceEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ResourceEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for ResourceEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for ResourceEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for ResourceEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Current status information relevant to an entity.
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -959,6 +1040,14 @@ mod resource_status {
         pub(super) static ref IDENTIFIED_OBJECT: crate::commonmodule::IdentifiedObject = Default::default();
     }
 }
+impl ResourceStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::IdentifiedObject {
+        self.identified_object.as_ref().unwrap_or(&resource_status::IDENTIFIED_OBJECT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::IdentifiedObject {
+        self._resource_status_mut().identified_object.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceStatus {
     fn _resource_status(&self) -> &ResourceStatus;
     fn _resource_status_mut(&mut self) -> &mut ResourceStatus;
@@ -1001,14 +1090,14 @@ impl IsResourceStatus for ResourceStatus {
         self
     }
 }
-//impl IsIdentifiedObject for ResourceStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsIdentifiedObject for ResourceStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut()
+    }
+}
 /// Resource status module
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1050,6 +1139,14 @@ mod resource_status_profile {
         pub(super) static ref RESOURCE_STATUS: crate::resourcemodule::ResourceStatus = Default::default();
     }
 }
+impl ResourceStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&resource_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._resource_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsResourceStatusProfile {
     fn _resource_status_profile(&self) -> &ResourceStatusProfile;
     fn _resource_status_profile_mut(&mut self) -> &mut ResourceStatusProfile;
@@ -1080,27 +1177,27 @@ impl IsResourceStatusProfile for ResourceStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for ResourceStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for ResourceStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for ResourceStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for ResourceStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for ResourceStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for ResourceStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}

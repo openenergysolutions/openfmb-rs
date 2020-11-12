@@ -63,7 +63,7 @@ fn field_type_name_ident(paths: &ExternPaths, package: &str, type_name: &str) ->
 pub struct MessageInheritance {
     /// A mapping from full protobuf type to another full protobuf type
     /// described by the OpenFMB UML as a Parent type
-    pub parent_typemap: HashMap<String, String>,
+    pub parent_typemap: HashMap<String, (String, FieldDescriptorProto)>,
 
     /// Any type found to be a parent of another is added here
     pub parent_types: HashSet<String>,
@@ -90,7 +90,7 @@ pub fn message_inheritance(
                         //trace!("package {:?}, message name: {:?}, field name: {:?}", package, message.name(), field.type_name());
                         let message_type = format!(".{}.{}", package, message.name());
                         assert_eq!(
-                            parent_typemap.insert(message_type, field.type_name().into()),
+                            parent_typemap.insert(message_type, (field.type_name().into(), field.clone())),
                             None
                         );
                         parent_types.insert(field.type_name().into());

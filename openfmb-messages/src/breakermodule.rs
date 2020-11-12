@@ -1,3 +1,4 @@
+use crate::commonmodule::*;
 /// Reclose enabled
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -18,6 +19,14 @@ mod breaker_discrete_control_xcbr {
         pub(super) static ref DISCRETE_CONTROL_XCBR: crate::commonmodule::DiscreteControlXcbr = Default::default();
     }
 }
+impl BreakerDiscreteControlXcbr {
+    pub(crate) fn parent(&self) -> &super::commonmodule::DiscreteControlXcbr {
+        self.discrete_control_xcbr.as_ref().unwrap_or(&breaker_discrete_control_xcbr::DISCRETE_CONTROL_XCBR)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::DiscreteControlXcbr {
+        self._breaker_discrete_control_xcbr_mut().discrete_control_xcbr.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreakerDiscreteControlXcbr {
     fn _breaker_discrete_control_xcbr(&self) -> &BreakerDiscreteControlXcbr;
     fn _breaker_discrete_control_xcbr_mut(&mut self) -> &mut BreakerDiscreteControlXcbr;
@@ -36,38 +45,38 @@ impl IsBreakerDiscreteControlXcbr for BreakerDiscreteControlXcbr {
         self
     }
 }
-//impl IsDiscreteControlXCBR for BreakerDiscreteControlXcbr {
-    //fn _discrete_control_xcbr(&self) -> &DiscreteControlXcbr {
-        //
-    //}
-//fn _mut_discrete_control_xcbr(&mut self) -> &mut DiscreteControlXcbr {
-        //
-    //}
-//}
-//impl IsLogicalNodeForControl for BreakerDiscreteControlXcbr {
-    //fn _logical_node_for_control(&self) -> &LogicalNodeForControl {
-        //
-    //}
-//fn _mut_logical_node_for_control(&mut self) -> &mut LogicalNodeForControl {
-        //
-    //}
-//}
-//impl IsLogicalNode for BreakerDiscreteControlXcbr {
-    //fn _logical_node(&self) -> &LogicalNode {
-        //
-    //}
-//fn _mut_logical_node(&mut self) -> &mut LogicalNode {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerDiscreteControlXcbr {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsDiscreteControlXcbr for BreakerDiscreteControlXcbr {
+    fn _discrete_control_xcbr(&self) -> &super::commonmodule::DiscreteControlXcbr {
+        self.parent()
+    }
+    fn _discrete_control_xcbr_mut(&mut self) -> &mut DiscreteControlXcbr {
+        self.parent_mut()
+    }
+}
+impl IsLogicalNodeForControl for BreakerDiscreteControlXcbr {
+    fn _logical_node_for_control(&self) -> &super::commonmodule::LogicalNodeForControl {
+        self.parent().parent()
+    }
+    fn _logical_node_for_control_mut(&mut self) -> &mut LogicalNodeForControl {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsLogicalNode for BreakerDiscreteControlXcbr {
+    fn _logical_node(&self) -> &super::commonmodule::LogicalNode {
+        self.parent().parent().parent()
+    }
+    fn _logical_node_mut(&mut self) -> &mut LogicalNode {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerDiscreteControlXcbr {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Breaker discrete control class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -94,6 +103,14 @@ mod breaker_discrete_control {
         pub(super) static ref CONTROL_VALUE: crate::commonmodule::ControlValue = Default::default();
         pub(super) static ref CHECK: crate::commonmodule::CheckConditions = Default::default();
         pub(super) static ref BREAKER_DISCRETE_CONTROL_XCBR: crate::breakermodule::BreakerDiscreteControlXcbr = Default::default();
+    }
+}
+impl BreakerDiscreteControl {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlValue {
+        self.control_value.as_ref().unwrap_or(&breaker_discrete_control::CONTROL_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlValue {
+        self._breaker_discrete_control_mut().control_value.get_or_insert(Default::default())
     }
 }
 pub trait IsBreakerDiscreteControl {
@@ -126,22 +143,22 @@ impl IsBreakerDiscreteControl for BreakerDiscreteControl {
         self
     }
 }
-//impl IsControlValue for BreakerDiscreteControl {
-    //fn _control_value(&self) -> &ControlValue {
-        //
-    //}
-//fn _mut_control_value(&mut self) -> &mut ControlValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerDiscreteControl {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlValue for BreakerDiscreteControl {
+    fn _control_value(&self) -> &super::commonmodule::ControlValue {
+        self.parent()
+    }
+    fn _control_value_mut(&mut self) -> &mut ControlValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerDiscreteControl {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// A mechanical switching device capable of making, carrying, and breaking currents under normal
 /// circuit conditions and also making, carrying for a specified time, and breaking currents under
 /// specified abnormal circuit conditions e.g.  those of short circuit.
@@ -164,6 +181,14 @@ mod breaker {
         pub(super) static ref CONDUCTING_EQUIPMENT: crate::commonmodule::ConductingEquipment = Default::default();
     }
 }
+impl Breaker {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipment {
+        self.conducting_equipment.as_ref().unwrap_or(&breaker::CONDUCTING_EQUIPMENT)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipment {
+        self._breaker_mut().conducting_equipment.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreaker {
     fn _breaker(&self) -> &Breaker;
     fn _breaker_mut(&mut self) -> &mut Breaker;
@@ -182,22 +207,22 @@ impl IsBreaker for Breaker {
         self
     }
 }
-//impl IsConductingEquipment for Breaker {
-    //fn _conducting_equipment(&self) -> &ConductingEquipment {
-        //
-    //}
-//fn _mut_conducting_equipment(&mut self) -> &mut ConductingEquipment {
-        //
-    //}
-//}
-//impl IsNamedObject for Breaker {
-    //fn _named_object(&self) -> &NamedObject {
-        //
-    //}
-//fn _mut_named_object(&mut self) -> &mut NamedObject {
-        //
-    //}
-//}
+impl IsConductingEquipment for Breaker {
+    fn _conducting_equipment(&self) -> &super::commonmodule::ConductingEquipment {
+        self.parent()
+    }
+    fn _conducting_equipment_mut(&mut self) -> &mut ConductingEquipment {
+        self.parent_mut()
+    }
+}
+impl IsNamedObject for Breaker {
+    fn _named_object(&self) -> &super::commonmodule::NamedObject {
+        self.parent().parent()
+    }
+    fn _named_object_mut(&mut self) -> &mut NamedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Instructs an end device (or an end device group) to perform a specified action.
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -239,6 +264,14 @@ mod breaker_discrete_control_profile {
         pub(super) static ref BREAKER_DISCRETE_CONTROL: crate::breakermodule::BreakerDiscreteControl = Default::default();
     }
 }
+impl BreakerDiscreteControlProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.control_message_info.as_ref().unwrap_or(&breaker_discrete_control_profile::CONTROL_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ControlMessageInfo {
+        self._breaker_discrete_control_profile_mut().control_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreakerDiscreteControlProfile {
     fn _breaker_discrete_control_profile(&self) -> &BreakerDiscreteControlProfile;
     fn _breaker_discrete_control_profile_mut(&mut self) -> &mut BreakerDiscreteControlProfile;
@@ -269,30 +302,30 @@ impl IsBreakerDiscreteControlProfile for BreakerDiscreteControlProfile {
         self
     }
 }
-//impl IsControlMessageInfo for BreakerDiscreteControlProfile {
-    //fn _control_message_info(&self) -> &ControlMessageInfo {
-        //
-    //}
-//fn _mut_control_message_info(&mut self) -> &mut ControlMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for BreakerDiscreteControlProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerDiscreteControlProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsControlMessageInfo for BreakerDiscreteControlProfile {
+    fn _control_message_info(&self) -> &super::commonmodule::ControlMessageInfo {
+        self.parent()
+    }
+    fn _control_message_info_mut(&mut self) -> &mut ControlMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for BreakerDiscreteControlProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerDiscreteControlProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Breaker event class
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -315,6 +348,14 @@ mod breaker_event {
     lazy_static! {
         pub(super) static ref EVENT_VALUE: crate::commonmodule::EventValue = Default::default();
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
+    }
+}
+impl BreakerEvent {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventValue {
+        self.event_value.as_ref().unwrap_or(&breaker_event::EVENT_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventValue {
+        self._breaker_event_mut().event_value.get_or_insert(Default::default())
     }
 }
 pub trait IsBreakerEvent {
@@ -341,22 +382,22 @@ impl IsBreakerEvent for BreakerEvent {
         self
     }
 }
-//impl IsEventValue for BreakerEvent {
-    //fn _event_value(&self) -> &EventValue {
-        //
-    //}
-//fn _mut_event_value(&mut self) -> &mut EventValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerEvent {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventValue for BreakerEvent {
+    fn _event_value(&self) -> &super::commonmodule::EventValue {
+        self.parent()
+    }
+    fn _event_value_mut(&mut self) -> &mut EventValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerEvent {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Breaker event profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -398,6 +439,14 @@ mod breaker_event_profile {
         pub(super) static ref BREAKER_EVENT: crate::breakermodule::BreakerEvent = Default::default();
     }
 }
+impl BreakerEventProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::EventMessageInfo {
+        self.event_message_info.as_ref().unwrap_or(&breaker_event_profile::EVENT_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::EventMessageInfo {
+        self._breaker_event_profile_mut().event_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreakerEventProfile {
     fn _breaker_event_profile(&self) -> &BreakerEventProfile;
     fn _breaker_event_profile_mut(&mut self) -> &mut BreakerEventProfile;
@@ -428,30 +477,30 @@ impl IsBreakerEventProfile for BreakerEventProfile {
         self
     }
 }
-//impl IsEventMessageInfo for BreakerEventProfile {
-    //fn _event_message_info(&self) -> &EventMessageInfo {
-        //
-    //}
-//fn _mut_event_message_info(&mut self) -> &mut EventMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for BreakerEventProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerEventProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsEventMessageInfo for BreakerEventProfile {
+    fn _event_message_info(&self) -> &super::commonmodule::EventMessageInfo {
+        self.parent()
+    }
+    fn _event_message_info_mut(&mut self) -> &mut EventMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for BreakerEventProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerEventProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -486,6 +535,14 @@ mod breaker_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+    }
+}
+impl BreakerReading {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.conducting_equipment_terminal_reading.as_ref().unwrap_or(&breaker_reading::CONDUCTING_EQUIPMENT_TERMINAL_READING)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ConductingEquipmentTerminalReading {
+        self._breaker_reading_mut().conducting_equipment_terminal_reading.get_or_insert(Default::default())
     }
 }
 pub trait IsBreakerReading {
@@ -530,14 +587,14 @@ impl IsBreakerReading for BreakerReading {
         self
     }
 }
-//impl IsConductingEquipmentTerminalReading for BreakerReading {
-    //fn _conducting_equipment_terminal_reading(&self) -> &ConductingEquipmentTerminalReading {
-        //
-    //}
-//fn _mut_conducting_equipment_terminal_reading(&mut self) -> &mut ConductingEquipmentTerminalReading {
-        //
-    //}
-//}
+impl IsConductingEquipmentTerminalReading for BreakerReading {
+    fn _conducting_equipment_terminal_reading(&self) -> &super::commonmodule::ConductingEquipmentTerminalReading {
+        self.parent()
+    }
+    fn _conducting_equipment_terminal_reading_mut(&mut self) -> &mut ConductingEquipmentTerminalReading {
+        self.parent_mut()
+    }
+}
 /// Breaker reading profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -578,6 +635,14 @@ mod breaker_reading_profile {
         pub(super) static ref BREAKER: crate::breakermodule::Breaker = Default::default();
     }
 }
+impl BreakerReadingProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.reading_message_info.as_ref().unwrap_or(&breaker_reading_profile::READING_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::ReadingMessageInfo {
+        self._breaker_reading_profile_mut().reading_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreakerReadingProfile {
     fn _breaker_reading_profile(&self) -> &BreakerReadingProfile;
     fn _breaker_reading_profile_mut(&mut self) -> &mut BreakerReadingProfile;
@@ -608,30 +673,30 @@ impl IsBreakerReadingProfile for BreakerReadingProfile {
         self
     }
 }
-//impl IsReadingMessageInfo for BreakerReadingProfile {
-    //fn _reading_message_info(&self) -> &ReadingMessageInfo {
-        //
-    //}
-//fn _mut_reading_message_info(&mut self) -> &mut ReadingMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for BreakerReadingProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerReadingProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsReadingMessageInfo for BreakerReadingProfile {
+    fn _reading_message_info(&self) -> &super::commonmodule::ReadingMessageInfo {
+        self.parent()
+    }
+    fn _reading_message_info_mut(&mut self) -> &mut ReadingMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for BreakerReadingProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerReadingProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
 /// Status of a breaker
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
@@ -654,6 +719,14 @@ mod breaker_status {
     lazy_static! {
         pub(super) static ref STATUS_VALUE: crate::commonmodule::StatusValue = Default::default();
         pub(super) static ref STATUS_AND_EVENT_XCBR: crate::commonmodule::StatusAndEventXcbr = Default::default();
+    }
+}
+impl BreakerStatus {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusValue {
+        self.status_value.as_ref().unwrap_or(&breaker_status::STATUS_VALUE)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusValue {
+        self._breaker_status_mut().status_value.get_or_insert(Default::default())
     }
 }
 pub trait IsBreakerStatus {
@@ -680,22 +753,22 @@ impl IsBreakerStatus for BreakerStatus {
         self
     }
 }
-//impl IsStatusValue for BreakerStatus {
-    //fn _status_value(&self) -> &StatusValue {
-        //
-    //}
-//fn _mut_status_value(&mut self) -> &mut StatusValue {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerStatus {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusValue for BreakerStatus {
+    fn _status_value(&self) -> &super::commonmodule::StatusValue {
+        self.parent()
+    }
+    fn _status_value_mut(&mut self) -> &mut StatusValue {
+        self.parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerStatus {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut()
+    }
+}
 /// Breaker status profile
 /// OpenFMB Profile Message: true
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -737,6 +810,14 @@ mod breaker_status_profile {
         pub(super) static ref BREAKER_STATUS: crate::breakermodule::BreakerStatus = Default::default();
     }
 }
+impl BreakerStatusProfile {
+    pub(crate) fn parent(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.status_message_info.as_ref().unwrap_or(&breaker_status_profile::STATUS_MESSAGE_INFO)
+    }
+    pub(crate) fn parent_mut(&mut self) -> &mut super::commonmodule::StatusMessageInfo {
+        self._breaker_status_profile_mut().status_message_info.get_or_insert(Default::default())
+    }
+}
 pub trait IsBreakerStatusProfile {
     fn _breaker_status_profile(&self) -> &BreakerStatusProfile;
     fn _breaker_status_profile_mut(&mut self) -> &mut BreakerStatusProfile;
@@ -767,27 +848,27 @@ impl IsBreakerStatusProfile for BreakerStatusProfile {
         self
     }
 }
-//impl IsStatusMessageInfo for BreakerStatusProfile {
-    //fn _status_message_info(&self) -> &StatusMessageInfo {
-        //
-    //}
-//fn _mut_status_message_info(&mut self) -> &mut StatusMessageInfo {
-        //
-    //}
-//}
-//impl IsMessageInfo for BreakerStatusProfile {
-    //fn _message_info(&self) -> &MessageInfo {
-        //
-    //}
-//fn _mut_message_info(&mut self) -> &mut MessageInfo {
-        //
-    //}
-//}
-//impl IsIdentifiedObject for BreakerStatusProfile {
-    //fn _identified_object(&self) -> &IdentifiedObject {
-        //
-    //}
-//fn _mut_identified_object(&mut self) -> &mut IdentifiedObject {
-        //
-    //}
-//}
+impl IsStatusMessageInfo for BreakerStatusProfile {
+    fn _status_message_info(&self) -> &super::commonmodule::StatusMessageInfo {
+        self.parent()
+    }
+    fn _status_message_info_mut(&mut self) -> &mut StatusMessageInfo {
+        self.parent_mut()
+    }
+}
+impl IsMessageInfo for BreakerStatusProfile {
+    fn _message_info(&self) -> &super::commonmodule::MessageInfo {
+        self.parent().parent()
+    }
+    fn _message_info_mut(&mut self) -> &mut MessageInfo {
+        self.parent_mut().parent_mut()
+    }
+}
+impl IsIdentifiedObject for BreakerStatusProfile {
+    fn _identified_object(&self) -> &super::commonmodule::IdentifiedObject {
+        self.parent().parent().parent()
+    }
+    fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
+        self.parent_mut().parent_mut().parent_mut()
+    }
+}
