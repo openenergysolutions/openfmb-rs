@@ -1,8 +1,7 @@
 use crate::commonmodule::*;
 /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
 /// by a circuit segment service.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserDiscreteControlXcbr {
     /// UML inherited base object
     // parent_message: true
@@ -12,6 +11,7 @@ pub struct RecloserDiscreteControlXcbr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "discreteControlXCBR")]
     pub discrete_control_xcbr: ::std::option::Option<super::commonmodule::DiscreteControlXcbr>,
 }
 mod recloser_discrete_control_xcbr {
@@ -79,8 +79,7 @@ impl IsIdentifiedObject for RecloserDiscreteControlXcbr {
     }
 }
 /// Recloser discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -90,12 +89,15 @@ pub struct RecloserDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "recloserDiscreteControlXCBR")]
     pub recloser_discrete_control_xcbr: ::std::option::Option<RecloserDiscreteControlXcbr>,
 }
 mod recloser_discrete_control {
@@ -162,8 +164,7 @@ impl IsIdentifiedObject for RecloserDiscreteControl {
 }
 /// Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
 /// and supplemental controls.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Recloser {
     /// UML inherited base object
     // parent_message: true
@@ -173,9 +174,11 @@ pub struct Recloser {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "normalOpen")]
     pub normal_open: ::std::option::Option<bool>,
 }
 mod recloser {
@@ -236,8 +239,7 @@ impl IsNamedObject for Recloser {
 /// Recloser control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -247,6 +249,7 @@ pub struct RecloserDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -256,6 +259,7 @@ pub struct RecloserDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -265,6 +269,7 @@ pub struct RecloserDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "recloserDiscreteControl")]
     pub recloser_discrete_control: ::std::option::Option<RecloserDiscreteControl>,
 }
 mod recloser_discrete_control_profile {
@@ -338,8 +343,7 @@ impl IsIdentifiedObject for RecloserDiscreteControlProfile {
     }
 }
 /// Recloser event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserEvent {
     /// UML inherited base object
     // parent_message: true
@@ -349,9 +353,11 @@ pub struct RecloserEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "statusAndEventXCBR")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
 mod recloser_event {
@@ -411,8 +417,7 @@ impl IsIdentifiedObject for RecloserEvent {
 }
 /// Recloser event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -422,6 +427,7 @@ pub struct RecloserEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -431,6 +437,7 @@ pub struct RecloserEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -440,6 +447,7 @@ pub struct RecloserEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "recloserEvent")]
     pub recloser_event: ::std::option::Option<RecloserEvent>,
 }
 mod recloser_event_profile {
@@ -513,8 +521,7 @@ impl IsIdentifiedObject for RecloserEventProfile {
     }
 }
 /// Recloser reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserReading {
     /// UML inherited base object
     // parent_message: true
@@ -524,18 +531,23 @@ pub struct RecloserReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "diffReadingMMXU")]
     pub diff_reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod recloser_reading {
@@ -608,8 +620,7 @@ impl IsConductingEquipmentTerminalReading for RecloserReading {
 }
 /// Recloser reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -619,6 +630,7 @@ pub struct RecloserReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -628,6 +640,7 @@ pub struct RecloserReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -637,6 +650,7 @@ pub struct RecloserReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "recloserReading")]
     pub recloser_reading: ::std::vec::Vec<RecloserReading>,
 }
 mod recloser_reading_profile {
@@ -709,8 +723,7 @@ impl IsIdentifiedObject for RecloserReadingProfile {
     }
 }
 /// Recloser status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserStatus {
     /// UML inherited base object
     // parent_message: true
@@ -720,9 +733,11 @@ pub struct RecloserStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "statusAndEventXCBR")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
 mod recloser_status {
@@ -782,8 +797,7 @@ impl IsIdentifiedObject for RecloserStatus {
 }
 /// Recloser status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RecloserStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -793,6 +807,7 @@ pub struct RecloserStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -802,6 +817,7 @@ pub struct RecloserStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub recloser: ::std::option::Option<Recloser>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -811,6 +827,7 @@ pub struct RecloserStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "recloserStatus")]
     pub recloser_status: ::std::option::Option<RecloserStatus>,
 }
 mod recloser_status_profile {

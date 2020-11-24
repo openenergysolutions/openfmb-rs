@@ -8,7 +8,7 @@ controlling and monitoring power grid devices over a message bus.
 The OpenFMB specification is defined in UML and converted to potentially 
 any number of message encodings. The most common is protocol buffers.
 
-The UML generates additional information to describe an single-inheritance
+The UML generates additional information to describe a single-inheritance
 message type hierarchy that cannot be directly expressed in a proto or
 correctly code generated for using protoc and Rusts prost alone.
 

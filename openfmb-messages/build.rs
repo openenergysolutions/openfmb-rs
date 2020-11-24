@@ -24,7 +24,6 @@ fn main() {
     const OUT: &str = "src";
     openfmb_codegen::Config::new()
         .btree_map(&["."])
-        .type_attribute(".", "#[derive(serde::Serialize, serde::Deserialize)]")
         .out_dir(OUT)
         .compile_protos(&PROTOS, &INCLUDES)
         .unwrap();

@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// OpenFMB specialization for switch control:  LN: Circuit switch   Name: XSWI
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchDiscreteControlXswi {
     /// UML inherited base object
     // parent_message: true
@@ -11,12 +10,15 @@ pub struct SwitchDiscreteControlXswi {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "ResetProtectionPickup")]
     pub reset_protection_pickup: ::std::option::Option<super::commonmodule::ControlSpc>,
 }
 mod switch_discrete_control_xswi {
@@ -90,8 +92,7 @@ impl IsIdentifiedObject for SwitchDiscreteControlXswi {
     }
 }
 /// Switch discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -101,12 +102,15 @@ pub struct SwitchDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "switchDiscreteControlXSWI")]
     pub switch_discrete_control_xswi: ::std::option::Option<SwitchDiscreteControlXswi>,
 }
 mod switch_discrete_control {
@@ -172,8 +176,7 @@ impl IsIdentifiedObject for SwitchDiscreteControl {
     }
 }
 /// A ProtectedSwitch is a switching device that can be operated by ProtectionEquipment.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ProtectedSwitch {
     /// UML inherited base object
     // parent_message: true
@@ -183,6 +186,7 @@ pub struct ProtectedSwitch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
 }
 mod protected_switch {
@@ -235,8 +239,7 @@ impl IsNamedObject for ProtectedSwitch {
 }
 /// Switch control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -246,6 +249,7 @@ pub struct SwitchDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -255,6 +259,7 @@ pub struct SwitchDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "protectedSwitch")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -264,6 +269,7 @@ pub struct SwitchDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "switchDiscreteControl")]
     pub switch_discrete_control: ::std::option::Option<SwitchDiscreteControl>,
 }
 mod switch_discrete_control_profile {
@@ -337,8 +343,7 @@ impl IsIdentifiedObject for SwitchDiscreteControlProfile {
     }
 }
 /// OpenFMB specialization for SwitchEventProfile
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchEventXswi {
     /// UML inherited base object
     // parent_message: true
@@ -348,12 +353,15 @@ pub struct SwitchEventXswi {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// Dynamic test status
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
 }
 mod switch_event_xswi {
@@ -427,8 +435,7 @@ impl IsIdentifiedObject for SwitchEventXswi {
     }
 }
 /// Switch event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchEvent {
     /// UML inherited base object
     // parent_message: true
@@ -438,9 +445,11 @@ pub struct SwitchEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "switchEventXSWI")]
     pub switch_event_xswi: ::std::option::Option<SwitchEventXswi>,
 }
 mod switch_event {
@@ -500,8 +509,7 @@ impl IsIdentifiedObject for SwitchEvent {
 }
 /// Switch event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -511,6 +519,7 @@ pub struct SwitchEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -520,6 +529,7 @@ pub struct SwitchEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "protectedSwitch")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -529,6 +539,7 @@ pub struct SwitchEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "switchEvent")]
     pub switch_event: ::std::option::Option<SwitchEvent>,
 }
 mod switch_event_profile {
@@ -602,8 +613,7 @@ impl IsIdentifiedObject for SwitchEventProfile {
     }
 }
 /// Switch reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchReading {
     /// UML inherited base object
     // parent_message: true
@@ -613,18 +623,23 @@ pub struct SwitchReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "diffReadingMMXU")]
     pub diff_reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod switch_reading {
@@ -697,8 +712,7 @@ impl IsConductingEquipmentTerminalReading for SwitchReading {
 }
 /// Switch reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -708,6 +722,7 @@ pub struct SwitchReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -717,6 +732,7 @@ pub struct SwitchReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "protectedSwitch")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -726,6 +742,7 @@ pub struct SwitchReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "switchReading")]
     pub switch_reading: ::std::vec::Vec<SwitchReading>,
 }
 mod switch_reading_profile {
@@ -798,8 +815,7 @@ impl IsIdentifiedObject for SwitchReadingProfile {
     }
 }
 /// OpenFMB specialization for SwitchStatusProfile
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchStatusXswi {
     /// UML inherited base object
     // parent_message: true
@@ -809,12 +825,15 @@ pub struct SwitchStatusXswi {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
     /// Fault latch: LT01=51A OR 51B OR 51C
     // parent_message: false
@@ -824,6 +843,7 @@ pub struct SwitchStatusXswi {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "ProtectionPickup")]
     pub protection_pickup: ::std::option::Option<super::commonmodule::PhaseSps>,
 }
 mod switch_status_xswi {
@@ -904,8 +924,7 @@ impl IsIdentifiedObject for SwitchStatusXswi {
     }
 }
 /// Switch status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchStatus {
     /// UML inherited base object
     // parent_message: true
@@ -915,9 +934,11 @@ pub struct SwitchStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "switchStatusXSWI")]
     pub switch_status_xswi: ::std::option::Option<SwitchStatusXswi>,
 }
 mod switch_status {
@@ -977,8 +998,7 @@ impl IsIdentifiedObject for SwitchStatus {
 }
 /// Switch status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -988,6 +1008,7 @@ pub struct SwitchStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -997,6 +1018,7 @@ pub struct SwitchStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "protectedSwitch")]
     pub protected_switch: ::std::option::Option<ProtectedSwitch>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1006,6 +1028,7 @@ pub struct SwitchStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "switchStatus")]
     pub switch_status: ::std::option::Option<SwitchStatus>,
 }
 mod switch_status_profile {

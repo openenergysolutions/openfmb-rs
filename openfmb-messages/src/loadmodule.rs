@@ -1,22 +1,26 @@
 use crate::commonmodule::*;
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadPoint {
     /// Ramp rates
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Reset device
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// ESS state
     #[prost(message, optional, tag="5")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Start time
     // parent_message: false
@@ -26,6 +30,7 @@ pub struct LoadPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::ControlTimestamp>,
 }
 mod load_point {
@@ -90,8 +95,7 @@ impl IsLoadPoint for LoadPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -101,6 +105,7 @@ pub struct LoadCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<LoadPoint>,
 }
 mod load_csg {
@@ -129,8 +134,7 @@ impl IsLoadCsg for LoadCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadControlScheduleFsch {
     /// Discrete value in LoadCSG type
     // parent_message: false
@@ -140,6 +144,7 @@ pub struct LoadControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValDCSG")]
     pub val_dcsg: ::std::option::Option<LoadCsg>,
 }
 mod load_control_schedule_fsch {
@@ -169,8 +174,7 @@ impl IsLoadControlScheduleFsch for LoadControlScheduleFsch {
     }
 }
 /// Specialized FSCC 61850 class.  LN: Schedule controller   Name: FSCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -180,9 +184,11 @@ pub struct LoadControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "loadControlScheduleFSCH")]
     pub load_control_schedule_fsch: ::std::option::Option<LoadControlScheduleFsch>,
 }
 mod load_control_fscc {
@@ -257,8 +263,7 @@ impl IsIdentifiedObject for LoadControlFscc {
     }
 }
 /// Load control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadControl {
     /// UML inherited base object
     // parent_message: true
@@ -268,12 +273,15 @@ pub struct LoadControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadControlFSCC")]
     pub load_control_fscc: ::std::option::Option<LoadControlFscc>,
 }
 mod load_control {
@@ -340,8 +348,7 @@ impl IsIdentifiedObject for LoadControl {
 }
 /// Load control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -351,6 +358,7 @@ pub struct LoadControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -360,6 +368,7 @@ pub struct LoadControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "energyConsumer")]
     pub energy_consumer: ::std::option::Option<super::commonmodule::EnergyConsumer>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -369,6 +378,7 @@ pub struct LoadControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadControl")]
     pub load_control: ::std::option::Option<LoadControl>,
 }
 mod load_control_profile {
@@ -442,23 +452,27 @@ impl IsIdentifiedObject for LoadControlProfile {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadPointStatus {
     /// Ramp rates
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Reset device
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub reset: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="5")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
 }
 mod load_point_status {
@@ -516,8 +530,7 @@ impl IsLoadPointStatus for LoadPointStatus {
     }
 }
 /// Specialized 61850 ZGLD class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadEventAndStatusZgld {
     /// UML inherited base object
     // parent_message: true
@@ -527,15 +540,19 @@ pub struct LoadEventAndStatusZgld {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// Emergency stop
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "EmgStop")]
     pub emg_stop: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Point status
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "PointStatus")]
     pub point_status: ::std::option::Option<LoadPointStatus>,
 }
 mod load_event_and_status_zgld {
@@ -616,8 +633,7 @@ impl IsIdentifiedObject for LoadEventAndStatusZgld {
     }
 }
 /// Specialized 61850 ZGLD LN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadEventZgld {
     /// UML inherited base object
     // parent_message: true
@@ -627,6 +643,7 @@ pub struct LoadEventZgld {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "loadEventAndStatusZGLD")]
     pub load_event_and_status_zgld: ::std::option::Option<LoadEventAndStatusZgld>,
 }
 mod load_event_zgld {
@@ -694,8 +711,7 @@ impl IsIdentifiedObject for LoadEventZgld {
     }
 }
 /// Load event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadEvent {
     /// UML inherited base object
     // parent_message: true
@@ -705,9 +721,11 @@ pub struct LoadEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "loadEventZGLD")]
     pub load_event_zgld: ::std::option::Option<LoadEventZgld>,
 }
 mod load_event {
@@ -767,8 +785,7 @@ impl IsIdentifiedObject for LoadEvent {
 }
 /// Load event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -778,6 +795,7 @@ pub struct LoadEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -787,6 +805,7 @@ pub struct LoadEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "energyConsumer")]
     pub energy_consumer: ::std::option::Option<super::commonmodule::EnergyConsumer>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -796,6 +815,7 @@ pub struct LoadEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadEvent")]
     pub load_event: ::std::option::Option<LoadEvent>,
 }
 mod load_event_profile {
@@ -869,8 +889,7 @@ impl IsIdentifiedObject for LoadEventProfile {
     }
 }
 /// Load reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadReading {
     /// UML inherited base object
     // parent_message: true
@@ -880,15 +899,19 @@ pub struct LoadReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod load_reading {
@@ -954,8 +977,7 @@ impl IsConductingEquipmentTerminalReading for LoadReading {
 }
 /// Load reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -965,6 +987,7 @@ pub struct LoadReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -974,6 +997,7 @@ pub struct LoadReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "energyConsumer")]
     pub energy_consumer: ::std::option::Option<super::commonmodule::EnergyConsumer>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -983,6 +1007,7 @@ pub struct LoadReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadReading")]
     pub load_reading: ::std::option::Option<LoadReading>,
 }
 mod load_reading_profile {
@@ -1056,8 +1081,7 @@ impl IsIdentifiedObject for LoadReadingProfile {
     }
 }
 /// Specialized 61850 ZGLD LN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadStatusZgld {
     /// UML inherited base object
     // parent_message: true
@@ -1067,6 +1091,7 @@ pub struct LoadStatusZgld {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "loadEventAndStatusZGLD")]
     pub load_event_and_status_zgld: ::std::option::Option<LoadEventAndStatusZgld>,
 }
 mod load_status_zgld {
@@ -1134,8 +1159,7 @@ impl IsIdentifiedObject for LoadStatusZgld {
     }
 }
 /// Load status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadStatus {
     /// UML inherited base object
     // parent_message: true
@@ -1145,12 +1169,15 @@ pub struct LoadStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// True if the load is uncontrollable.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "isUncontrollable")]
     pub is_uncontrollable: ::std::option::Option<bool>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadStatusZGLD")]
     pub load_status_zgld: ::std::option::Option<LoadStatusZgld>,
 }
 mod load_status {
@@ -1217,8 +1244,7 @@ impl IsIdentifiedObject for LoadStatus {
 }
 /// Load status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LoadStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1228,6 +1254,7 @@ pub struct LoadStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1237,6 +1264,7 @@ pub struct LoadStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "energyConsumer")]
     pub energy_consumer: ::std::option::Option<super::commonmodule::EnergyConsumer>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1246,6 +1274,7 @@ pub struct LoadStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "loadStatus")]
     pub load_status: ::std::option::Option<LoadStatus>,
 }
 mod load_status_profile {
