@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// LN: Automatic tap changer controller   Name: ATCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlAtcc {
     /// UML inherited base object
     // parent_message: true
@@ -11,40 +10,52 @@ pub struct RegulatorControlAtcc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// Centre of voltage control bandwidth (forward power flow presumed).
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "BndCtr")]
     pub bnd_ctr: ::std::option::Option<super::commonmodule::Asg>,
     /// Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
     /// of the nominal voltage (forward power flow presumed).
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "BndWid")]
     pub bnd_wid: ::std::option::Option<super::commonmodule::Asg>,
     /// Time to wait before operating, after reaching the control point (forward power flow presumed).
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "CtlDlTmms")]
     pub ctl_dl_tmms: ::std::option::Option<super::commonmodule::ControlIng>,
     /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "LDCR")]
     pub ldcr: ::std::option::Option<super::commonmodule::Asg>,
     /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "LDCX")]
     pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "ParOp")]
     pub par_op: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Ramp rates
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// (controllable) Tap position change to the specified value.
     #[prost(message, optional, tag="9")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// (controllable) Tap position change to the specified value.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "TapPos")]
     pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIsc>,
     /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "VolSpt")]
     pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
 }
 mod regulator_control_atcc {
@@ -181,11 +192,11 @@ impl IsIdentifiedObject for RegulatorControlAtcc {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorPoint {
     /// Regulator control
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub control: ::std::option::Option<RegulatorControlAtcc>,
     /// Start time
     // parent_message: false
@@ -195,6 +206,7 @@ pub struct RegulatorPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::Timestamp>,
 }
 mod regulator_point {
@@ -231,8 +243,7 @@ impl IsRegulatorPoint for RegulatorPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -242,6 +253,7 @@ pub struct RegulatorCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<RegulatorPoint>,
 }
 mod regulator_csg {
@@ -270,8 +282,7 @@ impl IsRegulatorCsg for RegulatorCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlScheduleFsch {
     /// Discrete value in RegulatorCSG type
     // parent_message: false
@@ -281,6 +292,7 @@ pub struct RegulatorControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValDCSG")]
     pub val_dcsg: ::std::option::Option<RegulatorCsg>,
 }
 mod regulator_control_schedule_fsch {
@@ -310,8 +322,7 @@ impl IsRegulatorControlScheduleFsch for RegulatorControlScheduleFsch {
     }
 }
 /// Using 61850 FSCC for regulator control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -321,9 +332,11 @@ pub struct RegulatorControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorControlScheduleFSCH")]
     pub regulator_control_schedule_fsch: ::std::option::Option<RegulatorControlScheduleFsch>,
 }
 mod regulator_control_fscc {
@@ -398,8 +411,7 @@ impl IsIdentifiedObject for RegulatorControlFscc {
     }
 }
 /// Regulator control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControl {
     /// UML inherited base object
     // parent_message: true
@@ -409,12 +421,15 @@ pub struct RegulatorControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorControlFSCC")]
     pub regulator_control_fscc: ::std::option::Option<RegulatorControlFscc>,
 }
 mod regulator_control {
@@ -481,8 +496,7 @@ impl IsIdentifiedObject for RegulatorControl {
 }
 /// Pole-mounted fault interrupter with built-in phase and ground relays, current transformer (CT),
 /// and supplemental controls.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorSystem {
     /// UML inherited base object
     // parent_message: true
@@ -492,6 +506,7 @@ pub struct RegulatorSystem {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
 }
 mod regulator_system {
@@ -545,8 +560,7 @@ impl IsNamedObject for RegulatorSystem {
 /// Regulator control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -556,6 +570,7 @@ pub struct RegulatorControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -565,6 +580,7 @@ pub struct RegulatorControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorControl")]
     pub regulator_control: ::std::option::Option<RegulatorControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -574,6 +590,7 @@ pub struct RegulatorControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorSystem")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_control_profile {
@@ -647,8 +664,7 @@ impl IsIdentifiedObject for RegulatorControlProfile {
     }
 }
 /// Regulator control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -658,12 +674,15 @@ pub struct RegulatorDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorControlATCC")]
     pub regulator_control_atcc: ::std::option::Option<RegulatorControlAtcc>,
 }
 mod regulator_discrete_control {
@@ -731,8 +750,7 @@ impl IsIdentifiedObject for RegulatorDiscreteControl {
 /// Regulator control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -742,6 +760,7 @@ pub struct RegulatorDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -751,6 +770,7 @@ pub struct RegulatorDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorDiscreteControl")]
     pub regulator_discrete_control: ::std::option::Option<RegulatorDiscreteControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -760,6 +780,7 @@ pub struct RegulatorDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorSystem")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_discrete_control_profile {
@@ -833,46 +854,57 @@ impl IsIdentifiedObject for RegulatorDiscreteControlProfile {
     }
 }
 /// LN: Automatic tap changer controller   Name: ATCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorEventAndStatusAtcc {
     /// Centre of voltage control bandwidth (forward power flow presumed).
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "BndCtr")]
     pub bnd_ctr: ::std::option::Option<super::commonmodule::Asg>,
     /// Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
     /// of the nominal voltage (forward power flow presumed).
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "BndWid")]
     pub bnd_wid: ::std::option::Option<super::commonmodule::Asg>,
     /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "LDCR")]
     pub ldcr: ::std::option::Option<super::commonmodule::Asg>,
     /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "LDCX")]
     pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "ParOp")]
     pub par_op: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Ramp rates
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// State
     #[prost(message, optional, tag="7")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// OpenFMB extension:  Status for the time to wait before operating (CtrlDlTmms)
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "StDlTmms")]
     pub st_dl_tmms: ::std::option::Option<super::commonmodule::StatusInc>,
     /// If true, there was an error in tap position change, or in tap indication (for instance, wrong
     /// Binary Coded Decimal (BCD) code).
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "TapOpErr")]
     pub tap_op_err: ::std::option::Option<super::commonmodule::StatusSps>,
     /// (controllable) Tap position change to the specified value.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "TapPos")]
     pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIns>,
     /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "VolSpt")]
     pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
     /// Voltage set point status
     #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSpc>,
 }
 mod regulator_event_and_status_atcc {
@@ -979,8 +1011,7 @@ impl IsRegulatorEventAndStatusAtcc for RegulatorEventAndStatusAtcc {
     }
 }
 /// OpenFMB 61850 specialization for both RegulatorEventProfile and RegulatorStatusProfile
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorEventAndStatusAncr {
     /// UML inherited base object
     // parent_message: true
@@ -990,12 +1021,15 @@ pub struct RegulatorEventAndStatusAncr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "PointStatus")]
     pub point_status: ::std::option::Option<RegulatorEventAndStatusAtcc>,
 }
 mod regulator_event_and_status_ancr {
@@ -1069,8 +1103,7 @@ impl IsIdentifiedObject for RegulatorEventAndStatusAncr {
     }
 }
 /// Regulator event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorEvent {
     /// UML inherited base object
     // parent_message: true
@@ -1080,9 +1113,11 @@ pub struct RegulatorEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorEventAndStatusANCR")]
     pub regulator_event_and_status_ancr: ::std::option::Option<RegulatorEventAndStatusAncr>,
 }
 mod regulator_event {
@@ -1142,8 +1177,7 @@ impl IsIdentifiedObject for RegulatorEvent {
 }
 /// Regulator event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1153,6 +1187,7 @@ pub struct RegulatorEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1162,6 +1197,7 @@ pub struct RegulatorEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorEvent")]
     pub regulator_event: ::std::option::Option<RegulatorEvent>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1171,6 +1207,7 @@ pub struct RegulatorEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorSystem")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_event_profile {
@@ -1244,8 +1281,7 @@ impl IsIdentifiedObject for RegulatorEventProfile {
     }
 }
 /// Regulator reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorReading {
     /// UML inherited base object
     // parent_message: true
@@ -1255,15 +1291,19 @@ pub struct RegulatorReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod regulator_reading {
@@ -1329,8 +1369,7 @@ impl IsConductingEquipmentTerminalReading for RegulatorReading {
 }
 /// Regulator reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1340,6 +1379,7 @@ pub struct RegulatorReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1349,6 +1389,7 @@ pub struct RegulatorReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
+    #[serde(default, rename = "regulatorReading")]
     pub regulator_reading: ::std::vec::Vec<RegulatorReading>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1358,6 +1399,7 @@ pub struct RegulatorReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorSystem")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_reading_profile {
@@ -1430,8 +1472,7 @@ impl IsIdentifiedObject for RegulatorReadingProfile {
     }
 }
 /// Regulator status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorStatus {
     /// UML inherited base object
     // parent_message: true
@@ -1441,9 +1482,11 @@ pub struct RegulatorStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorEventAndStatusANCR")]
     pub regulator_event_and_status_ancr: ::std::option::Option<RegulatorEventAndStatusAncr>,
 }
 mod regulator_status {
@@ -1503,8 +1546,7 @@ impl IsIdentifiedObject for RegulatorStatus {
 }
 /// Regulator status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RegulatorStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1514,6 +1556,7 @@ pub struct RegulatorStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1523,6 +1566,7 @@ pub struct RegulatorStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "regulatorStatus")]
     pub regulator_status: ::std::option::Option<RegulatorStatus>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1532,6 +1576,7 @@ pub struct RegulatorStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "regulatorSystem")]
     pub regulator_system: ::std::option::Option<RegulatorSystem>,
 }
 mod regulator_status_profile {

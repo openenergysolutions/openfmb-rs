@@ -1,8 +1,8 @@
 use crate::commonmodule::*;
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalCoordinationServiceModeKind {
     #[prost(enumeration="CoordinationServiceModeKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_coordination_service_mode_kind {
@@ -31,8 +31,7 @@ impl IsOptionalCoordinationServiceModeKind for OptionalCoordinationServiceModeKi
     }
 }
 /// Coordination service mode kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EngCoordinationServiceModeKind {
     /// The value of the coordination service mode.
     // parent_message: false
@@ -42,9 +41,11 @@ pub struct EngCoordinationServiceModeKind {
     // uuid: false
     // key: false
     #[prost(enumeration="CoordinationServiceModeKind", tag="1")]
+    #[serde(default, rename = "setVal")]
     pub set_val: i32,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "setValExtension")]
     pub set_val_extension: ::std::option::Option<::std::string::String>,
 }
 mod eng_coordination_service_mode_kind {
@@ -81,8 +82,7 @@ impl IsEngCoordinationServiceModeKind for EngCoordinationServiceModeKind {
 }
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationControlDcsc {
     /// UML inherited base object
     // parent_message: true
@@ -92,12 +92,15 @@ pub struct CoordinationControlDcsc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "CoordinationServiceMode")]
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Island")]
     pub island: ::std::option::Option<super::commonmodule::ControlDpc>,
 }
 mod coordination_control_dcsc {
@@ -171,8 +174,7 @@ impl IsIdentifiedObject for CoordinationControlDcsc {
     }
 }
 /// Switch discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationControl {
     /// UML inherited base object
     // parent_message: true
@@ -182,9 +184,11 @@ pub struct CoordinationControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -194,6 +198,7 @@ pub struct CoordinationControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "coordinationControlDCSC")]
     pub coordination_control_dcsc: ::std::option::Option<CoordinationControlDcsc>,
 }
 mod coordination_control {
@@ -252,8 +257,7 @@ impl IsIdentifiedObject for CoordinationControl {
 }
 /// Switch control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -263,6 +267,7 @@ pub struct CoordinationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -272,6 +277,7 @@ pub struct CoordinationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "applicationSystem")]
     pub application_system: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -281,6 +287,7 @@ pub struct CoordinationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "coordinationControl")]
     pub coordination_control: ::std::option::Option<CoordinationControl>,
 }
 mod coordination_control_profile {
@@ -355,8 +362,7 @@ impl IsIdentifiedObject for CoordinationControlProfile {
 }
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationEventDcsc {
     /// UML inherited base object
     // parent_message: true
@@ -366,27 +372,35 @@ pub struct CoordinationEventDcsc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "CoordinationServiceMode")]
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Island")]
     pub island: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "PermissibleAuto")]
     pub permissible_auto: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "PermissibleManual")]
     pub permissible_manual: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "PermissibleNetzero")]
     pub permissible_netzero: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "PermissibleStart")]
     pub permissible_start: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "PermissibleStop")]
     pub permissible_stop: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod coordination_event_dcsc {
@@ -487,8 +501,7 @@ impl IsIdentifiedObject for CoordinationEventDcsc {
     }
 }
 /// Switch event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationEvent {
     /// UML inherited base object
     // parent_message: true
@@ -498,6 +511,7 @@ pub struct CoordinationEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -507,6 +521,7 @@ pub struct CoordinationEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "coordinationEventDCSC")]
     pub coordination_event_dcsc: ::std::option::Option<CoordinationEventDcsc>,
 }
 mod coordination_event {
@@ -558,8 +573,7 @@ impl IsIdentifiedObject for CoordinationEvent {
 }
 /// Switch event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -569,6 +583,7 @@ pub struct CoordinationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -578,6 +593,7 @@ pub struct CoordinationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "applicationSystem")]
     pub application_system: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -587,6 +603,7 @@ pub struct CoordinationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "coordinationEvent")]
     pub coordination_event: ::std::option::Option<CoordinationEvent>,
 }
 mod coordination_event_profile {
@@ -661,8 +678,7 @@ impl IsIdentifiedObject for CoordinationEventProfile {
 }
 /// OpenFMB specialization for coordination service control, DCSC (Distributed Coordination Service
 /// Control), following 61850 naming convention.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationStatusDcsc {
     /// UML inherited base object
     // parent_message: true
@@ -672,27 +688,35 @@ pub struct CoordinationStatusDcsc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "CoordinationServiceMode")]
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Island")]
     pub island: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "PermissibleAuto")]
     pub permissible_auto: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "PermissibleManual")]
     pub permissible_manual: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "PermissibleNetzero")]
     pub permissible_netzero: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "PermissibleStart")]
     pub permissible_start: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "PermissibleStop")]
     pub permissible_stop: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod coordination_status_dcsc {
@@ -793,8 +817,7 @@ impl IsIdentifiedObject for CoordinationStatusDcsc {
     }
 }
 /// Switch event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationStatus {
     /// UML inherited base object
     // parent_message: true
@@ -804,6 +827,7 @@ pub struct CoordinationStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -813,6 +837,7 @@ pub struct CoordinationStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "coordinationStatusDCSC")]
     pub coordination_status_dcsc: ::std::option::Option<CoordinationStatusDcsc>,
 }
 mod coordination_status {
@@ -864,8 +889,7 @@ impl IsIdentifiedObject for CoordinationStatus {
 }
 /// Switch event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CoordinationStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -875,6 +899,7 @@ pub struct CoordinationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -884,6 +909,7 @@ pub struct CoordinationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "applicationSystem")]
     pub application_system: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -893,6 +919,7 @@ pub struct CoordinationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "coordinationStatus")]
     pub coordination_status: ::std::option::Option<CoordinationStatus>,
 }
 mod coordination_status_profile {
@@ -966,20 +993,25 @@ impl IsIdentifiedObject for CoordinationStatusProfile {
     }
 }
 /// State kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum CoordinationServiceModeKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_none")]
     None = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_auto")]
     Auto = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_manual")]
     Manual = 2,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_netzero")]
     Netzero = 3,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_start")]
     Start = 4,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "CoordinationServiceModeKind_stop")]
     Stop = 5,
 }

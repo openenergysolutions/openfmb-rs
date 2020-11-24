@@ -1,34 +1,42 @@
 use crate::commonmodule::*;
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct InterconnectionPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blackStartEnabled")]
     pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencySetPointEnabled")]
     pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Island control
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub island: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Black start enable
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "pctHzDroop")]
     pub pct_hz_droop: ::std::option::Option<f32>,
     /// Black start enable
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "pctVDroop")]
     pub pct_v_droop: ::std::option::Option<f32>,
     /// Ramp rates
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable real power set point
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Start time
     // parent_message: false
@@ -38,6 +46,7 @@ pub struct InterconnectionPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::Timestamp>,
 }
 mod interconnection_point {
@@ -130,8 +139,7 @@ impl IsInterconnectionPoint for InterconnectionPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct InterconnectionCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -141,6 +149,7 @@ pub struct InterconnectionCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<InterconnectionPoint>,
 }
 mod interconnection_csg {
@@ -169,8 +178,7 @@ impl IsInterconnectionCsg for InterconnectionCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct InterconnectionControlScheduleFsch {
     /// Discrete value in InterconnectionCSG type
     // parent_message: false
@@ -180,6 +188,7 @@ pub struct InterconnectionControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValDCSG")]
     pub val_dcsg: ::std::option::Option<InterconnectionCsg>,
 }
 mod interconnection_control_schedule_fsch {
@@ -209,8 +218,7 @@ impl IsInterconnectionControlScheduleFsch for InterconnectionControlScheduleFsch
     }
 }
 /// Specialized 61850 FSCC class for interconnection schedule
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct InterconnectionScheduleFscc {
     /// UML inherited base object
     // parent_message: true
@@ -220,6 +228,7 @@ pub struct InterconnectionScheduleFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -229,6 +238,7 @@ pub struct InterconnectionScheduleFscc {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
+    #[serde(default, rename = "interconnectionControlScheduleFSCH")]
     pub interconnection_control_schedule_fsch: ::std::vec::Vec<InterconnectionControlScheduleFsch>,
 }
 mod interconnection_schedule_fscc {
@@ -302,8 +312,7 @@ impl IsIdentifiedObject for InterconnectionScheduleFscc {
     }
 }
 /// Interconnection schedule
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct InterconnectionSchedule {
     /// UML inherited base object
     // parent_message: true
@@ -313,9 +322,11 @@ pub struct InterconnectionSchedule {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -325,6 +336,7 @@ pub struct InterconnectionSchedule {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "interconnectionScheduleFSCC")]
     pub interconnection_schedule_fscc: ::std::option::Option<InterconnectionScheduleFscc>,
 }
 mod interconnection_schedule {
@@ -383,8 +395,7 @@ impl IsIdentifiedObject for InterconnectionSchedule {
 }
 /// Planned interconnection schedule profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PlannedInterconnectionScheduleProfile {
     /// UML inherited base object
     // parent_message: true
@@ -394,6 +405,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -403,6 +415,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "requesterCircuitSegmentService")]
     pub requester_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -412,6 +425,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "interconnectionSchedule")]
     pub interconnection_schedule: ::std::option::Option<InterconnectionSchedule>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -421,6 +435,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "tiePoint")]
     pub tie_point: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -430,6 +445,7 @@ pub struct PlannedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "responderCircuitSegmentService")]
     pub responder_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
 }
 mod planned_interconnection_schedule_profile {
@@ -518,8 +534,7 @@ impl IsIdentifiedObject for PlannedInterconnectionScheduleProfile {
 }
 /// Requested interconnection schedule profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RequestedInterconnectionScheduleProfile {
     /// UML inherited base object
     // parent_message: true
@@ -529,6 +544,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -538,6 +554,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "requesterCircuitSegmentService")]
     pub requester_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -547,6 +564,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "interconnectionSchedule")]
     pub interconnection_schedule: ::std::option::Option<InterconnectionSchedule>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -556,6 +574,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "tiePoint")]
     pub tie_point: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -565,6 +584,7 @@ pub struct RequestedInterconnectionScheduleProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "responderCircuitSegmentService")]
     pub responder_circuit_segment_service: ::std::option::Option<super::commonmodule::ApplicationSystem>,
 }
 mod requested_interconnection_schedule_profile {

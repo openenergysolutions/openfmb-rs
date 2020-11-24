@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// Resource reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct MeterReading {
     /// UML inherited base object
     // parent_message: true
@@ -11,15 +10,19 @@ pub struct MeterReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod meter_reading {
@@ -85,8 +88,7 @@ impl IsConductingEquipmentTerminalReading for MeterReading {
 }
 /// Resource reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct MeterReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -96,6 +98,7 @@ pub struct MeterReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -105,6 +108,7 @@ pub struct MeterReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub meter: ::std::option::Option<super::commonmodule::Meter>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -114,6 +118,7 @@ pub struct MeterReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "meterReading")]
     pub meter_reading: ::std::option::Option<MeterReading>,
 }
 mod meter_reading_profile {

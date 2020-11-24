@@ -193,7 +193,7 @@ impl<'a> CodeGenerator<'a> {
         }
         self.push_indent();
         self.buf
-            .push_str("#[derive(Clone, PartialEq, ::prost::Message)]\n");
+            .push_str("#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]\n");
         self.append_type_attributes(&fq_message_name);
         self.push_indent();
         self.buf.push_str("pub struct ");
@@ -609,7 +609,23 @@ impl<'a> CodeGenerator<'a> {
         }
     }
 
-    fn append_field_attributes(&mut self, msg_name: &str, field_name: &str) {
+    fn append_field_attributes(&mut self, msg_name: &str, field_name: &str, is_enum: bool) {
+        let name_matches_snake = to_snake(field_name) == field_name;
+        let add_serde_attrs  = !name_matches_snake || !is_enum;
+        if add_serde_attrs {
+            self.push_indent();
+            self.buf.push_str("#[serde(");
+            if !is_enum {
+                self.buf.push_str("default");
+            }
+            if !name_matches_snake {
+                if !is_enum {
+                    self.buf.push_str(", ");
+                }
+                self.buf.push_str(&format!("rename = \"{}\"", field_name));
+            }
+            self.buf.push_str(")]\n");
+        }
         assert_eq!(b'.', msg_name.as_bytes()[0]);
         // TODO: this clone is dirty, but expedious.
         for (matcher, attribute) in self.config.field_attributes.clone() {
@@ -747,7 +763,7 @@ impl<'a> CodeGenerator<'a> {
         }
 
         self.buf.push_str("\")]\n");
-        self.append_field_attributes(msg_name, field.name());
+        self.append_field_attributes(msg_name, field.name(), false);
         self.push_indent();
         self.buf.push_str("pub ");
         self.buf.push_str(&to_snake(field.name()));
@@ -810,7 +826,7 @@ impl<'a> CodeGenerator<'a> {
             value_tag,
             field.number()
         ));
-        self.append_field_attributes(msg_name, field.name());
+        self.append_field_attributes(msg_name, field.name(), false);
         self.push_indent();
         self.buf.push_str(&format!(
             "pub {}: ::std::collections::{}<{}, {}>,\n",
@@ -843,7 +859,7 @@ impl<'a> CodeGenerator<'a> {
                 .map(|&(ref field, _)| field.number())
                 .join(", ")
         ));
-        self.append_field_attributes(fq_message_name, oneof.name());
+        self.append_field_attributes(fq_message_name, oneof.name(), true);
         self.push_indent();
         self.buf.push_str(&format!(
             "pub {}: ::std::option::Option<{}>,\n",
@@ -867,7 +883,7 @@ impl<'a> CodeGenerator<'a> {
 
         self.push_indent();
         self.buf
-            .push_str("#[derive(Clone, PartialEq, ::prost::Oneof)]\n");
+            .push_str("#[derive(Clone, PartialEq, ::prost::Oneof, serde::Serialize, serde::Deserialize)]\n");
         let oneof_name = format!("{}.{}", msg_name, oneof.name());
         self.append_type_attributes(&oneof_name);
         self.push_indent();
@@ -891,7 +907,7 @@ impl<'a> CodeGenerator<'a> {
                 ty_tag,
                 field.number()
             ));
-            self.append_field_attributes(&oneof_name, field.name());
+            self.append_field_attributes(&oneof_name, field.name(), true);
 
             self.push_indent();
             let ty = self.resolve_type(&field);
@@ -949,7 +965,7 @@ impl<'a> CodeGenerator<'a> {
         self.append_doc();
         self.push_indent();
         self.buf.push_str(
-            "#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]\n",
+            "#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]\n",
         );
         self.push_indent();
         self.buf.push_str("#[repr(i32)]\n");
@@ -993,7 +1009,7 @@ impl<'a> CodeGenerator<'a> {
         prefix_to_strip: Option<String>,
     ) {
         self.append_doc();
-        self.append_field_attributes(fq_enum_name, &value.name());
+        self.append_field_attributes(fq_enum_name, &value.name(), true);
         self.push_indent();
         let name = to_upper_camel(value.name());
         let name_unprefixed = match prefix_to_strip {

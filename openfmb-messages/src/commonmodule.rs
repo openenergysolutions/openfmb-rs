@@ -1,7 +1,7 @@
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalFaultDirectionKind {
     #[prost(enumeration="FaultDirectionKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_fault_direction_kind {
@@ -29,10 +29,10 @@ impl IsOptionalFaultDirectionKind for OptionalFaultDirectionKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalPhaseFaultDirectionKind {
     #[prost(enumeration="PhaseFaultDirectionKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_phase_fault_direction_kind {
@@ -61,8 +61,7 @@ impl IsOptionalPhaseFaultDirectionKind for OptionalPhaseFaultDirectionKind {
     }
 }
 /// Directional protection indication information (ACD)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Acd {
     /// General direction of the fault. If the faults of individual phases have different directions,
     /// this attribute shall be set to 'dirGeneral'='both'.
@@ -73,18 +72,23 @@ pub struct Acd {
     // uuid: false
     // key: false
     #[prost(enumeration="FaultDirectionKind", tag="1")]
+    #[serde(default, rename = "dirGeneral")]
     pub dir_general: i32,
     /// Direction of the fault for earth current.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "dirNeut")]
     pub dir_neut: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
     /// Direction of the fault for phase A.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "dirPhsA")]
     pub dir_phs_a: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
     /// Direction of the fault for phase B.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "dirPhsB")]
     pub dir_phs_b: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
     /// Direction of the fault for phase C.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "dirPhsC")]
     pub dir_phs_c: ::std::option::Option<OptionalPhaseFaultDirectionKind>,
     /// General indication of a protection activation (e.g. by the fault). Depending on the function,
     /// 'general' may or may not be resulting from the phase attributes (phsA', 'phsB', 'phsC', 'neut').
@@ -95,18 +99,23 @@ pub struct Acd {
     // uuid: false
     // key: false
     #[prost(bool, tag="6")]
+    #[serde(default)]
     pub general: bool,
     /// See 'ACT.neut'.
     #[prost(message, optional, tag="7")]
+    #[serde(default)]
     pub neut: ::std::option::Option<bool>,
     /// Value true indicates a trip or a start event of phase A.
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<bool>,
     /// Value true indicates a trip or a start event of phase B.
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<bool>,
     /// Value true indicates a trip or a start event of phase C.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<bool>,
 }
 mod acd {
@@ -198,11 +207,11 @@ impl IsAcd for Acd {
 }
 /// This is a root class to provide common identification for all classes needing identification and
 /// naming attributes.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct IdentifiedObject {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub description: ::std::option::Option<::std::string::String>,
     /// Master resource identifier issued by a model authority. The mRID must semantically be a UUID as
     /// specified in RFC 4122. The mRID is globally unique.
@@ -213,9 +222,11 @@ pub struct IdentifiedObject {
     // uuid: true
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "mRID")]
     pub m_rid: ::std::option::Option<::std::string::String>,
     /// The name is any free human readable and possibly non unique text naming the object.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub name: ::std::option::Option<::std::string::String>,
 }
 mod identified_object {
@@ -260,8 +271,7 @@ impl IsIdentifiedObject for IdentifiedObject {
 }
 /// An electrical connection point (AC or DC) to a piece of conducting equipment. Terminals are
 /// connected at physical connection points called connectivity nodes.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct AcdcTerminal {
     /// UML inherited base object
     // parent_message: true
@@ -271,6 +281,7 @@ pub struct AcdcTerminal {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// The connected status is related to a bus-branch model and the topological node to terminal
     /// relation.  True implies the terminal is connected to the related topological node and false implies
@@ -280,11 +291,13 @@ pub struct AcdcTerminal {
     /// particular for an AC line segment, where the reactive line charging can be significant, this is a
     /// relevant case.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub connected: ::std::option::Option<bool>,
     /// The orientation of the terminal connections for a multiple terminal conducting equipment.  The
     /// sequence numbering starts with 1 and additional terminals should follow in increasing order.   The
     /// first terminal is the "starting point" for a two terminal branch.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "sequenceNumber")]
     pub sequence_number: ::std::option::Option<i32>,
 }
 mod acdc_terminal {
@@ -341,10 +354,10 @@ impl IsIdentifiedObject for AcdcTerminal {
         self.parent_mut()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitSymbolKind {
     #[prost(enumeration="UnitSymbolKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_unit_symbol_kind {
@@ -372,10 +385,10 @@ impl IsOptionalUnitSymbolKind for OptionalUnitSymbolKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalUnitMultiplierKind {
     #[prost(enumeration="UnitMultiplierKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_unit_multiplier_kind {
@@ -404,17 +417,19 @@ impl IsOptionalUnitMultiplierKind for OptionalUnitMultiplierKind {
     }
 }
 /// MISSING DOCUMENTATION!!!
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ActivePower {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub multiplier: ::std::option::Option<OptionalUnitMultiplierKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub unit: ::std::option::Option<OptionalUnitSymbolKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub value: ::std::option::Option<f32>,
 }
 mod active_power {
@@ -457,10 +472,10 @@ impl IsActivePower for ActivePower {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalPhaseCodeKind {
     #[prost(enumeration="PhaseCodeKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_phase_code_kind {
@@ -489,11 +504,11 @@ impl IsOptionalPhaseCodeKind for OptionalPhaseCodeKind {
     }
 }
 /// Unit definition (Unit)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Unit {
     /// (default='') Unit multiplier.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub multiplier: ::std::option::Option<OptionalUnitMultiplierKind>,
     /// SI unit of measure.
     // parent_message: false
@@ -503,6 +518,7 @@ pub struct Unit {
     // uuid: false
     // key: false
     #[prost(enumeration="UnitSymbolKind", tag="2")]
+    #[serde(default, rename = "SIUnit")]
     pub si_unit: i32,
 }
 mod unit {
@@ -537,10 +553,10 @@ impl IsUnit for Unit {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalValidityKind {
     #[prost(enumeration="ValidityKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_validity_kind {
@@ -569,8 +585,7 @@ impl IsOptionalValidityKind for OptionalValidityKind {
     }
 }
 /// Describes some reasons in case 'validity' is not 'good'.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct DetailQual {
     /// (default=false) If true, the value may not be a correct value due to a reference being out of
     /// calibration. The server shall decide if validity shall be set to invalid or questionable (used for
@@ -582,6 +597,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
+    #[serde(default, rename = "badReference")]
     pub bad_reference: bool,
     /// (default=false) If true, a supervision function has detected an internal or external failure.
     // parent_message: false
@@ -591,6 +607,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
+    #[serde(default)]
     pub failure: bool,
     /// (default=false) If true, the value does not meet the stated accuracy of the source. EXAMPLE The
     /// measured value of power factor may be noisy (inaccurate) when the current is very small.
@@ -601,6 +618,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="3")]
+    #[serde(default)]
     pub inaccurate: bool,
     /// (default=false) If true, an evaluation function has detected an inconsistency.
     // parent_message: false
@@ -610,6 +628,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="4")]
+    #[serde(default)]
     pub inconsistent: bool,
     /// (default=false) If true, an update is not made during a specific time interval. The value may be
     /// an old value that may have changed in the meantime. This specific time interval may be defined by an
@@ -622,6 +641,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="5")]
+    #[serde(default, rename = "oldData")]
     pub old_data: bool,
     /// (default=false) To prevent overloading of event driven communication channels, it is desirable
     /// to detect and suppress oscillating (fast changing) binary inputs. If a signal changes in a defined
@@ -641,6 +661,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="6")]
+    #[serde(default)]
     pub oscillatory: bool,
     /// (default=false) If true, the attribute to which the quality has been associated is beyond a
     /// predefined range of values. The server shall decide if validity shall be set to invalid or
@@ -655,6 +676,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="7")]
+    #[serde(default, rename = "outOfRange")]
     pub out_of_range: bool,
     /// (default=false) If true, the value of the attribute to which the quality has been associated is
     /// beyond the capability of being represented properly (used for measurand information only). EXAMPLE A
@@ -667,6 +689,7 @@ pub struct DetailQual {
     // uuid: false
     // key: false
     #[prost(bool, tag="8")]
+    #[serde(default)]
     pub overflow: bool,
 }
 mod detail_qual {
@@ -736,10 +759,10 @@ impl IsDetailQual for DetailQual {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalSourceKind {
     #[prost(enumeration="SourceKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_source_kind {
@@ -772,8 +795,7 @@ impl IsOptionalSourceKind for OptionalSourceKind {
 /// different quality attributes are <i>not</i> independent.The default value shall be applied if the
 /// functionality of the related attribute is not supported. The mapping may specify to exclude the
 /// attribute from the message if it is not supported or if the default value applies.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Quality {
     /// Describes some reasons in case 'validity' is not 'good'.
     // parent_message: false
@@ -783,6 +805,7 @@ pub struct Quality {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "detailQual")]
     pub detail_qual: ::std::option::Option<DetailQual>,
     /// (default=false) If true, further update of the value has been blocked by an operator. The value
     /// shall be the information that was acquired before blocking. If this flag is set, then the
@@ -798,6 +821,7 @@ pub struct Quality {
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
+    #[serde(default, rename = "operatorBlocked")]
     pub operator_blocked: bool,
     /// (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
     /// the communication services. In the second case, specific attributes with a FC=SV are used. NOTE 2
@@ -811,6 +835,7 @@ pub struct Quality {
     // uuid: false
     // key: false
     #[prost(enumeration="SourceKind", tag="3")]
+    #[serde(default)]
     pub source: i32,
     /// (default=false) If true, the value is a test value. The processing of the test quality in the
     /// client shall be as described in IEC 61850-7-4. This bit shall be completely independent from the
@@ -822,6 +847,7 @@ pub struct Quality {
     // uuid: false
     // key: false
     #[prost(bool, tag="4")]
+    #[serde(default)]
     pub test: bool,
     /// Validity of the value, as condensed information for the client. In case this value is not
     /// 'good', some reasons may be found in the 'detailQual'.
@@ -832,6 +858,7 @@ pub struct Quality {
     // uuid: false
     // key: false
     #[prost(enumeration="ValidityKind", tag="5")]
+    #[serde(default)]
     pub validity: i32,
 }
 mod quality {
@@ -884,10 +911,10 @@ impl IsQuality for Quality {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalTimeAccuracyKind {
     #[prost(enumeration="TimeAccuracyKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_time_accuracy_kind {
@@ -916,8 +943,7 @@ impl IsOptionalTimeAccuracyKind for OptionalTimeAccuracyKind {
     }
 }
 /// Information about the quality of the time source of the sending IED.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct TimeQuality {
     /// If true, the time source of the sending device is unreliable and the value of the time stamp
     /// shall be ignored.
@@ -928,6 +954,7 @@ pub struct TimeQuality {
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
+    #[serde(default, rename = "clockFailure")]
     pub clock_failure: bool,
     /// If true, the time source of the sending device is not synchronised with the external UTC time.
     // parent_message: false
@@ -937,6 +964,7 @@ pub struct TimeQuality {
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
+    #[serde(default, rename = "clockNotSynchronized")]
     pub clock_not_synchronized: bool,
     /// If true, the value in 'P_Timestamp.SecondSinceEpoch' contains all leap seconds occurred.
     /// Otherwise, it does not take into account the leap seconds that occurred before the initialization of
@@ -950,6 +978,7 @@ pub struct TimeQuality {
     // uuid: false
     // key: false
     #[prost(bool, tag="3")]
+    #[serde(default, rename = "leapSecondsKnown")]
     pub leap_seconds_known: bool,
     /// Information about the quality of the time source of the sending IED.
     // parent_message: false
@@ -959,6 +988,7 @@ pub struct TimeQuality {
     // uuid: false
     // key: false
     #[prost(enumeration="TimeAccuracyKind", tag="4")]
+    #[serde(default, rename = "timeAccuracy")]
     pub time_accuracy: i32,
 }
 mod time_quality {
@@ -1008,8 +1038,7 @@ impl IsTimeQuality for TimeQuality {
 /// SCSMs.The NULL time stamp has all fields set to 0 (zero).The relation between a timestamp value, the
 /// synchronization of an internal time with an external time source (for example, UTC time), and other
 /// information related to time model are available as requirements in Clause 21.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Timestamp {
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
@@ -1019,9 +1048,11 @@ pub struct Timestamp {
     // uuid: false
     // key: false
     #[prost(uint64, tag="2")]
+    #[serde(default)]
     pub seconds: u64,
     /// IEC61850 time quality
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub tq: ::std::option::Option<TimeQuality>,
     /// Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
     // parent_message: false
@@ -1031,6 +1062,7 @@ pub struct Timestamp {
     // uuid: false
     // key: false
     #[prost(uint32, tag="4")]
+    #[serde(default)]
     pub nanoseconds: u32,
 }
 mod timestamp {
@@ -1072,8 +1104,7 @@ impl IsTimestamp for Timestamp {
     }
 }
 /// Measured value (MV)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Mv {
     /// Value of the magnitude based on a deadband calculation from the instantaneous value 'instMag'.
     /// The value of 'mag' shall be updated to the current instantaneous value 'instMag' when the value has
@@ -1088,16 +1119,20 @@ pub struct Mv {
     // uuid: false
     // key: false
     #[prost(double, tag="1")]
+    #[serde(default)]
     pub mag: f64,
     /// Quality of the values in 'instMag', 'mag', 'range'.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'mag' or of the last change of the value in any of
     /// 'range' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
     /// Unit for: 'instMag', 'mag', 'subMag', 'rangeC'.
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub units: ::std::option::Option<Unit>,
 }
 mod mv {
@@ -1147,8 +1182,7 @@ impl IsMv for Mv {
     }
 }
 /// IEC61850 logical node.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LogicalNode {
     /// UML inherited base object
     // parent_message: true
@@ -1158,6 +1192,7 @@ pub struct LogicalNode {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
 }
 mod logical_node {
@@ -1201,8 +1236,7 @@ impl IsIdentifiedObject for LogicalNode {
     }
 }
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct AnalogEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
@@ -1212,6 +1246,7 @@ pub struct AnalogEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Generic analogue input <i>n</i>.
     // parent_message: false
@@ -1221,9 +1256,11 @@ pub struct AnalogEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AnIn")]
     pub an_in: ::std::option::Option<Mv>,
     /// Phase code
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
 mod analog_event_and_status_ggio {
@@ -1291,14 +1328,15 @@ impl IsIdentifiedObject for AnalogEventAndStatusGgio {
 /// This is a root class similar to IdentifiedObject but without the mRID. The reason to separate
 /// the two classes is because the mRID may need to be defined as a separate key field for technology
 /// such as the DDS implementation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct NamedObject {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub description: ::std::option::Option<::std::string::String>,
     /// The name is any free human readable and possibly non unique text naming the object.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub name: ::std::option::Option<::std::string::String>,
 }
 mod named_object {
@@ -1335,8 +1373,7 @@ impl IsNamedObject for NamedObject {
     }
 }
 /// The parts of a power system that are physical devices, electronic or mechanical.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ApplicationSystem {
     /// UML inherited base object
     // parent_message: true
@@ -1346,6 +1383,7 @@ pub struct ApplicationSystem {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "namedObject")]
     pub named_object: ::std::option::Option<NamedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1355,6 +1393,7 @@ pub struct ApplicationSystem {
     // uuid: true
     // key: false
     #[prost(string, tag="2")]
+    #[serde(default, rename = "mRID")]
     pub m_rid: std::string::String,
 }
 mod application_system {
@@ -1404,8 +1443,7 @@ impl IsNamedObject for ApplicationSystem {
     }
 }
 /// Analogue setting (FC=SP) (ASG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Asg {
     /// The value of the analogue setting.
     // parent_message: false
@@ -1415,9 +1453,11 @@ pub struct Asg {
     // uuid: false
     // key: false
     #[prost(double, tag="1")]
+    #[serde(default, rename = "setMag")]
     pub set_mag: f64,
     /// Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub units: ::std::option::Option<Unit>,
 }
 mod asg {
@@ -1453,8 +1493,7 @@ impl IsAsg for Asg {
     }
 }
 /// Binary counter reading (BCR)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Bcr {
     /// Binary counter status represented as an integer value; wraps to 0 at the maximum or minimum
     /// value of INT64.
@@ -1465,12 +1504,15 @@ pub struct Bcr {
     // uuid: false
     // key: false
     #[prost(int64, tag="1")]
+    #[serde(default, rename = "actVal")]
     pub act_val: i64,
     /// Quality of the values in 'actVal', 'frVal'.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last change of value in 'actVal' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod bcr {
@@ -1513,11 +1555,11 @@ impl IsBcr for Bcr {
     }
 }
 /// Specialized 61850 SPS class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusSps {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1527,9 +1569,11 @@ pub struct StatusSps {
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: bool,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_sps {
@@ -1572,8 +1616,7 @@ impl IsStatusSps for StatusSps {
     }
 }
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BooleanEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
@@ -1583,6 +1626,7 @@ pub struct BooleanEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// If true, indication <i>n</i> is present.
     // parent_message: false
@@ -1592,9 +1636,11 @@ pub struct BooleanEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Ind")]
     pub ind: ::std::option::Option<StatusSps>,
     /// Phase code
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
 mod boolean_event_and_status_ggio {
@@ -1660,16 +1706,17 @@ impl IsIdentifiedObject for BooleanEventAndStatusGgio {
     }
 }
 /// IEC61850-7-2 Service parameter for conditions checking
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CheckConditions {
     /// InterlockCheck is used for the device to be controlled to check if other devices are in proper
     /// state for the control command.  One example is that 2 circuit breakers on a busbar need to be
     /// interlocked so one is open and one is closed, but not both on.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "interlockCheck")]
     pub interlock_check: ::std::option::Option<bool>,
     /// To check if a device is synchrous to the system.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "synchroCheck")]
     pub synchro_check: ::std::option::Option<bool>,
 }
 mod check_conditions {
@@ -1706,12 +1753,12 @@ impl IsCheckConditions for CheckConditions {
     }
 }
 /// Vector definition (Vector)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Vector {
     /// (range=[-180...180]) Angle of the complex value (Unit.SIUnit='deg' and Unit.multiplier='');
     /// angle reference is defined in the context where this type is used.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub ang: ::std::option::Option<f64>,
     /// Magnitude of the complex value.
     // parent_message: false
@@ -1721,6 +1768,7 @@ pub struct Vector {
     // uuid: false
     // key: false
     #[prost(double, tag="2")]
+    #[serde(default)]
     pub mag: f64,
 }
 mod vector {
@@ -1756,8 +1804,7 @@ impl IsVector for Vector {
     }
 }
 /// Complex measured value (CMV)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Cmv {
     /// Complex value based on a deadband calculation from the instantaneous value 'instCVal.mag'. The
     /// deadband calculation is done both on 'instCVal.mag' (based on 'db') and on 'instCVal.ang' (based on
@@ -1769,13 +1816,16 @@ pub struct Cmv {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "cVal")]
     pub c_val: ::std::option::Option<Vector>,
     /// Quality of the values in 'instCVal', 'cVal', 'range', ‘rangeAng’.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Timestamp of the last refresh of the value in 'cVal' or of the last change of the value in any
     /// of 'range', 'rangeAng' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod cmv {
@@ -1819,8 +1869,7 @@ impl IsCmv for Cmv {
     }
 }
 /// Asset representation of a ConductingEquipment.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ConductingEquipment {
     /// UML inherited base object
     // parent_message: true
@@ -1830,6 +1879,7 @@ pub struct ConductingEquipment {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "namedObject")]
     pub named_object: ::std::option::Option<NamedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1839,6 +1889,7 @@ pub struct ConductingEquipment {
     // uuid: true
     // key: true
     #[prost(string, tag="2")]
+    #[serde(default, rename = "mRID")]
     pub m_rid: std::string::String,
 }
 mod conducting_equipment {
@@ -1889,8 +1940,7 @@ impl IsNamedObject for ConductingEquipment {
 }
 /// An AC electrical connection point to a piece of conducting equipment. Terminals are connected at
 /// physical connection points called connectivity nodes.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Terminal {
     /// UML inherited base object
     // parent_message: true
@@ -1900,10 +1950,12 @@ pub struct Terminal {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "aCDCTerminal")]
     pub a_cdc_terminal: ::std::option::Option<AcdcTerminal>,
     /// Represents the normal network phasing condition. If the attribute is missing three phases (ABC
     /// or ABCN) shall be assumed.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub phases: ::std::option::Option<OptionalPhaseCodeKind>,
 }
 mod terminal {
@@ -1962,8 +2014,7 @@ impl IsIdentifiedObject for Terminal {
     }
 }
 /// Reading associated with an equipment such as a recloser.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ConductingEquipmentTerminalReading {
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1973,6 +2024,7 @@ pub struct ConductingEquipmentTerminalReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub terminal: ::std::option::Option<Terminal>,
 }
 mod conducting_equipment_terminal_reading {
@@ -2002,8 +2054,7 @@ impl IsConductingEquipmentTerminalReading for ConductingEquipmentTerminalReading
     }
 }
 /// <<statistics>> Controllable analogue process value (APC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlApc {
     /// Service parameter that determines the control activity.
     // parent_message: false
@@ -2013,6 +2064,7 @@ pub struct ControlApc {
     // uuid: false
     // key: false
     #[prost(double, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: f64,
 }
 mod control_apc {
@@ -2041,8 +2093,7 @@ impl IsControlApc for ControlApc {
     }
 }
 /// Specialized DPC 61850 CDC class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlDpc {
     /// Service parameter that determines the control activity ('false' for off, 'true' for on).
     // parent_message: false
@@ -2052,6 +2103,7 @@ pub struct ControlDpc {
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: bool,
 }
 mod control_dpc {
@@ -2085,8 +2137,7 @@ impl IsControlDpc for ControlDpc {
 /// information related to time model are available as requirements in Clause 21.  ControlTimestamp is a
 /// timestamp for future time point so it does not contain the time quality as the one contained in the
 /// normal Timestamp data type.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlTimestamp {
     /// Second since epoch (1970-01-01T00:00:00Z)
     // parent_message: false
@@ -2096,6 +2147,7 @@ pub struct ControlTimestamp {
     // uuid: false
     // key: false
     #[prost(uint64, tag="2")]
+    #[serde(default)]
     pub seconds: u64,
     /// Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
     // parent_message: false
@@ -2105,6 +2157,7 @@ pub struct ControlTimestamp {
     // uuid: false
     // key: false
     #[prost(uint32, tag="3")]
+    #[serde(default)]
     pub nanoseconds: u32,
 }
 mod control_timestamp {
@@ -2138,10 +2191,10 @@ impl IsControlTimestamp for ControlTimestamp {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalScheduleParameterKind {
     #[prost(enumeration="ScheduleParameterKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_schedule_parameter_kind {
@@ -2170,8 +2223,7 @@ impl IsOptionalScheduleParameterKind for OptionalScheduleParameterKind {
     }
 }
 /// Grid connect mode kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EngScheduleParameter {
     /// Schedule parameter type
     // parent_message: false
@@ -2181,6 +2233,7 @@ pub struct EngScheduleParameter {
     // uuid: false
     // key: false
     #[prost(enumeration="ScheduleParameterKind", tag="1")]
+    #[serde(default, rename = "scheduleParameterType")]
     pub schedule_parameter_type: i32,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -2190,6 +2243,7 @@ pub struct EngScheduleParameter {
     // uuid: false
     // key: false
     #[prost(double, tag="2")]
+    #[serde(default)]
     pub value: f64,
 }
 mod eng_schedule_parameter {
@@ -2224,8 +2278,7 @@ impl IsEngScheduleParameter for EngScheduleParameter {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SchedulePoint {
     /// Schedule parameter
     // parent_message: false
@@ -2235,6 +2288,7 @@ pub struct SchedulePoint {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "scheduleParameter")]
     pub schedule_parameter: ::std::vec::Vec<EngScheduleParameter>,
     /// Start time
     // parent_message: false
@@ -2244,6 +2298,7 @@ pub struct SchedulePoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<ControlTimestamp>,
 }
 mod schedule_point {
@@ -2279,8 +2334,7 @@ impl IsSchedulePoint for SchedulePoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ScheduleCsg {
     /// The array with the points specifying a time schedule
     // parent_message: false
@@ -2290,6 +2344,7 @@ pub struct ScheduleCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "schPts")]
     pub sch_pts: ::std::vec::Vec<SchedulePoint>,
 }
 mod schedule_csg {
@@ -2318,8 +2373,7 @@ impl IsScheduleCsg for ScheduleCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlScheduleFsch {
     /// Analog CSG
     // parent_message: false
@@ -2329,6 +2383,7 @@ pub struct ControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValACSG")]
     pub val_acsg: ::std::option::Option<ScheduleCsg>,
 }
 mod control_schedule_fsch {
@@ -2358,8 +2413,7 @@ impl IsControlScheduleFsch for ControlScheduleFsch {
     }
 }
 /// OpenFMB specialization for logical node control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LogicalNodeForControl {
     /// UML inherited base object
     // parent_message: true
@@ -2369,6 +2423,7 @@ pub struct LogicalNodeForControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
 }
 mod logical_node_for_control {
@@ -2421,8 +2476,7 @@ impl IsIdentifiedObject for LogicalNodeForControl {
 }
 /// LN: Schedule controller   Name: FSCC  F:    Function (generic) SC:  Schedule Controller C:   
 /// Control (execution)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -2432,12 +2486,15 @@ pub struct ControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "controlScheduleFSCH")]
     pub control_schedule_fsch: ::std::option::Option<ControlScheduleFsch>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "islandControlScheduleFSCH")]
     pub island_control_schedule_fsch: ::std::option::Option<ControlScheduleFsch>,
 }
 mod control_fscc {
@@ -2511,8 +2568,7 @@ impl IsIdentifiedObject for ControlFscc {
     }
 }
 /// &lt;&lt;statistics&gt;&gt; Controllable integer status (INC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlInc {
     /// Service parameter that determines the control activity.
     // parent_message: false
@@ -2522,6 +2578,7 @@ pub struct ControlInc {
     // uuid: false
     // key: false
     #[prost(int32, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: i32,
 }
 mod control_inc {
@@ -2550,8 +2607,7 @@ impl IsControlInc for ControlInc {
     }
 }
 /// Integer status setting (FC=SP) (ING_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlIng {
     /// The value of the status setting.
     // parent_message: false
@@ -2561,9 +2617,11 @@ pub struct ControlIng {
     // uuid: false
     // key: false
     #[prost(int32, tag="1")]
+    #[serde(default, rename = "setVal")]
     pub set_val: i32,
     /// Unit for 'setVal', 'minVal', 'maxVal', 'stepSize'.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub units: ::std::option::Option<Unit>,
 }
 mod control_ing {
@@ -2599,8 +2657,7 @@ impl IsControlIng for ControlIng {
     }
 }
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlIsc {
     /// Service parameter that determines the control activity.
     // parent_message: false
@@ -2610,6 +2667,7 @@ pub struct ControlIsc {
     // uuid: false
     // key: false
     #[prost(int32, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: i32,
 }
 mod control_isc {
@@ -2638,8 +2696,7 @@ impl IsControlIsc for ControlIsc {
     }
 }
 /// Generic control message info.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct MessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -2649,6 +2706,7 @@ pub struct MessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -2658,6 +2716,7 @@ pub struct MessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "messageTimeStamp")]
     pub message_time_stamp: ::std::option::Option<Timestamp>,
 }
 mod message_info {
@@ -2708,8 +2767,7 @@ impl IsIdentifiedObject for MessageInfo {
     }
 }
 /// Generic control message info.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlMessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -2719,6 +2777,7 @@ pub struct ControlMessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "messageInfo")]
     pub message_info: ::std::option::Option<MessageInfo>,
 }
 mod control_message_info {
@@ -2770,8 +2829,7 @@ impl IsIdentifiedObject for ControlMessageInfo {
     }
 }
 /// Controllable single point (SPC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlSpc {
     /// Service parameter that determines the control activity ('false' for off or deactivation, 'true'
     /// for on or activation).
@@ -2782,6 +2840,7 @@ pub struct ControlSpc {
     // uuid: false
     // key: false
     #[prost(bool, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: bool,
 }
 mod control_spc {
@@ -2813,8 +2872,7 @@ impl IsControlSpc for ControlSpc {
 /// The attribute modBlk is used to tag out a device. if it is TRUE, any setpoints and control schedule
 /// in a message payload should be ignored.   It should also be presented in a status profile.  Any
 /// modBlk value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ControlValue {
     /// UML inherited base object
     // parent_message: true
@@ -2824,14 +2882,17 @@ pub struct ControlValue {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// The attribute modBlk is used to tag out a device. If it is TRUE, any setpoints and control in a
     /// message payload should be ignored.   It should also be presented in a status profile.  Any modBlk
     /// value change (i.e. TRUE to FALSE and vice versa) should trigger an event.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "modBlk")]
     pub mod_blk: ::std::option::Option<bool>,
     /// If true, reset the device before executing any other controls.
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub reset: ::std::option::Option<bool>,
 }
 mod control_value {
@@ -2889,14 +2950,15 @@ impl IsIdentifiedObject for ControlValue {
     }
 }
 /// Interval between two date and time points.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct DateTimeInterval {
     /// End date and time of this interval.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub end: ::std::option::Option<i64>,
     /// Start date and time of this interval.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub start: ::std::option::Option<i64>,
 }
 mod date_time_interval {
@@ -2933,17 +2995,19 @@ impl IsDateTimeInterval for DateTimeInterval {
     }
 }
 /// Phase to phase related measured values of a three-phase system (DEL)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Del {
     /// Value of phase A to phase B measurement.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "phsAB")]
     pub phs_ab: ::std::option::Option<Cmv>,
     /// Value of phase B to phase C measurement.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsBC")]
     pub phs_bc: ::std::option::Option<Cmv>,
     /// Value of phase C to phase A measurement.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsCA")]
     pub phs_ca: ::std::option::Option<Cmv>,
 }
 mod del {
@@ -2987,20 +3051,23 @@ impl IsDel for Del {
     }
 }
 /// [OpenFMB CDC extension] Per Phase DPC.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseDpc {
     /// 3 Phase control.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<ControlDpc>,
     /// Phase A control.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<ControlDpc>,
     /// Phase B control.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<ControlDpc>,
     /// Phase C control.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<ControlDpc>,
 }
 mod phase_dpc {
@@ -3051,8 +3118,7 @@ impl IsPhaseDpc for PhaseDpc {
     }
 }
 /// Reclose enabled
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct DiscreteControlXcbr {
     /// UML inherited base object
     // parent_message: true
@@ -3062,19 +3128,24 @@ pub struct DiscreteControlXcbr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<PhaseDpc>,
     /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
     /// by a circuit segment service.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "ProtectionMode")]
     pub protection_mode: ::std::option::Option<ControlInc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "RecloseEnabled")]
     pub reclose_enabled: ::std::option::Option<ControlSpc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "ResetProtectionPickup")]
     pub reset_protection_pickup: ::std::option::Option<ControlSpc>,
 }
 mod discrete_control_xcbr {
@@ -3162,8 +3233,7 @@ impl IsIdentifiedObject for DiscreteControlXcbr {
     }
 }
 /// Generic user of energy - a  point of consumption on the power system model.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnergyConsumer {
     /// UML inherited base object
     // parent_message: true
@@ -3173,9 +3243,11 @@ pub struct EnergyConsumer {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "operatingLimit")]
     pub operating_limit: ::std::option::Option<::std::string::String>,
 }
 mod energy_consumer {
@@ -3233,10 +3305,10 @@ impl IsNamedObject for EnergyConsumer {
         self.parent_mut().parent_mut()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalCalcMethodKind {
     #[prost(enumeration="CalcMethodKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_calc_method_kind {
@@ -3265,8 +3337,7 @@ impl IsOptionalCalcMethodKind for OptionalCalcMethodKind {
     }
 }
 /// Calc method kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EngCalcMethodKind {
     /// The value of the status setting.
     // parent_message: false
@@ -3276,6 +3347,7 @@ pub struct EngCalcMethodKind {
     // uuid: false
     // key: false
     #[prost(enumeration="CalcMethodKind", tag="1")]
+    #[serde(default, rename = "setVal")]
     pub set_val: i32,
 }
 mod eng_calc_method_kind {
@@ -3303,10 +3375,10 @@ impl IsEngCalcMethodKind for EngCalcMethodKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalGridConnectModeKind {
     #[prost(enumeration="GridConnectModeKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_grid_connect_mode_kind {
@@ -3335,8 +3407,7 @@ impl IsOptionalGridConnectModeKind for OptionalGridConnectModeKind {
     }
 }
 /// Grid connect mode kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EngGridConnectModeKind {
     /// The value of the status setting.
     // parent_message: false
@@ -3346,9 +3417,11 @@ pub struct EngGridConnectModeKind {
     // uuid: false
     // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
+    #[serde(default, rename = "setVal")]
     pub set_val: i32,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "setValExtension")]
     pub set_val_extension: ::std::option::Option<::std::string::String>,
 }
 mod eng_grid_connect_mode_kind {
@@ -3383,10 +3456,10 @@ impl IsEngGridConnectModeKind for EngGridConnectModeKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalPfSignKind {
     #[prost(enumeration="PfSignKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_pf_sign_kind {
@@ -3415,8 +3488,7 @@ impl IsOptionalPfSignKind for OptionalPfSignKind {
     }
 }
 /// Enumerated status setting (FC=SP) (ENG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EngPfSignKind {
     /// The value of the status setting.
     // parent_message: false
@@ -3426,6 +3498,7 @@ pub struct EngPfSignKind {
     // uuid: false
     // key: false
     #[prost(enumeration="PfSignKind", tag="1")]
+    #[serde(default, rename = "setVal")]
     pub set_val: i32,
 }
 mod eng_pf_sign_kind {
@@ -3453,10 +3526,10 @@ impl IsEngPfSignKind for EngPfSignKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalBehaviourModeKind {
     #[prost(enumeration="BehaviourModeKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_behaviour_mode_kind {
@@ -3485,11 +3558,11 @@ impl IsOptionalBehaviourModeKind for OptionalBehaviourModeKind {
     }
 }
 /// Behavior mode kind. ENS stands for Enumerated status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsBehaviourModeKind {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -3499,9 +3572,11 @@ pub struct EnsBehaviourModeKind {
     // uuid: false
     // key: false
     #[prost(enumeration="BehaviourModeKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod ens_behaviour_mode_kind {
@@ -3543,10 +3618,10 @@ impl IsEnsBehaviourModeKind for EnsBehaviourModeKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalDerGeneratorStateKind {
     #[prost(enumeration="DerGeneratorStateKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_der_generator_state_kind {
@@ -3575,11 +3650,11 @@ impl IsOptionalDerGeneratorStateKind for OptionalDerGeneratorStateKind {
     }
 }
 /// DER generation state kind. ENS stands for Enumerated status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsDerGeneratorStateKind {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -3589,9 +3664,11 @@ pub struct EnsDerGeneratorStateKind {
     // uuid: false
     // key: false
     #[prost(enumeration="DerGeneratorStateKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod ens_der_generator_state_kind {
@@ -3633,10 +3710,10 @@ impl IsEnsDerGeneratorStateKind for EnsDerGeneratorStateKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalDynamicTestKind {
     #[prost(enumeration="DynamicTestKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_dynamic_test_kind {
@@ -3665,11 +3742,11 @@ impl IsOptionalDynamicTestKind for OptionalDynamicTestKind {
     }
 }
 /// Dynamic test kind. ENS stands for Enumerated status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsDynamicTestKind {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -3679,9 +3756,11 @@ pub struct EnsDynamicTestKind {
     // uuid: false
     // key: false
     #[prost(enumeration="DynamicTestKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod ens_dynamic_test_kind {
@@ -3724,8 +3803,7 @@ impl IsEnsDynamicTestKind for EnsDynamicTestKind {
     }
 }
 /// Grid connect event &amp; status mode kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsGridConnectModeKind {
     /// Actual Grid Connection Mode
     // parent_message: false
@@ -3735,6 +3813,7 @@ pub struct EnsGridConnectModeKind {
     // uuid: false
     // key: false
     #[prost(enumeration="GridConnectModeKind", tag="1")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -3744,6 +3823,7 @@ pub struct EnsGridConnectModeKind {
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
+    #[serde(default, rename = "stValExtension")]
     pub st_val_extension: std::string::String,
 }
 mod ens_grid_connect_mode_kind {
@@ -3777,10 +3857,10 @@ impl IsEnsGridConnectModeKind for EnsGridConnectModeKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalHealthKind {
     #[prost(enumeration="HealthKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_health_kind {
@@ -3809,12 +3889,12 @@ impl IsOptionalHealthKind for OptionalHealthKind {
     }
 }
 /// &lt;&gt; Enumerated status (ENS)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsHealthKind {
     /// Textual description of the data. In case it is used within the CDC LPL, the description refers
     /// to the logical node.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub d: ::std::option::Option<::std::string::String>,
     /// Value of the data.
     // parent_message: false
@@ -3824,6 +3904,7 @@ pub struct EnsHealthKind {
     // uuid: false
     // key: false
     #[prost(enumeration="HealthKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
 }
 mod ens_health_kind {
@@ -3858,10 +3939,10 @@ impl IsEnsHealthKind for EnsHealthKind {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalSwitchingCapabilityKind {
     #[prost(enumeration="SwitchingCapabilityKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_switching_capability_kind {
@@ -3890,11 +3971,11 @@ impl IsOptionalSwitchingCapabilityKind for OptionalSwitchingCapabilityKind {
     }
 }
 /// <<abstract>> Enumerated status (ENS)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EnsSwitchingCapabilityKind {
     /// If true, 'q.operatorBlocked'=true, and the process value is no longer updated.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blkEna")]
     pub blk_ena: ::std::option::Option<bool>,
     /// Value of the data.
     // parent_message: false
@@ -3904,6 +3985,7 @@ pub struct EnsSwitchingCapabilityKind {
     // uuid: false
     // key: false
     #[prost(enumeration="SwitchingCapabilityKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
 }
 mod ens_switching_capability_kind {
@@ -3939,8 +4021,7 @@ impl IsEnsSwitchingCapabilityKind for EnsSwitchingCapabilityKind {
     }
 }
 /// MISSING DOCUMENTATION!!!
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Ess {
     /// UML inherited base object
     // parent_message: true
@@ -3950,6 +4031,7 @@ pub struct Ess {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
 }
 mod ess {
@@ -4001,8 +4083,7 @@ impl IsNamedObject for Ess {
     }
 }
 /// Generic event message information
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EventMessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -4012,6 +4093,7 @@ pub struct EventMessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "messageInfo")]
     pub message_info: ::std::option::Option<MessageInfo>,
 }
 mod event_message_info {
@@ -4063,8 +4145,7 @@ impl IsIdentifiedObject for EventMessageInfo {
     }
 }
 /// Event value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EventValue {
     /// UML inherited base object
     // parent_message: true
@@ -4074,9 +4155,11 @@ pub struct EventValue {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "modBlk")]
     pub mod_blk: ::std::option::Option<bool>,
 }
 mod event_value {
@@ -4127,8 +4210,7 @@ impl IsIdentifiedObject for EventValue {
     }
 }
 /// The source where a forecast value is issued.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ForecastValueSource {
     /// UML inherited base object
     // parent_message: true
@@ -4138,6 +4220,7 @@ pub struct ForecastValueSource {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
 }
 mod forecast_value_source {
@@ -4188,8 +4271,7 @@ impl IsIdentifiedObject for ForecastValueSource {
 /// IED with an IEC61850 SERVER, we typically create an instance of the meta-model IED per connection.
 /// When the meta-model gets instantiated from an SCL file, there is the full description of IED and its
 /// functions.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ForecastIed {
     /// UML inherited base object
     // parent_message: true
@@ -4199,6 +4281,7 @@ pub struct ForecastIed {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "forecastValueSource")]
     pub forecast_value_source: ::std::option::Option<ForecastValueSource>,
     /// For control, this is an application ID, unique within communication system, and if the message
     /// is transformed between gateway the original source application ID should be kept.
@@ -4209,6 +4292,7 @@ pub struct ForecastIed {
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
+    #[serde(default, rename = "sourceApplicationID")]
     pub source_application_id: std::string::String,
     /// Message publication date time
     // parent_message: false
@@ -4218,6 +4302,7 @@ pub struct ForecastIed {
     // uuid: false
     // key: false
     #[prost(int64, tag="3")]
+    #[serde(default, rename = "sourceDateTime")]
     pub source_date_time: i64,
 }
 mod forecast_ied {
@@ -4281,8 +4366,7 @@ impl IsIdentifiedObject for ForecastIed {
     }
 }
 /// Forecast value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ForecastValue {
     /// UML inherited base object
     // parent_message: true
@@ -4292,6 +4376,7 @@ pub struct ForecastValue {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
 }
 mod forecast_value {
@@ -4335,11 +4420,11 @@ impl IsIdentifiedObject for ForecastValue {
     }
 }
 /// <<statistics>> Integer status (INS)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusIns {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -4349,9 +4434,11 @@ pub struct StatusIns {
     // uuid: false
     // key: false
     #[prost(int32, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_ins {
@@ -4394,8 +4481,7 @@ impl IsStatusIns for StatusIns {
     }
 }
 /// Status expressed in integer based on IEC61850 GGIO.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct IntegerEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
@@ -4405,6 +4491,7 @@ pub struct IntegerEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Generic integer status input <i>n</i>.
     // parent_message: false
@@ -4414,9 +4501,11 @@ pub struct IntegerEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "IntIn")]
     pub int_in: ::std::option::Option<StatusIns>,
     /// Phase code
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
 }
 mod integer_event_and_status_ggio {
@@ -4482,8 +4571,7 @@ impl IsIdentifiedObject for IntegerEventAndStatusGgio {
     }
 }
 /// Logical node for event and status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct LogicalNodeForEventAndStatus {
     /// UML inherited base object
     // parent_message: true
@@ -4493,18 +4581,23 @@ pub struct LogicalNodeForEventAndStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Behavior of the function
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Beh")]
     pub beh: ::std::option::Option<EnsBehaviourModeKind>,
     /// Asset health
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "EEHealth")]
     pub ee_health: ::std::option::Option<EnsHealthKind>,
     /// Hot line tag.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "HotLineTag")]
     pub hot_line_tag: ::std::option::Option<StatusSps>,
     /// Remote control block.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "RemoteBlk")]
     pub remote_blk: ::std::option::Option<StatusSps>,
 }
 mod logical_node_for_event_and_status {
@@ -4586,8 +4679,7 @@ impl IsIdentifiedObject for LogicalNodeForEventAndStatus {
 /// The current state for a measurement. A state value is an instance of a measurement from a
 /// specific source. Measurements can be associated with many state values, each representing a
 /// different source for the measurement.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct MeasurementValue {
     /// UML inherited base object
     // parent_message: true
@@ -4597,6 +4689,7 @@ pub struct MeasurementValue {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
 }
 mod measurement_value {
@@ -4641,8 +4734,7 @@ impl IsIdentifiedObject for MeasurementValue {
 }
 /// Physical asset that performs the metering role of the usage point. Used for measuring
 /// consumption and detection of events.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Meter {
     /// UML inherited base object
     // parent_message: true
@@ -4652,6 +4744,7 @@ pub struct Meter {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<ConductingEquipment>,
 }
 mod meter {
@@ -4703,8 +4796,7 @@ impl IsNamedObject for Meter {
     }
 }
 /// Generic event message information
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptimizationMessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -4714,6 +4806,7 @@ pub struct OptimizationMessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "messageInfo")]
     pub message_info: ::std::option::Option<MessageInfo>,
 }
 mod optimization_message_info {
@@ -4765,20 +4858,23 @@ impl IsIdentifiedObject for OptimizationMessageInfo {
     }
 }
 /// [OpenFMB CDC extension] Per Phase ISC.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseApc {
     /// 3 Phase control.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<ControlApc>,
     /// Phase A control.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<ControlApc>,
     /// Phase B control.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<ControlApc>,
     /// Phase C control.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<ControlApc>,
 }
 mod phase_apc {
@@ -4828,10 +4924,10 @@ impl IsPhaseApc for PhaseApc {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalDbPosKind {
     #[prost(enumeration="DbPosKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_db_pos_kind {
@@ -4860,11 +4956,11 @@ impl IsOptionalDbPosKind for OptionalDbPosKind {
     }
 }
 /// Specialized 61850 DPS class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusDps {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Status value of the controllable data object.
     // parent_message: false
@@ -4874,9 +4970,11 @@ pub struct StatusDps {
     // uuid: false
     // key: false
     #[prost(enumeration="DbPosKind", tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_dps {
@@ -4919,20 +5017,23 @@ impl IsStatusDps for StatusDps {
     }
 }
 /// [OpenFMB CDC extension] Per Phase DPS.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseDps {
     /// 3 Phase status.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<StatusDps>,
     /// Phase A status.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<StatusDps>,
     /// Phase B status.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<StatusDps>,
     /// Phase C status.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<StatusDps>,
 }
 mod phase_dps {
@@ -4983,20 +5084,23 @@ impl IsPhaseDps for PhaseDps {
     }
 }
 /// [OpenFMB CDC extension] Per Phase INS.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseIns {
     /// 3 Phase control.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<StatusIns>,
     /// Phase A control.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<StatusIns>,
     /// Phase B control.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<StatusIns>,
     /// Phase C control.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<StatusIns>,
 }
 mod phase_ins {
@@ -5047,20 +5151,23 @@ impl IsPhaseIns for PhaseIns {
     }
 }
 /// [OpenFMB CDC extension] Per Phase ISC.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseIsc {
     /// 3 Phase control.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<ControlIsc>,
     /// Phase A control.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<ControlIsc>,
     /// Phase B control.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<ControlIsc>,
     /// Phase C control.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<ControlIsc>,
 }
 mod phase_isc {
@@ -5111,8 +5218,7 @@ impl IsPhaseIsc for PhaseIsc {
     }
 }
 /// Specialized 61850 MMTN LN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmtn {
     /// UML inherited base object
     // parent_message: true
@@ -5122,33 +5228,43 @@ pub struct ReadingMmtn {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Apparent energy demand (direction: from busbar).
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DmdVAh")]
     pub dmd_v_ah: ::std::option::Option<Bcr>,
     /// Reactive energy demand (direction: from busbar).
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "DmdVArh")]
     pub dmd_v_arh: ::std::option::Option<Bcr>,
     /// Real energy demand (direction: from busbar).
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "DmdWh")]
     pub dmd_wh: ::std::option::Option<Bcr>,
     /// Apparent energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "SupVAh")]
     pub sup_v_ah: ::std::option::Option<Bcr>,
     /// Reactive energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "SupVArh")]
     pub sup_v_arh: ::std::option::Option<Bcr>,
     /// Real energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "SupWh")]
     pub sup_wh: ::std::option::Option<Bcr>,
     /// Net apparent energy since last reset.
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "TotVAh")]
     pub tot_v_ah: ::std::option::Option<Bcr>,
     /// Net reactive energy since last reset.
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "TotVArh")]
     pub tot_v_arh: ::std::option::Option<Bcr>,
     /// Net real energy since last reset.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "TotWh")]
     pub tot_wh: ::std::option::Option<Bcr>,
 }
 mod reading_mmtn {
@@ -5263,26 +5379,31 @@ impl IsIdentifiedObject for ReadingMmtn {
     }
 }
 /// Specialized 61850 MMTN LN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseMmtn {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<ReadingMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsAB")]
     pub phs_ab: ::std::option::Option<ReadingMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<ReadingMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsBC")]
     pub phs_bc: ::std::option::Option<ReadingMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<ReadingMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "phsCA")]
     pub phs_ca: ::std::option::Option<ReadingMmtn>,
 }
 mod phase_mmtn {
@@ -5346,10 +5467,10 @@ impl IsPhaseMmtn for PhaseMmtn {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalRecloseActionKind {
     #[prost(enumeration="RecloseActionKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_reclose_action_kind {
@@ -5378,20 +5499,23 @@ impl IsOptionalRecloseActionKind for OptionalRecloseActionKind {
     }
 }
 /// [OpenFMB CDC extension] Per Phase reclose action kind.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseRecloseAction {
     /// 3 Phase control.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<OptionalRecloseActionKind>,
     /// Phase A control.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<OptionalRecloseActionKind>,
     /// Phase B control.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<OptionalRecloseActionKind>,
     /// Phase C control.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<OptionalRecloseActionKind>,
 }
 mod phase_reclose_action {
@@ -5442,20 +5566,23 @@ impl IsPhaseRecloseAction for PhaseRecloseAction {
     }
 }
 /// [OpenFMB CDC extension] Per Phase DPS.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseSps {
     /// 3 Phase status.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub phs3: ::std::option::Option<StatusSps>,
     /// Phase A status.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<StatusSps>,
     /// Phase B status.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<StatusSps>,
     /// Phase C status.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<StatusSps>,
 }
 mod phase_sps {
@@ -5507,22 +5634,25 @@ impl IsPhaseSps for PhaseSps {
 }
 /// [OpenFMB CDC extension] Phase magnitude (PMG). Phase to ground/neutral related per-phase
 /// measured values.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Pmg {
     /// Net current, as the algebraic sum of the instantaneous values of currents flowing through all
     /// live conductors and the neutral of a circuit at one point of the electrical installation ('phsA
     /// instCVal'+'phsB.instCVal'+'phsC.instCVal'+'neut.instCVal').
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub net: ::std::option::Option<Mv>,
     /// Value of phase A.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<Mv>,
     /// Value of phase B.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<Mv>,
     /// Value of phase C.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<Mv>,
 }
 mod pmg {
@@ -5573,20 +5703,23 @@ impl IsPmg for Pmg {
     }
 }
 /// Grid connect mode kind
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RampRate {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "negativeReactivePowerKVArPerMin")]
     pub negative_reactive_power_kv_ar_per_min: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "negativeRealPowerKWPerMin")]
     pub negative_real_power_kw_per_min: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "positiveReactivePowerKVArPerMin")]
     pub positive_reactive_power_kv_ar_per_min: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "positiveRealPowerKWPerMin")]
     pub positive_real_power_kw_per_min: ::std::option::Option<f32>,
 }
 mod ramp_rate {
@@ -5637,8 +5770,7 @@ impl IsRampRate for RampRate {
     }
 }
 /// Generic reading message information
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReadingMessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -5648,6 +5780,7 @@ pub struct ReadingMessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "messageInfo")]
     pub message_info: ::std::option::Option<MessageInfo>,
 }
 mod reading_message_info {
@@ -5699,8 +5832,7 @@ impl IsIdentifiedObject for ReadingMessageInfo {
     }
 }
 /// Specialized 61850 MMTR class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmtr {
     /// UML inherited base object
     // parent_message: true
@@ -5710,33 +5842,43 @@ pub struct ReadingMmtr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Apparent energy demand (direction: from busbar).
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DmdVAh")]
     pub dmd_v_ah: ::std::option::Option<Bcr>,
     /// Reactive energy demand (direction: from busbar).
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "DmdVArh")]
     pub dmd_v_arh: ::std::option::Option<Bcr>,
     /// Real energy demand (direction: from busbar).
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "DmdWh")]
     pub dmd_wh: ::std::option::Option<Bcr>,
     /// Apparent energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "SupVAh")]
     pub sup_v_ah: ::std::option::Option<Bcr>,
     /// Reactive energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "SupVArh")]
     pub sup_v_arh: ::std::option::Option<Bcr>,
     /// Real energy supply (default direction: towards busbar).
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "SupWh")]
     pub sup_wh: ::std::option::Option<Bcr>,
     /// Net apparent energy since last reset.
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "TotVAh")]
     pub tot_v_ah: ::std::option::Option<Bcr>,
     /// Net reactive energy since last reset.
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "TotVArh")]
     pub tot_v_arh: ::std::option::Option<Bcr>,
     /// Net real energy since last reset.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "TotWh")]
     pub tot_wh: ::std::option::Option<Bcr>,
 }
 mod reading_mmtr {
@@ -5851,28 +5993,32 @@ impl IsIdentifiedObject for ReadingMmtr {
     }
 }
 /// Phase to ground/neutral related measured values of a three-phase system (WYE)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Wye {
     /// Net current, as the algebraic sum of the instantaneous values of currents flowing through all
     /// live conductors and the neutral of a circuit at one point of the electrical installation ('phsA
     /// instCVal'+'phsB.instCVal'+'phsC.instCVal'+'neut.instCVal').
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub net: ::std::option::Option<Cmv>,
     /// Value of the measured phase neutral. If a direct measurement of this value is not available, it
     /// is acceptable to substitute an estimate computed by creating the algebraic sum of the instantaneous
     /// values of currents flowing through all live conductors ('phsA.instCVal'+'phsB.instCVal'+'phsC
     /// instCVal'); in that case, 'neut'='res'.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub neut: ::std::option::Option<Cmv>,
     /// Value of phase A.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsA")]
     pub phs_a: ::std::option::Option<Cmv>,
     /// Value of phase B.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsB")]
     pub phs_b: ::std::option::Option<Cmv>,
     /// Value of phase C.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "phsC")]
     pub phs_c: ::std::option::Option<Cmv>,
 }
 mod wye {
@@ -5930,8 +6076,7 @@ impl IsWye for Wye {
     }
 }
 /// Specialized 61850 MMXU LN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReadingMmxu {
     /// UML inherited base object
     // parent_message: true
@@ -5941,9 +6086,11 @@ pub struct ReadingMmxu {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Phase to ground/phase to neutral three phase currents.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "A")]
     pub a: ::std::option::Option<Wye>,
     /// Kind of statistical calculation, specifying how the data attributes that represent analogue
     /// values have been calculated. The calculation method shall be the same for all data objects of the
@@ -5952,33 +6099,42 @@ pub struct ReadingMmxu {
     /// ‘TRUE_RMS’ and ‘RMS_FUNDAMENTAL’).If the value is 'unspecified', the dependent data objects may be
     /// meaningless.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "ClcMth")]
     pub clc_mth: ::std::option::Option<EngCalcMethodKind>,
     /// Frequency [Hz].
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "Hz")]
     pub hz: ::std::option::Option<Mv>,
     /// Phase to ground/phase to neutral power factors.The power factor is defined as P (active power) /
     /// S (apparent power), so the value range is 0...1. If current (I) and voltage (U) are sinusoidal and
     /// displaced by the angle phi, then the power factor is |cos phi|, again with the value range 0...1.
     /// Therefore, for the power factor per phase, value is contained in 'mag' and 'ang' is not used.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "PF")]
     pub pf: ::std::option::Option<Wye>,
     /// Sign convention for power factor 'PF' (and reactive power 'VAr').
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "PFSign")]
     pub pf_sign: ::std::option::Option<EngPfSignKind>,
     /// Phase to ground (line) voltages.
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "PhV")]
     pub ph_v: ::std::option::Option<Wye>,
     /// Phase to phase voltages.
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "PPV")]
     pub ppv: ::std::option::Option<Del>,
     /// Phase to ground/phase to neutral apparent powers S.
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "VA")]
     pub va: ::std::option::Option<Wye>,
     /// Phase to ground/phase to neutral reactive powers Q.
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "VAr")]
     pub v_ar: ::std::option::Option<Wye>,
     /// Phase to ground/phase to neutral real powers P.
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "W")]
     pub w: ::std::option::Option<Wye>,
 }
 mod reading_mmxu {
@@ -6101,8 +6257,7 @@ impl IsIdentifiedObject for ReadingMmxu {
 }
 /// OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 /// breaker   Name: XCBR
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusAndEventXcbr {
     /// UML inherited base object
     // parent_message: true
@@ -6112,25 +6267,32 @@ pub struct StatusAndEventXcbr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<EnsDynamicTestKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<PhaseDps>,
     /// Fault latch: LT01=51A OR 51B OR 51C
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "ProtectionPickup")]
     pub protection_pickup: ::std::option::Option<Acd>,
     /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
     /// by a circuit segment service.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "ProtectionMode")]
     pub protection_mode: ::std::option::Option<StatusIns>,
     /// Reclose enabled
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "RecloseEnabled")]
     pub reclose_enabled: ::std::option::Option<PhaseSps>,
     /// Reclose mode such idle, cycling and lockout.
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "ReclosingAction")]
     pub reclosing_action: ::std::option::Option<PhaseRecloseAction>,
 }
 mod status_and_event_xcbr {
@@ -6232,11 +6394,11 @@ impl IsIdentifiedObject for StatusAndEventXcbr {
     }
 }
 /// Integer control status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusInc {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -6246,9 +6408,11 @@ pub struct StatusInc {
     // uuid: false
     // key: false
     #[prost(int32, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_inc {
@@ -6291,11 +6455,11 @@ impl IsStatusInc for StatusInc {
     }
 }
 /// &lt;&lt;statistics&gt;&gt; Integer controlled step position information (ISC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusIsc {
     /// Quality of the value in 'valWTr'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Status value
     // parent_message: false
@@ -6305,9 +6469,11 @@ pub struct StatusIsc {
     // uuid: false
     // key: false
     #[prost(int32, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: i32,
     /// Timestamp of the last change of the value in any of 'valWTr' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_isc {
@@ -6350,8 +6516,7 @@ impl IsStatusIsc for StatusIsc {
     }
 }
 /// Generic status message information
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusMessageInfo {
     /// UML inherited base object
     // parent_message: true
@@ -6361,6 +6526,7 @@ pub struct StatusMessageInfo {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "messageInfo")]
     pub message_info: ::std::option::Option<MessageInfo>,
 }
 mod status_message_info {
@@ -6412,11 +6578,11 @@ impl IsIdentifiedObject for StatusMessageInfo {
     }
 }
 /// Controllable single point (SPC)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusSpc {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Status value of the controllable data object.
     // parent_message: false
@@ -6426,9 +6592,11 @@ pub struct StatusSpc {
     // uuid: false
     // key: false
     #[prost(bool, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: bool,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod status_spc {
@@ -6471,8 +6639,7 @@ impl IsStatusSpc for StatusSpc {
     }
 }
 /// Status value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusValue {
     /// UML inherited base object
     // parent_message: true
@@ -6482,9 +6649,11 @@ pub struct StatusValue {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "modBlk")]
     pub mod_blk: ::std::option::Option<bool>,
 }
 mod status_value {
@@ -6535,11 +6704,11 @@ impl IsIdentifiedObject for StatusValue {
     }
 }
 /// Visible string status (VSS)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Vss {
     /// Quality of the value in 'stVal'.
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub q: ::std::option::Option<Quality>,
     /// Value of the data.
     // parent_message: false
@@ -6549,9 +6718,11 @@ pub struct Vss {
     // uuid: false
     // key: false
     #[prost(string, tag="2")]
+    #[serde(default, rename = "stVal")]
     pub st_val: std::string::String,
     /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub t: ::std::option::Option<Timestamp>,
 }
 mod vss {
@@ -6594,8 +6765,7 @@ impl IsVss for Vss {
     }
 }
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StringEventAndStatusGgio {
     /// UML inherited base object
     // parent_message: true
@@ -6605,9 +6775,11 @@ pub struct StringEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<LogicalNode>,
     /// Phase code
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<OptionalPhaseCodeKind>,
     /// String status
     // parent_message: false
@@ -6617,6 +6789,7 @@ pub struct StringEventAndStatusGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "StrIn")]
     pub str_in: ::std::option::Option<Vss>,
 }
 mod string_event_and_status_ggio {
@@ -6682,8 +6855,7 @@ impl IsIdentifiedObject for StringEventAndStatusGgio {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchPoint {
     /// Switch position
     // parent_message: false
@@ -6693,6 +6865,7 @@ pub struct SwitchPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<ControlDpc>,
     /// Start time
     // parent_message: false
@@ -6702,6 +6875,7 @@ pub struct SwitchPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<ControlTimestamp>,
 }
 mod switch_point {
@@ -6738,8 +6912,7 @@ impl IsSwitchPoint for SwitchPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SwitchCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -6749,6 +6922,7 @@ pub struct SwitchCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<SwitchPoint>,
 }
 mod switch_csg {
@@ -6777,8 +6951,7 @@ impl IsSwitchCsg for SwitchCsg {
     }
 }
 /// Visible string status (VSS)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Vsc {
     /// [OpenFMB Extension]  String control value.
     // parent_message: false
@@ -6788,6 +6961,7 @@ pub struct Vsc {
     // uuid: false
     // key: false
     #[prost(string, tag="1")]
+    #[serde(default, rename = "ctlVal")]
     pub ctl_val: std::string::String,
 }
 mod vsc {
@@ -6815,10 +6989,10 @@ impl IsVsc for Vsc {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalStateKind {
     #[prost(enumeration="StateKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_state_kind {
@@ -6847,138 +7021,188 @@ impl IsOptionalStateKind for OptionalStateKind {
     }
 }
 /// Reclose action kind such as idle, cycling, or lockout.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum FaultDirectionKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "FaultDirectionKind_unknown")]
     Unknown = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "FaultDirectionKind_forward")]
     Forward = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "FaultDirectionKind_backward")]
     Backward = 2,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "FaultDirectionKind_both")]
     Both = 3,
 }
 /// Reclose action kind such as idle, cycling, or lockout.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum PhaseFaultDirectionKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "PhaseFaultDirectionKind_unknown")]
     Unknown = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "PhaseFaultDirectionKind_forward")]
     Forward = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "PhaseFaultDirectionKind_backward")]
     Backward = 2,
 }
 /// The units defined for usage in the CIM.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum UnitSymbolKind {
     /// Dimension less quantity, e.g. count, per unit, etc.
+    #[serde(rename = "UnitSymbolKind_none")]
     None = 0,
     /// Length in meter.
+    #[serde(rename = "UnitSymbolKind_meter")]
     Meter = 2,
     /// Mass in gram.
+    #[serde(rename = "UnitSymbolKind_gram")]
     Gram = 3,
     /// Current in ampere.
+    #[serde(rename = "UnitSymbolKind_Amp")]
     Amp = 5,
     /// Plane angle in degrees.
+    #[serde(rename = "UnitSymbolKind_deg")]
     Deg = 9,
     /// Plane angle in radians.
+    #[serde(rename = "UnitSymbolKind_rad")]
     Rad = 10,
     /// Relative temperature in degrees Celsius. In the SI unit system the symbol is ºC. Electric charge
     /// is measured in coulomb that has the unit symbol C. To distinguish degree Celsius form coulomb the
     /// symbol used in the UML is degC. Reason for not using ºC is the special character º is difficult to
     /// manage in software.
+    #[serde(rename = "UnitSymbolKind_degC")]
     DegC = 23,
     /// Capacitance in farad.
+    #[serde(rename = "UnitSymbolKind_Farad")]
     Farad = 25,
     /// Time in seconds.
+    #[serde(rename = "UnitSymbolKind_sec")]
     Sec = 27,
     /// Inductance in Henry.
+    #[serde(rename = "UnitSymbolKind_Henry")]
     Henry = 28,
     /// Voltage in volt.
+    #[serde(rename = "UnitSymbolKind_V")]
     V = 29,
     /// Resistance in ohm.
+    #[serde(rename = "UnitSymbolKind_ohm")]
     Ohm = 30,
     /// Energy in joule.
+    #[serde(rename = "UnitSymbolKind_Joule")]
     Joule = 31,
     /// Force in newton.
+    #[serde(rename = "UnitSymbolKind_Newton")]
     Newton = 32,
     /// Frequency in hertz.
+    #[serde(rename = "UnitSymbolKind_Hz")]
     Hz = 33,
     /// Active power in watt.
+    #[serde(rename = "UnitSymbolKind_W")]
     W = 38,
     /// Pressure in pascal (n/m2).
+    #[serde(rename = "UnitSymbolKind_Pa")]
     Pa = 39,
     /// Area in square meters.
+    #[serde(rename = "UnitSymbolKind_m2")]
     M2 = 41,
     /// Conductance in siemens.
+    #[serde(rename = "UnitSymbolKind_Siemens")]
     Siemens = 53,
     /// Apparent power in volt ampere.
+    #[serde(rename = "UnitSymbolKind_VA")]
     Va = 61,
     /// Reactive power in volt ampere reactive.
+    #[serde(rename = "UnitSymbolKind_VAr")]
     VAr = 63,
     /// Power factor
+    #[serde(rename = "UnitSymbolKind_wPerVA")]
     WPerVa = 65,
     /// Apparent energy in volt ampere hours.
+    #[serde(rename = "UnitSymbolKind_VAh")]
     VAh = 71,
     /// Real energy in what hours.
+    #[serde(rename = "UnitSymbolKind_Wh")]
     Wh = 72,
     /// Reactive energy in volt ampere reactive hours.
+    #[serde(rename = "UnitSymbolKind_VArh")]
     VArh = 73,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "UnitSymbolKind_hzPerS")]
     HzPerS = 75,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "UnitSymbolKind_wPerS")]
     WPerS = 81,
     /// Other enum not listed
+    #[serde(rename = "UnitSymbolKind_other")]
     Other = 100,
     /// Amp hour
+    #[serde(rename = "UnitSymbolKind_Ah")]
     Ah = 106,
     /// Time in minutes.
+    #[serde(rename = "UnitSymbolKind_min")]
     Min = 159,
     /// Time in hours.
+    #[serde(rename = "UnitSymbolKind_hour")]
     Hour = 160,
     /// Volume in cubic meters.
+    #[serde(rename = "UnitSymbolKind_m3")]
     M3 = 166,
     /// Watts per square meter
+    #[serde(rename = "UnitSymbolKind_wPerM2")]
     WPerM2 = 179,
     /// Relative temperature in degree fahrenheit.
+    #[serde(rename = "UnitSymbolKind_degF")]
     DegF = 279,
     /// Mile per hour
+    #[serde(rename = "UnitSymbolKind_mph")]
     Mph = 500,
 }
 /// The unit multipliers defined for the CIM.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum UnitMultiplierKind {
     /// No multiplier or equivalently multiply by 1.
+    #[serde(rename = "UnitMultiplierKind_none")]
     None = 0,
     /// Other enum not listed
+    #[serde(rename = "UnitMultiplierKind_other")]
     Other = 1,
     /// Centi 10**-2.
+    #[serde(rename = "UnitMultiplierKind_centi")]
     Centi = 2,
     /// Deci 10**-1.
+    #[serde(rename = "UnitMultiplierKind_deci")]
     Deci = 3,
     /// Giga 10**9.
+    #[serde(rename = "UnitMultiplierKind_Giga")]
     Giga = 4,
     /// Kilo 10**3.
+    #[serde(rename = "UnitMultiplierKind_kilo")]
     Kilo = 5,
     /// Mega 10**6.
+    #[serde(rename = "UnitMultiplierKind_Mega")]
     Mega = 6,
     /// Micro 10**-6.
+    #[serde(rename = "UnitMultiplierKind_micro")]
     Micro = 7,
     /// Milli 10**-3.
+    #[serde(rename = "UnitMultiplierKind_milli")]
     Milli = 8,
     /// Nano 10**-9.
+    #[serde(rename = "UnitMultiplierKind_nano")]
     Nano = 9,
     /// Pico 10**-12.
+    #[serde(rename = "UnitMultiplierKind_pico")]
     Pico = 10,
     /// Tera 10**12.
+    #[serde(rename = "UnitMultiplierKind_Tera")]
     Tera = 11,
 }
 /// Enumeration of phase identifiers. Allows designation of phases for both transmission and
@@ -6987,76 +7211,101 @@ pub enum UnitMultiplierKind {
 /// hot wires that are 180 degrees out of phase, while N refers to the neutral wire. Through single
 /// phase transformer connections, these secondary circuits may be served from one or two of the primary
 /// phases A, B, and C. For three-phase loads, use the A, B, C phase codes instead of s12N.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum PhaseCodeKind {
     /// Not applicable
+    #[serde(rename = "PhaseCodeKind_none")]
     None = 0,
     /// Other enum not listed
+    #[serde(rename = "PhaseCodeKind_other")]
     Other = 1,
     /// Neutral phase.
+    #[serde(rename = "PhaseCodeKind_N")]
     N = 16,
     /// Phase C.
+    #[serde(rename = "PhaseCodeKind_C")]
     C = 32,
     /// Phases C and neutral.
+    #[serde(rename = "PhaseCodeKind_CN")]
     Cn = 33,
     /// Phases A and C.
+    #[serde(rename = "PhaseCodeKind_AC")]
     Ac = 40,
     /// Phases A, C and neutral.
+    #[serde(rename = "PhaseCodeKind_ACN")]
     Acn = 41,
     /// Phase B.
+    #[serde(rename = "PhaseCodeKind_B")]
     B = 64,
     /// Phases B and neutral.
+    #[serde(rename = "PhaseCodeKind_BN")]
     Bn = 65,
     /// Phases B and C.
+    #[serde(rename = "PhaseCodeKind_BC")]
     Bc = 66,
     /// Phases B, C, and neutral.
+    #[serde(rename = "PhaseCodeKind_BCN")]
     Bcn = 97,
     /// Phase A.
+    #[serde(rename = "PhaseCodeKind_A")]
     A = 128,
     /// Phases A and neutral.
+    #[serde(rename = "PhaseCodeKind_AN")]
     An = 129,
     /// Phases A and B.
+    #[serde(rename = "PhaseCodeKind_AB")]
     Ab = 132,
     /// Phases A, B, and neutral.
+    #[serde(rename = "PhaseCodeKind_ABN")]
     Abn = 193,
     /// Phases A, B, and C.
+    #[serde(rename = "PhaseCodeKind_ABC")]
     Abc = 224,
     /// Phases A, B, C, and N.
+    #[serde(rename = "PhaseCodeKind_ABCN")]
     Abcn = 225,
     /// Secondary phase 2.
+    #[serde(rename = "PhaseCodeKind_s2")]
     S2 = 256,
     /// Secondary phase 2 and neutral.
+    #[serde(rename = "PhaseCodeKind_s2N")]
     S2N = 257,
     /// Secondary phase 1.
+    #[serde(rename = "PhaseCodeKind_s1")]
     S1 = 512,
     /// Secondary phase 1 and neutral.
+    #[serde(rename = "PhaseCodeKind_s1N")]
     S1N = 513,
     /// Secondary phase 1 and 2.
+    #[serde(rename = "PhaseCodeKind_s12")]
     S12 = 768,
     /// Secondary phases 1, 2, and neutral.
+    #[serde(rename = "PhaseCodeKind_s12N")]
     S12N = 769,
 }
 /// Validity of the value, as condensed information for the client. In case this value is not
 /// 'good', some reasons may be found in the 'detailQual'.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum ValidityKind {
     /// Supervision function has detected no abnormal condition of either the acquisition function or
     /// the information source.
+    #[serde(rename = "ValidityKind_good")]
     Good = 0,
     /// Supervision function has detected an abnormal condition of the acquisition function or the
     /// information source (missing or non-operating updating devices). The value is not defined under this
     /// condition. It shall be used to indicate to the client that the value may be incorrect and shall not
     /// be used.  EXAMPLE If an input unit detects an oscillation of one input it will mark the related
     /// information as invalid.
+    #[serde(rename = "ValidityKind_invalid")]
     Invalid = 1,
     /// Reserved
+    #[serde(rename = "ValidityKind_reserved")]
     Reserved = 2,
     /// Supervision function has detected any abnormal behaviour. However, the value could still be
     /// valid. It is client's responsibility to determine whether the values should be used.
+    #[serde(rename = "ValidityKind_questionable")]
     Questionable = 3,
 }
 /// (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
@@ -7064,318 +7313,413 @@ pub enum ValidityKind {
 /// There are various means to clear a substitution. As an example, a substitution that was done
 /// following an invalid condition may be cleared automatically if the invalid condition is cleared.
 /// However, this is a local issue and therefore
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum SourceKind {
     /// The value is provided by an input function from the process I/O or is calculated from some
     /// application function.
+    #[serde(rename = "SourceKind_process")]
     Process = 0,
     /// The value is provided by an operator input or by an automatic source.
+    #[serde(rename = "SourceKind_substituted")]
     Substituted = 1,
 }
 /// Validity of the value, as condensed information for the client. In case this value is not
 /// 'good', some reasons may be found in the 'detailQual'.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum TimeAccuracyKind {
     /// Undefined
+    #[serde(rename = "TimeAccuracyKind_UNDEFINED")]
     Undefined = 0,
     /// 10 ms (class T0)
+    #[serde(rename = "TimeAccuracyKind_T0")]
     T0 = 7,
     /// 1 ms (class T1)
+    #[serde(rename = "TimeAccuracyKind_T1")]
     T1 = 10,
     /// 100 us (class T2)
+    #[serde(rename = "TimeAccuracyKind_T2")]
     T2 = 14,
     /// 25 us (class T3)
+    #[serde(rename = "TimeAccuracyKind_T3")]
     T3 = 16,
     /// 4 us (class T4)
+    #[serde(rename = "TimeAccuracyKind_T4")]
     T4 = 18,
     /// 1 us (class T5)
+    #[serde(rename = "TimeAccuracyKind_T5")]
     T5 = 20,
     /// Undefined
+    #[serde(rename = "TimeAccuracyKind_unspecified")]
     Unspecified = 31,
 }
 /// ESS function kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum ScheduleParameterKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_none")]
     None = 0,
     /// Other enum not listed
+    #[serde(rename = "ScheduleParameterKind_other")]
     Other = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_A_net_mag")]
     ANetMag = 2,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_A_neut_mag")]
     ANeutMag = 3,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_A_phsA_mag")]
     APhsAMag = 4,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_A_phsB_mag")]
     APhsBMag = 5,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_A_phsC_mag")]
     APhsCMag = 6,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_Hz_mag")]
     HzMag = 7,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PF_net_mag")]
     PfNetMag = 8,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PF_neut_mag")]
     PfNeutMag = 9,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PF_phsA_mag")]
     PfPhsAMag = 10,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PF_phsB_mag")]
     PfPhsBMag = 11,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PF_phsC_mag")]
     PfPhsCMag = 12,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_net_ang")]
     PhVNetAng = 13,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_net_mag")]
     PhVNetMag = 14,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_neut_ang")]
     PhVNeutAng = 15,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_neut_mag")]
     PhVNeutMag = 16,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsA_ang")]
     PhVPhsAAng = 17,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsA_mag")]
     PhVPhsAMag = 18,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsB_ang")]
     PhVPhsBAng = 19,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsB_mag")]
     PhVPhsBMag = 20,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsC_ang")]
     PhVPhsCAng = 21,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PhV_phsC_mag")]
     PhVPhsCMag = 22,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsAB_ang")]
     PpvPhsAbAng = 23,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsAB_mag")]
     PpvPhsAbMag = 24,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsBC_ang")]
     PpvPhsBcAng = 25,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsBC_mag")]
     PpvPhsBcMag = 26,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsCA_ang")]
     PpvPhsCaAng = 27,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_PPV_phsCA_mag")]
     PpvPhsCaMag = 28,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VA_net_mag")]
     VaNetMag = 29,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VA_neut_mag")]
     VaNeutMag = 30,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VA_phsA_mag")]
     VaPhsAMag = 31,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VA_phsB_mag")]
     VaPhsBMag = 32,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VA_phsC_mag")]
     VaPhsCMag = 33,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VAr_net_mag")]
     VArNetMag = 34,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VAr_neut_mag")]
     VArNeutMag = 35,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VAr_phsA_mag")]
     VArPhsAMag = 36,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VAr_phsB_mag")]
     VArPhsBMag = 37,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_VAr_phsC_mag")]
     VArPhsCMag = 38,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_W_net_mag")]
     WNetMag = 39,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_W_neut_mag")]
     WNeutMag = 40,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_W_phsA_mag")]
     WPhsAMag = 41,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_W_phsB_mag")]
     WPhsBMag = 42,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ScheduleParameterKind_W_phsC_mag")]
     WPhsCMag = 43,
 }
 /// Calculation method (CalcMethodKind enumeration)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum CalcMethodKind {
     /// Undefined enum value which can be used for Protobuf generation and be consistent with other
     /// technologies.
+    #[serde(rename = "CalcMethodKind_UNDEFINED")]
     Undefined = 0,
     /// All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     /// characteristics specified in IEEE C37.118.1 for P-CLASS.
+    #[serde(rename = "CalcMethodKind_P_CLASS")]
     PClass = 11,
     /// All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     /// characteristics specified in IEEE C37.118.1 for M-CLASS.
+    #[serde(rename = "CalcMethodKind_M_CLASS")]
     MClass = 12,
     /// All analogue values are [F(t+T)-F(t)] for a calculation interval T (in the same unit as the
     /// original entity). Note: The client can still calculate rate so: RATE = DIFF/T.
+    #[serde(rename = "CalcMethodKind_DIFF")]
     Diff = 13,
 }
 /// Power system connect modes to the power grid (GridConnectModeKind)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum GridConnectModeKind {
     /// Undefined
+    #[serde(rename = "GridConnectModeKind_UNDEFINED")]
     Undefined = 0,
     /// Current-source inverter (CSI)
+    #[serde(rename = "GridConnectModeKind_CSI")]
     Csi = 1,
     /// Voltage-controlled voltage-source inverter (VC-VSI)
+    #[serde(rename = "GridConnectModeKind_VC_VSI")]
     VcVsi = 2,
     /// Current-controlled voltage-source inverter (CC-VSI)
+    #[serde(rename = "GridConnectModeKind_CC_VSI")]
     CcVsi = 3,
     /// Not applicable / Unknown
+    #[serde(rename = "GridConnectModeKind_none")]
     None = 98,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "GridConnectModeKind_other")]
     Other = 99,
     /// Voltage source inverter regulating to P and Q references (VSI PQ)
+    #[serde(rename = "GridConnectModeKind_VSI_PQ")]
     VsiPq = 2000,
     /// Voltage source inverter regulating to voltage and frequency references paralleling other
     /// generation and not grid forming (VSI VF).
+    #[serde(rename = "GridConnectModeKind_VSI_VF")]
     VsiVf = 2001,
     /// Voltage source inverter regulating to voltage and frequency references as primary grid forming
     /// generation (VSI ISO).
+    #[serde(rename = "GridConnectModeKind_VSI_ISO")]
     VsiIso = 2002,
 }
 /// Power factor sign (PFSignKind enumeration)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum PfSignKind {
     /// Undefined enum value which can be used for Protobuf generation and be consistent with other
     /// technologies.
+    #[serde(rename = "PFSignKind_UNDEFINED")]
     Undefined = 0,
     /// All analogue values are [F(t+T)-F(t)] for a calculation interval T (in the same unit as the
     /// original entity). Note: The client can still calculate rate so: RATE = DIFF/T.
+    #[serde(rename = "PFSignKind_IEC")]
     Iec = 1,
     /// All analogue values (i.e., all common attributes 'i' and 'f') meet the sampling and filtering
     /// characteristics specified in IEEE C37.118.1 for M-CLASS.
+    #[serde(rename = "PFSignKind_EEI")]
     Eei = 2,
 }
 /// Behaviour or mode (BehaviourModeKind enumeration)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum BehaviourModeKind {
     /// Undefined
+    #[serde(rename = "BehaviourModeKind_UNDEFINED")]
     Undefined = 0,
     /// Normal enabled state.
+    #[serde(rename = "BehaviourModeKind_on")]
     On = 1,
     /// Process is passively supervised.
+    #[serde(rename = "BehaviourModeKind_blocked")]
     Blocked = 2,
     /// Function is operated but results are indicated as test results.
+    #[serde(rename = "BehaviourModeKind_test")]
     Test = 3,
     /// Function is operated in test mode, but with no impact to the process.
+    #[serde(rename = "BehaviourModeKind_test_blocked")]
     TestBlocked = 4,
     /// Function is inactive but shows its configuration capability.
+    #[serde(rename = "BehaviourModeKind_off")]
     Off = 5,
 }
 /// DER operational state (DERGeneratorStateKind)
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum DerGeneratorStateKind {
     /// Undefined enum value which can be used for Protobuf generation and be consistent with other
     /// technologies.
+    #[serde(rename = "DERGeneratorStateKind_UNDEFINED")]
     Undefined = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Not_operating")]
     NotOperating = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Operating")]
     Operating = 2,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Starting_up")]
     StartingUp = 3,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Shutting_down")]
     ShuttingDown = 4,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_At_disconnect_level")]
     AtDisconnectLevel = 5,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Ramping_in_power")]
     RampingInPower = 6,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Ramping_in_reactive_power")]
     RampingInReactivePower = 7,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Standby")]
     Standby = 8,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Not_applicable_Unknown")]
     NotApplicableUnknown = 98,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DERGeneratorStateKind_Other")]
     Other = 99,
 }
 /// Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
 /// machine diagram)   A simplified state machine diagram (from Herb F.) is provided.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum DynamicTestKind {
     /// None
+    #[serde(rename = "DynamicTestKind_none")]
     None = 0,
     /// Testing status
+    #[serde(rename = "DynamicTestKind_testing")]
     Testing = 1,
     /// Operating status
+    #[serde(rename = "DynamicTestKind_operating")]
     Operating = 2,
     /// Failed status
+    #[serde(rename = "DynamicTestKind_failed")]
     Failed = 3,
 }
 /// State kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum HealthKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "HealthKind_none")]
     None = 0,
     /// No problems, normal operation ("green").
+    #[serde(rename = "HealthKind_OK")]
     Ok = 1,
     /// Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
     /// depending on the dedicated function/device.
+    #[serde(rename = "HealthKind_Warning")]
     Warning = 2,
     /// Severe problem, no operation possible ("red").
+    #[serde(rename = "HealthKind_Alarm")]
     Alarm = 3,
 }
 /// MISSING DOCUMENTATION!!!
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum SwitchingCapabilityKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "SwitchingCapabilityKind_none")]
     None = 0,
     /// Open
+    #[serde(rename = "SwitchingCapabilityKind_open")]
     Open = 1,
     /// Close
+    #[serde(rename = "SwitchingCapabilityKind_close")]
     Close = 2,
     /// Open and Close
+    #[serde(rename = "SwitchingCapabilityKind_open_and_close")]
     OpenAndClose = 3,
 }
 /// Double point position status
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum DbPosKind {
     /// Transient status
+    #[serde(rename = "DbPosKind_transient")]
     Transient = 0,
     /// Closed status
+    #[serde(rename = "DbPosKind_closed")]
     Closed = 1,
     /// Open status
+    #[serde(rename = "DbPosKind_open")]
     Open = 2,
     /// Invalid status
+    #[serde(rename = "DbPosKind_invalid")]
     Invalid = 3,
 }
 /// Reclose action kind such as idle, cycling, or lockout.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum RecloseActionKind {
     /// Idle state
+    #[serde(rename = "RecloseActionKind_idle")]
     Idle = 0,
     /// Cycling state
+    #[serde(rename = "RecloseActionKind_cycling")]
     Cycling = 1,
     /// Lockout state
+    #[serde(rename = "RecloseActionKind_lockout")]
     Lockout = 2,
 }
 /// State kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum StateKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "StateKind_off")]
     Off = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "StateKind_on")]
     On = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "StateKind_standby")]
     Standby = 2,
 }

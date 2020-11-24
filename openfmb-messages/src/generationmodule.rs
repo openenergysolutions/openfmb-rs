@@ -1,43 +1,54 @@
 use crate::commonmodule::*;
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blackStartEnabled")]
     pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencySetPointEnabled")]
     pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Black start enable
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "pctHzDroop")]
     pub pct_hz_droop: ::std::option::Option<f32>,
     /// Black start enable
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "pctVDroop")]
     pub pct_v_droop: ::std::option::Option<f32>,
     /// Ramp rates
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Reset device
     #[prost(message, optional, tag="8")]
+    #[serde(default)]
     pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// ESS state
     #[prost(message, optional, tag="9")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "syncBackToGrid")]
     pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "transToIslndOnGridLossEnabled")]
     pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Start time
     // parent_message: false
@@ -47,6 +58,7 @@ pub struct GenerationPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="13")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::ControlTimestamp>,
 }
 mod generation_point {
@@ -160,8 +172,7 @@ impl IsGenerationPoint for GenerationPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -171,6 +182,7 @@ pub struct GenerationCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<GenerationPoint>,
 }
 mod generation_csg {
@@ -199,8 +211,7 @@ impl IsGenerationCsg for GenerationCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationControlScheduleFsch {
     /// Discrete value in GenerationCSG type
     // parent_message: false
@@ -210,6 +221,7 @@ pub struct GenerationControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValDCSG")]
     pub val_dcsg: ::std::option::Option<GenerationCsg>,
 }
 mod generation_control_schedule_fsch {
@@ -239,8 +251,7 @@ impl IsGenerationControlScheduleFsch for GenerationControlScheduleFsch {
     }
 }
 /// LN: Schedule controller   Name: FSCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -250,9 +261,11 @@ pub struct GenerationControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "GenerationControlScheduleFSCH")]
     pub generation_control_schedule_fsch: ::std::option::Option<GenerationControlScheduleFsch>,
 }
 mod generation_control_fscc {
@@ -327,8 +340,7 @@ impl IsIdentifiedObject for GenerationControlFscc {
     }
 }
 /// Generation control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationControl {
     /// UML inherited base object
     // parent_message: true
@@ -338,12 +350,15 @@ pub struct GenerationControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationControlFSCC")]
     pub generation_control_fscc: ::std::option::Option<GenerationControlFscc>,
 }
 mod generation_control {
@@ -412,8 +427,7 @@ impl IsIdentifiedObject for GenerationControl {
 /// power. For example, individual machines within a set may be defined for scheduling purposes while a
 /// single control signal is derived for the set. In this case there would be a GeneratingUnit for each
 /// member of the set and an additional GeneratingUnit corresponding to the set.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GeneratingUnit {
     /// UML inherited base object
     // parent_message: true
@@ -423,9 +437,11 @@ pub struct GeneratingUnit {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// This is the maximum operating active power limit the dispatcher can enter for this unit.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "maxOperatingP")]
     pub max_operating_p: ::std::option::Option<super::commonmodule::ActivePower>,
 }
 mod generating_unit {
@@ -485,8 +501,7 @@ impl IsNamedObject for GeneratingUnit {
 }
 /// Generation control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -496,6 +511,7 @@ pub struct GenerationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -505,6 +521,7 @@ pub struct GenerationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generatingUnit")]
     pub generating_unit: ::std::option::Option<GeneratingUnit>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -514,6 +531,7 @@ pub struct GenerationControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationControl")]
     pub generation_control: ::std::option::Option<GenerationControl>,
 }
 mod generation_control_profile {
@@ -586,10 +604,10 @@ impl IsIdentifiedObject for GenerationControlProfile {
         self.parent_mut().parent_mut().parent_mut()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalRealPowerControlKind {
     #[prost(enumeration="RealPowerControlKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_real_power_control_kind {
@@ -618,14 +636,15 @@ impl IsOptionalRealPowerControlKind for OptionalRealPowerControlKind {
     }
 }
 /// Generation discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct DroopParameter {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub slope: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "unloadedOffset")]
     pub unloaded_offset: ::std::option::Option<f32>,
 }
 mod droop_parameter {
@@ -662,20 +681,23 @@ impl IsDroopParameter for DroopParameter {
     }
 }
 /// Generation real power control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct RealPowerControl {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "droopSetpoint")]
     pub droop_setpoint: ::std::option::Option<DroopParameter>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "isochronousSetpoint")]
     pub isochronous_setpoint: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "realPowerControlMode")]
     pub real_power_control_mode: ::std::option::Option<OptionalRealPowerControlKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "realPowerSetpoint")]
     pub real_power_setpoint: ::std::option::Option<f32>,
 }
 mod real_power_control {
@@ -725,10 +747,10 @@ impl IsRealPowerControl for RealPowerControl {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalReactivePowerControlKind {
     #[prost(enumeration="ReactivePowerControlKind", tag="1")]
+    #[serde(default)]
     pub value: i32,
 }
 mod optional_reactive_power_control_kind {
@@ -757,23 +779,27 @@ impl IsOptionalReactivePowerControlKind for OptionalReactivePowerControlKind {
     }
 }
 /// Generation real power control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReactivePowerControl {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "droopSetpoint")]
     pub droop_setpoint: ::std::option::Option<DroopParameter>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "powerFactorSetpoint")]
     pub power_factor_setpoint: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "reactivePowerControlMode")]
     pub reactive_power_control_mode: ::std::option::Option<OptionalReactivePowerControlKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "reactivePowerSetpoint")]
     pub reactive_power_setpoint: ::std::option::Option<f32>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "voltageSetpoint")]
     pub voltage_setpoint: ::std::option::Option<f32>,
 }
 mod reactive_power_control {
@@ -831,8 +857,7 @@ impl IsReactivePowerControl for ReactivePowerControl {
     }
 }
 /// Generation discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -842,15 +867,19 @@ pub struct GenerationDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "ReactivePowerControl")]
     pub reactive_power_control: ::std::option::Option<ReactivePowerControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "RealPowerControl")]
     pub real_power_control: ::std::option::Option<RealPowerControl>,
 }
 mod generation_discrete_control {
@@ -924,8 +953,7 @@ impl IsIdentifiedObject for GenerationDiscreteControl {
 }
 /// Generation discrete control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -935,6 +963,7 @@ pub struct GenerationDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -944,6 +973,7 @@ pub struct GenerationDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generatingUnit")]
     pub generating_unit: ::std::option::Option<GeneratingUnit>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -953,6 +983,7 @@ pub struct GenerationDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationDiscreteControl")]
     pub generation_discrete_control: ::std::option::Option<GenerationDiscreteControl>,
 }
 mod generation_discrete_control_profile {
@@ -1026,8 +1057,7 @@ impl IsIdentifiedObject for GenerationDiscreteControlProfile {
     }
 }
 /// Generation reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationReading {
     /// UML inherited base object
     // parent_message: true
@@ -1037,15 +1067,19 @@ pub struct GenerationReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod generation_reading {
@@ -1111,8 +1145,7 @@ impl IsConductingEquipmentTerminalReading for GenerationReading {
 }
 /// Generation reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1122,6 +1155,7 @@ pub struct GenerationReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1131,6 +1165,7 @@ pub struct GenerationReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generatingUnit")]
     pub generating_unit: ::std::option::Option<GeneratingUnit>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1140,6 +1175,7 @@ pub struct GenerationReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationReading")]
     pub generation_reading: ::std::option::Option<GenerationReading>,
 }
 mod generation_reading_profile {
@@ -1213,41 +1249,51 @@ impl IsIdentifiedObject for GenerationReadingProfile {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blackStartEnabled")]
     pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencySetPointEnabled")]
     pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Black start enable
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "pctHzDroop")]
     pub pct_hz_droop: ::std::option::Option<f32>,
     /// Black start enable
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "pctVDroop")]
     pub pct_v_droop: ::std::option::Option<f32>,
     /// Ramp rates
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="8")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "syncBackToGrid")]
     pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "transToIslndOnGridLossEnabled")]
     pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
 }
 mod generation_point_status {
@@ -1347,8 +1393,7 @@ impl IsGenerationPointStatus for GenerationPointStatus {
     }
 }
 /// Specialized 61850 ZGEN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationEventAndStatusZgen {
     /// UML inherited base object
     // parent_message: true
@@ -1358,21 +1403,27 @@ pub struct GenerationEventAndStatusZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AuxPwrSt")]
     pub aux_pwr_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// Emergency stop
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "EmgStop")]
     pub emg_stop: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Generator is synchronized to EPS, or not; True = Synchronized
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "GnSynSt")]
     pub gn_syn_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Point status
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "PointStatus")]
     pub point_status: ::std::option::Option<GenerationPointStatus>,
 }
 mod generation_event_and_status_zgen {
@@ -1467,8 +1518,7 @@ impl IsIdentifiedObject for GenerationEventAndStatusZgen {
     }
 }
 /// Specialized generation event ZGEN
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationEventZgen {
     /// UML inherited base object
     // parent_message: true
@@ -1478,6 +1528,7 @@ pub struct GenerationEventZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "generationEventAndStatusZGEN")]
     pub generation_event_and_status_zgen: ::std::option::Option<GenerationEventAndStatusZgen>,
 }
 mod generation_event_zgen {
@@ -1545,8 +1596,7 @@ impl IsIdentifiedObject for GenerationEventZgen {
     }
 }
 /// Generation event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationEvent {
     /// UML inherited base object
     // parent_message: true
@@ -1556,9 +1606,11 @@ pub struct GenerationEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generationEventZGEN")]
     pub generation_event_zgen: ::std::option::Option<GenerationEventZgen>,
 }
 mod generation_event {
@@ -1618,8 +1670,7 @@ impl IsIdentifiedObject for GenerationEvent {
 }
 /// Generation event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1629,6 +1680,7 @@ pub struct GenerationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1638,6 +1690,7 @@ pub struct GenerationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generatingUnit")]
     pub generating_unit: ::std::option::Option<GeneratingUnit>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1647,6 +1700,7 @@ pub struct GenerationEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationEvent")]
     pub generation_event: ::std::option::Option<GenerationEvent>,
 }
 mod generation_event_profile {
@@ -1720,8 +1774,7 @@ impl IsIdentifiedObject for GenerationEventProfile {
     }
 }
 /// Specialized 61850 ZGEN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationStatusZgen {
     /// UML inherited base object
     // parent_message: true
@@ -1731,6 +1784,7 @@ pub struct GenerationStatusZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "generationEventAndStatusZGEN")]
     pub generation_event_and_status_zgen: ::std::option::Option<GenerationEventAndStatusZgen>,
 }
 mod generation_status_zgen {
@@ -1798,8 +1852,7 @@ impl IsIdentifiedObject for GenerationStatusZgen {
     }
 }
 /// Generation status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationStatus {
     /// UML inherited base object
     // parent_message: true
@@ -1809,9 +1862,11 @@ pub struct GenerationStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generationStatusZGEN")]
     pub generation_status_zgen: ::std::option::Option<GenerationStatusZgen>,
 }
 mod generation_status {
@@ -1871,8 +1926,7 @@ impl IsIdentifiedObject for GenerationStatus {
 }
 /// Generation status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct GenerationStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1882,6 +1936,7 @@ pub struct GenerationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1891,6 +1946,7 @@ pub struct GenerationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "generatingUnit")]
     pub generating_unit: ::std::option::Option<GeneratingUnit>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1900,6 +1956,7 @@ pub struct GenerationStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "generationStatus")]
     pub generation_status: ::std::option::Option<GenerationStatus>,
 }
 mod generation_status_profile {
@@ -1973,36 +2030,45 @@ impl IsIdentifiedObject for GenerationStatusProfile {
     }
 }
 /// Real power control kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum RealPowerControlKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_UNDEFINED")]
     Undefined = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_advanced")]
     Advanced = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_droop")]
     Droop = 2,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_isochronous")]
     Isochronous = 3,
     /// Real power setpoint
+    #[serde(rename = "RealPowerControlKind_realPower")]
     RealPower = 4,
 }
 /// Real power control kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
-#[derive(serde::Serialize, serde::Deserialize)]
 pub enum ReactivePowerControlKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_UNDEFINED")]
     Undefined = 0,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_advanced")]
     Advanced = 1,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_droop")]
     Droop = 2,
     /// Voltage setpoint
+    #[serde(rename = "ReactivePowerControlKind_voltage")]
     Voltage = 3,
     /// Reactive power setpoint
+    #[serde(rename = "ReactivePowerControlKind_reactivePower")]
     ReactivePower = 4,
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_powerFactor")]
     PowerFactor = 5,
 }

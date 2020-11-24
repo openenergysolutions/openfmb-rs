@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// Reclose enabled
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerDiscreteControlXcbr {
     /// UML inherited base object
     // parent_message: true
@@ -11,6 +10,7 @@ pub struct BreakerDiscreteControlXcbr {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "discreteControlXCBR")]
     pub discrete_control_xcbr: ::std::option::Option<super::commonmodule::DiscreteControlXcbr>,
 }
 mod breaker_discrete_control_xcbr {
@@ -78,8 +78,7 @@ impl IsIdentifiedObject for BreakerDiscreteControlXcbr {
     }
 }
 /// Breaker discrete control class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -89,12 +88,15 @@ pub struct BreakerDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// IEC61850 enhanced control parameters.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "breakerDiscreteControlXCBR")]
     pub breaker_discrete_control_xcbr: ::std::option::Option<BreakerDiscreteControlXcbr>,
 }
 mod breaker_discrete_control {
@@ -162,8 +164,7 @@ impl IsIdentifiedObject for BreakerDiscreteControl {
 /// A mechanical switching device capable of making, carrying, and breaking currents under normal
 /// circuit conditions and also making, carrying for a specified time, and breaking currents under
 /// specified abnormal circuit conditions e.g.  those of short circuit.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Breaker {
     /// UML inherited base object
     // parent_message: true
@@ -173,6 +174,7 @@ pub struct Breaker {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
 }
 mod breaker {
@@ -225,8 +227,7 @@ impl IsNamedObject for Breaker {
 }
 /// Instructs an end device (or an end device group) to perform a specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -236,6 +237,7 @@ pub struct BreakerDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -245,6 +247,7 @@ pub struct BreakerDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub breaker: ::std::option::Option<Breaker>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -254,6 +257,7 @@ pub struct BreakerDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "breakerDiscreteControl")]
     pub breaker_discrete_control: ::std::option::Option<BreakerDiscreteControl>,
 }
 mod breaker_discrete_control_profile {
@@ -327,8 +331,7 @@ impl IsIdentifiedObject for BreakerDiscreteControlProfile {
     }
 }
 /// Breaker event class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerEvent {
     /// UML inherited base object
     // parent_message: true
@@ -338,9 +341,11 @@ pub struct BreakerEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "statusAndEventXCBR")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
 mod breaker_event {
@@ -400,8 +405,7 @@ impl IsIdentifiedObject for BreakerEvent {
 }
 /// Breaker event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -411,6 +415,7 @@ pub struct BreakerEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -420,6 +425,7 @@ pub struct BreakerEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub breaker: ::std::option::Option<Breaker>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -429,6 +435,7 @@ pub struct BreakerEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "breakerEvent")]
     pub breaker_event: ::std::option::Option<BreakerEvent>,
 }
 mod breaker_event_profile {
@@ -502,8 +509,7 @@ impl IsIdentifiedObject for BreakerEventProfile {
     }
 }
 /// MISSING DOCUMENTATION!!!
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerReading {
     /// UML inherited base object
     // parent_message: true
@@ -513,18 +519,23 @@ pub struct BreakerReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "diffReadingMMXU")]
     pub diff_reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod breaker_reading {
@@ -597,8 +608,7 @@ impl IsConductingEquipmentTerminalReading for BreakerReading {
 }
 /// Breaker reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -608,6 +618,7 @@ pub struct BreakerReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -617,6 +628,7 @@ pub struct BreakerReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub breaker: ::std::option::Option<Breaker>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -626,6 +638,7 @@ pub struct BreakerReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "breakerReading")]
     pub breaker_reading: ::std::vec::Vec<BreakerReading>,
 }
 mod breaker_reading_profile {
@@ -698,8 +711,7 @@ impl IsIdentifiedObject for BreakerReadingProfile {
     }
 }
 /// Status of a breaker
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerStatus {
     /// UML inherited base object
     // parent_message: true
@@ -709,9 +721,11 @@ pub struct BreakerStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "statusAndEventXCBR")]
     pub status_and_event_xcbr: ::std::option::Option<super::commonmodule::StatusAndEventXcbr>,
 }
 mod breaker_status {
@@ -771,8 +785,7 @@ impl IsIdentifiedObject for BreakerStatus {
 }
 /// Breaker status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BreakerStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -782,6 +795,7 @@ pub struct BreakerStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -791,6 +805,7 @@ pub struct BreakerStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub breaker: ::std::option::Option<Breaker>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -800,6 +815,7 @@ pub struct BreakerStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "breakerStatus")]
     pub breaker_status: ::std::option::Option<BreakerStatus>,
 }
 mod breaker_status_profile {

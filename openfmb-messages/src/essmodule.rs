@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssEventZbat {
     /// UML inherited base object
     // parent_message: true
@@ -11,21 +10,27 @@ pub struct EssEventZbat {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// If true, the battery is in overcharge (voltage or current) condition.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "BatHi")]
     pub bat_hi: ::std::option::Option<super::commonmodule::StatusSps>,
     /// If true, the battery voltage or charge has dropped below a pre-set level.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "BatLo")]
     pub bat_lo: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "BatSt")]
     pub bat_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// State of charge (in percentage)
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "Soc")]
     pub soc: ::std::option::Option<super::commonmodule::Mv>,
     /// If stVal TRUE, the device is in standby.
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "Stdby")]
     pub stdby: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod ess_event_zbat {
@@ -120,44 +125,51 @@ impl IsIdentifiedObject for EssEventZbat {
     }
 }
 /// ESS inverter high level function to maintain frequency within dead bands.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct FrequencyRegulation {
     /// uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
     /// bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
     /// DB = frequency set point – dead band minus
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "frequencyDeadBandMinus")]
     pub frequency_dead_band_minus: ::std::option::Option<f32>,
     /// uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
     /// bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
     /// DB = frequency set point – dead band minus
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencyDeadBandPlus")]
     pub frequency_dead_band_plus: ::std::option::Option<f32>,
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "frequencyRegulationCtl")]
     pub frequency_regulation_ctl: ::std::option::Option<bool>,
     /// uint/0.01Hz  Target frequency
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "frequencySetPoint")]
     pub frequency_set_point: ::std::option::Option<f32>,
     /// uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
     /// operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
     /// band plus Lower stable band = frequency set point – band minus
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "gridFrequencyStableBandMinus")]
     pub grid_frequency_stable_band_minus: ::std::option::Option<f32>,
     /// uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
     /// operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
     /// band plus Lower stable band = frequency set point – band minus
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "gridFrequencyStableBandPlus")]
     pub grid_frequency_stable_band_plus: ::std::option::Option<f32>,
     /// uint/0.1%  The droops define the reaction of the PCS to under/over frequency events. A droop of
     /// 1% means that the PCS will output 100% power if the frequency is 1% of the nominal frequency away
     /// from the upper or lower dead band. The minimum droop value possible is 0.8%.
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "overFrequencyDroop")]
     pub over_frequency_droop: ::std::option::Option<f32>,
     /// uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
     /// means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
     /// upper or lower dead band. The minimum droop value possible is 0.8%.
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "underFrequencyDroop")]
     pub under_frequency_droop: ::std::option::Option<f32>,
 }
 mod frequency_regulation {
@@ -236,26 +248,30 @@ impl IsFrequencyRegulation for FrequencyRegulation {
     }
 }
 /// ESS inverter high level function to maintain power level by charging or discharging
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PeakShaving {
     /// uint/1kW  If the supervised power goes below this limit, the ESS will charge to maintain this limit.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "baseShavingLimit")]
     pub base_shaving_limit: ::std::option::Option<f32>,
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "peakShavingCtl")]
     pub peak_shaving_ctl: ::std::option::Option<bool>,
     /// uint/1kW  If the supervised power goes above this limit, the ESS will discharge to maintain this
     /// limit.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "peakShavingLimit")]
     pub peak_shaving_limit: ::std::option::Option<f32>,
     /// uint/1kW  If the supervised power is between the band defined by these two limits then SOC
     /// management is allowed.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "socManagementAllowedHighLimit")]
     pub soc_management_allowed_high_limit: ::std::option::Option<f32>,
     /// uint/1kW  If the supervised power is between the band defined by these two limits then SOC
     /// management is allowed.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "socManagementAllowedLowLimit")]
     pub soc_management_allowed_low_limit: ::std::option::Option<f32>,
 }
 mod peak_shaving {
@@ -313,35 +329,39 @@ impl IsPeakShaving for PeakShaving {
     }
 }
 /// ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SocLimit {
     /// uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
     /// high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
     /// overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
     /// discharging is blocked until the hysteresis is overcome.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "socHighLimit")]
     pub soc_high_limit: ::std::option::Option<f32>,
     /// uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
     /// high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
     /// overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
     /// discharging is blocked until the hysteresis is overcome.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "socHighLimitHysteresis")]
     pub soc_high_limit_hysteresis: ::std::option::Option<f32>,
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "socLimitCtl")]
     pub soc_limit_ctl: ::std::option::Option<bool>,
     /// uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
     /// high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
     /// overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
     /// discharging is blocked until the hysteresis is overcome.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "socLowLimit")]
     pub soc_low_limit: ::std::option::Option<f32>,
     /// uint/1%  These hysteresis define the release conditions for the block charge or discharge
     /// initiated by the SOC limits.For example, assume a SOC low limit of 10% and a SOC low limit
     /// hysteresis of 2% and that discharging is blocked because the batteries SOC reached the SOC low
     /// limit, discharging will only be allowed again after the battery’s SOC reaches 13%.
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "socLowLimitHysteresis")]
     pub soc_low_limit_hysteresis: ::std::option::Option<f32>,
 }
 mod soc_limit {
@@ -399,27 +419,31 @@ impl IsSocLimit for SocLimit {
     }
 }
 /// ESS inverter high level function to maintain SOC within dead bands
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct SocManagement {
     /// uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
     /// dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
     /// + dead band plus Lower DB = set point – dead band minus
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "socDeadBandMinus")]
     pub soc_dead_band_minus: ::std::option::Option<f32>,
     /// uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
     /// dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
     /// + dead band plus Lower DB = set point – dead band minus
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "socDeadBandPlus")]
     pub soc_dead_band_plus: ::std::option::Option<f32>,
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "socManagementCtl")]
     pub soc_management_ctl: ::std::option::Option<bool>,
     /// uint/1kW  Set point used for SOC maintenance
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "socPowerSetPoint")]
     pub soc_power_set_point: ::std::option::Option<f32>,
     /// uint/1%  SOC Target in percentage (%).
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "socSetPoint")]
     pub soc_set_point: ::std::option::Option<f32>,
 }
 mod soc_management {
@@ -477,33 +501,37 @@ impl IsSocManagement for SocManagement {
     }
 }
 /// Voltage regulation function
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct VoltageRegulation {
     /// uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
     /// means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
     /// upper or lower dead band. The minimum droop value possible is 0.8%.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "overVoltageDroop")]
     pub over_voltage_droop: ::std::option::Option<f32>,
     /// uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
     /// means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
     /// upper or lower dead band. The minimum droop value possible is 0.8%.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "underVoltageDroop")]
     pub under_voltage_droop: ::std::option::Option<f32>,
     /// uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
     /// dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
     /// set point – dead band minus
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "voltageDeadBandMinus")]
     pub voltage_dead_band_minus: ::std::option::Option<f32>,
     /// uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
     /// dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
     /// set point – dead band minus
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "voltageDeadBandPlus")]
     pub voltage_dead_band_plus: ::std::option::Option<f32>,
     /// uint/0.1V  Other modes of operation, such as peak shaving, smoothing or SOC management may
     /// operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
     /// band plus Lower stable band = frequency set point – band minus
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "voltageSetPoint")]
     pub voltage_set_point: ::std::option::Option<f32>,
 }
 mod voltage_regulation {
@@ -561,14 +589,15 @@ impl IsVoltageRegulation for VoltageRegulation {
     }
 }
 /// ESS inverter high level function to maintain voltage within droop dead bands.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct VoltageDroop {
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "voltageDroopCtl")]
     pub voltage_droop_ctl: ::std::option::Option<bool>,
     /// Voltage regulation
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "voltageRegulation")]
     pub voltage_regulation: ::std::option::Option<VoltageRegulation>,
 }
 mod voltage_droop {
@@ -605,14 +634,15 @@ impl IsVoltageDroop for VoltageDroop {
     }
 }
 /// ESS inverter high level function to maintain voltage within dead bands.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct VoltagePi {
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "voltagePICtl")]
     pub voltage_pi_ctl: ::std::option::Option<bool>,
     /// Voltage regulation
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "voltageRegulation")]
     pub voltage_regulation: ::std::option::Option<VoltageRegulation>,
 }
 mod voltage_pi {
@@ -649,21 +679,23 @@ impl IsVoltagePi for VoltagePi {
     }
 }
 /// ESS inverter high level function to reduce (smooth) charging or discharging rate of change.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapacityFirming {
     /// Control value (TRUE or FALSE)
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "capacityFirmingCtl")]
     pub capacity_firming_ctl: ::std::option::Option<bool>,
     /// uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
     /// limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
     /// the PCC
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "limitNegative_dp_dt")]
     pub limit_negative_dp_dt: ::std::option::Option<f32>,
     /// uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
     /// limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
     /// the PCC
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "limitPositive_dp_dt")]
     pub limit_positive_dp_dt: ::std::option::Option<f32>,
 }
 mod capacity_firming {
@@ -707,29 +739,35 @@ impl IsCapacityFirming for CapacityFirming {
     }
 }
 /// ESS inverter high level functions.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssFunction {
     /// ESS inverter high level function to reduce (smooth) charging or discharging rate of change.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "capacityFirming")]
     pub capacity_firming: ::std::option::Option<CapacityFirming>,
     /// ESS inverter high level function to maintain frequency within dead bands.
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencyRegulation")]
     pub frequency_regulation: ::std::option::Option<FrequencyRegulation>,
     /// ESS inverter high level function to maintain power level by charging or discharging
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "peakShaving")]
     pub peak_shaving: ::std::option::Option<PeakShaving>,
     /// ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "socLimit")]
     pub soc_limit: ::std::option::Option<SocLimit>,
     /// ESS inverter high level function to maintain SOC within dead bands
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "socManagement")]
     pub soc_management: ::std::option::Option<SocManagement>,
     /// ESS inverter high level function to maintain voltage within droop dead bands.
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "voltageDroop")]
     pub voltage_droop: ::std::option::Option<VoltageDroop>,
     /// ESS inverter high level function to maintain voltage within dead bands.
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "voltagePI")]
     pub voltage_pi: ::std::option::Option<VoltagePi>,
 }
 mod ess_function {
@@ -801,47 +839,59 @@ impl IsEssFunction for EssFunction {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blackStartEnabled")]
     pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencySetPointEnabled")]
     pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS function parameter
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub function: ::std::option::Option<EssFunction>,
     /// Grid connect mode
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub mode: ::std::option::Option<super::commonmodule::EngGridConnectModeKind>,
     /// Black start enable
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "pctHzDroop")]
     pub pct_hz_droop: ::std::option::Option<f32>,
     /// Black start enable
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "pctVDroop")]
     pub pct_v_droop: ::std::option::Option<f32>,
     /// Ramp rates
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable real power set point
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// ESS state
     #[prost(message, optional, tag="10")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "syncBackToGrid")]
     pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "transToIslndOnGridLossEnabled")]
     pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="13")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
 }
 mod ess_point_status {
@@ -955,8 +1005,7 @@ impl IsEssPointStatus for EssPointStatus {
     }
 }
 /// Specialized 61850 ZGEN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssEventAndStatusZgen {
     /// UML inherited base object
     // parent_message: true
@@ -966,21 +1015,27 @@ pub struct EssEventAndStatusZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// DC Power On/Off Status; True = DC power on
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AuxPwrSt")]
     pub aux_pwr_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// Emergency stop
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "EmgStop")]
     pub emg_stop: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Generator is synchronized to EPS, or not; True = Synchronized
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "GnSynSt")]
     pub gn_syn_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Point status
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "PointStatus")]
     pub point_status: ::std::option::Option<EssPointStatus>,
 }
 mod ess_event_and_status_zgen {
@@ -1075,8 +1130,7 @@ impl IsIdentifiedObject for EssEventAndStatusZgen {
     }
 }
 /// Specialized 61850 ZGEN class for ESS event profile
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssEventZgen {
     /// UML inherited base object
     // parent_message: true
@@ -1086,6 +1140,7 @@ pub struct EssEventZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eSSEventAndStatusZGEN")]
     pub e_ss_event_and_status_zgen: ::std::option::Option<EssEventAndStatusZgen>,
 }
 mod ess_event_zgen {
@@ -1153,8 +1208,7 @@ impl IsIdentifiedObject for EssEventZgen {
     }
 }
 /// ESS event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssEvent {
     /// UML inherited base object
     // parent_message: true
@@ -1164,12 +1218,15 @@ pub struct EssEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "essEventZBAT")]
     pub ess_event_zbat: ::std::option::Option<EssEventZbat>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essEventZGEN")]
     pub ess_event_zgen: ::std::option::Option<EssEventZgen>,
 }
 mod ess_event {
@@ -1236,8 +1293,7 @@ impl IsIdentifiedObject for EssEvent {
 }
 /// ESS event profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1247,6 +1303,7 @@ pub struct EssEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1256,6 +1313,7 @@ pub struct EssEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub ess: ::std::option::Option<super::commonmodule::Ess>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1265,6 +1323,7 @@ pub struct EssEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essEvent")]
     pub ess_event: ::std::option::Option<EssEvent>,
 }
 mod ess_event_profile {
@@ -1338,8 +1397,7 @@ impl IsIdentifiedObject for EssEventProfile {
     }
 }
 /// ESS reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssReading {
     /// UML inherited base object
     // parent_message: true
@@ -1349,15 +1407,19 @@ pub struct EssReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod ess_reading {
@@ -1423,8 +1485,7 @@ impl IsConductingEquipmentTerminalReading for EssReading {
 }
 /// ESS reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1434,6 +1495,7 @@ pub struct EssReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1443,6 +1505,7 @@ pub struct EssReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub ess: ::std::option::Option<super::commonmodule::Ess>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1452,6 +1515,7 @@ pub struct EssReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essReading")]
     pub ess_reading: ::std::option::Option<EssReading>,
 }
 mod ess_reading_profile {
@@ -1525,8 +1589,7 @@ impl IsIdentifiedObject for EssReadingProfile {
     }
 }
 /// Specialized 61850 ZBAT
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssStatusZbat {
     /// UML inherited base object
     // parent_message: true
@@ -1536,18 +1599,23 @@ pub struct EssStatusZbat {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// Battery system status &ndash; True: on
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "BatSt")]
     pub bat_st: ::std::option::Option<super::commonmodule::StatusSps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "GriMod")]
     pub gri_mod: ::std::option::Option<super::commonmodule::EngGridConnectModeKind>,
     /// State of charge (in percentage)
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "Soc")]
     pub soc: ::std::option::Option<super::commonmodule::Mv>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "Stdby")]
     pub stdby: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod ess_status_zbat {
@@ -1635,8 +1703,7 @@ impl IsIdentifiedObject for EssStatusZbat {
     }
 }
 /// Specialized 61850 ZGEN class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssStatusZgen {
     /// UML inherited base object
     // parent_message: true
@@ -1646,6 +1713,7 @@ pub struct EssStatusZgen {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eSSEventAndStatusZGEN")]
     pub e_ss_event_and_status_zgen: ::std::option::Option<EssEventAndStatusZgen>,
 }
 mod ess_status_zgen {
@@ -1713,8 +1781,7 @@ impl IsIdentifiedObject for EssStatusZgen {
     }
 }
 /// ESS status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssStatus {
     /// UML inherited base object
     // parent_message: true
@@ -1724,12 +1791,15 @@ pub struct EssStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "essStatusZBAT")]
     pub ess_status_zbat: ::std::option::Option<EssStatusZbat>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essStatusZGEN")]
     pub ess_status_zgen: ::std::option::Option<EssStatusZgen>,
 }
 mod ess_status {
@@ -1796,8 +1866,7 @@ impl IsIdentifiedObject for EssStatus {
 }
 /// ESS status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1807,6 +1876,7 @@ pub struct EssStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1816,6 +1886,7 @@ pub struct EssStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub ess: ::std::option::Option<super::commonmodule::Ess>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1825,6 +1896,7 @@ pub struct EssStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essStatus")]
     pub ess_status: ::std::option::Option<EssStatus>,
 }
 mod ess_status_profile {
@@ -1898,50 +1970,63 @@ impl IsIdentifiedObject for EssStatusProfile {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "blackStartEnabled")]
     pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "frequencySetPointEnabled")]
     pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// ESS function parameter
     #[prost(message, optional, tag="3")]
+    #[serde(default)]
     pub function: ::std::option::Option<EssFunction>,
     /// Grid connect mode
     #[prost(message, optional, tag="4")]
+    #[serde(default)]
     pub mode: ::std::option::Option<super::commonmodule::EngGridConnectModeKind>,
     /// Black start enable
     #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "pctHzDroop")]
     pub pct_hz_droop: ::std::option::Option<f32>,
     /// Black start enable
     #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "pctVDroop")]
     pub pct_v_droop: ::std::option::Option<f32>,
     /// Ramp rates
     #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "rampRates")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "reactivePwrSetPointEnabled")]
     pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable real power set point
     #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "realPwrSetPointEnabled")]
     pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Reset device
     #[prost(message, optional, tag="10")]
+    #[serde(default)]
     pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// ESS state
     #[prost(message, optional, tag="11")]
+    #[serde(default)]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// Synchronize back to grid
     #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "syncBackToGrid")]
     pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="13")]
+    #[serde(default, rename = "transToIslndOnGridLossEnabled")]
     pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="14")]
+    #[serde(default, rename = "voltageSetPointEnabled")]
     pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
     /// Start time
     // parent_message: false
@@ -1951,6 +2036,7 @@ pub struct EssPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="15")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::ControlTimestamp>,
 }
 mod ess_point {
@@ -2078,8 +2164,7 @@ impl IsEssPoint for EssPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct Esscsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -2089,6 +2174,7 @@ pub struct Esscsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<EssPoint>,
 }
 mod esscsg {
@@ -2117,8 +2203,7 @@ impl IsEsscsg for Esscsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssControlScheduleFsch {
     /// Discrete value in ESSCSG type
     // parent_message: false
@@ -2128,6 +2213,7 @@ pub struct EssControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValDCSG")]
     pub val_dcsg: ::std::option::Option<Esscsg>,
 }
 mod ess_control_schedule_fsch {
@@ -2157,8 +2243,7 @@ impl IsEssControlScheduleFsch for EssControlScheduleFsch {
     }
 }
 /// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -2168,9 +2253,11 @@ pub struct EssControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "essControlScheduleFSCH")]
     pub ess_control_schedule_fsch: ::std::option::Option<EssControlScheduleFsch>,
 }
 mod ess_control_fscc {
@@ -2245,8 +2332,7 @@ impl IsIdentifiedObject for EssControlFscc {
     }
 }
 /// ESS control class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssControl {
     /// UML inherited base object
     // parent_message: true
@@ -2256,12 +2342,15 @@ pub struct EssControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essControlFSCC")]
     pub ess_control_fscc: ::std::option::Option<EssControlFscc>,
 }
 mod ess_control {
@@ -2328,8 +2417,7 @@ impl IsIdentifiedObject for EssControl {
 }
 /// ESS control profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct EssControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -2339,6 +2427,7 @@ pub struct EssControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -2348,6 +2437,7 @@ pub struct EssControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub ess: ::std::option::Option<super::commonmodule::Ess>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -2357,6 +2447,7 @@ pub struct EssControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "essControl")]
     pub ess_control: ::std::option::Option<EssControl>,
 }
 mod ess_control_profile {

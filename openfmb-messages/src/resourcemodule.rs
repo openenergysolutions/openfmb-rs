@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct BooleanControlGgio {
     /// UML inherited base object
     // parent_message: true
@@ -11,9 +10,11 @@ pub struct BooleanControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// Phase code
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<super::commonmodule::OptionalPhaseCodeKind>,
     /// (controllable) If true, generic single point controllable status output <i>n</i> has been
     /// enabled, otherwise it has been disabled.
@@ -24,6 +25,7 @@ pub struct BooleanControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "SPCSO")]
     pub spcso: ::std::option::Option<super::commonmodule::ControlSpc>,
 }
 mod boolean_control_ggio {
@@ -89,8 +91,7 @@ impl IsIdentifiedObject for BooleanControlGgio {
     }
 }
 /// Status expressed in integer based on IEC61850 GGIO.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct IntegerControlGgio {
     /// UML inherited base object
     // parent_message: true
@@ -100,6 +101,7 @@ pub struct IntegerControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// (controllable) Generic integer controllable status output <i>n</i>.
     // parent_message: false
@@ -109,9 +111,11 @@ pub struct IntegerControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "ISCSO")]
     pub iscso: ::std::option::Option<super::commonmodule::ControlInc>,
     /// Phase code
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<super::commonmodule::OptionalPhaseCodeKind>,
 }
 mod integer_control_ggio {
@@ -177,8 +181,7 @@ impl IsIdentifiedObject for IntegerControlGgio {
     }
 }
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StringControlGgio {
     /// UML inherited base object
     // parent_message: true
@@ -188,9 +191,11 @@ pub struct StringControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// Phase code
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<super::commonmodule::OptionalPhaseCodeKind>,
     /// String control
     // parent_message: false
@@ -200,6 +205,7 @@ pub struct StringControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "StrOut")]
     pub str_out: ::std::option::Option<super::commonmodule::Vsc>,
 }
 mod string_control_ggio {
@@ -265,8 +271,7 @@ impl IsIdentifiedObject for StringControlGgio {
     }
 }
 /// LN: Generic process I/O   Name: GGIO
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct AnalogControlGgio {
     /// UML inherited base object
     // parent_message: true
@@ -276,6 +281,7 @@ pub struct AnalogControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNode")]
     pub logical_node: ::std::option::Option<super::commonmodule::LogicalNode>,
     /// (controllable) Value of the generic controllable analogue output setpoint <i>n</i>. Analog value
     /// (MX) feeds back the setpoint of the output.
@@ -286,9 +292,11 @@ pub struct AnalogControlGgio {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AnOut")]
     pub an_out: ::std::option::Option<super::commonmodule::ControlApc>,
     /// Phase code
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Phase")]
     pub phase: ::std::option::Option<super::commonmodule::OptionalPhaseCodeKind>,
 }
 mod analog_control_ggio {
@@ -354,8 +362,7 @@ impl IsIdentifiedObject for AnalogControlGgio {
     }
 }
 /// Resource discrete control class
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -365,9 +372,11 @@ pub struct ResourceDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// IEC61850 enhanced control parameters.
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -377,6 +386,7 @@ pub struct ResourceDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "analogControlGGIO")]
     pub analog_control_ggio: ::std::vec::Vec<AnalogControlGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -386,6 +396,7 @@ pub struct ResourceDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
+    #[serde(default, rename = "booleanControlGGIO")]
     pub boolean_control_ggio: ::std::vec::Vec<BooleanControlGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -395,6 +406,7 @@ pub struct ResourceDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="5")]
+    #[serde(default, rename = "integerControlGGIO")]
     pub integer_control_ggio: ::std::vec::Vec<IntegerControlGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -404,6 +416,7 @@ pub struct ResourceDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="6")]
+    #[serde(default, rename = "stringControlGGIO")]
     pub string_control_ggio: ::std::vec::Vec<StringControlGgio>,
 }
 mod resource_discrete_control {
@@ -479,8 +492,7 @@ impl IsIdentifiedObject for ResourceDiscreteControl {
 }
 /// Instructs a resource to perform a specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -490,6 +502,7 @@ pub struct ResourceDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -499,6 +512,7 @@ pub struct ResourceDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -508,6 +522,7 @@ pub struct ResourceDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "resourceDiscreteControl")]
     pub resource_discrete_control: ::std::option::Option<ResourceDiscreteControl>,
 }
 mod resource_discrete_control_profile {
@@ -581,8 +596,7 @@ impl IsIdentifiedObject for ResourceDiscreteControlProfile {
     }
 }
 /// Resource reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceReading {
     /// UML inherited base object
     // parent_message: true
@@ -592,15 +606,19 @@ pub struct ResourceReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod resource_reading {
@@ -666,8 +684,7 @@ impl IsConductingEquipmentTerminalReading for ResourceReading {
 }
 /// Resource reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -677,6 +694,7 @@ pub struct ResourceReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -686,6 +704,7 @@ pub struct ResourceReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -695,6 +714,7 @@ pub struct ResourceReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "resourceReading")]
     pub resource_reading: ::std::option::Option<ResourceReading>,
 }
 mod resource_reading_profile {
@@ -768,8 +788,7 @@ impl IsIdentifiedObject for ResourceReadingProfile {
     }
 }
 /// Current event information relevant to an entity.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceEvent {
     /// UML inherited base object
     // parent_message: true
@@ -779,6 +798,7 @@ pub struct ResourceEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -788,6 +808,7 @@ pub struct ResourceEvent {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
+    #[serde(default, rename = "analogEventAndStatusGGIO")]
     pub analog_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::AnalogEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -797,6 +818,7 @@ pub struct ResourceEvent {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "booleanEventAndStatusGGIO")]
     pub boolean_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::BooleanEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -806,6 +828,7 @@ pub struct ResourceEvent {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
+    #[serde(default, rename = "integerEventAndStatusGGIO")]
     pub integer_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::IntegerEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -815,6 +838,7 @@ pub struct ResourceEvent {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="5")]
+    #[serde(default, rename = "stringEventAndStatusGGIO")]
     pub string_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::StringEventAndStatusGgio>,
 }
 mod resource_event {
@@ -883,8 +907,7 @@ impl IsIdentifiedObject for ResourceEvent {
 }
 /// Resource event module
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -894,6 +917,7 @@ pub struct ResourceEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -903,6 +927,7 @@ pub struct ResourceEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -912,6 +937,7 @@ pub struct ResourceEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "resourceEvent")]
     pub resource_event: ::std::option::Option<ResourceEvent>,
 }
 mod resource_event_profile {
@@ -985,8 +1011,7 @@ impl IsIdentifiedObject for ResourceEventProfile {
     }
 }
 /// Current status information relevant to an entity.
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceStatus {
     /// UML inherited base object
     // parent_message: true
@@ -996,6 +1021,7 @@ pub struct ResourceStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "identifiedObject")]
     pub identified_object: ::std::option::Option<super::commonmodule::IdentifiedObject>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1005,6 +1031,7 @@ pub struct ResourceStatus {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="2")]
+    #[serde(default, rename = "analogEventAndStatusGGIO")]
     pub analog_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::AnalogEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1014,6 +1041,7 @@ pub struct ResourceStatus {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="3")]
+    #[serde(default, rename = "booleanEventAndStatusGGIO")]
     pub boolean_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::BooleanEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1023,6 +1051,7 @@ pub struct ResourceStatus {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="4")]
+    #[serde(default, rename = "integerEventAndStatusGGIO")]
     pub integer_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::IntegerEventAndStatusGgio>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1032,6 +1061,7 @@ pub struct ResourceStatus {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="5")]
+    #[serde(default, rename = "stringEventAndStatusGGIO")]
     pub string_event_and_status_ggio: ::std::vec::Vec<super::commonmodule::StringEventAndStatusGgio>,
 }
 mod resource_status {
@@ -1100,8 +1130,7 @@ impl IsIdentifiedObject for ResourceStatus {
 }
 /// Resource status module
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ResourceStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1111,6 +1140,7 @@ pub struct ResourceStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1120,6 +1150,7 @@ pub struct ResourceStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1129,6 +1160,7 @@ pub struct ResourceStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "resourceStatus")]
     pub resource_status: ::std::option::Option<ResourceStatus>,
 }
 mod resource_status_profile {

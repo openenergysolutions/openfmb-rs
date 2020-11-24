@@ -1,7 +1,6 @@
 use crate::commonmodule::*;
 /// Cap bank compensator system
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankSystem {
     /// UML inherited base object
     // parent_message: true
@@ -11,6 +10,7 @@ pub struct CapBankSystem {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipment")]
     pub conducting_equipment: ::std::option::Option<super::commonmodule::ConductingEquipment>,
 }
 mod cap_bank_system {
@@ -62,11 +62,11 @@ impl IsNamedObject for CapBankSystem {
     }
 }
 /// LN: Power cap bank  Name: YPSH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControlYpsh {
     /// (controllable) Position of the switch of power shunt.
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
 }
 mod cap_bank_control_ypsh {
@@ -96,11 +96,11 @@ impl IsCapBankControlYpsh for CapBankControlYpsh {
     }
 }
 /// Point definition (Point)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankPoint {
     /// Regulator control
     #[prost(message, optional, tag="1")]
+    #[serde(default)]
     pub control: ::std::option::Option<CapBankControlYpsh>,
     /// Start time
     // parent_message: false
@@ -110,6 +110,7 @@ pub struct CapBankPoint {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "startTime")]
     pub start_time: ::std::option::Option<super::commonmodule::Timestamp>,
 }
 mod cap_bank_point {
@@ -146,8 +147,7 @@ impl IsCapBankPoint for CapBankPoint {
     }
 }
 /// Curve shape setting (FC=SP) (CSG_SP)
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankCsg {
     /// The array with the points specifying a curve shape.
     // parent_message: false
@@ -157,6 +157,7 @@ pub struct CapBankCsg {
     // uuid: false
     // key: false
     #[prost(message, repeated, tag="1")]
+    #[serde(default, rename = "crvPts")]
     pub crv_pts: ::std::vec::Vec<CapBankPoint>,
 }
 mod cap_bank_csg {
@@ -185,8 +186,7 @@ impl IsCapBankCsg for CapBankCsg {
     }
 }
 /// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControlScheduleFsch {
     /// Control value in CSG type
     // parent_message: false
@@ -196,6 +196,7 @@ pub struct CapBankControlScheduleFsch {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "ValCSG")]
     pub val_csg: ::std::option::Option<CapBankCsg>,
 }
 mod cap_bank_control_schedule_fsch {
@@ -225,8 +226,7 @@ impl IsCapBankControlScheduleFsch for CapBankControlScheduleFsch {
     }
 }
 /// Using 61850 FSCC for cap bank control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControlFscc {
     /// UML inherited base object
     // parent_message: true
@@ -236,9 +236,11 @@ pub struct CapBankControlFscc {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlFSCC")]
     pub control_fscc: ::std::option::Option<super::commonmodule::ControlFscc>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankControlScheduleFSCH")]
     pub cap_bank_control_schedule_fsch: ::std::option::Option<CapBankControlScheduleFsch>,
 }
 mod cap_bank_control_fscc {
@@ -313,8 +315,7 @@ impl IsIdentifiedObject for CapBankControlFscc {
     }
 }
 /// CapBank control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControl {
     /// UML inherited base object
     // parent_message: true
@@ -324,12 +325,15 @@ pub struct CapBankControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankControlFSCC")]
     pub cap_bank_control_fscc: ::std::option::Option<CapBankControlFscc>,
 }
 mod cap_bank_control {
@@ -397,8 +401,7 @@ impl IsIdentifiedObject for CapBankControl {
 /// Cap bank control profile.  Instructs an end device (or an end device group) to perform a
 /// specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -408,6 +411,7 @@ pub struct CapBankControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -417,6 +421,7 @@ pub struct CapBankControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankControl")]
     pub cap_bank_control: ::std::option::Option<CapBankControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -426,6 +431,7 @@ pub struct CapBankControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankSystem")]
     pub cap_bank_system: ::std::option::Option<CapBankSystem>,
 }
 mod cap_bank_control_profile {
@@ -499,8 +505,7 @@ impl IsIdentifiedObject for CapBankControlProfile {
     }
 }
 /// OpenFMB specialization for cap bank discrete control:
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankDiscreteControlYpsh {
     /// UML inherited base object
     // parent_message: true
@@ -510,9 +515,11 @@ pub struct CapBankDiscreteControlYpsh {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForControl")]
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
 }
 mod cap_bank_discrete_control_ypsh {
@@ -579,8 +586,7 @@ impl IsIdentifiedObject for CapBankDiscreteControlYpsh {
     }
 }
 /// Cap bank discrete control
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankDiscreteControl {
     /// UML inherited base object
     // parent_message: true
@@ -590,12 +596,15 @@ pub struct CapBankDiscreteControl {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlValue")]
     pub control_value: ::std::option::Option<super::commonmodule::ControlValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default)]
     pub check: ::std::option::Option<super::commonmodule::CheckConditions>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankDiscreteControlYPSH")]
     pub cap_bank_discrete_control_ypsh: ::std::option::Option<CapBankDiscreteControlYpsh>,
 }
 mod cap_bank_discrete_control {
@@ -663,8 +672,7 @@ impl IsIdentifiedObject for CapBankDiscreteControl {
 /// Cap bank discrete control profile.  Instructs an end device (or an end device group) to perform
 /// a specified action.
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankDiscreteControlProfile {
     /// UML inherited base object
     // parent_message: true
@@ -674,6 +682,7 @@ pub struct CapBankDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "controlMessageInfo")]
     pub control_message_info: ::std::option::Option<super::commonmodule::ControlMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -683,6 +692,7 @@ pub struct CapBankDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankControl")]
     pub cap_bank_control: ::std::option::Option<CapBankDiscreteControl>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -692,6 +702,7 @@ pub struct CapBankDiscreteControlProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankSystem")]
     pub cap_bank_system: ::std::option::Option<CapBankSystem>,
 }
 mod cap_bank_discrete_control_profile {
@@ -765,8 +776,7 @@ impl IsIdentifiedObject for CapBankDiscreteControlProfile {
     }
 }
 /// LN: Power cap bank  Name: YPSH
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankEventAndStatusYpsh {
     /// UML inherited base object
     // parent_message: true
@@ -776,12 +786,15 @@ pub struct CapBankEventAndStatusYpsh {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// (controllable) Position of the switch of power shunt.
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
 }
 mod cap_bank_event_and_status_ypsh {
@@ -855,8 +868,7 @@ impl IsIdentifiedObject for CapBankEventAndStatusYpsh {
     }
 }
 /// Cap bank event
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankEvent {
     /// UML inherited base object
     // parent_message: true
@@ -866,9 +878,11 @@ pub struct CapBankEvent {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventValue")]
     pub event_value: ::std::option::Option<super::commonmodule::EventValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "CapBankEventAndStatusYPSH")]
     pub cap_bank_event_and_status_ypsh: ::std::option::Option<CapBankEventAndStatusYpsh>,
 }
 mod cap_bank_event {
@@ -928,8 +942,7 @@ impl IsIdentifiedObject for CapBankEvent {
 }
 /// Cap bank status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankEventProfile {
     /// UML inherited base object
     // parent_message: true
@@ -939,6 +952,7 @@ pub struct CapBankEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "eventMessageInfo")]
     pub event_message_info: ::std::option::Option<super::commonmodule::EventMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -948,6 +962,7 @@ pub struct CapBankEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankEvent")]
     pub cap_bank_event: ::std::option::Option<CapBankEvent>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -957,6 +972,7 @@ pub struct CapBankEventProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankSystem")]
     pub cap_bank_system: ::std::option::Option<CapBankSystem>,
 }
 mod cap_bank_event_profile {
@@ -1030,8 +1046,7 @@ impl IsIdentifiedObject for CapBankEventProfile {
     }
 }
 /// Cap bank reading value
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankReading {
     /// UML inherited base object
     // parent_message: true
@@ -1041,15 +1056,19 @@ pub struct CapBankReading {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "conductingEquipmentTerminalReading")]
     pub conducting_equipment_terminal_reading: ::std::option::Option<super::commonmodule::ConductingEquipmentTerminalReading>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phaseMMTN")]
     pub phase_mmtn: ::std::option::Option<super::commonmodule::PhaseMmtn>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "readingMMTR")]
     pub reading_mmtr: ::std::option::Option<super::commonmodule::ReadingMmtr>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod cap_bank_reading {
@@ -1115,8 +1134,7 @@ impl IsConductingEquipmentTerminalReading for CapBankReading {
 }
 /// Cap bank reading profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankReadingProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1126,6 +1144,7 @@ pub struct CapBankReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "readingMessageInfo")]
     pub reading_message_info: ::std::option::Option<super::commonmodule::ReadingMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1135,6 +1154,7 @@ pub struct CapBankReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankReading")]
     pub cap_bank_reading: ::std::option::Option<CapBankReading>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1144,6 +1164,7 @@ pub struct CapBankReadingProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankSystem")]
     pub cap_bank_system: ::std::option::Option<CapBankSystem>,
 }
 mod cap_bank_reading_profile {
@@ -1217,8 +1238,7 @@ impl IsIdentifiedObject for CapBankReadingProfile {
     }
 }
 /// Cap bank status
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankStatus {
     /// UML inherited base object
     // parent_message: true
@@ -1228,9 +1248,11 @@ pub struct CapBankStatus {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusValue")]
     pub status_value: ::std::option::Option<super::commonmodule::StatusValue>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankEventAndStatusYPSH")]
     pub cap_bank_event_and_status_ypsh: ::std::option::Option<CapBankEventAndStatusYpsh>,
 }
 mod cap_bank_status {
@@ -1290,8 +1312,7 @@ impl IsIdentifiedObject for CapBankStatus {
 }
 /// Cap bank status profile
 /// OpenFMB Profile Message: true
-#[derive(Clone, PartialEq, ::prost::Message)]
-#[derive(serde::Serialize, serde::Deserialize)]
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankStatusProfile {
     /// UML inherited base object
     // parent_message: true
@@ -1301,6 +1322,7 @@ pub struct CapBankStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "statusMessageInfo")]
     pub status_message_info: ::std::option::Option<super::commonmodule::StatusMessageInfo>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1310,6 +1332,7 @@ pub struct CapBankStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "capBankStatus")]
     pub cap_bank_status: ::std::option::Option<CapBankStatus>,
     /// MISSING DOCUMENTATION!!!
     // parent_message: false
@@ -1319,6 +1342,7 @@ pub struct CapBankStatusProfile {
     // uuid: false
     // key: false
     #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "capBankSystem")]
     pub cap_bank_system: ::std::option::Option<CapBankSystem>,
 }
 mod cap_bank_status_profile {
