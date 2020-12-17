@@ -20,7 +20,7 @@ pub mod meter;
 pub mod solar;
 pub mod switch;
 
-pub use breaker::BreakerControlExt;
+pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};

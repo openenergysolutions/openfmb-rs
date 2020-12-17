@@ -71,10 +71,20 @@ pub trait BreakerControlExt: ControlProfileExt {
         Self::build_control_profile(m_rid, SystemTime::now(), true)
     }
 
+    fn breaker_synchro_msg(m_rid: &str, synchro_check: bool) -> BreakerDiscreteControlProfile {
+        Self::build_synchro_profile(m_rid, SystemTime::now(), synchro_check)
+    }
+
     fn build_control_profile(
         m_rid: &str,
         start_time: SystemTime,
         pos: bool,
+    ) -> BreakerDiscreteControlProfile;
+
+    fn build_synchro_profile(
+        m_rid: &str,
+        start_time: SystemTime,
+        synchro_check: bool,
     ) -> BreakerDiscreteControlProfile;
 }
 
@@ -131,6 +141,31 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
             //                           }),
             //                       }),
 
+        }
+    }
+
+    fn build_synchro_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        synchro_check: bool,
+    ) -> BreakerDiscreteControlProfile {
+        let msg_info: ControlMessageInfo = BreakerDiscreteControlProfile::build_control_message_info();
+        BreakerDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            breaker: Some(Breaker {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            breaker_discrete_control: Some(BreakerDiscreteControl {
+                control_value: None,
+                check: Some(CheckConditions {
+                    interlock_check: None,
+                    synchro_check: Some(synchro_check),
+                }),
+                breaker_discrete_control_xcbr: None,
+            })
         }
     }
 }
