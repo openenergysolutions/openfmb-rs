@@ -2,6 +2,91 @@ use crate::commonmodule::*;
 /// LN: Automatic tap changer controller   Name: ATCC
 #[derive(Clone, PartialEq, ::prost::Message)]
 #[derive(serde::Serialize, serde::Deserialize)]
+pub struct DirectionalAtcc {
+    /// Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
+    /// of the nominal voltage (forward power flow presumed).
+    #[prost(message, optional, tag="1")]
+    pub bnd_wid: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Time to wait before operating, after reaching the control point (forward power flow presumed).
+    #[prost(message, optional, tag="2")]
+    pub ctl_dl_tmms: ::std::option::Option<super::commonmodule::PhaseIsc>,
+    /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
+    #[prost(message, optional, tag="3")]
+    pub ldcr: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
+    #[prost(message, optional, tag="4")]
+    pub ldcx: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    #[prost(message, optional, tag="5")]
+    pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Enable voltage set point
+    #[prost(message, optional, tag="6")]
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::PhaseDpc>,
+}
+mod directional_atcc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref BND_WID: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref CTL_DL_TMMS: crate::commonmodule::PhaseIsc = Default::default();
+        pub(super) static ref LDCR: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref LDCX: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOL_SPT: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::PhaseDpc = Default::default();
+    }
+}
+impl DirectionalAtcc {
+}
+pub trait IsDirectionalAtcc {
+    fn _directional_atcc(&self) -> &DirectionalAtcc;
+    fn _directional_atcc_mut(&mut self) -> &mut DirectionalAtcc;
+    fn bnd_wid(&self) -> &super::commonmodule::PhaseApc {
+        self._directional_atcc().bnd_wid.as_ref().unwrap_or(&directional_atcc::BND_WID)
+    }
+    fn bnd_wid_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._directional_atcc_mut().bnd_wid.get_or_insert(Default::default())
+    }
+    fn ctl_dl_tmms(&self) -> &super::commonmodule::PhaseIsc {
+        self._directional_atcc().ctl_dl_tmms.as_ref().unwrap_or(&directional_atcc::CTL_DL_TMMS)
+    }
+    fn ctl_dl_tmms_mut(&mut self) -> &mut super::commonmodule::PhaseIsc {
+        self._directional_atcc_mut().ctl_dl_tmms.get_or_insert(Default::default())
+    }
+    fn ldcr(&self) -> &super::commonmodule::PhaseApc {
+        self._directional_atcc().ldcr.as_ref().unwrap_or(&directional_atcc::LDCR)
+    }
+    fn ldcr_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._directional_atcc_mut().ldcr.get_or_insert(Default::default())
+    }
+    fn ldcx(&self) -> &super::commonmodule::PhaseApc {
+        self._directional_atcc().ldcx.as_ref().unwrap_or(&directional_atcc::LDCX)
+    }
+    fn ldcx_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._directional_atcc_mut().ldcx.get_or_insert(Default::default())
+    }
+    fn vol_spt(&self) -> &super::commonmodule::PhaseApc {
+        self._directional_atcc().vol_spt.as_ref().unwrap_or(&directional_atcc::VOL_SPT)
+    }
+    fn vol_spt_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._directional_atcc_mut().vol_spt.get_or_insert(Default::default())
+    }
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::PhaseDpc {
+        self._directional_atcc().voltage_set_point_enabled.as_ref().unwrap_or(&directional_atcc::VOLTAGE_SET_POINT_ENABLED)
+    }
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::PhaseDpc {
+        self._directional_atcc_mut().voltage_set_point_enabled.get_or_insert(Default::default())
+    }
+}
+impl IsDirectionalAtcc for DirectionalAtcc {
+    fn _directional_atcc(&self) -> &DirectionalAtcc {
+        self
+    }
+    fn _directional_atcc_mut(&mut self) -> &mut DirectionalAtcc {
+        self
+    }
+}
+/// LN: Automatic tap changer controller   Name: ATCC
+#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(serde::Serialize, serde::Deserialize)]
 pub struct RegulatorControlAtcc {
     /// UML inherited base object
     // parent_message: true
@@ -12,56 +97,60 @@ pub struct RegulatorControlAtcc {
     // key: false
     #[prost(message, optional, tag="1")]
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
-    /// Centre of voltage control bandwidth (forward power flow presumed).
+    /// Forward voltage regulation
     #[prost(message, optional, tag="2")]
-    pub bnd_ctr: ::std::option::Option<super::commonmodule::Asg>,
-    /// Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
-    /// of the nominal voltage (forward power flow presumed).
+    pub dir_fwd: ::std::option::Option<DirectionalAtcc>,
+    /// The control characteristics for power flow operation
     #[prost(message, optional, tag="3")]
-    pub bnd_wid: ::std::option::Option<super::commonmodule::Asg>,
-    /// Time to wait before operating, after reaching the control point (forward power flow presumed).
+    pub dir_mode: ::std::option::Option<super::commonmodule::OptionalDirectionModeKind>,
+    /// Reverse voltage regulation
     #[prost(message, optional, tag="4")]
-    pub ctl_dl_tmms: ::std::option::Option<super::commonmodule::ControlIng>,
-    /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
+    pub dir_rev: ::std::option::Option<DirectionalAtcc>,
+    /// This is the percentage used to determine the current threshold at which the control recognizes
+    /// current flow direction. Below the threshold, the current flow is considered to be indeterminate.
     #[prost(message, optional, tag="5")]
-    pub ldcr: ::std::option::Option<super::commonmodule::Asg>,
-    /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    #[prost(message, optional, tag="6")]
-    pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
+    pub dir_thd: ::std::option::Option<super::commonmodule::PhaseApc>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    #[prost(message, optional, tag="7")]
-    pub par_op: ::std::option::Option<super::commonmodule::ControlSpc>,
+    #[prost(message, optional, tag="6")]
+    pub par_op: ::std::option::Option<super::commonmodule::PhaseSpc>,
     /// Ramp rates
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag="7")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// (controllable) Tap position change to the specified value.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag="8")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
-    /// (controllable) Tap position change to the specified value.
+    /// If true, tap position shall be lowered.
+    #[prost(message, optional, tag="9")]
+    pub tap_op_l: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// If true, tap position shall be raised.
     #[prost(message, optional, tag="10")]
-    pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIsc>,
-    /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    pub tap_op_r: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// High voltage limit for Voltage Limiter
     #[prost(message, optional, tag="11")]
-    pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
-    /// Enable voltage set point
+    pub vol_lmt_hi: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Low voltage limit for Voltage Limiter
     #[prost(message, optional, tag="12")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub vol_lmt_lo: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Voltage-limiting types
+    #[prost(message, optional, tag="13")]
+    pub vol_lmt_mode: ::std::option::Option<super::commonmodule::OptionalVoltLimitModeKind>,
 }
 mod regulator_control_atcc {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref BND_CTR: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref BND_WID: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref CTL_DL_TMMS: crate::commonmodule::ControlIng = Default::default();
-        pub(super) static ref LDCR: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref LDCX: crate::commonmodule::Asg = Default::default();
-        pub(super) static ref PAR_OP: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref DIR_FWD: crate::regulatormodule::DirectionalAtcc = Default::default();
+        pub(super) static ref DIR_MODE: crate::commonmodule::OptionalDirectionModeKind = Default::default();
+        pub(super) static ref DIR_REV: crate::regulatormodule::DirectionalAtcc = Default::default();
+        pub(super) static ref DIR_THD: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref PAR_OP: crate::commonmodule::PhaseSpc = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref TAP_POS: crate::commonmodule::PhaseIsc = Default::default();
-        pub(super) static ref VOL_SPT: crate::commonmodule::PhaseApc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref TAP_OP_L: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref TAP_OP_R: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref VOL_LMT_HI: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOL_LMT_LO: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOL_LMT_MODE: crate::commonmodule::OptionalVoltLimitModeKind = Default::default();
     }
 }
 impl RegulatorControlAtcc {
@@ -81,40 +170,34 @@ pub trait IsRegulatorControlAtcc {
     fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
         self._regulator_control_atcc_mut().logical_node_for_control.get_or_insert(Default::default())
     }
-    fn bnd_ctr(&self) -> &super::commonmodule::Asg {
-        self._regulator_control_atcc().bnd_ctr.as_ref().unwrap_or(&regulator_control_atcc::BND_CTR)
+    fn dir_fwd(&self) -> &DirectionalAtcc {
+        self._regulator_control_atcc().dir_fwd.as_ref().unwrap_or(&regulator_control_atcc::DIR_FWD)
     }
-    fn bnd_ctr_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_control_atcc_mut().bnd_ctr.get_or_insert(Default::default())
+    fn dir_fwd_mut(&mut self) -> &mut DirectionalAtcc {
+        self._regulator_control_atcc_mut().dir_fwd.get_or_insert(Default::default())
     }
-    fn bnd_wid(&self) -> &super::commonmodule::Asg {
-        self._regulator_control_atcc().bnd_wid.as_ref().unwrap_or(&regulator_control_atcc::BND_WID)
+    fn dir_mode(&self) -> &super::commonmodule::OptionalDirectionModeKind {
+        self._regulator_control_atcc().dir_mode.as_ref().unwrap_or(&regulator_control_atcc::DIR_MODE)
     }
-    fn bnd_wid_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_control_atcc_mut().bnd_wid.get_or_insert(Default::default())
+    fn dir_mode_mut(&mut self) -> &mut super::commonmodule::OptionalDirectionModeKind {
+        self._regulator_control_atcc_mut().dir_mode.get_or_insert(Default::default())
     }
-    fn ctl_dl_tmms(&self) -> &super::commonmodule::ControlIng {
-        self._regulator_control_atcc().ctl_dl_tmms.as_ref().unwrap_or(&regulator_control_atcc::CTL_DL_TMMS)
+    fn dir_rev(&self) -> &DirectionalAtcc {
+        self._regulator_control_atcc().dir_rev.as_ref().unwrap_or(&regulator_control_atcc::DIR_REV)
     }
-    fn ctl_dl_tmms_mut(&mut self) -> &mut super::commonmodule::ControlIng {
-        self._regulator_control_atcc_mut().ctl_dl_tmms.get_or_insert(Default::default())
+    fn dir_rev_mut(&mut self) -> &mut DirectionalAtcc {
+        self._regulator_control_atcc_mut().dir_rev.get_or_insert(Default::default())
     }
-    fn ldcr(&self) -> &super::commonmodule::Asg {
-        self._regulator_control_atcc().ldcr.as_ref().unwrap_or(&regulator_control_atcc::LDCR)
+    fn dir_thd(&self) -> &super::commonmodule::PhaseApc {
+        self._regulator_control_atcc().dir_thd.as_ref().unwrap_or(&regulator_control_atcc::DIR_THD)
     }
-    fn ldcr_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_control_atcc_mut().ldcr.get_or_insert(Default::default())
+    fn dir_thd_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._regulator_control_atcc_mut().dir_thd.get_or_insert(Default::default())
     }
-    fn ldcx(&self) -> &super::commonmodule::Asg {
-        self._regulator_control_atcc().ldcx.as_ref().unwrap_or(&regulator_control_atcc::LDCX)
-    }
-    fn ldcx_mut(&mut self) -> &mut super::commonmodule::Asg {
-        self._regulator_control_atcc_mut().ldcx.get_or_insert(Default::default())
-    }
-    fn par_op(&self) -> &super::commonmodule::ControlSpc {
+    fn par_op(&self) -> &super::commonmodule::PhaseSpc {
         self._regulator_control_atcc().par_op.as_ref().unwrap_or(&regulator_control_atcc::PAR_OP)
     }
-    fn par_op_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+    fn par_op_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
         self._regulator_control_atcc_mut().par_op.get_or_insert(Default::default())
     }
     fn ramp_rates(&self) -> &super::commonmodule::RampRate {
@@ -129,23 +212,35 @@ pub trait IsRegulatorControlAtcc {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._regulator_control_atcc_mut().state.get_or_insert(Default::default())
     }
-    fn tap_pos(&self) -> &super::commonmodule::PhaseIsc {
-        self._regulator_control_atcc().tap_pos.as_ref().unwrap_or(&regulator_control_atcc::TAP_POS)
+    fn tap_op_l(&self) -> &super::commonmodule::PhaseSpc {
+        self._regulator_control_atcc().tap_op_l.as_ref().unwrap_or(&regulator_control_atcc::TAP_OP_L)
     }
-    fn tap_pos_mut(&mut self) -> &mut super::commonmodule::PhaseIsc {
-        self._regulator_control_atcc_mut().tap_pos.get_or_insert(Default::default())
+    fn tap_op_l_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
+        self._regulator_control_atcc_mut().tap_op_l.get_or_insert(Default::default())
     }
-    fn vol_spt(&self) -> &super::commonmodule::PhaseApc {
-        self._regulator_control_atcc().vol_spt.as_ref().unwrap_or(&regulator_control_atcc::VOL_SPT)
+    fn tap_op_r(&self) -> &super::commonmodule::PhaseSpc {
+        self._regulator_control_atcc().tap_op_r.as_ref().unwrap_or(&regulator_control_atcc::TAP_OP_R)
     }
-    fn vol_spt_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
-        self._regulator_control_atcc_mut().vol_spt.get_or_insert(Default::default())
+    fn tap_op_r_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
+        self._regulator_control_atcc_mut().tap_op_r.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
-        self._regulator_control_atcc().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_control_atcc::VOLTAGE_SET_POINT_ENABLED)
+    fn vol_lmt_hi(&self) -> &super::commonmodule::PhaseApc {
+        self._regulator_control_atcc().vol_lmt_hi.as_ref().unwrap_or(&regulator_control_atcc::VOL_LMT_HI)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
-        self._regulator_control_atcc_mut().voltage_set_point_enabled.get_or_insert(Default::default())
+    fn vol_lmt_hi_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._regulator_control_atcc_mut().vol_lmt_hi.get_or_insert(Default::default())
+    }
+    fn vol_lmt_lo(&self) -> &super::commonmodule::PhaseApc {
+        self._regulator_control_atcc().vol_lmt_lo.as_ref().unwrap_or(&regulator_control_atcc::VOL_LMT_LO)
+    }
+    fn vol_lmt_lo_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._regulator_control_atcc_mut().vol_lmt_lo.get_or_insert(Default::default())
+    }
+    fn vol_lmt_mode(&self) -> &super::commonmodule::OptionalVoltLimitModeKind {
+        self._regulator_control_atcc().vol_lmt_mode.as_ref().unwrap_or(&regulator_control_atcc::VOL_LMT_MODE)
+    }
+    fn vol_lmt_mode_mut(&mut self) -> &mut super::commonmodule::OptionalVoltLimitModeKind {
+        self._regulator_control_atcc_mut().vol_lmt_mode.get_or_insert(Default::default())
     }
 }
 impl IsRegulatorControlAtcc for RegulatorControlAtcc {
@@ -843,43 +938,69 @@ pub struct RegulatorEventAndStatusAtcc {
     /// of the nominal voltage (forward power flow presumed).
     #[prost(message, optional, tag="2")]
     pub bnd_wid: ::std::option::Option<super::commonmodule::Asg>,
-    /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
+    /// Compensated Voltage Secondary compared with set point plus or minus Bandwidth
     #[prost(message, optional, tag="3")]
+    pub bnd_wid_hi: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// Compensated Voltage Secondary compared with set point plus or minus Bandwidth
+    #[prost(message, optional, tag="4")]
+    pub bnd_wid_lo: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// Current Power Direction is the direction that regulator is regulating.
+    #[prost(message, optional, tag="5")]
+    pub dir_ctl_rev: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// True if direction is indeterminate.
+    #[prost(message, optional, tag="6")]
+    pub dir_indt: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// True if the current direction is the same as the System Direction
+    #[prost(message, optional, tag="7")]
+    pub dir_rev: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
+    #[prost(message, optional, tag="8")]
     pub ldcr: ::std::option::Option<super::commonmodule::Asg>,
     /// Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag="9")]
     pub ldcx: ::std::option::Option<super::commonmodule::Asg>,
     /// (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag="10")]
     pub par_op: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Ramp rates
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag="11")]
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// State
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag="12")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
     /// OpenFMB extension:  Status for the time to wait before operating (CtrlDlTmms)
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag="13")]
     pub st_dl_tmms: ::std::option::Option<super::commonmodule::StatusInc>,
     /// If true, there was an error in tap position change, or in tap indication (for instance, wrong
     /// Binary Coded Decimal (BCD) code).
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag="14")]
     pub tap_op_err: ::std::option::Option<super::commonmodule::StatusSps>,
     /// (controllable) Tap position change to the specified value.
-    #[prost(message, optional, tag="10")]
+    #[prost(message, optional, tag="15")]
     pub tap_pos: ::std::option::Option<super::commonmodule::PhaseIns>,
+    /// Load Voltage Secondary compared with VolLmtHi
+    #[prost(message, optional, tag="16")]
+    pub vol_lmt_hi: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// Load Voltage Secondary compared with VolLmtLo
+    #[prost(message, optional, tag="17")]
+    pub vol_lmt_lo: ::std::option::Option<super::commonmodule::PhaseSps>,
     /// (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
-    #[prost(message, optional, tag="11")]
+    #[prost(message, optional, tag="18")]
     pub vol_spt: ::std::option::Option<super::commonmodule::PhaseApc>,
     /// Voltage set point status
-    #[prost(message, optional, tag="12")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSpc>,
+    #[prost(message, optional, tag="19")]
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod regulator_event_and_status_atcc {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref BND_CTR: crate::commonmodule::Asg = Default::default();
         pub(super) static ref BND_WID: crate::commonmodule::Asg = Default::default();
+        pub(super) static ref BND_WID_HI: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref BND_WID_LO: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref DIR_CTL_REV: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref DIR_INDT: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref DIR_REV: crate::commonmodule::PhaseSps = Default::default();
         pub(super) static ref LDCR: crate::commonmodule::Asg = Default::default();
         pub(super) static ref LDCX: crate::commonmodule::Asg = Default::default();
         pub(super) static ref PAR_OP: crate::commonmodule::StatusSps = Default::default();
@@ -888,8 +1009,10 @@ mod regulator_event_and_status_atcc {
         pub(super) static ref ST_DL_TMMS: crate::commonmodule::StatusInc = Default::default();
         pub(super) static ref TAP_OP_ERR: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref TAP_POS: crate::commonmodule::PhaseIns = Default::default();
+        pub(super) static ref VOL_LMT_HI: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref VOL_LMT_LO: crate::commonmodule::PhaseSps = Default::default();
         pub(super) static ref VOL_SPT: crate::commonmodule::PhaseApc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
     }
 }
 impl RegulatorEventAndStatusAtcc {
@@ -908,6 +1031,36 @@ pub trait IsRegulatorEventAndStatusAtcc {
     }
     fn bnd_wid_mut(&mut self) -> &mut super::commonmodule::Asg {
         self._regulator_event_and_status_atcc_mut().bnd_wid.get_or_insert(Default::default())
+    }
+    fn bnd_wid_hi(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().bnd_wid_hi.as_ref().unwrap_or(&regulator_event_and_status_atcc::BND_WID_HI)
+    }
+    fn bnd_wid_hi_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().bnd_wid_hi.get_or_insert(Default::default())
+    }
+    fn bnd_wid_lo(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().bnd_wid_lo.as_ref().unwrap_or(&regulator_event_and_status_atcc::BND_WID_LO)
+    }
+    fn bnd_wid_lo_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().bnd_wid_lo.get_or_insert(Default::default())
+    }
+    fn dir_ctl_rev(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().dir_ctl_rev.as_ref().unwrap_or(&regulator_event_and_status_atcc::DIR_CTL_REV)
+    }
+    fn dir_ctl_rev_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().dir_ctl_rev.get_or_insert(Default::default())
+    }
+    fn dir_indt(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().dir_indt.as_ref().unwrap_or(&regulator_event_and_status_atcc::DIR_INDT)
+    }
+    fn dir_indt_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().dir_indt.get_or_insert(Default::default())
+    }
+    fn dir_rev(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().dir_rev.as_ref().unwrap_or(&regulator_event_and_status_atcc::DIR_REV)
+    }
+    fn dir_rev_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().dir_rev.get_or_insert(Default::default())
     }
     fn ldcr(&self) -> &super::commonmodule::Asg {
         self._regulator_event_and_status_atcc().ldcr.as_ref().unwrap_or(&regulator_event_and_status_atcc::LDCR)
@@ -957,16 +1110,28 @@ pub trait IsRegulatorEventAndStatusAtcc {
     fn tap_pos_mut(&mut self) -> &mut super::commonmodule::PhaseIns {
         self._regulator_event_and_status_atcc_mut().tap_pos.get_or_insert(Default::default())
     }
+    fn vol_lmt_hi(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().vol_lmt_hi.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOL_LMT_HI)
+    }
+    fn vol_lmt_hi_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().vol_lmt_hi.get_or_insert(Default::default())
+    }
+    fn vol_lmt_lo(&self) -> &super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc().vol_lmt_lo.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOL_LMT_LO)
+    }
+    fn vol_lmt_lo_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._regulator_event_and_status_atcc_mut().vol_lmt_lo.get_or_insert(Default::default())
+    }
     fn vol_spt(&self) -> &super::commonmodule::PhaseApc {
         self._regulator_event_and_status_atcc().vol_spt.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOL_SPT)
     }
     fn vol_spt_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
         self._regulator_event_and_status_atcc_mut().vol_spt.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc().voltage_set_point_enabled.as_ref().unwrap_or(&regulator_event_and_status_atcc::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._regulator_event_and_status_atcc_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -1265,6 +1430,9 @@ pub struct RegulatorReading {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="5")]
+    pub secondary_reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod regulator_reading {
     use lazy_static::lazy_static;
@@ -1273,6 +1441,7 @@ mod regulator_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+        pub(super) static ref SECONDARY_READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
 impl RegulatorReading {
@@ -1309,6 +1478,12 @@ pub trait IsRegulatorReading {
     }
     fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
         self._regulator_reading_mut().reading_mmxu.get_or_insert(Default::default())
+    }
+    fn secondary_reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
+        self._regulator_reading().secondary_reading_mmxu.as_ref().unwrap_or(&regulator_reading::SECONDARY_READING_MMXU)
+    }
+    fn secondary_reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._regulator_reading_mut().secondary_reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsRegulatorReading for RegulatorReading {

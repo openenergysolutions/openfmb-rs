@@ -105,27 +105,28 @@ pub trait SolarControlExt: ControlProfileExt {
                 control_fscc: Some(ControlFscc {
                     logical_node_for_control: None,
                     control_schedule_fsch: Some(ControlScheduleFsch {
-                        val_acsg: Some(ScheduleCsg {
-                            sch_pts: vec![SchedulePoint {
-                                schedule_parameter: vec![
-                                    EngScheduleParameter {
-                                        schedule_parameter_type: 39,
-                                        value: solar_acsg,
-                                    },
-                                    EngScheduleParameter {
-                                        schedule_parameter_type: 8,
-                                        value: 1.0,
-                                    },
-                                ],
-                                start_time: Some(ControlTimestamp {
-                                    nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
-                                    seconds: when
-                                        .duration_since(SystemTime::UNIX_EPOCH)
-                                        .unwrap()
-                                        .as_secs(),
-                                }),
-                            }],
-                        }),
+                        // val_acsg: Some(ScheduleCsg {
+                        //     sch_pts: vec![SchedulePoint {
+                        //         schedule_parameter: vec![
+                        //             EngScheduleParameter {
+                        //                 schedule_parameter_type: 39,
+                        //                 value: solar_acsg,
+                        //             },
+                        //             EngScheduleParameter {
+                        //                 schedule_parameter_type: 8,
+                        //                 value: 1.0,
+                        //             },
+                        //         ],
+                        //         start_time: Some(ControlTimestamp {
+                        //             nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                        //             seconds: when
+                        //                 .duration_since(SystemTime::UNIX_EPOCH)
+                        //                 .unwrap()
+                        //                 .as_secs(),
+                        //         }),
+                        //     }],
+                        // }),
+                        val_acsg: None
                     }),
                     island_control_schedule_fsch: None,
                 }),

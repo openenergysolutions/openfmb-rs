@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package solarmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/solarmodule";
@@ -17,7 +17,7 @@ import "commonmodule/commonmodule.proto";
 message SolarPoint
 {
     // Enable frequency set point
-    commonmodule.ControlDPC frequencySetPointEnabled = 1;
+    commonmodule.ControlSPC frequencySetPointEnabled = 1;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 2;
     // Black start enable
@@ -27,15 +27,15 @@ message SolarPoint
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 6;
+    commonmodule.ControlSPC reactivePwrSetPointEnabled = 6;
     // Enable real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 7;
+    commonmodule.ControlSPC realPwrSetPointEnabled = 7;
     // Reset device
-    commonmodule.ControlDPC reset = 8;
+    commonmodule.ControlSPC reset = 8;
     // ESS state
     commonmodule.Optional_StateKind state = 9;
     // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 10;
+    commonmodule.ControlSPC voltageSetPointEnabled = 10;
     // X-axis value (Unix time).
     commonmodule.ControlTimestamp startTime = 11 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -97,7 +97,7 @@ message SolarControlProfile
 message SolarPointStatus
 {
     // Enable frequency set point
-    commonmodule.StatusDPS frequencySetPointEnabled = 1;
+    commonmodule.StatusSPS frequencySetPointEnabled = 1;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 2;
     // Black start enable
@@ -107,13 +107,13 @@ message SolarPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
     // Enable reactive power set point
-    commonmodule.StatusDPS reactivePwrSetPointEnabled = 6;
+    commonmodule.StatusSPS reactivePwrSetPointEnabled = 6;
     // Enable real power set point
-    commonmodule.StatusDPS realPwrSetPointEnabled = 7;
+    commonmodule.StatusSPS realPwrSetPointEnabled = 7;
     // ESS state
     commonmodule.Optional_StateKind state = 8;
     // Enable voltage set point
-    commonmodule.StatusDPS voltageSetPointEnabled = 9;
+    commonmodule.StatusSPS voltageSetPointEnabled = 9;
 }
 
 // Specialized 61850 ZGEN class

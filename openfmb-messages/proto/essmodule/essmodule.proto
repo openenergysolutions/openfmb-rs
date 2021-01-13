@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package essmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/essmodule";
@@ -208,9 +208,9 @@ message ESSFunction
 message ESSPointStatus
 {
     // Black start enable
-    commonmodule.StatusDPS blackStartEnabled = 1;
+    commonmodule.StatusSPS blackStartEnabled = 1;
     // Enable frequency set point
-    commonmodule.StatusDPS frequencySetPointEnabled = 2;
+    commonmodule.StatusSPS frequencySetPointEnabled = 2;
     // ESS function parameter
     ESSFunction function = 3;
     // Grid connect mode
@@ -222,17 +222,17 @@ message ESSPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
     // Enable reactive power set point
-    commonmodule.StatusDPS reactivePwrSetPointEnabled = 8;
+    commonmodule.StatusSPS reactivePwrSetPointEnabled = 8;
     // Enable real power set point
-    commonmodule.StatusDPS realPwrSetPointEnabled = 9;
+    commonmodule.StatusSPS realPwrSetPointEnabled = 9;
     // ESS state
     commonmodule.Optional_StateKind state = 10;
     // Synchronize back to grid
-    commonmodule.StatusDPS syncBackToGrid = 11;
+    commonmodule.StatusSPS syncBackToGrid = 11;
     // Transition to island on grid loss enable
-    commonmodule.StatusDPS transToIslndOnGridLossEnabled = 12;
+    commonmodule.StatusSPS transToIslndOnGridLossEnabled = 12;
     // Enable voltage set point
-    commonmodule.StatusDPS voltageSetPointEnabled = 13;
+    commonmodule.StatusSPS voltageSetPointEnabled = 13;
 }
 
 // Specialized 61850 ZGEN class
@@ -356,9 +356,9 @@ message ESSStatusProfile
 message ESSPoint
 {
     // Black start enable
-    commonmodule.ControlDPC blackStartEnabled = 1;
+    commonmodule.ControlSPC blackStartEnabled = 1;
     // Enable frequency set point
-    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    commonmodule.ControlSPC frequencySetPointEnabled = 2;
     // ESS function parameter
     ESSFunction function = 3;
     // Grid connect mode
@@ -370,19 +370,19 @@ message ESSPoint
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 8;
+    commonmodule.ControlSPC reactivePwrSetPointEnabled = 8;
     // Enable real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 9;
+    commonmodule.ControlSPC realPwrSetPointEnabled = 9;
     // Reset device
-    commonmodule.ControlDPC reset = 10;
+    commonmodule.ControlSPC reset = 10;
     // ESS state
     commonmodule.Optional_StateKind state = 11;
     // Synchronize back to grid
-    commonmodule.ControlDPC syncBackToGrid = 12;
+    commonmodule.ControlSPC syncBackToGrid = 12;
     // Transition to island on grid loss enable
-    commonmodule.ControlDPC transToIslndOnGridLossEnabled = 13;
+    commonmodule.ControlSPC transToIslndOnGridLossEnabled = 13;
     // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 14;
+    commonmodule.ControlSPC voltageSetPointEnabled = 14;
     // Start time
     commonmodule.ControlTimestamp startTime = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }

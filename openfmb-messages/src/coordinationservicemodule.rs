@@ -678,7 +678,7 @@ pub struct CoordinationStatusDcsc {
     pub coordination_service_mode: ::std::option::Option<EngCoordinationServiceModeKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
-    pub island: ::std::option::Option<super::commonmodule::StatusSps>,
+    pub island: ::std::option::Option<super::commonmodule::StatusDps>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
     pub permissible_auto: ::std::option::Option<super::commonmodule::StatusSps>,
@@ -700,7 +700,7 @@ mod coordination_status_dcsc {
     lazy_static! {
         pub(super) static ref LOGICAL_NODE: crate::commonmodule::LogicalNode = Default::default();
         pub(super) static ref COORDINATION_SERVICE_MODE: crate::coordinationservicemodule::EngCoordinationServiceModeKind = Default::default();
-        pub(super) static ref ISLAND: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref ISLAND: crate::commonmodule::StatusDps = Default::default();
         pub(super) static ref PERMISSIBLE_AUTO: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_MANUAL: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PERMISSIBLE_NETZERO: crate::commonmodule::StatusSps = Default::default();
@@ -731,10 +731,10 @@ pub trait IsCoordinationStatusDcsc {
     fn coordination_service_mode_mut(&mut self) -> &mut EngCoordinationServiceModeKind {
         self._coordination_status_dcsc_mut().coordination_service_mode.get_or_insert(Default::default())
     }
-    fn island(&self) -> &super::commonmodule::StatusSps {
+    fn island(&self) -> &super::commonmodule::StatusDps {
         self._coordination_status_dcsc().island.as_ref().unwrap_or(&coordination_status_dcsc::ISLAND)
     }
-    fn island_mut(&mut self) -> &mut super::commonmodule::StatusSps {
+    fn island_mut(&mut self) -> &mut super::commonmodule::StatusDps {
         self._coordination_status_dcsc_mut().island.get_or_insert(Default::default())
     }
     fn permissible_auto(&self) -> &super::commonmodule::StatusSps {
@@ -970,16 +970,18 @@ impl IsIdentifiedObject for CoordinationStatusProfile {
 #[repr(i32)]
 #[derive(serde::Serialize, serde::Deserialize)]
 pub enum CoordinationServiceModeKind {
+    /// Undefined
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
-    None = 0,
+    None = 1,
     /// MISSING DOCUMENTATION!!!
-    Auto = 1,
+    Auto = 2,
     /// MISSING DOCUMENTATION!!!
-    Manual = 2,
+    Manual = 3,
     /// MISSING DOCUMENTATION!!!
-    Netzero = 3,
+    Netzero = 4,
     /// MISSING DOCUMENTATION!!!
-    Start = 4,
+    Start = 5,
     /// MISSING DOCUMENTATION!!!
-    Stop = 5,
+    Stop = 6,
 }

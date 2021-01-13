@@ -8,13 +8,13 @@ pub struct LoadPoint {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="2")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="3")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Reset device
     #[prost(message, optional, tag="4")]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reset: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// ESS state
     #[prost(message, optional, tag="5")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
@@ -32,9 +32,9 @@ mod load_point {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
@@ -50,22 +50,22 @@ pub trait IsLoadPoint {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._load_point_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._load_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&load_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._load_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._load_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&load_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._load_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
+    fn reset(&self) -> &super::commonmodule::ControlSpc {
         self._load_point().reset.as_ref().unwrap_or(&load_point::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._load_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -450,13 +450,13 @@ pub struct LoadPointStatus {
     pub ramp_rates: ::std::option::Option<super::commonmodule::RampRate>,
     /// Enable reactive power set point
     #[prost(message, optional, tag="2")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="3")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Reset device
     #[prost(message, optional, tag="4")]
-    pub reset: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub reset: ::std::option::Option<super::commonmodule::StatusSps>,
     /// ESS state
     #[prost(message, optional, tag="5")]
     pub state: ::std::option::Option<super::commonmodule::OptionalStateKind>,
@@ -465,9 +465,9 @@ mod load_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
     }
 }
@@ -482,22 +482,22 @@ pub trait IsLoadPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._load_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._load_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._load_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._load_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&load_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._load_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::StatusDps {
+    fn reset(&self) -> &super::commonmodule::StatusSps {
         self._load_point_status().reset.as_ref().unwrap_or(&load_point_status::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._load_point_status_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package reclosermodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/reclosermodule";

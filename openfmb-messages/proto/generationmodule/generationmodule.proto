@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package generationmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/generationmodule";
@@ -17,9 +17,9 @@ import "commonmodule/commonmodule.proto";
 message GenerationPoint
 {
     // Black start enable
-    commonmodule.ControlDPC blackStartEnabled = 1;
+    commonmodule.ControlSPC blackStartEnabled = 1;
     // Enable frequency set point
-    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    commonmodule.ControlSPC frequencySetPointEnabled = 2;
     // Black start enable
     google.protobuf.FloatValue pctHzDroop = 3;
     // Black start enable
@@ -27,19 +27,19 @@ message GenerationPoint
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 6;
+    commonmodule.ControlSPC reactivePwrSetPointEnabled = 6;
     // Enable joint real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 7;
+    commonmodule.ControlSPC realPwrSetPointEnabled = 7;
     // Reset device
-    commonmodule.ControlDPC reset = 8;
+    commonmodule.ControlSPC reset = 8;
     // ESS state
     commonmodule.Optional_StateKind state = 9;
     // Synchronize back to grid
-    commonmodule.ControlDPC syncBackToGrid = 10;
+    commonmodule.ControlSPC syncBackToGrid = 10;
     // Transition to island on grid loss enable
-    commonmodule.ControlDPC transToIslndOnGridLossEnabled = 11;
+    commonmodule.ControlSPC transToIslndOnGridLossEnabled = 11;
     // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 12;
+    commonmodule.ControlSPC voltageSetPointEnabled = 12;
     // Start time
     commonmodule.ControlTimestamp startTime = 13 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
@@ -102,26 +102,6 @@ message GenerationControlProfile
     GenerationControl generationControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Real power control kind
-enum RealPowerControlKind
-{
-    // MISSING DOCUMENTATION!!!
-     RealPowerControlKind_UNDEFINED = 0;
-    // MISSING DOCUMENTATION!!!
-     RealPowerControlKind_advanced = 1;
-    // MISSING DOCUMENTATION!!!
-     RealPowerControlKind_droop = 2;
-    // MISSING DOCUMENTATION!!!
-     RealPowerControlKind_isochronous = 3;
-    // Real power setpoint
-     RealPowerControlKind_realPower = 4;
-}
-
-message Optional_RealPowerControlKind
-{
-    RealPowerControlKind value = 1;
-}
-
 // Generation discrete control
 message DroopParameter
 {
@@ -139,31 +119,9 @@ message RealPowerControl
     // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue isochronousSetpoint = 2;
     // MISSING DOCUMENTATION!!!
-    Optional_RealPowerControlKind realPowerControlMode = 3;
+    commonmodule.Optional_RealPowerControlKind realPowerControlMode = 3;
     // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue realPowerSetpoint = 4;
-}
-
-// Real power control kind
-enum ReactivePowerControlKind
-{
-    // MISSING DOCUMENTATION!!!
-     ReactivePowerControlKind_UNDEFINED = 0;
-    // MISSING DOCUMENTATION!!!
-     ReactivePowerControlKind_advanced = 1;
-    // MISSING DOCUMENTATION!!!
-     ReactivePowerControlKind_droop = 2;
-    // Voltage setpoint
-     ReactivePowerControlKind_voltage = 3;
-    // Reactive power setpoint
-     ReactivePowerControlKind_reactivePower = 4;
-    // MISSING DOCUMENTATION!!!
-     ReactivePowerControlKind_powerFactor = 5;
-}
-
-message Optional_ReactivePowerControlKind
-{
-    ReactivePowerControlKind value = 1;
 }
 
 // Generation real power control
@@ -174,7 +132,7 @@ message ReactivePowerControl
     // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue powerFactorSetpoint = 2;
     // MISSING DOCUMENTATION!!!
-    Optional_ReactivePowerControlKind reactivePowerControlMode = 3;
+    commonmodule.Optional_ReactivePowerControlKind reactivePowerControlMode = 3;
     // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue reactivePowerSetpoint = 4;
     // MISSING DOCUMENTATION!!!
@@ -235,9 +193,9 @@ message GenerationReadingProfile
 message GenerationPointStatus
 {
     // Black start enable
-    commonmodule.StatusDPS blackStartEnabled = 1;
+    commonmodule.StatusSPS blackStartEnabled = 1;
     // Enable frequency set point
-    commonmodule.StatusDPS frequencySetPointEnabled = 2;
+    commonmodule.StatusSPS frequencySetPointEnabled = 2;
     // Black start enable
     google.protobuf.FloatValue pctHzDroop = 3;
     // Black start enable
@@ -245,17 +203,17 @@ message GenerationPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
     // Enable reactive power set point
-    commonmodule.StatusDPS reactivePwrSetPointEnabled = 6;
+    commonmodule.StatusSPS reactivePwrSetPointEnabled = 6;
     // Enable real power set point
-    commonmodule.StatusDPS realPwrSetPointEnabled = 7;
+    commonmodule.StatusSPS realPwrSetPointEnabled = 7;
     // ESS state
     commonmodule.Optional_StateKind state = 8;
     // Synchronize back to grid
-    commonmodule.StatusDPS syncBackToGrid = 9;
+    commonmodule.StatusSPS syncBackToGrid = 9;
     // Transition to island on grid loss enable
-    commonmodule.StatusDPS transToIslndOnGridLossEnabled = 10;
+    commonmodule.StatusSPS transToIslndOnGridLossEnabled = 10;
     // Enable voltage set point
-    commonmodule.StatusDPS voltageSetPointEnabled = 11;
+    commonmodule.StatusSPS voltageSetPointEnabled = 11;
 }
 
 // Specialized 61850 ZGEN class

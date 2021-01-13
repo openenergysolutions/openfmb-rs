@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package loadmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";
@@ -19,11 +19,11 @@ message LoadPoint
     // Ramp rates
     commonmodule.RampRate rampRates = 1;
     // Enable reactive power set point
-    commonmodule.ControlDPC reactivePwrSetPointEnabled = 2;
+    commonmodule.ControlSPC reactivePwrSetPointEnabled = 2;
     // Enable joint real power set point
-    commonmodule.ControlDPC realPwrSetPointEnabled = 3;
+    commonmodule.ControlSPC realPwrSetPointEnabled = 3;
     // Reset device
-    commonmodule.ControlDPC reset = 4;
+    commonmodule.ControlSPC reset = 4;
     // ESS state
     commonmodule.Optional_StateKind state = 5;
     // Start time
@@ -82,11 +82,11 @@ message LoadPointStatus
     // Ramp rates
     commonmodule.RampRate rampRates = 1;
     // Enable reactive power set point
-    commonmodule.StatusDPS reactivePwrSetPointEnabled = 2;
+    commonmodule.StatusSPS reactivePwrSetPointEnabled = 2;
     // Enable joint real power set point
-    commonmodule.StatusDPS realPwrSetPointEnabled = 3;
+    commonmodule.StatusSPS realPwrSetPointEnabled = 3;
     // Reset device
-    commonmodule.StatusDPS reset = 4;
+    commonmodule.StatusSPS reset = 4;
     // ESS state
     commonmodule.Optional_StateKind state = 5;
 }
