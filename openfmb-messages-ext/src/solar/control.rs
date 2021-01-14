@@ -2,7 +2,7 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
-        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint,
+        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind,
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -78,11 +78,11 @@ impl OpenFMBExt for SolarControlProfile {
 
 pub trait SolarControlExt: ControlProfileExt {
     fn solar_on_msg(m_rid: &str, val: f64) -> SolarControlProfile {
-        Self::build_control_profile(m_rid, val, SystemTime::now(), 1)
+        Self::build_control_profile(m_rid, val, SystemTime::now(), StateKind::On as i32)
     }
 
     fn solar_off_msg(m_rid: &str) -> SolarControlProfile {
-        Self::build_control_profile(m_rid, 0.0, SystemTime::now(), 0)
+        Self::build_control_profile(m_rid, 0.0, SystemTime::now(), StateKind::Off as i32)
     }
 
     fn build_control_profile(

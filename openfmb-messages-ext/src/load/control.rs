@@ -7,7 +7,7 @@ use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, EnergyConsumer,
         EngScheduleParameter, MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg,
-        SchedulePoint,
+        SchedulePoint, StateKind, ScheduleParameterKind,
     },
     loadmodule::{
         LoadControl, LoadControlFscc, LoadControlProfile, LoadControlScheduleFsch, LoadCsg,
@@ -72,7 +72,7 @@ pub trait LoadControlExt: ControlProfileExt {
         LoadControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             energy_consumer: Self::build_energy_consumer(Uuid::from_str(m_rid).unwrap()),
-            load_control: Self::build_load_control(load_value, 1),
+            load_control: Self::build_load_control(load_value, StateKind::On as i32),
         }
     }
 
@@ -80,7 +80,7 @@ pub trait LoadControlExt: ControlProfileExt {
         LoadControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             energy_consumer: Self::build_energy_consumer(Uuid::from_str(m_rid).unwrap()),
-            load_control: Self::build_load_control(0.0, 0),
+            load_control: Self::build_load_control(0.0, StateKind::Off as i32),
         }
     }
 
@@ -137,7 +137,7 @@ pub trait LoadControlExt: ControlProfileExt {
                         val_acsg: Some(ScheduleCsg {
                             sch_pts: vec![SchedulePoint {
                                 schedule_parameter: vec![EngScheduleParameter {
-                                    schedule_parameter_type: 39,
+                                    schedule_parameter_type: ScheduleParameterKind::WNetMag as i32,
                                     value: load_value,
                                 }],
                                 start_time: Some(ControlTimestamp {

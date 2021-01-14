@@ -3,7 +3,7 @@ use openfmb_messages::{
     commonmodule::{
         CheckConditions, ConductingEquipment, ControlDpc, ControlSpc, ControlFscc, ControlScheduleFsch,
         ControlTimestamp, EngGridConnectModeKind, EngScheduleParameter, Ess, MessageInfo,
-        NamedObject, OptionalStateKind, ScheduleCsg, SchedulePoint,
+        NamedObject, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, ScheduleParameterKind,
     },
     essmodule::{
         EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssFunction,
@@ -127,7 +127,7 @@ pub trait EssControlExt: ControlProfileExt {
             charge_rate_kw,
             SystemTime::now(),
             GridConnectModeKind::VsiPq,
-            1,
+            StateKind::On as i32
         )
     }
 
@@ -137,7 +137,7 @@ pub trait EssControlExt: ControlProfileExt {
             charge_rate_kw,
             SystemTime::now(),
             GridConnectModeKind::VsiPq,
-            1,
+            StateKind::On as i32,
         )
     }
 
@@ -218,7 +218,7 @@ pub trait EssControlExt: ControlProfileExt {
                                 reactive_pwr_set_point_enabled: None,
                                 real_pwr_set_point_enabled: None,
                                 reset: None,
-                                state: Some(OptionalStateKind { value: 0 }),
+                                state: Some(OptionalStateKind { value: StateKind::Off as i32 }),
                                 sync_back_to_grid: None,
                                 trans_to_islnd_on_grid_loss_enabled: None,
                                 voltage_set_point_enabled: None,
@@ -365,7 +365,7 @@ pub trait EssControlExt: ControlProfileExt {
                             sch_pts: vec![
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: 39,
+                                        schedule_parameter_type: ScheduleParameterKind::WNetMag as i32,
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
@@ -378,7 +378,7 @@ pub trait EssControlExt: ControlProfileExt {
                                 },
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: 34,
+                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag as i32,
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
@@ -667,7 +667,7 @@ pub trait EssControlExt: ControlProfileExt {
                             sch_pts: vec![
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: 39,
+                                        schedule_parameter_type: ScheduleParameterKind::WNetMag as i32,
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
@@ -680,7 +680,7 @@ pub trait EssControlExt: ControlProfileExt {
                                 },
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: 34,
+                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag as i32,
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
