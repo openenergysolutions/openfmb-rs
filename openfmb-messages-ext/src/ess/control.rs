@@ -1,9 +1,9 @@
 use openfmb_messages::commonmodule::ControlMessageInfo;
 use openfmb_messages::{
     commonmodule::{
-        CheckConditions, ConductingEquipment, ControlDpc, ControlSpc, ControlFscc, ControlScheduleFsch,
+        CheckConditions, ConductingEquipment, ControlSpc, ControlFscc, ControlScheduleFsch,
         ControlTimestamp, EngGridConnectModeKind, EngScheduleParameter, Ess, MessageInfo,
-        NamedObject, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, ScheduleParameterKind,
+        NamedObject, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, ScheduleParameterKind, ControlValue
     },
     essmodule::{
         EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssFunction,
@@ -159,6 +159,10 @@ pub trait EssControlExt: ControlProfileExt {
 
     fn stop_now_msg(m_rid: &str) -> EssControlProfile {
         Ctrl::build_stop_control_profile(m_rid, SystemTime::now())
+    }
+
+    fn ess_modblk_msg(m_rid: &str, modblk: bool) -> EssControlProfile {
+        Ctrl::build_modblk_profile(m_rid, SystemTime::now(), modblk)
     }
 
     fn build_charge_control_profile(
@@ -726,6 +730,34 @@ pub trait EssControlExt: ControlProfileExt {
                         }],
                     }),
                 }),
+            }),
+        }
+    }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> EssControlProfile {
+        EssControlProfile {
+            control_message_info: Some(Self::build_control_message_info()),
+            ess: Some(Ess {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: Some(NamedObject {
+                        description: None,
+                        name: None,
+                    }),
+                }),
+            }),
+            ess_control: Some(EssControl {
+                control_value:  Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: Some(modblk),
+                    reset: None,
+                }),
+                check: None,
+                ess_control_fscc: None,
             }),
         }
     }

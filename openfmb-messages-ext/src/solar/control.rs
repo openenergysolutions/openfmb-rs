@@ -2,7 +2,7 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
-        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind,
+        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, NamedObject, ControlValue
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -85,6 +85,10 @@ pub trait SolarControlExt: ControlProfileExt {
         Self::build_control_profile(m_rid, 0.0, SystemTime::now(), StateKind::Off as i32)
     }
 
+    fn solar_modblk_msg(m_rid: &str, modblk: bool) -> SolarControlProfile {
+        Self::build_modblk_profile(m_rid, SystemTime::now(), modblk)
+    }
+
     fn build_control_profile(
         m_rid: &str,
         sch_param_value: f64,
@@ -156,6 +160,12 @@ pub trait SolarControlExt: ControlProfileExt {
             }),
         }
     }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> SolarControlProfile;
 }
 
 impl ControlProfileExt for SolarControlProfile {}
@@ -181,6 +191,34 @@ impl SolarControlExt for SolarControlProfile {
                     m_rid: m_rid.to_string(),
                 }),
             }),
+        }
+    }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> SolarControlProfile {
+        SolarControlProfile {
+            control_message_info: Some(Self::build_control_message_info()),
+            solar_inverter: Some(SolarInverter {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: Some(NamedObject {
+                        description: None,
+                        name: None,
+                    }),
+                }),
+            }),
+            solar_control: Some(SolarControl {
+                control_value:  Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: Some(modblk),
+                    reset: None,
+                }),
+                check: None,
+                solar_control_fscc: None,
+            })
         }
     }
 }
