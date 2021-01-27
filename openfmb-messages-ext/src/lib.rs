@@ -20,8 +20,11 @@ pub mod meter;
 pub mod solar;
 pub mod switch;
 pub mod resource;
+pub mod recloser;
+pub mod regulator;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
+pub use recloser::{RecloserControlExt, RecloserReadingExt};
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
@@ -29,6 +32,7 @@ pub use load::LoadControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
 pub use resource::{ResourceControlExt};
+pub use regulator::RegulatorControlExt;
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}
