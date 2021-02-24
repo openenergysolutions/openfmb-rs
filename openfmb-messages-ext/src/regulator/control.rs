@@ -3,7 +3,7 @@ use openfmb_messages::{
     regulatormodule::*,
 };
 use snafu::{OptionExt, ResultExt};
-use std::{str::FromStr, time::SystemTime};
+use std::{str::FromStr};
 use uuid::Uuid;
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
@@ -40,51 +40,51 @@ impl OpenFMBExt for RegulatorDiscreteControlProfile {
 }
 
 pub trait RegulatorControlExt: ControlProfileExt {
-    fn regulator_tap_lower_phs3_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_lower_phs3_profile(m_rid, ctVal)
+    fn regulator_tap_lower_phs3_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_lower_phs3_profile(m_rid, ct_val)
     }
-    fn regulator_tap_raise_phs3_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_raise_phs3_profile(m_rid, ctVal)
+    fn regulator_tap_raise_phs3_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_raise_phs3_profile(m_rid, ct_val)
     }  
 
-    fn regulator_tap_lower_phsA_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_lower_phsA_profile(m_rid, ctVal)
+    fn regulator_tap_lower_phs_a_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_lower_phs_a_profile(m_rid, ct_val)
     }
-    fn regulator_tap_raise_phsA_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_raise_phsA_profile(m_rid, ctVal)
-    }
-
-    fn regulator_tap_lower_phsB_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_lower_phsB_profile(m_rid, ctVal)
-    }
-    fn regulator_tap_raise_phsB_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_raise_phsB_profile(m_rid, ctVal)
+    fn regulator_tap_raise_phs_a_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_raise_phs_a_profile(m_rid, ct_val)
     }
 
-    fn regulator_tap_lower_phsC_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_lower_phsC_profile(m_rid, ctVal)
+    fn regulator_tap_lower_phs_b_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_lower_phs_b_profile(m_rid, ct_val)
     }
-    fn regulator_tap_raise_phsC_msg(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile {
-        Self::build_tap_raise_phsC_profile(m_rid, ctVal)
+    fn regulator_tap_raise_phs_b_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_raise_phs_b_profile(m_rid, ct_val)
+    }
+
+    fn regulator_tap_lower_phs_c_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_lower_phs_c_profile(m_rid, ct_val)
+    }
+    fn regulator_tap_raise_phs_c_msg(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile {
+        Self::build_tap_raise_phs_c_profile(m_rid, ct_val)
     }     
 
-    fn build_tap_lower_phs3_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
-    fn build_tap_raise_phs3_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_lower_phs3_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_raise_phs3_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
 
-    fn build_tap_lower_phsA_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
-    fn build_tap_raise_phsA_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_lower_phs_a_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_raise_phs_a_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
 
-    fn build_tap_lower_phsB_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
-    fn build_tap_raise_phsB_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_lower_phs_b_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_raise_phs_b_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
 
-    fn build_tap_lower_phsC_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
-    fn build_tap_raise_phsC_profile(m_rid: &str, ctVal: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_lower_phs_c_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
+    fn build_tap_raise_phs_c_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
 }
 
 impl RegulatorControlExt for RegulatorDiscreteControlProfile {
     fn build_tap_lower_phs3_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -101,7 +101,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_l: Some(PhaseSpc {
                         phs3: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -113,7 +113,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
     
     fn build_tap_raise_phs3_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -130,7 +130,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_r: Some(PhaseSpc {
                         phs3: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -140,9 +140,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     } 
 
-    fn build_tap_lower_phsA_profile(
+    fn build_tap_lower_phs_a_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -159,7 +159,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_l: Some(PhaseSpc {
                         phs_a: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -169,9 +169,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     } 
     
-    fn build_tap_raise_phsA_profile(
+    fn build_tap_raise_phs_a_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -188,7 +188,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_r: Some(PhaseSpc {
                         phs_a: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -198,9 +198,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     }
 
-    fn build_tap_lower_phsB_profile(
+    fn build_tap_lower_phs_b_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -217,7 +217,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_l: Some(PhaseSpc {
                         phs_b: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -227,9 +227,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     } 
     
-    fn build_tap_raise_phsB_profile(
+    fn build_tap_raise_phs_b_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -246,7 +246,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_r: Some(PhaseSpc {
                         phs_b: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -256,9 +256,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     }
 
-    fn build_tap_lower_phsC_profile(
+    fn build_tap_lower_phs_c_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -275,7 +275,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_l: Some(PhaseSpc {
                         phs_c: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),
@@ -285,9 +285,9 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
         }
     } 
     
-    fn build_tap_raise_phsC_profile(
+    fn build_tap_raise_phs_c_profile(
         m_rid: &str,        
-        ctVal: bool,
+        ct_val: bool,
     ) -> RegulatorDiscreteControlProfile {
         let msg_info: ControlMessageInfo = RegulatorDiscreteControlProfile::build_control_message_info();
         RegulatorDiscreteControlProfile {
@@ -304,7 +304,7 @@ impl RegulatorControlExt for RegulatorDiscreteControlProfile {
                 regulator_control_atcc: Some(RegulatorControlAtcc {
                     tap_op_r: Some(PhaseSpc {
                         phs_c: Some(ControlSpc {
-                            ctl_val: ctVal
+                            ctl_val: ct_val
                         }),
                         ..Default::default()
                     }),

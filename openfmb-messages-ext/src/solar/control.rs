@@ -2,7 +2,7 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
-        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, NamedObject, ControlValue
+        MessageInfo, OptionalStateKind, StateKind, NamedObject, ControlValue
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -97,7 +97,7 @@ pub trait SolarControlExt: ControlProfileExt {
     ) -> SolarControlProfile;
 
     fn build_solar_control(
-        solar_acsg: f64,
+        _solar_acsg: f64,
         state: OptionalStateKind,
         when: SystemTime,
     ) -> SolarControl {
@@ -108,28 +108,7 @@ pub trait SolarControlExt: ControlProfileExt {
             solar_control_fscc: Some(SolarControlFscc {
                 control_fscc: Some(ControlFscc {
                     logical_node_for_control: None,
-                    control_schedule_fsch: Some(ControlScheduleFsch {
-                        // val_acsg: Some(ScheduleCsg {
-                        //     sch_pts: vec![SchedulePoint {
-                        //         schedule_parameter: vec![
-                        //             EngScheduleParameter {
-                        //                 schedule_parameter_type: 39,
-                        //                 value: solar_acsg,
-                        //             },
-                        //             EngScheduleParameter {
-                        //                 schedule_parameter_type: 8,
-                        //                 value: 1.0,
-                        //             },
-                        //         ],
-                        //         start_time: Some(ControlTimestamp {
-                        //             nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
-                        //             seconds: when
-                        //                 .duration_since(SystemTime::UNIX_EPOCH)
-                        //                 .unwrap()
-                        //                 .as_secs(),
-                        //         }),
-                        //     }],
-                        // }),
+                    control_schedule_fsch: Some(ControlScheduleFsch {                        
                         val_acsg: None
                     }),
                     island_control_schedule_fsch: None,
