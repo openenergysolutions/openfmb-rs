@@ -72,3 +72,4 @@ pub mod bus;
 pub mod client;
 pub mod device;
 pub mod encoding;
+pub use openfmb_messages as messages;
