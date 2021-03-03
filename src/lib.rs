@@ -58,6 +58,11 @@
 
 pub mod error;
 pub mod message;
+pub mod bus;
+pub mod client;
+pub mod device;
+pub mod encoding;
+pub use openfmb_messages as messages;
 pub mod prelude {
     //! Exports very commonly used types and traits
     pub use crate::bus::{MessageBus, Publisher, Subscriber};
@@ -68,8 +73,3 @@ pub mod prelude {
     };
     pub use crate::message::Message;
 }
-pub mod bus;
-pub mod client;
-pub mod device;
-pub mod encoding;
-pub use openfmb_messages as messages;
