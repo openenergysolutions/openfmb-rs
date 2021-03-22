@@ -5,7 +5,7 @@ pub struct SolarPoint {
     /// Enable frequency set point
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Grid connect mode
     #[prost(message, optional, tag="2")]
     #[serde(default)]
@@ -25,15 +25,15 @@ pub struct SolarPoint {
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Reset device
     #[prost(message, optional, tag="8")]
     #[serde(default)]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reset: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// ESS state
     #[prost(message, optional, tag="9")]
     #[serde(default)]
@@ -41,7 +41,7 @@ pub struct SolarPoint {
     /// Enable voltage set point
     #[prost(message, optional, tag="10")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// X-axis value (Unix time).
     // parent_message: false
     // required_field: true
@@ -56,16 +56,16 @@ pub struct SolarPoint {
 mod solar_point {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
@@ -74,10 +74,10 @@ impl SolarPoint {
 pub trait IsSolarPoint {
     fn _solar_point(&self) -> &SolarPoint;
     fn _solar_point_mut(&mut self) -> &mut SolarPoint;
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._solar_point().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._solar_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
@@ -104,22 +104,22 @@ pub trait IsSolarPoint {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._solar_point_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._solar_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._solar_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._solar_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._solar_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
+    fn reset(&self) -> &super::commonmodule::ControlSpc {
         self._solar_point().reset.as_ref().unwrap_or(&solar_point::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._solar_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -128,10 +128,10 @@ pub trait IsSolarPoint {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._solar_point_mut().state.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._solar_point().voltage_set_point_enabled.as_ref().unwrap_or(&solar_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._solar_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
@@ -574,7 +574,7 @@ pub struct SolarPointStatus {
     /// Enable frequency set point
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Grid connect mode
     #[prost(message, optional, tag="2")]
     #[serde(default)]
@@ -594,11 +594,11 @@ pub struct SolarPointStatus {
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// ESS state
     #[prost(message, optional, tag="8")]
     #[serde(default)]
@@ -606,20 +606,20 @@ pub struct SolarPointStatus {
     /// Enable voltage set point
     #[prost(message, optional, tag="9")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod solar_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
     }
 }
 impl SolarPointStatus {
@@ -627,10 +627,10 @@ impl SolarPointStatus {
 pub trait IsSolarPointStatus {
     fn _solar_point_status(&self) -> &SolarPointStatus;
     fn _solar_point_status_mut(&mut self) -> &mut SolarPointStatus;
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._solar_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&solar_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._solar_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn mode(&self) -> &super::commonmodule::EngGridConnectModeKind {
@@ -657,16 +657,16 @@ pub trait IsSolarPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._solar_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._solar_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._solar_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._solar_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&solar_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._solar_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -675,10 +675,10 @@ pub trait IsSolarPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._solar_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._solar_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&solar_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._solar_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package capbankmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/capbankmodule";
@@ -22,8 +22,40 @@ message CapBankSystem
 // LN: Power cap bank  Name: YPSH
 message CapBankControlYPSH
 {
+    // Current limit (boolean field)
+    commonmodule.PhaseSPC AmpLmt = 1;
+    // High current  threshold
+    commonmodule.PhaseAPC AmpThdHi = 2;
+    // Low current threshold
+    commonmodule.PhaseAPC AmpThdLo = 3;
+    // Control mode auto
+    commonmodule.ControlSPC CtlModeAuto = 4;
+    // Control mode override
+    commonmodule.ControlSPC CtlModeOvrRd = 5;
+    // Control mode remote
+    commonmodule.ControlSPC CtlModeRem = 6;
+    // The control characteristics for power flow operation
+    commonmodule.Optional_DirectionModeKind DirMode = 7;
     // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPC Pos = 1;
+    commonmodule.PhaseSPC Pos = 8;
+    // Temperature limit (boolean field)
+    commonmodule.ControlSPC TempLmt = 9;
+    // High temperature threshold
+    commonmodule.ControlAPC TempThdHi = 10;
+    // Low temperature threshold
+    commonmodule.ControlAPC TempThdLo = 11;
+    // VAr limit (boolean field)
+    commonmodule.PhaseSPC VArLmt = 12;
+    // High VAr threshold
+    commonmodule.PhaseAPC VArThdHi = 13;
+    // Low VAr threshold
+    commonmodule.PhaseAPC VArThdLo = 14;
+    // Voltage limit (boolean field)
+    commonmodule.PhaseSPC VolLmt = 15;
+    // High voltage threshold
+    commonmodule.PhaseAPC VolThdHi = 16;
+    // Low voltage threshold
+    commonmodule.PhaseAPC VolThdLo = 17;
 }
 
 // Point definition (Point)
@@ -88,7 +120,7 @@ message CapBankDiscreteControlYPSH
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.PhaseDPC Pos = 2;
+    CapBankControlYPSH control = 2;
 }
 
 // Cap bank discrete control
@@ -120,10 +152,22 @@ message CapBankEventAndStatusYPSH
 {
     // UML inherited base object
     commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // True if current limit (high, low, or both) are set
+    commonmodule.PhaseSPS AmpLmt = 2;
+    // Control mode
+    commonmodule.Optional_ControlModeKind CtlMode = 3;
+    // True if power flow is reversed
+    commonmodule.PhaseSPS DirRev = 4;
     // MISSING DOCUMENTATION!!!
-    commonmodule.ENS_DynamicTestKind DynamicTest = 2;
+    commonmodule.ENS_DynamicTestKind DynamicTest = 5;
     // (controllable) Position of the switch of power shunt.
-    commonmodule.PhaseDPS Pos = 3;
+    commonmodule.PhaseDPS Pos = 6;
+    // True if temperature limit (high, low, or both) are set
+    commonmodule.PhaseSPS TempLmt = 7;
+    // True if VAr limit (high, low, or both) are set
+    commonmodule.PhaseSPS VArLmt = 8;
+    // True if voltage limit (high, low, or both) are set
+    commonmodule.PhaseSPS VolLmt = 9;
 }
 
 // Cap bank event
@@ -158,6 +202,8 @@ message CapBankReading
     commonmodule.ReadingMMTR readingMMTR = 3;
     // MISSING DOCUMENTATION!!!
     commonmodule.ReadingMMXU readingMMXU = 4;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU secondaryReadingMMXU = 5;
 }
 
 // Cap bank reading profile

@@ -64,15 +64,95 @@ impl IsNamedObject for CapBankSystem {
 /// LN: Power cap bank  Name: YPSH
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct CapBankControlYpsh {
-    /// (controllable) Position of the switch of power shunt.
+    /// Current limit (boolean field)
     #[prost(message, optional, tag="1")]
+    #[serde(default, rename = "AmpLmt")]
+    pub amp_lmt: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// High current  threshold
+    #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AmpThdHi")]
+    pub amp_thd_hi: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Low current threshold
+    #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "AmpThdLo")]
+    pub amp_thd_lo: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Control mode auto
+    #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "CtlModeAuto")]
+    pub ctl_mode_auto: ::std::option::Option<super::commonmodule::ControlSpc>,
+    /// Control mode override
+    #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "CtlModeOvrRd")]
+    pub ctl_mode_ovr_rd: ::std::option::Option<super::commonmodule::ControlSpc>,
+    /// Control mode remote
+    #[prost(message, optional, tag="6")]
+    #[serde(default, rename = "CtlModeRem")]
+    pub ctl_mode_rem: ::std::option::Option<super::commonmodule::ControlSpc>,
+    /// The control characteristics for power flow operation
+    #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "DirMode")]
+    pub dir_mode: ::std::option::Option<super::commonmodule::OptionalDirectionModeKind>,
+    /// (controllable) Position of the switch of power shunt.
+    #[prost(message, optional, tag="8")]
     #[serde(default, rename = "Pos")]
-    pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
+    pub pos: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// Temperature limit (boolean field)
+    #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "TempLmt")]
+    pub temp_lmt: ::std::option::Option<super::commonmodule::ControlSpc>,
+    /// High temperature threshold
+    #[prost(message, optional, tag="10")]
+    #[serde(default, rename = "TempThdHi")]
+    pub temp_thd_hi: ::std::option::Option<super::commonmodule::ControlApc>,
+    /// Low temperature threshold
+    #[prost(message, optional, tag="11")]
+    #[serde(default, rename = "TempThdLo")]
+    pub temp_thd_lo: ::std::option::Option<super::commonmodule::ControlApc>,
+    /// VAr limit (boolean field)
+    #[prost(message, optional, tag="12")]
+    #[serde(default, rename = "VArLmt")]
+    pub v_ar_lmt: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// High VAr threshold
+    #[prost(message, optional, tag="13")]
+    #[serde(default, rename = "VArThdHi")]
+    pub v_ar_thd_hi: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Low VAr threshold
+    #[prost(message, optional, tag="14")]
+    #[serde(default, rename = "VArThdLo")]
+    pub v_ar_thd_lo: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Voltage limit (boolean field)
+    #[prost(message, optional, tag="15")]
+    #[serde(default, rename = "VolLmt")]
+    pub vol_lmt: ::std::option::Option<super::commonmodule::PhaseSpc>,
+    /// High voltage threshold
+    #[prost(message, optional, tag="16")]
+    #[serde(default, rename = "VolThdHi")]
+    pub vol_thd_hi: ::std::option::Option<super::commonmodule::PhaseApc>,
+    /// Low voltage threshold
+    #[prost(message, optional, tag="17")]
+    #[serde(default, rename = "VolThdLo")]
+    pub vol_thd_lo: ::std::option::Option<super::commonmodule::PhaseApc>,
 }
 mod cap_bank_control_ypsh {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref POS: crate::commonmodule::PhaseDpc = Default::default();
+        pub(super) static ref AMP_LMT: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref AMP_THD_HI: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref AMP_THD_LO: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref CTL_MODE_AUTO: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref CTL_MODE_OVR_RD: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref CTL_MODE_REM: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref DIR_MODE: crate::commonmodule::OptionalDirectionModeKind = Default::default();
+        pub(super) static ref POS: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref TEMP_LMT: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref TEMP_THD_HI: crate::commonmodule::ControlApc = Default::default();
+        pub(super) static ref TEMP_THD_LO: crate::commonmodule::ControlApc = Default::default();
+        pub(super) static ref V_AR_LMT: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref V_AR_THD_HI: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref V_AR_THD_LO: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOL_LMT: crate::commonmodule::PhaseSpc = Default::default();
+        pub(super) static ref VOL_THD_HI: crate::commonmodule::PhaseApc = Default::default();
+        pub(super) static ref VOL_THD_LO: crate::commonmodule::PhaseApc = Default::default();
     }
 }
 impl CapBankControlYpsh {
@@ -80,11 +160,107 @@ impl CapBankControlYpsh {
 pub trait IsCapBankControlYpsh {
     fn _cap_bank_control_ypsh(&self) -> &CapBankControlYpsh;
     fn _cap_bank_control_ypsh_mut(&mut self) -> &mut CapBankControlYpsh;
-    fn pos(&self) -> &super::commonmodule::PhaseDpc {
+    fn amp_lmt(&self) -> &super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh().amp_lmt.as_ref().unwrap_or(&cap_bank_control_ypsh::AMP_LMT)
+    }
+    fn amp_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh_mut().amp_lmt.get_or_insert(Default::default())
+    }
+    fn amp_thd_hi(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().amp_thd_hi.as_ref().unwrap_or(&cap_bank_control_ypsh::AMP_THD_HI)
+    }
+    fn amp_thd_hi_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().amp_thd_hi.get_or_insert(Default::default())
+    }
+    fn amp_thd_lo(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().amp_thd_lo.as_ref().unwrap_or(&cap_bank_control_ypsh::AMP_THD_LO)
+    }
+    fn amp_thd_lo_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().amp_thd_lo.get_or_insert(Default::default())
+    }
+    fn ctl_mode_auto(&self) -> &super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh().ctl_mode_auto.as_ref().unwrap_or(&cap_bank_control_ypsh::CTL_MODE_AUTO)
+    }
+    fn ctl_mode_auto_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh_mut().ctl_mode_auto.get_or_insert(Default::default())
+    }
+    fn ctl_mode_ovr_rd(&self) -> &super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh().ctl_mode_ovr_rd.as_ref().unwrap_or(&cap_bank_control_ypsh::CTL_MODE_OVR_RD)
+    }
+    fn ctl_mode_ovr_rd_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh_mut().ctl_mode_ovr_rd.get_or_insert(Default::default())
+    }
+    fn ctl_mode_rem(&self) -> &super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh().ctl_mode_rem.as_ref().unwrap_or(&cap_bank_control_ypsh::CTL_MODE_REM)
+    }
+    fn ctl_mode_rem_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh_mut().ctl_mode_rem.get_or_insert(Default::default())
+    }
+    fn dir_mode(&self) -> &super::commonmodule::OptionalDirectionModeKind {
+        self._cap_bank_control_ypsh().dir_mode.as_ref().unwrap_or(&cap_bank_control_ypsh::DIR_MODE)
+    }
+    fn dir_mode_mut(&mut self) -> &mut super::commonmodule::OptionalDirectionModeKind {
+        self._cap_bank_control_ypsh_mut().dir_mode.get_or_insert(Default::default())
+    }
+    fn pos(&self) -> &super::commonmodule::PhaseSpc {
         self._cap_bank_control_ypsh().pos.as_ref().unwrap_or(&cap_bank_control_ypsh::POS)
     }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDpc {
+    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
         self._cap_bank_control_ypsh_mut().pos.get_or_insert(Default::default())
+    }
+    fn temp_lmt(&self) -> &super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh().temp_lmt.as_ref().unwrap_or(&cap_bank_control_ypsh::TEMP_LMT)
+    }
+    fn temp_lmt_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
+        self._cap_bank_control_ypsh_mut().temp_lmt.get_or_insert(Default::default())
+    }
+    fn temp_thd_hi(&self) -> &super::commonmodule::ControlApc {
+        self._cap_bank_control_ypsh().temp_thd_hi.as_ref().unwrap_or(&cap_bank_control_ypsh::TEMP_THD_HI)
+    }
+    fn temp_thd_hi_mut(&mut self) -> &mut super::commonmodule::ControlApc {
+        self._cap_bank_control_ypsh_mut().temp_thd_hi.get_or_insert(Default::default())
+    }
+    fn temp_thd_lo(&self) -> &super::commonmodule::ControlApc {
+        self._cap_bank_control_ypsh().temp_thd_lo.as_ref().unwrap_or(&cap_bank_control_ypsh::TEMP_THD_LO)
+    }
+    fn temp_thd_lo_mut(&mut self) -> &mut super::commonmodule::ControlApc {
+        self._cap_bank_control_ypsh_mut().temp_thd_lo.get_or_insert(Default::default())
+    }
+    fn v_ar_lmt(&self) -> &super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh().v_ar_lmt.as_ref().unwrap_or(&cap_bank_control_ypsh::V_AR_LMT)
+    }
+    fn v_ar_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh_mut().v_ar_lmt.get_or_insert(Default::default())
+    }
+    fn v_ar_thd_hi(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().v_ar_thd_hi.as_ref().unwrap_or(&cap_bank_control_ypsh::V_AR_THD_HI)
+    }
+    fn v_ar_thd_hi_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().v_ar_thd_hi.get_or_insert(Default::default())
+    }
+    fn v_ar_thd_lo(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().v_ar_thd_lo.as_ref().unwrap_or(&cap_bank_control_ypsh::V_AR_THD_LO)
+    }
+    fn v_ar_thd_lo_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().v_ar_thd_lo.get_or_insert(Default::default())
+    }
+    fn vol_lmt(&self) -> &super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh().vol_lmt.as_ref().unwrap_or(&cap_bank_control_ypsh::VOL_LMT)
+    }
+    fn vol_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSpc {
+        self._cap_bank_control_ypsh_mut().vol_lmt.get_or_insert(Default::default())
+    }
+    fn vol_thd_hi(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().vol_thd_hi.as_ref().unwrap_or(&cap_bank_control_ypsh::VOL_THD_HI)
+    }
+    fn vol_thd_hi_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().vol_thd_hi.get_or_insert(Default::default())
+    }
+    fn vol_thd_lo(&self) -> &super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh().vol_thd_lo.as_ref().unwrap_or(&cap_bank_control_ypsh::VOL_THD_LO)
+    }
+    fn vol_thd_lo_mut(&mut self) -> &mut super::commonmodule::PhaseApc {
+        self._cap_bank_control_ypsh_mut().vol_thd_lo.get_or_insert(Default::default())
     }
 }
 impl IsCapBankControlYpsh for CapBankControlYpsh {
@@ -519,14 +695,14 @@ pub struct CapBankDiscreteControlYpsh {
     pub logical_node_for_control: ::std::option::Option<super::commonmodule::LogicalNodeForControl>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="2")]
-    #[serde(default, rename = "Pos")]
-    pub pos: ::std::option::Option<super::commonmodule::PhaseDpc>,
+    #[serde(default)]
+    pub control: ::std::option::Option<CapBankControlYpsh>,
 }
 mod cap_bank_discrete_control_ypsh {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_CONTROL: crate::commonmodule::LogicalNodeForControl = Default::default();
-        pub(super) static ref POS: crate::commonmodule::PhaseDpc = Default::default();
+        pub(super) static ref CONTROL: crate::capbankmodule::CapBankControlYpsh = Default::default();
     }
 }
 impl CapBankDiscreteControlYpsh {
@@ -546,11 +722,11 @@ pub trait IsCapBankDiscreteControlYpsh {
     fn logical_node_for_control_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForControl {
         self._cap_bank_discrete_control_ypsh_mut().logical_node_for_control.get_or_insert(Default::default())
     }
-    fn pos(&self) -> &super::commonmodule::PhaseDpc {
-        self._cap_bank_discrete_control_ypsh().pos.as_ref().unwrap_or(&cap_bank_discrete_control_ypsh::POS)
+    fn control(&self) -> &CapBankControlYpsh {
+        self._cap_bank_discrete_control_ypsh().control.as_ref().unwrap_or(&cap_bank_discrete_control_ypsh::CONTROL)
     }
-    fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDpc {
-        self._cap_bank_discrete_control_ypsh_mut().pos.get_or_insert(Default::default())
+    fn control_mut(&mut self) -> &mut CapBankControlYpsh {
+        self._cap_bank_discrete_control_ypsh_mut().control.get_or_insert(Default::default())
     }
 }
 impl IsCapBankDiscreteControlYpsh for CapBankDiscreteControlYpsh {
@@ -788,21 +964,51 @@ pub struct CapBankEventAndStatusYpsh {
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "logicalNodeForEventAndStatus")]
     pub logical_node_for_event_and_status: ::std::option::Option<super::commonmodule::LogicalNodeForEventAndStatus>,
-    /// MISSING DOCUMENTATION!!!
+    /// True if current limit (high, low, or both) are set
     #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "AmpLmt")]
+    pub amp_lmt: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// Control mode
+    #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "CtlMode")]
+    pub ctl_mode: ::std::option::Option<super::commonmodule::OptionalControlModeKind>,
+    /// True if power flow is reversed
+    #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "DirRev")]
+    pub dir_rev: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="5")]
     #[serde(default, rename = "DynamicTest")]
     pub dynamic_test: ::std::option::Option<super::commonmodule::EnsDynamicTestKind>,
     /// (controllable) Position of the switch of power shunt.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag="6")]
     #[serde(default, rename = "Pos")]
     pub pos: ::std::option::Option<super::commonmodule::PhaseDps>,
+    /// True if temperature limit (high, low, or both) are set
+    #[prost(message, optional, tag="7")]
+    #[serde(default, rename = "TempLmt")]
+    pub temp_lmt: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// True if VAr limit (high, low, or both) are set
+    #[prost(message, optional, tag="8")]
+    #[serde(default, rename = "VArLmt")]
+    pub v_ar_lmt: ::std::option::Option<super::commonmodule::PhaseSps>,
+    /// True if voltage limit (high, low, or both) are set
+    #[prost(message, optional, tag="9")]
+    #[serde(default, rename = "VolLmt")]
+    pub vol_lmt: ::std::option::Option<super::commonmodule::PhaseSps>,
 }
 mod cap_bank_event_and_status_ypsh {
     use lazy_static::lazy_static;
     lazy_static! {
         pub(super) static ref LOGICAL_NODE_FOR_EVENT_AND_STATUS: crate::commonmodule::LogicalNodeForEventAndStatus = Default::default();
+        pub(super) static ref AMP_LMT: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref CTL_MODE: crate::commonmodule::OptionalControlModeKind = Default::default();
+        pub(super) static ref DIR_REV: crate::commonmodule::PhaseSps = Default::default();
         pub(super) static ref DYNAMIC_TEST: crate::commonmodule::EnsDynamicTestKind = Default::default();
         pub(super) static ref POS: crate::commonmodule::PhaseDps = Default::default();
+        pub(super) static ref TEMP_LMT: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref V_AR_LMT: crate::commonmodule::PhaseSps = Default::default();
+        pub(super) static ref VOL_LMT: crate::commonmodule::PhaseSps = Default::default();
     }
 }
 impl CapBankEventAndStatusYpsh {
@@ -822,6 +1028,24 @@ pub trait IsCapBankEventAndStatusYpsh {
     fn logical_node_for_event_and_status_mut(&mut self) -> &mut super::commonmodule::LogicalNodeForEventAndStatus {
         self._cap_bank_event_and_status_ypsh_mut().logical_node_for_event_and_status.get_or_insert(Default::default())
     }
+    fn amp_lmt(&self) -> &super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh().amp_lmt.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::AMP_LMT)
+    }
+    fn amp_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh_mut().amp_lmt.get_or_insert(Default::default())
+    }
+    fn ctl_mode(&self) -> &super::commonmodule::OptionalControlModeKind {
+        self._cap_bank_event_and_status_ypsh().ctl_mode.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::CTL_MODE)
+    }
+    fn ctl_mode_mut(&mut self) -> &mut super::commonmodule::OptionalControlModeKind {
+        self._cap_bank_event_and_status_ypsh_mut().ctl_mode.get_or_insert(Default::default())
+    }
+    fn dir_rev(&self) -> &super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh().dir_rev.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::DIR_REV)
+    }
+    fn dir_rev_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh_mut().dir_rev.get_or_insert(Default::default())
+    }
     fn dynamic_test(&self) -> &super::commonmodule::EnsDynamicTestKind {
         self._cap_bank_event_and_status_ypsh().dynamic_test.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::DYNAMIC_TEST)
     }
@@ -833,6 +1057,24 @@ pub trait IsCapBankEventAndStatusYpsh {
     }
     fn pos_mut(&mut self) -> &mut super::commonmodule::PhaseDps {
         self._cap_bank_event_and_status_ypsh_mut().pos.get_or_insert(Default::default())
+    }
+    fn temp_lmt(&self) -> &super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh().temp_lmt.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::TEMP_LMT)
+    }
+    fn temp_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh_mut().temp_lmt.get_or_insert(Default::default())
+    }
+    fn v_ar_lmt(&self) -> &super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh().v_ar_lmt.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::V_AR_LMT)
+    }
+    fn v_ar_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh_mut().v_ar_lmt.get_or_insert(Default::default())
+    }
+    fn vol_lmt(&self) -> &super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh().vol_lmt.as_ref().unwrap_or(&cap_bank_event_and_status_ypsh::VOL_LMT)
+    }
+    fn vol_lmt_mut(&mut self) -> &mut super::commonmodule::PhaseSps {
+        self._cap_bank_event_and_status_ypsh_mut().vol_lmt.get_or_insert(Default::default())
     }
 }
 impl IsCapBankEventAndStatusYpsh for CapBankEventAndStatusYpsh {
@@ -1070,6 +1312,10 @@ pub struct CapBankReading {
     #[prost(message, optional, tag="4")]
     #[serde(default, rename = "readingMMXU")]
     pub reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
+    /// MISSING DOCUMENTATION!!!
+    #[prost(message, optional, tag="5")]
+    #[serde(default, rename = "secondaryReadingMMXU")]
+    pub secondary_reading_mmxu: ::std::option::Option<super::commonmodule::ReadingMmxu>,
 }
 mod cap_bank_reading {
     use lazy_static::lazy_static;
@@ -1078,6 +1324,7 @@ mod cap_bank_reading {
         pub(super) static ref PHASE_MMTN: crate::commonmodule::PhaseMmtn = Default::default();
         pub(super) static ref READING_MMTR: crate::commonmodule::ReadingMmtr = Default::default();
         pub(super) static ref READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
+        pub(super) static ref SECONDARY_READING_MMXU: crate::commonmodule::ReadingMmxu = Default::default();
     }
 }
 impl CapBankReading {
@@ -1114,6 +1361,12 @@ pub trait IsCapBankReading {
     }
     fn reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
         self._cap_bank_reading_mut().reading_mmxu.get_or_insert(Default::default())
+    }
+    fn secondary_reading_mmxu(&self) -> &super::commonmodule::ReadingMmxu {
+        self._cap_bank_reading().secondary_reading_mmxu.as_ref().unwrap_or(&cap_bank_reading::SECONDARY_READING_MMXU)
+    }
+    fn secondary_reading_mmxu_mut(&mut self) -> &mut super::commonmodule::ReadingMmxu {
+        self._cap_bank_reading_mut().secondary_reading_mmxu.get_or_insert(Default::default())
     }
 }
 impl IsCapBankReading for CapBankReading {

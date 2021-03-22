@@ -5,15 +5,15 @@ pub struct InterconnectionPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "blackStartEnabled")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Island control
     #[prost(message, optional, tag="3")]
     #[serde(default)]
-    pub island: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub island: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Black start enable
     #[prost(message, optional, tag="4")]
     #[serde(default, rename = "pctHzDroop")]
@@ -29,15 +29,15 @@ pub struct InterconnectionPoint {
     /// Enable reactive power set point
     #[prost(message, optional, tag="7")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable real power set point
     #[prost(message, optional, tag="8")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="9")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Start time
     // parent_message: false
     // required_field: true
@@ -52,15 +52,15 @@ pub struct InterconnectionPoint {
 mod interconnection_point {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref ISLAND: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref ISLAND: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::Timestamp = Default::default();
     }
 }
@@ -69,22 +69,22 @@ impl InterconnectionPoint {
 pub trait IsInterconnectionPoint {
     fn _interconnection_point(&self) -> &InterconnectionPoint;
     fn _interconnection_point_mut(&mut self) -> &mut InterconnectionPoint;
-    fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn black_start_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().black_start_enabled.as_ref().unwrap_or(&interconnection_point::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().frequency_set_point_enabled.as_ref().unwrap_or(&interconnection_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
-    fn island(&self) -> &super::commonmodule::ControlDpc {
+    fn island(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().island.as_ref().unwrap_or(&interconnection_point::ISLAND)
     }
-    fn island_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn island_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().island.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
@@ -105,22 +105,22 @@ pub trait IsInterconnectionPoint {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._interconnection_point_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&interconnection_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&interconnection_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._interconnection_point().voltage_set_point_enabled.as_ref().unwrap_or(&interconnection_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._interconnection_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::Timestamp {

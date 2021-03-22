@@ -844,11 +844,11 @@ pub struct EssPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "blackStartEnabled")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// ESS function parameter
     #[prost(message, optional, tag="3")]
     #[serde(default)]
@@ -872,11 +872,11 @@ pub struct EssPointStatus {
     /// Enable reactive power set point
     #[prost(message, optional, tag="8")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable real power set point
     #[prost(message, optional, tag="9")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// ESS state
     #[prost(message, optional, tag="10")]
     #[serde(default)]
@@ -884,32 +884,32 @@ pub struct EssPointStatus {
     /// Synchronize back to grid
     #[prost(message, optional, tag="11")]
     #[serde(default, rename = "syncBackToGrid")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="12")]
     #[serde(default, rename = "transToIslndOnGridLossEnabled")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="13")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod ess_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref FUNCTION: crate::essmodule::EssFunction = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
     }
 }
 impl EssPointStatus {
@@ -917,16 +917,16 @@ impl EssPointStatus {
 pub trait IsEssPointStatus {
     fn _ess_point_status(&self) -> &EssPointStatus;
     fn _ess_point_status_mut(&mut self) -> &mut EssPointStatus;
-    fn black_start_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn black_start_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().black_start_enabled.as_ref().unwrap_or(&ess_point_status::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&ess_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn function(&self) -> &EssFunction {
@@ -959,16 +959,16 @@ pub trait IsEssPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._ess_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -977,22 +977,22 @@ pub trait IsEssPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._ess_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusDps {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().sync_back_to_grid.as_ref().unwrap_or(&ess_point_status::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&ess_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._ess_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&ess_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._ess_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -1975,11 +1975,11 @@ pub struct EssPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "blackStartEnabled")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// ESS function parameter
     #[prost(message, optional, tag="3")]
     #[serde(default)]
@@ -2003,15 +2003,15 @@ pub struct EssPoint {
     /// Enable reactive power set point
     #[prost(message, optional, tag="8")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable real power set point
     #[prost(message, optional, tag="9")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Reset device
     #[prost(message, optional, tag="10")]
     #[serde(default)]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reset: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// ESS state
     #[prost(message, optional, tag="11")]
     #[serde(default)]
@@ -2019,15 +2019,15 @@ pub struct EssPoint {
     /// Synchronize back to grid
     #[prost(message, optional, tag="12")]
     #[serde(default, rename = "syncBackToGrid")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="13")]
     #[serde(default, rename = "transToIslndOnGridLossEnabled")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="14")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Start time
     // parent_message: false
     // required_field: true
@@ -2042,20 +2042,20 @@ pub struct EssPoint {
 mod ess_point {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref FUNCTION: crate::essmodule::EssFunction = Default::default();
         pub(super) static ref MODE: crate::commonmodule::EngGridConnectModeKind = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
@@ -2064,16 +2064,16 @@ impl EssPoint {
 pub trait IsEssPoint {
     fn _ess_point(&self) -> &EssPoint;
     fn _ess_point_mut(&mut self) -> &mut EssPoint;
-    fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn black_start_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().black_start_enabled.as_ref().unwrap_or(&ess_point::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().frequency_set_point_enabled.as_ref().unwrap_or(&ess_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn function(&self) -> &EssFunction {
@@ -2106,22 +2106,22 @@ pub trait IsEssPoint {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._ess_point_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&ess_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
+    fn reset(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().reset.as_ref().unwrap_or(&ess_point::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -2130,22 +2130,22 @@ pub trait IsEssPoint {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._ess_point_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().sync_back_to_grid.as_ref().unwrap_or(&ess_point::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&ess_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._ess_point().voltage_set_point_enabled.as_ref().unwrap_or(&ess_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._ess_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {

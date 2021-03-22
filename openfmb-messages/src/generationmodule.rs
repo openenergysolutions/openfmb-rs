@@ -5,11 +5,11 @@ pub struct GenerationPoint {
     /// Black start enable
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "blackStartEnabled")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Black start enable
     #[prost(message, optional, tag="3")]
     #[serde(default, rename = "pctHzDroop")]
@@ -25,15 +25,15 @@ pub struct GenerationPoint {
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable joint real power set point
     #[prost(message, optional, tag="7")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Reset device
     #[prost(message, optional, tag="8")]
     #[serde(default)]
-    pub reset: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub reset: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// ESS state
     #[prost(message, optional, tag="9")]
     #[serde(default)]
@@ -41,15 +41,15 @@ pub struct GenerationPoint {
     /// Synchronize back to grid
     #[prost(message, optional, tag="10")]
     #[serde(default, rename = "syncBackToGrid")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="11")]
     #[serde(default, rename = "transToIslndOnGridLossEnabled")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Enable voltage set point
     #[prost(message, optional, tag="12")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlDpc>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::ControlSpc>,
     /// Start time
     // parent_message: false
     // required_field: true
@@ -64,18 +64,18 @@ pub struct GenerationPoint {
 mod generation_point {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref RESET: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref RESET: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlDpc = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlDpc = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::ControlSpc = Default::default();
         pub(super) static ref START_TIME: crate::commonmodule::ControlTimestamp = Default::default();
     }
 }
@@ -84,16 +84,16 @@ impl GenerationPoint {
 pub trait IsGenerationPoint {
     fn _generation_point(&self) -> &GenerationPoint;
     fn _generation_point_mut(&mut self) -> &mut GenerationPoint;
-    fn black_start_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn black_start_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().black_start_enabled.as_ref().unwrap_or(&generation_point::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().frequency_set_point_enabled.as_ref().unwrap_or(&generation_point::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
@@ -114,22 +114,22 @@ pub trait IsGenerationPoint {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._generation_point_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().real_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn reset(&self) -> &super::commonmodule::ControlDpc {
+    fn reset(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().reset.as_ref().unwrap_or(&generation_point::RESET)
     }
-    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn reset_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().reset.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -138,22 +138,22 @@ pub trait IsGenerationPoint {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._generation_point_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlDpc {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().sync_back_to_grid.as_ref().unwrap_or(&generation_point::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&generation_point::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::ControlSpc {
         self._generation_point().voltage_set_point_enabled.as_ref().unwrap_or(&generation_point::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlDpc {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::ControlSpc {
         self._generation_point_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
     fn start_time(&self) -> &super::commonmodule::ControlTimestamp {
@@ -604,37 +604,6 @@ impl IsIdentifiedObject for GenerationControlProfile {
         self.parent_mut().parent_mut().parent_mut()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
-pub struct OptionalRealPowerControlKind {
-    #[prost(enumeration="RealPowerControlKind", tag="1")]
-    #[serde(default)]
-    pub value: i32,
-}
-mod optional_real_power_control_kind {
-    use lazy_static::lazy_static;
-    lazy_static! {
-    }
-}
-impl OptionalRealPowerControlKind {
-}
-pub trait IsOptionalRealPowerControlKind {
-    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind;
-    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind;
-    fn value(&self) -> i32 {
-        self._optional_real_power_control_kind().value
-    }
-    fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_real_power_control_kind_mut().value
-    }
-}
-impl IsOptionalRealPowerControlKind for OptionalRealPowerControlKind {
-    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind {
-        self
-    }
-    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind {
-        self
-    }
-}
 /// Generation discrete control
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct DroopParameter {
@@ -694,7 +663,7 @@ pub struct RealPowerControl {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
     #[serde(default, rename = "realPowerControlMode")]
-    pub real_power_control_mode: ::std::option::Option<OptionalRealPowerControlKind>,
+    pub real_power_control_mode: ::std::option::Option<super::commonmodule::OptionalRealPowerControlKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
     #[serde(default, rename = "realPowerSetpoint")]
@@ -705,7 +674,7 @@ mod real_power_control {
     lazy_static! {
         pub(super) static ref DROOP_SETPOINT: crate::generationmodule::DroopParameter = Default::default();
         pub(super) static ref ISOCHRONOUS_SETPOINT: f32 = Default::default();
-        pub(super) static ref REAL_POWER_CONTROL_MODE: crate::generationmodule::OptionalRealPowerControlKind = Default::default();
+        pub(super) static ref REAL_POWER_CONTROL_MODE: crate::commonmodule::OptionalRealPowerControlKind = Default::default();
         pub(super) static ref REAL_POWER_SETPOINT: f32 = Default::default();
     }
 }
@@ -726,10 +695,10 @@ pub trait IsRealPowerControl {
     fn isochronous_setpoint_mut(&mut self) -> &mut f32 {
         self._real_power_control_mut().isochronous_setpoint.get_or_insert(Default::default())
     }
-    fn real_power_control_mode(&self) -> &OptionalRealPowerControlKind {
+    fn real_power_control_mode(&self) -> &super::commonmodule::OptionalRealPowerControlKind {
         self._real_power_control().real_power_control_mode.as_ref().unwrap_or(&real_power_control::REAL_POWER_CONTROL_MODE)
     }
-    fn real_power_control_mode_mut(&mut self) -> &mut OptionalRealPowerControlKind {
+    fn real_power_control_mode_mut(&mut self) -> &mut super::commonmodule::OptionalRealPowerControlKind {
         self._real_power_control_mut().real_power_control_mode.get_or_insert(Default::default())
     }
     fn real_power_setpoint(&self) -> &f32 {
@@ -747,37 +716,6 @@ impl IsRealPowerControl for RealPowerControl {
         self
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
-pub struct OptionalReactivePowerControlKind {
-    #[prost(enumeration="ReactivePowerControlKind", tag="1")]
-    #[serde(default)]
-    pub value: i32,
-}
-mod optional_reactive_power_control_kind {
-    use lazy_static::lazy_static;
-    lazy_static! {
-    }
-}
-impl OptionalReactivePowerControlKind {
-}
-pub trait IsOptionalReactivePowerControlKind {
-    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind;
-    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind;
-    fn value(&self) -> i32 {
-        self._optional_reactive_power_control_kind().value
-    }
-    fn value_mut(&mut self) -> &mut i32 {
-        &mut self._optional_reactive_power_control_kind_mut().value
-    }
-}
-impl IsOptionalReactivePowerControlKind for OptionalReactivePowerControlKind {
-    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind {
-        self
-    }
-    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind {
-        self
-    }
-}
 /// Generation real power control
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct ReactivePowerControl {
@@ -792,7 +730,7 @@ pub struct ReactivePowerControl {
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="3")]
     #[serde(default, rename = "reactivePowerControlMode")]
-    pub reactive_power_control_mode: ::std::option::Option<OptionalReactivePowerControlKind>,
+    pub reactive_power_control_mode: ::std::option::Option<super::commonmodule::OptionalReactivePowerControlKind>,
     /// MISSING DOCUMENTATION!!!
     #[prost(message, optional, tag="4")]
     #[serde(default, rename = "reactivePowerSetpoint")]
@@ -807,7 +745,7 @@ mod reactive_power_control {
     lazy_static! {
         pub(super) static ref DROOP_SETPOINT: crate::generationmodule::DroopParameter = Default::default();
         pub(super) static ref POWER_FACTOR_SETPOINT: f32 = Default::default();
-        pub(super) static ref REACTIVE_POWER_CONTROL_MODE: crate::generationmodule::OptionalReactivePowerControlKind = Default::default();
+        pub(super) static ref REACTIVE_POWER_CONTROL_MODE: crate::commonmodule::OptionalReactivePowerControlKind = Default::default();
         pub(super) static ref REACTIVE_POWER_SETPOINT: f32 = Default::default();
         pub(super) static ref VOLTAGE_SETPOINT: f32 = Default::default();
     }
@@ -829,10 +767,10 @@ pub trait IsReactivePowerControl {
     fn power_factor_setpoint_mut(&mut self) -> &mut f32 {
         self._reactive_power_control_mut().power_factor_setpoint.get_or_insert(Default::default())
     }
-    fn reactive_power_control_mode(&self) -> &OptionalReactivePowerControlKind {
+    fn reactive_power_control_mode(&self) -> &super::commonmodule::OptionalReactivePowerControlKind {
         self._reactive_power_control().reactive_power_control_mode.as_ref().unwrap_or(&reactive_power_control::REACTIVE_POWER_CONTROL_MODE)
     }
-    fn reactive_power_control_mode_mut(&mut self) -> &mut OptionalReactivePowerControlKind {
+    fn reactive_power_control_mode_mut(&mut self) -> &mut super::commonmodule::OptionalReactivePowerControlKind {
         self._reactive_power_control_mut().reactive_power_control_mode.get_or_insert(Default::default())
     }
     fn reactive_power_setpoint(&self) -> &f32 {
@@ -1254,11 +1192,11 @@ pub struct GenerationPointStatus {
     /// Black start enable
     #[prost(message, optional, tag="1")]
     #[serde(default, rename = "blackStartEnabled")]
-    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub black_start_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable frequency set point
     #[prost(message, optional, tag="2")]
     #[serde(default, rename = "frequencySetPointEnabled")]
-    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub frequency_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Black start enable
     #[prost(message, optional, tag="3")]
     #[serde(default, rename = "pctHzDroop")]
@@ -1274,11 +1212,11 @@ pub struct GenerationPointStatus {
     /// Enable reactive power set point
     #[prost(message, optional, tag="6")]
     #[serde(default, rename = "reactivePwrSetPointEnabled")]
-    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub reactive_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable real power set point
     #[prost(message, optional, tag="7")]
     #[serde(default, rename = "realPwrSetPointEnabled")]
-    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub real_pwr_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// ESS state
     #[prost(message, optional, tag="8")]
     #[serde(default)]
@@ -1286,30 +1224,30 @@ pub struct GenerationPointStatus {
     /// Synchronize back to grid
     #[prost(message, optional, tag="9")]
     #[serde(default, rename = "syncBackToGrid")]
-    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub sync_back_to_grid: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Transition to island on grid loss enable
     #[prost(message, optional, tag="10")]
     #[serde(default, rename = "transToIslndOnGridLossEnabled")]
-    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub trans_to_islnd_on_grid_loss_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
     /// Enable voltage set point
     #[prost(message, optional, tag="11")]
     #[serde(default, rename = "voltageSetPointEnabled")]
-    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusDps>,
+    pub voltage_set_point_enabled: ::std::option::Option<super::commonmodule::StatusSps>,
 }
 mod generation_point_status {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref BLACK_START_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref FREQUENCY_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref PCT_HZ_DROOP: f32 = Default::default();
         pub(super) static ref PCT_V_DROOP: f32 = Default::default();
         pub(super) static ref RAMP_RATES: crate::commonmodule::RampRate = Default::default();
-        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref REACTIVE_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref REAL_PWR_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
         pub(super) static ref STATE: crate::commonmodule::OptionalStateKind = Default::default();
-        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusDps = Default::default();
-        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusDps = Default::default();
+        pub(super) static ref SYNC_BACK_TO_GRID: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED: crate::commonmodule::StatusSps = Default::default();
+        pub(super) static ref VOLTAGE_SET_POINT_ENABLED: crate::commonmodule::StatusSps = Default::default();
     }
 }
 impl GenerationPointStatus {
@@ -1317,16 +1255,16 @@ impl GenerationPointStatus {
 pub trait IsGenerationPointStatus {
     fn _generation_point_status(&self) -> &GenerationPointStatus;
     fn _generation_point_status_mut(&mut self) -> &mut GenerationPointStatus;
-    fn black_start_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn black_start_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().black_start_enabled.as_ref().unwrap_or(&generation_point_status::BLACK_START_ENABLED)
     }
-    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn black_start_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().black_start_enabled.get_or_insert(Default::default())
     }
-    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().frequency_set_point_enabled.as_ref().unwrap_or(&generation_point_status::FREQUENCY_SET_POINT_ENABLED)
     }
-    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn frequency_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().frequency_set_point_enabled.get_or_insert(Default::default())
     }
     fn pct_hz_droop(&self) -> &f32 {
@@ -1347,16 +1285,16 @@ pub trait IsGenerationPointStatus {
     fn ramp_rates_mut(&mut self) -> &mut super::commonmodule::RampRate {
         self._generation_point_status_mut().ramp_rates.get_or_insert(Default::default())
     }
-    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().reactive_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REACTIVE_PWR_SET_POINT_ENABLED)
     }
-    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn reactive_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().reactive_pwr_set_point_enabled.get_or_insert(Default::default())
     }
-    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().real_pwr_set_point_enabled.as_ref().unwrap_or(&generation_point_status::REAL_PWR_SET_POINT_ENABLED)
     }
-    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn real_pwr_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().real_pwr_set_point_enabled.get_or_insert(Default::default())
     }
     fn state(&self) -> &super::commonmodule::OptionalStateKind {
@@ -1365,22 +1303,22 @@ pub trait IsGenerationPointStatus {
     fn state_mut(&mut self) -> &mut super::commonmodule::OptionalStateKind {
         self._generation_point_status_mut().state.get_or_insert(Default::default())
     }
-    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusDps {
+    fn sync_back_to_grid(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().sync_back_to_grid.as_ref().unwrap_or(&generation_point_status::SYNC_BACK_TO_GRID)
     }
-    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn sync_back_to_grid_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().sync_back_to_grid.get_or_insert(Default::default())
     }
-    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn trans_to_islnd_on_grid_loss_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().trans_to_islnd_on_grid_loss_enabled.as_ref().unwrap_or(&generation_point_status::TRANS_TO_ISLND_ON_GRID_LOSS_ENABLED)
     }
-    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn trans_to_islnd_on_grid_loss_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().trans_to_islnd_on_grid_loss_enabled.get_or_insert(Default::default())
     }
-    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled(&self) -> &super::commonmodule::StatusSps {
         self._generation_point_status().voltage_set_point_enabled.as_ref().unwrap_or(&generation_point_status::VOLTAGE_SET_POINT_ENABLED)
     }
-    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusDps {
+    fn voltage_set_point_enabled_mut(&mut self) -> &mut super::commonmodule::StatusSps {
         self._generation_point_status_mut().voltage_set_point_enabled.get_or_insert(Default::default())
     }
 }
@@ -2028,47 +1966,4 @@ impl IsIdentifiedObject for GenerationStatusProfile {
     fn _identified_object_mut(&mut self) -> &mut IdentifiedObject {
         self.parent_mut().parent_mut().parent_mut()
     }
-}
-/// Real power control kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
-#[repr(i32)]
-pub enum RealPowerControlKind {
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "RealPowerControlKind_UNDEFINED")]
-    Undefined = 0,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "RealPowerControlKind_advanced")]
-    Advanced = 1,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "RealPowerControlKind_droop")]
-    Droop = 2,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "RealPowerControlKind_isochronous")]
-    Isochronous = 3,
-    /// Real power setpoint
-    #[serde(rename = "RealPowerControlKind_realPower")]
-    RealPower = 4,
-}
-/// Real power control kind
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
-#[repr(i32)]
-pub enum ReactivePowerControlKind {
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "ReactivePowerControlKind_UNDEFINED")]
-    Undefined = 0,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "ReactivePowerControlKind_advanced")]
-    Advanced = 1,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "ReactivePowerControlKind_droop")]
-    Droop = 2,
-    /// Voltage setpoint
-    #[serde(rename = "ReactivePowerControlKind_voltage")]
-    Voltage = 3,
-    /// Reactive power setpoint
-    #[serde(rename = "ReactivePowerControlKind_reactivePower")]
-    ReactivePower = 4,
-    /// MISSING DOCUMENTATION!!!
-    #[serde(rename = "ReactivePowerControlKind_powerFactor")]
-    PowerFactor = 5,
 }

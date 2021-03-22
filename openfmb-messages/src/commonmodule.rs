@@ -1455,15 +1455,10 @@ pub struct Asg {
     #[prost(double, tag="1")]
     #[serde(default, rename = "setMag")]
     pub set_mag: f64,
-    /// Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
-    #[prost(message, optional, tag="2")]
-    #[serde(default)]
-    pub units: ::std::option::Option<Unit>,
 }
 mod asg {
     use lazy_static::lazy_static;
     lazy_static! {
-        pub(super) static ref UNITS: crate::commonmodule::Unit = Default::default();
     }
 }
 impl Asg {
@@ -1476,12 +1471,6 @@ pub trait IsAsg {
     }
     fn set_mag_mut(&mut self) -> &mut f64 {
         &mut self._asg_mut().set_mag
-    }
-    fn units(&self) -> &Unit {
-        self._asg().units.as_ref().unwrap_or(&asg::UNITS)
-    }
-    fn units_mut(&mut self) -> &mut Unit {
-        self._asg_mut().units.get_or_insert(Default::default())
     }
 }
 impl IsAsg for Asg {
@@ -5565,6 +5554,73 @@ impl IsPhaseRecloseAction for PhaseRecloseAction {
         self
     }
 }
+/// [OpenFMB CDC extension] Per Phase SPC.
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct PhaseSpc {
+    /// 3 Phase control.
+    #[prost(message, optional, tag="1")]
+    #[serde(default)]
+    pub phs3: ::std::option::Option<ControlSpc>,
+    /// Phase A control.
+    #[prost(message, optional, tag="2")]
+    #[serde(default, rename = "phsA")]
+    pub phs_a: ::std::option::Option<ControlSpc>,
+    /// Phase B control.
+    #[prost(message, optional, tag="3")]
+    #[serde(default, rename = "phsB")]
+    pub phs_b: ::std::option::Option<ControlSpc>,
+    /// Phase C control.
+    #[prost(message, optional, tag="4")]
+    #[serde(default, rename = "phsC")]
+    pub phs_c: ::std::option::Option<ControlSpc>,
+}
+mod phase_spc {
+    use lazy_static::lazy_static;
+    lazy_static! {
+        pub(super) static ref PHS3: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref PHS_A: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref PHS_B: crate::commonmodule::ControlSpc = Default::default();
+        pub(super) static ref PHS_C: crate::commonmodule::ControlSpc = Default::default();
+    }
+}
+impl PhaseSpc {
+}
+pub trait IsPhaseSpc {
+    fn _phase_spc(&self) -> &PhaseSpc;
+    fn _phase_spc_mut(&mut self) -> &mut PhaseSpc;
+    fn phs3(&self) -> &ControlSpc {
+        self._phase_spc().phs3.as_ref().unwrap_or(&phase_spc::PHS3)
+    }
+    fn phs3_mut(&mut self) -> &mut ControlSpc {
+        self._phase_spc_mut().phs3.get_or_insert(Default::default())
+    }
+    fn phs_a(&self) -> &ControlSpc {
+        self._phase_spc().phs_a.as_ref().unwrap_or(&phase_spc::PHS_A)
+    }
+    fn phs_a_mut(&mut self) -> &mut ControlSpc {
+        self._phase_spc_mut().phs_a.get_or_insert(Default::default())
+    }
+    fn phs_b(&self) -> &ControlSpc {
+        self._phase_spc().phs_b.as_ref().unwrap_or(&phase_spc::PHS_B)
+    }
+    fn phs_b_mut(&mut self) -> &mut ControlSpc {
+        self._phase_spc_mut().phs_b.get_or_insert(Default::default())
+    }
+    fn phs_c(&self) -> &ControlSpc {
+        self._phase_spc().phs_c.as_ref().unwrap_or(&phase_spc::PHS_C)
+    }
+    fn phs_c_mut(&mut self) -> &mut ControlSpc {
+        self._phase_spc_mut().phs_c.get_or_insert(Default::default())
+    }
+}
+impl IsPhaseSpc for PhaseSpc {
+    fn _phase_spc(&self) -> &PhaseSpc {
+        self
+    }
+    fn _phase_spc_mut(&mut self) -> &mut PhaseSpc {
+        self
+    }
+}
 /// [OpenFMB CDC extension] Per Phase DPS.
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct PhaseSps {
@@ -6577,67 +6633,6 @@ impl IsIdentifiedObject for StatusMessageInfo {
         self.parent_mut().parent_mut()
     }
 }
-/// Controllable single point (SPC)
-#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
-pub struct StatusSpc {
-    /// Quality of the value in 'stVal'.
-    #[prost(message, optional, tag="1")]
-    #[serde(default)]
-    pub q: ::std::option::Option<Quality>,
-    /// Status value of the controllable data object.
-    // parent_message: false
-    // required_field: true
-    // multiplicity_min: Some(1)
-    // multiplicity_max: None
-    // uuid: false
-    // key: false
-    #[prost(bool, tag="2")]
-    #[serde(default, rename = "stVal")]
-    pub st_val: bool,
-    /// Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    #[prost(message, optional, tag="3")]
-    #[serde(default)]
-    pub t: ::std::option::Option<Timestamp>,
-}
-mod status_spc {
-    use lazy_static::lazy_static;
-    lazy_static! {
-        pub(super) static ref Q: crate::commonmodule::Quality = Default::default();
-        pub(super) static ref T: crate::commonmodule::Timestamp = Default::default();
-    }
-}
-impl StatusSpc {
-}
-pub trait IsStatusSpc {
-    fn _status_spc(&self) -> &StatusSpc;
-    fn _status_spc_mut(&mut self) -> &mut StatusSpc;
-    fn q(&self) -> &Quality {
-        self._status_spc().q.as_ref().unwrap_or(&status_spc::Q)
-    }
-    fn q_mut(&mut self) -> &mut Quality {
-        self._status_spc_mut().q.get_or_insert(Default::default())
-    }
-    fn st_val(&self) -> bool {
-        self._status_spc().st_val
-    }
-    fn st_val_mut(&mut self) -> &mut bool {
-        &mut self._status_spc_mut().st_val
-    }
-    fn t(&self) -> &Timestamp {
-        self._status_spc().t.as_ref().unwrap_or(&status_spc::T)
-    }
-    fn t_mut(&mut self) -> &mut Timestamp {
-        self._status_spc_mut().t.get_or_insert(Default::default())
-    }
-}
-impl IsStatusSpc for StatusSpc {
-    fn _status_spc(&self) -> &StatusSpc {
-        self
-    }
-    fn _status_spc_mut(&mut self) -> &mut StatusSpc {
-        self
-    }
-}
 /// Status value
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct StatusValue {
@@ -6990,6 +6985,130 @@ impl IsVsc for Vsc {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct OptionalControlModeKind {
+    #[prost(enumeration="ControlModeKind", tag="1")]
+    #[serde(default)]
+    pub value: i32,
+}
+mod optional_control_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+impl OptionalControlModeKind {
+}
+pub trait IsOptionalControlModeKind {
+    fn _optional_control_mode_kind(&self) -> &OptionalControlModeKind;
+    fn _optional_control_mode_kind_mut(&mut self) -> &mut OptionalControlModeKind;
+    fn value(&self) -> i32 {
+        self._optional_control_mode_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_control_mode_kind_mut().value
+    }
+}
+impl IsOptionalControlModeKind for OptionalControlModeKind {
+    fn _optional_control_mode_kind(&self) -> &OptionalControlModeKind {
+        self
+    }
+    fn _optional_control_mode_kind_mut(&mut self) -> &mut OptionalControlModeKind {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct OptionalDirectionModeKind {
+    #[prost(enumeration="DirectionModeKind", tag="1")]
+    #[serde(default)]
+    pub value: i32,
+}
+mod optional_direction_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+impl OptionalDirectionModeKind {
+}
+pub trait IsOptionalDirectionModeKind {
+    fn _optional_direction_mode_kind(&self) -> &OptionalDirectionModeKind;
+    fn _optional_direction_mode_kind_mut(&mut self) -> &mut OptionalDirectionModeKind;
+    fn value(&self) -> i32 {
+        self._optional_direction_mode_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_direction_mode_kind_mut().value
+    }
+}
+impl IsOptionalDirectionModeKind for OptionalDirectionModeKind {
+    fn _optional_direction_mode_kind(&self) -> &OptionalDirectionModeKind {
+        self
+    }
+    fn _optional_direction_mode_kind_mut(&mut self) -> &mut OptionalDirectionModeKind {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct OptionalReactivePowerControlKind {
+    #[prost(enumeration="ReactivePowerControlKind", tag="1")]
+    #[serde(default)]
+    pub value: i32,
+}
+mod optional_reactive_power_control_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+impl OptionalReactivePowerControlKind {
+}
+pub trait IsOptionalReactivePowerControlKind {
+    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind;
+    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind;
+    fn value(&self) -> i32 {
+        self._optional_reactive_power_control_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_reactive_power_control_kind_mut().value
+    }
+}
+impl IsOptionalReactivePowerControlKind for OptionalReactivePowerControlKind {
+    fn _optional_reactive_power_control_kind(&self) -> &OptionalReactivePowerControlKind {
+        self
+    }
+    fn _optional_reactive_power_control_kind_mut(&mut self) -> &mut OptionalReactivePowerControlKind {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct OptionalRealPowerControlKind {
+    #[prost(enumeration="RealPowerControlKind", tag="1")]
+    #[serde(default)]
+    pub value: i32,
+}
+mod optional_real_power_control_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+impl OptionalRealPowerControlKind {
+}
+pub trait IsOptionalRealPowerControlKind {
+    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind;
+    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind;
+    fn value(&self) -> i32 {
+        self._optional_real_power_control_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_real_power_control_kind_mut().value
+    }
+}
+impl IsOptionalRealPowerControlKind for OptionalRealPowerControlKind {
+    fn _optional_real_power_control_kind(&self) -> &OptionalRealPowerControlKind {
+        self
+    }
+    fn _optional_real_power_control_kind_mut(&mut self) -> &mut OptionalRealPowerControlKind {
+        self
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct OptionalStateKind {
     #[prost(enumeration="StateKind", tag="1")]
     #[serde(default)]
@@ -7020,36 +7139,73 @@ impl IsOptionalStateKind for OptionalStateKind {
         self
     }
 }
+#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]
+pub struct OptionalVoltLimitModeKind {
+    #[prost(enumeration="VoltLimitModeKind", tag="1")]
+    #[serde(default)]
+    pub value: i32,
+}
+mod optional_volt_limit_mode_kind {
+    use lazy_static::lazy_static;
+    lazy_static! {
+    }
+}
+impl OptionalVoltLimitModeKind {
+}
+pub trait IsOptionalVoltLimitModeKind {
+    fn _optional_volt_limit_mode_kind(&self) -> &OptionalVoltLimitModeKind;
+    fn _optional_volt_limit_mode_kind_mut(&mut self) -> &mut OptionalVoltLimitModeKind;
+    fn value(&self) -> i32 {
+        self._optional_volt_limit_mode_kind().value
+    }
+    fn value_mut(&mut self) -> &mut i32 {
+        &mut self._optional_volt_limit_mode_kind_mut().value
+    }
+}
+impl IsOptionalVoltLimitModeKind for OptionalVoltLimitModeKind {
+    fn _optional_volt_limit_mode_kind(&self) -> &OptionalVoltLimitModeKind {
+        self
+    }
+    fn _optional_volt_limit_mode_kind_mut(&mut self) -> &mut OptionalVoltLimitModeKind {
+        self
+    }
+}
 /// Reclose action kind such as idle, cycling, or lockout.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum FaultDirectionKind {
+    /// Undefined
+    #[serde(rename = "FaultDirectionKind_UNDEFINED")]
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "FaultDirectionKind_unknown")]
-    Unknown = 0,
+    Unknown = 1,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "FaultDirectionKind_forward")]
-    Forward = 1,
+    Forward = 2,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "FaultDirectionKind_backward")]
-    Backward = 2,
+    Backward = 3,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "FaultDirectionKind_both")]
-    Both = 3,
+    Both = 4,
 }
 /// Reclose action kind such as idle, cycling, or lockout.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum PhaseFaultDirectionKind {
+    /// Undefined
+    #[serde(rename = "PhaseFaultDirectionKind_UNDEFINED")]
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "PhaseFaultDirectionKind_unknown")]
-    Unknown = 0,
+    Unknown = 1,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "PhaseFaultDirectionKind_forward")]
-    Forward = 1,
+    Forward = 2,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "PhaseFaultDirectionKind_backward")]
-    Backward = 2,
+    Backward = 3,
 }
 /// The units defined for usage in the CIM.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
@@ -7168,42 +7324,45 @@ pub enum UnitSymbolKind {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum UnitMultiplierKind {
+    /// Undefined
+    #[serde(rename = "UnitMultiplierKind_UNDEFINED")]
+    Undefined = 0,
     /// No multiplier or equivalently multiply by 1.
     #[serde(rename = "UnitMultiplierKind_none")]
-    None = 0,
+    None = 1,
     /// Other enum not listed
     #[serde(rename = "UnitMultiplierKind_other")]
-    Other = 1,
+    Other = 2,
     /// Centi 10**-2.
     #[serde(rename = "UnitMultiplierKind_centi")]
-    Centi = 2,
+    Centi = 3,
     /// Deci 10**-1.
     #[serde(rename = "UnitMultiplierKind_deci")]
-    Deci = 3,
+    Deci = 4,
     /// Giga 10**9.
     #[serde(rename = "UnitMultiplierKind_Giga")]
-    Giga = 4,
+    Giga = 5,
     /// Kilo 10**3.
     #[serde(rename = "UnitMultiplierKind_kilo")]
-    Kilo = 5,
+    Kilo = 6,
     /// Mega 10**6.
     #[serde(rename = "UnitMultiplierKind_Mega")]
-    Mega = 6,
+    Mega = 7,
     /// Micro 10**-6.
     #[serde(rename = "UnitMultiplierKind_micro")]
-    Micro = 7,
+    Micro = 8,
     /// Milli 10**-3.
     #[serde(rename = "UnitMultiplierKind_milli")]
-    Milli = 8,
+    Milli = 9,
     /// Nano 10**-9.
     #[serde(rename = "UnitMultiplierKind_nano")]
-    Nano = 9,
+    Nano = 10,
     /// Pico 10**-12.
     #[serde(rename = "UnitMultiplierKind_pico")]
-    Pico = 10,
+    Pico = 11,
     /// Tera 10**12.
     #[serde(rename = "UnitMultiplierKind_Tera")]
-    Tera = 11,
+    Tera = 12,
 }
 /// Enumeration of phase identifiers. Allows designation of phases for both transmission and
 /// distribution equipment, circuits and loads. Residential and small commercial loads are often served
@@ -7289,24 +7448,27 @@ pub enum PhaseCodeKind {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum ValidityKind {
+    /// Undefined
+    #[serde(rename = "ValidityKind_UNDEFINED")]
+    Undefined = 0,
     /// Supervision function has detected no abnormal condition of either the acquisition function or
     /// the information source.
     #[serde(rename = "ValidityKind_good")]
-    Good = 0,
+    Good = 1,
     /// Supervision function has detected an abnormal condition of the acquisition function or the
     /// information source (missing or non-operating updating devices). The value is not defined under this
     /// condition. It shall be used to indicate to the client that the value may be incorrect and shall not
     /// be used.  EXAMPLE If an input unit detects an oscillation of one input it will mark the related
     /// information as invalid.
     #[serde(rename = "ValidityKind_invalid")]
-    Invalid = 1,
+    Invalid = 2,
     /// Reserved
     #[serde(rename = "ValidityKind_reserved")]
-    Reserved = 2,
+    Reserved = 3,
     /// Supervision function has detected any abnormal behaviour. However, the value could still be
     /// valid. It is client's responsibility to determine whether the values should be used.
     #[serde(rename = "ValidityKind_questionable")]
-    Questionable = 3,
+    Questionable = 4,
 }
 /// (default=process) Defines the source of a value. NOTE 1 Substitution may be done locally or via
 /// the communication services. In the second case, specific attributes with a FC=SV are used. NOTE 2
@@ -7316,13 +7478,16 @@ pub enum ValidityKind {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum SourceKind {
+    /// Undefined
+    #[serde(rename = "SourceKind_UNDEFINED")]
+    Undefined = 0,
     /// The value is provided by an input function from the process I/O or is calculated from some
     /// application function.
     #[serde(rename = "SourceKind_process")]
-    Process = 0,
+    Process = 1,
     /// The value is provided by an operator input or by an automatic source.
     #[serde(rename = "SourceKind_substituted")]
-    Substituted = 1,
+    Substituted = 2,
 }
 /// Validity of the value, as condensed information for the client. In case this value is not
 /// 'good', some reasons may be found in the 'detailQual'.
@@ -7358,138 +7523,141 @@ pub enum TimeAccuracyKind {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum ScheduleParameterKind {
+    /// Undefined
+    #[serde(rename = "ScheduleParameterKind_UNDEFINED")]
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_none")]
-    None = 0,
+    None = 1,
     /// Other enum not listed
     #[serde(rename = "ScheduleParameterKind_other")]
-    Other = 1,
+    Other = 2,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_A_net_mag")]
-    ANetMag = 2,
+    ANetMag = 3,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_A_neut_mag")]
-    ANeutMag = 3,
+    ANeutMag = 4,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_A_phsA_mag")]
-    APhsAMag = 4,
+    APhsAMag = 5,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_A_phsB_mag")]
-    APhsBMag = 5,
+    APhsBMag = 6,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_A_phsC_mag")]
-    APhsCMag = 6,
+    APhsCMag = 7,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_Hz_mag")]
-    HzMag = 7,
+    HzMag = 8,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PF_net_mag")]
-    PfNetMag = 8,
+    PfNetMag = 9,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PF_neut_mag")]
-    PfNeutMag = 9,
+    PfNeutMag = 10,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PF_phsA_mag")]
-    PfPhsAMag = 10,
+    PfPhsAMag = 11,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PF_phsB_mag")]
-    PfPhsBMag = 11,
+    PfPhsBMag = 12,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PF_phsC_mag")]
-    PfPhsCMag = 12,
+    PfPhsCMag = 13,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_net_ang")]
-    PhVNetAng = 13,
+    PhVNetAng = 14,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_net_mag")]
-    PhVNetMag = 14,
+    PhVNetMag = 15,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_neut_ang")]
-    PhVNeutAng = 15,
+    PhVNeutAng = 16,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_neut_mag")]
-    PhVNeutMag = 16,
+    PhVNeutMag = 17,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsA_ang")]
-    PhVPhsAAng = 17,
+    PhVPhsAAng = 18,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsA_mag")]
-    PhVPhsAMag = 18,
+    PhVPhsAMag = 19,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsB_ang")]
-    PhVPhsBAng = 19,
+    PhVPhsBAng = 20,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsB_mag")]
-    PhVPhsBMag = 20,
+    PhVPhsBMag = 21,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsC_ang")]
-    PhVPhsCAng = 21,
+    PhVPhsCAng = 22,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PhV_phsC_mag")]
-    PhVPhsCMag = 22,
+    PhVPhsCMag = 23,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsAB_ang")]
-    PpvPhsAbAng = 23,
+    PpvPhsAbAng = 24,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsAB_mag")]
-    PpvPhsAbMag = 24,
+    PpvPhsAbMag = 25,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsBC_ang")]
-    PpvPhsBcAng = 25,
+    PpvPhsBcAng = 26,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsBC_mag")]
-    PpvPhsBcMag = 26,
+    PpvPhsBcMag = 27,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsCA_ang")]
-    PpvPhsCaAng = 27,
+    PpvPhsCaAng = 28,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_PPV_phsCA_mag")]
-    PpvPhsCaMag = 28,
+    PpvPhsCaMag = 29,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VA_net_mag")]
-    VaNetMag = 29,
+    VaNetMag = 30,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VA_neut_mag")]
-    VaNeutMag = 30,
+    VaNeutMag = 31,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VA_phsA_mag")]
-    VaPhsAMag = 31,
+    VaPhsAMag = 32,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VA_phsB_mag")]
-    VaPhsBMag = 32,
+    VaPhsBMag = 33,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VA_phsC_mag")]
-    VaPhsCMag = 33,
+    VaPhsCMag = 34,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VAr_net_mag")]
-    VArNetMag = 34,
+    VArNetMag = 35,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VAr_neut_mag")]
-    VArNeutMag = 35,
+    VArNeutMag = 36,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VAr_phsA_mag")]
-    VArPhsAMag = 36,
+    VArPhsAMag = 37,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VAr_phsB_mag")]
-    VArPhsBMag = 37,
+    VArPhsBMag = 38,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_VAr_phsC_mag")]
-    VArPhsCMag = 38,
+    VArPhsCMag = 39,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_W_net_mag")]
-    WNetMag = 39,
+    WNetMag = 40,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_W_neut_mag")]
-    WNeutMag = 40,
+    WNeutMag = 41,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_W_phsA_mag")]
-    WPhsAMag = 41,
+    WPhsAMag = 42,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_W_phsB_mag")]
-    WPhsBMag = 42,
+    WPhsBMag = 43,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "ScheduleParameterKind_W_phsC_mag")]
-    WPhsCMag = 43,
+    WPhsCMag = 44,
 }
 /// Calculation method (CalcMethodKind enumeration)
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
@@ -7630,96 +7798,245 @@ pub enum DerGeneratorStateKind {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum DynamicTestKind {
+    /// Undefined
+    #[serde(rename = "DynamicTestKind_UNDEFINED")]
+    Undefined = 0,
     /// None
     #[serde(rename = "DynamicTestKind_none")]
-    None = 0,
+    None = 1,
     /// Testing status
     #[serde(rename = "DynamicTestKind_testing")]
-    Testing = 1,
+    Testing = 2,
     /// Operating status
     #[serde(rename = "DynamicTestKind_operating")]
-    Operating = 2,
+    Operating = 3,
     /// Failed status
     #[serde(rename = "DynamicTestKind_failed")]
-    Failed = 3,
+    Failed = 4,
 }
 /// State kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum HealthKind {
+    /// No problems, normal operation ("green").
+    #[serde(rename = "HealthKind_UNDEFINED")]
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "HealthKind_none")]
-    None = 0,
+    None = 1,
     /// No problems, normal operation ("green").
     #[serde(rename = "HealthKind_OK")]
-    Ok = 1,
+    Ok = 2,
     /// Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
     /// depending on the dedicated function/device.
     #[serde(rename = "HealthKind_Warning")]
-    Warning = 2,
+    Warning = 3,
     /// Severe problem, no operation possible ("red").
     #[serde(rename = "HealthKind_Alarm")]
-    Alarm = 3,
+    Alarm = 4,
 }
 /// MISSING DOCUMENTATION!!!
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum SwitchingCapabilityKind {
+    /// Undefined
+    #[serde(rename = "SwitchingCapabilityKind_UNDEFINED")]
+    Undefined = 0,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "SwitchingCapabilityKind_none")]
-    None = 0,
+    None = 1,
     /// Open
     #[serde(rename = "SwitchingCapabilityKind_open")]
-    Open = 1,
+    Open = 2,
     /// Close
     #[serde(rename = "SwitchingCapabilityKind_close")]
-    Close = 2,
+    Close = 3,
     /// Open and Close
     #[serde(rename = "SwitchingCapabilityKind_open_and_close")]
-    OpenAndClose = 3,
+    OpenAndClose = 4,
 }
 /// Double point position status
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum DbPosKind {
+    /// Undefined
+    #[serde(rename = "DbPosKind_UNDEFINED")]
+    Undefined = 0,
     /// Transient status
     #[serde(rename = "DbPosKind_transient")]
-    Transient = 0,
+    Transient = 1,
     /// Closed status
     #[serde(rename = "DbPosKind_closed")]
-    Closed = 1,
+    Closed = 2,
     /// Open status
     #[serde(rename = "DbPosKind_open")]
-    Open = 2,
+    Open = 3,
     /// Invalid status
     #[serde(rename = "DbPosKind_invalid")]
-    Invalid = 3,
+    Invalid = 4,
 }
 /// Reclose action kind such as idle, cycling, or lockout.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum RecloseActionKind {
+    /// Undefined
+    #[serde(rename = "RecloseActionKind_UNDEFINED")]
+    Undefined = 0,
     /// Idle state
     #[serde(rename = "RecloseActionKind_idle")]
-    Idle = 0,
+    Idle = 1,
     /// Cycling state
     #[serde(rename = "RecloseActionKind_cycling")]
-    Cycling = 1,
+    Cycling = 2,
     /// Lockout state
     #[serde(rename = "RecloseActionKind_lockout")]
-    Lockout = 2,
+    Lockout = 3,
+}
+/// Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
+/// machine diagram)   A simplified state machine diagram (from Herb F.) is provided.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
+#[repr(i32)]
+pub enum ControlModeKind {
+    /// Undefined
+    #[serde(rename = "ControlModeKind_UNDEFINED")]
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ControlModeKind_auto")]
+    Auto = 1,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ControlModeKind_manual")]
+    Manual = 2,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ControlModeKind_override")]
+    Override = 3,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ControlModeKind_remote")]
+    Remote = 4,
+}
+/// The control characteristics for power flow operation
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
+#[repr(i32)]
+pub enum DirectionModeKind {
+    /// Undefined
+    #[serde(rename = "DirectionModeKind_UNDEFINED")]
+    Undefined = 0,
+    /// Testing status
+    #[serde(rename = "DirectionModeKind_locked_forward")]
+    LockedForward = 1,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_locked_reverse")]
+    LockedReverse = 2,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_reverse_idle")]
+    ReverseIdle = 3,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_bidirectional")]
+    Bidirectional = 4,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_neutral_idle")]
+    NeutralIdle = 5,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_cogeneration")]
+    Cogeneration = 6,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_reactive_bidirectional")]
+    ReactiveBidirectional = 7,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_bias_bidirectional")]
+    BiasBidirectional = 8,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_bias_cogeneration")]
+    BiasCogeneration = 9,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "DirectionModeKind_reverse_cogeneration")]
+    ReverseCogeneration = 10,
+}
+/// Real power control kind
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
+#[repr(i32)]
+pub enum ReactivePowerControlKind {
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_UNDEFINED")]
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_advanced")]
+    Advanced = 1,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_droop")]
+    Droop = 2,
+    /// Voltage setpoint
+    #[serde(rename = "ReactivePowerControlKind_voltage")]
+    Voltage = 3,
+    /// Reactive power setpoint
+    #[serde(rename = "ReactivePowerControlKind_reactivePower")]
+    ReactivePower = 4,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "ReactivePowerControlKind_powerFactor")]
+    PowerFactor = 5,
+}
+/// Real power control kind
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
+#[repr(i32)]
+pub enum RealPowerControlKind {
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_UNDEFINED")]
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_advanced")]
+    Advanced = 1,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_droop")]
+    Droop = 2,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "RealPowerControlKind_isochronous")]
+    Isochronous = 3,
+    /// Real power setpoint
+    #[serde(rename = "RealPowerControlKind_realPower")]
+    RealPower = 4,
 }
 /// State kind
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
 #[repr(i32)]
 pub enum StateKind {
     /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "StateKind_UNDEFINED")]
+    Undefined = 0,
+    /// MISSING DOCUMENTATION!!!
     #[serde(rename = "StateKind_off")]
-    Off = 0,
+    Off = 1,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "StateKind_on")]
-    On = 1,
+    On = 2,
     /// MISSING DOCUMENTATION!!!
     #[serde(rename = "StateKind_standby")]
-    Standby = 2,
+    Standby = 3,
+}
+/// Voltage-limiting types
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration, serde::Serialize, serde::Deserialize)]
+#[repr(i32)]
+pub enum VoltLimitModeKind {
+    /// Undefined
+    #[serde(rename = "VoltLimitModeKind_UNDEFINED")]
+    Undefined = 0,
+    /// Testing status
+    #[serde(rename = "VoltLimitModeKind_off")]
+    Off = 1,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_high_limit_only")]
+    HighLimitOnly = 2,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_low_limit_only")]
+    LowLimitOnly = 3,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_high_low_limits")]
+    HighLowLimits = 4,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_ivvc_high_limit_only")]
+    IvvcHighLimitOnly = 5,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_ivvc_low_limit_only")]
+    IvvcLowLimitOnly = 6,
+    /// MISSING DOCUMENTATION!!!
+    #[serde(rename = "VoltLimitModeKind_ivvc_high_low_limits")]
+    IvvcHighLowLimits = 7,
 }

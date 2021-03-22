@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package coordinationservicemodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/coordinationservicemodule";
@@ -16,18 +16,20 @@ import "commonmodule/commonmodule.proto";
 // State kind
 enum CoordinationServiceModeKind
 {
+    // Undefined
+     CoordinationServiceModeKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_none = 0;
+     CoordinationServiceModeKind_none = 1;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_auto = 1;
+     CoordinationServiceModeKind_auto = 2;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_manual = 2;
+     CoordinationServiceModeKind_manual = 3;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_netzero = 3;
+     CoordinationServiceModeKind_netzero = 4;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_start = 4;
+     CoordinationServiceModeKind_start = 5;
     // MISSING DOCUMENTATION!!!
-     CoordinationServiceModeKind_stop = 5;
+     CoordinationServiceModeKind_stop = 6;
 }
 
 message Optional_CoordinationServiceModeKind
@@ -131,7 +133,7 @@ message CoordinationStatusDCSC
     // MISSING DOCUMENTATION!!!
     ENG_CoordinationServiceModeKind CoordinationServiceMode = 2;
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusSPS Island = 3;
+    commonmodule.StatusDPS Island = 3;
     // MISSING DOCUMENTATION!!!
     commonmodule.StatusSPS PermissibleAuto = 4;
     // MISSING DOCUMENTATION!!!

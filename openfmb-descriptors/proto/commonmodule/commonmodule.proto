@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -15,14 +15,16 @@ import "google/protobuf/wrappers.proto";
 // Reclose action kind such as idle, cycling, or lockout.
 enum FaultDirectionKind
 {
+    // Undefined
+     FaultDirectionKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     FaultDirectionKind_unknown = 0;
+     FaultDirectionKind_unknown = 1;
     // MISSING DOCUMENTATION!!!
-     FaultDirectionKind_forward = 1;
+     FaultDirectionKind_forward = 2;
     // MISSING DOCUMENTATION!!!
-     FaultDirectionKind_backward = 2;
+     FaultDirectionKind_backward = 3;
     // MISSING DOCUMENTATION!!!
-     FaultDirectionKind_both = 3;
+     FaultDirectionKind_both = 4;
 }
 
 message Optional_FaultDirectionKind
@@ -33,12 +35,14 @@ message Optional_FaultDirectionKind
 // Reclose action kind such as idle, cycling, or lockout.
 enum PhaseFaultDirectionKind
 {
+    // Undefined
+     PhaseFaultDirectionKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     PhaseFaultDirectionKind_unknown = 0;
+     PhaseFaultDirectionKind_unknown = 1;
     // MISSING DOCUMENTATION!!!
-     PhaseFaultDirectionKind_forward = 1;
+     PhaseFaultDirectionKind_forward = 2;
     // MISSING DOCUMENTATION!!!
-     PhaseFaultDirectionKind_backward = 2;
+     PhaseFaultDirectionKind_backward = 3;
 }
 
 message Optional_PhaseFaultDirectionKind
@@ -192,30 +196,32 @@ message Optional_UnitSymbolKind
 // The unit multipliers defined for the CIM.
 enum UnitMultiplierKind
 {
+    // Undefined
+     UnitMultiplierKind_UNDEFINED = 0;
     // No multiplier or equivalently multiply by 1.
-     UnitMultiplierKind_none = 0;
+     UnitMultiplierKind_none = 1;
     // Other enum not listed
-     UnitMultiplierKind_other = 1;
+     UnitMultiplierKind_other = 2;
     // Centi 10**-2.
-     UnitMultiplierKind_centi = 2;
+     UnitMultiplierKind_centi = 3;
     // Deci 10**-1.
-     UnitMultiplierKind_deci = 3;
+     UnitMultiplierKind_deci = 4;
     // Giga 10**9.
-     UnitMultiplierKind_Giga = 4;
+     UnitMultiplierKind_Giga = 5;
     // Kilo 10**3.
-     UnitMultiplierKind_kilo = 5;
+     UnitMultiplierKind_kilo = 6;
     // Mega 10**6.
-     UnitMultiplierKind_Mega = 6;
+     UnitMultiplierKind_Mega = 7;
     // Micro 10**-6.
-     UnitMultiplierKind_micro = 7;
+     UnitMultiplierKind_micro = 8;
     // Milli 10**-3.
-     UnitMultiplierKind_milli = 8;
+     UnitMultiplierKind_milli = 9;
     // Nano 10**-9.
-     UnitMultiplierKind_nano = 9;
+     UnitMultiplierKind_nano = 10;
     // Pico 10**-12.
-     UnitMultiplierKind_pico = 10;
+     UnitMultiplierKind_pico = 11;
     // Tera 10**12.
-     UnitMultiplierKind_Tera = 11;
+     UnitMultiplierKind_Tera = 12;
 }
 
 message Optional_UnitMultiplierKind
@@ -308,20 +314,22 @@ message Unit
 // 'good', some reasons may be found in the 'detailQual'.
 enum ValidityKind
 {
+    // Undefined
+     ValidityKind_UNDEFINED = 0;
     // Supervision function has detected no abnormal condition of either the acquisition function or
     // the information source.
-     ValidityKind_good = 0;
+     ValidityKind_good = 1;
     // Supervision function has detected an abnormal condition of the acquisition function or the
     // information source (missing or non-operating updating devices). The value is not defined under this
     // condition. It shall be used to indicate to the client that the value may be incorrect and shall not
     // be used.  EXAMPLE If an input unit detects an oscillation of one input it will mark the related
     // information as invalid.
-     ValidityKind_invalid = 1;
+     ValidityKind_invalid = 2;
     // Reserved
-     ValidityKind_reserved = 2;
+     ValidityKind_reserved = 3;
     // Supervision function has detected any abnormal behaviour. However, the value could still be
     // valid. It is client's responsibility to determine whether the values should be used.
-     ValidityKind_questionable = 3;
+     ValidityKind_questionable = 4;
 }
 
 message Optional_ValidityKind
@@ -381,11 +389,13 @@ message DetailQual
 // However, this is a local issue and therefore
 enum SourceKind
 {
+    // Undefined
+     SourceKind_UNDEFINED = 0;
     // The value is provided by an input function from the process I/O or is calculated from some
     // application function.
-     SourceKind_process = 0;
+     SourceKind_process = 1;
     // The value is provided by an operator input or by an automatic source.
-     SourceKind_substituted = 1;
+     SourceKind_substituted = 2;
 }
 
 message Optional_SourceKind
@@ -547,8 +557,6 @@ message ASG
 {
     // The value of the analogue setting.
     double setMag = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Unit for 'setMag', 'minVal', 'maxVal', 'stepSize'.
-    Unit units = 2;
 }
 
 // Binary counter reading (BCR)
@@ -681,94 +689,96 @@ message ControlTimestamp
 // ESS function kind
 enum ScheduleParameterKind
 {
+    // Undefined
+     ScheduleParameterKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_none = 0;
+     ScheduleParameterKind_none = 1;
     // Other enum not listed
-     ScheduleParameterKind_other = 1;
+     ScheduleParameterKind_other = 2;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_A_net_mag = 2;
+     ScheduleParameterKind_A_net_mag = 3;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_A_neut_mag = 3;
+     ScheduleParameterKind_A_neut_mag = 4;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_A_phsA_mag = 4;
+     ScheduleParameterKind_A_phsA_mag = 5;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_A_phsB_mag = 5;
+     ScheduleParameterKind_A_phsB_mag = 6;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_A_phsC_mag = 6;
+     ScheduleParameterKind_A_phsC_mag = 7;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_Hz_mag = 7;
+     ScheduleParameterKind_Hz_mag = 8;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PF_net_mag = 8;
+     ScheduleParameterKind_PF_net_mag = 9;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PF_neut_mag = 9;
+     ScheduleParameterKind_PF_neut_mag = 10;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PF_phsA_mag = 10;
+     ScheduleParameterKind_PF_phsA_mag = 11;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PF_phsB_mag = 11;
+     ScheduleParameterKind_PF_phsB_mag = 12;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PF_phsC_mag = 12;
+     ScheduleParameterKind_PF_phsC_mag = 13;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_net_ang = 13;
+     ScheduleParameterKind_PhV_net_ang = 14;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_net_mag = 14;
+     ScheduleParameterKind_PhV_net_mag = 15;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_neut_ang = 15;
+     ScheduleParameterKind_PhV_neut_ang = 16;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_neut_mag = 16;
+     ScheduleParameterKind_PhV_neut_mag = 17;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsA_ang = 17;
+     ScheduleParameterKind_PhV_phsA_ang = 18;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsA_mag = 18;
+     ScheduleParameterKind_PhV_phsA_mag = 19;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsB_ang = 19;
+     ScheduleParameterKind_PhV_phsB_ang = 20;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsB_mag = 20;
+     ScheduleParameterKind_PhV_phsB_mag = 21;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsC_ang = 21;
+     ScheduleParameterKind_PhV_phsC_ang = 22;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PhV_phsC_mag = 22;
+     ScheduleParameterKind_PhV_phsC_mag = 23;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsAB_ang = 23;
+     ScheduleParameterKind_PPV_phsAB_ang = 24;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsAB_mag = 24;
+     ScheduleParameterKind_PPV_phsAB_mag = 25;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsBC_ang = 25;
+     ScheduleParameterKind_PPV_phsBC_ang = 26;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsBC_mag = 26;
+     ScheduleParameterKind_PPV_phsBC_mag = 27;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsCA_ang = 27;
+     ScheduleParameterKind_PPV_phsCA_ang = 28;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_PPV_phsCA_mag = 28;
+     ScheduleParameterKind_PPV_phsCA_mag = 29;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VA_net_mag = 29;
+     ScheduleParameterKind_VA_net_mag = 30;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VA_neut_mag = 30;
+     ScheduleParameterKind_VA_neut_mag = 31;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VA_phsA_mag = 31;
+     ScheduleParameterKind_VA_phsA_mag = 32;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VA_phsB_mag = 32;
+     ScheduleParameterKind_VA_phsB_mag = 33;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VA_phsC_mag = 33;
+     ScheduleParameterKind_VA_phsC_mag = 34;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VAr_net_mag = 34;
+     ScheduleParameterKind_VAr_net_mag = 35;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VAr_neut_mag = 35;
+     ScheduleParameterKind_VAr_neut_mag = 36;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VAr_phsA_mag = 36;
+     ScheduleParameterKind_VAr_phsA_mag = 37;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VAr_phsB_mag = 37;
+     ScheduleParameterKind_VAr_phsB_mag = 38;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_VAr_phsC_mag = 38;
+     ScheduleParameterKind_VAr_phsC_mag = 39;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_W_net_mag = 39;
+     ScheduleParameterKind_W_net_mag = 40;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_W_neut_mag = 40;
+     ScheduleParameterKind_W_neut_mag = 41;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_W_phsA_mag = 41;
+     ScheduleParameterKind_W_phsA_mag = 42;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_W_phsB_mag = 42;
+     ScheduleParameterKind_W_phsB_mag = 43;
     // MISSING DOCUMENTATION!!!
-     ScheduleParameterKind_W_phsC_mag = 43;
+     ScheduleParameterKind_W_phsC_mag = 44;
 }
 
 message Optional_ScheduleParameterKind
@@ -1123,14 +1133,16 @@ message ENS_DERGeneratorStateKind
 // machine diagram)   A simplified state machine diagram (from Herb F.) is provided.
 enum DynamicTestKind
 {
+    // Undefined
+     DynamicTestKind_UNDEFINED = 0;
     // None
-     DynamicTestKind_none = 0;
+     DynamicTestKind_none = 1;
     // Testing status
-     DynamicTestKind_testing = 1;
+     DynamicTestKind_testing = 2;
     // Operating status
-     DynamicTestKind_operating = 2;
+     DynamicTestKind_operating = 3;
     // Failed status
-     DynamicTestKind_failed = 3;
+     DynamicTestKind_failed = 4;
 }
 
 message Optional_DynamicTestKind
@@ -1161,15 +1173,17 @@ message ENS_GridConnectModeKind
 // State kind
 enum HealthKind
 {
-    // MISSING DOCUMENTATION!!!
-     HealthKind_none = 0;
     // No problems, normal operation ("green").
-     HealthKind_OK = 1;
+     HealthKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     HealthKind_none = 1;
+    // No problems, normal operation ("green").
+     HealthKind_OK = 2;
     // Minor problems, but in safe operating mode ("yellow"). The exact meaning is a local issue,
     // depending on the dedicated function/device.
-     HealthKind_Warning = 2;
+     HealthKind_Warning = 3;
     // Severe problem, no operation possible ("red").
-     HealthKind_Alarm = 3;
+     HealthKind_Alarm = 4;
 }
 
 message Optional_HealthKind
@@ -1190,14 +1204,16 @@ message ENS_HealthKind
 // MISSING DOCUMENTATION!!!
 enum SwitchingCapabilityKind
 {
+    // Undefined
+     SwitchingCapabilityKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     SwitchingCapabilityKind_none = 0;
+     SwitchingCapabilityKind_none = 1;
     // Open
-     SwitchingCapabilityKind_open = 1;
+     SwitchingCapabilityKind_open = 2;
     // Close
-     SwitchingCapabilityKind_close = 2;
+     SwitchingCapabilityKind_close = 3;
     // Open and Close
-     SwitchingCapabilityKind_open_and_close = 3;
+     SwitchingCapabilityKind_open_and_close = 4;
 }
 
 message Optional_SwitchingCapabilityKind
@@ -1347,14 +1363,16 @@ message PhaseAPC
 // Double point position status
 enum DbPosKind
 {
+    // Undefined
+     DbPosKind_UNDEFINED = 0;
     // Transient status
-     DbPosKind_transient = 0;
+     DbPosKind_transient = 1;
     // Closed status
-     DbPosKind_closed = 1;
+     DbPosKind_closed = 2;
     // Open status
-     DbPosKind_open = 2;
+     DbPosKind_open = 3;
     // Invalid status
-     DbPosKind_invalid = 3;
+     DbPosKind_invalid = 4;
 }
 
 message Optional_DbPosKind
@@ -1457,12 +1475,14 @@ message PhaseMMTN
 // Reclose action kind such as idle, cycling, or lockout.
 enum RecloseActionKind
 {
+    // Undefined
+     RecloseActionKind_UNDEFINED = 0;
     // Idle state
-     RecloseActionKind_idle = 0;
+     RecloseActionKind_idle = 1;
     // Cycling state
-     RecloseActionKind_cycling = 1;
+     RecloseActionKind_cycling = 2;
     // Lockout state
-     RecloseActionKind_lockout = 2;
+     RecloseActionKind_lockout = 3;
 }
 
 message Optional_RecloseActionKind
@@ -1481,6 +1501,19 @@ message PhaseRecloseAction
     Optional_RecloseActionKind phsB = 3;
     // Phase C control.
     Optional_RecloseActionKind phsC = 4;
+}
+
+// [OpenFMB CDC extension] Per Phase SPC.
+message PhaseSPC
+{
+    // 3 Phase control.
+    ControlSPC phs3 = 1;
+    // Phase A control.
+    ControlSPC phsA = 2;
+    // Phase B control.
+    ControlSPC phsB = 3;
+    // Phase C control.
+    ControlSPC phsC = 4;
 }
 
 // [OpenFMB CDC extension] Per Phase DPS.
@@ -1662,17 +1695,6 @@ message StatusMessageInfo
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
-// Controllable single point (SPC)
-message StatusSPC
-{
-    // Quality of the value in 'stVal'.
-    Quality q = 1;
-    // Status value of the controllable data object.
-    bool stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // Timestamp of the last change of the value in any of 'stVal' or 'q'.
-    Timestamp t = 3;
-}
-
 // Status value
 message StatusValue
 {
@@ -1727,19 +1749,142 @@ message VSC
     string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
+// machine diagram)   A simplified state machine diagram (from Herb F.) is provided.
+enum ControlModeKind
+{
+    // Undefined
+     ControlModeKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     ControlModeKind_auto = 1;
+    // MISSING DOCUMENTATION!!!
+     ControlModeKind_manual = 2;
+    // MISSING DOCUMENTATION!!!
+     ControlModeKind_override = 3;
+    // MISSING DOCUMENTATION!!!
+     ControlModeKind_remote = 4;
+}
+
+message Optional_ControlModeKind
+{
+    ControlModeKind value = 1;
+}
+
+// The control characteristics for power flow operation
+enum DirectionModeKind
+{
+    // Undefined
+     DirectionModeKind_UNDEFINED = 0;
+    // Testing status
+     DirectionModeKind_locked_forward = 1;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_locked_reverse = 2;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_reverse_idle = 3;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_bidirectional = 4;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_neutral_idle = 5;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_cogeneration = 6;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_reactive_bidirectional = 7;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_bias_bidirectional = 8;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_bias_cogeneration = 9;
+    // MISSING DOCUMENTATION!!!
+     DirectionModeKind_reverse_cogeneration = 10;
+}
+
+message Optional_DirectionModeKind
+{
+    DirectionModeKind value = 1;
+}
+
+// Real power control kind
+enum ReactivePowerControlKind
+{
+    // MISSING DOCUMENTATION!!!
+     ReactivePowerControlKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     ReactivePowerControlKind_advanced = 1;
+    // MISSING DOCUMENTATION!!!
+     ReactivePowerControlKind_droop = 2;
+    // Voltage setpoint
+     ReactivePowerControlKind_voltage = 3;
+    // Reactive power setpoint
+     ReactivePowerControlKind_reactivePower = 4;
+    // MISSING DOCUMENTATION!!!
+     ReactivePowerControlKind_powerFactor = 5;
+}
+
+message Optional_ReactivePowerControlKind
+{
+    ReactivePowerControlKind value = 1;
+}
+
+// Real power control kind
+enum RealPowerControlKind
+{
+    // MISSING DOCUMENTATION!!!
+     RealPowerControlKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     RealPowerControlKind_advanced = 1;
+    // MISSING DOCUMENTATION!!!
+     RealPowerControlKind_droop = 2;
+    // MISSING DOCUMENTATION!!!
+     RealPowerControlKind_isochronous = 3;
+    // Real power setpoint
+     RealPowerControlKind_realPower = 4;
+}
+
+message Optional_RealPowerControlKind
+{
+    RealPowerControlKind value = 1;
+}
+
 // State kind
 enum StateKind
 {
     // MISSING DOCUMENTATION!!!
-     StateKind_off = 0;
+     StateKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
-     StateKind_on = 1;
+     StateKind_off = 1;
     // MISSING DOCUMENTATION!!!
-     StateKind_standby = 2;
+     StateKind_on = 2;
+    // MISSING DOCUMENTATION!!!
+     StateKind_standby = 3;
 }
 
 message Optional_StateKind
 {
     StateKind value = 1;
+}
+
+// Voltage-limiting types
+enum VoltLimitModeKind
+{
+    // Undefined
+     VoltLimitModeKind_UNDEFINED = 0;
+    // Testing status
+     VoltLimitModeKind_off = 1;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_high_limit_only = 2;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_low_limit_only = 3;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_high_low_limits = 4;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_ivvc_high_limit_only = 5;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_ivvc_low_limit_only = 6;
+    // MISSING DOCUMENTATION!!!
+     VoltLimitModeKind_ivvc_high_low_limits = 7;
+}
+
+message Optional_VoltLimitModeKind
+{
+    VoltLimitModeKind value = 1;
 }
 

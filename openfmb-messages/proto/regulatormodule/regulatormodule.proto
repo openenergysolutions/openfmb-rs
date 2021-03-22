@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 // OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Tuesday, September 29, 2020 12:14:18 PM UTC
+// Monday, December 14, 2020 7:23:13 PM UTC
 
 package regulatormodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/regulatormodule";
@@ -13,33 +13,53 @@ import "uml.proto";
 import "commonmodule/commonmodule.proto";
 
 // LN: Automatic tap changer controller   Name: ATCC
+message DirectionalATCC
+{
+    // Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
+    // of the nominal voltage (forward power flow presumed).
+    commonmodule.PhaseAPC BndWid = 1;
+    // Time to wait before operating, after reaching the control point (forward power flow presumed).
+    commonmodule.PhaseISC CtlDlTmms = 2;
+    // Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
+    commonmodule.PhaseAPC LDCR = 3;
+    // Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
+    commonmodule.PhaseAPC LDCX = 4;
+    // (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
+    commonmodule.PhaseAPC VolSpt = 5;
+    // Enable voltage set point
+    commonmodule.PhaseDPC voltageSetPointEnabled = 6;
+}
+
+// LN: Automatic tap changer controller   Name: ATCC
 message RegulatorControlATCC
 {
     // UML inherited base object
     commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
-    // Centre of voltage control bandwidth (forward power flow presumed).
-    commonmodule.ASG BndCtr = 2;
-    // Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
-    // of the nominal voltage (forward power flow presumed).
-    commonmodule.ASG BndWid = 3;
-    // Time to wait before operating, after reaching the control point (forward power flow presumed).
-    commonmodule.ControlING CtlDlTmms = 4;
-    // Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCR = 5;
-    // Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCX = 6;
+    // Forward voltage regulation
+    DirectionalATCC DirFwd = 2;
+    // The control characteristics for power flow operation
+    commonmodule.Optional_DirectionModeKind DirMode = 3;
+    // Reverse voltage regulation
+    DirectionalATCC DirRev = 4;
+    // This is the percentage used to determine the current threshold at which the control recognizes
+    // current flow direction. Below the threshold, the current flow is considered to be indeterminate.
+    commonmodule.PhaseAPC DirThd = 5;
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    commonmodule.ControlSPC ParOp = 7;
+    commonmodule.PhaseSPC ParOp = 6;
     // Ramp rates
-    commonmodule.RampRate rampRates = 8;
+    commonmodule.RampRate rampRates = 7;
     // (controllable) Tap position change to the specified value.
-    commonmodule.Optional_StateKind state = 9;
-    // (controllable) Tap position change to the specified value.
-    commonmodule.PhaseISC TapPos = 10;
-    // (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
-    commonmodule.PhaseAPC VolSpt = 11;
-    // Enable voltage set point
-    commonmodule.ControlDPC voltageSetPointEnabled = 12;
+    commonmodule.Optional_StateKind state = 8;
+    // If true, tap position shall be lowered.
+    commonmodule.PhaseSPC TapOpL = 9;
+    // If true, tap position shall be raised.
+    commonmodule.PhaseSPC TapOpR = 10;
+    // High voltage limit for Voltage Limiter
+    commonmodule.PhaseAPC VolLmtHi = 11;
+    // Low voltage limit for Voltage Limiter
+    commonmodule.PhaseAPC VolLmtLo = 12;
+    // Voltage-limiting types
+    commonmodule.Optional_VoltLimitModeKind VolLmtMode = 13;
 }
 
 // Point definition (Point)
@@ -138,27 +158,41 @@ message RegulatorEventAndStatusATCC
     // Control (secondary) voltage bandwidth (i.e., range), given either as voltage value or percentage
     // of the nominal voltage (forward power flow presumed).
     commonmodule.ASG BndWid = 2;
+    // Compensated Voltage Secondary compared with set point plus or minus Bandwidth
+    commonmodule.PhaseSPS BndWidHi = 3;
+    // Compensated Voltage Secondary compared with set point plus or minus Bandwidth
+    commonmodule.PhaseSPS BndWidLo = 4;
+    // Current Power Direction is the direction that regulator is regulating.
+    commonmodule.PhaseSPS DirCtlRev = 5;
+    // True if direction is indeterminate.
+    commonmodule.PhaseSPS DirIndt = 6;
+    // True if the current direction is the same as the System Direction
+    commonmodule.PhaseSPS DirRev = 7;
     // Line drop voltage due to line resistance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCR = 3;
+    commonmodule.ASG LDCR = 8;
     // Line drop voltage due to line reactance component (forward power flow presumed) at rated current.
-    commonmodule.ASG LDCX = 4;
+    commonmodule.ASG LDCX = 9;
     // (controllable) If true, transformers operate in parallel, otherwise they operate independently.
-    commonmodule.StatusSPS ParOp = 5;
+    commonmodule.StatusSPS ParOp = 10;
     // Ramp rates
-    commonmodule.RampRate rampRates = 6;
+    commonmodule.RampRate rampRates = 11;
     // State
-    commonmodule.Optional_StateKind state = 7;
+    commonmodule.Optional_StateKind state = 12;
     // OpenFMB extension:  Status for the time to wait before operating (CtrlDlTmms)
-    commonmodule.StatusINC StDlTmms = 8;
+    commonmodule.StatusINC StDlTmms = 13;
     // If true, there was an error in tap position change, or in tap indication (for instance, wrong
     // Binary Coded Decimal (BCD) code).
-    commonmodule.StatusSPS TapOpErr = 9;
+    commonmodule.StatusSPS TapOpErr = 14;
     // (controllable) Tap position change to the specified value.
-    commonmodule.PhaseINS TapPos = 10;
+    commonmodule.PhaseINS TapPos = 15;
+    // Load Voltage Secondary compared with VolLmtHi
+    commonmodule.PhaseSPS VolLmtHi = 16;
+    // Load Voltage Secondary compared with VolLmtLo
+    commonmodule.PhaseSPS VolLmtLo = 17;
     // (controllable) Voltage setpoint. Analog value (MX) feeds back the setpoint of the controller.
-    commonmodule.PhaseAPC VolSpt = 11;
+    commonmodule.PhaseAPC VolSpt = 18;
     // Voltage set point status
-    commonmodule.StatusSPC voltageSetPointEnabled = 12;
+    commonmodule.StatusSPS voltageSetPointEnabled = 19;
 }
 
 // OpenFMB 61850 specialization for both RegulatorEventProfile and RegulatorStatusProfile
@@ -204,6 +238,8 @@ message RegulatorReading
     commonmodule.ReadingMMTR readingMMTR = 3;
     // MISSING DOCUMENTATION!!!
     commonmodule.ReadingMMXU readingMMXU = 4;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU secondaryReadingMMXU = 5;
 }
 
 // Regulator reading profile
