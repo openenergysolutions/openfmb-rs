@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
+
+package breakermodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/breakermodule";
+option java_package = "openfmb.breakermodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.breakermodule";
+
+import "uml.proto";
+import "commonmodule/commonmodule.proto";
+
+// Reclose enabled
+message BreakerDiscreteControlXCBR
+{
+    // UML inherited base object
+    commonmodule.DiscreteControlXCBR discreteControlXCBR = 1 [(uml.option_parent_message) = true];
+}
+
+// Breaker discrete control class
+message BreakerDiscreteControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // IEC61850 enhanced control parameters.
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    BreakerDiscreteControlXCBR breakerDiscreteControlXCBR = 3;
+}
+
+// A mechanical switching device capable of making, carrying, and breaking currents under normal
+// circuit conditions and also making, carrying for a specified time, and breaking currents under
+// specified abnormal circuit conditions e.g.  those of short circuit.
+message Breaker
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
+}
+
+// Instructs an end device (or an end device group) to perform a specified action.
+message BreakerDiscreteControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    BreakerDiscreteControl breakerDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Breaker event class
+message BreakerEvent
+{
+    // UML inherited base object
+    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
+}
+
+// Breaker event profile
+message BreakerEventProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    BreakerEvent breakerEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message BreakerReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU diffReadingMMXU = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 4;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 5;
+}
+
+// Breaker reading profile
+message BreakerReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    repeated BreakerReading breakerReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1, (uml.option_multiplicity_max) = 2];
+}
+
+// Status of a breaker
+message BreakerStatus
+{
+    // UML inherited base object
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusAndEventXCBR statusAndEventXCBR = 2;
+}
+
+// Breaker status profile
+message BreakerStatusProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    Breaker breaker = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    BreakerStatus breakerStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

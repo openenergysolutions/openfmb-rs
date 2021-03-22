@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
+
+package loadmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";
+option java_package = "openfmb.loadmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.loadmodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+// Point definition (Point)
+message LoadPoint
+{
+    // Ramp rates
+    commonmodule.RampRate rampRates = 1;
+    // Enable reactive power set point
+    commonmodule.ControlDPC reactivePwrSetPointEnabled = 2;
+    // Enable joint real power set point
+    commonmodule.ControlDPC realPwrSetPointEnabled = 3;
+    // Reset device
+    commonmodule.ControlDPC reset = 4;
+    // ESS state
+    commonmodule.Optional_StateKind state = 5;
+    // Start time
+    commonmodule.ControlTimestamp startTime = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message LoadCSG
+{
+    // The array with the points specifying a curve shape.
+    repeated LoadPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message LoadControlScheduleFSCH
+{
+    // Discrete value in LoadCSG type
+    LoadCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized FSCC 61850 class.  LN: Schedule controller   Name: FSCC
+message LoadControlFSCC
+{
+    // UML inherited base object
+    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    LoadControlScheduleFSCH loadControlScheduleFSCH = 2;
+}
+
+// Load control
+message LoadControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    LoadControlFSCC loadControlFSCC = 3;
+}
+
+// Load control profile
+message LoadControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    LoadControl loadControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Point definition (Point)
+message LoadPointStatus
+{
+    // Ramp rates
+    commonmodule.RampRate rampRates = 1;
+    // Enable reactive power set point
+    commonmodule.StatusDPS reactivePwrSetPointEnabled = 2;
+    // Enable joint real power set point
+    commonmodule.StatusDPS realPwrSetPointEnabled = 3;
+    // Reset device
+    commonmodule.StatusDPS reset = 4;
+    // ESS state
+    commonmodule.Optional_StateKind state = 5;
+}
+
+// Specialized 61850 ZGLD class
+message LoadEventAndStatusZGLD
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ENS_DynamicTestKind DynamicTest = 2;
+    // Emergency stop
+    commonmodule.StatusSPS EmgStop = 3;
+    // Point status
+    LoadPointStatus PointStatus = 4;
+}
+
+// Specialized 61850 ZGLD LN class
+message LoadEventZGLD
+{
+    // UML inherited base object
+    LoadEventAndStatusZGLD loadEventAndStatusZGLD = 1 [(uml.option_parent_message) = true];
+}
+
+// Load event
+message LoadEvent
+{
+    // UML inherited base object
+    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    LoadEventZGLD loadEventZGLD = 2;
+}
+
+// Load event profile
+message LoadEventProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    LoadEvent loadEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Load reading value
+message LoadReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 4;
+}
+
+// Load reading profile
+message LoadReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    LoadReading loadReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 ZGLD LN class
+message LoadStatusZGLD
+{
+    // UML inherited base object
+    LoadEventAndStatusZGLD loadEventAndStatusZGLD = 1 [(uml.option_parent_message) = true];
+}
+
+// Load status
+message LoadStatus
+{
+    // UML inherited base object
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // True if the load is uncontrollable.
+    google.protobuf.BoolValue isUncontrollable = 2;
+    // MISSING DOCUMENTATION!!!
+    LoadStatusZGLD loadStatusZGLD = 3;
+}
+
+// Load status profile
+message LoadStatusProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnergyConsumer energyConsumer = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    LoadStatus loadStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

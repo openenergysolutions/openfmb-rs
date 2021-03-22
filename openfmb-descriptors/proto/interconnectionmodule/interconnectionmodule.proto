@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
+
+package interconnectionmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/interconnectionmodule";
+option java_package = "openfmb.interconnectionmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.interconnectionmodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+// Point definition (Point)
+message InterconnectionPoint
+{
+    // Black start enable
+    commonmodule.ControlDPC blackStartEnabled = 1;
+    // Enable frequency set point
+    commonmodule.ControlDPC frequencySetPointEnabled = 2;
+    // Island control
+    commonmodule.ControlDPC island = 3;
+    // Black start enable
+    google.protobuf.FloatValue pctHzDroop = 4;
+    // Black start enable
+    google.protobuf.FloatValue pctVDroop = 5;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 6;
+    // Enable reactive power set point
+    commonmodule.ControlDPC reactivePwrSetPointEnabled = 7;
+    // Enable real power set point
+    commonmodule.ControlDPC realPwrSetPointEnabled = 8;
+    // Enable voltage set point
+    commonmodule.ControlDPC voltageSetPointEnabled = 9;
+    // Start time
+    commonmodule.Timestamp startTime = 10 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message InterconnectionCSG
+{
+    // The array with the points specifying a curve shape.
+    repeated InterconnectionPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message InterconnectionControlScheduleFSCH
+{
+    // Discrete value in InterconnectionCSG type
+    InterconnectionCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 FSCC class for interconnection schedule
+message InterconnectionScheduleFSCC
+{
+    // UML inherited base object
+    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated InterconnectionControlScheduleFSCH interconnectionControlScheduleFSCH = 2 [(uml.option_multiplicity_min) = 0];
+}
+
+// Interconnection schedule
+message InterconnectionSchedule
+{
+    // UML inherited base object
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    InterconnectionScheduleFSCC interconnectionScheduleFSCC = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Planned interconnection schedule profile
+message PlannedInterconnectionScheduleProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem requesterCircuitSegmentService = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    InterconnectionSchedule interconnectionSchedule = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment tiePoint = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem responderCircuitSegmentService = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Requested interconnection schedule profile
+message RequestedInterconnectionScheduleProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem requesterCircuitSegmentService = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    InterconnectionSchedule interconnectionSchedule = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment tiePoint = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ApplicationSystem responderCircuitSegmentService = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

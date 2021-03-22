@@ -1,0 +1,169 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
+// Tuesday, September 29, 2020 12:14:18 PM UTC
+
+package resourcemodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/resourcemodule";
+option java_package = "openfmb.resourcemodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.resourcemodule";
+
+import "uml.proto";
+import "commonmodule/commonmodule.proto";
+
+// LN: Generic process I/O   Name: GGIO
+message BooleanControlGGIO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Phase code
+    commonmodule.Optional_PhaseCodeKind Phase = 2;
+    // (controllable) If true, generic single point controllable status output <i>n</i> has been
+    // enabled, otherwise it has been disabled.
+    commonmodule.ControlSPC SPCSO = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Status expressed in integer based on IEC61850 GGIO.
+message IntegerControlGGIO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // (controllable) Generic integer controllable status output <i>n</i>.
+    commonmodule.ControlINC ISCSO = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Phase code
+    commonmodule.Optional_PhaseCodeKind Phase = 3;
+}
+
+// LN: Generic process I/O   Name: GGIO
+message StringControlGGIO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Phase code
+    commonmodule.Optional_PhaseCodeKind Phase = 2;
+    // String control
+    commonmodule.VSC StrOut = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// LN: Generic process I/O   Name: GGIO
+message AnalogControlGGIO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // (controllable) Value of the generic controllable analogue output setpoint <i>n</i>. Analog value
+    // (MX) feeds back the setpoint of the output.
+    commonmodule.ControlAPC AnOut = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Phase code
+    commonmodule.Optional_PhaseCodeKind Phase = 3;
+}
+
+// Resource discrete control class
+message ResourceDiscreteControl
+{
+    // UML inherited base object
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // IEC61850 enhanced control parameters.
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    repeated AnalogControlGGIO analogControlGGIO = 3 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated BooleanControlGGIO booleanControlGGIO = 4 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated IntegerControlGGIO integerControlGGIO = 5 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated StringControlGGIO stringControlGGIO = 6 [(uml.option_multiplicity_min) = 0];
+}
+
+// Instructs a resource to perform a specified action.
+message ResourceDiscreteControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceDiscreteControl resourceDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Resource reading value
+message ResourceReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 4;
+}
+
+// Resource reading profile
+message ResourceReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    reserved 20,22;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceReading resourceReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Current event information relevant to an entity.
+message ResourceEvent
+{
+    // UML inherited base object
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.AnalogEventAndStatusGGIO analogEventAndStatusGGIO = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.BooleanEventAndStatusGGIO booleanEventAndStatusGGIO = 3 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.IntegerEventAndStatusGGIO integerEventAndStatusGGIO = 4 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.StringEventAndStatusGGIO stringEventAndStatusGGIO = 5 [(uml.option_multiplicity_min) = 0];
+}
+
+// Resource event module
+message ResourceEventProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceEvent resourceEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Current status information relevant to an entity.
+message ResourceStatus
+{
+    // UML inherited base object
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.AnalogEventAndStatusGGIO analogEventAndStatusGGIO = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.BooleanEventAndStatusGGIO booleanEventAndStatusGGIO = 3 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.IntegerEventAndStatusGGIO integerEventAndStatusGGIO = 4 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated commonmodule.StringEventAndStatusGGIO stringEventAndStatusGGIO = 5 [(uml.option_multiplicity_min) = 0];
+}
+
+// Resource status module
+message ResourceStatusProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ConductingEquipment conductingEquipment = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ResourceStatus resourceStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
