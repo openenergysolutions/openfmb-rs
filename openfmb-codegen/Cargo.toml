@@ -17,9 +17,8 @@ log = "0.4"
 multimap = { version = "0.8", default-features = false }
 petgraph = { version = "0.5", default-features = false }
 #prost = { version = "0.6.1", path = "../prost" }
-prost = "0.6.1"
-#prost-types = { version = "0.6.1", path = "../prost-types" }
-proto-types = { path = "proto-types" }
+prost = "0.7"
+proto-types = { version = "0.7", path = "../proto-types" }
 tempfile = "3"
 
 [build-dependencies]
