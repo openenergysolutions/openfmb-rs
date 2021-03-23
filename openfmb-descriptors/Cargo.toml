@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["Tom Burdick <thomas.burdick@gmail.com>"]
 edition = "2018"
 
+[build-dependencies]
+which = { version = "4", default-features = false  }
+
 [dependencies]
 prost = "0.7"
 proto-types = { version = "0.7", path = "../proto-types" }
