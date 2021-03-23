@@ -132,17 +132,22 @@ let protoc = env_protoc()
 
     println!("looking up paths");
     let paths = proto_paths()?;
+
     println!("proto paths {:?}", paths);
     let mut protoc_cmd = Command::new(protoc);
     protoc_cmd.current_dir("proto");
-    protoc_cmd.arg("-oopenfmb_descriptors.pb");
+    protoc_cmd.arg("--include_imports")
+              .arg("--include_source_info")
+              .arg("-oopenfmb_descriptors.pb")
+              .arg("-I.")
+              .arg("-I").arg(protoc_include);
     for proto_path in paths {
         protoc_cmd.arg(proto_path.clone());
     }
 
+    println!("cmd {:?}", protoc_cmd);
     let output = protoc_cmd.output()?;
     println!("output of command {:?}", output);
-
 
     Ok(())
 }

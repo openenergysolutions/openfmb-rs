@@ -25,6 +25,6 @@ fn main() {
     openfmb_codegen::Config::new()
         .btree_map(&["."])
         .out_dir(OUT)
-        .compile_protos(&PROTOS, &INCLUDES)
+        .compile_protos()
         .unwrap();
 }

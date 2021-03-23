@@ -14,6 +14,6 @@ doctest = false
 test = false
 
 [dependencies]
-bytes = "0.5"
+bytes = "1"
 prost = "0.7"
 

@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/prost-build/0.6.1")]
+#![doc(html_root_url = "https://docs.rs/prost-build/0.7")]
 
 //! `prost-build` compiles `.proto` files into Rust.
 //!
@@ -501,9 +501,7 @@ impl Config {
     ///                                &["src"]).unwrap();
     /// }
     /// ```
-    pub fn compile_protos<P>(&mut self, protos: &[P], includes: &[P]) -> Result<()>
-    where
-        P: AsRef<Path>,
+    pub fn compile_protos(&mut self) -> Result<()>
     {
         let target: PathBuf = self.out_dir.clone().map(Ok).unwrap_or_else(|| {
             env::var_os("OUT_DIR")
@@ -513,43 +511,7 @@ impl Config {
                 .map(Into::into)
         })?;
 
-        // TODO: This should probably emit 'rerun-if-changed=PATH' directives for cargo, however
-        // according to [1] if any are output then those paths replace the default crate root,
-        // which is undesirable. Figure out how to do it in an additive way; perhaps gcc-rs has
-        // this figured out.
-        // [1]: http://doc.crates.io/build-script.html#outputs-of-the-build-script
-
-        let tmp = tempfile::Builder::new().prefix("prost-build").tempdir()?;
-        let descriptor_set = tmp.path().join("prost-descriptor-set");
-
-        let mut cmd = Command::new(protoc());
-        cmd.arg("--include_imports")
-            .arg("--include_source_info")
-            .arg("-o")
-            .arg(&descriptor_set);
-
-        for include in includes {
-            cmd.arg("-I").arg(include.as_ref());
-        }
-
-        // Set the protoc include after the user includes in case the user wants to
-        // override one of the built-in .protos.
-        cmd.arg("-I").arg(protoc_include());
-
-        for proto in protos {
-            cmd.arg(proto.as_ref());
-        }
-
-        let output = cmd.output()?;
-        if !output.status.success() {
-            return Err(Error::new(
-                ErrorKind::Other,
-                format!("protoc failed: {}", String::from_utf8_lossy(&output.stderr)),
-            ));
-        }
-
-        let buf = fs::read(descriptor_set)?;
-        let descriptor_set = FileDescriptorSet::decode(&*buf)?;
+        let descriptor_set = openfmb_descriptors::OPENFMB_DESCRIPTORS.clone();
 
         let modules = self.generate(descriptor_set.file)?;
         for (module, content) in modules {
@@ -681,21 +643,9 @@ impl default::Default for Config {
 /// [2]: http://doc.crates.io/build-script.html#case-study-code-generation
 /// [3]: https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions
 /// [4]: https://developers.google.com/protocol-buffers/docs/proto#packages
-pub fn compile_protos<P>(protos: &[P], includes: &[P]) -> Result<()>
-where
-    P: AsRef<Path>,
+pub fn compile_protos() -> Result<()>
 {
-    Config::new().compile_protos(protos, includes)
-}
-
-/// Returns the path to the `protoc` binary.
-pub fn protoc() -> &'static Path {
-    Path::new(env!("PROTOC"))
-}
-
-/// Returns the path to the Protobuf include directory.
-pub fn protoc_include() -> &'static Path {
-    Path::new(env!("PROTOC_INCLUDE"))
+    Config::new().compile_protos()
 }
 
 #[cfg(test)]
