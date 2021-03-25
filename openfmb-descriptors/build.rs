@@ -86,8 +86,8 @@ fn proto_paths() -> Result<Vec<String>, Box<dyn Error>> {
     let current_dir = env::current_dir()?;
     let mut proto_path = current_dir.clone();
     proto_path.push("proto");
-    println!("searching for proto files in {:?}", proto_path);
-    println!("cargo:rerun-if-changed={:?}", proto_path);
+    //println!("searching for proto files in {:?}", proto_path);
+    //println!("cargo:rerun-if-changed={:?}", proto_path);
     for entry in fs::read_dir(proto_path.clone())? {
         let proto_ext = OsStr::new("proto");
         let entry = entry?;
@@ -111,7 +111,9 @@ fn proto_paths() -> Result<Vec<String>, Box<dyn Error>> {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-let protoc = env_protoc()
+
+    println!("cargo:rerun-if-changed=proto");
+    let protoc = env_protoc()
         .or_else(bundled_protoc)
         .or_else(path_protoc)
         .expect(
@@ -130,24 +132,25 @@ let protoc = env_protoc()
     println!("cargo:rerun-if-env-changed=PROTOC_INCLUDE");
 
 
-    println!("looking up paths");
+    let out_dir = env::var("OUT_DIR").unwrap();
+    //println!("looking up paths");
     let paths = proto_paths()?;
 
-    println!("proto paths {:?}", paths);
+    //println!("proto paths {:?}", paths);
     let mut protoc_cmd = Command::new(protoc);
     protoc_cmd.current_dir("proto");
     protoc_cmd.arg("--include_imports")
               .arg("--include_source_info")
-              .arg("-oopenfmb_descriptors.pb")
+              .arg(format!("-o{}/openfmb_descriptors.pb", out_dir))
               .arg("-I.")
               .arg("-I").arg(protoc_include);
     for proto_path in paths {
         protoc_cmd.arg(proto_path.clone());
     }
 
-    println!("cmd {:?}", protoc_cmd);
-    let output = protoc_cmd.output()?;
-    println!("output of command {:?}", output);
+    //println!("cmd {:?}", protoc_cmd);
+    let _output = protoc_cmd.output()?;
+    //println!("output of command {:?}", output);
 
     Ok(())
 }

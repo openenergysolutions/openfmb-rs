@@ -116,12 +116,10 @@ use std::default;
 use std::env;
 use std::fs;
 use std::io::{Error, ErrorKind, Result};
-use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::path::{PathBuf};
 
 use log::trace;
-use prost::Message;
-use proto_types::{FileDescriptorProto, FileDescriptorSet};
+use proto_types::{FileDescriptorProto};
 
 pub use crate::ast::{Comments, Method, Service};
 use crate::code_generator::CodeGenerator;
