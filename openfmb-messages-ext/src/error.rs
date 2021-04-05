@@ -28,7 +28,7 @@ pub enum OpenFMBError {
     NoIED,
     InvalidOpenFMBMessage,
     NoMRID,
-    NoStatusMessageInfo,
+    NoStatusMessageInfo,    
     NoMessageTimestamp,
     NoMeter,
     NoSolarInverter,
@@ -73,6 +73,9 @@ pub enum OpenFMBError {
     NoLogicalNodeForEventAndStatus,
     NoEeHealth,
     NoBeh,
+    NoEventMessageInfo,
+    NoCapBankSystem,
+    NoApplicationSystem,
     #[snafu(display("Actor System Error"))]
     IOError {
         source: std::io::Error,

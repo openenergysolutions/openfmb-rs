@@ -5,7 +5,7 @@
 use std::{fmt, fmt::Debug, str::FromStr, time::SystemTime};
 
 use openfmb_messages::commonmodule::{
-    ControlMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo, StatusMessageInfo,
+    ControlMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo, StatusMessageInfo, EventMessageInfo,
     Timestamp,
 };
 use snafu::{OptionExt, ResultExt};
@@ -13,10 +13,15 @@ use uuid::Uuid;
 
 pub mod breaker;
 pub mod error;
+pub mod capbank;
+pub mod coordinationservice;
 pub mod ess;
 pub mod generation;
 pub mod load;
 pub mod meter;
+pub mod recloser;
+pub mod regulator;
+pub mod resource;
 pub mod solar;
 pub mod switch;
 
@@ -85,6 +90,10 @@ pub trait OpenFMBExtEss {
 
 pub trait OpenFMBExtReading: Debug {
     fn reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo>;
+}
+
+pub trait OpenFMBExtEvent: Debug {
+    fn event_message_info(&self) -> OpenFMBResult<&EventMessageInfo>;
 }
 
 impl fmt::Display for dyn OpenFMBExt {
