@@ -36,11 +36,12 @@ impl OpenFMBExt for BreakerStatusProfile {
            .context(NoPhs3)?
            .st_val
         {
-            0 => "Transient",
-            1 => "Closed",
-            2 => "Open",
-            3 => "Invalid",
-            _ => unreachable!(),
+            0 => "Undefined",
+            1 => "Transient",
+            2 => "Closed",
+            3 => "Open",
+            4 => "Invalid",
+            _ => unreachable!()
         }
         .into())
     }

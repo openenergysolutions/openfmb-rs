@@ -1,6 +1,6 @@
 use openfmb_messages::{
     commonmodule::*,
-    breakermodule::*,
+    reclosermodule::*,
 };
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
@@ -8,13 +8,13 @@ use uuid::Uuid;
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
-impl OpenFMBExt for BreakerDiscreteControlProfile {
+impl OpenFMBExt for RecloserDiscreteControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
         let state = if self
-            .breaker_discrete_control
+            .recloser_discrete_control
             .as_ref()
             .context(NoBreakerDiscreteControl)?
-            .breaker_discrete_control_xcbr
+            .recloser_discrete_control_xcbr
             .as_ref()
             .context(NoBreakerDiscreteControlXcbr)?
             .discrete_control_xcbr
@@ -36,18 +36,17 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        unimplemented!()       
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("SolarStatusProfile".to_string())
+        Ok("RecloserDiscreteControlProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
             &self
-                .breaker
+                .recloser
                 .clone()
                 .context(NoProtectedSwitch)?
                 .conducting_equipment
@@ -62,16 +61,16 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
     }
 }
 
-pub trait BreakerControlExt: ControlProfileExt {
-    fn breaker_open_msg(m_rid: &str) -> BreakerDiscreteControlProfile {
+pub trait RecloserControlExt: ControlProfileExt {
+    fn recloser_open_msg(m_rid: &str) -> RecloserDiscreteControlProfile {
         Self::build_control_profile(m_rid, SystemTime::now(), false)
     }
 
-    fn breaker_close_msg(m_rid: &str) -> BreakerDiscreteControlProfile {
+    fn recloser_close_msg(m_rid: &str) -> RecloserDiscreteControlProfile {
         Self::build_control_profile(m_rid, SystemTime::now(), true)
     }
 
-    fn breaker_synchro_msg(m_rid: &str, synchro_check: bool) -> BreakerDiscreteControlProfile {
+    fn recloser_synchro_msg(m_rid: &str, synchro_check: bool) -> RecloserDiscreteControlProfile {
         Self::build_synchro_profile(m_rid, SystemTime::now(), synchro_check)
     }
 
@@ -79,35 +78,36 @@ pub trait BreakerControlExt: ControlProfileExt {
         m_rid: &str,
         start_time: SystemTime,
         pos: bool,
-    ) -> BreakerDiscreteControlProfile;
+    ) -> RecloserDiscreteControlProfile;
 
     fn build_synchro_profile(
         m_rid: &str,
         start_time: SystemTime,
         synchro_check: bool,
-    ) -> BreakerDiscreteControlProfile;
+    ) -> RecloserDiscreteControlProfile;
 }
 
-impl BreakerControlExt for BreakerDiscreteControlProfile {
+impl RecloserControlExt for RecloserDiscreteControlProfile {
     fn build_control_profile(
         m_rid: &str,
         _start_time: SystemTime,
         pos: bool,
-    ) -> BreakerDiscreteControlProfile {
+    ) -> RecloserDiscreteControlProfile {
         let msg_info: ControlMessageInfo =
-            BreakerDiscreteControlProfile::build_control_message_info();
-        BreakerDiscreteControlProfile {
+            RecloserDiscreteControlProfile::build_control_message_info();
+        RecloserDiscreteControlProfile {
             control_message_info: Some(msg_info),
-            breaker: Some(Breaker {
+            recloser: Some(Recloser {
                 conducting_equipment: Some(ConductingEquipment {
                     named_object: None,
                     m_rid: m_rid.to_string(),
                 }),
+                normal_open: None,
             }),
-            breaker_discrete_control: Some(BreakerDiscreteControl {
+            recloser_discrete_control: Some(RecloserDiscreteControl {
                 control_value: None,
                 check: None,
-                breaker_discrete_control_xcbr: Some(BreakerDiscreteControlXcbr {
+                recloser_discrete_control_xcbr: Some(RecloserDiscreteControlXcbr {
                     discrete_control_xcbr: Some(DiscreteControlXcbr {
                         pos: Some(PhaseDpc {
                             phs3: Some(ControlDpc { ctl_val: pos }),
@@ -117,30 +117,7 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
                     }),
                     ..Default::default()
                 }),
-            }),
-
-            //                        breaker_discrete_control: Some(BreakerDiscreteControl {
-            //                            check: None,
-            //                            control_value: None,
-            //                            Breaker_control_fscc: Some(ControlFscc {
-            //                                logical_node_for_control: None,
-            //                                Breaker_control_schedule_fsch: Some(ControlScheduleFsch {
-            //                                    val_dcsg: Some(BreakerCsg {
-            //                                        crv_pts: vec![BreakerPoint {
-            //                                            pos: Some(ControlDpc { ctl_val: pos }),
-            //                                            start_time: Some(ControlTimestamp {
-            //                                                fraction: 0,
-            //                                                seconds: start_time
-            //                                                    .duration_since(SystemTime::UNIX_EPOCH)
-            //                                                    .unwrap()
-            //                                                    .as_secs(),
-            //                                            }),
-            //                                        }],
-            //                                    }),
-            //                               }),
-            //                           }),
-            //                       }),
-
+            }),            
         }
     }
 
@@ -148,26 +125,27 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
         m_rid: &str,
         _start_time: SystemTime,
         synchro_check: bool,
-    ) -> BreakerDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = BreakerDiscreteControlProfile::build_control_message_info();
-        BreakerDiscreteControlProfile {
+    ) -> RecloserDiscreteControlProfile {
+        let msg_info: ControlMessageInfo = RecloserDiscreteControlProfile::build_control_message_info();
+        RecloserDiscreteControlProfile {
             control_message_info: Some(msg_info),
-            breaker: Some(Breaker {
+            recloser: Some(Recloser {
                 conducting_equipment: Some(ConductingEquipment {
                     named_object: None,
                     m_rid: m_rid.to_string(),
                 }),
+                normal_open: None,
             }),
-            breaker_discrete_control: Some(BreakerDiscreteControl {
+            recloser_discrete_control: Some(RecloserDiscreteControl {
                 control_value: None,
                 check: Some(CheckConditions {
                     interlock_check: None,
                     synchro_check: Some(synchro_check),
                 }),
-                breaker_discrete_control_xcbr: None,
+                recloser_discrete_control_xcbr: None,
             })
         }
     }
 }
 
-impl ControlProfileExt for BreakerDiscreteControlProfile {}
+impl ControlProfileExt for RecloserDiscreteControlProfile {}

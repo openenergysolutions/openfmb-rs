@@ -1,7 +1,7 @@
-mod event;
+mod control;
 mod reading;
 mod status;
 
-pub use event::*;
+pub use control::*;
 pub use reading::*;
 pub use status::*;

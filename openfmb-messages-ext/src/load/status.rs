@@ -25,9 +25,11 @@ impl OpenFMBExt for LoadStatusProfile {
             .unwrap()
             .value
         {
-            1 => "On",
-            0 => "Off",
-            _ => unreachable!(),
+            0 => "Undefined",
+            1 => "Off",
+            2 => "On",  
+            3 => "StandBy",
+            _ => unreachable!()
         }
         .to_string())
     }

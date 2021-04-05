@@ -3,7 +3,7 @@ use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlMessageInfo, ControlScheduleFsch,
         ControlTimestamp, EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg,
-        SchedulePoint,
+        SchedulePoint, StateKind, ScheduleParameterKind,
     },
     generationmodule::{
         GeneratingUnit, GenerationControl, GenerationControlFscc, GenerationControlProfile,
@@ -65,11 +65,11 @@ impl OpenFMBExt for GenerationControlProfile {
 
 pub trait GenerationControlExt: ControlProfileExt {
     fn generator_on_msg(m_rid: &str, val: f64) -> GenerationControlProfile {
-        Self::build_control_profile(m_rid, 39, val, SystemTime::now(), 1)
+        Self::build_control_profile(m_rid, ScheduleParameterKind::WNetMag as i32, val, SystemTime::now(), StateKind::On as i32)
     }
 
     fn generator_off_msg(m_rid: &str) -> GenerationControlProfile {
-        Self::build_control_profile(m_rid, 39, 0.0, SystemTime::now(), 0)
+        Self::build_control_profile(m_rid, ScheduleParameterKind::WNetMag as i32, 0.0, SystemTime::now(), StateKind::Off as i32)
     }
 
     fn build_control_profile(

@@ -28,9 +28,11 @@ impl OpenFMBExt for GenerationStatusProfile {
             .unwrap()
             .value
         {
-            0 => "Off",
-            1 => "On",
-            _val => panic!(),
+            0 => "Undefined",
+            1 => "Off",
+            2 => "On",
+            3 => "StandBy",
+            _ => unreachable!()
         }
         .to_string())
     }

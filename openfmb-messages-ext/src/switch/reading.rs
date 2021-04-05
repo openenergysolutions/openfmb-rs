@@ -79,6 +79,12 @@ impl OpenFMBExtReading for SwitchReadingProfile {
 
 pub trait SwitchReadingExt: ReadingProfileExt {
     fn switch_reading(&self) -> f64;
+    fn get_current_phsa(&self) -> f64;
+    fn get_current_phsb(&self) -> f64;
+    fn get_current_phsc(&self) -> f64;
+    fn get_ph_v(&self) -> &openfmb_messages::commonmodule::Wye;
+    fn get_ppv(&self) -> &openfmb_messages::commonmodule::Del;
+    fn get_freq(&self, side: u32) -> f64;
 }
 
 impl SwitchReadingExt for SwitchReadingProfile {
@@ -99,6 +105,106 @@ impl SwitchReadingExt for SwitchReadingProfile {
             .as_ref()
             .unwrap()
             .mag
+    }
+    fn get_current_phsa(&self) -> f64 {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .a
+            .as_ref()
+            .unwrap()
+            .phs_a
+            .as_ref()
+            .unwrap()
+            .c_val
+            .as_ref()
+            .unwrap()
+            .mag
+    }
+    fn get_current_phsb(&self) -> f64 {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .a
+            .as_ref()
+            .unwrap()
+            .phs_b
+            .as_ref()
+            .unwrap()
+            .c_val
+            .as_ref()
+            .unwrap()
+            .mag
+    }
+    fn get_current_phsc(&self) -> f64 {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .a
+            .as_ref()
+            .unwrap()
+            .phs_c
+            .as_ref()
+            .unwrap()
+            .c_val
+            .as_ref()
+            .unwrap()
+            .mag
+    }
+    fn get_freq(&self, side: u32) -> f64 {
+        if side == 0 {
+            self.switch_reading
+                .first()
+                .unwrap()
+                .reading_mmxu
+                .as_ref()
+                .unwrap()
+                .hz
+                .as_ref()
+                .unwrap()
+                .mag
+        } else {
+            self.switch_reading[1]                            
+                .reading_mmxu
+                .as_ref()
+                .unwrap()
+                .hz
+                .as_ref()
+                .unwrap()
+                .mag
+        }
+            
+    }
+    fn get_ph_v(&self) -> &openfmb_messages::commonmodule::Wye {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .ph_v
+            .as_ref()
+            .unwrap()
+    }
+    fn get_ppv(&self) -> &openfmb_messages::commonmodule::Del {
+        self.switch_reading
+            .first()
+            .unwrap()
+            .reading_mmxu
+            .as_ref()
+            .unwrap()
+            .ppv
+            .as_ref()
+            .unwrap()
     }
 }
 

@@ -28,9 +28,11 @@ impl OpenFMBExt for SolarStatusProfile {
                 .to_string()
                 .as_str()
             {
-                "0" => "Off".to_string(),
-                "1" => "On".to_string(),
-                _ => unimplemented!(),
+                "0" => "Undefined".to_string(),
+                "1" => "Off".to_string(),
+                "2" => "On".to_string(),
+                "3" => "StandBy".to_string(),
+                _ => unimplemented!()
             },
         )
     }
