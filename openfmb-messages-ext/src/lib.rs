@@ -24,9 +24,6 @@ pub mod regulator;
 pub mod resource;
 pub mod solar;
 pub mod switch;
-pub mod resource;
-pub mod recloser;
-pub mod regulator;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use recloser::{RecloserControlExt, RecloserReadingExt};
