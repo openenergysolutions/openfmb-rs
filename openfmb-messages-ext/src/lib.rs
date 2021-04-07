@@ -34,7 +34,7 @@ pub use load::LoadControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
 pub use resource::{ResourceControlExt};
-pub use regulator::RegulatorControlExt;
+pub use regulator::{RegulatorDiscreteControlExt, RegulatorControlExt};
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}
