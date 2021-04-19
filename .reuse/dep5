@@ -1,0 +1,10 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: openfmb-rs
+Upstream-Contact: Open Energy Solutions Inc <support@openenergysolutionsinc.com>
+Source: https://github.com/openenergysolutions/openfmb-rs
+
+# Sample paragraph, commented out:
+#
+# Files: src/*
+# Copyright: $YEAR $NAME <$CONTACT>
+# License: ...

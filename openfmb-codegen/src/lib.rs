@@ -1,5 +1,9 @@
 #![doc(html_root_url = "https://docs.rs/prost-build/0.7")]
 
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 //! `prost-build` compiles `.proto` files into Rust.
 //!
 //! `prost-build` is designed to be used for build-time code generation as part of a Cargo

@@ -1,7 +1,6 @@
-# OpenFMB
+# openfmb.rs
 
-An Open Field Message Bus. This library provides a set of traits for
-controlling and monitoring power grid devices over a message bus.
+An Open Field Message Bus crate for Rust.
 
 ## Code Generation
 

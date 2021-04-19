@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 // Custom clippy lints for this crate, used to avoid unwrap() calls on options
 // and results in this crate. Nothing in this crate should cause a panic.
 #![deny(clippy::all)]
