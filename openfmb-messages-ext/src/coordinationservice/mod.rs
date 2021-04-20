@@ -4,6 +4,7 @@
 
 mod event;
 mod status;
+mod control;
 
 pub use control::*;
 pub use event::*;

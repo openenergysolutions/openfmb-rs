@@ -7,11 +7,12 @@ use std::str::FromStr;
 use breakermodule::BreakerReadingProfile;
 use openfmb_messages::{
     commonmodule::{MessageInfo, ReadingMessageInfo},
-    breakermodule::BreakerReadingProfile,
+    *,
 };
 use snafu::{OptionExt, ResultExt};
-use std::str::FromStr;
 use uuid::Uuid;
+
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for BreakerReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {

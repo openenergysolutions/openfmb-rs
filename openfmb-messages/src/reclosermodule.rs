@@ -1,7 +1,3 @@
-// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
-//
-// SPDX-License-Identifier: Apache-2.0
-
 use crate::commonmodule::*;
 /// Protection mode such as a group setting or pre-defined curve profile. It is usually pre-defined
 /// by a circuit segment service.
