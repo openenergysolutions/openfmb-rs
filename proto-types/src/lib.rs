@@ -1,5 +1,9 @@
 #![doc(html_root_url = "https://docs.rs/prost-types/0.6.1")]
 
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 //! Protocol Buffers well-known types.
 //!
 //! Note that the documentation for the types defined in this crate are generated from the Protobuf

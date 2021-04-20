@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 use std::ascii;
 use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};

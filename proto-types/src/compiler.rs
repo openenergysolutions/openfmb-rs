@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 /// The version number of protocol compiler.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Version {

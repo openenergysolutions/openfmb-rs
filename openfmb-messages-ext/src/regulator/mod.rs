@@ -1,5 +1,7 @@
-mod control;
-mod discretecontrol;
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+//
+// SPDX-License-Identifier: Apache-2.0
+
 mod event;
 mod reading;
 mod status;
