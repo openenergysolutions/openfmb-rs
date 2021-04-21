@@ -7,7 +7,7 @@ use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlMessageInfo, ControlScheduleFsch,
         ControlTimestamp, EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg,
-        SchedulePoint,
+        SchedulePoint, StateKind, ScheduleParameterKind,
     },
     generationmodule::{
         GeneratingUnit, GenerationControl, GenerationControlFscc, GenerationControlProfile,
@@ -20,29 +20,11 @@ use uuid::Uuid;
 
 impl OpenFMBExt for GenerationControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        let ess_control = self
-            .generation_control
-            .clone()
-            .unwrap()
-            .generation_control_fscc
-            .unwrap()
-            .generation_control_schedule_fsch
-            .unwrap()
-            .val_dcsg
-            .unwrap()
-            .crv_pts
-            .first()
-            .unwrap()
-            .state
-            .clone()
-            .unwrap()
-            .value;
-        Ok(format!("Control: {}", ess_control))
+        Ok("".to_string())
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        unimplemented!()        
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -53,9 +35,10 @@ impl OpenFMBExt for GenerationControlProfile {
         Ok(Uuid::from_str(
             &self
                 .generating_unit
-                .clone()
-                .context(NoIdentifiedObject)?
+                .as_ref()
+                .context(NoGeneratingUnit)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -63,17 +46,29 @@ impl OpenFMBExt for GenerationControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .generating_unit
+            .as_ref()
+            .context(NoGeneratingUnit)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 
 pub trait GenerationControlExt: ControlProfileExt {
     fn generator_on_msg(m_rid: &str, val: f64) -> GenerationControlProfile {
-        Self::build_control_profile(m_rid, 39, val, SystemTime::now(), 1)
+        Self::build_control_profile(m_rid, ScheduleParameterKind::WNetMag as i32, val, SystemTime::now(), StateKind::On as i32)
     }
 
     fn generator_off_msg(m_rid: &str) -> GenerationControlProfile {
-        Self::build_control_profile(m_rid, 39, 0.0, SystemTime::now(), 0)
+        Self::build_control_profile(m_rid, ScheduleParameterKind::WNetMag as i32, 0.0, SystemTime::now(), StateKind::Off as i32)
     }
 
     fn build_control_profile(

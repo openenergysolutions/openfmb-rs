@@ -3,15 +3,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use std::str::FromStr;
-use snafu::{OptionExt, ResultExt};
-use uuid::Uuid;
 
 use reclosermodule::RecloserStatusProfile;
 use openfmb_messages::{
-    commonmodule::*,
+    commonmodule::{MessageInfo, StatusMessageInfo},
     *,
 };
-
+use snafu::{OptionExt, ResultExt};
+use uuid::Uuid;
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
 
@@ -26,7 +25,32 @@ impl OpenFMBExtStatus for RecloserStatusProfile {
 
 impl OpenFMBExt for RecloserStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .recloser_status
+            .as_ref()
+            .context(NoRecloserStatus)?
+            .status_and_event_xcbr
+            .as_ref()
+            .context(NoStatusAndEventXcbr)?
+            .pos
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
+        {
+            Ok(phs3) => {
+                match phs3.st_val {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Transient".into()),
+                    2 => Ok("Closed".into()),
+                    3 => Ok("Open".into()),
+                    4 => Ok("Invalid".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }            
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -58,6 +82,18 @@ impl OpenFMBExt for RecloserStatusProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .recloser
+            .as_ref()
+            .context(NoRecloser)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }

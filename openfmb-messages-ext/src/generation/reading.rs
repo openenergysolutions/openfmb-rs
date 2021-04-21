@@ -17,16 +17,20 @@ impl OpenFMBExt for GenerationReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
         Ok(self
             .generation_reading
-            .clone()
-            .unwrap()
+            .as_ref()
+            .context(NoGenerationReading)?
             .reading_mmxu
-            .unwrap()
+            .as_ref()
+            .context(NoReadingMmxu)?
             .w
-            .unwrap()
+            .as_ref()
+            .context(NoW)?
             .net
-            .unwrap()
+            .as_ref()
+            .context(NoNet)?
             .c_val
-            .unwrap()
+            .as_ref()
+            .context(NoCVal)?
             .mag
             .to_string())
     }
@@ -49,9 +53,10 @@ impl OpenFMBExt for GenerationReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .generating_unit
-                .clone()
+                .as_ref()
                 .context(NoGeneratingUnit)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -59,15 +64,19 @@ impl OpenFMBExt for GenerationReadingProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        self.generating_unit
-            .clone()
+        Ok(self
+            .generating_unit
+            .as_ref()
             .context(NoGeneratingUnit)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
-            .context(NoName)
+            .clone()
+            .context(NoName)?)
     }
 }
 

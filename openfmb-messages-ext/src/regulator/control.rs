@@ -2,50 +2,35 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
-use snafu::{OptionExt, ResultExt};
-use uuid::Uuid;
-
-use resourcemodule::ResourceReadingProfile;
 use openfmb_messages::{
     commonmodule::*,
-    *,
+    regulatormodule::*,
 };
+use snafu::{OptionExt, ResultExt};
+use std::{str::FromStr};
+use uuid::Uuid;
 
+use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
-
-impl OpenFMBExtReading for ResourceReadingProfile {
-    fn reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo> {
-        Ok(self
-            .reading_message_info
-            .as_ref()
-            .context(NoReadingMessageInfo)?)
-    }
-}
-
-impl OpenFMBExt for ResourceReadingProfile {
+impl OpenFMBExt for RegulatorControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        unimplemented!() 
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        Ok(self
-            .reading_message_info
-            .as_ref()
-            .context(NoReadingMessageInfo)?
-            .message_info
-            .as_ref()
-            .context(NoMessageInfo)?)
+        unimplemented!()       
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("ResourceReadingProfile".to_string())
+        Ok("RegulatorControlProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
-            &self                
+            &self
+                .regulator_system
+                .as_ref()
+                .context(NoRegulatorSystem)?
                 .conducting_equipment
                 .as_ref()
                 .context(NoConductingEquipment)?
@@ -55,7 +40,10 @@ impl OpenFMBExt for ResourceReadingProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok(self                                   
+        Ok(self
+            .regulator_system
+            .as_ref()
+            .context(NoRegulatorSystem)?
             .conducting_equipment
             .as_ref()
             .context(NoConductingEquipment)?
@@ -67,3 +55,9 @@ impl OpenFMBExt for ResourceReadingProfile {
             .context(NoName)?)
     }
 }
+
+pub trait RegulatorControlExt: ControlProfileExt {
+    
+}
+
+impl ControlProfileExt for RegulatorControlProfile {}

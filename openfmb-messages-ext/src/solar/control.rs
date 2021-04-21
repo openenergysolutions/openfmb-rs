@@ -6,7 +6,7 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
-        EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg, SchedulePoint,
+        MessageInfo, OptionalStateKind, StateKind, NamedObject, ControlValue
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -57,9 +57,10 @@ impl OpenFMBExt for SolarControlProfile {
         Ok(Uuid::from_str(
             &self
                 .solar_inverter
-                .clone()
+                .as_ref()
                 .context(NoSolarInverter)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -69,24 +70,31 @@ impl OpenFMBExt for SolarControlProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .solar_inverter
-            .clone()
+            .as_ref()
             .context(NoSolarInverter)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }
 
 pub trait SolarControlExt: ControlProfileExt {
     fn solar_on_msg(m_rid: &str, val: f64) -> SolarControlProfile {
-        Self::build_control_profile(m_rid, val, SystemTime::now(), 1)
+        Self::build_control_profile(m_rid, val, SystemTime::now(), StateKind::On as i32)
     }
 
     fn solar_off_msg(m_rid: &str) -> SolarControlProfile {
-        Self::build_control_profile(m_rid, 0.0, SystemTime::now(), 0)
+        Self::build_control_profile(m_rid, 0.0, SystemTime::now(), StateKind::Off as i32)
+    }
+
+    fn solar_modblk_msg(m_rid: &str, modblk: bool) -> SolarControlProfile {
+        Self::build_modblk_profile(m_rid, SystemTime::now(), modblk)
     }
 
     fn build_control_profile(
@@ -97,7 +105,7 @@ pub trait SolarControlExt: ControlProfileExt {
     ) -> SolarControlProfile;
 
     fn build_solar_control(
-        solar_acsg: f64,
+        _solar_acsg: f64,
         state: OptionalStateKind,
         when: SystemTime,
     ) -> SolarControl {
@@ -108,28 +116,8 @@ pub trait SolarControlExt: ControlProfileExt {
             solar_control_fscc: Some(SolarControlFscc {
                 control_fscc: Some(ControlFscc {
                     logical_node_for_control: None,
-                    control_schedule_fsch: Some(ControlScheduleFsch {
-                        val_acsg: Some(ScheduleCsg {
-                            sch_pts: vec![SchedulePoint {
-                                schedule_parameter: vec![
-                                    EngScheduleParameter {
-                                        schedule_parameter_type: 39,
-                                        value: solar_acsg,
-                                    },
-                                    EngScheduleParameter {
-                                        schedule_parameter_type: 8,
-                                        value: 1.0,
-                                    },
-                                ],
-                                start_time: Some(ControlTimestamp {
-                                    nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
-                                    seconds: when
-                                        .duration_since(SystemTime::UNIX_EPOCH)
-                                        .unwrap()
-                                        .as_secs(),
-                                }),
-                            }],
-                        }),
+                    control_schedule_fsch: Some(ControlScheduleFsch {                        
+                        val_acsg: None
                     }),
                     island_control_schedule_fsch: None,
                 }),
@@ -159,6 +147,12 @@ pub trait SolarControlExt: ControlProfileExt {
             }),
         }
     }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> SolarControlProfile;
 }
 
 impl ControlProfileExt for SolarControlProfile {}
@@ -184,6 +178,34 @@ impl SolarControlExt for SolarControlProfile {
                     m_rid: m_rid.to_string(),
                 }),
             }),
+        }
+    }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> SolarControlProfile {
+        SolarControlProfile {
+            control_message_info: Some(Self::build_control_message_info()),
+            solar_inverter: Some(SolarInverter {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: Some(NamedObject {
+                        description: None,
+                        name: None,
+                    }),
+                }),
+            }),
+            solar_control: Some(SolarControl {
+                control_value:  Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: Some(modblk),
+                    reset: None,
+                }),
+                check: None,
+                solar_control_fscc: None,
+            })
         }
     }
 }

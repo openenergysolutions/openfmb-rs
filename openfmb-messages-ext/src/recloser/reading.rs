@@ -13,16 +13,7 @@ use openfmb_messages::{
 };
 
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
-
-impl OpenFMBExtReading for RecloserReadingProfile {
-    fn reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo> {
-        Ok(self
-            .reading_message_info
-            .as_ref()
-            .context(NoReadingMessageInfo)?)
-    }
-}
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for RecloserReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -33,7 +24,7 @@ impl OpenFMBExt for RecloserReadingProfile {
         Ok(self
             .reading_message_info
             .as_ref()
-            .context(NoReadingMessageInfo)?
+            .context(NoStatusMessageInfo)?
             .message_info
             .as_ref()
             .context(NoMessageInfo)?)
@@ -58,6 +49,29 @@ impl OpenFMBExt for RecloserReadingProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .recloser
+            .as_ref()
+            .context(NoRecloser)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
+
+impl OpenFMBExtReading for RecloserReadingProfile {
+    fn reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo> {
+        Ok(self
+            .reading_message_info
+            .as_ref()
+            .context(NoStatusMessageInfo)?)
+    }
+}
+
+impl ReadingProfileExt for RecloserReadingProfile {}

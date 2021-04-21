@@ -13,25 +13,32 @@ use uuid::Uuid;
 
 impl OpenFMBExt for SwitchStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(match self
+        match self
             .switch_status
-            .clone()
-            .unwrap()
+            .as_ref()
+            .context(NoSwitchStatus)?
             .switch_status_xswi
-            .unwrap()
+            .as_ref()
+            .context(NoSwitchStatusXswi)?
             .pos
-            .unwrap()
+            .as_ref()
+            .context(NoPos)?
             .phs3
-            .unwrap()
-            .st_val
+            .as_ref()
+            .context(NoPhs3)            
         {
-            0 => "Transient",
-            1 => "Closed",
-            2 => "Open",
-            3 => "Invalid",
-            _ => unreachable!(),
-        }
-        .to_string())
+            Ok(phs3) => {
+                match phs3.st_val {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Transient".into()),
+                    2 => Ok("Closed".into()),
+                    3 => Ok("Open".into()),
+                    4 => Ok("Invalid".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }       
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -52,9 +59,10 @@ impl OpenFMBExt for SwitchStatusProfile {
         Ok(Uuid::from_str(
             &self
                 .protected_switch
-                .clone()
+                .as_ref()
                 .context(NoProtectedSwitch)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -64,13 +72,16 @@ impl OpenFMBExt for SwitchStatusProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .protected_switch
-            .clone()
+            .as_ref()
             .context(NoProtectedSwitch)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

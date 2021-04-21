@@ -26,7 +26,34 @@ impl OpenFMBExtEvent for BreakerEventProfile {
 
 impl OpenFMBExt for BreakerEventProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .breaker_event
+            .as_ref()
+            .context(NoBreakerEvent)?
+            .status_and_event_xcbr
+            .as_ref()
+            .context(NoStatusAndEventXcbr)?
+            .pos
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
+        {
+            Ok(v) => {
+                match v.st_val {
+                    0 =>  Ok("Undefined".into()),
+                    1 =>  Ok("Transient".into()),
+                    2 =>  Ok("Closed".into()),
+                    3 =>  Ok("Open".into()),
+                    4 =>  Ok("Invalid".into()),
+                    _ =>  Err(OpenFMBError::InvalidValue)
+                }                
+            }
+            Err(_) => {
+                Err(OpenFMBError::InvalidOpenFMBMessage)
+            }           
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

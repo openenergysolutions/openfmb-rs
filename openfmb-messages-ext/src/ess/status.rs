@@ -19,19 +19,36 @@ use crate::{error::*, ess::ESSStatusExt, OpenFMBExt, OpenFMBExtStatus};
 
 impl OpenFMBExt for EssStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok((self
+        match self
             .ess_status
             .as_ref()
+            .context(NoEssStatus)?      
+            .ess_status_zgen
+            .as_ref()
             .context(NoEssStatus)?
-            .ess_status_zbat
+            .e_ss_event_and_status_zgen
             .as_ref()
-            .context(NoEssStatusZBat)?
-            .soc
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
             .as_ref()
-            .context(NoSoc)?
-            .mag
-            / 100.0)
-            .to_string())
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)            
+        {
+            Ok(state) => {
+                match state.value {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Off".into()),
+                    2 => Ok("On".into()), 
+                    3 => Ok("StandBy".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => {
+                Err(OpenFMBError::InvalidOpenFMBMessage)
+            }
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

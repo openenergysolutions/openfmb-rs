@@ -13,22 +13,28 @@ use uuid::Uuid;
 
 impl OpenFMBExt for SwitchReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(self
-            .switch_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .clone()
-            .unwrap()
-            .w
-            .unwrap()
-            .net
-            .unwrap()
-            .c_val
-            .unwrap()
-            .mag
-            .to_string())
-        //panic!("{:?}", self);
+        if !self.switch_reading.is_empty() {
+            return Ok(self
+                .switch_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag
+                .to_string());
+        }
+        Err(OpenFMBError::InvalidOpenFMBMessage)        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -49,9 +55,10 @@ impl OpenFMBExt for SwitchReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .protected_switch
-                .clone()
-                .context(NoGeneratingUnit)?
+                .as_ref()
+                .context(NoProtectedSwitch)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -61,13 +68,16 @@ impl OpenFMBExt for SwitchReadingProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .protected_switch
-            .clone()
+            .as_ref()
             .context(NoProtectedSwitch)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }
@@ -82,28 +92,27 @@ impl OpenFMBExtReading for SwitchReadingProfile {
 }
 
 pub trait SwitchReadingExt: ReadingProfileExt {
-    fn switch_reading(&self) -> f64;
+    fn switch_reading(&self) -> Option<f64>;    
 }
 
 impl SwitchReadingExt for SwitchReadingProfile {
-    fn switch_reading(&self) -> f64 {
-        self.switch_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .w
-            .as_ref()
-            .unwrap()
-            .net
-            .as_ref()
-            .unwrap()
-            .c_val
-            .as_ref()
-            .unwrap()
-            .mag
-    }
+    fn switch_reading(&self) -> Option<f64> {
+        if !self.switch_reading.is_empty() {
+            return Some(self.switch_reading
+                .first()
+                .as_ref()?                
+                .reading_mmxu
+                .as_ref()?                
+                .w
+                .as_ref()?                
+                .net
+                .as_ref()?                
+                .c_val
+                .as_ref()?                
+                .mag);
+        }
+        None
+    }    
 }
 
 impl ReadingProfileExt for SwitchReadingProfile {}

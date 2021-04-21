@@ -25,7 +25,7 @@ impl OpenFMBExtStatus for BreakerStatusProfile {
 
 impl OpenFMBExt for BreakerStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(match self
+        match self
             .breaker_status
             .as_ref()
             .context(NoBreakerStatus)?
@@ -33,20 +33,26 @@ impl OpenFMBExt for BreakerStatusProfile {
             .as_ref()
             .context(NoStatusAndEventXcbr)?
             .pos
-           .as_ref()
-           .context(NoPos)?
-           .phs3
-           .as_ref()
-           .context(NoPhs3)?
-           .st_val
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
         {
-            0 => "Transient",
-            1 => "Closed",
-            2 => "Open",
-            3 => "Invalid",
-            _ => unreachable!(),
-        }
-        .into())
+            Ok(v) => {
+                match v.st_val {
+                    0 =>  Ok("Undefined".into()),
+                    1 =>  Ok("Transient".into()),
+                    2 =>  Ok("Closed".into()),
+                    3 =>  Ok("Open".into()),
+                    4 =>  Ok("Invalid".into()),
+                    _ =>  Err(OpenFMBError::InvalidValue)
+                }                
+            }
+            Err(_) => {
+                Err(OpenFMBError::InvalidOpenFMBMessage)
+            }           
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

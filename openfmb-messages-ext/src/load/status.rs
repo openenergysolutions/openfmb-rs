@@ -15,25 +15,34 @@ use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
 
 impl OpenFMBExt for LoadStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(match self
+        match self
             .load_status
-            .clone()
-            .unwrap()
+            .as_ref()
+            .context(NoLoadStatus)?
             .load_status_zgld
-            .unwrap()
+            .as_ref()
+            .context(NoLoadStatusZGld)?
             .load_event_and_status_zgld
-            .unwrap()
+            .as_ref()
+            .context(NoLoadEventAndStatusZGld)?
             .point_status
-            .unwrap()
+            .as_ref()
+            .context(NoPointStatus)?
             .state
-            .unwrap()
-            .value
+            .as_ref()
+            .context(NoState)            
         {
-            1 => "On",
-            0 => "Off",
-            _ => unreachable!(),
-        }
-        .to_string())
+            Ok(state) => {
+                match state.value {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Off".into()),
+                    2 => Ok("On".into()),
+                    3 => Ok("StandBy".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -54,9 +63,10 @@ impl OpenFMBExt for LoadStatusProfile {
         Ok(Uuid::from_str(
             &self
                 .energy_consumer
-                .clone()
+                .as_ref()
                 .context(NoEnergyConsumer)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -66,13 +76,16 @@ impl OpenFMBExt for LoadStatusProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .energy_consumer
-            .clone()
+            .as_ref()
             .context(NoEnergyConsumer)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

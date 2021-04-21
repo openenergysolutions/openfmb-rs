@@ -55,6 +55,15 @@ impl OpenFMBExt for CoordinationEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .application_system
+            .as_ref()
+            .context(NoApplicationSystem)?            
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }

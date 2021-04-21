@@ -7,7 +7,7 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         CheckConditions, ConductingEquipment, ControlDpc, PhaseDpc,
-        ControlMessageInfo, MessageInfo,
+        ControlMessageInfo, MessageInfo, ControlValue
     },
     switchmodule::{
         SwitchDiscreteControlProfile, SwitchDiscreteControl, ProtectedSwitch,
@@ -40,8 +40,7 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        unimplemented!()        
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -52,9 +51,10 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
         Ok(Uuid::from_str(
             &self
                 .protected_switch
-                .clone()
+                .as_ref()
                 .context(NoProtectedSwitch)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -62,7 +62,19 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("No Name Specified".to_string())
+        Ok(self
+            .protected_switch
+            .as_ref()
+            .context(NoProtectedSwitch)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 
@@ -79,6 +91,10 @@ pub trait SwitchControlExt: ControlProfileExt {
         Self::build_synchro_profile(m_rid, SystemTime::now(), synchro_check)
     }
 
+    fn switch_modblk_msg(m_rid: &str, modblk: bool) -> SwitchDiscreteControlProfile {
+        Self::build_modblk_profile(m_rid, SystemTime::now(), modblk)
+    }
+
     fn build_control_profile(
         m_rid: &str,
         start_time: SystemTime,
@@ -88,6 +104,11 @@ pub trait SwitchControlExt: ControlProfileExt {
         m_rid: &str,
         start_time: SystemTime,
         synchro_check: bool,
+    ) -> SwitchDiscreteControlProfile;
+    fn build_modblk_profile(
+        m_rid: &str,
+        start_time: SystemTime,
+        modblk: bool,
     ) -> SwitchDiscreteControlProfile;
 }
 
@@ -112,6 +133,32 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                     interlock_check: None,
                     synchro_check: Some(synchro_check),
                 }),
+                switch_discrete_control_xswi: None,
+            })
+        }
+    }
+
+    fn build_modblk_profile(
+        m_rid: &str,
+        _start_time: SystemTime,
+        modblk: bool,
+    ) -> SwitchDiscreteControlProfile {
+        let msg_info: ControlMessageInfo = SwitchDiscreteControlProfile::build_control_message_info();
+        SwitchDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            protected_switch: Some(ProtectedSwitch {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            switch_discrete_control: Some(SwitchDiscreteControl {
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: Some(modblk),
+                    reset: None,
+                }),
+                check: None,
                 switch_discrete_control_xswi: None,
             })
         }

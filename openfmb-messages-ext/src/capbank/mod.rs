@@ -5,7 +5,11 @@
 mod event;
 mod reading;
 mod status;
+mod control;
+mod discretecontrol;
 
+pub use control::*;
+pub use discretecontrol::*;
 pub use event::*;
 pub use reading::*;
 pub use status::*;

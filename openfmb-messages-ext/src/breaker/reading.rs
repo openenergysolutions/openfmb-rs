@@ -12,9 +12,34 @@ use openfmb_messages::{
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for BreakerReadingProfile {
+    fn device_state(&self) -> OpenFMBResult<String> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag
+                .to_string());
+        }
+        Err(OpenFMBError::InvalidOpenFMBMessage)               
+    }
+
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
             .reading_message_info
@@ -58,11 +83,6 @@ impl OpenFMBExt for BreakerReadingProfile {
             .clone()
             .context(NoName)?)
     }
-
-    fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
-        //panic!("{:?}", self);
-    }
 }
 
 impl OpenFMBExtReading for BreakerReadingProfile {
@@ -73,3 +93,29 @@ impl OpenFMBExtReading for BreakerReadingProfile {
             .context(NoStatusMessageInfo)?)
     }
 }
+
+pub trait BreakerReadingExt: ReadingProfileExt {
+    fn breaker_reading(&self) -> Option<f64>;    
+}
+
+impl BreakerReadingExt for BreakerReadingProfile {
+    fn breaker_reading(&self) -> Option<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Some(self.breaker_reading
+                .first()
+                .as_ref()?                
+                .reading_mmxu
+                .as_ref()?                
+                .w
+                .as_ref()?                
+                .net
+                .as_ref()?                
+                .c_val
+                .as_ref()?                
+                .mag);
+        }               
+        None
+    }    
+}
+
+impl ReadingProfileExt for BreakerReadingProfile {}

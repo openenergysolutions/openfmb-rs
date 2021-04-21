@@ -26,7 +26,32 @@ impl OpenFMBExtEvent for SwitchEventProfile {
 
 impl OpenFMBExt for SwitchEventProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .switch_event
+            .as_ref()
+            .context(NoSwitchEvent)?
+            .switch_event_xswi
+            .as_ref()
+            .context(NoSwitchEventXswi)?
+            .pos
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
+        {
+            Ok(phs3) => {
+                match phs3.st_val {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Transient".into()),
+                    2 => Ok("Closed".into()),
+                    3 => Ok("Open".into()),
+                    4 => Ok("Invalid".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }       
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -58,6 +83,18 @@ impl OpenFMBExt for SwitchEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .protected_switch
+            .as_ref()
+            .context(NoProtectedSwitch)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
