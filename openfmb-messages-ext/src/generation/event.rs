@@ -26,7 +26,34 @@ impl OpenFMBExtEvent for GenerationEventProfile {
 
 impl OpenFMBExt for GenerationEventProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .generation_event
+            .as_ref()
+            .context(NoGenerationEvent)?
+            .generation_event_zgen
+            .as_ref()
+            .context(NoGenerationEventZGen)?
+            .generation_event_and_status_zgen
+            .as_ref()
+            .context(NoGenerationEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)            
+        {
+            Ok(state) => {
+                match state.value {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Off".into()),
+                    2 => Ok("On".into()),
+                    3 => Ok("StandBy".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)           
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -58,6 +85,18 @@ impl OpenFMBExt for GenerationEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .generating_unit
+            .as_ref()
+            .context(NoGeneratingUnit)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }

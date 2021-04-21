@@ -40,21 +40,27 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        Ok(self
+            .control_message_info
+            .as_ref()
+            .context(NoControlMessageInfo)?
+            .message_info
+            .as_ref()
+            .context(NoMessageInfo)?)       
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("SolarStatusProfile".to_string())
+        Ok("BreakerDiscreteControlProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
             &self
                 .breaker
-                .clone()
-                .context(NoProtectedSwitch)?
+                .as_ref()
+                .context(NoBreaker)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -62,7 +68,19 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("No Name Specified".to_string())
+        Ok(self
+            .breaker
+            .as_ref()
+            .context(NoBreaker)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 
@@ -122,29 +140,6 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
                     ..Default::default()
                 }),
             }),
-
-            //                        breaker_discrete_control: Some(BreakerDiscreteControl {
-            //                            check: None,
-            //                            control_value: None,
-            //                            Breaker_control_fscc: Some(ControlFscc {
-            //                                logical_node_for_control: None,
-            //                                Breaker_control_schedule_fsch: Some(ControlScheduleFsch {
-            //                                    val_dcsg: Some(BreakerCsg {
-            //                                        crv_pts: vec![BreakerPoint {
-            //                                            pos: Some(ControlDpc { ctl_val: pos }),
-            //                                            start_time: Some(ControlTimestamp {
-            //                                                fraction: 0,
-            //                                                seconds: start_time
-            //                                                    .duration_since(SystemTime::UNIX_EPOCH)
-            //                                                    .unwrap()
-            //                                                    .as_secs(),
-            //                                            }),
-            //                                        }],
-            //                                    }),
-            //                               }),
-            //                           }),
-            //                       }),
-
         }
     }
 

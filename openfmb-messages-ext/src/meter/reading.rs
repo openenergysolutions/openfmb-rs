@@ -15,26 +15,25 @@ use uuid::Uuid;
 use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for MeterReadingProfile {
-    fn device_state(&self) -> OpenFMBResult<String> {
-        let mut state = String::new();
-        state.push_str(
-            &self
-                .meter_reading
-                .clone()
-                .unwrap()
-                .reading_mmxu
-                .unwrap()
-                .w
-                .unwrap()
-                .net
-                .unwrap()
-                .c_val
-                .unwrap()
-                .mag
-                .to_string(),
-        );
-        state.push_str(" kWh");
-        Ok(state)
+    fn device_state(&self) -> OpenFMBResult<String> {        
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag
+            .to_string())
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -55,9 +54,10 @@ impl OpenFMBExt for MeterReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .meter
-                .clone()
+                .as_ref()
                 .context(NoMeter)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -67,13 +67,16 @@ impl OpenFMBExt for MeterReadingProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .meter
-            .clone()
+            .as_ref()
             .context(NoMeter)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

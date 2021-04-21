@@ -18,27 +18,34 @@ use openfmb_messages::commonmodule::StateKind;
 
 impl OpenFMBExt for GenerationStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(match self
+        match self
             .generation_status
-            .clone()
-            .unwrap()
+            .as_ref()
+            .context(NoGenerationStatus)?
             .generation_status_zgen
-            .unwrap()
+            .as_ref()
+            .context(NoGenerationStatusZGen)?
             .generation_event_and_status_zgen
-            .unwrap()
+            .as_ref()
+            .context(NoGenerationEventAndStatusZGen)?
             .point_status
-            .unwrap()
+            .as_ref()
+            .context(NoPointStatus)?
             .state
-            .unwrap()
-            .value
+            .as_ref()
+            .context(NoState)            
         {
-            0 => "Undefined",
-            1 => "Off",
-            2 => "On",
-            3 => "StandBy",
-            _ => unreachable!()
-        }
-        .to_string())
+            Ok(state) => {
+                match state.value {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Off".into()),
+                    2 => Ok("On".into()),
+                    3 => Ok("StandBy".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)           
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -59,9 +66,10 @@ impl OpenFMBExt for GenerationStatusProfile {
         Ok(Uuid::from_str(
             &self
                 .generating_unit
-                .clone()
+                .as_ref()
                 .context(NoGeneratingUnit)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -71,13 +79,16 @@ impl OpenFMBExt for GenerationStatusProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .generating_unit
-            .clone()
-            .context(NoMeter)?
+            .as_ref()
+            .context(NoGeneratingUnit)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

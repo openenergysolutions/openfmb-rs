@@ -29,9 +29,10 @@ impl OpenFMBExt for RegulatorDiscreteControlProfile {
         Ok(Uuid::from_str(
             &self
                 .regulator_system
-                .clone()
-                .context(NoProtectedSwitch)?
+                .as_ref()
+                .context(NoRegulatorSystem)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -39,7 +40,19 @@ impl OpenFMBExt for RegulatorDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("No Name Specified".to_string())
+        Ok(self
+            .regulator_system
+            .as_ref()
+            .context(NoRegulatorSystem)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 

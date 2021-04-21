@@ -17,22 +17,7 @@ use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for RecloserReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(self
-            .recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .clone()
-            .unwrap()
-            .w
-            .unwrap()
-            .net
-            .unwrap()
-            .c_val
-            .unwrap()
-            .mag
-            .to_string())
-        //panic!("{:?}", self);
+        Ok("".into())
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -53,9 +38,10 @@ impl OpenFMBExt for RecloserReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .recloser
-                .clone()
-                .context(NoGeneratingUnit)?
+                .as_ref()
+                .context(NoRecloser)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -65,13 +51,16 @@ impl OpenFMBExt for RecloserReadingProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .recloser
-            .clone()
-            .context(NoBreaker)?
+            .as_ref()
+            .context(NoRecloser)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }
@@ -82,137 +71,6 @@ impl OpenFMBExtReading for RecloserReadingProfile {
             .reading_message_info
             .as_ref()
             .context(NoStatusMessageInfo)?)
-    }
-}
-
-pub trait RecloserReadingExt: ReadingProfileExt {
-    fn recloser_reading(&self) -> f64;
-    fn get_current_phsa(&self) -> f64;
-    fn get_current_phsb(&self) -> f64;
-    fn get_current_phsc(&self) -> f64;
-    fn get_ph_v(&self) -> &openfmb_messages::commonmodule::Wye;
-    fn get_ppv(&self) -> &openfmb_messages::commonmodule::Del;
-    fn get_freq(&self, side: u32) -> f64;
-}
-
-impl RecloserReadingExt for RecloserReadingProfile {
-    fn recloser_reading(&self) -> f64 {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .w
-            .as_ref()
-            .unwrap()
-            .net
-            .as_ref()
-            .unwrap()
-            .c_val
-            .as_ref()
-            .unwrap()
-            .mag
-    }
-    fn get_current_phsa(&self) -> f64 {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .a
-            .as_ref()
-            .unwrap()
-            .phs_a
-            .as_ref()
-            .unwrap()
-            .c_val
-            .as_ref()
-            .unwrap()
-            .mag
-    }
-    fn get_current_phsb(&self) -> f64 {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .a
-            .as_ref()
-            .unwrap()
-            .phs_b
-            .as_ref()
-            .unwrap()
-            .c_val
-            .as_ref()
-            .unwrap()
-            .mag
-    }
-    fn get_current_phsc(&self) -> f64 {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .a
-            .as_ref()
-            .unwrap()
-            .phs_c
-            .as_ref()
-            .unwrap()
-            .c_val
-            .as_ref()
-            .unwrap()
-            .mag
-    }
-    fn get_freq(&self, side: u32) -> f64 {
-        if side == 0 {
-            self.recloser_reading
-                .first()
-                .unwrap()
-                .reading_mmxu
-                .as_ref()
-                .unwrap()
-                .hz
-                .as_ref()
-                .unwrap()
-                .mag
-        } else {
-            self.recloser_reading[1]                            
-                .reading_mmxu
-                .as_ref()
-                .unwrap()
-                .hz
-                .as_ref()
-                .unwrap()
-                .mag
-        }
-            
-    }
-    fn get_ph_v(&self) -> &openfmb_messages::commonmodule::Wye {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .ph_v
-            .as_ref()
-            .unwrap()
-    }
-    fn get_ppv(&self) -> &openfmb_messages::commonmodule::Del {
-        self.recloser_reading
-            .first()
-            .unwrap()
-            .reading_mmxu
-            .as_ref()
-            .unwrap()
-            .ppv
-            .as_ref()
-            .unwrap()
     }
 }
 

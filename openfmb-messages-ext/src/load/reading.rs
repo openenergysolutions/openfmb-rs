@@ -37,9 +37,10 @@ impl OpenFMBExt for LoadReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .energy_consumer
-                .clone()
+                .as_ref()
                 .context(NoEnergyConsumer)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -49,13 +50,16 @@ impl OpenFMBExt for LoadReadingProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .energy_consumer
-            .clone()
+            .as_ref()
             .context(NoEnergyConsumer)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

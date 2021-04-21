@@ -57,9 +57,10 @@ impl OpenFMBExt for SolarControlProfile {
         Ok(Uuid::from_str(
             &self
                 .solar_inverter
-                .clone()
+                .as_ref()
                 .context(NoSolarInverter)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -69,13 +70,16 @@ impl OpenFMBExt for SolarControlProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .solar_inverter
-            .clone()
+            .as_ref()
             .context(NoSolarInverter)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

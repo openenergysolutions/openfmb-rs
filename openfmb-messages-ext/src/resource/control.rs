@@ -30,9 +30,9 @@ impl OpenFMBExt for ResourceDiscreteControlProfile {
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
-            &self
-                .clone()
+            &self                
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -40,13 +40,15 @@ impl OpenFMBExt for ResourceDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok(self           
-            .clone()            
+        Ok(self                                   
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

@@ -17,25 +17,24 @@ use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
 
 impl OpenFMBExt for SolarReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        let mut state = String::new();
-        state.push_str(
-            &self
-                .solar_reading
-                .clone()
-                .unwrap()
-                .reading_mmxu
-                .unwrap()
-                .w
-                .unwrap()
-                .net
-                .unwrap()
-                .c_val
-                .unwrap()
-                .mag
-                .to_string(),
-        );
-        state.push_str(" kWh");
-        Ok(state)
+        Ok(self
+            .solar_reading
+            .as_ref()
+            .context(NoSolarReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag
+            .to_string())
     }
 
     fn message_info(&self) -> Result<&MessageInfo, OpenFMBError> {
@@ -56,9 +55,10 @@ impl OpenFMBExt for SolarReadingProfile {
         Ok(Uuid::from_str(
             &self
                 .solar_inverter
-                .clone()
+                .as_ref()
                 .context(NoSolarInverter)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -68,13 +68,16 @@ impl OpenFMBExt for SolarReadingProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .solar_inverter
-            .clone()
+            .as_ref()
             .context(NoSolarInverter)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }

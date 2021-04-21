@@ -25,29 +25,32 @@ impl OpenFMBExtStatus for RecloserStatusProfile {
 
 impl OpenFMBExt for RecloserStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok(match self
+        match self
             .recloser_status
             .as_ref()
-            .context(NoBreakerStatus)?
+            .context(NoRecloserStatus)?
             .status_and_event_xcbr
             .as_ref()
             .context(NoStatusAndEventXcbr)?
             .pos
-           .as_ref()
-           .context(NoPos)?
-           .phs3
-           .as_ref()
-           .context(NoPhs3)?
-           .st_val
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
         {
-            0 => "Undefined",
-            1 => "Transient",
-            2 => "Closed",
-            3 => "Open",
-            4 => "Invalid",
-            _ => unreachable!()
-        }
-        .into())
+            Ok(phs3) => {
+                match phs3.st_val {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Transient".into()),
+                    2 => Ok("Closed".into()),
+                    3 => Ok("Open".into()),
+                    4 => Ok("Invalid".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }            
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -69,7 +72,7 @@ impl OpenFMBExt for RecloserStatusProfile {
             &self
                 .recloser
                 .as_ref()
-                .context(NoBreaker)?
+                .context(NoRecloser)?
                 .conducting_equipment
                 .as_ref()
                 .context(NoConductingEquipment)?
@@ -82,7 +85,7 @@ impl OpenFMBExt for RecloserStatusProfile {
         Ok(self
             .recloser
             .as_ref()
-            .context(NoBreaker)?
+            .context(NoRecloser)?
             .conducting_equipment
             .as_ref()
             .context(NoConductingEquipment)?

@@ -42,21 +42,27 @@ impl OpenFMBExt for EssControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        Ok(self
+            .control_message_info
+            .as_ref()
+            .context(NoControlMessageInfo)?
+            .message_info
+            .as_ref()
+            .context(NoMessageInfo)?)       
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("SolarStatusProfile".to_string())
+        Ok("ESSControlProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
             &self
                 .ess
-                .clone()
-                .context(NoConductingEquipment)?
+                .as_ref()
+                .context(NoEss)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -66,13 +72,16 @@ impl OpenFMBExt for EssControlProfile {
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
             .ess
-            .clone()
-            .context(NoConductingEquipment)?
+            .as_ref()
+            .context(NoEss)?
             .conducting_equipment
+            .as_ref()
             .context(NoConductingEquipment)?
             .named_object
+            .as_ref()
             .context(NoNamedObject)?
             .name
+            .clone()
             .context(NoName)?)
     }
 }
@@ -108,20 +117,7 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
 
-            control_message_info: Some(msg_info),
-            //                        protected_switch: Some(ProtectedSwitch {
-            //                            conducting_equipment: Some(ConductingEquipment {
-            //                                named_object: None,
-            //                                m_rid: m_rid.to_string(),
-            //                            }),
-            //                        }),
-            //                        switch_control: Some(SwitchControl {
-            //                            check: Some(CheckConditions{
-            //                            interlock_check: None,synchro_check: Some(synchro_check)}),
-            //                            control_value: None,
-            //                            switch_control_fscc:  None
-            //                        }),
-           // ied: None,
+            control_message_info: Some(msg_info),            
         }
     }
 

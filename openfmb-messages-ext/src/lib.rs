@@ -30,7 +30,7 @@ pub mod solar;
 pub mod switch;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
-pub use recloser::{RecloserControlExt, RecloserReadingExt};
+pub use recloser::{RecloserControlExt};
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};

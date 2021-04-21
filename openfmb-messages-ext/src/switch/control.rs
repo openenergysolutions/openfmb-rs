@@ -40,8 +40,7 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()
-        //        Ok(self.solar_control.clone().context(NoStatusMessageInfo)?..unwrap())
+        unimplemented!()        
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -52,9 +51,10 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
         Ok(Uuid::from_str(
             &self
                 .protected_switch
-                .clone()
+                .as_ref()
                 .context(NoProtectedSwitch)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -62,7 +62,19 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("No Name Specified".to_string())
+        Ok(self
+            .protected_switch
+            .as_ref()
+            .context(NoProtectedSwitch)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 

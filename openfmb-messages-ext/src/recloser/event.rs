@@ -26,7 +26,32 @@ impl OpenFMBExtEvent for RecloserEventProfile {
 
 impl OpenFMBExt for RecloserEventProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .recloser_event
+            .as_ref()
+            .context(NoRecloserEvent)?
+            .status_and_event_xcbr
+            .as_ref()
+            .context(NoStatusAndEventXcbr)?
+            .pos
+            .as_ref()
+            .context(NoPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)            
+        {
+            Ok(phs3) => {
+                match phs3.st_val {
+                    0 => Ok("Undefined".into()),
+                    1 => Ok("Transient".into()),
+                    2 => Ok("Closed".into()),
+                    3 => Ok("Open".into()),
+                    4 => Ok("Invalid".into()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }            
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -58,6 +83,18 @@ impl OpenFMBExt for RecloserEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .recloser
+            .as_ref()
+            .context(NoRecloser)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }

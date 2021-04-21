@@ -51,9 +51,10 @@ impl OpenFMBExt for RecloserDiscreteControlProfile {
         Ok(Uuid::from_str(
             &self
                 .recloser
-                .clone()
-                .context(NoProtectedSwitch)?
+                .as_ref()
+                .context(NoRecloser)?
                 .conducting_equipment
+                .as_ref()
                 .context(NoConductingEquipment)?
                 .m_rid,
         )
@@ -61,7 +62,19 @@ impl OpenFMBExt for RecloserDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("No Name Specified".to_string())
+        Ok(self
+            .recloser
+            .as_ref()
+            .context(NoRecloser)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
 

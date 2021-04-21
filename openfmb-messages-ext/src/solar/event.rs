@@ -25,8 +25,36 @@ impl OpenFMBExtEvent for SolarEventProfile {
 }
 
 impl OpenFMBExt for SolarEventProfile {
-    fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+    fn device_state(&self) -> OpenFMBResult<String> {        
+        match self
+            .solar_event
+            .as_ref()
+            .context(NoSolarEvent)?
+            .solar_event_zgen
+            .as_ref()
+            .context(NoSolarEventZGen)?
+            .solar_event_and_status_zgen
+            .as_ref()
+            .context(NoSolarEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)
+                            
+        {
+            Ok(state) => {
+                match state.value {
+                    0 => Ok("Undefined".to_string()),
+                    1 => Ok("Off".to_string()),
+                    2 => Ok("On".to_string()),
+                    3 => Ok("StandBy".to_string()),
+                    _ => Err(OpenFMBError::InvalidValue)
+                }
+            }
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+        }        
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -58,6 +86,18 @@ impl OpenFMBExt for SolarEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self
+            .solar_inverter
+            .as_ref()
+            .context(NoSolarInverter)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }

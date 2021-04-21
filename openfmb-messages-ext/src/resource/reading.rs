@@ -45,16 +45,25 @@ impl OpenFMBExt for ResourceReadingProfile {
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
-            &self
+            &self                
                 .conducting_equipment
                 .as_ref()
-                .context(NoConductingEquipment)?                
+                .context(NoConductingEquipment)?
                 .m_rid,
         )
         .context(UuidError)?)
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok("".to_string())
+        Ok(self                                   
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
+            .named_object
+            .as_ref()
+            .context(NoNamedObject)?
+            .name
+            .clone()
+            .context(NoName)?)
     }
 }
