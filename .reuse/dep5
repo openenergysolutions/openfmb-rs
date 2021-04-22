@@ -8,3 +8,19 @@ Source: https://github.com/openenergysolutions/openfmb-rs
 # Files: src/*
 # Copyright: $YEAR $NAME <$CONTACT>
 # License: ...
+
+Files: openfmb-descriptors/third-party/*
+Copyright: 2021 Google Inc
+License: BSD-3-Clause
+
+Files: openfmb-descriptors/proto/*
+Copyright: 2018 UCA International Users Group as agent for and on behalf of OpenFMB Users Group ("OpenFMB") 
+License: Apache-2.0
+
+Files: Cargo.lock
+Copyright: 2021 Open Energy Solutions Inc.
+License: Apache-2.0
+
+Files: */Cargo.lock
+Copyright: 2021 Open Energy Solutions Inc.
+License: Apache-2.0

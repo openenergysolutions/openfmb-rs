@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 [![Documentation](https://docs.rs/prost-types/badge.svg)](https://docs.rs/prost-types/)
 [![Crate](https://img.shields.io/crates/v/prost-types.svg)](https://crates.io/crates/prost-types)
 
