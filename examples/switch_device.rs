@@ -4,13 +4,10 @@
 
 use futures::stream::StreamExt;
 use log::info;
-use std::time::SystemTime;
 use openfmb::encoding::ProtobufEncoding;
-use openfmb_messages::{
-    commonmodule::*,
-    switchmodule::*,
-};
+use openfmb_messages::{commonmodule::*, switchmodule::*};
 use std::env;
+use std::time::SystemTime;
 use tokio::time;
 
 #[tokio::main]

@@ -4,6 +4,7 @@
 
 use crate::prelude::*;
 use futures::{stream, StreamExt};
+use log::trace;
 use openfmb_messages::{
     commonmodule::{DbPosKind, DynamicTestKind},
     switchmodule::{
@@ -12,7 +13,6 @@ use openfmb_messages::{
 };
 use openfmb_messages_ext::switch::SwitchControlExt;
 use uuid::Uuid;
-use log::trace;
 
 /// Control and wait on updates from a switch
 ///
@@ -87,10 +87,7 @@ where
     pub async fn control(&mut self, msg: SwitchDiscreteControlProfile) -> PublishResult<()> {
         let topic = topic("SwitchDiscreteControlProfile", &self.mrid);
         trace!("publishing to topic: {:?}", topic);
-        Ok(self
-            .bus
-            .publish(&topic, msg)
-            .await?)
+        Ok(self.bus.publish(&topic, msg).await?)
     }
 
     /// A returned subscription transform that checks if the switch was closed
@@ -163,7 +160,7 @@ where
                     .unwrap_or_default()
                     .phs3
                     .unwrap_or_default()
-                    .st_val
+                    .st_val,
             )
             .unwrap()),
             Err(err) => Err(err),
@@ -273,7 +270,8 @@ where
     pub async fn enable_synchro_check(&mut self) -> ControlResult<()> {
         let mut dynamic_test = self.dynamic_test().await?;
         while let Some(Ok(DynamicTestKind::None)) = dynamic_test.next().await {
-            let msg = SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), true);
+            let msg =
+                SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), true);
             self.control(msg).await?;
         }
         Ok(())
@@ -288,7 +286,8 @@ where
             if testing == DynamicTestKind::None {
                 break;
             }
-            let msg = SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), false);
+            let msg =
+                SwitchDiscreteControlProfile::switch_synchro_msg(&self.mrid_as_string(), false);
             self.control(msg).await?;
         }
         Ok(())

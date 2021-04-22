@@ -1,5 +1,4 @@
 #![deny(clippy::all)]
-
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -60,12 +59,12 @@
 //! }
 //! ```
 
-pub mod error;
-pub mod message;
 pub mod bus;
 pub mod client;
 pub mod device;
 pub mod encoding;
+pub mod error;
+pub mod message;
 pub use openfmb_messages as messages;
 pub mod prelude {
     //! Exports very commonly used types and traits

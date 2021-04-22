@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::prelude::*;
-use futures::StreamExt;
 use async_trait::async_trait;
+use futures::StreamExt;
 use log::debug;
 use std::marker::PhantomData;
 
@@ -23,14 +23,16 @@ where
 {
     async fn subscribe(&mut self, subject: &str) -> Result<Subscription<T>, SubscribeError> {
         debug!("subscribing to {:?}", subject);
-        Ok(Box::pin(self.conn
-            .subscribe(subject)
-            .await
-            .map_err(SubscribeError::IoError)?
-        .map(|msg| {
-            let data: &[u8] = &msg.data;
-            T::decode(data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
-        })))
+        Ok(Box::pin(
+            self.conn
+                .subscribe(subject)
+                .await
+                .map_err(SubscribeError::IoError)?
+                .map(|msg| {
+                    let data: &[u8] = &msg.data;
+                    T::decode(data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
+                }),
+        ))
     }
 }
 
@@ -46,7 +48,8 @@ where
             .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         Ok(self
             .conn
-            .publish(subject, buf).await
+            .publish(subject, buf)
+            .await
             .map_err(PublishError::IoError)?)
     }
 }
