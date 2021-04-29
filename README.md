@@ -37,4 +37,12 @@ RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-
 RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-67b4-434c-8c26-736104cc14fe" cargo run --example=switch_client
 ```
 
+## Commercial licenses and support
 
+Support and commercial license options are provided by Open Energy Solutions Inc. Please contact info@openenergysolutionsinc.com for more details.
+
+## Contributing
+
+If you want to contribute to the improvement and development of the library please send me comments, feature requests, bug reports, or patches. For more than trivial contributions I require you to sign a Contributor License Agreement. Please contact info@openenergysolutionsinc.com.
+
+Please don't send pull requests before signing the Contributor License Agreement! Such pull requests may be silently ignored.
