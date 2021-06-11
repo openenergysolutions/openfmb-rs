@@ -1,16 +1,16 @@
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
 //
 // SPDX-License-Identifier: Apache-2.0
-
+//
 use env_logger;
+use std::env;
 
 fn main() {
     env_logger::init();
-    //println!("cargo:rerun-if-changed=build.rs");
-    const OUT: &str = "src";
+    let out_dir = env::var("OUT_DIR").unwrap();
     openfmb_codegen::Config::new()
         .btree_map(&["."])
-        .out_dir(OUT)
+        .out_dir(&out_dir)
         .compile_protos()
         .unwrap();
 }
