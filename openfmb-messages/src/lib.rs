@@ -13,7 +13,7 @@ pub mod loadmodule;
 pub mod metermodule;
 pub mod reclosermodule;
 pub mod regulatormodule;
+pub mod reservemodule;
 pub mod resourcemodule;
 pub mod solarmodule;
 pub mod switchmodule;
-pub mod uml;
