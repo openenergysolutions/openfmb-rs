@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use openfmb_messages::{commonmodule::*};
+use openfmb_messages::commonmodule::*;
 
 #[test]
 fn ensure_optional_or_default() {

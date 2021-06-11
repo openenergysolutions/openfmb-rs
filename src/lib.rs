@@ -60,6 +60,7 @@
 //! ```
 
 pub mod bus;
+#[cfg(feature = "client")]
 pub mod client;
 pub mod device;
 pub mod encoding;

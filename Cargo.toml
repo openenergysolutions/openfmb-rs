@@ -20,12 +20,13 @@ prost = "0.7"
 
 # messages
 openfmb-messages = { path = "./openfmb-messages" }
-openfmb-messages-ext = { path = "./openfmb-messages-ext" }
+openfmb-messages-ext = { path = "./openfmb-messages-ext", optional = true }
 
 # nats optional dep
 nats = {version = "0.8", optional = true}
 
 [features]
+client = ["openfmb-messages-ext"]
 default = ["nats"]
 
 [dev-dependencies]
