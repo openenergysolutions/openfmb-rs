@@ -3,35 +3,31 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use async_trait::async_trait;
-
 use crate::error::{PublishResult, SubscribeResult};
+use crate::topic::Topic;
 
 /// A publisher provides the functionality needed to publish encodeable
 /// messages.
 #[async_trait]
-pub trait Publisher<T> {
-    /// Publish a message of type T to a topics
-    async fn publish(&mut self, topic: &str, msg: T) -> PublishResult<()>;
+pub trait Publisher<M> {
+    /// Publish a message of type M to a topic of type T
+    async fn publish<S: AsRef<str>, T: Topic<S>>(&mut self, topic: T, msg: M) -> PublishResult<()>;
 }
 
 /// Subscriber provides the functionality to subscribe to topics and messages
 /// of a specific type on the bus.
 #[async_trait]
-pub trait Subscriber<T> {
-    /// Subscribe to a topic string and return a Stream of results
-    //
-    /// The idea is that the result type is a stream of decoded typed messages
-    /// but that is up to the implemention.
-    async fn subscribe(&mut self, topic: &str) -> SubscribeResult<T>;
+pub trait Subscriber<M> {
+    /// Subscribe to a topic and return a stream of Messages
+    async fn subscribe<S: AsRef<str>, T: Topic<S>>(&mut self, topic: T) -> SubscribeResult<M>;
 }
 
 /// A message bus provides functionality to publish messages to a topic
 /// and subscribe to messages on a topic. The publish and subscribe are
 /// typed
-pub trait MessageBus<T>: Publisher<T> + Subscriber<T> {}
+pub trait MessageBus<M>: Publisher<M> + Subscriber<M> {}
 
 #[cfg(feature = "nats")]
 mod nats;
 
-#[cfg(feature = "nats")]
 pub use self::nats::NatsBus;

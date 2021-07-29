@@ -1,7 +1,8 @@
-#![deny(clippy::all)]
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
 //
 // SPDX-License-Identifier: Apache-2.0
+
+#![deny(clippy::all)]
 
 //! A library for OpenFMB in Rust that provides traits and implementations
 //! for common devices and device implementations.
@@ -76,4 +77,6 @@ pub mod prelude {
         Subscription, SubscriptionError,
     };
     pub use crate::message::Message;
+    pub use crate::topic::{TopicLevel, Topic, Module, Profile, ProfileTopic};
 }
+pub mod topic;

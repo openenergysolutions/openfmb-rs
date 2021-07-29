@@ -1,8 +1,7 @@
-// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
-//
+// SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc //
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::prelude::*;
+use crate::{prelude::*, topic};
 use openfmb_messages::switchmodule::{
     SwitchDiscreteControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
 };
@@ -22,11 +21,15 @@ where
 {
     bus: MB,
     mrid: Uuid,
+    status_topic: ProfileTopic,
+    event_topic: ProfileTopic,
+    reading_topic: ProfileTopic,
+    discrete_control_topic: ProfileTopic,
+
 }
 
-/// Topic string given a message type and mrid
-pub fn topic(typ: &'static str, mrid: &Uuid) -> String {
-    format!("openfmb.switchmodule.{}.{}", typ, mrid.to_hyphenated())
+fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
+    ProfileTopic::new(topic::Module::Switch, profile, mrid.clone())
 }
 
 impl<MB> Switch<MB>
@@ -40,14 +43,21 @@ where
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
-        Switch { bus, mrid }
+        Switch {
+            bus,
+            mrid,
+            status_topic: topic(topic::Profile::Status, &mrid),
+            event_topic: topic(topic::Profile::Event, &mrid),
+            reading_topic: topic(topic::Profile::Reading, &mrid),
+            discrete_control_topic: topic(topic::Profile::DiscreteControl, &mrid),
+        }
     }
 
     /// publish switch status messages
     pub async fn status(&mut self, msg: SwitchStatusProfile) -> PublishResult<()> {
         Ok(self
             .bus
-            .publish(&topic("SwitchStatusProfile", &self.mrid), msg)
+            .publish(self.status_topic.iter(), msg)
             .await?)
     }
 
@@ -55,7 +65,7 @@ where
     pub async fn event(&mut self, msg: SwitchEventProfile) -> PublishResult<()> {
         Ok(self
             .bus
-            .publish(&topic("SwitchEventProfile", &self.mrid), msg)
+            .publish(self.event_topic.iter(), msg)
             .await?)
     }
 
@@ -63,14 +73,14 @@ where
     pub async fn reading(&mut self, msg: SwitchReadingProfile) -> PublishResult<()> {
         Ok(self
             .bus
-            .publish(&topic("SwitchReadingProfile", &self.mrid), msg)
+            .publish(self.reading_topic.iter(), msg)
             .await?)
     }
 
     /// Subscribe to control messages
     pub async fn control(&mut self) -> SubscribeResult<SwitchDiscreteControlProfile> {
         self.bus
-            .subscribe(&topic("SwitchDiscreteControlProfile", &self.mrid))
+            .subscribe(self.discrete_control_topic.iter())
             .await
     }
 }
