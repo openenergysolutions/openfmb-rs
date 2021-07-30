@@ -99,7 +99,10 @@ where
     M: 'static + Message<E> + Send,
 {
     async fn publish<S: AsRef<str>, T: Topic<S>>(&mut self, topic: T, msg: M) -> PublishResult<()> {
-        let mut buf = Vec::new();
+        // 512 bytes is a reasonable guess, on average we saw about ~400 byte message sizes for openfmb
+        // if we had a "max size" message we could statically allocate a buffer and perhaps avoid the heap
+        // here
+        let mut buf = Vec::with_capacity(512);
         msg.encode(&mut buf)
             .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         let subject: String = topic_to_subject(topic);
