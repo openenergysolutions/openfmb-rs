@@ -1,9 +1,12 @@
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc //
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::{prelude::*, topic};
-use openfmb_messages::switchmodule::{
-    SwitchDiscreteControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+use crate::prelude::*;
+use openfmb_messages::{
+    switchmodule::{
+        SwitchDiscreteControlProfile, SwitchEventProfile, SwitchReadingProfile, SwitchStatusProfile,
+    },
+    Module, Profile,
 };
 use uuid::Uuid;
 
@@ -27,8 +30,8 @@ where
     discrete_control_topic: ProfileTopic,
 }
 
-fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(topic::Module::Switch, profile, mrid.clone())
+fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
+    ProfileTopic::new(Module::SwitchModule, profile, mrid.clone())
 }
 
 impl<MB> Switch<MB>
@@ -45,10 +48,10 @@ where
         Switch {
             bus,
             mrid,
-            status_topic: topic(topic::Profile::Status, &mrid),
-            event_topic: topic(topic::Profile::Event, &mrid),
-            reading_topic: topic(topic::Profile::Reading, &mrid),
-            discrete_control_topic: topic(topic::Profile::DiscreteControl, &mrid),
+            status_topic: topic(Profile::SwitchStatusProfile, &mrid),
+            event_topic: topic(Profile::SwitchEventProfile, &mrid),
+            reading_topic: topic(Profile::SwitchReadingProfile, &mrid),
+            discrete_control_topic: topic(Profile::SwitchDiscreteControlProfile, &mrid),
         }
     }
 

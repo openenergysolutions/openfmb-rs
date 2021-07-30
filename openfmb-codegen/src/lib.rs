@@ -114,20 +114,21 @@ mod ident;
 mod message_graph;
 mod message_inheritance;
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::default;
 use std::env;
 use std::fs;
 use std::io::{Error, ErrorKind, Result};
 use std::path::PathBuf;
 
+use itertools::Itertools;
 use log::trace;
 use proto_types::FileDescriptorProto;
 
 pub use crate::ast::{Comments, Method, Service};
 use crate::code_generator::CodeGenerator;
 use crate::extern_paths::ExternPaths;
-use crate::ident::to_snake;
+use crate::ident::{to_snake, to_upper_camel};
 use crate::message_graph::MessageGraph;
 use crate::message_inheritance::message_inheritance;
 
@@ -538,6 +539,8 @@ impl Config {
 
     fn generate(&mut self, files: Vec<FileDescriptorProto>) -> Result<HashMap<Module, String>> {
         let mut modules = HashMap::new();
+        // openfmb profiles to be output in a seperate file
+        let mut profiles = HashSet::new();
         let mut packages = HashMap::new();
 
         let message_graph = MessageGraph::new(&files)
@@ -565,6 +568,7 @@ impl Config {
                 &message_inherits,
                 file,
                 &mut buf,
+                &mut profiles,
             );
         }
 
@@ -574,6 +578,122 @@ impl Config {
                 service_generator.finalize_package(&package, buf);
             }
         }
+        let mut sorted_profiles: Vec<String> = profiles.into_iter().collect();
+        sorted_profiles.sort();
+
+        let mut profile_buf = String::new();
+        profile_buf.push_str("#[derive(Debug, Copy, Clone, PartialEq, Eq)]\n");
+        profile_buf.push_str("pub enum Profile {\n");
+        for profile in sorted_profiles.iter() {
+            profile_buf.push_str("    ");
+            profile_buf.push_str(&profile);
+            profile_buf.push_str(",\n");
+        }
+        profile_buf.push_str("}\n");
+
+        // impl Profile to provide a simple as_str() that returns back a static string
+        profile_buf.push_str("impl Profile {\n");
+        profile_buf.push_str("    pub fn as_str(&self) -> &'static str {\n");
+        profile_buf.push_str("        match self {\n");
+        for profile in sorted_profiles.iter() {
+            profile_buf.push_str("            Profile::");
+            profile_buf.push_str(profile);
+            profile_buf.push_str(" => \"");
+            profile_buf.push_str(profile);
+            profile_buf.push_str("\",\n");
+        }
+        profile_buf.push_str("        }\n");
+        profile_buf.push_str("    }\n");
+        profile_buf.push_str("}\n");
+
+        // impl Display (provides to_string() API and allows println!("{}", myprofile))
+        profile_buf.push_str("impl std::fmt::Display for Profile {\n");
+        profile_buf
+            .push_str("    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {\n");
+        profile_buf.push_str("        write!(f, \"{:?}\", self)\n");
+        profile_buf.push_str("    }\n");
+        profile_buf.push_str("}\n");
+
+        // impl FromStr for parsing profile strings
+        profile_buf.push_str("impl std::str::FromStr for Profile {\n");
+        profile_buf.push_str("    type Err = ();\n");
+        profile_buf.push_str("    fn from_str(input: &str) -> Result<Profile, Self::Err> {\n");
+        profile_buf.push_str("        match input {\n");
+        for profile in sorted_profiles.iter() {
+            profile_buf.push_str("            \"");
+            profile_buf.push_str(&profile);
+            profile_buf.push_str("\" => Ok(Profile::");
+            profile_buf.push_str(&profile);
+            profile_buf.push_str("),\n");
+        }
+        profile_buf.push_str("            _ => Err(()),\n");
+        profile_buf.push_str("        }\n");
+        profile_buf.push_str("    }\n");
+        profile_buf.push_str("}\n");
+
+        modules.insert(vec!["profiles".to_string()], profile_buf);
+
+        let mut variant_buf = String::new();
+
+        // variant message
+        modules
+            .keys()
+            .filter_map(|key| match key.get(0) {
+                None => None,
+                Some(some) => match some.as_str() {
+                    "google" => None,
+                    "uml" => None,
+                    "commonmodule" => None,
+                    other => Some(other),
+                },
+            })
+            .sorted()
+            .for_each(|module| {
+                variant_buf.push_str("use crate::");
+                variant_buf.push_str(module);
+                variant_buf.push_str("::*;\n");
+            });
+        variant_buf.push_str("#[derive(Debug, Clone, PartialEq)]\n");
+        variant_buf.push_str("pub enum ProfileMessage {\n");
+        for profile in sorted_profiles.iter() {
+            variant_buf.push_str("    ");
+            variant_buf.push_str(&profile);
+            variant_buf.push_str("(");
+            variant_buf.push_str(&to_upper_camel(&profile));
+            variant_buf.push_str("),\n")
+        }
+        variant_buf.push_str("}\n");
+
+        // decode/encode functions for the ProfileMessage
+        variant_buf.push_str("use prost::Message;\n");
+        variant_buf.push_str("impl ProfileMessage {\n");
+        variant_buf.push_str("    pub fn decode<B: prost::bytes::Buf>(profile: Profile, buf: B) -> Result<ProfileMessage, prost::DecodeError> {\n");
+        variant_buf.push_str("        match profile {\n");
+        for profile in sorted_profiles.iter() {
+            variant_buf.push_str("            Profile::");
+            variant_buf.push_str(&profile);
+            variant_buf.push_str(" => ");
+            variant_buf.push_str(" Ok(ProfileMessage::");
+            variant_buf.push_str(&profile);
+            variant_buf.push_str("(");
+            variant_buf.push_str(&to_upper_camel(profile));
+            variant_buf.push_str("::decode(buf)?)),\n");
+        }
+        variant_buf.push_str("        }\n");
+        variant_buf.push_str("    }\n");
+        variant_buf.push_str("    pub fn encode<B: prost::bytes::BufMut>(&self, buf: &mut B) -> Result<(), prost::EncodeError> {\n");
+        variant_buf.push_str("        match self {\n");
+        for profile in sorted_profiles.iter() {
+            variant_buf.push_str("            ProfileMessage::");
+            variant_buf.push_str(&profile);
+            variant_buf.push_str("(msg) => msg.encode(buf),\n");
+        }
+        variant_buf.push_str("        }\n");
+        variant_buf.push_str("    }\n");
+
+        variant_buf.push_str("}\n");
+
+        modules.insert(vec!["variant".to_string()], variant_buf);
 
         Ok(modules)
     }

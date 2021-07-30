@@ -39,7 +39,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(topic::Module::Switch, profile, mrid.clone())
+    ProfileTopic::new(Module::SwitchModule, profile, mrid.clone())
 }
 
 impl<MB> Switch<MB>
@@ -54,10 +54,10 @@ where
         Switch {
             bus,
             mrid,
-            status_topic: topic(topic::Profile::Status, &mrid),
-            event_topic: topic(topic::Profile::Event, &mrid),
-            reading_topic: topic(topic::Profile::Reading, &mrid),
-            discrete_control_topic: topic(topic::Profile::DiscreteControl, &mrid),
+            status_topic: topic(Profile::SwitchStatusProfile, &mrid),
+            event_topic: topic(Profile::SwitchEventProfile, &mrid),
+            reading_topic: topic(Profile::SwitchReadingProfile, &mrid),
+            discrete_control_topic: topic(Profile::SwitchDiscreteControlProfile, &mrid),
         }
     }
 

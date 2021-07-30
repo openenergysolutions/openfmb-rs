@@ -11,4 +11,4 @@ pub trait MessageEncoding: std::fmt::Debug {
 }
 
 mod protobufs;
-pub use protobufs::ProtobufEncoding;
+pub use protobufs::{ProtobufEncoding, ProtobufVariantDecodeError, ProtobufVariantEncoding};
