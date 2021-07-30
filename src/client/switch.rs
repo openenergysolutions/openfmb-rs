@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::prelude::*;
+use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 use log::trace;
 use openfmb_messages::{
@@ -32,11 +32,14 @@ where
 {
     bus: MB,
     mrid: Uuid,
+    status_topic: ProfileTopic,
+    event_topic: ProfileTopic,
+    reading_topic: ProfileTopic,
+    discrete_control_topic: ProfileTopic,
 }
 
-/// Topic string given a message type and mrid
-pub fn topic(typ: &'static str, mrid: &Uuid) -> String {
-    format!("openfmb.switchmodule.{}.{}", typ, mrid.to_hyphenated())
+fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
+    ProfileTopic::new(topic::Module::Switch, profile, mrid.clone())
 }
 
 impl<MB> Switch<MB>
@@ -48,7 +51,14 @@ where
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
-        Switch { bus, mrid }
+        Switch {
+            bus,
+            mrid,
+            status_topic: topic(topic::Profile::Status, &mrid),
+            event_topic: topic(topic::Profile::Event, &mrid),
+            reading_topic: topic(topic::Profile::Reading, &mrid),
+            discrete_control_topic: topic(topic::Profile::DiscreteControl, &mrid),
+        }
     }
 
     /// A stream to this devices status messages
@@ -57,7 +67,7 @@ where
     /// next event
     pub async fn status(&mut self) -> SubscribeResult<SwitchStatusProfile> {
         self.bus
-            .subscribe(&topic("SwitchStatusProfile", &self.mrid))
+            .subscribe(self.status_topic.iter())
             .await
     }
 
@@ -67,7 +77,7 @@ where
     /// next event
     pub async fn event(&mut self) -> SubscribeResult<SwitchEventProfile> {
         self.bus
-            .subscribe(&topic("SwitchEventProfile", &self.mrid))
+            .subscribe(self.event_topic.iter())
             .await
     }
 
@@ -77,7 +87,7 @@ where
     /// reading value.
     pub async fn reading(&mut self) -> SubscribeResult<SwitchReadingProfile> {
         self.bus
-            .subscribe(&topic("SwitchReadingProfile", &self.mrid))
+            .subscribe(self.reading_topic.iter())
             .await
     }
 
@@ -85,9 +95,7 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: SwitchDiscreteControlProfile) -> PublishResult<()> {
-        let topic = topic("SwitchDiscreteControlProfile", &self.mrid);
-        trace!("publishing to topic: {:?}", topic);
-        Ok(self.bus.publish(&topic, msg).await?)
+        Ok(self.bus.publish(self.discrete_control_topic.iter(), msg).await?)
     }
 
     /// A returned subscription transform that checks if the switch was closed
