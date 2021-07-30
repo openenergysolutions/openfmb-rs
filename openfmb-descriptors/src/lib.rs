@@ -11,5 +11,5 @@ pub static OPENFMB_DESCRIPTORS_BUF: &'static [u8] =
 
 lazy_static! {
     pub static ref OPENFMB_DESCRIPTORS: FileDescriptorSet =
-        { FileDescriptorSet::decode(OPENFMB_DESCRIPTORS_BUF).unwrap() };
+        FileDescriptorSet::decode(OPENFMB_DESCRIPTORS_BUF).unwrap();
 }
