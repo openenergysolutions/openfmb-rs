@@ -19,7 +19,7 @@ pub enum TopicLevel<S: AsRef<str>> {
 /// A Topic is a trait describes a topic as something that can be treated as an Iterator
 /// with the added function noting if the topic is a prefix matching topic. It must be Send
 /// as it needs to potentially be passed across threads (or async bounds)
-pub trait Topic<S: AsRef<str>>: Send + Iterator<Item=TopicLevel<S>> {
+pub trait Topic<S: AsRef<str>>: Send + Iterator<Item = TopicLevel<S>> {
     fn prefix_match(&self) -> bool;
 }
 
@@ -49,7 +49,7 @@ impl Module {
             Module::Breaker => "breakermodule",
             Module::CapBank => "capbankmodule",
             Module::Common => "commonmodule",
-            Module::CoordinationService =>"coordinationservicemodule",
+            Module::CoordinationService => "coordinationservicemodule",
             Module::ESS => "essmodule",
             Module::Generation => "generationmodule",
             Module::Interconnection => "interconnectionmodule",
@@ -69,7 +69,7 @@ impl Module {
             Module::Breaker => "Breaker",
             Module::CapBank => "CapBank",
             Module::Common => "Common",
-            Module::CoordinationService =>"CoordinationService",
+            Module::CoordinationService => "CoordinationService",
             Module::ESS => "ESS",
             Module::Generation => "Generation",
             Module::Interconnection => "Interconnection",
@@ -96,7 +96,7 @@ pub enum Profile {
 }
 
 impl Profile {
-    fn as_camel_str(&self) -> &str  {
+    fn as_camel_str(&self) -> &str {
         match *self {
             Profile::Reading => "Reading",
             Profile::DiscreteControl => "DiscreteControl",
@@ -106,7 +106,6 @@ impl Profile {
         }
     }
 }
-
 
 /// A structured topic for OpenFMB which can be used with a MessageBus
 /// as a BusTopic
@@ -126,7 +125,7 @@ impl ProfileTopic {
             profile,
             mrid,
             profile_str: [module.as_camel_str(), profile.as_camel_str()].join(""),
-            mrid_str: mrid.to_hyphenated().to_string().to_lowercase()
+            mrid_str: mrid.to_hyphenated().to_string().to_lowercase(),
         }
     }
 

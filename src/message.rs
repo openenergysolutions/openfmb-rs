@@ -15,5 +15,6 @@ use bytes::{Buf, BufMut};
 /// result using the given topic the message was published on.
 pub trait Message<E: MessageEncoding>: Sized + Send {
     fn encode<B: BufMut>(&self, buf: &mut B) -> Result<(), E::EncodeError>;
-    fn decode<S: AsRef<str>, T: Topic<S>, B: Buf>(topic: T, buf: B) -> Result<Self, E::DecodeError>;
+    fn decode<S: AsRef<str>, T: Topic<S>, B: Buf>(topic: T, buf: B)
+        -> Result<Self, E::DecodeError>;
 }

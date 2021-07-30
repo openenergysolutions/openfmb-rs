@@ -34,7 +34,7 @@ impl OpenFMBExt for SwitchReadingProfile {
                 .mag
                 .to_string());
         }
-        Err(OpenFMBError::InvalidOpenFMBMessage)        
+        Err(OpenFMBError::InvalidOpenFMBMessage)
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -92,27 +92,29 @@ impl OpenFMBExtReading for SwitchReadingProfile {
 }
 
 pub trait SwitchReadingExt: ReadingProfileExt {
-    fn switch_reading(&self) -> Option<f64>;    
+    fn switch_reading(&self) -> Option<f64>;
 }
 
 impl SwitchReadingExt for SwitchReadingProfile {
     fn switch_reading(&self) -> Option<f64> {
         if !self.switch_reading.is_empty() {
-            return Some(self.switch_reading
-                .first()
-                .as_ref()?                
-                .reading_mmxu
-                .as_ref()?                
-                .w
-                .as_ref()?                
-                .net
-                .as_ref()?                
-                .c_val
-                .as_ref()?                
-                .mag);
+            return Some(
+                self.switch_reading
+                    .first()
+                    .as_ref()?
+                    .reading_mmxu
+                    .as_ref()?
+                    .w
+                    .as_ref()?
+                    .net
+                    .as_ref()?
+                    .c_val
+                    .as_ref()?
+                    .mag,
+            );
         }
         None
-    }    
+    }
 }
 
 impl ReadingProfileExt for SwitchReadingProfile {}

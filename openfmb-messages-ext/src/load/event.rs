@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
 use loadmodule::LoadEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
+use openfmb_messages::{commonmodule::*, *};
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -41,19 +37,17 @@ impl OpenFMBExt for LoadEventProfile {
             .context(NoPointStatus)?
             .state
             .as_ref()
-            .context(NoState)            
+            .context(NoState)
         {
-            Ok(state) => {
-                match state.value {
-                    0 => Ok("Undefined".into()),
-                    1 => Ok("Off".into()),
-                    2 => Ok("On".into()),
-                    3 => Ok("StandBy".into()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
-        }        
+            Ok(state) => match state.value {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Off".into()),
+                2 => Ok("On".into()),
+                3 => Ok("StandBy".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

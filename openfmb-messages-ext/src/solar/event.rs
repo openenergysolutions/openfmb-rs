@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
+use openfmb_messages::{commonmodule::*, *};
 use solarmodule::SolarEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -25,7 +21,7 @@ impl OpenFMBExtEvent for SolarEventProfile {
 }
 
 impl OpenFMBExt for SolarEventProfile {
-    fn device_state(&self) -> OpenFMBResult<String> {        
+    fn device_state(&self) -> OpenFMBResult<String> {
         match self
             .solar_event
             .as_ref()
@@ -42,19 +38,16 @@ impl OpenFMBExt for SolarEventProfile {
             .state
             .as_ref()
             .context(NoState)
-                            
         {
-            Ok(state) => {
-                match state.value {
-                    0 => Ok("Undefined".to_string()),
-                    1 => Ok("Off".to_string()),
-                    2 => Ok("On".to_string()),
-                    3 => Ok("StandBy".to_string()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
-        }        
+            Ok(state) => match state.value {
+                0 => Ok("Undefined".to_string()),
+                1 => Ok("Off".to_string()),
+                2 => Ok("On".to_string()),
+                3 => Ok("StandBy".to_string()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

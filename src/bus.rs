@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use async_trait::async_trait;
 use crate::error::{PublishResult, SubscribeResult};
 use crate::topic::Topic;
+use async_trait::async_trait;
 
 /// A publisher provides the functionality needed to publish encodeable
 /// messages.

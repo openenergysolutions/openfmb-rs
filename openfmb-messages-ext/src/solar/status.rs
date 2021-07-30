@@ -4,17 +4,17 @@
 
 use std::str::FromStr;
 
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, StatusProfileExt};
+use openfmb_messages::commonmodule::StateKind;
 use openfmb_messages::{
     commonmodule::{MessageInfo, StatusMessageInfo},
     solarmodule::SolarStatusProfile,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, StatusProfileExt};
-use openfmb_messages::commonmodule::StateKind;
 
 impl OpenFMBExt for SolarStatusProfile {
-    fn device_state(&self) -> OpenFMBResult<String> {        
+    fn device_state(&self) -> OpenFMBResult<String> {
         match self
             .solar_status
             .as_ref()
@@ -31,19 +31,16 @@ impl OpenFMBExt for SolarStatusProfile {
             .state
             .as_ref()
             .context(NoState)
-                            
         {
-            Ok(state) => {
-                match state.value {
-                    0 => Ok("Undefined".to_string()),
-                    1 => Ok("Off".to_string()),
-                    2 => Ok("On".to_string()),
-                    3 => Ok("StandBy".to_string()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
-        }        
+            Ok(state) => match state.value {
+                0 => Ok("Undefined".to_string()),
+                1 => Ok("Off".to_string()),
+                2 => Ok("On".to_string()),
+                3 => Ok("StandBy".to_string()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

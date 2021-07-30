@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
 use coordinationservicemodule::CoordinationEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
+use openfmb_messages::{commonmodule::*, *};
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -48,7 +44,7 @@ impl OpenFMBExt for CoordinationEventProfile {
             &self
                 .application_system
                 .as_ref()
-                .context(NoApplicationSystem)?                
+                .context(NoApplicationSystem)?
                 .m_rid,
         )
         .context(UuidError)?)
@@ -58,7 +54,7 @@ impl OpenFMBExt for CoordinationEventProfile {
         Ok(self
             .application_system
             .as_ref()
-            .context(NoApplicationSystem)?            
+            .context(NoApplicationSystem)?
             .named_object
             .as_ref()
             .context(NoNamedObject)?

@@ -19,7 +19,10 @@ impl<M: prost::Message + Default> Message<ProtobufEncoding> for M {
         M::encode(self, buf)
     }
 
-    fn decode<S: AsRef<str>, T: Topic<S>, B: Buf>(_topic: T, buf: B) -> Result<M, prost::DecodeError> {
+    fn decode<S: AsRef<str>, T: Topic<S>, B: Buf>(
+        _topic: T,
+        buf: B,
+    ) -> Result<M, prost::DecodeError> {
         M::decode(buf)
     }
 }

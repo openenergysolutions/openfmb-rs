@@ -32,7 +32,7 @@ pub enum OpenFMBError {
     NoIED,
     InvalidOpenFMBMessage,
     NoMRID,
-    NoStatusMessageInfo,    
+    NoStatusMessageInfo,
     NoMessageTimestamp,
     NoMeter,
     NoMeterReading,

@@ -11,7 +11,7 @@ use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, EnergyConsumer,
         EngScheduleParameter, MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg,
-        SchedulePoint, StateKind, ScheduleParameterKind,
+        ScheduleParameterKind, SchedulePoint, StateKind,
     },
     loadmodule::{
         LoadControl, LoadControlFscc, LoadControlProfile, LoadControlScheduleFsch, LoadCsg,
@@ -143,7 +143,7 @@ pub trait LoadControlExt: ControlProfileExt {
     //    }
 
     fn build_load_control(load_value: f64, state: i32) -> Option<LoadControl> {
-    let start_time = SystemTime::now();
+        let start_time = SystemTime::now();
         Some(LoadControl {
             control_value: None,
             check: None,
@@ -158,7 +158,10 @@ pub trait LoadControlExt: ControlProfileExt {
                                     value: load_value,
                                 }],
                                 start_time: Some(ControlTimestamp {
-                                    nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                    nanoseconds: start_time
+                                        .duration_since(SystemTime::UNIX_EPOCH)
+                                        .unwrap()
+                                        .subsec_nanos(),
                                     seconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
@@ -177,7 +180,10 @@ pub trait LoadControlExt: ControlProfileExt {
                             real_pwr_set_point_enabled: None,
                             reset: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: start_time
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: start_time
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()

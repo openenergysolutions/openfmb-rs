@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
 use capbankmodule::CapBankDiscreteControlProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
+use openfmb_messages::{commonmodule::*, *};
 
 use crate::{error::*, OpenFMBExt};
 

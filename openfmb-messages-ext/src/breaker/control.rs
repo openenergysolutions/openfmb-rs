@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use openfmb_messages::{
-    commonmodule::*,
-    breakermodule::*,
-};
+use openfmb_messages::{breakermodule::*, commonmodule::*};
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
 use uuid::Uuid;
@@ -46,7 +43,7 @@ impl OpenFMBExt for BreakerDiscreteControlProfile {
             .context(NoControlMessageInfo)?
             .message_info
             .as_ref()
-            .context(NoMessageInfo)?)       
+            .context(NoMessageInfo)?)
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -148,7 +145,8 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
         _start_time: SystemTime,
         synchro_check: bool,
     ) -> BreakerDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = BreakerDiscreteControlProfile::build_control_message_info();
+        let msg_info: ControlMessageInfo =
+            BreakerDiscreteControlProfile::build_control_message_info();
         BreakerDiscreteControlProfile {
             control_message_info: Some(msg_info),
             breaker: Some(Breaker {
@@ -164,7 +162,7 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
                     synchro_check: Some(synchro_check),
                 }),
                 breaker_discrete_control_xcbr: None,
-            })
+            }),
         }
     }
 }

@@ -5,9 +5,10 @@
 use openfmb_messages::commonmodule::ControlMessageInfo;
 use openfmb_messages::{
     commonmodule::{
-        CheckConditions, ConductingEquipment, ControlSpc, ControlFscc, ControlScheduleFsch,
-        ControlTimestamp, EngGridConnectModeKind, EngScheduleParameter, Ess, MessageInfo,
-        NamedObject, OptionalStateKind, ScheduleCsg, SchedulePoint, StateKind, ScheduleParameterKind, ControlValue
+        CheckConditions, ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlSpc,
+        ControlTimestamp, ControlValue, EngGridConnectModeKind, EngScheduleParameter, Ess,
+        MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg, ScheduleParameterKind,
+        SchedulePoint, StateKind,
     },
     essmodule::{
         EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssFunction,
@@ -48,7 +49,7 @@ impl OpenFMBExt for EssControlProfile {
             .context(NoControlMessageInfo)?
             .message_info
             .as_ref()
-            .context(NoMessageInfo)?)       
+            .context(NoMessageInfo)?)
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -117,7 +118,7 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
 
-            control_message_info: Some(msg_info),            
+            control_message_info: Some(msg_info),
         }
     }
 
@@ -127,7 +128,7 @@ pub trait EssControlExt: ControlProfileExt {
             charge_rate_kw,
             SystemTime::now(),
             GridConnectModeKind::VsiPq,
-            StateKind::On as i32
+            StateKind::On as i32,
         )
     }
 
@@ -222,12 +223,17 @@ pub trait EssControlExt: ControlProfileExt {
                                 reactive_pwr_set_point_enabled: None,
                                 real_pwr_set_point_enabled: None,
                                 reset: None,
-                                state: Some(OptionalStateKind { value: StateKind::Off as i32 }),
+                                state: Some(OptionalStateKind {
+                                    value: StateKind::Off as i32,
+                                }),
                                 sync_back_to_grid: None,
                                 trans_to_islnd_on_grid_loss_enabled: None,
                                 voltage_set_point_enabled: None,
                                 start_time: Some(ControlTimestamp {
-                                    nanoseconds: start_time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                    nanoseconds: start_time
+                                        .duration_since(SystemTime::UNIX_EPOCH)
+                                        .unwrap()
+                                        .subsec_nanos(),
                                     seconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
                                         .unwrap()
@@ -369,11 +375,15 @@ pub trait EssControlExt: ControlProfileExt {
                             sch_pts: vec![
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: ScheduleParameterKind::WNetMag as i32,
+                                        schedule_parameter_type: ScheduleParameterKind::WNetMag
+                                            as i32,
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                        nanoseconds: when
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -382,11 +392,15 @@ pub trait EssControlExt: ControlProfileExt {
                                 },
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag as i32,
+                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag
+                                            as i32,
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                        nanoseconds: when
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -419,7 +433,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -477,7 +494,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -539,7 +559,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -587,7 +610,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -638,7 +664,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -671,11 +700,15 @@ pub trait EssControlExt: ControlProfileExt {
                             sch_pts: vec![
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: ScheduleParameterKind::WNetMag as i32,
+                                        schedule_parameter_type: ScheduleParameterKind::WNetMag
+                                            as i32,
                                         value: charge_rate_kw,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                        nanoseconds: when
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -684,11 +717,15 @@ pub trait EssControlExt: ControlProfileExt {
                                 },
                                 SchedulePoint {
                                     schedule_parameter: vec![EngScheduleParameter {
-                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag as i32,
+                                        schedule_parameter_type: ScheduleParameterKind::VArNetMag
+                                            as i32,
                                         value: 0.0,
                                     }],
                                     start_time: Some(ControlTimestamp {
-                                        nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                        nanoseconds: when
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
                                         seconds: when
                                             .duration_since(SystemTime::UNIX_EPOCH)
                                             .unwrap()
@@ -721,7 +758,10 @@ pub trait EssControlExt: ControlProfileExt {
                             trans_to_islnd_on_grid_loss_enabled: None,
                             voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -751,7 +791,7 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
             }),
             ess_control: Some(EssControl {
-                control_value:  Some(ControlValue {
+                control_value: Some(ControlValue {
                     identified_object: None,
                     mod_blk: Some(modblk),
                     reset: None,

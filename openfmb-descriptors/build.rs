@@ -2,12 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::process::Command;
-use std::{env, fs};
-use std::path::PathBuf;
 use std::error::Error;
 use std::ffi::OsStr;
-
+use std::path::PathBuf;
+use std::process::Command;
+use std::{env, fs};
 
 /// Returns the path to the location of the bundled Protobuf artifacts.
 fn bundle_path() -> PathBuf {
@@ -101,12 +100,24 @@ fn proto_paths() -> Result<Vec<String>, Box<dyn Error>> {
                 let sentry = sentry?;
                 let path = sentry.path();
                 if path.is_file() && path.extension() == Some(proto_ext) {
-                    proto_paths.push(path.strip_prefix(&proto_path).unwrap().to_str().unwrap().to_string())
+                    proto_paths.push(
+                        path.strip_prefix(&proto_path)
+                            .unwrap()
+                            .to_str()
+                            .unwrap()
+                            .to_string(),
+                    )
                 }
             }
         } else {
             if path.is_file() && path.extension() == Some(proto_ext) {
-                proto_paths.push(path.strip_prefix(&proto_path).unwrap().to_str().unwrap().to_string())
+                proto_paths.push(
+                    path.strip_prefix(&proto_path)
+                        .unwrap()
+                        .to_str()
+                        .unwrap()
+                        .to_string(),
+                )
             }
         }
     }
@@ -115,7 +126,6 @@ fn proto_paths() -> Result<Vec<String>, Box<dyn Error>> {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-
     println!("cargo:rerun-if-changed=proto");
     let protoc = env_protoc()
         .or_else(bundled_protoc)
@@ -135,7 +145,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("cargo:rerun-if-env-changed=PROTOC");
     println!("cargo:rerun-if-env-changed=PROTOC_INCLUDE");
 
-
     let out_dir = env::var("OUT_DIR").unwrap();
     //println!("looking up paths");
     let paths = proto_paths()?;
@@ -143,11 +152,13 @@ fn main() -> Result<(), Box<dyn Error>> {
     //println!("proto paths {:?}", paths);
     let mut protoc_cmd = Command::new(protoc);
     protoc_cmd.current_dir("proto");
-    protoc_cmd.arg("--include_imports")
-              .arg("--include_source_info")
-              .arg(format!("-o{}/openfmb_descriptors.pb", out_dir))
-              .arg("-I.")
-              .arg("-I").arg(protoc_include);
+    protoc_cmd
+        .arg("--include_imports")
+        .arg("--include_source_info")
+        .arg(format!("-o{}/openfmb_descriptors.pb", out_dir))
+        .arg("-I.")
+        .arg("-I")
+        .arg(protoc_include);
     for proto_path in paths {
         protoc_cmd.arg(proto_path.clone());
     }

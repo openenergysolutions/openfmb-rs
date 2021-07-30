@@ -2,23 +2,20 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use openfmb_messages::{
-    commonmodule::*,
-    regulatormodule::*,
-};
+use openfmb_messages::{commonmodule::*, regulatormodule::*};
 use snafu::{OptionExt, ResultExt};
-use std::{str::FromStr};
+use std::str::FromStr;
 use uuid::Uuid;
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
 impl OpenFMBExt for RegulatorControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        unimplemented!() 
+        unimplemented!()
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()       
+        unimplemented!()
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -56,8 +53,6 @@ impl OpenFMBExt for RegulatorControlProfile {
     }
 }
 
-pub trait RegulatorControlExt: ControlProfileExt {
-    
-}
+pub trait RegulatorControlExt: ControlProfileExt {}
 
 impl ControlProfileExt for RegulatorControlProfile {}

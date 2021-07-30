@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
+use openfmb_messages::{commonmodule::*, *};
 use resourcemodule::ResourceEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -45,7 +41,7 @@ impl OpenFMBExt for ResourceEventProfile {
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
-            &self                
+            &self
                 .conducting_equipment
                 .as_ref()
                 .context(NoConductingEquipment)?
@@ -55,7 +51,7 @@ impl OpenFMBExt for ResourceEventProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok(self                                   
+        Ok(self
             .conducting_equipment
             .as_ref()
             .context(NoConductingEquipment)?

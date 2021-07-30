@@ -94,7 +94,8 @@ pub fn message_inheritance(
                         //trace!("package {:?}, message name: {:?}, field name: {:?}", package, message.name(), field.type_name());
                         let message_type = format!(".{}.{}", package, message.name());
                         assert_eq!(
-                            parent_typemap.insert(message_type, (field.type_name().into(), field.clone())),
+                            parent_typemap
+                                .insert(message_type, (field.type_name().into(), field.clone())),
                             None
                         );
                         parent_types.insert(field.type_name().into());

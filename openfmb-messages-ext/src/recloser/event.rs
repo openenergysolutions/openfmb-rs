@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
+use openfmb_messages::{commonmodule::*, *};
 use reclosermodule::RecloserEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -38,19 +34,17 @@ impl OpenFMBExt for RecloserEventProfile {
             .context(NoPos)?
             .phs3
             .as_ref()
-            .context(NoPhs3)            
+            .context(NoPhs3)
         {
-            Ok(phs3) => {
-                match phs3.st_val {
-                    0 => Ok("Undefined".into()),
-                    1 => Ok("Transient".into()),
-                    2 => Ok("Closed".into()),
-                    3 => Ok("Open".into()),
-                    4 => Ok("Invalid".into()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }            
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
+            Ok(phs3) => match phs3.st_val {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Transient".into()),
+                2 => Ok("Closed".into()),
+                3 => Ok("Open".into()),
+                4 => Ok("Invalid".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
         }
     }
 

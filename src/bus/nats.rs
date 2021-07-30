@@ -17,15 +17,13 @@ pub struct NatsBus<E: MessageEncoding> {
 fn topic_to_subject<S: AsRef<str>, T: Topic<S>>(topic: T) -> String {
     let prefix_match = topic.prefix_match();
     let mut subject = String::with_capacity(128);
-    topic.for_each(|lvl|
-        match lvl {
-            TopicLevel::Exact(val) => {
-                subject.push_str(val.as_ref());
-                subject.push('.');
-            },
-            TopicLevel::WildCard => subject.push_str("*."),
+    topic.for_each(|lvl| match lvl {
+        TopicLevel::Exact(val) => {
+            subject.push_str(val.as_ref());
+            subject.push('.');
         }
-    );
+        TopicLevel::WildCard => subject.push_str("*."),
+    });
 
     if prefix_match {
         subject.push('>');
@@ -38,7 +36,7 @@ fn topic_to_subject<S: AsRef<str>, T: Topic<S>>(topic: T) -> String {
 fn topic_level<'a>(level: &'a str) -> TopicLevel<&'a str> {
     match level {
         "*" => TopicLevel::WildCard,
-        val => TopicLevel::Exact(val)
+        val => TopicLevel::Exact(val),
     }
 }
 
@@ -61,9 +59,9 @@ impl<'a> Topic<&'a str> for SubjectIter<'a> {
 }
 
 fn subject_to_topic<'a>(subject: &'a str) -> SubjectIter<'a> {
-        SubjectIter {
-            iter: subject.split('.').map(topic_level)
-        }
+    SubjectIter {
+        iter: subject.split('.').map(topic_level),
+    }
 }
 
 #[async_trait]
@@ -72,7 +70,10 @@ where
     E: 'static + MessageEncoding + Send,
     M: 'static + Message<E> + Send,
 {
-    async fn subscribe<S: AsRef<str>, T: Topic<S>>(&mut self, topic: T) -> Result<Subscription<M>, SubscribeError> {
+    async fn subscribe<S: AsRef<str>, T: Topic<S>>(
+        &mut self,
+        topic: T,
+    ) -> Result<Subscription<M>, SubscribeError> {
         //debug!("subscribing to {:?}", topic);
         let subject: String = topic_to_subject(topic);
         Ok(Box::pin(
@@ -80,8 +81,8 @@ where
                 .subscribe(&subject)
                 .await
                 .map_err(SubscribeError::IoError)?
-            .map(|msg| {
-                // we can cheat here and split and map as we know the topic will not have * or >
+                .map(|msg| {
+                    // we can cheat here and split and map as we know the topic will not have * or >
                     let topic = subject_to_topic(&msg.subject);
                     let data: &[u8] = &msg.data;
                     M::decode(topic, data)
@@ -100,7 +101,7 @@ where
     async fn publish<S: AsRef<str>, T: Topic<S>>(&mut self, topic: T, msg: M) -> PublishResult<()> {
         let mut buf = Vec::new();
         msg.encode(&mut buf)
-           .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
+            .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         let subject: String = topic_to_subject(topic);
         Ok(self
             .conn
@@ -130,12 +131,11 @@ where
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use crate::prelude::{Topic, TopicLevel};
 
-    use super::{topic_to_subject, subject_to_topic};
+    use super::{subject_to_topic, topic_to_subject};
 
     #[test]
     fn test_subject_conversion() {
@@ -147,6 +147,5 @@ mod tests {
         assert_eq!(parts0, vec![TopicLevel::Exact("x"), TopicLevel::Exact("y")]);
         let parts1: Vec<TopicLevel<&str>> = subject_to_topic("x.*").collect();
         assert_eq!(parts1, vec![TopicLevel::Exact("x"), TopicLevel::WildCard]);
-
     }
 }

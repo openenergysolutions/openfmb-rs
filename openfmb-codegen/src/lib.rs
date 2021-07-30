@@ -1,5 +1,4 @@
 #![doc(html_root_url = "https://docs.rs/prost-build/0.7")]
-
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
 //
 // SPDX-License-Identifier: Apache-2.0
@@ -120,10 +119,10 @@ use std::default;
 use std::env;
 use std::fs;
 use std::io::{Error, ErrorKind, Result};
-use std::path::{PathBuf};
+use std::path::PathBuf;
 
 use log::trace;
-use proto_types::{FileDescriptorProto};
+use proto_types::FileDescriptorProto;
 
 pub use crate::ast::{Comments, Method, Service};
 use crate::code_generator::CodeGenerator;
@@ -503,8 +502,7 @@ impl Config {
     ///                                &["src"]).unwrap();
     /// }
     /// ```
-    pub fn compile_protos(&mut self) -> Result<()>
-    {
+    pub fn compile_protos(&mut self) -> Result<()> {
         let target: PathBuf = self.out_dir.clone().map(Ok).unwrap_or_else(|| {
             env::var_os("OUT_DIR")
                 .ok_or_else(|| {
@@ -645,8 +643,7 @@ impl default::Default for Config {
 /// [2]: http://doc.crates.io/build-script.html#case-study-code-generation
 /// [3]: https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions
 /// [4]: https://developers.google.com/protocol-buffers/docs/proto#packages
-pub fn compile_protos() -> Result<()>
-{
+pub fn compile_protos() -> Result<()> {
     Config::new().compile_protos()
 }
 

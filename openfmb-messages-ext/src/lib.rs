@@ -9,16 +9,16 @@
 use std::{fmt, fmt::Debug, str::FromStr, time::SystemTime};
 
 use openfmb_messages::commonmodule::{
-    ControlMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo, StatusMessageInfo, EventMessageInfo,
-    Timestamp,
+    ControlMessageInfo, EventMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo,
+    StatusMessageInfo, Timestamp,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
 pub mod breaker;
-pub mod error;
 pub mod capbank;
 pub mod coordinationservice;
+pub mod error;
 pub mod ess;
 pub mod generation;
 pub mod load;
@@ -30,15 +30,15 @@ pub mod solar;
 pub mod switch;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
-pub use recloser::{RecloserControlExt};
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
 pub use load::LoadControlExt;
+pub use recloser::RecloserControlExt;
+pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
+pub use resource::ResourceControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
-pub use resource::{ResourceControlExt};
-pub use regulator::{RegulatorDiscreteControlExt, RegulatorControlExt};
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}

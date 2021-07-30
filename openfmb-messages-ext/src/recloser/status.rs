@@ -4,11 +4,11 @@
 
 use std::str::FromStr;
 
-use reclosermodule::RecloserStatusProfile;
 use openfmb_messages::{
     commonmodule::{MessageInfo, StatusMessageInfo},
     *,
 };
+use reclosermodule::RecloserStatusProfile;
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
@@ -37,20 +37,18 @@ impl OpenFMBExt for RecloserStatusProfile {
             .context(NoPos)?
             .phs3
             .as_ref()
-            .context(NoPhs3)            
+            .context(NoPhs3)
         {
-            Ok(phs3) => {
-                match phs3.st_val {
-                    0 => Ok("Undefined".into()),
-                    1 => Ok("Transient".into()),
-                    2 => Ok("Closed".into()),
-                    3 => Ok("Open".into()),
-                    4 => Ok("Invalid".into()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }            
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)
-        }        
+            Ok(phs3) => match phs3.st_val {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Transient".into()),
+                2 => Ok("Closed".into()),
+                3 => Ok("Open".into()),
+                4 => Ok("Invalid".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

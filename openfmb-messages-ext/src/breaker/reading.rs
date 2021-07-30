@@ -37,7 +37,7 @@ impl OpenFMBExt for BreakerReadingProfile {
                 .mag
                 .to_string());
         }
-        Err(OpenFMBError::InvalidOpenFMBMessage)               
+        Err(OpenFMBError::InvalidOpenFMBMessage)
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -95,27 +95,29 @@ impl OpenFMBExtReading for BreakerReadingProfile {
 }
 
 pub trait BreakerReadingExt: ReadingProfileExt {
-    fn breaker_reading(&self) -> Option<f64>;    
+    fn breaker_reading(&self) -> Option<f64>;
 }
 
 impl BreakerReadingExt for BreakerReadingProfile {
     fn breaker_reading(&self) -> Option<f64> {
         if !self.breaker_reading.is_empty() {
-            return Some(self.breaker_reading
-                .first()
-                .as_ref()?                
-                .reading_mmxu
-                .as_ref()?                
-                .w
-                .as_ref()?                
-                .net
-                .as_ref()?                
-                .c_val
-                .as_ref()?                
-                .mag);
-        }               
+            return Some(
+                self.breaker_reading
+                    .first()
+                    .as_ref()?
+                    .reading_mmxu
+                    .as_ref()?
+                    .w
+                    .as_ref()?
+                    .net
+                    .as_ref()?
+                    .c_val
+                    .as_ref()?
+                    .mag,
+            );
+        }
         None
-    }    
+    }
 }
 
 impl ReadingProfileExt for BreakerReadingProfile {}

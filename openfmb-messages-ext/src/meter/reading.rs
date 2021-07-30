@@ -15,7 +15,7 @@ use uuid::Uuid;
 use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExt for MeterReadingProfile {
-    fn device_state(&self) -> OpenFMBResult<String> {        
+    fn device_state(&self) -> OpenFMBResult<String> {
         Ok(self
             .meter_reading
             .as_ref()

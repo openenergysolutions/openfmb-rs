@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
 use breakermodule::BreakerEventProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
+use openfmb_messages::{commonmodule::*, *};
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
@@ -38,22 +34,18 @@ impl OpenFMBExt for BreakerEventProfile {
             .context(NoPos)?
             .phs3
             .as_ref()
-            .context(NoPhs3)            
+            .context(NoPhs3)
         {
-            Ok(v) => {
-                match v.st_val {
-                    0 =>  Ok("Undefined".into()),
-                    1 =>  Ok("Transient".into()),
-                    2 =>  Ok("Closed".into()),
-                    3 =>  Ok("Open".into()),
-                    4 =>  Ok("Invalid".into()),
-                    _ =>  Err(OpenFMBError::InvalidValue)
-                }                
-            }
-            Err(_) => {
-                Err(OpenFMBError::InvalidOpenFMBMessage)
-            }           
-        }        
+            Ok(v) => match v.st_val {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Transient".into()),
+                2 => Ok("Closed".into()),
+                3 => Ok("Open".into()),
+                4 => Ok("Invalid".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

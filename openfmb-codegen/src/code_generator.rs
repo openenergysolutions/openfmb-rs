@@ -196,8 +196,9 @@ impl<'a> CodeGenerator<'a> {
             self.buf.push_str(&comment);
         }
         self.push_indent();
-        self.buf
-            .push_str("#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]\n");
+        self.buf.push_str(
+            "#[derive(Clone, PartialEq, ::prost::Message, serde::Serialize, serde::Deserialize)]\n",
+        );
         self.append_type_attributes(&fq_message_name);
         self.push_indent();
         self.buf.push_str("pub struct ");
@@ -289,7 +290,7 @@ impl<'a> CodeGenerator<'a> {
             let ty = self.resolve_type(&field);
             let copyable = self.copyable(&field);
             let optional = self.optional(&field);
-            let parent =  self.parent(&field);
+            let parent = self.parent(&field);
             let repeated = field.label == Some(Label::Repeated as i32);
             if parent {
                 self.push_indent();
@@ -326,7 +327,8 @@ impl<'a> CodeGenerator<'a> {
 
                 // mutator, ex fn mut_some_field(&mut self) -> &mut SomeFieldType
                 self.push_indent();
-                self.buf.push_str("pub(crate) fn parent_mut(&mut self) -> &mut ");
+                self.buf
+                    .push_str("pub(crate) fn parent_mut(&mut self) -> &mut ");
                 if repeated {
                     self.buf.push_str("::std::vec::Vec<");
                 }
@@ -492,7 +494,8 @@ impl<'a> CodeGenerator<'a> {
         let mut cur_type = full_type;
         let mut depth = 0;
         loop {
-            if let Some((parent_type, field)) = self.message_inherits.parent_typemap.get(&cur_type) {
+            if let Some((parent_type, field)) = self.message_inherits.parent_typemap.get(&cur_type)
+            {
                 let ty = self.resolve_type(&field);
                 let copyable = self.copyable(&field);
                 let repeated = field.label == Some(Label::Repeated as i32);
@@ -501,7 +504,7 @@ impl<'a> CodeGenerator<'a> {
                 self.push_indent();
                 self.buf.push_str("impl ");
                 self.buf.push_str(&to_upper_camel(&trait_name));
-                self.buf.push_str(" for " );
+                self.buf.push_str(" for ");
                 self.buf.push_str(&to_upper_camel(&message_name));
                 self.buf.push_str(" {\n");
 
@@ -615,7 +618,7 @@ impl<'a> CodeGenerator<'a> {
 
     fn append_field_attributes(&mut self, msg_name: &str, field_name: &str, is_enum: bool) {
         let name_matches_snake = to_snake(field_name) == field_name;
-        let add_serde_attrs  = !name_matches_snake || !is_enum;
+        let add_serde_attrs = !name_matches_snake || !is_enum;
         if add_serde_attrs {
             self.push_indent();
             self.buf.push_str("#[serde(");
@@ -886,8 +889,9 @@ impl<'a> CodeGenerator<'a> {
         self.path.pop();
 
         self.push_indent();
-        self.buf
-            .push_str("#[derive(Clone, PartialEq, ::prost::Oneof, serde::Serialize, serde::Deserialize)]\n");
+        self.buf.push_str(
+            "#[derive(Clone, PartialEq, ::prost::Oneof, serde::Serialize, serde::Deserialize)]\n",
+        );
         let oneof_name = format!("{}.{}", msg_name, oneof.name());
         self.append_type_attributes(&oneof_name);
         self.push_indent();

@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use openfmb_messages::{
-    commonmodule::*,
-    reclosermodule::*,
-};
+use openfmb_messages::{commonmodule::*, reclosermodule::*};
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
 use uuid::Uuid;
@@ -40,7 +37,7 @@ impl OpenFMBExt for RecloserDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()       
+        unimplemented!()
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -134,7 +131,7 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
                     }),
                     ..Default::default()
                 }),
-            }),            
+            }),
         }
     }
 
@@ -143,7 +140,8 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
         _start_time: SystemTime,
         synchro_check: bool,
     ) -> RecloserDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = RecloserDiscreteControlProfile::build_control_message_info();
+        let msg_info: ControlMessageInfo =
+            RecloserDiscreteControlProfile::build_control_message_info();
         RecloserDiscreteControlProfile {
             control_message_info: Some(msg_info),
             recloser: Some(Recloser {
@@ -160,7 +158,7 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
                     synchro_check: Some(synchro_check),
                 }),
                 recloser_discrete_control_xcbr: None,
-            })
+            }),
         }
     }
 }

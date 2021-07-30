@@ -77,6 +77,6 @@ pub mod prelude {
         Subscription, SubscriptionError,
     };
     pub use crate::message::Message;
-    pub use crate::topic::{TopicLevel, Topic, Module, Profile, ProfileTopic};
+    pub use crate::topic::{Module, Profile, ProfileTopic, Topic, TopicLevel};
 }
 pub mod topic;

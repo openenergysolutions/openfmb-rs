@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+mod control;
+mod discretecontrol;
 mod event;
 mod reading;
 mod status;
-mod control;
-mod discretecontrol;
 
 pub use event::*;
 pub use reading::*;

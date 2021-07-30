@@ -33,19 +33,17 @@ impl OpenFMBExt for GenerationStatusProfile {
             .context(NoPointStatus)?
             .state
             .as_ref()
-            .context(NoState)            
+            .context(NoState)
         {
-            Ok(state) => {
-                match state.value {
-                    0 => Ok("Undefined".into()),
-                    1 => Ok("Off".into()),
-                    2 => Ok("On".into()),
-                    3 => Ok("StandBy".into()),
-                    _ => Err(OpenFMBError::InvalidValue)
-                }
-            }
-            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage)           
-        }        
+            Ok(state) => match state.value {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Off".into()),
+                2 => Ok("On".into()),
+                3 => Ok("StandBy".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {

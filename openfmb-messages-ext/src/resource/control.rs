@@ -4,12 +4,8 @@
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
-    commonmodule::{
-        ConductingEquipment, ControlApc, MessageInfo,
-    },
-    resourcemodule::{
-        ResourceDiscreteControlProfile, ResourceDiscreteControl, AnalogControlGgio
-    },
+    commonmodule::{ConductingEquipment, ControlApc, MessageInfo},
+    resourcemodule::{AnalogControlGgio, ResourceDiscreteControl, ResourceDiscreteControlProfile},
 };
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
@@ -30,7 +26,7 @@ impl OpenFMBExt for ResourceDiscreteControlProfile {
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
-            &self                
+            &self
                 .conducting_equipment
                 .as_ref()
                 .context(NoConductingEquipment)?
@@ -40,7 +36,7 @@ impl OpenFMBExt for ResourceDiscreteControlProfile {
     }
 
     fn device_name(&self) -> OpenFMBResult<String> {
-        Ok(self                                   
+        Ok(self
             .conducting_equipment
             .as_ref()
             .context(NoConductingEquipment)?
@@ -61,7 +57,7 @@ pub trait ResourceControlExt: ControlProfileExt {
     fn build_control_profile(
         m_rid: &str,
         val: f64,
-        start_time: SystemTime
+        start_time: SystemTime,
     ) -> ResourceDiscreteControlProfile;
 }
 
@@ -71,29 +67,26 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
     fn build_control_profile(
         m_rid: &str,
         val: f64,
-        _start_time: SystemTime
-    ) -> ResourceDiscreteControlProfile
-    {
+        _start_time: SystemTime,
+    ) -> ResourceDiscreteControlProfile {
         ResourceDiscreteControlProfile {
             control_message_info: Some(ResourceDiscreteControlProfile::build_control_message_info()),
             conducting_equipment: Some(ConductingEquipment {
                 named_object: None,
                 m_rid: m_rid.to_string(),
             }),
-            resource_discrete_control: Some(ResourceDiscreteControl{
+            resource_discrete_control: Some(ResourceDiscreteControl {
                 analog_control_ggio: vec![AnalogControlGgio {
                     logical_node: None,
                     phase: None,
-                    an_out: Some(ControlApc {
-                        ctl_val: val
-                    })
+                    an_out: Some(ControlApc { ctl_val: val }),
                 }],
                 check: None,
                 identified_object: None,
                 boolean_control_ggio: vec![],
                 integer_control_ggio: vec![],
-                string_control_ggio: vec![]
-            })
+                string_control_ggio: vec![],
+            }),
         }
     }
 }

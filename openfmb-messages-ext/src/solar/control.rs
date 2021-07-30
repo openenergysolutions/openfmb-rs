@@ -5,8 +5,8 @@
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
-        ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
-        MessageInfo, OptionalStateKind, StateKind, NamedObject, ControlValue
+        ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, ControlValue,
+        MessageInfo, NamedObject, OptionalStateKind, StateKind,
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -116,9 +116,7 @@ pub trait SolarControlExt: ControlProfileExt {
             solar_control_fscc: Some(SolarControlFscc {
                 control_fscc: Some(ControlFscc {
                     logical_node_for_control: None,
-                    control_schedule_fsch: Some(ControlScheduleFsch {                        
-                        val_acsg: None
-                    }),
+                    control_schedule_fsch: Some(ControlScheduleFsch { val_acsg: None }),
                     island_control_schedule_fsch: None,
                 }),
                 solar_control_schedule_fsch: Some(SolarControlScheduleFsch {
@@ -134,7 +132,10 @@ pub trait SolarControlExt: ControlProfileExt {
                             reset: None,
                             state: Some(state),
                             start_time: Some(ControlTimestamp {
-                                nanoseconds: when.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                nanoseconds: when
+                                    .duration_since(SystemTime::UNIX_EPOCH)
+                                    .unwrap()
+                                    .subsec_nanos(),
                                 seconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
                                     .unwrap()
@@ -198,14 +199,14 @@ impl SolarControlExt for SolarControlProfile {
                 }),
             }),
             solar_control: Some(SolarControl {
-                control_value:  Some(ControlValue {
+                control_value: Some(ControlValue {
                     identified_object: None,
                     mod_blk: Some(modblk),
                     reset: None,
                 }),
                 check: None,
                 solar_control_fscc: None,
-            })
+            }),
         }
     }
 }

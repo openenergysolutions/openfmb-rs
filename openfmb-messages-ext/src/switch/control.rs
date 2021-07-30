@@ -6,11 +6,11 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
 use openfmb_messages::{
     commonmodule::{
-        CheckConditions, ConductingEquipment, ControlDpc, PhaseDpc,
-        ControlMessageInfo, MessageInfo, ControlValue
+        CheckConditions, ConductingEquipment, ControlDpc, ControlMessageInfo, ControlValue,
+        MessageInfo, PhaseDpc,
     },
     switchmodule::{
-        SwitchDiscreteControlProfile, SwitchDiscreteControl, ProtectedSwitch,
+        ProtectedSwitch, SwitchDiscreteControl, SwitchDiscreteControlProfile,
         SwitchDiscreteControlXswi,
     },
 };
@@ -40,7 +40,7 @@ impl OpenFMBExt for SwitchDiscreteControlProfile {
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
-        unimplemented!()        
+        unimplemented!()
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
@@ -118,7 +118,8 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
         _start_time: SystemTime,
         synchro_check: bool,
     ) -> SwitchDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = SwitchDiscreteControlProfile::build_control_message_info();
+        let msg_info: ControlMessageInfo =
+            SwitchDiscreteControlProfile::build_control_message_info();
         SwitchDiscreteControlProfile {
             control_message_info: Some(msg_info),
             protected_switch: Some(ProtectedSwitch {
@@ -134,7 +135,7 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                     synchro_check: Some(synchro_check),
                 }),
                 switch_discrete_control_xswi: None,
-            })
+            }),
         }
     }
 
@@ -143,7 +144,8 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
         _start_time: SystemTime,
         modblk: bool,
     ) -> SwitchDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = SwitchDiscreteControlProfile::build_control_message_info();
+        let msg_info: ControlMessageInfo =
+            SwitchDiscreteControlProfile::build_control_message_info();
         SwitchDiscreteControlProfile {
             control_message_info: Some(msg_info),
             protected_switch: Some(ProtectedSwitch {
@@ -160,7 +162,7 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                 }),
                 check: None,
                 switch_discrete_control_xswi: None,
-            })
+            }),
         }
     }
 
@@ -169,7 +171,8 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
         _start_time: SystemTime,
         pos: bool,
     ) -> SwitchDiscreteControlProfile {
-        let msg_info: ControlMessageInfo = SwitchDiscreteControlProfile::build_control_message_info();
+        let msg_info: ControlMessageInfo =
+            SwitchDiscreteControlProfile::build_control_message_info();
         SwitchDiscreteControlProfile {
             control_message_info: Some(msg_info),
             protected_switch: Some(ProtectedSwitch {
@@ -178,24 +181,20 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                     m_rid: m_rid.to_string(),
                 }),
             }),
-            switch_discrete_control: Some(
-                SwitchDiscreteControl {
-                    check: None,
-                    control_value: None,
-                    switch_discrete_control_xswi: Some(SwitchDiscreteControlXswi {
-                        reset_protection_pickup: None,
-                        logical_node_for_control: None,
-                        pos: Some(PhaseDpc {
-                            phs3: Some(ControlDpc {
-                                ctl_val: pos,
-                            }),
-                            phs_a: None,
-                            phs_b: None,
-                            phs_c: None,
-                        }),
+            switch_discrete_control: Some(SwitchDiscreteControl {
+                check: None,
+                control_value: None,
+                switch_discrete_control_xswi: Some(SwitchDiscreteControlXswi {
+                    reset_protection_pickup: None,
+                    logical_node_for_control: None,
+                    pos: Some(PhaseDpc {
+                        phs3: Some(ControlDpc { ctl_val: pos }),
+                        phs_a: None,
+                        phs_b: None,
+                        phs_c: None,
                     }),
-                }
-            ),
+                }),
+            }),
         }
     }
 }

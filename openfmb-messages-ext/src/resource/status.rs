@@ -2,16 +2,12 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use std::str::FromStr;
 use snafu::{OptionExt, ResultExt};
+use std::str::FromStr;
 use uuid::Uuid;
 
+use openfmb_messages::{commonmodule::*, *};
 use resourcemodule::ResourceStatusProfile;
-use openfmb_messages::{
-    commonmodule::*,
-    *,
-};
-
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
 
@@ -48,7 +44,7 @@ impl OpenFMBExt for ResourceStatusProfile {
             &self
                 .conducting_equipment
                 .as_ref()
-                .context(NoConductingEquipment)?                
+                .context(NoConductingEquipment)?
                 .m_rid,
         )
         .context(UuidError)?)

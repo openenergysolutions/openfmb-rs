@@ -66,9 +66,7 @@ where
     /// The return may be treated as a stream or as a future returning the
     /// next event
     pub async fn status(&mut self) -> SubscribeResult<SwitchStatusProfile> {
-        self.bus
-            .subscribe(self.status_topic.iter())
-            .await
+        self.bus.subscribe(self.status_topic.iter()).await
     }
 
     /// A stream to this devices reading messages
@@ -76,9 +74,7 @@ where
     /// The return may be treated as a stream or as a future returning the
     /// next event
     pub async fn event(&mut self) -> SubscribeResult<SwitchEventProfile> {
-        self.bus
-            .subscribe(self.event_topic.iter())
-            .await
+        self.bus.subscribe(self.event_topic.iter()).await
     }
 
     /// A stream to this devices reading messages
@@ -86,16 +82,17 @@ where
     /// The return may be treated as a stream or as a future returning the next
     /// reading value.
     pub async fn reading(&mut self) -> SubscribeResult<SwitchReadingProfile> {
-        self.bus
-            .subscribe(self.reading_topic.iter())
-            .await
+        self.bus.subscribe(self.reading_topic.iter()).await
     }
 
     /// Send a control message to the device asynchronously
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: SwitchDiscreteControlProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.discrete_control_topic.iter(), msg).await?)
+        Ok(self
+            .bus
+            .publish(self.discrete_control_topic.iter(), msg)
+            .await?)
     }
 
     /// A returned subscription transform that checks if the switch was closed

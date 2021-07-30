@@ -25,7 +25,6 @@ where
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
     discrete_control_topic: ProfileTopic,
-
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
@@ -55,32 +54,21 @@ where
 
     /// publish switch status messages
     pub async fn status(&mut self, msg: SwitchStatusProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
-            .publish(self.status_topic.iter(), msg)
-            .await?)
+        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
     }
 
     /// publish switch event messages
     pub async fn event(&mut self, msg: SwitchEventProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
-            .publish(self.event_topic.iter(), msg)
-            .await?)
+        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
     }
 
     /// publish switch reading messages
     pub async fn reading(&mut self, msg: SwitchReadingProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
-            .publish(self.reading_topic.iter(), msg)
-            .await?)
+        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
     }
 
     /// Subscribe to control messages
     pub async fn control(&mut self) -> SubscribeResult<SwitchDiscreteControlProfile> {
-        self.bus
-            .subscribe(self.discrete_control_topic.iter())
-            .await
+        self.bus.subscribe(self.discrete_control_topic.iter()).await
     }
 }

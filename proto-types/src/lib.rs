@@ -1,5 +1,4 @@
 #![doc(html_root_url = "https://docs.rs/prost-types/0.6.1")]
-
 // SPDX-FileCopyrightText: 2021 Open Energy Solutions Inc
 //
 // SPDX-License-Identifier: Apache-2.0
