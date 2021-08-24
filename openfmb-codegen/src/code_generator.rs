@@ -41,6 +41,7 @@ pub struct CodeGenerator<'a> {
     depth: u8,
     path: Vec<i32>,
     buf: &'a mut String,
+    profiles: &'a mut HashSet<String>,
 }
 
 impl<'a> CodeGenerator<'a> {
@@ -51,6 +52,7 @@ impl<'a> CodeGenerator<'a> {
         message_inherits: &MessageInheritance,
         file: FileDescriptorProto,
         buf: &mut String,
+        profiles: &mut HashSet<String>,
     ) {
         let mut source_info = file
             .source_code_info
@@ -80,6 +82,7 @@ impl<'a> CodeGenerator<'a> {
             depth: 0,
             path: Vec::new(),
             buf,
+            profiles,
         };
 
         debug!(
@@ -189,6 +192,10 @@ impl<'a> CodeGenerator<'a> {
         self.append_doc();
         if let Some(message_options) = message.options {
             self.push_indent();
+
+            if message_options.openfmb_profile == Some(true) {
+                self.profiles.insert(String::from(&message_name));
+            }
             let comment = format!(
                 "/// OpenFMB Profile Message: {}\n",
                 message_options.openfmb_profile.unwrap_or(false)
