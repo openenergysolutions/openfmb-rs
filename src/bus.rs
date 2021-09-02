@@ -29,5 +29,10 @@ pub trait MessageBus<M>: Publisher<M> + Subscriber<M> {}
 
 #[cfg(feature = "nats")]
 mod nats;
-
+#[cfg(feature = "nats")]
 pub use self::nats::NatsBus;
+
+#[cfg(feature = "zenoh")]
+mod zenoh;
+#[cfg(feature = "zenoh")]
+pub use self::zenoh::ZenohBus;
