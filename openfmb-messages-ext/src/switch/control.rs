@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::{error::*, ControlProfileExt, OpenFMBExt};
+use crate::{error::*, ControlProfileExt, OpenFMBExt, Phase};
 
 use openfmb_messages::{
     commonmodule::{
@@ -87,6 +87,10 @@ pub trait SwitchControlExt: ControlProfileExt {
         Self::build_control_profile(m_rid, SystemTime::now(), true)
     }
 
+    fn pos_control(m_rid: &str, closed: bool, phs: Phase) -> SwitchDiscreteControlProfile {
+        Self::build_control_profile_single_phase(m_rid, SystemTime::now(), closed, phs)
+    }
+
     fn switch_synchro_msg(m_rid: &str, synchro_check: bool) -> SwitchDiscreteControlProfile {
         Self::build_synchro_profile(m_rid, SystemTime::now(), synchro_check)
     }
@@ -99,6 +103,12 @@ pub trait SwitchControlExt: ControlProfileExt {
         m_rid: &str,
         start_time: SystemTime,
         pos: bool,
+    ) -> SwitchDiscreteControlProfile;
+    fn build_control_profile_single_phase(
+        m_rid: &str,
+        start_time: SystemTime,
+        pos: bool,
+        phase: Phase,
     ) -> SwitchDiscreteControlProfile;
     fn build_synchro_profile(
         m_rid: &str,
@@ -193,6 +203,53 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                         phs_b: None,
                         phs_c: None,
                     }),
+                }),
+            }),
+        }
+    }
+
+    fn build_control_profile_single_phase(
+        m_rid: &str,
+        _start_time: SystemTime,
+        pos: bool,
+        phase: Phase,
+    ) -> SwitchDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            SwitchDiscreteControlProfile::build_control_message_info();
+        let control_dpc = match phase {
+            Phase::Phs3 => PhaseDpc {
+                phs3: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsA => PhaseDpc {
+                phs_a: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsB => PhaseDpc {
+                phs_b: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsC => PhaseDpc {
+                phs_c: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+        };
+
+        SwitchDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            protected_switch: Some(ProtectedSwitch {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            switch_discrete_control: Some(SwitchDiscreteControl {
+                check: None,
+                control_value: None,
+                switch_discrete_control_xswi: Some(SwitchDiscreteControlXswi {
+                    reset_protection_pickup: None,
+                    logical_node_for_control: None,
+                    pos: Some(control_dpc),
                 }),
             }),
         }

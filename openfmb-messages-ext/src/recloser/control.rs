@@ -7,7 +7,7 @@ use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
 use uuid::Uuid;
 
-use crate::{error::*, ControlProfileExt, OpenFMBExt};
+use crate::{error::*, ControlProfileExt, OpenFMBExt, Phase};
 
 impl OpenFMBExt for RecloserDiscreteControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -84,6 +84,10 @@ pub trait RecloserControlExt: ControlProfileExt {
         Self::build_control_profile(m_rid, SystemTime::now(), true)
     }
 
+    fn pos_control(m_rid: &str, closed: bool, phs: Phase) -> RecloserDiscreteControlProfile {
+        Self::build_control_profile_single_phase(m_rid, SystemTime::now(), closed, phs)
+    }
+
     fn recloser_synchro_msg(m_rid: &str, synchro_check: bool) -> RecloserDiscreteControlProfile {
         Self::build_synchro_profile(m_rid, SystemTime::now(), synchro_check)
     }
@@ -92,6 +96,13 @@ pub trait RecloserControlExt: ControlProfileExt {
         m_rid: &str,
         start_time: SystemTime,
         pos: bool,
+    ) -> RecloserDiscreteControlProfile;
+
+    fn build_control_profile_single_phase(
+        m_rid: &str,
+        start_time: SystemTime,
+        pos: bool,
+        phase: Phase,
     ) -> RecloserDiscreteControlProfile;
 
     fn build_synchro_profile(
@@ -127,6 +138,57 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
                             phs3: Some(ControlDpc { ctl_val: pos }),
                             ..Default::default()
                         }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+            }),
+        }
+    }
+
+    fn build_control_profile_single_phase(
+        m_rid: &str,
+        _start_time: SystemTime,
+        pos: bool,
+        phase: Phase,
+    ) -> RecloserDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RecloserDiscreteControlProfile::build_control_message_info();
+
+        let control_dpc = match phase {
+            Phase::Phs3 => PhaseDpc {
+                phs3: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsA => PhaseDpc {
+                phs_a: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsB => PhaseDpc {
+                phs_b: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsC => PhaseDpc {
+                phs_c: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+        };
+
+        RecloserDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            recloser: Some(Recloser {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                normal_open: None,
+            }),
+            recloser_discrete_control: Some(RecloserDiscreteControl {
+                control_value: None,
+                check: None,
+                recloser_discrete_control_xcbr: Some(RecloserDiscreteControlXcbr {
+                    discrete_control_xcbr: Some(DiscreteControlXcbr {
+                        pos: Some(control_dpc),
                         ..Default::default()
                     }),
                     ..Default::default()
