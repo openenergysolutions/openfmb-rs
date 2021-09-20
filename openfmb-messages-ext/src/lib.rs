@@ -121,5 +121,5 @@ pub enum Phase {
     Phs3,
     PhsA,
     PhsB,
-    PhsC
+    PhsC,
 }

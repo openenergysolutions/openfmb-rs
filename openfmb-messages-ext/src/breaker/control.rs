@@ -106,7 +106,7 @@ pub trait BreakerControlExt: ControlProfileExt {
 
     fn build_control_profile_single_phase(
         m_rid: &str,
-        start_time: SystemTime,        
+        start_time: SystemTime,
         pos: bool,
         phase: Phase,
     ) -> BreakerDiscreteControlProfile;
@@ -153,7 +153,7 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
 
     fn build_control_profile_single_phase(
         m_rid: &str,
-        _start_time: SystemTime,        
+        _start_time: SystemTime,
         pos: bool,
         phase: Phase,
     ) -> BreakerDiscreteControlProfile {
@@ -161,30 +161,22 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
             BreakerDiscreteControlProfile::build_control_message_info();
 
         let control_dpc = match phase {
-            Phase::Phs3 => {
-                PhaseDpc {
-                    phs3: Some(ControlDpc { ctl_val: pos }),
-                    ..Default::default()
-                }
-            }
-            Phase::PhsA => {
-                PhaseDpc {
-                    phs_a: Some(ControlDpc { ctl_val: pos }),
-                    ..Default::default()
-                }
-            }
-            Phase::PhsB => {
-                PhaseDpc {
-                    phs_b: Some(ControlDpc { ctl_val: pos }),
-                    ..Default::default()
-                }
-            }
-            Phase::PhsC => {
-                PhaseDpc {
-                    phs_c: Some(ControlDpc { ctl_val: pos }),
-                    ..Default::default()
-                }
-            }
+            Phase::Phs3 => PhaseDpc {
+                phs3: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsA => PhaseDpc {
+                phs_a: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsB => PhaseDpc {
+                phs_b: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
+            Phase::PhsC => PhaseDpc {
+                phs_c: Some(ControlDpc { ctl_val: pos }),
+                ..Default::default()
+            },
         };
 
         BreakerDiscreteControlProfile {
