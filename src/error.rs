@@ -157,3 +157,17 @@ impl From<SubscriptionError> for ControlError {
 
 /// Type alias for a control result
 pub type ControlResult<T, E = ControlError> = Result<T, E>;
+
+#[cfg(feature = "zenoh")]
+impl From<zenoh::ZError> for SubscribeError {
+    fn from(err: zenoh::ZError) -> SubscribeError {
+        SubscribeError::BusError(Box::new(err))
+    }
+}
+
+#[cfg(feature = "zenoh")]
+impl From<zenoh::ZError> for PublishError {
+    fn from(err: zenoh::ZError) -> PublishError {
+        PublishError::BusError(Box::new(err))
+    }
+}

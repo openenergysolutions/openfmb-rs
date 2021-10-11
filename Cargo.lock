@@ -1389,6 +1389,7 @@ dependencies = [
  "bytes 1.1.0",
  "chrono",
  "futures",
+ "lazy_static",
  "log",
  "nats",
  "openfmb-messages",

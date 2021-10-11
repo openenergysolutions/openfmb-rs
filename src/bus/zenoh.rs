@@ -6,11 +6,19 @@ use crate::prelude::*;
 use async_trait::async_trait;
 use futures::StreamExt;
 use std::marker::PhantomData;
+use std::convert::TryInto;
 use zenoh::*;
 
-/// Nats Message Bus
+use lazy_static::lazy_static;
+
+lazy_static! {
+    static ref ZENOH: Zenoh = Zenoh::new(net::config::default()).wait().unwrap();
+    static ref WORKSPACE: Workspace<'static> = ZENOH.workspace(None).wait().unwrap();
+}
+
+/// Zenoh Message Bus
+#[derive(Debug)]
 pub struct ZenohBus<E: MessageEncoding> {
-    zenoh: Zenoh,
     encoding: PhantomData<E>,
 }
 
@@ -58,9 +66,9 @@ impl<'a> Topic<&'a str> for SubjectIter<'a> {
     }
 }
 
-fn subject_to_topic<'a>(subject: &zenoh::Path) -> SubjectIter<'a> {
+fn subject_to_topic<'a>(subject: &'a zenoh::Path) -> SubjectIter<'a> {
     SubjectIter {
-        iter: subject.split('/').map(topic_level),
+        iter: subject.as_str().split('/').map(topic_level),
     }
 }
 
@@ -76,11 +84,22 @@ where
     ) -> Result<Subscription<M>, SubscribeError> {
         //debug!("subscribing to {:?}", topic);
         let subject: String = topic_to_subject(topic);
-        let workspace = self.zenoh.workspace(None).await.map_err(|err| SubscribeError::BusError(Box::new(err)))?;
-        let mut stream = workspace.subscribe(&subject.try_into().unwrap()).await.map_err(|err| SubscribeError::BusError(Box::new(err)))?;
+        let stream = WORKSPACE.subscribe(&subject.try_into().unwrap()).await.map_err(|err| SubscribeError::BusError(Box::new(err)))?;
         Ok(Box::pin(stream.map(|change| {
-            let topic = subject_to_topic(&change.path);
-            let data: &[u8] = change.value;
+            let topic = subject_to_topic(&change.path);            
+            let mut raw = vec![];
+            let data: &[u8] = match change.value {
+                Some(val) => {
+                    match val {
+                        Value::Raw(_c, mut buf) => {
+                            raw = buf.read_vec();
+                            &raw
+                        }
+                        _ => &raw
+                    }
+                }
+                _ => &raw
+            };
             M::decode(topic, data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
         })))
     }
@@ -100,13 +119,13 @@ where
         msg.encode(&mut buf)
             .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         let subject: String = topic_to_subject(topic);
-        let workspace = self.zenoh.workspace(None).await?;
+        let workspace = ZENOH.workspace(None).await?;
         Ok(workspace
             .put(&subject.try_into()?, buf.into()).await?)
     }
 }
 
-/// A nats connection implements the MessageBus trait
+/// A zenoh connection implements the MessageBus trait
 impl<E, M> MessageBus<M> for ZenohBus<E>
 where
     E: 'static + MessageEncoding + Send,
@@ -118,9 +137,8 @@ impl<E> ZenohBus<E>
 where
     E: 'static + MessageEncoding + Send,
 {
-    pub fn new(zenoh: Zenoh) -> ZenohBus<E> {
+    pub fn new() -> ZenohBus<E> {
         ZenohBus {
-            zenoh,
             encoding: PhantomData,
         }
     }
@@ -129,18 +147,17 @@ where
 #[cfg(test)]
 mod tests {
     use crate::prelude::{Topic, TopicLevel};
-
+    
     use super::{subject_to_topic, topic_to_subject};
 
     #[test]
     fn test_subject_conversion() {
-        assert_eq!(topic_to_subject(subject_to_topic("x.y.*")), "x.y.*");
-        assert_eq!(topic_to_subject(subject_to_topic("x.y.z")), "x.y.z");
-        assert_eq!(topic_to_subject(subject_to_topic("x")), "x");
-        assert_eq!(subject_to_topic("x.y").prefix_match(), false);
-        let parts0: Vec<TopicLevel<&str>> = subject_to_topic("x.y").collect();
+        assert_eq!(topic_to_subject(subject_to_topic(&zenoh::Path::new("x/y/z").unwrap())), "x/y/z");
+        assert_eq!(topic_to_subject(subject_to_topic(&zenoh::Path::new("x").unwrap())), "x");
+        assert_eq!(subject_to_topic(&zenoh::Path::new("x/y").unwrap()).prefix_match(), false);
+
+        let path = zenoh::Path::new("x/y").unwrap();
+        let parts0: Vec<TopicLevel<&str>> = subject_to_topic(&path).collect();
         assert_eq!(parts0, vec![TopicLevel::Exact("x"), TopicLevel::Exact("y")]);
-        let parts1: Vec<TopicLevel<&str>> = subject_to_topic("x.*").collect();
-        assert_eq!(parts1, vec![TopicLevel::Exact("x"), TopicLevel::WildCard]);
     }
 }
