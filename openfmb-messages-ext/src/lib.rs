@@ -115,3 +115,11 @@ impl fmt::Display for dyn OpenFMBExt {
         )
     }
 }
+
+#[derive(Clone, PartialEq, Eq, Debug)]
+pub enum Phase {
+    Phs3,
+    PhsA,
+    PhsB,
+    PhsC,
+}
