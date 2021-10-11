@@ -11,11 +11,11 @@ use std::env;
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
     let bus_type = env::var("BUS_TYPE").unwrap_or("NATS".to_string());
-    let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;  
-   
+    let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;
+
     if bus_type == "NATS" {
         let nats_url = env::var("NATS_URL").unwrap_or("nats://127.0.0.1:4222".to_string());
-        let nc = nats::asynk::connect(&nats_url).await?;        
+        let nc = nats::asynk::connect(&nats_url).await?;
         let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
         let mut switch = openfmb::client::Switch::new(bus, mrid);
 
@@ -38,17 +38,11 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Err(err) => info!("Switch toggle failed, reason {:?}", err),
             }
         }
-    }
-    else {
-        
+    } else {
         let bus = openfmb::bus::ZenohBus::<ProtobufEncoding>::new();
-        
-        println!(
-            "Connected to switch {:?} using zenoh bus {:?}",
-            mrid, &bus
-        );
-        let mut switch = openfmb::client::Switch::new(bus, mrid);
 
+        println!("Connected to switch {:?} using zenoh bus {:?}", mrid, &bus);
+        let mut switch = openfmb::client::Switch::new(bus, mrid);
 
         while let (Some(Ok(position)), Some(Ok(closed)), Some(Ok(open))) = (
             switch.position().await?.next().await,
@@ -65,7 +59,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
     }
-    
-    
+
     Ok(())
 }

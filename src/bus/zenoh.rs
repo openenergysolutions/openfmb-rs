@@ -5,8 +5,8 @@
 use crate::prelude::*;
 use async_trait::async_trait;
 use futures::StreamExt;
-use std::marker::PhantomData;
 use std::convert::TryInto;
+use std::marker::PhantomData;
 use zenoh::*;
 
 use lazy_static::lazy_static;
@@ -84,21 +84,22 @@ where
     ) -> Result<Subscription<M>, SubscribeError> {
         //debug!("subscribing to {:?}", topic);
         let subject: String = topic_to_subject(topic);
-        let stream = WORKSPACE.subscribe(&subject.try_into().unwrap()).await.map_err(|err| SubscribeError::BusError(Box::new(err)))?;
+        let stream = WORKSPACE
+            .subscribe(&subject.try_into().unwrap())
+            .await
+            .map_err(|err| SubscribeError::BusError(Box::new(err)))?;
         Ok(Box::pin(stream.map(|change| {
-            let topic = subject_to_topic(&change.path);            
+            let topic = subject_to_topic(&change.path);
             let mut raw = vec![];
             let data: &[u8] = match change.value {
-                Some(val) => {
-                    match val {
-                        Value::Raw(_c, mut buf) => {
-                            raw = buf.read_vec();
-                            &raw
-                        }
-                        _ => &raw
+                Some(val) => match val {
+                    Value::Raw(_c, mut buf) => {
+                        raw = buf.read_vec();
+                        &raw
                     }
-                }
-                _ => &raw
+                    _ => &raw,
+                },
+                _ => &raw,
             };
             M::decode(topic, data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
         })))
@@ -120,8 +121,7 @@ where
             .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         let subject: String = topic_to_subject(topic);
         let workspace = ZENOH.workspace(None).await?;
-        Ok(workspace
-            .put(&subject.try_into()?, buf.into()).await?)
+        Ok(workspace.put(&subject.try_into()?, buf.into()).await?)
     }
 }
 
@@ -147,14 +147,23 @@ where
 #[cfg(test)]
 mod tests {
     use crate::prelude::{Topic, TopicLevel};
-    
+
     use super::{subject_to_topic, topic_to_subject};
 
     #[test]
     fn test_subject_conversion() {
-        assert_eq!(topic_to_subject(subject_to_topic(&zenoh::Path::new("x/y/z").unwrap())), "x/y/z");
-        assert_eq!(topic_to_subject(subject_to_topic(&zenoh::Path::new("x").unwrap())), "x");
-        assert_eq!(subject_to_topic(&zenoh::Path::new("x/y").unwrap()).prefix_match(), false);
+        assert_eq!(
+            topic_to_subject(subject_to_topic(&zenoh::Path::new("x/y/z").unwrap())),
+            "x/y/z"
+        );
+        assert_eq!(
+            topic_to_subject(subject_to_topic(&zenoh::Path::new("x").unwrap())),
+            "x"
+        );
+        assert_eq!(
+            subject_to_topic(&zenoh::Path::new("x/y").unwrap()).prefix_match(),
+            false
+        );
 
         let path = zenoh::Path::new("x/y").unwrap();
         let parts0: Vec<TopicLevel<&str>> = subject_to_topic(&path).collect();

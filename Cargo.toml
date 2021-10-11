@@ -39,4 +39,4 @@ pretty_env_logger = "0.4"
 
 [[example]]
 name = "switch_client"
-required-features = ["client"]
+required-features = ["client", "zenoh"]
