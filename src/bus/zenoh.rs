@@ -13,11 +13,14 @@ use lazy_static::lazy_static;
 
 lazy_static! {
     static ref ZENOH: Zenoh = Zenoh::new(net::config::default()).wait().unwrap();
-    static ref WORKSPACE: Workspace<'static> = ZENOH.workspace(None).wait().unwrap();
+    static ref WORKSPACE: Workspace<'static> = ZENOH
+        .workspace(Some("/".try_into().unwrap()))
+        .wait()
+        .unwrap();
 }
 
 /// Zenoh Message Bus
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ZenohBus<E: MessageEncoding> {
     encoding: PhantomData<E>,
 }
@@ -25,6 +28,7 @@ pub struct ZenohBus<E: MessageEncoding> {
 fn topic_to_subject<S: AsRef<str>, T: Topic<S>>(topic: T) -> String {
     let prefix_match = topic.prefix_match();
     let mut subject = String::with_capacity(128);
+    subject.push_str("/");
     topic.for_each(|lvl| match lvl {
         TopicLevel::Exact(val) => {
             subject.push_str(val.as_ref());
@@ -120,8 +124,7 @@ where
         msg.encode(&mut buf)
             .map_err(|err| PublishError::EncodeError(Box::new(err)))?;
         let subject: String = topic_to_subject(topic);
-        let workspace = ZENOH.workspace(None).await?;
-        Ok(workspace.put(&subject.try_into()?, buf.into()).await?)
+        Ok(WORKSPACE.put(&subject.try_into()?, buf.into()).await?)
     }
 }
 
