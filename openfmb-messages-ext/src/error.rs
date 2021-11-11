@@ -110,6 +110,17 @@ pub enum OpenFMBError {
     NoSwitchEventXswi,
     NoSwitchReading,
     InvalidValue,
+    NoResourceStatus,
+    NoResourceDiscreteControl,
+    NoVss,
+    NoVsc,
+    NoControlApc,
+    NoMv,
+    NoStatusIns,
+    NoControlInc,
+    NoStatusSps,
+    NoControlSpc,
+    NoValue,
     #[snafu(display("Actor System Error"))]
     IOError {
         source: std::io::Error,
