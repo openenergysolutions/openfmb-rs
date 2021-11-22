@@ -5,7 +5,10 @@
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{ConductingEquipment, ControlApc, MessageInfo},
-    resourcemodule::{AnalogControlGgio, StringControlGgio, IntegerControlGgio, BooleanControlGgio, ResourceDiscreteControl, ResourceDiscreteControlProfile},
+    resourcemodule::{
+        AnalogControlGgio, BooleanControlGgio, IntegerControlGgio, ResourceDiscreteControl,
+        ResourceDiscreteControlProfile, StringControlGgio,
+    },
 };
 use snafu::{OptionExt, ResultExt};
 use std::{str::FromStr, time::SystemTime};
@@ -114,8 +117,8 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoIdentifiedObject)?
             .name
-            .clone().unwrap_or("".to_string())        
-        )
+            .clone()
+            .unwrap_or("".to_string()))
     }
 
     fn message_identified_description(&self) -> OpenFMBResult<String> {
@@ -130,8 +133,8 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoIdentifiedObject)?
             .description
-            .clone().unwrap_or("".to_string())        
-        )
+            .clone()
+            .unwrap_or("".to_string()))
     }
 
     fn string_ggio(&self) -> OpenFMBResult<Vec<StringControlGgio>> {
@@ -140,8 +143,7 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoResourceDiscreteControl)?
             .string_control_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn analog_ggio(&self) -> OpenFMBResult<Vec<AnalogControlGgio>> {
@@ -150,8 +152,7 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoResourceDiscreteControl)?
             .analog_control_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn integer_ggio(&self) -> OpenFMBResult<Vec<IntegerControlGgio>> {
@@ -160,8 +161,7 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoResourceDiscreteControl)?
             .integer_control_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn boolean_ggio(&self) -> OpenFMBResult<Vec<BooleanControlGgio>> {
@@ -170,13 +170,12 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
             .as_ref()
             .context(NoResourceDiscreteControl)?
             .boolean_control_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn string_value_by_key(&self, key: &str) -> OpenFMBResult<String> {
         let into_iter = self.string_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -187,27 +186,20 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .str_out
-                            .as_ref()
-                            .context(NoVsc)?
-                            .ctl_val
-                            .clone()                            
-                    );
+                    return Ok(item.str_out.as_ref().context(NoVsc)?.ctl_val.clone());
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn analog_value_by_key(&self, key: &str) -> OpenFMBResult<f64> {
         let into_iter = self.analog_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -218,26 +210,20 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .an_out
-                            .as_ref()
-                            .context(NoControlApc)?
-                            .ctl_val                                                        
-                    );
+                    return Ok(item.an_out.as_ref().context(NoControlApc)?.ctl_val);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn integer_value_by_key(&self, key: &str) -> OpenFMBResult<i32> {
         let into_iter = self.integer_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -248,26 +234,20 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .iscso
-                            .as_ref()
-                            .context(NoControlInc)?
-                            .ctl_val                                                        
-                    );
+                    return Ok(item.iscso.as_ref().context(NoControlInc)?.ctl_val);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn boolean_value_by_key(&self, key: &str) -> OpenFMBResult<bool> {
         let into_iter = self.boolean_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -278,20 +258,14 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .spcso
-                            .as_ref()
-                            .context(NoControlSpc)?
-                            .ctl_val                                                        
-                    );
+                    return Ok(item.spcso.as_ref().context(NoControlSpc)?.ctl_val);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 }

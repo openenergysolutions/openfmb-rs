@@ -91,8 +91,8 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoIdentifiedObject)?
             .name
-            .clone().unwrap_or("".to_string())        
-        )
+            .clone()
+            .unwrap_or("".to_string()))
     }
 
     fn message_identified_description(&self) -> OpenFMBResult<String> {
@@ -107,8 +107,8 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoIdentifiedObject)?
             .description
-            .clone().unwrap_or("".to_string())        
-        )
+            .clone()
+            .unwrap_or("".to_string()))
     }
 
     fn string_ggio(&self) -> OpenFMBResult<Vec<StringEventAndStatusGgio>> {
@@ -117,8 +117,7 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoResourceStatus)?
             .string_event_and_status_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn analog_ggio(&self) -> OpenFMBResult<Vec<AnalogEventAndStatusGgio>> {
@@ -127,8 +126,7 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoResourceStatus)?
             .analog_event_and_status_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn integer_ggio(&self) -> OpenFMBResult<Vec<IntegerEventAndStatusGgio>> {
@@ -137,8 +135,7 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoResourceStatus)?
             .integer_event_and_status_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn boolean_ggio(&self) -> OpenFMBResult<Vec<BooleanEventAndStatusGgio>> {
@@ -147,13 +144,12 @@ impl ResourceStatusExt for ResourceStatusProfile {
             .as_ref()
             .context(NoResourceStatus)?
             .boolean_event_and_status_ggio
-            .clone()
-        )
+            .clone())
     }
 
     fn string_value_by_key(&self, key: &str) -> OpenFMBResult<String> {
         let into_iter = self.string_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -164,27 +160,20 @@ impl ResourceStatusExt for ResourceStatusProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .str_in
-                            .as_ref()
-                            .context(NoVss)?
-                            .st_val
-                            .clone()                            
-                    );
+                    return Ok(item.str_in.as_ref().context(NoVss)?.st_val.clone());
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn analog_value_by_key(&self, key: &str) -> OpenFMBResult<f64> {
         let into_iter = self.analog_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -195,26 +184,20 @@ impl ResourceStatusExt for ResourceStatusProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .an_in
-                            .as_ref()
-                            .context(NoMv)?
-                            .mag                                                        
-                    );
+                    return Ok(item.an_in.as_ref().context(NoMv)?.mag);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn integer_value_by_key(&self, key: &str) -> OpenFMBResult<i32> {
         let into_iter = self.integer_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -225,26 +208,20 @@ impl ResourceStatusExt for ResourceStatusProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .int_in
-                            .as_ref()
-                            .context(NoStatusIns)?
-                            .st_val                                                        
-                    );
+                    return Ok(item.int_in.as_ref().context(NoStatusIns)?.st_val);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 
     fn boolean_value_by_key(&self, key: &str) -> OpenFMBResult<bool> {
         let into_iter = self.boolean_ggio()?.into_iter();
-    
+
         for item in into_iter {
             if let Ok(name) = item
                 .logical_node
@@ -255,20 +232,14 @@ impl ResourceStatusExt for ResourceStatusProfile {
                 .context(NoIdentifiedObject)?
                 .name
                 .as_ref()
-                .context(NoName) {
-
+                .context(NoName)
+            {
                 if key == name.to_string() {
-                    return Ok(
-                        item
-                            .ind
-                            .as_ref()
-                            .context(NoMv)?
-                            .st_val                                                        
-                    );
+                    return Ok(item.ind.as_ref().context(NoMv)?.st_val);
                 }
             }
         }
-    
+
         Err(OpenFMBError::NoValue)
     }
 }
