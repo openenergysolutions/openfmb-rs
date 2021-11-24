@@ -154,6 +154,8 @@ pub trait SolarControlExt: ControlProfileExt {
         _start_time: SystemTime,
         modblk: bool,
     ) -> SolarControlProfile;
+
+    fn solar_reset_msg(m_rid: &str) -> SolarControlProfile;
 }
 
 impl ControlProfileExt for SolarControlProfile {}
@@ -206,6 +208,29 @@ impl SolarControlExt for SolarControlProfile {
                 }),
                 check: None,
                 solar_control_fscc: None,
+            }),
+        }
+    }
+
+    fn solar_reset_msg(m_rid: &str) -> SolarControlProfile {
+        let msg_info = SolarControlProfile::build_control_message_info();
+
+        SolarControlProfile {
+            control_message_info: Some(msg_info),
+            solar_inverter: Some(SolarInverter {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            solar_control: Some(SolarControl {
+                check: None,
+                solar_control_fscc: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
+                }),
             }),
         }
     }

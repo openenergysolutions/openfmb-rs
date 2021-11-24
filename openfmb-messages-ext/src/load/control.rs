@@ -9,9 +9,9 @@ use std::time::SystemTime;
 use crate::{error::*, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
-        ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, EnergyConsumer,
-        EngScheduleParameter, MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg,
-        ScheduleParameterKind, SchedulePoint, StateKind,
+        ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, ControlValue,
+        EnergyConsumer, EngScheduleParameter, MessageInfo, NamedObject, OptionalStateKind,
+        ScheduleCsg, ScheduleParameterKind, SchedulePoint, StateKind,
     },
     loadmodule::{
         LoadControl, LoadControlFscc, LoadControlProfile, LoadControlScheduleFsch, LoadCsg,
@@ -195,6 +195,30 @@ pub trait LoadControlExt: ControlProfileExt {
                 }),
             }),
         })
+    }
+
+    fn load_reset_msg(m_rid: &str) -> LoadControlProfile {
+        let msg_info = LoadControlProfile::build_control_message_info();
+
+        LoadControlProfile {
+            control_message_info: Some(msg_info),
+            energy_consumer: Some(EnergyConsumer {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                operating_limit: None,
+            }),
+            load_control: Some(LoadControl {
+                check: None,
+                load_control_fscc: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
+                }),
+            }),
+        }
     }
 }
 

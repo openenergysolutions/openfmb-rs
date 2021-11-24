@@ -116,6 +116,8 @@ pub trait BreakerControlExt: ControlProfileExt {
         start_time: SystemTime,
         synchro_check: bool,
     ) -> BreakerDiscreteControlProfile;
+
+    fn breaker_reset_msg(m_rid: &str) -> BreakerDiscreteControlProfile;
 }
 
 impl BreakerControlExt for BreakerDiscreteControlProfile {
@@ -223,6 +225,30 @@ impl BreakerControlExt for BreakerDiscreteControlProfile {
                     synchro_check: Some(synchro_check),
                 }),
                 breaker_discrete_control_xcbr: None,
+            }),
+        }
+    }
+
+    fn breaker_reset_msg(m_rid: &str) -> BreakerDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            BreakerDiscreteControlProfile::build_control_message_info();
+
+        BreakerDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            breaker: Some(Breaker {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            breaker_discrete_control: Some(BreakerDiscreteControl {
+                check: None,
+                breaker_discrete_control_xcbr: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
+                }),
             }),
         }
     }
