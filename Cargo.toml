@@ -24,7 +24,7 @@ openfmb-messages = { path = "./openfmb-messages" }
 openfmb-messages-ext = { path = "./openfmb-messages-ext", optional = true }
 
 # nats bus support
-nats = {version = "0.8", optional = true}
+nats = {version = "0.16.0", optional = true}
 
 # zenoh bus support
 zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", rev = "000a2ba4681c49fe55fd42bafa5f4b8996c57cd7", optional = true}
