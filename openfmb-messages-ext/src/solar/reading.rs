@@ -92,23 +92,28 @@ impl OpenFMBExtReading for SolarReadingProfile {
 }
 
 pub trait SolarReadingExt: ReadingProfileExt {
-    fn solar_reading(&self) -> f64;
+    fn w_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl SolarReadingExt for SolarReadingProfile {
-    fn solar_reading(&self) -> f64 {
-        self.solar_reading
-            .clone()
-            .unwrap()
+    fn w_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .solar_reading
+            .as_ref()
+            .context(NoSolarReading)?
             .reading_mmxu
-            .unwrap()
+            .as_ref()
+            .context(NoReadingMmxu)?
             .w
-            .unwrap()
+            .as_ref()
+            .context(NoW)?
             .net
-            .unwrap()
+            .as_ref()
+            .context(NoNet)?
             .c_val
-            .unwrap()
-            .mag
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
     }
 }
 

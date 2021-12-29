@@ -13,6 +13,6 @@ exclude = ["proto", "third-party"]
 which = { version = "4", default-features = false  }
 
 [dependencies]
-prost = "0.7"
+prost = "0.10.4"
 proto-types = { version = "0.7", path = "../proto-types" }
 lazy_static = "1.4"

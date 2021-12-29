@@ -15,7 +15,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     if bus_type == "NATS" {
         let nats_url = env::var("NATS_URL").unwrap_or("nats://127.0.0.1:4222".to_string());
-        let nc = nats::asynk::connect(&nats_url).await?;
+        let nc = nats::connect(&nats_url)?;
         let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
         let mut switch = openfmb::client::Switch::new(bus, mrid);
 

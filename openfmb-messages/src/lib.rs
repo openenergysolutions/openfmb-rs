@@ -4,8 +4,8 @@
 
 pub mod breakermodule;
 pub mod capbankmodule;
+pub mod circuitsegmentservicemodule;
 pub mod commonmodule;
-pub mod coordinationservicemodule;
 pub mod essmodule;
 pub mod generationmodule;
 pub mod interconnectionmodule;
@@ -22,7 +22,7 @@ pub mod switchmodule;
 pub enum Module {
     BreakerModule,
     CapBankModule,
-    CoordinationServiceModule,
+    CircuitSegmentServiceModule,
     EssModule,
     GenerationModule,
     InterconnectionModule,
@@ -41,7 +41,7 @@ impl Module {
         match self {
             Module::BreakerModule => "breakermodule",
             Module::CapBankModule => "capbankmodule",
-            Module::CoordinationServiceModule => "coordationservicemodule",
+            Module::CircuitSegmentServiceModule => "circuitsegmentservicemodule",
             Module::EssModule => "essmodule",
             Module::GenerationModule => "generationmodule",
             Module::LoadModule => "loadmodule",
@@ -69,7 +69,7 @@ impl std::str::FromStr for Module {
         match input {
             "breakmodule" => Ok(Module::BreakerModule),
             "capbankmodule" => Ok(Module::CapBankModule),
-            "coordationservicemodule" => Ok(Module::CoordinationServiceModule),
+            "circuitsegmentservicemodule" => Ok(Module::CircuitSegmentServiceModule),
             "essmodule" => Ok(Module::EssModule),
             "generationmodule" => Ok(Module::GenerationModule),
             "loadmodule" => Ok(Module::LoadModule),

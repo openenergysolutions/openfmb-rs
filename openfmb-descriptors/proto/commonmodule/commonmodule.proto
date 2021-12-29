@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Monday, December 14, 2020 7:23:13 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
+// Tuesday, December 7, 2021 5:56:45 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -594,6 +594,29 @@ message BooleanEventAndStatusGGIO
     Optional_PhaseCodeKind Phase = 3;
 }
 
+// Generic control message info.
+message MessageInfo
+{
+    // UML inherited base object
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    Timestamp messageTimeStamp = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Generic capability message info.
+message CapabilityMessageInfo
+{
+    // UML inherited base object
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// Generic capability message info.
+message CapabilityOverrideMessageInfo
+{
+    // UML inherited base object
+    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
 // IEC61850-7-2 Service parameter for conditions checking
 message CheckConditions
 {
@@ -603,6 +626,16 @@ message CheckConditions
     google.protobuf.BoolValue interlockCheck = 1;
     // To check if a device is synchrous to the system.
     google.protobuf.BoolValue synchroCheck = 2;
+}
+
+// MISSING DOCUMENTATION!!!
+message ClearingTime
+{
+    reserved 1;
+    // MISSING DOCUMENTATION!!!
+    uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Vector definition (Vector)
@@ -686,7 +719,7 @@ message ControlTimestamp
     uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// ESS function kind
+// Schedule parameter kind
 enum ScheduleParameterKind
 {
     // Undefined
@@ -861,15 +894,6 @@ message ControlISC
 }
 
 // Generic control message info.
-message MessageInfo
-{
-    // UML inherited base object
-    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    Timestamp messageTimeStamp = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Generic control message info.
 message ControlMessageInfo
 {
     // UML inherited base object
@@ -898,6 +922,16 @@ message ControlValue
     google.protobuf.BoolValue modBlk = 3;
     // If true, reset the device before executing any other controls.
     google.protobuf.BoolValue reset = 4;
+}
+
+// MISSING DOCUMENTATION!!!
+message CumulativeTime
+{
+    reserved 1;
+    // MISSING DOCUMENTATION!!!
+    uint64 seconds = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Partial (sub) second expressed in nanoseconds (10<sup>-9</sup> second).
+    uint32 nanoseconds = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Interval between two date and time points.
@@ -1231,6 +1265,36 @@ message ENS_SwitchingCapabilityKind
 }
 
 // MISSING DOCUMENTATION!!!
+message OperationDCTE
+{
+    // MISSING DOCUMENTATION!!!
+    float rndDlTmms = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    float rtnDlTmms = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    float rtnRmpTmms = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message EnterServiceAPC
+{
+    // MISSING DOCUMENTATION!!!
+    OperationDCTE enterServiceParameter = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This field is for an absolute value. ES Frequency High
+    float hzHiLim = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This field is for an absolute value. ES Frequency Low
+    float hzLoLim = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Permit service. If (RtnSrvAuto) true, the DER is authorized to automatically return to service;
+    // if false, the DER must wait until an external RtnSrvAuth is received to allow it to return to
+    // service.
+    bool rtnSrvAuto = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.  ES Voltage High
+    float vHiLim = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.  ES Voltage Low
+    float vLoLim = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
 message ESS
 {
     // UML inherited base object
@@ -1286,6 +1350,48 @@ message ForecastValue
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
+// MISSING DOCUMENTATION!!!
+message OperationDHFW
+{
+    // MISSING DOCUMENTATION!!!
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Open Loop Response Time
+    ClearingTime OplTmmsMax = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDLFW
+{
+    // MISSING DOCUMENTATION!!!
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ClearingTime OplTmmsMax = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message HzWPoint
+{
+    // This is an absolute value field
+    float deadbandHzVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    float slopeVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Frequency Droop Function
+message HzWAPC
+{
+    // Overfrequency Droop <i>db</i>OF  The frequency which must be higher than the reference frequency
+    // at which to start reducing power output.
+    HzWPoint overHzWPt = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDHFW overHzWParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Underfrequency Droop <i>db</i>UF  The frequency which must be lower than the reference frequency
+    // at which to start increasing power output.
+    HzWPoint underHzWPt = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDLFW underHzWParameter = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // <<statistics>> Integer status (INS)
 message StatusINS
 {
@@ -1306,6 +1412,33 @@ message IntegerEventAndStatusGGIO
     StatusINS IntIn = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Phase code
     Optional_PhaseCodeKind Phase = 3;
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDWMX
+{
+    // Limit Active Power Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDWMN
+{
+    // MISSING DOCUMENTATION!!!
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message LimitWAPC
+{
+    // MISSING DOCUMENTATION!!!
+    OperationDWMX maxLimParameter = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDWMN minLimParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.  Maximum Active Power
+    float wMaxSptVal = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.  Minimum Active Power
+    float wMinSptVal = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Logical node for event and status
@@ -1340,11 +1473,105 @@ message Meter
     ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
 }
 
+// Generic nameplate value such as name and description.
+message NameplateValue
+{
+    // UML inherited base object
+    IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // Model
+    google.protobuf.StringValue model = 2;
+    // Serial Number
+    google.protobuf.StringValue sernum = 3;
+    // Version
+    google.protobuf.StringValue swRev = 4;
+    // Manufacturer
+    google.protobuf.StringValue vendor = 5;
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDFPF
+{
+    // MISSING DOCUMENTATION!!!
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Constant power factor excitation setting  PFExtSet: PFExtSet set to true = overexcited; PFExtSet
+    // set to false = underexcited
+    bool pFExtSet = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Applies when generating.  Target power factor setting when generating.  The power factor target
+    // is a number between -1 and 1, and is used in conjunction with PFExtSet to indicate whether it to
+    // make it over or under excited.
+    float pFGnTgtMxVal = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDVAR
+{
+    // This is an absolute value field.  Constant Reactive Power
+    float varTgtSpt = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDVVR
+{
+    // Voltage-Reactive Power Mode Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Open Loop Response Time
+    ClearingTime OplTmmsMax = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // V<sub>Ref</sub> Reference voltage
+    float VRef = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Autonomous <i>V</i><i><sub>Ref</sub></i><i>  </i>adjustment enable
+    bool VRefAdjEna = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // <i>V</i><i><sub>Ref</sub></i><i>  </i>adjustment time constant
+    float VRefTmms = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationDVWC
+{
+    // Voltage-Active Power Mode Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Open Loop Response Time
+    ClearingTime OplTmmsMax = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message OperationDWVR
+{
+    // Active-Reactive Power Mode Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message OperationStorageDFPF
+{
+    // UML inherited base object
+    OperationDFPF operationDFPF = 1 [(uml.option_parent_message) = true];
+    // Applies when charging and need not be supported for generating-only DER.
+    float pFLodTgtMxVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Generic event message information
 message OptimizationMessageInfo
 {
     // UML inherited base object
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// Constant power factor control function
+message PFSPC
+{
+    // MISSING DOCUMENTATION!!!
+    bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDFPF pFParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Constant power factor control function
+message PFStorageSPC
+{
+    // MISSING DOCUMENTATION!!!
+    bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationStorageDFPF pFStorageParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // [OpenFMB CDC extension] Per Phase ISC.
@@ -1645,6 +1872,111 @@ message ReadingMMXU
     WYE W = 11;
 }
 
+// Source configured setting
+message SourceCapabilityConfiguration
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Amp Maximum configured value
+    ASG AMax = 2;
+    // Apparent Power Maximum configured value
+    ASG VAMax = 3;
+    // Reactive Power Absorbed Maximum configured value
+    ASG VarMaxAbs = 4;
+    // Reactive Power Injected Maximum configured value
+    ASG VarMaxInj = 5;
+    // AC voltage maximum configured value
+    ASG VMax = 6;
+    // AC voltage minimum configured value
+    ASG VMin = 7;
+    // AC voltage nominal configured value
+    ASG VNom = 8;
+    // Active Power Max configured value
+    ASG WMax = 9;
+    // Active Power (Over-Excited) configured value
+    ASG WOvrExt = 10;
+    // Active power configured value at specified over-excited power factor
+    ASG WOvrExtPF = 11;
+    // Active Power (Under-Excited) configured value
+    ASG WUndExt = 12;
+    // Active power configured value at specified under-excited power factor
+    ASG WUndExtPF = 13;
+}
+
+// Abnormal Operating Performance Category
+enum NorOpCatKind
+{
+    // Undefined
+     NorOpCatKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     NorOpCatKind_A = 1;
+    // MISSING DOCUMENTATION!!!
+     NorOpCatKind_B = 2;
+}
+
+message Optional_NorOpCatKind
+{
+    NorOpCatKind value = 1;
+}
+
+// Normal Operating Performance Category
+enum AbnOpCatKind
+{
+    // Undefined
+     AbnOpCatKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     AbnOpCatKind_I = 1;
+    // MISSING DOCUMENTATION!!!
+     AbnOpCatKind_II = 2;
+    // MISSING DOCUMENTATION!!!
+     AbnOpCatKind_III = 3;
+}
+
+message Optional_AbnOpCatKind
+{
+    AbnOpCatKind value = 1;
+}
+
+// Source capability ratings
+message SourceCapabilityRatings
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Abnormal Operating Performance Category  Text stating: “IEEE 1547:2018 Either “I”, “II”, or
+    // “III” is stated for the Abnormal Category
+    AbnOpCatKind AbnOpCatRtg = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Amp Maximum Rating  SunSpec has this field but not in IEEE1547
+    ASG AMaxRtg = 3;
+    // Frequency nominal rating, default to 60 hz if not provide and cannot be configured.
+    ASG FreqNomRtg = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Normal operating performance category
+    NorOpCatKind NorOpCatRtg = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Reactive susceptance that remains connected to the Area EPS in the cease to energize and trip state
+    ASG ReactSusceptRtg = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Apparent Power Maximum Rating
+    ASG VAMaxRtg = 7 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Reactive Power Absorbed Maximum Rating
+    ASG VarMaxAbsRtg = 8 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Reactive Power Injected Maximum Rating
+    ASG VarMaxInjRtg = 9 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // AC voltage maximum rating
+    ASG VMaxRtg = 10 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // AC voltage minimum rating
+    ASG VMinRtg = 11 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // AC voltage nominal rating
+    ASG VNomRtg = 12 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active Power Max Rating
+    ASG WMaxRtg = 13 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active Power (Over-Excited) Rating
+    ASG WOvrExtRtg = 14 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active power rating at specified over-excited power factor
+    ASG WOvrExtRtgPF = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active Power (Under-Excited) Rating
+    ASG WUndExtRtg = 16 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active power rating at specified under-excited power factor
+    ASG WUndExtRtgPF = 17 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
 // breaker   Name: XCBR
 message StatusAndEventXCBR
@@ -1742,11 +2074,154 @@ message SwitchCSG
     repeated SwitchPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// MISSING DOCUMENTATION!!!
+message TmHzPoint
+{
+    // This is an absolute value field.
+    float hzVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ClearingTime tmVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Frequency-Trip Function
+message TmHzCSG
+{
+    // HF Trip Curve Points
+    repeated TmHzPoint overCrvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // LF Trip Curve Points
+    repeated TmHzPoint underCrvPts = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message TmVoltPoint
+{
+    // MISSING DOCUMENTATION!!!
+    ClearingTime tmVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.
+    float voltVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message TmVoltCSG
+{
+    // HV Trip Curve Points
+    repeated TmVoltPoint overCrvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // LV Trip Curve Points
+    repeated TmVoltPoint underCrvPts = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Constant Reactive Power (Fixed VAr) Function
+message VarSPC
+{
+    // Constant Reactive Power Mode Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDVAR varParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Point definition (Point)
+message VoltVarPoint
+{
+    // This is an absolute value field.
+    float varVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.
+    float voltVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Voltage-Reactive Power (Volt-VAr) Function
+message VoltVarCSG
+{
+    // MISSING DOCUMENTATION!!!
+    repeated VoltVarPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDVVR vVarParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message VoltWPoint
+{
+    // This is an absolute value field.
+    float voltVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.
+    float wVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message VoltWCSG
+{
+    // MISSING DOCUMENTATION!!!
+    repeated VoltWPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Voltage-Active Power (Volt-Watt) Function
+    OperationDVWC voltWParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Visible string status (VSS)
 message VSC
 {
     // [OpenFMB Extension]  String control value.
     string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message WVarPoint
+{
+    // This is an absolute value field.
+    float varVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // This is an absolute value field.
+    float wVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Active Power-Reactive Power (Watt-VAr) Function
+message WVarCSG
+{
+    // MISSING DOCUMENTATION!!!
+    repeated WVarPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDWVR wVarParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// State kind
+enum AlrmKind
+{
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_ground_fault = 0;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_dc_over_voltage = 1;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_ac_disconnect_open = 2;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_dc_disconnect_open = 3;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_grid_disconnect = 4;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_cabinet_open = 5;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_manual_shutdown = 6;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_over_temperature = 7;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_frequency_above_limit = 8;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_frequency_under_limit = 9;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_ac_voltage_above_limit = 10;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_ac_voltage_under_limit = 11;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_blown_string_fuse_on_input = 12;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_under_temperature = 13;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_generic_memory_or_communication_error = 14;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_hardware_test_failure = 15;
+    // MISSING DOCUMENTATION!!!
+     AlrmKind_manufacturer_alarm = 16;
+}
+
+message Optional_AlrmKind
+{
+    AlrmKind value = 1;
 }
 
 // Dynamic test status (see IEC61850-7-2 section 20.2.1 Direct control with normal security, state
@@ -1800,6 +2275,58 @@ enum DirectionModeKind
 message Optional_DirectionModeKind
 {
     DirectionModeKind value = 1;
+}
+
+// State kind
+enum GridConnectionStateKind
+{
+    // MISSING DOCUMENTATION!!!
+     GridConnectionStateKind_disconnected = 0;
+    // MISSING DOCUMENTATION!!!
+     GridConnectionStateKind_connected = 1;
+}
+
+message Optional_GridConnectionStateKind
+{
+    GridConnectionStateKind value = 1;
+}
+
+// State kind
+enum OperatingStateKind
+{
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_off = 1;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_disconnected_and_standby = 2;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_disconnected_and_available = 3;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_disconnected_and_authorized = 4;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_starting_and_synchronizing = 5;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_connected_and_idle = 6;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_connected_and_generating = 7;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_connected_and_consuming = 8;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_stopping = 9;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_disconnected_and_blocked = 10;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_disconnected_and_in_maintenance = 11;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_ceased_to_energize = 12;
+    // MISSING DOCUMENTATION!!!
+     OperatingStateKind_failed = 13;
+}
+
+message Optional_OperatingStateKind
+{
+    OperatingStateKind value = 1;
 }
 
 // Real power control kind

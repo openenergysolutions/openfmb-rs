@@ -2,40 +2,44 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use snafu::{OptionExt, ResultExt};
 use std::str::FromStr;
-use uuid::Uuid;
 
-use coordinationservicemodule::CoordinationControlProfile;
-use openfmb_messages::{commonmodule::*, *};
+use generationmodule::GenerationCapabilityOverrideProfile;
+use openfmb_messages::{commonmodule::MessageInfo, *};
+
+use snafu::{OptionExt, ResultExt};
+use uuid::Uuid;
 
 use crate::{error::*, OpenFMBExt};
 
-impl OpenFMBExt for CoordinationControlProfile {
+impl OpenFMBExt for GenerationCapabilityOverrideProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        Ok("".to_string())
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
-            .control_message_info
+            .capability_override_message_info
             .as_ref()
-            .context(NoControlMessageInfo)?
+            .context(NoMessageInfo)?
             .message_info
             .as_ref()
             .context(NoMessageInfo)?)
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("CoordinationControlProfile".to_string())
+        Ok("GenerationCapabilityOverrideProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
             &self
-                .application_system
+                .generating_unit
                 .as_ref()
-                .context(NoApplicationSystem)?
+                .context(NoGeneratingUnit)?
+                .conducting_equipment
+                .as_ref()
+                .context(NoConductingEquipment)?
                 .m_rid,
         )
         .context(UuidError)?)
@@ -43,9 +47,12 @@ impl OpenFMBExt for CoordinationControlProfile {
 
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
-            .application_system
+            .generating_unit
             .as_ref()
-            .context(NoApplicationSystem)?
+            .context(NoGeneratingUnit)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
             .named_object
             .as_ref()
             .context(NoNamedObject)?

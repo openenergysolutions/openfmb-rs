@@ -2,46 +2,44 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use snafu::{OptionExt, ResultExt};
 use std::str::FromStr;
+
+use openfmb_messages::{commonmodule::MessageInfo, *};
+use solarmodule::SolarCapabilityOverrideProfile;
+
+use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use coordinationservicemodule::CoordinationStatusProfile;
-use openfmb_messages::{commonmodule::*, *};
+use crate::{error::*, OpenFMBExt};
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
-
-impl OpenFMBExtStatus for CoordinationStatusProfile {
-    fn status_message_info(&self) -> OpenFMBResult<&StatusMessageInfo> {
-        unimplemented!()
-    }
-}
-
-impl OpenFMBExt for CoordinationStatusProfile {
+impl OpenFMBExt for SolarCapabilityOverrideProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        Ok("".to_string())
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
-            .event_message_info
+            .capability_override_message_info
             .as_ref()
-            .context(NoStatusMessageInfo)?
+            .context(NoMessageInfo)?
             .message_info
             .as_ref()
             .context(NoMessageInfo)?)
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("CoordinationStatusProfile".to_string())
+        Ok("SolarCapabilityOverrideProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
         Ok(Uuid::from_str(
             &self
-                .application_system
+                .solar_inverter
                 .as_ref()
-                .context(NoApplicationSystem)?
+                .context(NoSolarInverter)?
+                .conducting_equipment
+                .as_ref()
+                .context(NoConductingEquipment)?
                 .m_rid,
         )
         .context(UuidError)?)
@@ -49,9 +47,12 @@ impl OpenFMBExt for CoordinationStatusProfile {
 
     fn device_name(&self) -> OpenFMBResult<String> {
         Ok(self
-            .application_system
+            .solar_inverter
             .as_ref()
-            .context(NoApplicationSystem)?
+            .context(NoSolarInverter)?
+            .conducting_equipment
+            .as_ref()
+            .context(NoConductingEquipment)?
             .named_object
             .as_ref()
             .context(NoNamedObject)?

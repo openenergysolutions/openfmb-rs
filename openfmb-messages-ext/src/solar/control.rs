@@ -143,6 +143,7 @@ pub trait SolarControlExt: ControlProfileExt {
                                     .as_secs(),
                             }),
                             voltage_set_point_enabled: None,
+                            ..Default::default()
                         }],
                     }),
                 }),

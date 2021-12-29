@@ -110,6 +110,8 @@ pub trait RecloserControlExt: ControlProfileExt {
         start_time: SystemTime,
         synchro_check: bool,
     ) -> RecloserDiscreteControlProfile;
+
+    fn recloser_reset_msg(m_rid: &str) -> RecloserDiscreteControlProfile;
 }
 
 impl RecloserControlExt for RecloserDiscreteControlProfile {
@@ -220,6 +222,31 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
                     synchro_check: Some(synchro_check),
                 }),
                 recloser_discrete_control_xcbr: None,
+            }),
+        }
+    }
+
+    fn recloser_reset_msg(m_rid: &str) -> RecloserDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RecloserDiscreteControlProfile::build_control_message_info();
+
+        RecloserDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            recloser: Some(Recloser {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                normal_open: None,
+            }),
+            recloser_discrete_control: Some(RecloserDiscreteControl {
+                check: None,
+                recloser_discrete_control_xcbr: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
+                }),
             }),
         }
     }

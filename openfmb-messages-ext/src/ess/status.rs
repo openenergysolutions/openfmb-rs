@@ -7,7 +7,7 @@ use std::str::FromStr;
 
 use essmodule::EssStatusProfile;
 use openfmb_messages::{
-    commonmodule::{MessageInfo, StatusMessageInfo},
+    commonmodule::{MessageInfo, StateKind, StatusMessageInfo},
     *,
 };
 
@@ -15,7 +15,7 @@ use crate::StatusProfileExt;
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, ess::ESSStatusExt, OpenFMBExt, OpenFMBExtStatus};
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
 
 impl OpenFMBExt for EssStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -101,8 +101,15 @@ impl OpenFMBExtStatus for EssStatusProfile {
     }
 }
 
-impl ESSStatusExt for EssStatusProfile {
-    fn soc(&self) -> OpenFMBResult<f64> {
+pub trait EssStatusExt: StatusProfileExt {
+    fn ess_soc(&self) -> OpenFMBResult<f64>;
+    fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind>;
+    fn ess_state(&self) -> OpenFMBResult<StateKind>;
+    fn ess_gn_sync_st(&self) -> OpenFMBResult<bool>;
+}
+
+impl EssStatusExt for EssStatusProfile {
+    fn ess_soc(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_status
             .as_ref()
@@ -113,52 +120,64 @@ impl ESSStatusExt for EssStatusProfile {
             .soc
             .as_ref()
             .context(NoSoc)?
-            .mag)
-    }
-}
-
-pub trait EssStatusExt: StatusProfileExt {
-    fn ess_soc(&self) -> OpenFMBResult<f64>;
-    fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind>;
-}
-
-impl EssStatusExt for EssStatusProfile {
-    fn ess_soc(&self) -> OpenFMBResult<f64> {
-        {
-            Ok(self
-                .ess_status
-                .as_ref()
-                .context(NoEssStatus)?
-                .ess_status_zbat
-                .as_ref()
-                .context(NoEssStatusZBat)?
-                .soc
-                .as_ref()
-                .context(NoSoc)?
-                .mag
-                / 100.0)
-        }
+            .mag
+            / 100.0)
     }
 
     fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind> {
-        {
-            Ok(self
-                .ess_status
-                .as_ref()
-                .context(NoEssStatus)?
-                .ess_status_zgen
-                .as_ref()
-                .context(NoEssStatusZGen)?
-                .e_ss_event_and_status_zgen
-                .as_ref()
-                .context(NoEssEventAndStatusZGen)?
-                .point_status
-                .as_ref()
-                .context(NoPointStatus)?
-                .mode
-                .clone()
-                .context(NoMode)?)
-        }
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssStatusZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .mode
+            .clone()
+            .context(NoMode)?)
+    }
+
+    fn ess_state(&self) -> OpenFMBResult<StateKind> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssStatusZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)?
+            .value())
+    }
+
+    fn ess_gn_sync_st(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssStatusZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .gn_syn_st
+            .as_ref()
+            .context(NoEssGnSyncSt)?
+            .st_val)
     }
 }
 
