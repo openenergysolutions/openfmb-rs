@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Monday, December 14, 2020 7:23:13 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
+// Tuesday, December 7, 2021 5:56:45 PM UTC
 
 package generationmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/generationmodule";
@@ -13,6 +13,76 @@ import "uml.proto";
 import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
+// A single or set of synchronous machines for converting mechanical power into alternating-current
+// power. For example, individual machines within a set may be defined for scheduling purposes while a
+// single control signal is derived for the set. In this case there would be a GeneratingUnit for each
+// member of the set and an additional GeneratingUnit corresponding to the set.
+message GeneratingUnit
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
+    // This is the maximum operating active power limit the dispatcher can enter for this unit.
+    commonmodule.ActivePower maxOperatingP = 2;
+}
+
+// Configured setting
+message GenerationCapabilityConfiguration
+{
+    // UML inherited base object
+    commonmodule.SourceCapabilityConfiguration sourceCapabilityConfiguration = 1 [(uml.option_parent_message) = true];
+}
+
+// Generation capability
+message GenerationCapabilityOverride
+{
+    // UML inherited base object
+    commonmodule.IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    GenerationCapabilityConfiguration generationCapabilityConfiguration = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Generation capability profile
+message GenerationCapabilityOverrideProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityOverrideMessageInfo capabilityOverrideMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    GenerationCapabilityOverride generationCapabilityOverride = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    GeneratingUnit generatingUnit = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Capability ratings
+message GenerationCapabilityRatings
+{
+    // UML inherited base object
+    commonmodule.SourceCapabilityRatings sourceCapabilityRatings = 1 [(uml.option_parent_message) = true];
+}
+
+// Generation capability
+message GenerationCapability
+{
+    // UML inherited base object
+    commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    GenerationCapabilityRatings generationCapabilityRatings = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    GenerationCapabilityConfiguration generationCapabilityConfiguration = 3;
+}
+
+// Generation capability profile
+message GenerationCapabilityProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityMessageInfo capabilityMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    GenerationCapability generationCapability = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    GeneratingUnit generatingUnit = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Point definition (Point)
 message GenerationPoint
 {
@@ -20,9 +90,9 @@ message GenerationPoint
     commonmodule.ControlSPC blackStartEnabled = 1;
     // Enable frequency set point
     commonmodule.ControlSPC frequencySetPointEnabled = 2;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctHzDroop = 3;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctVDroop = 4;
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
@@ -32,7 +102,7 @@ message GenerationPoint
     commonmodule.ControlSPC realPwrSetPointEnabled = 7;
     // Reset device
     commonmodule.ControlSPC reset = 8;
-    // ESS state
+    // MISSING DOCUMENTATION!!!
     commonmodule.Optional_StateKind state = 9;
     // Synchronize back to grid
     commonmodule.ControlSPC syncBackToGrid = 10;
@@ -42,6 +112,26 @@ message GenerationPoint
     commonmodule.ControlSPC voltageSetPointEnabled = 12;
     // Start time
     commonmodule.ControlTimestamp startTime = 13 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 14;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 15;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFSPC pFOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 21;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 22;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 23;
 }
 
 // Curve shape setting (FC=SP) (CSG_SP)
@@ -58,7 +148,7 @@ message GenerationControlScheduleFSCH
     GenerationCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// LN: Schedule controller   Name: FSCC
+// LN: Schedule controller   Name: FSCC
 message GenerationControlFSCC
 {
     // UML inherited base object
@@ -76,18 +166,6 @@ message GenerationControl
     commonmodule.CheckConditions check = 2;
     // MISSING DOCUMENTATION!!!
     GenerationControlFSCC generationControlFSCC = 3;
-}
-
-// A single or set of synchronous machines for converting mechanical power into alternating-current
-// power. For example, individual machines within a set may be defined for scheduling purposes while a
-// single control signal is derived for the set. In this case there would be a GeneratingUnit for each
-// member of the set and an additional GeneratingUnit corresponding to the set.
-message GeneratingUnit
-{
-    // UML inherited base object
-    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
-    // This is the maximum operating active power limit the dispatcher can enter for this unit.
-    commonmodule.ActivePower maxOperatingP = 2;
 }
 
 // Generation control profile
@@ -196,9 +274,9 @@ message GenerationPointStatus
     commonmodule.StatusSPS blackStartEnabled = 1;
     // Enable frequency set point
     commonmodule.StatusSPS frequencySetPointEnabled = 2;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctHzDroop = 3;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctVDroop = 4;
     // Ramp rates
     commonmodule.RampRate rampRates = 5;
@@ -206,7 +284,7 @@ message GenerationPointStatus
     commonmodule.StatusSPS reactivePwrSetPointEnabled = 6;
     // Enable real power set point
     commonmodule.StatusSPS realPwrSetPointEnabled = 7;
-    // ESS state
+    // MISSING DOCUMENTATION!!!
     commonmodule.Optional_StateKind state = 8;
     // Synchronize back to grid
     commonmodule.StatusSPS syncBackToGrid = 9;
@@ -214,6 +292,26 @@ message GenerationPointStatus
     commonmodule.StatusSPS transToIslndOnGridLossEnabled = 10;
     // Enable voltage set point
     commonmodule.StatusSPS voltageSetPointEnabled = 11;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 12;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 13;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 14;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFSPC pFOperation = 15;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 21;
 }
 
 // Specialized 61850 ZGEN class
@@ -231,6 +329,14 @@ message GenerationEventAndStatusZGEN
     commonmodule.StatusSPS GnSynSt = 5;
     // Point status
     GenerationPointStatus PointStatus = 6;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.Optional_AlrmKind Alrm = 7;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.Optional_GridConnectionStateKind GridConnectionState = 8;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.StringValue ManAlrmInfo = 9;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.Optional_OperatingStateKind OperatingState = 10;
 }
 
 // Specialized generation event ZGEN
