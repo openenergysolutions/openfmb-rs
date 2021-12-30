@@ -4,8 +4,8 @@
 
 pub mod breakermodule;
 pub mod capbankmodule;
-pub mod commonmodule;
 pub mod circuitsegmentservicemodule;
+pub mod commonmodule;
 pub mod essmodule;
 pub mod generationmodule;
 pub mod interconnectionmodule;
