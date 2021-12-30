@@ -21,7 +21,7 @@
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
 //!     let nats_url = "localhost:4222";
 //!     let mrid = uuid::Uuid::parse_str("06fb668d-f87a-4b1b-8d99-0949513126ff")?;
-//!     let nc = nats::asynk::connect(&nats_url).await?;
+//!     let nc = nats::connect(&nats_url)?;
 //!     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
 //!     let mut switch = openfmb::client::Switch::new(bus, mrid);
 //!     //
@@ -41,7 +41,7 @@
 //
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
-//!     let nc = nats::asynk::connect(&nats_url).await?;
+//!     let nc = nats::connect(&nats_url)?;
 //!     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
 //!     let bus = bus::nats::connect::<encoding::protobufs::MessageEncoding>("127.0.0.1").await?;
 //!
