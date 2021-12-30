@@ -1,8 +1,10 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Monday, December 14, 2020 7:23:13 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
+// Tuesday, December 7, 2021 5:56:45 PM UTC
 
+// This module is an early alpha release and subject to change. It is NOT part of the gateway test
+// procedure for OpenFMB certification.
 package interconnectionmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/interconnectionmodule";
 option java_package = "openfmb.interconnectionmodule";

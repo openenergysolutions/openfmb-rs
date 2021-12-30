@@ -167,6 +167,7 @@ impl GenerationControlExt for GenerationControlProfile {
                                 }),
                                 voltage_set_point_enabled: None,
                                 trans_to_islnd_on_grid_loss_enabled: None,
+                                ..Default::default()
                             }],
                         }),
                     }),

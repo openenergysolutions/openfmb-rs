@@ -6,12 +6,12 @@ use snafu::{OptionExt, ResultExt};
 use std::str::FromStr;
 use uuid::Uuid;
 
-use coordinationservicemodule::CoordinationEventProfile;
+use circuitsegmentservicemodule::CircuitSegmentEventProfile;
 use openfmb_messages::{commonmodule::*, *};
 
 use crate::{error::*, OpenFMBExt, OpenFMBExtEvent};
 
-impl OpenFMBExtEvent for CoordinationEventProfile {
+impl OpenFMBExtEvent for CircuitSegmentEventProfile {
     fn event_message_info(&self) -> OpenFMBResult<&EventMessageInfo> {
         Ok(self
             .event_message_info
@@ -20,7 +20,7 @@ impl OpenFMBExtEvent for CoordinationEventProfile {
     }
 }
 
-impl OpenFMBExt for CoordinationEventProfile {
+impl OpenFMBExt for CircuitSegmentEventProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
         Ok("".into())
     }
@@ -36,7 +36,7 @@ impl OpenFMBExt for CoordinationEventProfile {
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("CoordinationEventProfile".to_string())
+        Ok("CircuitSegmentEventProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
