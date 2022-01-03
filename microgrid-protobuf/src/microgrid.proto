@@ -1,0 +1,152 @@
+// Protocol for microgrid control and monitoring
+
+syntax = "proto3";
+
+package openfmb.microgrid;
+
+message MicrogridControl
+{
+    oneof control_message
+    {
+        string ResetDevices = 1;
+        string Shutdown = 2;
+        string InitiateIsland = 3;
+        string InitiateGridConnect = 4;
+        string EnableNetZero = 5;
+        string DisableNetZero = 6;
+        string ReconnectPretestOne = 7;
+        string ReconnectPretestTwo = 8;
+        string ReconnectTest = 9;
+        string PccControl = 10;
+    }
+}
+
+message DeviceControl
+{
+    DeviceControlMessage msg = 1;
+    string mrid = 2;
+    enum DeviceControlMessage {
+        EnableSolarInverter = 0;
+        DisableSolarInverter = 1;
+        EnableLoadbank = 2;
+        DisableLoadbank = 3;
+        EssStart = 4;
+        EssDischarge = 5;
+        EssSocManage = 6;
+        EssSocLimits = 7;
+        EssStop = 8;
+        GeneratorOn = 9;
+        GeneratorDisabled = 10;
+        GeneratorEnabled = 11;
+        GeneratorOff = 12;
+        SwitchOneOpen = 13;
+        SwitchOneClosed = 14;
+        SwitchTwoOpen = 15;
+        SwitchTwoClosed = 16;
+        BreakerThreeOpen = 17;
+        BreakerThreeClosed = 18;
+        SwitchFourOpen = 19;
+        SwitchFourClosed = 20;
+        ResetSwitchOne = 21;
+        ResetSwitchTwo = 22;
+        ResetSwitchThree = 23;
+        ResetSwitchFour = 24;
+        ResetBreakerThree = 25;
+        ResetEss = 26;
+        ResetSolar = 27;
+        ResetLoadbank = 28;
+    }
+}
+
+message DeviceStatus
+{
+    string name = 1;
+    string state = 2;
+}
+
+message CoordinatorConfig {
+    string environment = 1;
+}
+
+message BatteryConfig {
+    float min_soc_soft = 1;
+    float min_soc_hard = 2;
+    float max_soc_soft = 3;
+    float max_soc_hard = 4;
+}
+
+message Config
+{
+    CoordinatorConfig coordinator = 1;
+    BatteryConfig battery = 2;
+}
+
+message CoordinationStatus
+{
+    string segmentState = 1;
+    string controllerState = 2;
+    string algorithmState = 3;
+    repeated DeviceStatus deviceStates = 4;
+    Config config = 5;
+}
+
+message GenericControl
+{
+    string mrid = 1;
+    string profile = 2;
+    ControlType control_type = 3;
+    enum ControlType {
+        Open = 0;
+        Close = 1;
+        SetModBlkOn = 2;
+        SetModBlkOff = 3;
+        StateOn = 4;
+        StateOff = 5;
+        SetValue = 6;
+        SetWNetMag = 7;
+        TapChangeLowerPhs3 = 8;
+        TapChangeRaisePhs3 = 9;
+        TapChangeLowerPhsA = 10;
+        TapChangeRaisePhsA = 11;
+        TapChangeLowerPhsB = 12;
+        TapChangeRaisePhsB = 13;
+        TapChangeLowerPhsC = 14;
+        TapChangeRaisePhsC = 15;
+        SetVarNetMag = 16;        
+        BlackStartEnable = 17;
+        BlackStartDisable = 18;
+        FrequencySetPointEnable = 19;
+        FrequencySetPointDisable = 20;
+        ReactivePowerSetPointEnable = 21;
+        ReactivePowerSetPointDisable = 22;
+        RealPowerSetPointEnable = 23;
+        RealPowerSetPointDisable = 24;
+        TransToIslandOnGridLossEnable = 25;
+        TransToIslandOnGridLossDisable = 26;
+        VoltageSetPointEnable = 27;
+        VoltageSetPointDisable = 28;
+        SetStateKindUndefined = 29; 
+        SetStateKindOff = 30;
+        SetStateKindOn = 31;
+        SetStateKindStandBy = 32;
+        OpenPhsA = 33;
+        OpenPhsB = 34;
+        OpenPhsC = 35;
+        ClosePhsA = 36;
+        ClosePhsB = 37;
+        ClosePhsC = 38;
+        ResetBreaker = 39;
+        ResetEss = 40;
+        ResetLoad = 41;
+        ResetSolar = 42;
+    }
+}
+
+message HmiControl
+{
+    string args = 1;
+    ControlType control_type = 2;
+    enum ControlType {
+        ToggleEnvironment  = 0;
+    }
+}

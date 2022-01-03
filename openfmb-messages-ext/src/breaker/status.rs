@@ -6,13 +6,13 @@ use std::str::FromStr;
 
 use breakermodule::BreakerStatusProfile;
 use openfmb_messages::{
-    commonmodule::{MessageInfo, StatusMessageInfo},
+    commonmodule::{DbPosKind, MessageInfo, StatusMessageInfo},
     *,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, Phase, Position};
 
 impl OpenFMBExtStatus for BreakerStatusProfile {
     fn status_message_info(&self) -> OpenFMBResult<&StatusMessageInfo> {
@@ -93,5 +93,85 @@ impl OpenFMBExt for BreakerStatusProfile {
             .name
             .clone()
             .context(NoName)?)
+    }
+}
+
+impl Position for BreakerStatusProfile {
+    fn pos(&self) -> OpenFMBResult<DbPosKind> {
+        self.pos_per_phase(Phase::Phs3)
+    }
+
+    fn pos_per_phase(&self, phase: Phase) -> OpenFMBResult<DbPosKind> {
+        let st_val = match phase {
+            Phase::Phs3 => {
+                self.breaker_status
+                    .as_ref()
+                    .context(NoBreakerStatus)?
+                    .status_and_event_xcbr
+                    .as_ref()
+                    .context(NoStatusAndEventXcbr)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs3
+                    .as_ref()
+                    .context(NoPhs3)?
+                    .st_val
+            }
+            Phase::PhsA => {
+                self.breaker_status
+                    .as_ref()
+                    .context(NoBreakerStatus)?
+                    .status_and_event_xcbr
+                    .as_ref()
+                    .context(NoStatusAndEventXcbr)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_a
+                    .as_ref()
+                    .context(NoPhsA)?
+                    .st_val
+            }
+            Phase::PhsB => {
+                self.breaker_status
+                    .as_ref()
+                    .context(NoBreakerStatus)?
+                    .status_and_event_xcbr
+                    .as_ref()
+                    .context(NoStatusAndEventXcbr)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_b
+                    .as_ref()
+                    .context(NoPhsB)?
+                    .st_val
+            }
+            Phase::PhsC => {
+                self.breaker_status
+                    .as_ref()
+                    .context(NoBreakerStatus)?
+                    .status_and_event_xcbr
+                    .as_ref()
+                    .context(NoStatusAndEventXcbr)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_c
+                    .as_ref()
+                    .context(NoPhsC)?
+                    .st_val
+            }
+        };
+
+        match st_val {
+            0 => Ok(DbPosKind::Undefined),
+            1 => Ok(DbPosKind::Transient),
+            2 => Ok(DbPosKind::Closed),
+            3 => Ok(DbPosKind::Open),
+            4 => Ok(DbPosKind::Invalid),
+            _ => Ok(DbPosKind::Undefined),
+        }
     }
 }

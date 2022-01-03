@@ -23,7 +23,7 @@ where
         + Subscriber<SwitchDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -47,7 +47,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Switch<MB> {
         Switch {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::SwitchStatusProfile, &mrid),
             event_topic: topic(Profile::SwitchEventProfile, &mrid),
             reading_topic: topic(Profile::SwitchReadingProfile, &mrid),
