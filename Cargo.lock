@@ -1197,6 +1197,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "microgrid-protobuf"
+version = "0.1.0"
+dependencies = [
+ "prost",
+ "prost-build",
+]
+
+[[package]]
 name = "mio"
 version = "0.7.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1361,6 +1369,7 @@ dependencies = [
  "futures",
  "lazy_static",
  "log",
+ "microgrid-protobuf",
  "nats",
  "openfmb-messages",
  "openfmb-messages-ext",
@@ -1676,6 +1685,24 @@ checksum = "9e6984d2f1a23009bd270b8bb56d0926810a3d483f59c987d77969e9d8e840b2"
 dependencies = [
  "bytes 1.1.0",
  "prost-derive",
+]
+
+[[package]]
+name = "prost-build"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "32d3ebd75ac2679c2af3a92246639f9fcc8a442ee420719cc4fe195b98dd5fa3"
+dependencies = [
+ "bytes 1.1.0",
+ "heck",
+ "itertools 0.9.0",
+ "log",
+ "multimap",
+ "petgraph",
+ "prost",
+ "prost-types",
+ "tempfile",
+ "which 4.2.2",
 ]
 
 [[package]]

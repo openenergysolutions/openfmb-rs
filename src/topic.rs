@@ -31,7 +31,7 @@ pub trait Topic<S: AsRef<str>>: Send + Iterator<Item = TopicLevel<S>> {
 pub struct ProfileTopic {
     pub(crate) module: Module,
     pub(crate) profile: Profile,
-    pub(crate) mrid: Uuid,
+    pub(crate) _mrid: Uuid,
     pub(crate) mrid_str: String,
 }
 
@@ -40,7 +40,7 @@ impl ProfileTopic {
         ProfileTopic {
             module,
             profile,
-            mrid,
+            _mrid: mrid,
             mrid_str: mrid.to_hyphenated().to_string().to_lowercase(),
         }
     }

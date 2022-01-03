@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, Phase, Position};
 use openfmb_messages::{
-    commonmodule::{MessageInfo, StatusMessageInfo},
+    commonmodule::{DbPosKind, MessageInfo, StatusMessageInfo},
     switchmodule::SwitchStatusProfile,
 };
 use snafu::{OptionExt, ResultExt};
@@ -90,5 +90,85 @@ impl OpenFMBExtStatus for SwitchStatusProfile {
             .status_message_info
             .as_ref()
             .context(NoStatusMessageInfo)?)
+    }
+}
+
+impl Position for SwitchStatusProfile {
+    fn pos(&self) -> OpenFMBResult<DbPosKind> {
+        self.pos_per_phase(Phase::Phs3)
+    }
+
+    fn pos_per_phase(&self, phase: Phase) -> OpenFMBResult<DbPosKind> {
+        let st_val = match phase {
+            Phase::Phs3 => {
+                self.switch_status
+                    .as_ref()
+                    .context(NoSwitchStatus)?
+                    .switch_status_xswi
+                    .as_ref()
+                    .context(NoSwitchStatusXswi)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs3
+                    .as_ref()
+                    .context(NoPhs3)?
+                    .st_val
+            }
+            Phase::PhsA => {
+                self.switch_status
+                    .as_ref()
+                    .context(NoSwitchStatus)?
+                    .switch_status_xswi
+                    .as_ref()
+                    .context(NoSwitchStatusXswi)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_a
+                    .as_ref()
+                    .context(NoPhsA)?
+                    .st_val
+            }
+            Phase::PhsB => {
+                self.switch_status
+                    .as_ref()
+                    .context(NoSwitchStatus)?
+                    .switch_status_xswi
+                    .as_ref()
+                    .context(NoSwitchStatusXswi)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_b
+                    .as_ref()
+                    .context(NoPhsB)?
+                    .st_val
+            }
+            Phase::PhsC => {
+                self.switch_status
+                    .as_ref()
+                    .context(NoSwitchStatus)?
+                    .switch_status_xswi
+                    .as_ref()
+                    .context(NoSwitchStatusXswi)?
+                    .pos
+                    .as_ref()
+                    .context(NoPos)?
+                    .phs_c
+                    .as_ref()
+                    .context(NoPhsC)?
+                    .st_val
+            }
+        };
+
+        match st_val {
+            0 => Ok(DbPosKind::Undefined),
+            1 => Ok(DbPosKind::Transient),
+            2 => Ok(DbPosKind::Closed),
+            3 => Ok(DbPosKind::Open),
+            4 => Ok(DbPosKind::Invalid),
+            _ => Ok(DbPosKind::Undefined),
+        }
     }
 }

@@ -9,8 +9,8 @@
 use std::{fmt, fmt::Debug, str::FromStr, time::SystemTime};
 
 use openfmb_messages::commonmodule::{
-    ControlMessageInfo, EventMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo,
-    StatusMessageInfo, Timestamp,
+    ControlMessageInfo, DbPosKind, EventMessageInfo, IdentifiedObject, MessageInfo,
+    ReadingMessageInfo, StatusMessageInfo, Timestamp,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
@@ -89,6 +89,11 @@ pub trait OpenFMBExt {
 
 pub trait OpenFMBExtStatus: Debug {
     fn status_message_info(&self) -> OpenFMBResult<&StatusMessageInfo>;
+}
+
+pub trait Position: Debug {
+    fn pos(&self) -> OpenFMBResult<DbPosKind>;
+    fn pos_per_phase(&self, phase: Phase) -> OpenFMBResult<DbPosKind>;
 }
 
 pub trait OpenFMBExtEss {
