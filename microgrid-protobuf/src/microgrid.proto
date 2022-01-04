@@ -18,10 +18,6 @@ message MicrogridControl
         string InitiateGridConnect = 4;
         string EnableNetZero = 5;
         string DisableNetZero = 6;
-        string ReconnectPretestOne = 7;
-        string ReconnectPretestTwo = 8;
-        string ReconnectTest = 9;
-        string PccControl = 10;
     }
 }
 

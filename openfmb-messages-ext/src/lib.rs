@@ -29,6 +29,8 @@ pub mod resource;
 pub mod solar;
 pub mod switch;
 
+pub mod utils;
+
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use capbank::CapBankControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
@@ -40,6 +42,7 @@ pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
 pub use resource::ResourceControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
+pub use utils::*;
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}
