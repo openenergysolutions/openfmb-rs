@@ -27,18 +27,6 @@ impl FromStr for microgrid_control::ControlMessage {
             "DisableNetZero" => Ok(microgrid_control::ControlMessage::DisableNetZero(
                 "".to_string(),
             )),
-            "ReconnectPretestOne" => Ok(microgrid_control::ControlMessage::ReconnectPretestOne(
-                "".to_string(),
-            )),
-            "ReconnectPretestTwo" => Ok(microgrid_control::ControlMessage::ReconnectPretestTwo(
-                "".to_string(),
-            )),
-            "ReconnectTest" => Ok(microgrid_control::ControlMessage::ReconnectTest(
-                "".to_string(),
-            )),
-            "PccControl" => Ok(microgrid_control::ControlMessage::PccControl(
-                "".to_string(),
-            )),
             _ => Err(()),
         }
     }
