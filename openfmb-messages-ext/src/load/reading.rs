@@ -74,25 +74,28 @@ impl OpenFMBExtReading for LoadReadingProfile {
 }
 
 pub trait LoadReadingExt: ReadingProfileExt {
-    fn load_reading(&self) -> f64;
+    fn w_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl LoadReadingExt for LoadReadingProfile {
-    fn load_reading(&self) -> f64 {
-        {
-            self.load_reading
-                .clone()
-                .unwrap()
-                .reading_mmxu
-                .unwrap()
-                .w
-                .unwrap()
-                .net
-                .unwrap()
-                .c_val
-                .unwrap()
-                .mag
-        }
+    fn w_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
     }
 }
 

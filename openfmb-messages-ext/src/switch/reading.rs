@@ -92,28 +92,32 @@ impl OpenFMBExtReading for SwitchReadingProfile {
 }
 
 pub trait SwitchReadingExt: ReadingProfileExt {
-    fn switch_reading(&self) -> Option<f64>;
+    fn w_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl SwitchReadingExt for SwitchReadingProfile {
-    fn switch_reading(&self) -> Option<f64> {
+    fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.switch_reading.is_empty() {
-            return Some(
-                self.switch_reading
-                    .first()
-                    .as_ref()?
-                    .reading_mmxu
-                    .as_ref()?
-                    .w
-                    .as_ref()?
-                    .net
-                    .as_ref()?
-                    .c_val
-                    .as_ref()?
-                    .mag,
-            );
+            return Ok(self
+                .switch_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
         }
-        None
+        Err(OpenFMBError::NoSwitchReading)
     }
 }
 

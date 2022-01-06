@@ -98,26 +98,28 @@ impl OpenFMBExtStatus for SolarStatusProfile {
 }
 
 pub trait SolarStatusExt: StatusProfileExt {
-    fn solar_status(&self) -> OpenFMBResult<StateKind>;
+    fn solar_state(&self) -> OpenFMBResult<StateKind>;
 }
 
 impl SolarStatusExt for SolarStatusProfile {
-    fn solar_status(&self) -> OpenFMBResult<StateKind> {
-        {
-            Ok(self
-                .solar_status //FIXME
-                .clone()
-                .context(NoSolarInverter)?
-                .solar_status_zgen
-                .context(NoSolarInverter)?
-                .solar_event_and_status_zgen
-                .context(NoSolarInverter)?
-                .point_status
-                .context(NoSolarInverter)?
-                .state
-                .context(NoSolarInverter)?
-                .value())
-        }
+    fn solar_state(&self) -> OpenFMBResult<StateKind> {
+        Ok(self
+            .solar_status
+            .as_ref()
+            .context(NoSolarStatus)?
+            .solar_status_zgen
+            .as_ref()
+            .context(NoSolarStatusZGen)?
+            .solar_event_and_status_zgen
+            .as_ref()
+            .context(NoSolarEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)?
+            .value())
     }
 }
 
