@@ -95,28 +95,32 @@ impl OpenFMBExtReading for BreakerReadingProfile {
 }
 
 pub trait BreakerReadingExt: ReadingProfileExt {
-    fn breaker_reading(&self) -> Option<f64>;
+    fn w_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl BreakerReadingExt for BreakerReadingProfile {
-    fn breaker_reading(&self) -> Option<f64> {
+    fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.breaker_reading.is_empty() {
-            return Some(
-                self.breaker_reading
-                    .first()
-                    .as_ref()?
-                    .reading_mmxu
-                    .as_ref()?
-                    .w
-                    .as_ref()?
-                    .net
-                    .as_ref()?
-                    .c_val
-                    .as_ref()?
-                    .mag,
-            );
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
         }
-        None
+        Err(OpenFMBError::NoBreakerReading)
     }
 }
 

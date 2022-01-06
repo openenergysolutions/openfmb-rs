@@ -36,7 +36,7 @@ pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
 pub use load::LoadControlExt;
-pub use recloser::RecloserControlExt;
+pub use recloser::{RecloserControlExt, RecloserReadingExt};
 pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
 pub use resource::ResourceControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};

@@ -59,6 +59,7 @@ pub enum OpenFMBError {
     NoBreaker,
     NoName,
     NoPos,
+    NoLoadReading,
     NoLoadControl,
     NoLoadEvent,
     NoLoadEventZGld,
