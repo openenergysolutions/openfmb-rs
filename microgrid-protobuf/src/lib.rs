@@ -27,6 +27,9 @@ impl FromStr for microgrid_control::ControlMessage {
             "DisableNetZero" => Ok(microgrid_control::ControlMessage::DisableNetZero(
                 "".to_string(),
             )),
+            "PccControl" => Ok(microgrid_control::ControlMessage::PccControl(
+                "".to_string(),
+            )),
             _ => Err(()),
         }
     }
@@ -68,6 +71,8 @@ impl FromStr for device_control::DeviceControlMessage {
             "ResetEss" => Ok(device_control::DeviceControlMessage::ResetEss),
             "ResetSolar" => Ok(device_control::DeviceControlMessage::ResetSolar),
             "ResetLoadbank" => Ok(device_control::DeviceControlMessage::ResetLoadbank),
+            "SolarOn" => Ok(device_control::DeviceControlMessage::SolarOn),
+            "SolarOff" => Ok(device_control::DeviceControlMessage::SolarOff),
             _ => Err(()),
         }
     }
