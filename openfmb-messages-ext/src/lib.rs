@@ -33,9 +33,9 @@ pub mod utils;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use error::{OpenFMBError, OpenFMBResult};
-pub use ess::{EssControlExt, EssReadingExt};
+pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
-pub use load::LoadControlExt;
+pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
 pub use recloser::{RecloserControlExt, RecloserReadingExt};
 pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
 pub use resource::ResourceControlExt;

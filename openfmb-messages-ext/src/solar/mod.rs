@@ -2,11 +2,15 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+mod capability;
+mod capabilityoverride;
 mod control;
 mod event;
 mod reading;
 mod status;
 
+pub use capability::*;
+pub use capabilityoverride::*;
 pub use control::*;
 pub use event::*;
 pub use reading::*;

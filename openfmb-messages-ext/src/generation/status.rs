@@ -101,11 +101,11 @@ impl OpenFMBExtStatus for GenerationStatusProfile {
 }
 
 pub trait GenerationStatusExt: StatusProfileExt {
-    fn generation_status(&self) -> OpenFMBResult<StateKind>;
+    fn generation_state(&self) -> OpenFMBResult<StateKind>;
 }
 
 impl GenerationStatusExt for GenerationStatusProfile {
-    fn generation_status(&self) -> OpenFMBResult<StateKind> {
+    fn generation_state(&self) -> OpenFMBResult<StateKind> {
         {
             Ok(self
                 .generation_status

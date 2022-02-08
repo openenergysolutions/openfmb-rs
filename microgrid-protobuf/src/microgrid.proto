@@ -18,6 +18,7 @@ message MicrogridControl
         string InitiateGridConnect = 4;
         string EnableNetZero = 5;
         string DisableNetZero = 6;
+        string PccControl = 7;
     }
 }
 
@@ -55,6 +56,8 @@ message DeviceControl
         ResetEss = 26;
         ResetSolar = 27;
         ResetLoadbank = 28;
+        SolarOn = 29;
+        SolarOff = 30;
     }
 }
 

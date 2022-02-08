@@ -120,6 +120,8 @@ pub trait SwitchControlExt: ControlProfileExt {
         start_time: SystemTime,
         modblk: bool,
     ) -> SwitchDiscreteControlProfile;
+
+    fn switch_reset_msg(m_rid: &str) -> SwitchDiscreteControlProfile;
 }
 
 impl SwitchControlExt for SwitchDiscreteControlProfile {
@@ -250,6 +252,30 @@ impl SwitchControlExt for SwitchDiscreteControlProfile {
                     reset_protection_pickup: None,
                     logical_node_for_control: None,
                     pos: Some(control_dpc),
+                }),
+            }),
+        }
+    }
+
+    fn switch_reset_msg(m_rid: &str) -> SwitchDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            SwitchDiscreteControlProfile::build_control_message_info();
+
+        SwitchDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            protected_switch: Some(ProtectedSwitch {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            switch_discrete_control: Some(SwitchDiscreteControl {
+                check: None,
+                switch_discrete_control_xswi: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
                 }),
             }),
         }

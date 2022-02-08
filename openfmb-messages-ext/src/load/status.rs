@@ -2,10 +2,11 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+use crate::StatusProfileExt;
 use std::str::FromStr;
 
 use openfmb_messages::{
-    commonmodule::{MessageInfo, StatusMessageInfo},
+    commonmodule::{MessageInfo, StateKind, StatusMessageInfo},
     loadmodule::LoadStatusProfile,
 };
 use snafu::{OptionExt, ResultExt};
@@ -96,3 +97,31 @@ impl OpenFMBExtStatus for LoadStatusProfile {
             .context(NoStatusMessageInfo)?)
     }
 }
+
+pub trait LoadStatusExt: StatusProfileExt {
+    fn load_state(&self) -> OpenFMBResult<StateKind>;
+}
+
+impl LoadStatusExt for LoadStatusProfile {
+    fn load_state(&self) -> OpenFMBResult<StateKind> {
+        Ok(self
+            .load_status
+            .as_ref()
+            .context(NoLoadStatus)?
+            .load_status_zgld
+            .as_ref()
+            .context(NoLoadStatusZGld)?
+            .load_event_and_status_zgld
+            .as_ref()
+            .context(NoLoadEventAndStatusZGld)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)?
+            .value())
+    }
+}
+
+impl StatusProfileExt for LoadStatusProfile {}
