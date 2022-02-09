@@ -6,8 +6,8 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlMessageInfo, ControlScheduleFsch,
-        ControlTimestamp, EngScheduleParameter, MessageInfo, OptionalStateKind, ScheduleCsg,
-        ScheduleParameterKind, SchedulePoint, StateKind,
+        ControlTimestamp, ControlValue, EngScheduleParameter, MessageInfo, OptionalStateKind,
+        ScheduleCsg, ScheduleParameterKind, SchedulePoint, StateKind,
     },
     generationmodule::{
         GeneratingUnit, GenerationControl, GenerationControlFscc, GenerationControlProfile,
@@ -90,6 +90,15 @@ pub trait GenerationControlExt: ControlProfileExt {
         start_time: SystemTime,
         state: i32,
     ) -> GenerationControlProfile;
+
+    fn generation_reset_msg(m_rid: &str) -> GenerationControlProfile;
+
+    fn schedule_generation_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> GenerationControlProfile;
 }
 
 impl ControlProfileExt for GenerationControlProfile {}
@@ -168,6 +177,80 @@ impl GenerationControlExt for GenerationControlProfile {
                                 voltage_set_point_enabled: None,
                                 trans_to_islnd_on_grid_loss_enabled: None,
                             }],
+                        }),
+                    }),
+                }),
+            }),
+        }
+    }
+
+    fn generation_reset_msg(m_rid: &str) -> GenerationControlProfile {
+        let msg_info = GenerationControlProfile::build_control_message_info();
+
+        GenerationControlProfile {
+            control_message_info: Some(msg_info),
+            generating_unit: Some(GeneratingUnit {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                max_operating_p: None,
+            }),
+            generation_control: Some(GenerationControl {
+                check: None,
+                generation_control_fscc: None,
+                control_value: Some(ControlValue {
+                    identified_object: None,
+                    mod_blk: None,
+                    reset: Some(true),
+                }),
+            }),
+        }
+    }
+
+    fn schedule_generation_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> GenerationControlProfile {
+        let msg_info = GenerationControlProfile::build_control_message_info();
+        GenerationControlProfile {
+            control_message_info: Some(msg_info),
+            generating_unit: Some(GeneratingUnit {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: None,
+                }),
+                max_operating_p: None,
+            }),
+            generation_control: Some(GenerationControl {
+                check: None,
+                control_value: None,
+                generation_control_fscc: Some(GenerationControlFscc {
+                    generation_control_schedule_fsch: None,
+                    control_fscc: Some(ControlFscc {
+                        logical_node_for_control: None,
+                        island_control_schedule_fsch: None,
+                        control_schedule_fsch: Some(ControlScheduleFsch {
+                            val_acsg: Some(ScheduleCsg {
+                                sch_pts: vec![SchedulePoint {
+                                    schedule_parameter: vec![EngScheduleParameter {
+                                        schedule_parameter_type: schedule_parameter_type as i32,
+                                        value: value,
+                                    }],
+                                    start_time: Some(ControlTimestamp {
+                                        nanoseconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
+                                        seconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .as_secs(),
+                                    }),
+                                }],
+                            }),
                         }),
                     }),
                 }),
