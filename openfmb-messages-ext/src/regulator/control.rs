@@ -4,7 +4,7 @@
 
 use openfmb_messages::{commonmodule::*, regulatormodule::*};
 use snafu::{OptionExt, ResultExt};
-use std::str::FromStr;
+use std::{str::FromStr, time::SystemTime};
 use uuid::Uuid;
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
@@ -53,6 +53,64 @@ impl OpenFMBExt for RegulatorControlProfile {
     }
 }
 
-pub trait RegulatorControlExt: ControlProfileExt {}
+pub trait RegulatorControlExt: ControlProfileExt {
+    fn schedule_regulator_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> RegulatorControlProfile;
+}
+
+impl RegulatorControlExt for RegulatorControlProfile {
+    fn schedule_regulator_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> RegulatorControlProfile {
+        let msg_info: ControlMessageInfo = RegulatorControlProfile::build_control_message_info();
+        RegulatorControlProfile {
+            control_message_info: Some(msg_info),
+            regulator_system: Some(RegulatorSystem {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: None,
+                }),
+            }),
+            regulator_control: Some(RegulatorControl {
+                check: None,
+                control_value: None,
+                regulator_control_fscc: Some(RegulatorControlFscc {
+                    regulator_control_schedule_fsch: None,
+                    control_fscc: Some(ControlFscc {
+                        logical_node_for_control: None,
+                        island_control_schedule_fsch: None,
+                        control_schedule_fsch: Some(ControlScheduleFsch {
+                            val_acsg: Some(ScheduleCsg {
+                                sch_pts: vec![SchedulePoint {
+                                    schedule_parameter: vec![EngScheduleParameter {
+                                        schedule_parameter_type: schedule_parameter_type as i32,
+                                        value: value,
+                                    }],
+                                    start_time: Some(ControlTimestamp {
+                                        nanoseconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
+                                        seconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .as_secs(),
+                                    }),
+                                }],
+                            }),
+                        }),
+                    }),
+                }),
+            }),
+        }
+    }
+}
 
 impl ControlProfileExt for RegulatorControlProfile {}

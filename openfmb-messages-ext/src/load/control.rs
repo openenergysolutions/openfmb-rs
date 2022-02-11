@@ -122,26 +122,6 @@ pub trait LoadControlExt: ControlProfileExt {
         })
     }
 
-    // fn build_control_message_info() -> Option<ControlMessageInfo> {
-    //     Some(ControlMessageInfo {
-    //         message_info: Some(MessageInfo {
-    //             identified_object: Some(IdentifiedObject {
-    //                 description: None,
-    //                  m_rid: Some(Uuid::new_v4().to_string()),
-    //                   name: None,
-    //               }),
-    //               message_time_stamp: Some(Timestamp {
-    //                   fraction: 0,
-    //                   seconds: SystemTime::now()
-    //                       .duration_since(SystemTime::UNIX_EPOCH)
-    //                       .unwrap()
-    //                        .as_secs(), /*+28800*/
-    //                    tq: None,
-    //                }),
-    //            }),
-    //        })
-    //    }
-
     fn build_load_control(load_value: f64, state: i32) -> Option<LoadControl> {
         let start_time = SystemTime::now();
         Some(LoadControl {
@@ -216,6 +196,56 @@ pub trait LoadControlExt: ControlProfileExt {
                     identified_object: None,
                     mod_blk: None,
                     reset: Some(true),
+                }),
+            }),
+        }
+    }
+
+    fn schedule_load_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> LoadControlProfile {
+        let msg_info = LoadControlProfile::build_control_message_info();
+        LoadControlProfile {
+            control_message_info: Some(msg_info),
+            energy_consumer: Some(EnergyConsumer {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: None,
+                }),
+                operating_limit: None,
+            }),
+            load_control: Some(LoadControl {
+                check: None,
+                control_value: None,
+                load_control_fscc: Some(LoadControlFscc {
+                    load_control_schedule_fsch: None,
+                    control_fscc: Some(ControlFscc {
+                        logical_node_for_control: None,
+                        island_control_schedule_fsch: None,
+                        control_schedule_fsch: Some(ControlScheduleFsch {
+                            val_acsg: Some(ScheduleCsg {
+                                sch_pts: vec![SchedulePoint {
+                                    schedule_parameter: vec![EngScheduleParameter {
+                                        schedule_parameter_type: schedule_parameter_type as i32,
+                                        value: value,
+                                    }],
+                                    start_time: Some(ControlTimestamp {
+                                        nanoseconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
+                                        seconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .as_secs(),
+                                    }),
+                                }],
+                            }),
+                        }),
+                    }),
                 }),
             }),
         }

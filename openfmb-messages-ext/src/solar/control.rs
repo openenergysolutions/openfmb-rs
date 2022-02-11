@@ -6,7 +6,8 @@ use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
     commonmodule::{
         ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp, ControlValue,
-        MessageInfo, NamedObject, OptionalStateKind, StateKind,
+        EngScheduleParameter, MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg,
+        ScheduleParameterKind, SchedulePoint, StateKind,
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
@@ -157,6 +158,13 @@ pub trait SolarControlExt: ControlProfileExt {
     ) -> SolarControlProfile;
 
     fn solar_reset_msg(m_rid: &str) -> SolarControlProfile;
+
+    fn schedule_solar_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> SolarControlProfile;
 }
 
 impl ControlProfileExt for SolarControlProfile {}
@@ -231,6 +239,55 @@ impl SolarControlExt for SolarControlProfile {
                     identified_object: None,
                     mod_blk: None,
                     reset: Some(true),
+                }),
+            }),
+        }
+    }
+
+    fn schedule_solar_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> SolarControlProfile {
+        let msg_info = SolarControlProfile::build_control_message_info();
+        SolarControlProfile {
+            control_message_info: Some(msg_info),
+            solar_inverter: Some(SolarInverter {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: None,
+                }),
+            }),
+            solar_control: Some(SolarControl {
+                check: None,
+                control_value: None,
+                solar_control_fscc: Some(SolarControlFscc {
+                    solar_control_schedule_fsch: None,
+                    control_fscc: Some(ControlFscc {
+                        logical_node_for_control: None,
+                        island_control_schedule_fsch: None,
+                        control_schedule_fsch: Some(ControlScheduleFsch {
+                            val_acsg: Some(ScheduleCsg {
+                                sch_pts: vec![SchedulePoint {
+                                    schedule_parameter: vec![EngScheduleParameter {
+                                        schedule_parameter_type: schedule_parameter_type as i32,
+                                        value: value,
+                                    }],
+                                    start_time: Some(ControlTimestamp {
+                                        nanoseconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
+                                        seconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .as_secs(),
+                                    }),
+                                }],
+                            }),
+                        }),
+                    }),
                 }),
             }),
         }
