@@ -3,13 +3,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use snafu::{OptionExt, ResultExt};
-use std::str::FromStr;
+use std::{str::FromStr, time::SystemTime};
 use uuid::Uuid;
 
-use capbankmodule::CapBankControlProfile;
+use capbankmodule::{CapBankControl, CapBankControlFscc, CapBankControlProfile, CapBankSystem};
 use openfmb_messages::{commonmodule::*, *};
 
-use crate::{error::*, OpenFMBExt};
+use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
 impl OpenFMBExt for CapBankControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -60,3 +60,65 @@ impl OpenFMBExt for CapBankControlProfile {
             .context(NoName)?)
     }
 }
+
+pub trait CapBankControlExt: ControlProfileExt {
+    fn schedule_capbank_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> CapBankControlProfile;
+}
+
+impl CapBankControlExt for CapBankControlProfile {
+    fn schedule_capbank_control(
+        m_rid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+        schedule_time: SystemTime,
+    ) -> CapBankControlProfile {
+        let msg_info: ControlMessageInfo = CapBankControlProfile::build_control_message_info();
+        CapBankControlProfile {
+            control_message_info: Some(msg_info),
+            cap_bank_system: Some(CapBankSystem {
+                conducting_equipment: Some(ConductingEquipment {
+                    m_rid: m_rid.to_string(),
+                    named_object: None,
+                }),
+            }),
+            cap_bank_control: Some(CapBankControl {
+                check: None,
+                control_value: None,
+                cap_bank_control_fscc: Some(CapBankControlFscc {
+                    cap_bank_control_schedule_fsch: None,
+                    control_fscc: Some(ControlFscc {
+                        logical_node_for_control: None,
+                        island_control_schedule_fsch: None,
+                        control_schedule_fsch: Some(ControlScheduleFsch {
+                            val_acsg: Some(ScheduleCsg {
+                                sch_pts: vec![SchedulePoint {
+                                    schedule_parameter: vec![EngScheduleParameter {
+                                        schedule_parameter_type: schedule_parameter_type as i32,
+                                        value: value,
+                                    }],
+                                    start_time: Some(ControlTimestamp {
+                                        nanoseconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .subsec_nanos(),
+                                        seconds: schedule_time
+                                            .duration_since(SystemTime::UNIX_EPOCH)
+                                            .unwrap()
+                                            .as_secs(),
+                                    }),
+                                }],
+                            }),
+                        }),
+                    }),
+                }),
+            }),
+        }
+    }
+}
+
+impl ControlProfileExt for CapBankControlProfile {}
