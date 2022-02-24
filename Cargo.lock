@@ -395,7 +395,6 @@ dependencies = [
  "libc",
  "num-integer",
  "num-traits",
- "serde",
  "time 0.1.43",
  "winapi",
 ]
@@ -1236,37 +1235,6 @@ dependencies = [
 
 [[package]]
 name = "nats"
-version = "0.16.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d777a1844c3c5f4148df755a978fd99bb27c898d9bf016de723cf3ffcea5f5d"
-dependencies = [
- "base64",
- "base64-url",
- "blocking",
- "chrono",
- "crossbeam-channel",
- "fastrand",
- "itoa 0.4.8",
- "json",
- "libc",
- "log",
- "memchr",
- "nkeys",
- "nuid",
- "once_cell",
- "parking_lot",
- "regex",
- "rustls",
- "rustls-native-certs",
- "serde",
- "serde_json",
- "url",
- "webpki 0.21.4",
- "winapi",
-]
-
-[[package]]
-name = "nats"
 version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "603b57313fd7ff9ddf81b833923ee872264bec6426bff89b3c8c90c0de2267cb"
@@ -1407,7 +1375,7 @@ dependencies = [
  "lazy_static",
  "log",
  "microgrid-protobuf",
- "nats 0.16.0",
+ "nats",
  "openfmb-messages",
  "openfmb-messages-ext",
  "pretty_env_logger",
@@ -1463,7 +1431,7 @@ version = "0.0.1"
 dependencies = [
  "chrono",
  "log",
- "nats 0.18.1",
+ "nats",
  "openfmb-messages",
  "prost",
  "serde",
