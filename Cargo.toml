@@ -18,7 +18,7 @@ chrono = "0.4"
 uuid = "0.8"
 prost = "0.7"
 lazy_static = "1.4"
-
+rand = "0.8.5"
 # messages
 openfmb-messages = { path = "./openfmb-messages" }
 openfmb-messages-ext = { path = "./openfmb-messages-ext", optional = true }
@@ -40,3 +40,4 @@ pretty_env_logger = "0.4"
 [[example]]
 name = "switch_client"
 required-features = ["client", "zenoh"]
+
