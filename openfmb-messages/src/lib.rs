@@ -10,12 +10,15 @@ pub mod essmodule;
 pub mod generationmodule;
 pub mod interconnectionmodule;
 pub mod loadmodule;
+pub mod loadforecastmodule;
 pub mod metermodule;
+pub mod priceforecastmodule;
 pub mod reclosermodule;
 pub mod regulatormodule;
 pub mod reservemodule;
 pub mod resourcemodule;
 pub mod solarmodule;
+pub mod solarforecastmodule;
 pub mod switchmodule;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -27,12 +30,15 @@ pub enum Module {
     GenerationModule,
     InterconnectionModule,
     LoadModule,
+    LoadForecastModule,
     MeterModule,
+    PriceForecastModule,
     RecloserModule,
     RegulatorModule,
     ReserveModule,
     ResourceModule,
     SolarModule,
+    SolarForecastModule,
     SwitchModule,
 }
 
@@ -45,13 +51,16 @@ impl Module {
             Module::EssModule => "essmodule",
             Module::GenerationModule => "generationmodule",
             Module::LoadModule => "loadmodule",
+            Module::LoadForecastModule => "loadforecastmodule",
             Module::MeterModule => "metermodule",
             Module::InterconnectionModule => "interconnectionmodule",
+            Module::PriceForecastModule => "priceforecastmodule",
             Module::RecloserModule => "reclosermodule",
             Module::RegulatorModule => "regulatormodule",
             Module::ReserveModule => "reservemodule",
             Module::ResourceModule => "resourcemodule",
             Module::SolarModule => "solarmodule",
+            Module::SolarForecastModule => "solarforecastmodule",
             Module::SwitchModule => "switchmodule",
         }
     }
@@ -73,6 +82,7 @@ impl std::str::FromStr for Module {
             "essmodule" => Ok(Module::EssModule),
             "generationmodule" => Ok(Module::GenerationModule),
             "loadmodule" => Ok(Module::LoadModule),
+            "loadforecastmodule" => Ok(Module::LoadForecastModule),
             "metermodule" => Ok(Module::MeterModule),
             "interconnectionmodule" => Ok(Module::InterconnectionModule),
             "reclosermodule" => Ok(Module::RecloserModule),
@@ -80,6 +90,7 @@ impl std::str::FromStr for Module {
             "reservemodule" => Ok(Module::ReserveModule),
             "resourcemodule" => Ok(Module::ReserveModule),
             "solarmodule" => Ok(Module::SolarModule),
+            "solarforecastmodule" => Ok(Module::SolarForecastModule),
             "switchmodule" => Ok(Module::SwitchModule),
             _ => Err(()),
         }

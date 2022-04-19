@@ -22,11 +22,14 @@ pub mod error;
 pub mod ess;
 pub mod generation;
 pub mod load;
+pub mod loadforecast;
 pub mod meter;
+pub mod priceforecast;
 pub mod recloser;
 pub mod regulator;
 pub mod resource;
 pub mod solar;
+pub mod solarforecast;
 pub mod switch;
 
 pub mod utils;
