@@ -2,9 +2,10 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-//mod ess;
 mod switch;
 mod ess;
-//pub use ess::Ess;
+mod solar;
+
 pub use switch::Switch;
 pub use ess::Ess;
+pub use solar::Solar;
