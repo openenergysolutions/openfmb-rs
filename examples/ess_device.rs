@@ -2,7 +2,7 @@
 use log::info;
 use openfmb::encoding::ProtobufEncoding;
 use openfmb_messages::{commonmodule::*, essmodule::*};
-//use openfmb::device::Ess;
+
 use std::env;
 use std::time::SystemTime;
 use tokio::time;
