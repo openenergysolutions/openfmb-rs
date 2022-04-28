@@ -35,6 +35,7 @@ message SolarForecast
 
 message SolarForecastProfile
 {
+    option (uml.option_openfmb_profile) = true;
     commonmodule.MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
     SolarForecast solarForecast = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     
