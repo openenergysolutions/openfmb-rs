@@ -16,6 +16,7 @@ pub mod regulatormodule;
 pub mod reservemodule;
 pub mod resourcemodule;
 pub mod solarmodule;
+pub mod solarforecastmodule;
 pub mod switchmodule;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -33,6 +34,7 @@ pub enum Module {
     ReserveModule,
     ResourceModule,
     SolarModule,
+    SolarForecastModule,
     SwitchModule,
 }
 
@@ -52,6 +54,7 @@ impl Module {
             Module::ReserveModule => "reservemodule",
             Module::ResourceModule => "resourcemodule",
             Module::SolarModule => "solarmodule",
+            Module::SolarForecastModule => "solarforecastmodule",
             Module::SwitchModule => "switchmodule",
         }
     }
@@ -80,6 +83,7 @@ impl std::str::FromStr for Module {
             "reservemodule" => Ok(Module::ReserveModule),
             "resourcemodule" => Ok(Module::ReserveModule),
             "solarmodule" => Ok(Module::SolarModule),
+            "solarforecastmodule" => Ok(Module::SolarForecastModule),
             "switchmodule" => Ok(Module::SwitchModule),
             _ => Err(()),
         }

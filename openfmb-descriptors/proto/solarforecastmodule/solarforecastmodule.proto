@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package solarforecastmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/solarforecastmodule";
+option java_package = "openfmb.solarforecastmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.solarforecastmodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+
+message SolarForecastPoint
+{
+    commonmodule.Timestamp forecastTime = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    google.protobuf.FloatValue output_ACPower = 2;
+    google.protobuf.FloatValue irradiance_GlobalHorizontal = 3;
+    google.protobuf.FloatValue irradiance_PlaneOfArray = 4;    
+    google.protobuf.FloatValue ambientTempC = 5;
+    google.protobuf.FloatValue ambientTempF = 6;
+}
+
+
+message SolarForecastSCH
+{    
+    repeated SolarForecastPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+message SolarForecast
+{
+    SolarForecastSCH solarForecastSCH = 1;
+}
+
+
+message SolarForecastProfile
+{
+    commonmodule.MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+    SolarForecast solarForecast = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    
+}
