@@ -9,6 +9,7 @@ use openfmb_messages::{commonmodule::*, switchmodule::*};
 use std::env;
 use std::time::SystemTime;
 use tokio::time;
+use rand::Rng;
 
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -88,6 +89,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         nanoseconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                         tq: None,
                     });
+//                    status.switch_status_mut().switch_status_xswi_mut().pos_mut().phs3_mut().st_val = rand::thread_rng().gen_range(1..2);
                     switch.status(status).await.unwrap();
                 });
             },

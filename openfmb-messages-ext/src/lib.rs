@@ -27,6 +27,7 @@ pub mod recloser;
 pub mod regulator;
 pub mod resource;
 pub mod solar;
+pub mod solarforecast;
 pub mod switch;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
