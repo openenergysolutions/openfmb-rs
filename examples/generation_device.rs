@@ -40,14 +40,15 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let mut identified_object: IdentifiedObject = Default::default();
   identified_object.description = Some(format!("OpenFMB Generation Device {}", mrid));
   identified_object.m_rid = Some(format!("{}", mrid));
+
   let message_info = MessageInfo {
     identified_object: Some(identified_object),
     message_time_stamp: None,
   };
 
-  let mut mag: f64 = 3.14;
+  let mut pmag: f64 = -0.99593641755326;
   let mut cval: Vector = Vector {
-    mag: mag,
+    mag: pmag,
     ..Default::default()
   };
 
@@ -61,50 +62,77 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ..Default::default()    
   };
 
+
+  let mut qmag: f64 = -1.58428961466532;
+  let mut qval = Vector { mag: qmag, ..Default::default() };
+  let mut qnet: Cmv = Cmv { c_val: Some(qval), ..Default::default() };
+
+  let mut q: Wye = Wye { net: Some(qnet), ..Default::default() };
+
+  // status_message_info (StatusMessageInfo) -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
 // W (WYE) . net/phs? (CMV) . cval (Vector) - ang or mag () 
 // VAr (WYE)
 
   let mut mmxu: ReadingMmxu = ReadingMmxu {
     w: Some(w),
+    v_ar: Some(q),
     ..Default::default()
   };
 
-
-//   switch_status_xswi.pos = Some(PhaseDps {
-//     phs3: Some(status_dps),
-//     ..Default::default()
-// });
-
-  // let mut mv: Mv = Default::default();
-  // let mut ess_status_z: EssStatusZbat = Default::default();
-
-  // mv.mag = 50.0;
-  // ess_status_z.soc = Some(mv);
+  /*
   
-  // info!(
-  //   "Set soc f val {:?}", ess_status_z.clone().soc.clone().unwrap()
-  // );
-  
-  let mut status: GenerationStatusProfile = Default::default();
-  status.status_message_info = Some(StatusMessageInfo {
+  message GenerationReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 4;
+}
+
+// Generation reading profile
+message GenerationReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    GeneratingUnit generatingUnit = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    GenerationReading generationReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+*/
+
+  let mut reading: GenerationReadingProfile = Default::default();
+ 
+  reading.reading_message_info = Some(ReadingMessageInfo {
     message_info: Some(message_info)
   });
+
+  reading.generation_reading = Some(GenerationReading {
+    reading_mmxu: Some(mmxu),
+    ..Default::default()
+ }); 
 
   loop {
     tokio::select! {
       _ = poll_interval.tick() => {
-        info!("Tick, publishing status");
-        let status = status.clone();
+        info!("Tick, publishing reading");
+        let reading = reading.clone();
         let mut gen = gen.clone();
         tokio::spawn(async move {
             let time = SystemTime::now();
-            let mut status = status.clone();
-            status.status_message_info.as_mut().unwrap().message_info.as_mut().unwrap().message_time_stamp = Some(Timestamp {
+            let mut reading = reading.clone();
+            reading.reading_message_info.as_mut().unwrap().message_info.as_mut().unwrap().message_time_stamp = Some(Timestamp {
                 seconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().as_secs(),
                 nanoseconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
                 tq: None,
             });
-            gen.status(status).await.unwrap();
+            gen.reading(reading).await.unwrap();
         });
       },
     } // select
