@@ -147,6 +147,59 @@ impl OpenFMBMessage {
         }
     }
 
+    pub fn message_module(&self) -> &str {
+        use OpenFMBMessage::*;
+        match self {
+            BreakerDiscreteControl(_) => "breakermodule",
+            BreakerEvent(_) => "breakermodule",
+            BreakerReading(_) => "breakermodule",
+            BreakerStatus(_) => "breakermodule",
+            CapBankControl(_) => "capbankmodule",
+            CapBankDiscreteControl(_) => "capbankmodule",
+            CapBankEvent(_) => "capbankmodule",
+            CapBankReading(_) => "capbankmodule",
+            CapBankStatus(_) => "capbankmodule",
+            CircuitSegmentControl(_) => "circuitsegmentservicemodule",
+            CircuitSegmentEvent(_) => "circuitsegmentservicemodule",
+            CircuitSegmentStatus(_) => "circuitsegmentservicemodule",
+            ESSEvent(_) => "essmodule",
+            ESSReading(_) => "essmodule",
+            ESSStatus(_) => "essmodule",
+            ESSControl(_) => "essmodule",
+            GenerationControl(_) => "generationmodule",
+            GenerationDiscreteControl(_) => "generationmodule",
+            GenerationReading(_) => "generationmodule",
+            GenerationEvent(_) => "generationmodule",
+            GenerationStatus(_) => "generationmodule",
+            LoadControl(_) => "loadmodule",
+            LoadEvent(_) => "loadmodule",
+            LoadReading(_) => "loadmodule",
+            LoadStatus(_) => "loadmodule",
+            MeterReading(_) => "metermodule",
+            RecloserDiscreteControl(_) => "reclosermodule",
+            RecloserEvent(_) => "reclosermodule",
+            RecloserReading(_) => "reclosermodule",
+            RecloserStatus(_) => "reclosermodule",
+            RegulatorControl(_) => "regulatormodule",
+            RegulatorDiscreteControl(_) => "regulatormodule",
+            RegulatorEvent(_) => "regulatormodule",
+            RegulatorReading(_) => "regulatormodule",
+            RegulatorStatus(_) => "regulatormodule",
+            ResourceDiscreteControl(_) => "resourcemodule",
+            ResourceReading(_) => "resourcemodule",
+            ResourceEvent(_) => "resourcemodule",
+            ResourceStatus(_) => "resourcemodule",
+            SolarControl(_) => "solarmodule",
+            SolarEvent(_) => "solarmodule",
+            SolarReading(_) => "solarmodule",
+            SolarStatus(_) => "solarmodule",
+            SwitchDiscreteControl(_) => "switchmodule",
+            SwitchEvent(_) => "switchmodule",
+            SwitchReading(_) => "switchmodule",
+            SwitchStatus(_) => "switchmodule",
+        }
+    }
+
     pub fn device_mrid(&self) -> Result<Uuid, OpenFMBError> {
         use OpenFMBMessage::*;
         match self {
