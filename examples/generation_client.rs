@@ -13,7 +13,7 @@ use tokio::time;
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
 
-    let mrid = uuid::Uuid::parse_str("4f659ee9-5ce8-4ef2-bcb5-0f38f2d31868")?;
+    let mrid = uuid::Uuid::parse_str("46f9c003-96c9-4de6-b6a1-110ffca8362a")?;
     let nats_url = env::var("NATS_URL").unwrap_or("nats://127.0.0.1:4222".to_string());
     let nc = nats::asynk::connect(&nats_url).await?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
@@ -24,13 +24,13 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         mrid, nats_url
     );
 
-    while let (Some(Ok(mag)),) = (
-        gen.soc_mag().await?.next().await,        
+    while let (Some(Ok(p)),Some(Ok(q)),) = (
+        gen.p().await?.next().await, gen.q().await?.next().await,        
 
     ) {
         info!(
-            "{}: soc_mag: {:?}",
-            mrid, mag
+            "{}: p: {:?}, q: {:?}",
+            mrid, p, q
         );
     }
     

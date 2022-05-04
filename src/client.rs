@@ -5,7 +5,9 @@
 mod switch;
 mod ess;
 mod solar;
+mod generation;
 
 pub use switch::Switch;
 pub use ess::Ess;
 pub use solar::Solar;
+pub use generation::Generation;
