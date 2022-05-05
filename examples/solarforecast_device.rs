@@ -53,7 +53,7 @@ pub fn setForecastPoint(point: f32) -> SolarForecastPoint {
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
   pretty_env_logger::init();
 
-  let mrid = uuid::Uuid::parse_str("47169c2c-2824-4f75-94e9-bb796ad18cc1")?;
+  let mrid = uuid::Uuid::parse_str("51a949c6-ff44-4128-b74b-ae1f11d7453e")?;
   let nats_url = env::var("NATS_URL").unwrap_or("nats://127.0.0.1:4222".to_string());
   let nc = nats::asynk::connect(&nats_url).await?;
   let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
@@ -65,12 +65,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let sfp = vec![5.77730306109351, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
   let sfp_vec: Vec<SolarForecastPoint> = sfp.iter().map( |point| setForecastPoint(*point)).collect();
-
-  let mut outAc: f32 = 5.77730306109351;
-  let mut solarForecastPoint: SolarForecastPoint = SolarForecastPoint {
-    output_ac_power: Some(outAc),
-    ..Default::default()
-  };
 
   let mut solarForecastSch: SolarForecastSch = SolarForecastSch { 
     crv_pts: sfp_vec 

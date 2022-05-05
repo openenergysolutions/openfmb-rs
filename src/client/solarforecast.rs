@@ -7,10 +7,10 @@ use futures::{stream, StreamExt};
 
 use openfmb_messages::{
     commonmodule::GridConnectModeKind,
-    essmodule::{ EssControlProfile, EssEventProfile, EssReadingProfile, EssStatusProfile },
+    solarforecastmodule::{SolarForecastProfile, SolarForecastPoint},
 };
 
-use openfmb_messages_ext::EssControlExt;
+//use openfmb_messages_ext::SolarForecastControlExt;
 use std::time::SystemTime;
 use uuid::Uuid;
 
@@ -23,42 +23,30 @@ use uuid::Uuid;
 /// When writing control algorithms however it is easier determine the next
 /// known good value and *then* control it rather than looking at an old status
 /// which may be too old to be useful.
-pub struct Ess<MB>
+pub struct SolarForecast<MB>
 where
-    MB: Subscriber<EssStatusProfile>
-        + Subscriber<EssEventProfile>
-        + Subscriber<EssReadingProfile>
-        + Publisher<EssControlProfile>,
+    MB: Subscriber<SolarForecastProfile>,
 {
     bus: MB,
     mrid: Uuid,
-    status_topic: ProfileTopic,
-    event_topic: ProfileTopic,
-    reading_topic: ProfileTopic,
-    control_topic: ProfileTopic,    
+    forecast_topic: ProfileTopic,
 }
 
 /// Topic string given a message type and mrid
 pub fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::EssModule, profile, mrid.clone())
+    ProfileTopic::new(Module::SolarForecastModule, profile, mrid.clone())
 }
 
-impl<MB> Ess<MB>
+impl<MB> SolarForecast<MB>
 where
-    MB: Subscriber<EssStatusProfile>
-        + Subscriber<EssEventProfile>
-        + Subscriber<EssReadingProfile>
-        + Publisher<EssControlProfile>,
+    MB: Subscriber<SolarForecastProfile>,
 {
     /// Create a new switch client instance
-    pub fn new(bus: MB, mrid: Uuid) -> Ess<MB> {
-        Ess { 
+    pub fn new(bus: MB, mrid: Uuid) -> SolarForecast<MB> {
+        SolarForecast { 
             bus, 
             mrid, 
-            status_topic: topic(Profile::ESSStatusProfile, &mrid),
-            event_topic: topic(Profile::ESSEventProfile, &mrid),
-            reading_topic: topic(Profile::ESSReadingProfile, &mrid),
-            control_topic: topic(Profile::ESSControlProfile, &mrid),        
+            forecast_topic: topic(Profile::SolarForecastProfile, &mrid),
         }
     }
 
@@ -67,161 +55,27 @@ where
         format!("{}", self.mrid.to_hyphenated())
     }
 
-    /// A stream to this devices status messages
+    /// A stream to this devices forecast messages
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub async fn status(&mut self) -> SubscribeResult<EssStatusProfile> {
+    pub async fn forecast(&mut self) -> SubscribeResult<SolarForecastProfile> {
         self
             .bus
-            .subscribe(self.status_topic.iter())
+            .subscribe(self.forecast_topic.iter())
             .await
     }
-
-    /// A stream to this devices reading messages
-    ///
-    /// The return may be treated as a stream or as a future returning the
-    /// next event
-    pub async fn event(&mut self) -> SubscribeResult<EssEventProfile> {
-        self.bus.subscribe(self.event_topic.iter()).await
-    }
-
-    /// A stream to this devices reading messages
-    ///
-    /// The return may be treated as a stream or as a future returning the next
-    /// reading value.
-    pub async fn reading(&mut self) -> SubscribeResult<EssReadingProfile> {
-        self.bus.subscribe(self.reading_topic.iter()).await
-    }
-
-    /// Send a control message to the device asynchronously
-    ///
-    /// Awaits on publishing but no change awaited on.
-    pub async fn control(&mut self, msg: EssControlProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
-            .publish(self.control_topic.iter(), msg)
-            .await?)
-    }
-
-    pub async fn soc_mag(&mut self) -> SubscribeResult<f64> {
-        let mag = self.status().await?.map(|s| match s {
-            Ok(s) => Ok(s
-                .ess_status
-                .unwrap()
-                .ess_status_zbat  
-                .unwrap()
-                .soc
-                .unwrap()
-                .mag),
+//    solar_forecast.solar_forecast_sch.crv_pts.sfp_vec (Vec<SolarForecastPoint>)
+    pub async fn solarforecastpoints(&mut self) -> SubscribeResult<Vec<SolarForecastPoint>> {
+        let sf_vec = self.forecast().await?.map(|v| match v {
+            Ok(v) => Ok(v
+                .solar_forecast.unwrap()
+                .solar_forecast_sch.unwrap()
+                .crv_pts),
             Err(err) => Err(err),
         });
-        Ok(Box::pin(mag))
+        Ok(Box::pin(sf_vec))
     }
 
-    pub async fn is_synchro_enabled(&mut self) -> SubscribeResult<bool> {
-        let status = self.status().await?.map(|s| match s {
-            Ok(s) => Ok(s
-                .ess_status
-                .unwrap()
-                .ess_status_zgen
-                .unwrap()
-                .e_ss_event_and_status_zgen
-                .unwrap()
-                .gn_syn_st
-                .unwrap()
-                .st_val),
-            Err(err) => Err(err),
-        });
-        let event = self.event().await?.map(|s| match s {
-            Ok(s) => Ok(s
-                .ess_event
-                .unwrap()
-                .ess_event_zgen
-                .unwrap()
-                .e_ss_event_and_status_zgen
-                .unwrap()
-                .gn_syn_st
-                .unwrap()
-                .st_val),
-            Err(err) => Err(err),
-        });
-        Ok(Box::pin(stream::select(status, event)))
-    }
 
-    /// Check if the inverter is in Grid Following mode
-    pub async fn is_grid_following(&mut self) -> SubscribeResult<bool> {
-        Ok(Box::pin(self.status().await?.map(|s| {
-            match s {
-                Ok(s) => Ok(GridConnectModeKind::from_i32(
-                    s.ess_status
-                        .unwrap()
-                        .ess_status_zbat
-                        .unwrap()
-                        .gri_mod
-                        .unwrap()
-                        .set_val,
-                )
-                .unwrap()
-                    == GridConnectModeKind::VsiPq),
-                Err(err) => Err(err),
-            }
-        })))
-    }
-
-    /// Check if the inverter is in Grid Forming mode
-    pub async fn is_grid_forming(&mut self) -> SubscribeResult<bool> {
-        Ok(Box::pin(self.status().await?.map(|s| {
-            match s {
-                Ok(s) => Ok(GridConnectModeKind::from_i32(
-                    s.ess_status
-                        .unwrap()
-                        .ess_status_zbat
-                        .unwrap()
-                        .gri_mod
-                        .unwrap()
-                        .set_val,
-                )
-                .unwrap()
-                    == GridConnectModeKind::VsiIso),
-                Err(err) => Err(err),
-            }
-        })))
-    }
-
-    /// Switch to grid following mode letting the inverter match the existing grid
-    /// characteristics with a given charge rate. A charge rate of 0 implies auto.
-    ///
-    /// Charge rates less than 0 imply discharge
-    pub async fn grid_follow(&mut self, charge_rate: f64) -> ControlResult<()> {
-        let mut grid_following = self.is_grid_following().await?;
-        while let Some(Ok(false)) = grid_following.next().await {
-            let msg = EssControlProfile::build_charge_control_profile(
-                &self.mrid_as_string(),
-                charge_rate,
-                SystemTime::now(),
-                GridConnectModeKind::VsiPq,
-                1,
-            );
-            self.control(msg).await?;
-        }
-        Ok(())
-    }
-
-    /// Switch to grid forming mode letting the inverter to generate the grid
-    /// characteristics.
-    pub async fn grid_form(&mut self, charge_rate: f64) -> ControlResult<()> {
-        let mut grid_forming = self.is_grid_forming().await?;
-        while let Some(Ok(false)) = grid_forming.next().await {
-            let msg = EssControlProfile::build_charge_control_profile(
-                &self.mrid_as_string(),
-                charge_rate,
-                SystemTime::now(),
-                GridConnectModeKind::VsiIso,
-                1,
-            );
-            self.control(msg).await?;
-        }
-        Ok(())
-    }
 }
