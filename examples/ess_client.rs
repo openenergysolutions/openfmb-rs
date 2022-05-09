@@ -24,13 +24,13 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         mrid, nats_url
     );
 
-    while let (Some(Ok(mag)),) = (
-        ess.soc_mag().await?.next().await,        
+    while let (Some(Ok(mag)),Some(Ok(q)), Some(Ok(p)), ) = (
+        ess.soc_mag().await?.next().await, ess.p().await?.next().await, ess.q().await?.next().await,
 
     ) {
         info!(
-            "{}: soc_mag: {:?}",
-            mrid, mag
+            "{}: soc_mag: {:?}, p: {:?}, q: {:?}",
+            mrid, mag, p, q,
         );
     }
     

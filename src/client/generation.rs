@@ -96,7 +96,7 @@ where
         Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
     }
 
-    // status_message_info (StatusMessageInfo) -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
+    // generation_reading -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
     pub async fn p(&mut self) -> SubscribeResult<f64> {
         let watts = self.reading().await?.map(|s| match s {
             Ok(s) => Ok(
@@ -111,7 +111,7 @@ where
         Ok(Box::pin(watts))
     }
 
-    // status_message_info (StatusMessageInfo) -> mmxu (ReadingMmxu) -> v_ar (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
+    // generation_reading -> mmxu (ReadingMmxu) -> v_ar (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
     pub async fn q(&mut self) -> SubscribeResult<f64> {
         let var = self.reading().await?.map(|s| match s {
             Ok(s) => Ok(s.generation_reading.unwrap()
