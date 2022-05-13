@@ -74,7 +74,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     solar_forecast_sch: Some(solarForecastSch)
   };
 
-  let mut poll_interval = time::interval(time::Duration::from_secs(1));
+  let mut poll_interval = time::interval(time::Duration::from_secs(15));
   let mut identified_object: IdentifiedObject = Default::default();
   identified_object.description = Some(format!("OpenFMB Solarforecast Device {}", mrid));
   identified_object.m_rid = Some(format!("{}", mrid));
