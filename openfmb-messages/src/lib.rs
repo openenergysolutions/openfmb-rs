@@ -10,7 +10,9 @@ pub mod essmodule;
 pub mod generationmodule;
 pub mod interconnectionmodule;
 pub mod loadmodule;
+pub mod loadforecastmodule;
 pub mod metermodule;
+pub mod priceforecastmodule;
 pub mod reclosermodule;
 pub mod regulatormodule;
 pub mod reservemodule;
@@ -28,7 +30,9 @@ pub enum Module {
     GenerationModule,
     InterconnectionModule,
     LoadModule,
+    LoadForecastModule,
     MeterModule,
+    PriceForecastModule,
     RecloserModule,
     RegulatorModule,
     ReserveModule,
@@ -47,8 +51,10 @@ impl Module {
             Module::EssModule => "essmodule",
             Module::GenerationModule => "generationmodule",
             Module::LoadModule => "loadmodule",
+            Module::LoadForecastModule => "loadforecastmodule",
             Module::MeterModule => "metermodule",
             Module::InterconnectionModule => "interconnectionmodule",
+            Module::PriceForecastModule => "priceforecastmodule",
             Module::RecloserModule => "reclosermodule",
             Module::RegulatorModule => "regulatormodule",
             Module::ReserveModule => "reservemodule",
@@ -76,6 +82,7 @@ impl std::str::FromStr for Module {
             "essmodule" => Ok(Module::EssModule),
             "generationmodule" => Ok(Module::GenerationModule),
             "loadmodule" => Ok(Module::LoadModule),
+            "loadforecastmodule" => Ok(Module::LoadForecastModule),
             "metermodule" => Ok(Module::MeterModule),
             "interconnectionmodule" => Ok(Module::InterconnectionModule),
             "reclosermodule" => Ok(Module::RecloserModule),

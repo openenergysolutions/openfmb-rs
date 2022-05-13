@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package loadforecastmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadforecastmodule";
+option java_package = "openfmb.loadforecastmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.loadforecastmodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+
+message LoadForecastPoint
+{
+    commonmodule.Timestamp forecastTime = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    google.protobuf.FloatValue watt = 2;
+    google.protobuf.FloatValue vars = 3;
+    google.protobuf.FloatValue watt_hrs = 4;
+}
+
+
+message LoadForecastSCH
+{    
+    repeated LoadForecastPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+message LoadForecast
+{
+    commonmodule.ForecastValueSource forecastValueSource = 1 [(uml.option_parent_message) = true];
+    LoadForecastSCH loadForecastSCH = 2;
+}
+
+
+message LoadForecastProfile
+{
+    option (uml.option_openfmb_profile) = true;    
+    commonmodule.MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+    LoadForecast loadForecast = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    
+}
