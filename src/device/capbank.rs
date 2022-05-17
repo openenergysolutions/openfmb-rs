@@ -4,7 +4,8 @@
 use crate::prelude::*;
 use openfmb_messages::{
     capbankmodule::{
-        CapBankControlProfile, CapBankDiscreteControlProfile, CapBankEventProfile, CapBankReadingProfile, CapBankStatusProfile,
+        CapBankControlProfile, CapBankDiscreteControlProfile, CapBankEventProfile,
+        CapBankReadingProfile, CapBankStatusProfile,
     },
     Module, Profile,
 };
@@ -74,13 +75,19 @@ where
         Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
     }
 
-    /// subscribe to control messages 
-    pub async fn control(&mut self, msg: CapBankControlProfile) -> SubscribeResult<CapBankControlProfile> {
+    /// subscribe to control messages
+    pub async fn control(
+        &mut self,
+        msg: CapBankControlProfile,
+    ) -> SubscribeResult<CapBankControlProfile> {
         self.bus.subscribe(self.control_topic.iter()).await
     }
 
     /// subscribe to discrete control messages
-    pub async fn discrete_control(&mut self, msg: CapBankDiscreteControlProfile) -> SubscribeResult<CapBankDiscreteControlProfile> {
+    pub async fn discrete_control(
+        &mut self,
+        msg: CapBankDiscreteControlProfile,
+    ) -> SubscribeResult<CapBankDiscreteControlProfile> {
         self.bus.subscribe(self.discrete_control_topic.iter()).await
     }
 }
