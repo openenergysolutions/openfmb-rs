@@ -50,11 +50,26 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ctl = controls.next() => {
                 info!("Got control {:?}", ctl);
                 if let Some(Ok(mut ctl)) = ctl {
-                    let _ = ctl.cap_bank_control_mut()
-                        .cap_bank_control_fscc_mut()
-                        .cap_bank_control_schedule_fsch_mut()
-                        .val_csg_mut()
-                        .crv_pts_mut().iter_mut().map(|crv_pt| crv_pt.control_mut().pos_mut().phs3_mut().ctl_val = true);
+                    let _ = ctl.cap_bank_control()
+                        .cap_bank_control_fscc()
+                        .cap_bank_control_schedule_fsch()
+                        .val_csg()
+                        .crv_pts().iter().map(|crv_pt| {
+                            if crv_pt.control().pos().phs3().ctl_val {
+                                status.cap_bank_status_mut()
+                                    .cap_bank_event_and_status_ypsh_mut()
+                                    .pos_mut()
+                                    .phs3_mut()
+                                    .st_val = 1;
+                            }
+                            else {
+                                status.cap_bank_status_mut()
+                                    .cap_bank_event_and_status_ypsh_mut()
+                                    .pos_mut()
+                                    .phs3_mut()
+                                    .st_val = 2;
+                            }
+                        });
                 }
             },
             _ = poll_interval.tick() => {
