@@ -76,18 +76,12 @@ where
     }
 
     /// subscribe to control messages
-    pub async fn control(
-        &mut self,
-        msg: CapBankControlProfile,
-    ) -> SubscribeResult<CapBankControlProfile> {
+    pub async fn control(&mut self) -> SubscribeResult<CapBankControlProfile> {
         self.bus.subscribe(self.control_topic.iter()).await
     }
 
     /// subscribe to discrete control messages
-    pub async fn discrete_control(
-        &mut self,
-        msg: CapBankDiscreteControlProfile,
-    ) -> SubscribeResult<CapBankDiscreteControlProfile> {
+    pub async fn discrete_control(&mut self) -> SubscribeResult<CapBankDiscreteControlProfile> {
         self.bus.subscribe(self.discrete_control_topic.iter()).await
     }
 }
