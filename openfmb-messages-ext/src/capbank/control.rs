@@ -62,6 +62,14 @@ impl OpenFMBExt for CapBankControlProfile {
 }
 
 pub trait CapBankControlExt: ControlProfileExt {
+    fn capbank_schedule_message(
+        mrid: &str,
+        schedule_parameter_type: ScheduleParameterKind,
+        value: f64,
+    ) -> CapBankControlProfile {
+        Self::schedule_capbank_control(mrid, schedule_parameter_type, value, SystemTime::now())
+    }
+
     fn schedule_capbank_control(
         m_rid: &str,
         schedule_parameter_type: ScheduleParameterKind,
