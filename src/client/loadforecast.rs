@@ -67,16 +67,14 @@ where
     }
 //    load_forecast.load_forecast_sch.crv_pts.sfp_vec (Vec<LoadForecastPoint>)
     pub async fn forecastpoints(&mut self) -> SubscribeResult<Vec<LoadForecastPoint>> {
-        let sf_vec = self.forecast().await?.map(|v| match v {
+        let lf_vec = self.forecast().await?.map(|v| match v {
             Ok(v) => Ok(v
                 .load_forecast.unwrap()
                 .load_forecast_sch.unwrap()
                 .crv_pts),
             Err(err) => Err(err),
         });
-        Ok(Box::pin(sf_vec))
+        Ok(Box::pin(lf_vec))
     }
-
-    
 
 }
