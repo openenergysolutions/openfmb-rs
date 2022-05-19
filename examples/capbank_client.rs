@@ -21,8 +21,14 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         mrid, nats_url
     );
 
-    while let (Some(Ok(status))) = (cap_bank.status().await?.next().await) {
-        info!("CapBank Status: {:?}", status);
+    while let (Some(Ok(_))) = (cap_bank.status().await?.next().await) {
+        info!("Received status, setting VArNetMag and WNetMag schedules");
+        if let Err(e) = cap_bank.set_VArNetMag_schedule(330_f64).await {
+            info!("`set_VArNetMag_schedule()` failed: {:?}", e);
+        }
+        if let Err(e) = cap_bank.set_WNetMag_schedule(165_f64).await {
+            info!("`set_WNetMag_schedule()` failed: {:?}", e);
+        }
     }
     Ok(())
 }

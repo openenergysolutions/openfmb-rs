@@ -5,7 +5,7 @@
 use futures::stream::StreamExt;
 use log::info;
 use openfmb::encoding::ProtobufEncoding;
-use openfmb_messages::{commonmodule::*, capbankmodule::*};
+use openfmb_messages::{capbankmodule::*, commonmodule::*};
 use std::env;
 use std::time::SystemTime;
 use tokio::time;
@@ -13,9 +13,9 @@ use tokio::time;
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
-    let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;
-    let nats_url = env::var("NATS_URL")?;
-    let nc = nats::asynk::connect(&env::var("NATS_URL")?).await?;
+    let mrid = uuid::Uuid::parse_str(&env::var("CAPBANK_MRID")?)?;
+    let nats_url = env::var("NATS_URL").unwrap_or("nats://127.0.0.1:4222".to_string());
+    let nc = nats::asynk::connect(&nats_url).await?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
     let mut capbank = openfmb::device::CapBank::new(bus, mrid);
     info!(
@@ -48,28 +48,17 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     loop {
         tokio::select! {
             ctl = controls.next() => {
-                info!("Got control {:?}", ctl);
-                if let Some(Ok(mut ctl)) = ctl {
-                    let _ = ctl.cap_bank_control()
+                info!("Received control");
+                if let Some(Ok(ctl)) = ctl {
+                    for sch_pt in ctl.cap_bank_control()
                         .cap_bank_control_fscc()
-                        .cap_bank_control_schedule_fsch()
-                        .val_csg()
-                        .crv_pts().iter().map(|crv_pt| {
-                            if crv_pt.control().pos().phs3().ctl_val {
-                                status.cap_bank_status_mut()
-                                    .cap_bank_event_and_status_ypsh_mut()
-                                    .pos_mut()
-                                    .phs3_mut()
-                                    .st_val = 1;
+                        .control_fscc()
+                        .control_schedule_fsch()
+                        .val_acsg().sch_pts().iter() {
+                            for sch_prmtr in sch_pt.schedule_parameter().iter() {
+                                println!("Received `{:?}` value: {}", sch_prmtr.schedule_parameter_type(), sch_prmtr.value())
                             }
-                            else {
-                                status.cap_bank_status_mut()
-                                    .cap_bank_event_and_status_ypsh_mut()
-                                    .pos_mut()
-                                    .phs3_mut()
-                                    .st_val = 2;
-                            }
-                        });
+                        }
                 }
             },
             _ = poll_interval.tick() => {
