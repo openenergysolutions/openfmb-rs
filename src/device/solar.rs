@@ -29,7 +29,7 @@ where
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
-    discrete_control_topic: ProfileTopic,
+    control_topic: ProfileTopic,
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
@@ -43,7 +43,7 @@ where
         + Publisher<SolarStatusProfile>
         + Publisher<SolarEventProfile>
         + Publisher<SolarReadingProfile>
-        + Subscriber<SolarControlProfile>,
+        + Subscriber<SolarControlProfile>
 {
     /// Create a new Solar client instance
     pub fn new(bus: MB, mrid: Uuid) -> Solar<MB> {
@@ -53,7 +53,7 @@ where
             status_topic: topic(Profile::SolarStatusProfile, &mrid),
             event_topic: topic(Profile::SolarEventProfile, &mrid),
             reading_topic: topic(Profile::SolarReadingProfile, &mrid),
-            discrete_control_topic: topic(Profile::SolarControlProfile, &mrid),
+            control_topic: topic(Profile::SolarControlProfile, &mrid),
         }
     }
 
@@ -74,6 +74,6 @@ where
 
     /// Subscribe to control messages
     pub async fn control(&mut self) -> SubscribeResult<SolarControlProfile> {
-        self.bus.subscribe(self.discrete_control_topic.iter()).await
+        self.bus.subscribe(self.control_topic.iter()).await
     }
 }
