@@ -9,7 +9,6 @@ use openfmb_messages::{
     Module, Profile,
 };
 
-
 use uuid::Uuid;
 
 /// Provide functionality to publish and accept messages a switch device
@@ -43,7 +42,7 @@ where
         + Publisher<SolarStatusProfile>
         + Publisher<SolarEventProfile>
         + Publisher<SolarReadingProfile>
-        + Subscriber<SolarControlProfile>
+        + Subscriber<SolarControlProfile>,
 {
     /// Create a new Solar client instance
     pub fn new(bus: MB, mrid: Uuid) -> Solar<MB> {
