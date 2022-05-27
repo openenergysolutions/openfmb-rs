@@ -5,16 +5,11 @@
 use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 use log::trace;
-use openfmb_messages::{
-    capbankmodule::{
-        CapBankControlProfile, CapBankDiscreteControlProfile, CapBankEventProfile,
-        CapBankReadingProfile, CapBankStatusProfile,
-    },
-    commonmodule::{DbPosKind, DynamicTestKind},
-};
-use openfmb_messages::{commonmodule::*, *};
+use openfmb_messages::{capbankmodule::*, commonmodule::*, *};
 use openfmb_messages_ext::capbank::CapBankControlExt;
 use uuid::Uuid;
+
+use std::time;
 
 /// Control and wait on updates from a switch
 ///
@@ -118,24 +113,80 @@ where
     /// Set a `WNetMag` schedule for this capbank device asynchronously
     ///
     /// Awaits on publishing but no change awaited on
-    pub async fn set_WNetMag_schedule(&mut self, value: f64) -> PublishResult<()> {
-        let msg = CapBankControlProfile::capbank_schedule_message(
+    pub async fn set_WNetMag_schedule(&mut self, sch_pts: usize, value: f64) -> PublishResult<()> {
+        let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
             ScheduleParameterKind::WNetMag,
             value,
         );
+
+        for _ in 1..sch_pts {
+            let (seconds, nanoseconds) =
+                match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
+                    Ok(time) => (time.as_secs(), time.subsec_nanos()),
+                    Err(_) => panic!("SystemTime before UNIX_EPOCH!"),
+                };
+            let ctrl_timestamp = ControlTimestamp {
+                seconds,
+                nanoseconds,
+            };
+            let sch_pt = SchedulePoint {
+                schedule_parameter: vec![EngScheduleParameter {
+                    schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
+                    value,
+                }],
+                start_time: Some(ctrl_timestamp),
+            };
+            msg.cap_bank_control_mut()
+                .cap_bank_control_fscc_mut()
+                .control_fscc_mut()
+                .control_schedule_fsch_mut()
+                .val_acsg_mut()
+                .sch_pts_mut()
+                .push(sch_pt);
+        }
         Ok(self.control(msg).await?)
     }
 
     /// Set a `VArNetMag` schedule for this capbank device asynchronously
     ///
     /// Awaits on publishing but no change awaited on
-    pub async fn set_VArNetMag_schedule(&mut self, value: f64) -> PublishResult<()> {
-        let msg = CapBankControlProfile::capbank_schedule_message(
+    pub async fn set_VArNetMag_schedule(
+        &mut self,
+        sch_pts: usize,
+        value: f64,
+    ) -> PublishResult<()> {
+        let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
             ScheduleParameterKind::VArNetMag,
             value,
         );
+
+        for _ in 1..sch_pts {
+            let (seconds, nanoseconds) =
+                match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
+                    Ok(time) => (time.as_secs(), time.subsec_nanos()),
+                    Err(_) => panic!("SystemTime before UNIX_EPOCH!"),
+                };
+            let ctrl_timestamp = ControlTimestamp {
+                seconds,
+                nanoseconds,
+            };
+            let sch_pt = SchedulePoint {
+                schedule_parameter: vec![EngScheduleParameter {
+                    schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
+                    value,
+                }],
+                start_time: Some(ctrl_timestamp),
+            };
+            msg.cap_bank_control_mut()
+                .cap_bank_control_fscc_mut()
+                .control_fscc_mut()
+                .control_schedule_fsch_mut()
+                .val_acsg_mut()
+                .sch_pts_mut()
+                .push(sch_pt);
+        }
         Ok(self.control(msg).await?)
     }
 }
