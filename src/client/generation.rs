@@ -131,10 +131,10 @@ where
     pub async fn set_power_schedule(
         &mut self,
         sch_pts: usize,
-        real_pwr: f64,
-        react_pwr: f64,
+        wnet_mag: f64,
+        varnet_mag: f64,
     ) -> PublishResult<()> {
-        let mut msg = GenerationControlProfile::generator_on_msg(&self.mrid_as_string(), real_pwr);
+        let mut msg = GenerationControlProfile::generator_on_msg(&self.mrid_as_string(), 0_f64);
         msg.generation_control_mut()
             .generation_control_fscc_mut()
             .control_fscc_mut()
@@ -156,11 +156,11 @@ where
                 schedule_parameter: vec![
                     EngScheduleParameter {
                         schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
-                        value: real_pwr,
+                        value: wnet_mag,
                     },
                     EngScheduleParameter {
                         schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
-                        value: react_pwr,
+                        value: varnet_mag,
                     },
                 ],
                 start_time: Some(ctrl_timestamp),
