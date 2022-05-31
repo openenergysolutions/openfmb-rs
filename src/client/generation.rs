@@ -128,51 +128,14 @@ where
         Ok(Box::pin(var))
     }
 
-    pub async fn set_power_schedule(
-        &mut self,
-        sch_pts: usize,
-        wnet_mag: f64,
-        varnet_mag: f64,
-    ) -> PublishResult<()> {
+    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
         let mut msg = GenerationControlProfile::generator_on_msg(&self.mrid_as_string(), 0_f64);
-        msg.generation_control_mut()
+        *msg.generation_control_mut()
             .generation_control_fscc_mut()
             .control_fscc_mut()
             .control_schedule_fsch_mut()
             .val_acsg_mut()
-            .sch_pts_mut()
-            .clear();
-        for _ in 0..sch_pts {
-            let (seconds, nanoseconds) =
-                match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
-                    Ok(time) => (time.as_secs(), time.subsec_nanos()),
-                    Err(_) => panic!("SystemTime before UNIX_EPOCH!"),
-                };
-            let ctrl_timestamp = ControlTimestamp {
-                seconds,
-                nanoseconds,
-            };
-            let sch_pt = SchedulePoint {
-                schedule_parameter: vec![
-                    EngScheduleParameter {
-                        schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
-                        value: wnet_mag,
-                    },
-                    EngScheduleParameter {
-                        schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
-                        value: varnet_mag,
-                    },
-                ],
-                start_time: Some(ctrl_timestamp),
-            };
-            msg.generation_control_mut()
-                .generation_control_fscc_mut()
-                .control_fscc_mut()
-                .control_schedule_fsch_mut()
-                .val_acsg_mut()
-                .sch_pts_mut()
-                .push(sch_pt);
-        }
+            .sch_pts_mut() = sch_pts;
         Ok(self.control(msg).await?)
     }
 }
