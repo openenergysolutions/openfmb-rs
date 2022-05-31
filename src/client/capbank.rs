@@ -110,59 +110,29 @@ where
             .await?)
     }
 
-    /// Set a `WNetMag` schedule for this capbank device asynchronously
+    /// Set a `WNetMag` and `VArNetMag` schedule for this capbank device asynchronously
     ///
     /// Awaits on publishing but no change awaited on
-    pub async fn set_WNetMag_schedule(&mut self, sch_pts: usize, value: f64) -> PublishResult<()> {
-        let mut msg = CapBankControlProfile::capbank_schedule_message(
-            &self.mrid_as_string(),
-            ScheduleParameterKind::WNetMag,
-            value,
-        );
-
-        for _ in 1..sch_pts {
-            let (seconds, nanoseconds) =
-                match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
-                    Ok(time) => (time.as_secs(), time.subsec_nanos()),
-                    Err(_) => panic!("SystemTime before UNIX_EPOCH!"),
-                };
-            let ctrl_timestamp = ControlTimestamp {
-                seconds,
-                nanoseconds,
-            };
-            let sch_pt = SchedulePoint {
-                schedule_parameter: vec![EngScheduleParameter {
-                    schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
-                    value,
-                }],
-                start_time: Some(ctrl_timestamp),
-            };
-            msg.cap_bank_control_mut()
-                .cap_bank_control_fscc_mut()
-                .control_fscc_mut()
-                .control_schedule_fsch_mut()
-                .val_acsg_mut()
-                .sch_pts_mut()
-                .push(sch_pt);
-        }
-        Ok(self.control(msg).await?)
-    }
-
-    /// Set a `VArNetMag` schedule for this capbank device asynchronously
-    ///
-    /// Awaits on publishing but no change awaited on
-    pub async fn set_VArNetMag_schedule(
+    pub async fn set_power_schedule(
         &mut self,
         sch_pts: usize,
-        value: f64,
+        wnet_mag: f64,
+        varnet_mag: f64,
     ) -> PublishResult<()> {
         let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
-            ScheduleParameterKind::VArNetMag,
-            value,
+            ScheduleParameterKind::WNetMag,
+            wnet_mag,
         );
+        msg.cap_bank_control_mut()
+            .cap_bank_control_fscc_mut()
+            .control_fscc_mut()
+            .control_schedule_fsch_mut()
+            .val_acsg_mut()
+            .sch_pts_mut()
+            .clear();
 
-        for _ in 1..sch_pts {
+        for _ in 0..sch_pts {
             let (seconds, nanoseconds) =
                 match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
                     Ok(time) => (time.as_secs(), time.subsec_nanos()),
@@ -173,10 +143,16 @@ where
                 nanoseconds,
             };
             let sch_pt = SchedulePoint {
-                schedule_parameter: vec![EngScheduleParameter {
-                    schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
-                    value,
-                }],
+                schedule_parameter: vec![
+                    EngScheduleParameter {
+                        schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
+                        value: wnet_mag,
+                    },
+                    EngScheduleParameter {
+                        schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
+                        value: varnet_mag,
+                    },
+                ],
                 start_time: Some(ctrl_timestamp),
             };
             msg.cap_bank_control_mut()
