@@ -113,10 +113,7 @@ where
     /// Publish a set of `SchedulePoint`s to a capbank device.
     ///
     /// Awaits on publishing but no change awaited on
-    pub async fn schedule(
-        &mut self,
-        sch_pts: Vec<SchedulePoint>,    
-    ) -> PublishResult<()> {
+    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
         let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
             ScheduleParameterKind::WNetMag,
