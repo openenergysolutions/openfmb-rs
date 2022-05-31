@@ -122,7 +122,7 @@ where
         let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
             ScheduleParameterKind::WNetMag,
-            wnet_mag,
+            0_f64,
         );
         msg.cap_bank_control_mut()
             .cap_bank_control_fscc_mut()
