@@ -78,14 +78,26 @@ where
         self.bus.publish(self.control_topic.iter(), msg).await
     }
 
-    /// Publish a Solar control message with a specified number of WNetMag schedule values
-    pub async fn set_WNetMag_schedule(&mut self, sch_pts: usize, value: f64) -> PublishResult<()> {
+    /// Publish a Solar control message with a specified number of WNetMag and VArNetMag schedule values
+    pub async fn set_power_schedule(
+        &mut self,
+        sch_pts: usize,
+        wnet_mag: f64,
+        varnet_mag: f64,
+    ) -> PublishResult<()> {
         let mut msg = SolarControlProfile::build_control_profile(
             &self.mrid_as_string(),
-            value,
+            0_f64,
             time::SystemTime::now(),
             0,
         );
+        msg.solar_control_mut()
+            .solar_control_fscc_mut()
+            .control_fscc_mut()
+            .control_schedule_fsch_mut()
+            .val_acsg_mut()
+            .sch_pts_mut()
+            .clear();
         for _ in 0..sch_pts {
             let (seconds, nanoseconds) =
                 match time::SystemTime::now().duration_since(time::SystemTime::UNIX_EPOCH) {
@@ -97,10 +109,16 @@ where
                 nanoseconds,
             };
             let sch_pt = SchedulePoint {
-                schedule_parameter: vec![EngScheduleParameter {
-                    schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
-                    value,
-                }],
+                schedule_parameter: vec![
+                    EngScheduleParameter {
+                        schedule_parameter_type: ScheduleParameterKind::WNetMag.into(),
+                        value: wnet_mag,
+                    },
+                    EngScheduleParameter {
+                        schedule_parameter_type: ScheduleParameterKind::VArNetMag.into(),
+                        value: varnet_mag,
+                    },
+                ],
                 start_time: Some(ctrl_timestamp),
             };
             msg.solar_control_mut()
