@@ -41,7 +41,7 @@ impl ProfileTopic {
             module,
             profile,
             _mrid: mrid,
-            mrid_str: mrid.to_hyphenated().to_string().to_lowercase(),
+            mrid_str: mrid.as_hyphenated().to_string().to_lowercase(),
         }
     }
 

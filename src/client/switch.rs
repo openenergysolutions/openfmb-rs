@@ -218,7 +218,7 @@ where
     }
 
     fn mrid_as_string(&self) -> String {
-        format!("{}", self.mrid.to_hyphenated())
+        format!("{}", self.mrid.as_hyphenated())
     }
 
     /// Close the switch
