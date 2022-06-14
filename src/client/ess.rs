@@ -104,52 +104,6 @@ where
             .await?)
     }
 
-    pub async fn soc_mag(&mut self) -> SubscribeResult<f64> {
-        let mag = self.status().await?.map(|s| match s {
-            Ok(s) => Ok(s
-                .ess_status
-                .unwrap()
-                .ess_status_zbat  
-                .unwrap()
-                .soc
-                .unwrap()
-                .mag),
-            Err(err) => Err(err),
-        });
-        Ok(Box::pin(mag))
-    }
-
-    // ess_reading -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
-    pub async fn p(&mut self) -> SubscribeResult<f64> {
-        let watts = self.reading().await?.map(|s| match s {
-            Ok(s) => Ok(
-                        s.ess_reading.unwrap()
-                         .reading_mmxu.unwrap()
-                         .w.unwrap()
-                         .net.unwrap()
-                         .c_val.unwrap()
-                         .mag),
-            Err(err) => Err(err),
-        });
-        Ok(Box::pin(watts))
-    }
-
-    // ess_reading -> mmxu (ReadingMmxu) -> v_ar (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
-    pub async fn q(&mut self) -> SubscribeResult<f64> {
-        let var = self.reading().await?.map(|s| match s {
-            Ok(s) => Ok(s.ess_reading.unwrap()
-                            .reading_mmxu.unwrap()
-                            .v_ar.unwrap()
-                            .net.unwrap()
-                            .c_val.unwrap()
-                            .mag),
-            Err(err) => Err(err),
-        });
-        Ok(Box::pin(var))
-    }
-
-
-
     pub async fn is_synchro_enabled(&mut self) -> SubscribeResult<bool> {
         let status = self.status().await?.map(|s| match s {
             Ok(s) => Ok(s

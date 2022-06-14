@@ -77,21 +77,4 @@ where
     pub async fn control(&mut self, msg: SolarControlProfile) -> PublishResult<()> {
         self.bus.publish(self.control_topic.iter(), msg).await
     }
-
-    /// Publish a Solar control message with a specified number of WNetMag and VArNetMag schedule values
-    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
-        let mut msg = SolarControlProfile::build_control_profile(
-            &self.mrid_as_string(),
-            0_f64,
-            time::SystemTime::now(),
-            0,
-        );
-        *msg.solar_control_mut()
-            .solar_control_fscc_mut()
-            .control_fscc_mut()
-            .control_schedule_fsch_mut()
-            .val_acsg_mut()
-            .sch_pts_mut() = sch_pts;
-        self.control(msg).await
-    }
 }

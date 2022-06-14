@@ -109,22 +109,4 @@ where
             .publish(self.discrete_control_topic.iter(), msg)
             .await?)
     }
-
-    /// Publish a set of `SchedulePoint`s to a capbank device.
-    ///
-    /// Awaits on publishing but no change awaited on
-    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
-        let mut msg = CapBankControlProfile::capbank_schedule_message(
-            &self.mrid_as_string(),
-            ScheduleParameterKind::WNetMag,
-            0_f64,
-        );
-        *msg.cap_bank_control_mut()
-            .cap_bank_control_fscc_mut()
-            .control_fscc_mut()
-            .control_schedule_fsch_mut()
-            .val_acsg_mut()
-            .sch_pts_mut() = sch_pts;
-        Ok(self.control(msg).await?)
-    }
 }

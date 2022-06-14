@@ -297,33 +297,4 @@ where
         }
         Ok(())
     }
-
-    pub async fn w(&mut self) -> SubscribeResult<f64> {
-        let w = self.reading().await?.map( |r| match r {
-          Ok(r) => Ok(r
-            .switch_reading.first().unwrap()
-            .reading_mmxu.as_ref().unwrap()
-            .w.as_ref().unwrap()
-            .net.as_ref().unwrap()
-            .c_val.as_ref().unwrap()
-            .mag),
-          Err(err) => Err(err)
-        });
-        Ok(Box::pin(w))
-    }
-
-    pub async fn var(&mut self) -> SubscribeResult<f64> {
-        let w = self.reading().await?.map( |r| match r {
-          Ok(r) => Ok(r
-            .switch_reading.first().unwrap()
-            .reading_mmxu.as_ref().unwrap()
-            .v_ar.as_ref().unwrap()
-            .net.as_ref().unwrap()
-            .c_val.as_ref().unwrap()
-            .mag),
-          Err(err) => Err(err)
-        });
-        Ok(Box::pin(w))
-    }
-
 }
