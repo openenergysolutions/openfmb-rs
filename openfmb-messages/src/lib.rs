@@ -73,7 +73,6 @@ impl std::str::FromStr for Module {
             "essmodule" => Ok(Module::EssModule),
             "generationmodule" => Ok(Module::GenerationModule),
             "loadmodule" => Ok(Module::LoadModule),
-
             "metermodule" => Ok(Module::MeterModule),
             "interconnectionmodule" => Ok(Module::InterconnectionModule),
             "reclosermodule" => Ok(Module::RecloserModule),
@@ -81,7 +80,6 @@ impl std::str::FromStr for Module {
             "reservemodule" => Ok(Module::ReserveModule),
             "resourcemodule" => Ok(Module::ReserveModule),
             "solarmodule" => Ok(Module::SolarModule),
-
             "switchmodule" => Ok(Module::SwitchModule),
             _ => Err(()),
         }
