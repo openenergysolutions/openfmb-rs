@@ -3,12 +3,9 @@
 
 use crate::prelude::*;
 use openfmb_messages::{
-    essmodule::{
-        EssControlProfile, EssEventProfile, EssReadingProfile, EssStatusProfile,
-    },
+    essmodule::{EssControlProfile, EssEventProfile, EssReadingProfile, EssStatusProfile},
     Module, Profile,
 };
-
 
 use uuid::Uuid;
 

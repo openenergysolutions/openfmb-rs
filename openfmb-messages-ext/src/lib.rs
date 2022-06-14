@@ -17,25 +17,22 @@ use uuid::Uuid;
 
 pub mod breaker;
 pub mod capbank;
-pub mod circuitsegementservice;
+pub mod circuitsegmentservice;
 pub mod error;
 pub mod ess;
 pub mod generation;
 pub mod load;
-pub mod loadforecast;
 pub mod meter;
-pub mod priceforecast;
 pub mod recloser;
 pub mod regulator;
 pub mod resource;
 pub mod solar;
-pub mod solarforecast;
 pub mod switch;
-
 pub mod utils;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use capbank::CapBankControlExt;
+pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
