@@ -9,7 +9,7 @@ use uuid::Uuid;
 use circuitsegmentservicemodule::CircuitSegmentControlProfile;
 use openfmb_messages::{commonmodule::*, *};
 
-use crate::{error::*, OpenFMBExt};
+use crate::{error::*, ControlProfileExt, OpenFMBExt};
 
 impl OpenFMBExt for CircuitSegmentControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -54,3 +54,5 @@ impl OpenFMBExt for CircuitSegmentControlProfile {
             .context(NoName)?)
     }
 }
+
+pub trait CircuitSegmentControlExt: ControlProfileExt {}

@@ -4,11 +4,11 @@
 use crate::prelude::*;
 use openfmb_messages::{
     generationmodule::{
-        GenerationControlProfile, GenerationEventProfile, GenerationReadingProfile, GenerationStatusProfile,
+        GenerationControlProfile, GenerationEventProfile, GenerationReadingProfile,
+        GenerationStatusProfile,
     },
     Module, Profile,
 };
-
 
 use uuid::Uuid;
 

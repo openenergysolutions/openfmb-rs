@@ -61,7 +61,7 @@ where
 
     /// Get the device MRID as a string
     fn mrid_as_string(&self) -> String {
-        format!("{}", self.mrid.to_hyphenated())
+        format!("{}", self.mrid.hyphenated())
     }
 
     /// A stream to this devices status messages

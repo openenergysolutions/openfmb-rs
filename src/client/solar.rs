@@ -55,7 +55,7 @@ where
     }
 
     fn mrid_as_string(&self) -> String {
-        format!("{}", self.mrid.to_hyphenated())
+        format!("{}", self.mrid.hyphenated())
     }
 
     /// Subscribe to Solar status messages

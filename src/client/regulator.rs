@@ -5,8 +5,8 @@
 use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 use log::trace;
-use openfmb_messages::{capbankmodule::*, commonmodule::*, *};
-use openfmb_messages_ext::capbank::CapBankControlExt;
+use openfmb_messages::{commonmodule::*, regulatormodule::*, *};
+use openfmb_messages_ext::regulator::RegulatorControlExt;
 use uuid::Uuid;
 
 use std::time;
@@ -20,13 +20,13 @@ use std::time;
 /// When writing control algorithms however it is easier determine the next
 /// known good value and *then* control it rather than looking at an old status
 /// which may be too old to be useful.
-pub struct CapBank<MB>
+pub struct Regulator<MB>
 where
-    MB: Subscriber<CapBankStatusProfile>
-        + Subscriber<CapBankEventProfile>
-        + Subscriber<CapBankReadingProfile>
-        + Publisher<CapBankControlProfile>
-        + Publisher<CapBankDiscreteControlProfile>,
+    MB: Subscriber<RegulatorStatusProfile>
+        + Subscriber<RegulatorEventProfile>
+        + Subscriber<RegulatorReadingProfile>
+        + Publisher<RegulatorControlProfile>
+        + Publisher<RegulatorDiscreteControlProfile>,
 {
     bus: MB,
     mrid: Uuid,
@@ -38,27 +38,27 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::CapBankModule, profile, mrid.clone())
+    ProfileTopic::new(Module::RegulatorModule, profile, mrid.clone())
 }
 
-impl<MB> CapBank<MB>
+impl<MB> Regulator<MB>
 where
-    MB: Subscriber<CapBankStatusProfile>
-        + Subscriber<CapBankEventProfile>
-        + Subscriber<CapBankReadingProfile>
-        + Publisher<CapBankControlProfile>
-        + Publisher<CapBankDiscreteControlProfile>,
+    MB: Subscriber<RegulatorStatusProfile>
+        + Subscriber<RegulatorEventProfile>
+        + Subscriber<RegulatorReadingProfile>
+        + Publisher<RegulatorControlProfile>
+        + Publisher<RegulatorDiscreteControlProfile>,
 {
-    /// Create a new capbank client instance
-    pub fn new(bus: MB, mrid: Uuid) -> CapBank<MB> {
-        CapBank {
+    /// Create a new regulator client instance
+    pub fn new(bus: MB, mrid: Uuid) -> Regulator<MB> {
+        Regulator {
             bus,
             mrid,
-            status_topic: topic(Profile::CapBankStatusProfile, &mrid),
-            event_topic: topic(Profile::CapBankEventProfile, &mrid),
-            reading_topic: topic(Profile::CapBankReadingProfile, &mrid),
-            control_topic: topic(Profile::CapBankControlProfile, &mrid),
-            discrete_control_topic: topic(Profile::CapBankDiscreteControlProfile, &mrid),
+            status_topic: topic(Profile::RegulatorStatusProfile, &mrid),
+            event_topic: topic(Profile::RegulatorEventProfile, &mrid),
+            reading_topic: topic(Profile::RegulatorReadingProfile, &mrid),
+            control_topic: topic(Profile::RegulatorControlProfile, &mrid),
+            discrete_control_topic: topic(Profile::RegulatorDiscreteControlProfile, &mrid),
         }
     }
 
@@ -70,7 +70,7 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub async fn status(&mut self) -> SubscribeResult<CapBankStatusProfile> {
+    pub async fn status(&mut self) -> SubscribeResult<RegulatorStatusProfile> {
         self.bus.subscribe(self.status_topic.iter()).await
     }
 
@@ -78,7 +78,7 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the
     /// next event
-    pub async fn event(&mut self) -> SubscribeResult<CapBankEventProfile> {
+    pub async fn event(&mut self) -> SubscribeResult<RegulatorEventProfile> {
         self.bus.subscribe(self.event_topic.iter()).await
     }
 
@@ -86,14 +86,14 @@ where
     ///
     /// The return may be treated as a stream or as a future returning the next
     /// reading value.
-    pub async fn reading(&mut self) -> SubscribeResult<CapBankReadingProfile> {
+    pub async fn reading(&mut self) -> SubscribeResult<RegulatorReadingProfile> {
         self.bus.subscribe(self.reading_topic.iter()).await
     }
 
     /// Send a control message to the device asynchronously
     ///
     /// Awaits on publishing but no change awaited on.
-    pub async fn control(&mut self, msg: CapBankControlProfile) -> PublishResult<()> {
+    pub async fn control(&mut self, msg: RegulatorControlProfile) -> PublishResult<()> {
         Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
     }
 
@@ -102,7 +102,7 @@ where
     /// Awaits on publishing but no change awaited on
     pub async fn discrete_control(
         &mut self,
-        msg: CapBankDiscreteControlProfile,
+        msg: RegulatorDiscreteControlProfile,
     ) -> PublishResult<()> {
         Ok(self
             .bus

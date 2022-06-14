@@ -7,7 +7,7 @@ use futures::{stream, StreamExt};
 
 use openfmb_messages::{
     commonmodule::GridConnectModeKind,
-    essmodule::{ EssControlProfile, EssEventProfile, EssReadingProfile, EssStatusProfile },
+    essmodule::{EssControlProfile, EssEventProfile, EssReadingProfile, EssStatusProfile},
 };
 
 use openfmb_messages_ext::EssControlExt;
@@ -35,7 +35,7 @@ where
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
-    control_topic: ProfileTopic,    
+    control_topic: ProfileTopic,
 }
 
 /// Topic string given a message type and mrid
@@ -52,19 +52,19 @@ where
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Ess<MB> {
-        Ess { 
-            bus, 
-            mrid, 
+        Ess {
+            bus,
+            mrid,
             status_topic: topic(Profile::ESSStatusProfile, &mrid),
             event_topic: topic(Profile::ESSEventProfile, &mrid),
             reading_topic: topic(Profile::ESSReadingProfile, &mrid),
-            control_topic: topic(Profile::ESSControlProfile, &mrid),        
+            control_topic: topic(Profile::ESSControlProfile, &mrid),
         }
     }
 
     /// Get the device MRID as a string
     fn mrid_as_string(&self) -> String {
-        format!("{}", self.mrid.to_hyphenated())
+        format!("{}", self.mrid.hyphenated())
     }
 
     /// A stream to this devices status messages
@@ -72,10 +72,7 @@ where
     /// The return may be treated as a stream or as a future returning the
     /// next event
     pub async fn status(&mut self) -> SubscribeResult<EssStatusProfile> {
-        self
-            .bus
-            .subscribe(self.status_topic.iter())
-            .await
+        self.bus.subscribe(self.status_topic.iter()).await
     }
 
     /// A stream to this devices reading messages
@@ -98,10 +95,7 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: EssControlProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
-            .publish(self.control_topic.iter(), msg)
-            .await?)
+        Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
     }
 
     pub async fn is_synchro_enabled(&mut self) -> SubscribeResult<bool> {
