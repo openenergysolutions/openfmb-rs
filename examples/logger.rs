@@ -34,7 +34,7 @@ impl Topic<&'static str> for OpenFMBEverything {
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
     let nats_url = env::var("NATS_URL")?;
-    let nc = nats::asynk::connect(&nats_url).await?;
+    let nc = nats::connect(&nats_url)?;
     let mut bus = openfmb::bus::NatsBus::<ProtobufVariantEncoding>::new(nc);
     let openfmb_everything_topic = OpenFMBEverything { done: false };
     let mut openfmb_stream = bus.subscribe(openfmb_everything_topic).await?;

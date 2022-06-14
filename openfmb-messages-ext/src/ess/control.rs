@@ -239,6 +239,7 @@ pub trait EssControlExt: ControlProfileExt {
                                         .unwrap()
                                         .as_secs(),
                                 }),
+                                ..Default::default()
                             }],
                         }),
                     }),
@@ -442,6 +443,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),
@@ -503,6 +505,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),
@@ -568,6 +571,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),
@@ -619,6 +623,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),
@@ -673,6 +678,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),
@@ -767,6 +773,7 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
+                            ..Default::default()
                         }],
                     }),
                 }),

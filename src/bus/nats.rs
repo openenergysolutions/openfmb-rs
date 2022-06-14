@@ -4,13 +4,14 @@
 
 use crate::prelude::*;
 use async_trait::async_trait;
+use futures::prelude::*;
 use futures::StreamExt;
 use std::marker::PhantomData;
 
 /// Nats Message Bus
 #[derive(Debug, Clone)]
 pub struct NatsBus<E: MessageEncoding> {
-    conn: nats::asynk::Connection,
+    conn: nats::Connection,
     encoding: PhantomData<E>,
 }
 
@@ -76,19 +77,16 @@ where
     ) -> Result<Subscription<M>, SubscribeError> {
         //debug!("subscribing to {:?}", topic);
         let subject: String = topic_to_subject(topic);
-        Ok(Box::pin(
-            self.conn
-                .subscribe(&subject)
-                .await
-                .map_err(SubscribeError::IoError)?
-                .map(|msg| {
-                    // we can cheat here and split and map as we know the topic will not have * or >
-                    let topic = subject_to_topic(&msg.subject);
-                    let data: &[u8] = &msg.data;
-                    M::decode(topic, data)
-                        .map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
-                }),
-        ))
+
+        Ok(Box::pin(stream::iter(self.conn.subscribe(&subject)?).map(
+            |msg| {
+                // we can cheat here and split and map as we know the topic will not have * or >
+                let topic = subject_to_topic(&msg.subject);
+                let data: &[u8] = &msg.data;
+
+                M::decode(topic, data).map_err(|err| SubscriptionError::DecodeError(Box::new(err)))
+            },
+        )))
     }
 }
 
@@ -109,7 +107,6 @@ where
         Ok(self
             .conn
             .publish(&subject, buf)
-            .await
             .map_err(PublishError::IoError)?)
     }
 }
@@ -126,7 +123,7 @@ impl<E> NatsBus<E>
 where
     E: 'static + MessageEncoding + Send,
 {
-    pub fn new(conn: nats::asynk::Connection) -> NatsBus<E> {
+    pub fn new(conn: nats::Connection) -> NatsBus<E> {
         NatsBus {
             conn,
             encoding: PhantomData,

@@ -4,30 +4,31 @@
 
 use std::str::FromStr;
 
-use openfmb_messages::{commonmodule::MessageInfo, essmodule::EssReadingProfile};
+use essmodule::EssCapabilityOverrideProfile;
+use openfmb_messages::{commonmodule::MessageInfo, *};
+
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, ReadingProfileExt};
+use crate::{error::*, OpenFMBExt};
 
-impl OpenFMBExt for EssReadingProfile {
+impl OpenFMBExt for EssCapabilityOverrideProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
         Ok("".to_string())
-        //panic!("{:?}", self);
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
-            .reading_message_info
+            .capability_message_info
             .as_ref()
-            .context(NoReadingMessageInfo)?
+            .context(NoMessageInfo)?
             .message_info
             .as_ref()
             .context(NoMessageInfo)?)
     }
 
     fn message_type(&self) -> OpenFMBResult<String> {
-        Ok("ESSReadingProfile".to_string())
+        Ok("ESSCapabilityOverrideProfile".to_string())
     }
 
     fn device_mrid(&self) -> OpenFMBResult<Uuid> {
@@ -60,31 +61,3 @@ impl OpenFMBExt for EssReadingProfile {
             .context(NoName)?)
     }
 }
-
-pub trait EssReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-}
-
-impl EssReadingExt for EssReadingProfile {
-    fn w_net(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .ess_reading
-            .as_ref()
-            .context(NoEssReading)?
-            .reading_mmxu
-            .as_ref()
-            .context(NoReadingMmxu)?
-            .w
-            .as_ref()
-            .context(NoW)?
-            .net
-            .as_ref()
-            .context(NoNet)?
-            .c_val
-            .as_ref()
-            .context(NoCVal)?
-            .mag)
-    }
-}
-
-impl ReadingProfileExt for EssReadingProfile {}

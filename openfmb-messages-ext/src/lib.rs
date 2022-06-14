@@ -9,15 +9,15 @@
 use std::{fmt, fmt::Debug, str::FromStr, time::SystemTime};
 
 use openfmb_messages::commonmodule::{
-    ControlMessageInfo, EventMessageInfo, IdentifiedObject, MessageInfo, ReadingMessageInfo,
-    StatusMessageInfo, Timestamp,
+    ControlMessageInfo, DbPosKind, EventMessageInfo, IdentifiedObject, MessageInfo,
+    ReadingMessageInfo, StatusMessageInfo, Timestamp,
 };
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
 pub mod breaker;
 pub mod capbank;
-pub mod coordinationservice;
+pub mod circuitsegementservice;
 pub mod error;
 pub mod ess;
 pub mod generation;
@@ -29,17 +29,20 @@ pub mod resource;
 pub mod solar;
 pub mod switch;
 
+pub mod utils;
+
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
 pub use capbank::CapBankControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
-pub use ess::{EssControlExt, EssReadingExt};
+pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
-pub use load::LoadControlExt;
-pub use recloser::RecloserControlExt;
+pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
+pub use recloser::{RecloserControlExt, RecloserReadingExt};
 pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
 pub use resource::ResourceControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
+pub use utils::*;
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}
@@ -90,6 +93,11 @@ pub trait OpenFMBExt {
 
 pub trait OpenFMBExtStatus: Debug {
     fn status_message_info(&self) -> OpenFMBResult<&StatusMessageInfo>;
+}
+
+pub trait Position: Debug {
+    fn pos(&self) -> OpenFMBResult<DbPosKind>;
+    fn pos_per_phase(&self, phase: Phase) -> OpenFMBResult<DbPosKind>;
 }
 
 pub trait OpenFMBExtEss {

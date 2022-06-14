@@ -15,7 +15,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     pretty_env_logger::init();
     let mrid = uuid::Uuid::parse_str(&env::var("SWITCH_MRID")?)?;
     let nats_url = env::var("NATS_URL")?;
-    let nc = nats::asynk::connect(&env::var("NATS_URL")?).await?;
+    let nc = nats::connect(&env::var("NATS_URL")?)?;
     let bus = openfmb::bus::NatsBus::<ProtobufEncoding>::new(nc);
     let mut switch = openfmb::device::Switch::new(bus, mrid);
     info!(

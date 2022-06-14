@@ -2,4 +2,6 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-include!(concat!(env!("OUT_DIR"), "/coordinationservicemodule.rs"));
+fn main() {
+    prost_build::compile_protos(&["src/microgrid.proto"], &["src/"]).unwrap();
+}

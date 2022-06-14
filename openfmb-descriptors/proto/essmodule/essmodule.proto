@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.0).eap
-// Monday, December 14, 2020 7:23:13 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
+// Tuesday, December 7, 2021 5:56:45 PM UTC
 
 package essmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/essmodule";
@@ -13,21 +13,80 @@ import "uml.proto";
 import "google/protobuf/wrappers.proto";
 import "commonmodule/commonmodule.proto";
 
-// Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
-message EssEventZBAT
+// MISSING DOCUMENTATION!!!
+message ESSCapabilityConfiguration
 {
     // UML inherited base object
-    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
-    // If true, the battery is in overcharge (voltage or current) condition.
-    commonmodule.StatusSPS BatHi = 2;
-    // If true, the battery voltage or charge has dropped below a pre-set level.
-    commonmodule.StatusSPS BatLo = 3;
+    commonmodule.SourceCapabilityConfiguration sourceCapabilityConfiguration = 1 [(uml.option_parent_message) = true];
+    // Apparent Power Charge Maximum
+    commonmodule.ASG VAChaRteMax = 2;
+    // Apparent Power Discharge Maximum
+    commonmodule.ASG VADisChaRteMax = 3;
+    // Active Power Charge Maximum
+    commonmodule.ASG WChaRteMax = 4;
+    // Active Power Discharge Maximum
+    commonmodule.ASG WDisChaRteMax = 5;
+}
+
+// Generation capability
+message ESSCapabilityOverride
+{
+    // UML inherited base object
+    commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    commonmodule.StatusSPS BatSt = 4;
-    // State of charge (in percentage)
-    commonmodule.MV Soc = 5;
-    // If stVal TRUE, the device is in standby.
-    commonmodule.StatusSPS Stdby = 6;
+    ESSCapabilityConfiguration essCapabilityConfiguration = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// ESS control profile
+message ESSCapabilityOverrideProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityMessageInfo capabilityMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSCapabilityOverride essCapabilityOverride = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message ESSCapabilityRatings
+{
+    // UML inherited base object
+    commonmodule.SourceCapabilityRatings sourceCapabilityRatings = 1 [(uml.option_parent_message) = true];
+    // Apparent Power Charge Maximum Rating
+    commonmodule.ASG VAChaRteMaxRtg = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Apparent Power Discharge Maximum Rating
+    commonmodule.ASG VADisChaRteMaxRtg = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active Power Charge Maximum Rating
+    commonmodule.ASG WChaRteMaxRtg = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Active Power Discharge Maximum Rating
+    commonmodule.ASG WDisChaRteMaxRtg = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Energy rating of the DER storage.
+    commonmodule.ASG WHRtg = 6 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Generation capability
+message ESSCapability
+{
+    // UML inherited base object
+    commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ESSCapabilityRatings essCapabilityRatings = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSCapabilityConfiguration essCapabilityConfiguration = 3;
+}
+
+// ESS control profile
+message ESSCapabilityProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityMessageInfo capabilityMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSCapability essCapability = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // ESS inverter high level function to maintain frequency within dead bands.
@@ -205,6 +264,128 @@ message ESSFunction
 }
 
 // Point definition (Point)
+message ESSPoint
+{
+    // Black start enable
+    commonmodule.ControlSPC blackStartEnabled = 1;
+    // Enable frequency set point
+    commonmodule.ControlSPC frequencySetPointEnabled = 2;
+    // ESS function parameter
+    ESSFunction function = 3;
+    // Grid connect mode
+    commonmodule.ENG_GridConnectModeKind mode = 4;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue pctHzDroop = 5;
+    // MISSING DOCUMENTATION!!!
+    google.protobuf.FloatValue pctVDroop = 6;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 7;
+    // Enable reactive power set point
+    commonmodule.ControlSPC reactivePwrSetPointEnabled = 8;
+    // Enable real power set point
+    commonmodule.ControlSPC realPwrSetPointEnabled = 9;
+    // Reset device
+    commonmodule.ControlSPC reset = 10;
+    // ESS state
+    commonmodule.Optional_StateKind state = 11;
+    // Synchronize back to grid
+    commonmodule.ControlSPC syncBackToGrid = 12;
+    // Transition to island on grid loss enable
+    commonmodule.ControlSPC transToIslndOnGridLossEnabled = 13;
+    // Enable voltage set point
+    commonmodule.ControlSPC voltageSetPointEnabled = 14;
+    // Start time
+    commonmodule.ControlTimestamp startTime = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFStorageSPC pFStorageOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 21;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 22;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 23;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 24;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 25;
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message ESSCSG
+{
+    // The array with the points specifying a curve shape.
+    repeated ESSPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message ESSControlScheduleFSCH
+{
+    // Discrete value in ESSCSG type
+    ESSCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
+message EssControlFSCC
+{
+    // UML inherited base object
+    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ESSControlScheduleFSCH essControlScheduleFSCH = 2;
+}
+
+// ESS control class
+message ESSControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    EssControlFSCC essControlFSCC = 3;
+}
+
+// ESS control profile
+message ESSControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSControl essControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
+message EssEventZBAT
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // If true, the battery is in overcharge (voltage or current) condition.
+    commonmodule.StatusSPS BatHi = 2;
+    // If true, the battery voltage or charge has dropped below a pre-set level.
+    commonmodule.StatusSPS BatLo = 3;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusSPS BatSt = 4;
+    // State of charge (in percentage)
+    commonmodule.MV Soc = 5;
+    // If stVal TRUE, the device is in standby.
+    commonmodule.StatusSPS Stdby = 6;
+    // State of health of the DER storage.
+    commonmodule.MV SoH = 7;
+    // Energy available of the DER storage (WHAvail = WHRtg * SoC * SoH)
+    commonmodule.MV WHAvail = 8;
+}
+
+// Point definition (Point)
 message ESSPointStatus
 {
     // Black start enable
@@ -215,9 +396,9 @@ message ESSPointStatus
     ESSFunction function = 3;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 4;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctHzDroop = 5;
-    // Black start enable
+    // MISSING DOCUMENTATION!!!
     google.protobuf.FloatValue pctVDroop = 6;
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
@@ -233,6 +414,26 @@ message ESSPointStatus
     commonmodule.StatusSPS transToIslndOnGridLossEnabled = 12;
     // Enable voltage set point
     commonmodule.StatusSPS voltageSetPointEnabled = 13;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 14;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 15;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFStorageSPC pFStorageOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 21;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 22;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 23;
 }
 
 // Specialized 61850 ZGEN class
@@ -320,6 +521,10 @@ message EssStatusZBAT
     commonmodule.MV Soc = 4;
     // MISSING DOCUMENTATION!!!
     commonmodule.StatusSPS Stdby = 5;
+    // State of health of the DER storage.
+    commonmodule.MV SoH = 6;
+    // Energy available of the DER storage (WHAvail = WHRtg * SoC * SoH)
+    commonmodule.MV WHAvail = 7;
 }
 
 // Specialized 61850 ZGEN class
@@ -350,86 +555,5 @@ message ESSStatusProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSStatus essStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Point definition (Point)
-message ESSPoint
-{
-    // Black start enable
-    commonmodule.ControlSPC blackStartEnabled = 1;
-    // Enable frequency set point
-    commonmodule.ControlSPC frequencySetPointEnabled = 2;
-    // ESS function parameter
-    ESSFunction function = 3;
-    // Grid connect mode
-    commonmodule.ENG_GridConnectModeKind mode = 4;
-    // Black start enable
-    google.protobuf.FloatValue pctHzDroop = 5;
-    // Black start enable
-    google.protobuf.FloatValue pctVDroop = 6;
-    // Ramp rates
-    commonmodule.RampRate rampRates = 7;
-    // Enable reactive power set point
-    commonmodule.ControlSPC reactivePwrSetPointEnabled = 8;
-    // Enable real power set point
-    commonmodule.ControlSPC realPwrSetPointEnabled = 9;
-    // Reset device
-    commonmodule.ControlSPC reset = 10;
-    // ESS state
-    commonmodule.Optional_StateKind state = 11;
-    // Synchronize back to grid
-    commonmodule.ControlSPC syncBackToGrid = 12;
-    // Transition to island on grid loss enable
-    commonmodule.ControlSPC transToIslndOnGridLossEnabled = 13;
-    // Enable voltage set point
-    commonmodule.ControlSPC voltageSetPointEnabled = 14;
-    // Start time
-    commonmodule.ControlTimestamp startTime = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Curve shape setting (FC=SP) (CSG_SP)
-message ESSCSG
-{
-    // The array with the points specifying a curve shape.
-    repeated ESSPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
-message ESSControlScheduleFSCH
-{
-    // Discrete value in ESSCSG type
-    ESSCSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Specialized 61850 FSCC class.  LN: Schedule controller   Name: FSCC
-message EssControlFSCC
-{
-    // UML inherited base object
-    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    ESSControlScheduleFSCH essControlScheduleFSCH = 2;
-}
-
-// ESS control class
-message ESSControl
-{
-    // UML inherited base object
-    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.CheckConditions check = 2;
-    // MISSING DOCUMENTATION!!!
-    EssControlFSCC essControlFSCC = 3;
-}
-
-// ESS control profile
-message ESSControlProfile
-{
-    option (uml.option_openfmb_profile) = true;
-    // UML inherited base object
-    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    ESSControl essControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 

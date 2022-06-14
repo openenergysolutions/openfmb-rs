@@ -70,4 +70,34 @@ impl OpenFMBExtReading for RecloserReadingProfile {
     }
 }
 
+pub trait RecloserReadingExt: ReadingProfileExt {
+    fn w_net(&self) -> OpenFMBResult<f64>;
+}
+
+impl RecloserReadingExt for RecloserReadingProfile {
+    fn w_net(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+}
+
 impl ReadingProfileExt for RecloserReadingProfile {}
