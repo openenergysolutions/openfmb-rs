@@ -6,10 +6,10 @@ use futures::stream::StreamExt;
 use log::info;
 use openfmb::encoding::ProtobufEncoding;
 use openfmb_messages::{commonmodule::*, switchmodule::*};
+use rand::Rng;
 use std::env;
 use std::time::SystemTime;
 use tokio::time;
-use rand::Rng;
 
 #[tokio::main]
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -54,45 +54,45 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     });
     loop {
         tokio::select! {
-            ctl = controls.next() => {
-                info!("Got control {:?}", ctl);
-                if let Some(Ok(ctl)) = ctl {
-                    if let Some(ref phs3) = ctl.switch_discrete_control()
-                                           .switch_discrete_control_xswi()
-                                           .pos()
-                                           .phs3 {
-                                               if phs3.ctl_val {
-                                                   status.switch_status_mut()
-                                                         .switch_status_xswi_mut()
-                                                         .pos_mut()
-                                                         .phs3_mut()
-                                                         .st_val = 1;
-                                               } else {
-                                                   status.switch_status_mut()
-                                                         .switch_status_xswi_mut()
-                                                         .pos_mut()
-                                                         .phs3_mut()
-                                                         .st_val = 2;
-                                               }
-                                           }
+                    ctl = controls.next() => {
+                        info!("Got control {:?}", ctl);
+                        if let Some(Ok(ctl)) = ctl {
+                            if let Some(ref phs3) = ctl.switch_discrete_control()
+                                                   .switch_discrete_control_xswi()
+                                                   .pos()
+                                                   .phs3 {
+                                                       if phs3.ctl_val {
+                                                           status.switch_status_mut()
+                                                                 .switch_status_xswi_mut()
+                                                                 .pos_mut()
+                                                                 .phs3_mut()
+                                                                 .st_val = 1;
+                                                       } else {
+                                                           status.switch_status_mut()
+                                                                 .switch_status_xswi_mut()
+                                                                 .pos_mut()
+                                                                 .phs3_mut()
+                                                                 .st_val = 2;
+                                                       }
+                                                   }
+                        }
+                    },
+                    _ = poll_interval.tick() => {
+                        info!("Tick, publishing status");
+                        let status = status.clone();
+                        let mut switch = switch.clone();
+                        tokio::spawn(async move {
+                            let time = SystemTime::now();
+                            let mut status = status.clone();
+                            status.status_message_info.as_mut().unwrap().message_info.as_mut().unwrap().message_time_stamp = Some(Timestamp {
+                                seconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().as_secs(),
+                                nanoseconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
+                                tq: None,
+                            });
+        //                    status.switch_status_mut().switch_status_xswi_mut().pos_mut().phs3_mut().st_val = rand::thread_rng().gen_range(1..2);
+                            switch.status(status).await.unwrap();
+                        });
+                    },
                 }
-            },
-            _ = poll_interval.tick() => {
-                info!("Tick, publishing status");
-                let status = status.clone();
-                let mut switch = switch.clone();
-                tokio::spawn(async move {
-                    let time = SystemTime::now();
-                    let mut status = status.clone();
-                    status.status_message_info.as_mut().unwrap().message_info.as_mut().unwrap().message_time_stamp = Some(Timestamp {
-                        seconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().as_secs(),
-                        nanoseconds: time.duration_since(SystemTime::UNIX_EPOCH).unwrap().subsec_nanos(),
-                        tq: None,
-                    });
-//                    status.switch_status_mut().switch_status_xswi_mut().pos_mut().phs3_mut().st_val = rand::thread_rng().gen_range(1..2);
-                    switch.status(status).await.unwrap();
-                });
-            },
-        }
     }
 }
