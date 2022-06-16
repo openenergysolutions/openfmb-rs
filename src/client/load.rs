@@ -3,23 +3,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::{prelude::*, topic};
-use futures::{stream, StreamExt};
-use log::trace;
-use openfmb_messages::{commonmodule::*, loadmodule::*, *};
-use openfmb_messages_ext::load::LoadControlExt;
+use openfmb_messages::loadmodule::*;
 use uuid::Uuid;
 
-use std::time;
-
-/// Control and wait on updates from a load
-///
-/// Every function implies a request for the next future state of the switch
-/// rather than the last seen state. A variant of this interface could possibly
-/// look at the *last* known status and reading instead.
-///
-/// When writing control algorithms however it is easier determine the next
-/// known good value and *then* control it rather than looking at an old status
-/// which may be too old to be useful.
 pub struct Load<MB>
 where
     MB: Subscriber<LoadStatusProfile>
@@ -58,6 +44,7 @@ where
         }
     }
 
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }

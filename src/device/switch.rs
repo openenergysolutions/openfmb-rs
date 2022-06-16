@@ -10,8 +10,6 @@ use openfmb_messages::{
 };
 use uuid::Uuid;
 
-/// Provide functionality to publish and accept messages a switch device
-/// needs.
 #[derive(Debug, Clone)]
 pub struct Switch<MB>
 where

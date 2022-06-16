@@ -22,7 +22,7 @@ where
         + Subscriber<BreakerDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -46,7 +46,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Breaker<MB> {
         Breaker {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::BreakerStatusProfile, &mrid),
             event_topic: topic(Profile::BreakerEventProfile, &mrid),
             reading_topic: topic(Profile::BreakerReadingProfile, &mrid),

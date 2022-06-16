@@ -20,7 +20,7 @@ where
         + Subscriber<CircuitSegmentControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     control_topic: ProfileTopic,
@@ -41,7 +41,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> CircuitSegment<MB> {
         CircuitSegment {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::CircuitSegmentStatusProfile, &mrid),
             event_topic: topic(Profile::CircuitSegmentEventProfile, &mrid),
             control_topic: topic(Profile::CircuitSegmentControlProfile, &mrid),

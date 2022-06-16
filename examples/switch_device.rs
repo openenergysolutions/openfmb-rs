@@ -6,7 +6,6 @@ use futures::stream::StreamExt;
 use log::info;
 use openfmb::encoding::ProtobufEncoding;
 use openfmb_messages::{commonmodule::*, switchmodule::*};
-use rand::Rng;
 use std::env;
 use std::time::SystemTime;
 use tokio::time;

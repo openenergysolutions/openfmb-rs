@@ -3,23 +3,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::{prelude::*, topic};
-use futures::{stream, StreamExt};
-
-use openfmb_messages::{commonmodule::*, generationmodule::*};
-
-use openfmb_messages_ext::GenerationControlExt;
-use std::time;
+use openfmb_messages::generationmodule::*;
 use uuid::Uuid;
 
-/// Control and wait on updates from Generation
-///
-/// Every function implies a request for the next future state of the generator
-/// rather than the last seen state. A variant of this interface could possibly
-/// look at the *last* known status and reading instead.
-///
-/// When writing control algorithms however it is easier determine the next
-/// known good value and *then* control it rather than looking at an old status
-/// which may be too old to be useful.
 pub struct Generation<MB>
 where
     MB: Subscriber<GenerationStatusProfile>
@@ -59,7 +45,7 @@ where
         }
     }
 
-    /// Get the device MRID as a string
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }

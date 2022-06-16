@@ -2,21 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::prelude::*;
-use openfmb_messages::{commonmodule::*, solarmodule::*, Module, Profile};
-use openfmb_messages_ext::solar::SolarControlExt;
-
+use openfmb_messages::{solarmodule::*, Module, Profile};
 use uuid::Uuid;
 
-use std::time;
-
-/// Provide functionality to publish and accept messages a switch device
-/// needs.
-#[derive(Debug, Clone)]
 pub struct Solar<MB>
 where
-    MB: std::fmt::Debug
-        + Clone
-        + Subscriber<SolarStatusProfile>
+    MB: Subscriber<SolarStatusProfile>
         + Subscriber<SolarEventProfile>
         + Subscriber<SolarReadingProfile>
         + Publisher<SolarControlProfile>,
@@ -35,9 +26,7 @@ fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
 
 impl<MB> Solar<MB>
 where
-    MB: std::fmt::Debug
-        + Clone
-        + Subscriber<SolarStatusProfile>
+    MB: Subscriber<SolarStatusProfile>
         + Subscriber<SolarEventProfile>
         + Subscriber<SolarReadingProfile>
         + Publisher<SolarControlProfile>,
@@ -54,6 +43,7 @@ where
         }
     }
 
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }

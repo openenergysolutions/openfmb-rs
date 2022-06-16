@@ -22,7 +22,7 @@ where
         + Subscriber<ResourceDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -46,7 +46,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Resource<MB> {
         Resource {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::ResourceStatusProfile, &mrid),
             event_topic: topic(Profile::ResourceEventProfile, &mrid),
             reading_topic: topic(Profile::ResourceReadingProfile, &mrid),

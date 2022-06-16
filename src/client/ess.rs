@@ -14,15 +14,6 @@ use openfmb_messages_ext::EssControlExt;
 use std::time::SystemTime;
 use uuid::Uuid;
 
-/// Control and wait on updates from ESS (battery/storage)
-///
-/// Every function implies a request for the next future state of the ess
-/// rather than the last seen state. A variant of this interface could possibly
-/// look at the *last* known status and reading instead.
-///
-/// When writing control algorithms however it is easier determine the next
-/// known good value and *then* control it rather than looking at an old status
-/// which may be too old to be useful.
 pub struct Ess<MB>
 where
     MB: Subscriber<EssStatusProfile>
@@ -62,7 +53,7 @@ where
         }
     }
 
-    /// Get the device MRID as a string
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }

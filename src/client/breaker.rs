@@ -3,13 +3,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::{prelude::*, topic};
-use futures::{stream, StreamExt};
-use log::trace;
-use openfmb_messages::{breakermodule::*, commonmodule::*, *};
-use openfmb_messages_ext::breaker::BreakerControlExt;
+use openfmb_messages::breakermodule::*;
 use uuid::Uuid;
-
-use std::time;
 
 pub struct Breaker<MB>
 where
@@ -50,6 +45,7 @@ where
         }
     }
 
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }
