@@ -3,13 +3,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::{prelude::*, topic};
-use futures::{stream, StreamExt};
-use log::trace;
-use openfmb_messages::{commonmodule::*, reclosermodule::*, *};
-use openfmb_messages_ext::recloser::RecloserControlExt;
+use openfmb_messages::reclosermodule::*;
 use uuid::Uuid;
-
-use std::time;
 
 pub struct Recloser<MB>
 where
@@ -49,6 +44,7 @@ where
         }
     }
 
+    #[allow(dead_code)]
     fn mrid_as_string(&self) -> String {
         format!("{}", self.mrid.hyphenated())
     }

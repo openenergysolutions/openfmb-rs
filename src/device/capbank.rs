@@ -11,8 +11,6 @@ use openfmb_messages::{
 };
 use uuid::Uuid;
 
-/// Provide functionality to publish and accept messages a capbank device
-/// needs.
 #[derive(Debug, Clone)]
 pub struct CapBank<MB>
 where
@@ -25,7 +23,7 @@ where
         + Subscriber<CapBankDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -51,7 +49,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> CapBank<MB> {
         CapBank {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::CapBankStatusProfile, &mrid),
             event_topic: topic(Profile::CapBankEventProfile, &mrid),
             reading_topic: topic(Profile::CapBankReadingProfile, &mrid),

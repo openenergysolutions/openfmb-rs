@@ -9,8 +9,6 @@ use openfmb_messages::{
 
 use uuid::Uuid;
 
-/// Provide functionality to publish and accept messages a switch device
-/// needs.
 #[derive(Debug, Clone)]
 pub struct Ess<MB>
 where
@@ -22,7 +20,7 @@ where
         + Subscriber<EssControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -46,7 +44,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Ess<MB> {
         Ess {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::ESSStatusProfile, &mrid),
             event_topic: topic(Profile::ESSEventProfile, &mrid),
             reading_topic: topic(Profile::ESSReadingProfile, &mrid),

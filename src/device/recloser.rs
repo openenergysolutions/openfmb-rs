@@ -22,7 +22,7 @@ where
         + Subscriber<RecloserDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -46,7 +46,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Recloser<MB> {
         Recloser {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::RecloserStatusProfile, &mrid),
             event_topic: topic(Profile::RecloserEventProfile, &mrid),
             reading_topic: topic(Profile::RecloserReadingProfile, &mrid),

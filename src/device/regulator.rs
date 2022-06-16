@@ -11,8 +11,6 @@ use openfmb_messages::{
 };
 use uuid::Uuid;
 
-/// Provide functionality to publish and accept messages a regulator device
-/// needs.
 #[derive(Debug, Clone)]
 pub struct Regulator<MB>
 where
@@ -25,7 +23,7 @@ where
         + Subscriber<RegulatorDiscreteControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -51,7 +49,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Regulator<MB> {
         Regulator {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::RegulatorStatusProfile, &mrid),
             event_topic: topic(Profile::RegulatorEventProfile, &mrid),
             reading_topic: topic(Profile::RegulatorReadingProfile, &mrid),

@@ -19,7 +19,7 @@ where
         + Subscriber<LoadControlProfile>,
 {
     bus: MB,
-    mrid: Uuid,
+    _mrid: Uuid,
     status_topic: ProfileTopic,
     event_topic: ProfileTopic,
     reading_topic: ProfileTopic,
@@ -43,7 +43,7 @@ where
     pub fn new(bus: MB, mrid: Uuid) -> Load<MB> {
         Load {
             bus,
-            mrid,
+            _mrid: mrid,
             status_topic: topic(Profile::LoadStatusProfile, &mrid),
             event_topic: topic(Profile::LoadEventProfile, &mrid),
             reading_topic: topic(Profile::LoadReadingProfile, &mrid),
