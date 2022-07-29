@@ -9,7 +9,7 @@ use uuid::Uuid;
 use openfmb_messages::{commonmodule::*, *};
 use regulatormodule::RegulatorStatusProfile;
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtStatus};
+use crate::{error::*, OpenFMBExt, OpenFMBExtStatus, StatusProfileExt};
 
 impl OpenFMBExtStatus for RegulatorStatusProfile {
     fn status_message_info(&self) -> OpenFMBResult<&StatusMessageInfo> {
@@ -22,7 +22,29 @@ impl OpenFMBExtStatus for RegulatorStatusProfile {
 
 impl OpenFMBExt for RegulatorStatusProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
-        Ok("".into())
+        match self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .state
+            .as_ref()
+            .context(NoState)
+        {
+            Ok(state) => match state.value {
+                0 => Ok("Undefined".into()),
+                1 => Ok("Off".into()),
+                2 => Ok("On".into()),
+                3 => Ok("StandBy".into()),
+                _ => Err(OpenFMBError::InvalidValue),
+            },
+            Err(_) => Err(OpenFMBError::InvalidOpenFMBMessage),
+        }
     }
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
@@ -67,5 +89,228 @@ impl OpenFMBExt for RegulatorStatusProfile {
             .name
             .clone()
             .context(NoName)?)
+    }
+}
+
+pub trait RegulatorStatusExt: StatusProfileExt {
+    fn tap_pos_phs3(&self) -> OpenFMBResult<i32>;
+    fn tap_pos_phs_a(&self) -> OpenFMBResult<i32>;
+    fn tap_pos_phs_b(&self) -> OpenFMBResult<i32>;
+    fn tap_pos_phs_c(&self) -> OpenFMBResult<i32>;
+
+    fn vol_lmt_hi_phs3(&self) -> OpenFMBResult<bool>;
+    fn vol_lmt_lo_phs3(&self) -> OpenFMBResult<bool>;
+
+    fn voltage_setpoint_enabled(&self) -> OpenFMBResult<bool>;
+
+    fn bnd_wid_hi_phs3(&self) -> OpenFMBResult<bool>;
+    fn bnd_wid_lo_phs3(&self) -> OpenFMBResult<bool>;
+
+    fn state(&self) -> OpenFMBResult<StateKind>;
+}
+
+impl StatusProfileExt for RegulatorStatusProfile {}
+
+impl RegulatorStatusExt for RegulatorStatusProfile {
+    fn tap_pos_phs3(&self) -> OpenFMBResult<i32> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .tap_pos
+            .as_ref()
+            .context(NoTapPos)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn tap_pos_phs_a(&self) -> OpenFMBResult<i32> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .tap_pos
+            .as_ref()
+            .context(NoTapPos)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .st_val)
+    }
+
+    fn tap_pos_phs_b(&self) -> OpenFMBResult<i32> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .tap_pos
+            .as_ref()
+            .context(NoTapPos)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .st_val)
+    }
+
+    fn tap_pos_phs_c(&self) -> OpenFMBResult<i32> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .tap_pos
+            .as_ref()
+            .context(NoTapPos)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
+            .st_val)
+    }
+
+    fn vol_lmt_hi_phs3(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .vol_lmt_hi
+            .as_ref()
+            .context(NoVolLmtHi)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn vol_lmt_lo_phs3(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .vol_lmt_lo
+            .as_ref()
+            .context(NoVolLmtLo)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn bnd_wid_hi_phs3(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .bnd_wid_hi
+            .as_ref()
+            .context(NoBndWidHi)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn bnd_wid_lo_phs3(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .bnd_wid_lo
+            .as_ref()
+            .context(NoBndWidLo)?
+            .phs3
+            .as_ref()
+            .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn voltage_setpoint_enabled(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .voltage_set_point_enabled
+            .as_ref()
+            .context(NoVoltageSetPointEnabled)?
+            .st_val)
+    }
+
+    fn state(&self) -> OpenFMBResult<StateKind> {
+        Ok(
+            match self
+                .regulator_status
+                .as_ref()
+                .context(NoRegulatorStatus)?
+                .regulator_event_and_status_ancr
+                .as_ref()
+                .context(NoRegulatorEventAndStatusAncr)?
+                .point_status
+                .as_ref()
+                .context(NoPointStatus)?
+                .state
+                .as_ref()
+                .context(NoState)?
+                .value
+            {
+                1 => StateKind::Off,
+                2 => StateKind::On,
+                3 => StateKind::Standby,
+                _ => StateKind::Undefined,
+            },
+        )
     }
 }

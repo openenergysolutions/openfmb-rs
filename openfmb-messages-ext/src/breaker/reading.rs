@@ -96,6 +96,13 @@ impl OpenFMBExtReading for BreakerReadingProfile {
 
 pub trait BreakerReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
+    fn w_net_load_side(&self) -> OpenFMBResult<f64>;
+
+    fn v_net(&self) -> OpenFMBResult<f64>;
+    fn v_net_load_side(&self) -> OpenFMBResult<f64>;
+
+    fn a_net(&self) -> OpenFMBResult<f64>;
+    fn a_net_load_side(&self) -> OpenFMBResult<f64>;
 }
 
 impl BreakerReadingExt for BreakerReadingProfile {
@@ -112,6 +119,126 @@ impl BreakerReadingExt for BreakerReadingProfile {
                 .w
                 .as_ref()
                 .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn w_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() || self.breaker_reading.len() < 2 {
+            return Ok(self
+                .breaker_reading
+                .get(1)
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn v_net(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .ph_v
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn v_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() || self.breaker_reading.len() < 2 {
+            return Ok(self
+                .breaker_reading
+                .get(1)
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .ph_v
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .a
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn a_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() || self.breaker_reading.len() < 2 {
+            return Ok(self
+                .breaker_reading
+                .get(1)
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .a
+                .as_ref()
+                .context(NoValue)?
                 .net
                 .as_ref()
                 .context(NoNet)?

@@ -7,7 +7,7 @@ use snafu::{OptionExt, ResultExt};
 use std::str::FromStr;
 use uuid::Uuid;
 
-use crate::{error::*, ControlProfileExt, OpenFMBExt};
+use crate::{error::*, ControlProfileExt, OpenFMBExt, Phase};
 
 impl OpenFMBExt for RegulatorDiscreteControlProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -93,6 +93,43 @@ pub trait RegulatorDiscreteControlExt: ControlProfileExt {
 
     fn build_tap_lower_phs_c_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
     fn build_tap_raise_phs_c_profile(m_rid: &str, ct_val: bool) -> RegulatorDiscreteControlProfile;
+
+    // Dir Fwd
+
+    fn dir_fwd_bnd_wid_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile;
+    fn dir_fwd_ldcr_msg(m_rid: &str, phase: Phase, ctl_val: f64)
+        -> RegulatorDiscreteControlProfile;
+    fn dir_fwd_ldcx_msg(m_rid: &str, phase: Phase, ctl_val: f64)
+        -> RegulatorDiscreteControlProfile;
+    fn dir_fwd_vol_spt_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile;
+
+    // Dir Rev
+
+    fn dir_rev_bnd_wid_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile;
+    fn dir_rev_ldcr_msg(m_rid: &str, phase: Phase, ctl_val: f64)
+        -> RegulatorDiscreteControlProfile;
+    fn dir_rev_ldcx_msg(m_rid: &str, phase: Phase, ctl_val: f64)
+        -> RegulatorDiscreteControlProfile;
+    fn dir_rev_vol_spt_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile;
+
+    // Dir Mode
+    fn dir_mode(m_rid: &str, mode: i32) -> RegulatorDiscreteControlProfile;
 }
 
 impl RegulatorDiscreteControlExt for RegulatorDiscreteControlProfile {
@@ -290,6 +327,853 @@ impl RegulatorDiscreteControlExt for RegulatorDiscreteControlProfile {
                         phs_c: Some(ControlSpc { ctl_val: ct_val }),
                         ..Default::default()
                     }),
+                    ..Default::default()
+                }),
+            }),
+        }
+    }
+
+    fn dir_fwd_bnd_wid_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_fwd_ldcr_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_fwd_ldcx_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_fwd_vol_spt_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_fwd: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_rev_bnd_wid_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            bnd_wid: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_rev_ldcr_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcr: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_rev_ldcx_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            ldcx: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_rev_vol_spt_msg(
+        m_rid: &str,
+        phase: Phase,
+        ctl_val: f64,
+    ) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+        match phase {
+            Phase::Phs3 => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs3: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsA => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_a: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsB => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_b: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+            Phase::PhsC => RegulatorDiscreteControlProfile {
+                control_message_info: Some(msg_info),
+                regulator_system: Some(RegulatorSystem {
+                    conducting_equipment: Some(ConductingEquipment {
+                        named_object: None,
+                        m_rid: m_rid.to_string(),
+                    }),
+                }),
+                regulator_discrete_control: Some(RegulatorDiscreteControl {
+                    control_value: None,
+                    check: None,
+                    regulator_control_atcc: Some(RegulatorControlAtcc {
+                        dir_rev: Some(DirectionalAtcc {
+                            vol_spt: Some(PhaseApc {
+                                phs_c: Some(ControlApc { ctl_val: ctl_val }),
+                                ..Default::default()
+                            }),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                }),
+            },
+        }
+    }
+
+    fn dir_mode(m_rid: &str, mode: i32) -> RegulatorDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RegulatorDiscreteControlProfile::build_control_message_info();
+
+        RegulatorDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            regulator_system: Some(RegulatorSystem {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+            }),
+            regulator_discrete_control: Some(RegulatorDiscreteControl {
+                control_value: None,
+                check: None,
+                regulator_control_atcc: Some(RegulatorControlAtcc {
+                    dir_mode: Some(OptionalDirectionModeKind { value: mode }),
                     ..Default::default()
                 }),
             }),

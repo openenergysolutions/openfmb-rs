@@ -92,6 +92,10 @@ impl OpenFMBExtReading for MeterReadingProfile {
 
 pub trait MeterReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
+
+    fn v_net(&self) -> OpenFMBResult<f64>;
+
+    fn a_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl MeterReadingExt for MeterReadingProfile {
@@ -106,6 +110,46 @@ impl MeterReadingExt for MeterReadingProfile {
             .w
             .as_ref()
             .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn v_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
             .net
             .as_ref()
             .context(NoNet)?

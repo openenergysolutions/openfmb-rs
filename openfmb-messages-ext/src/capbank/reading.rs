@@ -9,7 +9,7 @@ use uuid::Uuid;
 use capbankmodule::CapBankReadingProfile;
 use openfmb_messages::{commonmodule::*, *};
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, ReadingProfileExt};
 
 impl OpenFMBExtReading for CapBankReadingProfile {
     fn reading_message_info(&self) -> OpenFMBResult<&ReadingMessageInfo> {
@@ -69,3 +69,75 @@ impl OpenFMBExt for CapBankReadingProfile {
             .context(NoName)?)
     }
 }
+
+pub trait CapBankReadingExt: ReadingProfileExt {
+    fn w_net(&self) -> OpenFMBResult<f64>;
+
+    fn v_net(&self) -> OpenFMBResult<f64>;
+
+    fn a_net(&self) -> OpenFMBResult<f64>;
+}
+
+impl CapBankReadingExt for CapBankReadingProfile {
+    fn w_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .cap_bank_reading
+            .as_ref()
+            .context(NoCapBankReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn v_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .cap_bank_reading
+            .as_ref()
+            .context(NoCapBankReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .cap_bank_reading
+            .as_ref()
+            .context(NoCapBankReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+}
+
+impl ReadingProfileExt for CapBankReadingProfile {}

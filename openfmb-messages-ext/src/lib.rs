@@ -32,13 +32,13 @@ pub mod switch;
 pub mod utils;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
-pub use capbank::CapBankControlExt;
+pub use capbank::{CapBankControlExt, CapBankReadingExt, CapBankStatusExt};
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
 pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
 pub use recloser::{RecloserControlExt, RecloserReadingExt};
-pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
+pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt, RegulatorStatusExt};
 pub use resource::ResourceControlExt;
 pub use solar::{SolarControlExt, SolarReadingExt};
 pub use switch::{SwitchControlExt, SwitchReadingExt};
@@ -46,6 +46,12 @@ pub use utils::*;
 
 pub trait ReadingProfileExt {}
 pub trait StatusProfileExt {}
+
+/// Measurement reading side, either source or load
+pub enum Side {
+    Source = 0,
+    Load,
+}
 
 pub trait ControlProfileExt {
     fn build_control_message_info() -> ControlMessageInfo {
