@@ -63,6 +63,8 @@ impl OpenFMBExt for EssReadingProfile {
 
 pub trait EssReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
+
+    fn q_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl EssReadingExt for EssReadingProfile {
@@ -75,6 +77,26 @@ impl EssReadingExt for EssReadingProfile {
             .as_ref()
             .context(NoReadingMmxu)?
             .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn q_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .v_ar
             .as_ref()
             .context(NoW)?
             .net

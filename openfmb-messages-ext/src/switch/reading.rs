@@ -95,6 +95,9 @@ pub trait SwitchReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
     fn w_net_load_side(&self) -> OpenFMBResult<f64>;
 
+    fn q_net(&self) -> OpenFMBResult<f64>;
+    fn q_net_load_side(&self) -> OpenFMBResult<f64>;
+
     fn v_net(&self) -> OpenFMBResult<f64>;
     fn v_net_load_side(&self) -> OpenFMBResult<f64>;
 
@@ -127,6 +130,30 @@ impl SwitchReadingExt for SwitchReadingProfile {
         Err(OpenFMBError::NoSwitchReading)
     }
 
+    fn q_net(&self) -> OpenFMBResult<f64> {
+        if !self.switch_reading.is_empty() {
+            return Ok(self
+                .switch_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
     fn w_net_load_side(&self) -> OpenFMBResult<f64> {
         if !self.switch_reading.is_empty() || self.switch_reading.len() < 2 {
             return Ok(self
@@ -138,6 +165,30 @@ impl SwitchReadingExt for SwitchReadingProfile {
                 .as_ref()
                 .context(NoReadingMmxu)?
                 .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn q_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.switch_reading.is_empty() || self.switch_reading.len() < 2 {
+            return Ok(self
+                .switch_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
                 .as_ref()
                 .context(NoW)?
                 .net

@@ -93,6 +93,7 @@ impl OpenFMBExtReading for SolarReadingProfile {
 
 pub trait SolarReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
+    fn q_net(&self) -> OpenFMBResult<f64>;
 }
 
 impl SolarReadingExt for SolarReadingProfile {
@@ -105,6 +106,26 @@ impl SolarReadingExt for SolarReadingProfile {
             .as_ref()
             .context(NoReadingMmxu)?
             .w
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn q_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .solar_reading
+            .as_ref()
+            .context(NoSolarReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .v_ar
             .as_ref()
             .context(NoW)?
             .net

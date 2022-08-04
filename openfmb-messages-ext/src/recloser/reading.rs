@@ -74,6 +74,9 @@ pub trait RecloserReadingExt: ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
     fn w_net_load_side(&self) -> OpenFMBResult<f64>;
 
+    fn q_net(&self) -> OpenFMBResult<f64>;
+    fn q_net_load_side(&self) -> OpenFMBResult<f64>;
+
     fn v_net(&self) -> OpenFMBResult<f64>;
     fn v_net_load_side(&self) -> OpenFMBResult<f64>;
 
@@ -106,6 +109,30 @@ impl RecloserReadingExt for RecloserReadingProfile {
         Err(OpenFMBError::NoRecloserReading)
     }
 
+    fn q_net(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
     fn w_net_load_side(&self) -> OpenFMBResult<f64> {
         if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
             return Ok(self
@@ -117,6 +144,30 @@ impl RecloserReadingExt for RecloserReadingProfile {
                 .as_ref()
                 .context(NoReadingMmxu)?
                 .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn q_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
+            return Ok(self
+                .recloser_reading
+                .get(1)
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
                 .as_ref()
                 .context(NoW)?
                 .net

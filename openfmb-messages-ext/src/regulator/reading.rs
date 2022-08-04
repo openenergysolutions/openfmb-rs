@@ -72,6 +72,7 @@ impl OpenFMBExt for RegulatorReadingProfile {
 
 pub trait RegulatorReadingExt: ReadingProfileExt {
     fn w_net(&self, side: Side) -> OpenFMBResult<f64>;
+    fn q_net(&self, side: Side) -> OpenFMBResult<f64>;
     fn v_net(&self, side: Side) -> OpenFMBResult<f64>;
     fn a_net(&self, side: Side) -> OpenFMBResult<f64>;
 }
@@ -89,6 +90,31 @@ impl RegulatorReadingExt for RegulatorReadingProfile {
                 .as_ref()
                 .context(NoReadingMmxu)?
                 .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRegulatorReading)
+    }
+
+    fn q_net(&self, side: Side) -> OpenFMBResult<f64> {
+        let index = side as usize;
+        if !self.regulator_reading.is_empty() && self.regulator_reading.len() > index {
+            return Ok(self
+                .regulator_reading
+                .get(index)
+                .as_ref()
+                .context(NoRegulatorReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
                 .as_ref()
                 .context(NoW)?
                 .net
