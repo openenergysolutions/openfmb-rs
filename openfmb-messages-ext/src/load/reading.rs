@@ -79,6 +79,9 @@ pub trait LoadReadingExt: ReadingProfileExt {
     fn q_net(&self) -> OpenFMBResult<f64>;
 
     fn v_net(&self) -> OpenFMBResult<f64>;
+    fn v_phs_a(&self) -> OpenFMBResult<f64>;
+    fn v_phs_b(&self) -> OpenFMBResult<f64>;
+    fn v_phs_c(&self) -> OpenFMBResult<f64>;
 
     fn a_net(&self) -> OpenFMBResult<f64>;
 }
@@ -138,6 +141,66 @@ impl LoadReadingExt for LoadReadingProfile {
             .net
             .as_ref()
             .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn v_phs_a(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoValue)?
+            .phs_a
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn v_phs_b(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoValue)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn v_phs_c(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoValue)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
             .c_val
             .as_ref()
             .context(NoCVal)?
