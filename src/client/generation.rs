@@ -5,15 +5,10 @@
 use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 
-use openfmb_messages::{
-    commonmodule::GridConnectModeKind,
-    generationmodule::{
-        GenerationControlProfile, GenerationEventProfile, GenerationReadingProfile, GenerationStatusProfile,
-    },
-};
+use openfmb_messages::{commonmodule::*, generationmodule::*};
 
 use openfmb_messages_ext::GenerationControlExt;
-use std::time::SystemTime;
+use std::time;
 use uuid::Uuid;
 
 /// Control and wait on updates from Generation
@@ -54,9 +49,9 @@ where
 {
     /// Create a new switch client instance
     pub fn new(bus: MB, mrid: Uuid) -> Generation<MB> {
-        Generation { 
-            bus, 
-            mrid, 
+        Generation {
+            bus,
+            mrid,
             status_topic: topic(Profile::GenerationStatusProfile, &mrid),
             event_topic: topic(Profile::GenerationEventProfile, &mrid),
             reading_topic: topic(Profile::GenerationReadingProfile, &mrid),
@@ -74,10 +69,7 @@ where
     /// The return may be treated as a stream or as a future returning the
     /// next event
     pub async fn status(&mut self) -> SubscribeResult<GenerationStatusProfile> {
-        self
-            .bus
-            .subscribe(self.status_topic.iter())
-            .await
+        self.bus.subscribe(self.status_topic.iter()).await
     }
 
     /// A stream to this devices reading messages
@@ -96,34 +88,54 @@ where
         Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
     }
 
-    // generation_reading -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
+    // generation_reading -> mmxu (ReadingMmxu) -> w (wye) -> net(cmv) -> cval(vec) -> mag (f64)
     pub async fn p(&mut self) -> SubscribeResult<f64> {
         let watts = self.reading().await?.map(|s| match s {
-            Ok(s) => Ok(
-                        s.generation_reading.unwrap()
-                         .reading_mmxu.unwrap()
-                         .w.unwrap()
-                         .net.unwrap()
-                         .c_val.unwrap()
-                         .mag),
+            Ok(s) => Ok(s
+                .generation_reading
+                .unwrap()
+                .reading_mmxu
+                .unwrap()
+                .w
+                .unwrap()
+                .net
+                .unwrap()
+                .c_val
+                .unwrap()
+                .mag),
             Err(err) => Err(err),
         });
         Ok(Box::pin(watts))
     }
 
-    // generation_reading -> mmxu (ReadingMmxu) -> v_ar (wye) -> net(cmv) -> cval(vec) -> mag (f64) 
+    // generation_reading -> mmxu (ReadingMmxu) -> v_ar (wye) -> net(cmv) -> cval(vec) -> mag (f64)
     pub async fn q(&mut self) -> SubscribeResult<f64> {
         let var = self.reading().await?.map(|s| match s {
-            Ok(s) => Ok(s.generation_reading.unwrap()
-                            .reading_mmxu.unwrap()
-                            .v_ar.unwrap()
-                            .net.unwrap()
-                            .c_val.unwrap()
-                            .mag),
+            Ok(s) => Ok(s
+                .generation_reading
+                .unwrap()
+                .reading_mmxu
+                .unwrap()
+                .v_ar
+                .unwrap()
+                .net
+                .unwrap()
+                .c_val
+                .unwrap()
+                .mag),
             Err(err) => Err(err),
         });
         Ok(Box::pin(var))
     }
 
-
+    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
+        let mut msg = GenerationControlProfile::generator_on_msg(&self.mrid_as_string(), 0_f64);
+        *msg.generation_control_mut()
+            .generation_control_fscc_mut()
+            .control_fscc_mut()
+            .control_schedule_fsch_mut()
+            .val_acsg_mut()
+            .sch_pts_mut() = sch_pts;
+        Ok(self.control(msg).await?)
+    }
 }

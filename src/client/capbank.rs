@@ -5,16 +5,11 @@
 use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 use log::trace;
-use openfmb_messages::{
-    capbankmodule::{
-        CapBankControlProfile, CapBankDiscreteControlProfile, CapBankEventProfile,
-        CapBankReadingProfile, CapBankStatusProfile,
-    },
-    commonmodule::{DbPosKind, DynamicTestKind},
-};
-use openfmb_messages::{commonmodule::*, *};
+use openfmb_messages::{capbankmodule::*, commonmodule::*, *};
 use openfmb_messages_ext::capbank::CapBankControlExt;
 use uuid::Uuid;
+
+use std::time;
 
 /// Control and wait on updates from a switch
 ///
@@ -115,27 +110,21 @@ where
             .await?)
     }
 
-    /// Set a `WNetMag` schedule for this capbank device asynchronously
+    /// Publish a set of `SchedulePoint`s to a capbank device.
     ///
     /// Awaits on publishing but no change awaited on
-    pub async fn set_WNetMag_schedule(&mut self, value: f64) -> PublishResult<()> {
-        let msg = CapBankControlProfile::capbank_schedule_message(
+    pub async fn schedule(&mut self, sch_pts: Vec<SchedulePoint>) -> PublishResult<()> {
+        let mut msg = CapBankControlProfile::capbank_schedule_message(
             &self.mrid_as_string(),
             ScheduleParameterKind::WNetMag,
-            value,
+            0_f64,
         );
-        Ok(self.control(msg).await?)
-    }
-
-    /// Set a `VArNetMag` schedule for this capbank device asynchronously
-    ///
-    /// Awaits on publishing but no change awaited on
-    pub async fn set_VArNetMag_schedule(&mut self, value: f64) -> PublishResult<()> {
-        let msg = CapBankControlProfile::capbank_schedule_message(
-            &self.mrid_as_string(),
-            ScheduleParameterKind::VArNetMag,
-            value,
-        );
+        *msg.cap_bank_control_mut()
+            .cap_bank_control_fscc_mut()
+            .control_fscc_mut()
+            .control_schedule_fsch_mut()
+            .val_acsg_mut()
+            .sch_pts_mut() = sch_pts;
         Ok(self.control(msg).await?)
     }
 }
