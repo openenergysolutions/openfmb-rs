@@ -148,6 +148,26 @@ where
         Ok(Box::pin(var))
     }
 
+    pub async fn power(&mut self) -> SubscribeResult<Vec<f64>> {
+        let p = self.reading().await?.map(|s| match s {
+            Ok(s) => Ok(vec![
+                s.ess_reading.unwrap()
+                .reading_mmxu.unwrap()
+                .w.unwrap()
+                .net.unwrap()
+                .c_val.unwrap()
+                .mag,
+                s.ess_reading.unwrap()
+                            .reading_mmxu.unwrap()
+                            .v_ar.unwrap()
+                            .net.unwrap()
+                            .c_val.unwrap()
+                            .mag
+            ]),
+            Err(err) => Err(err),
+        });
+        Ok(Box::pin(pow))
+    }
 
 
     pub async fn is_synchro_enabled(&mut self) -> SubscribeResult<bool> {
