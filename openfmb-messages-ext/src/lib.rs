@@ -37,7 +37,7 @@ pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
 pub use generation::{GenerationControlExt, GenerationReadingExt};
 pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
-pub use meter::{MeterReadingExt};
+pub use meter::MeterReadingExt;
 pub use recloser::{RecloserControlExt, RecloserReadingExt};
 pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt};
 pub use resource::ResourceControlExt;
