@@ -99,6 +99,7 @@ impl OpenFMBExtStatus for SolarStatusProfile {
 
 pub trait SolarStatusExt: StatusProfileExt {
     fn solar_state(&self) -> OpenFMBResult<StateKind>;
+    fn pct_v_droop(&self) -> OpenFMBResult<Option<f32>>;
 }
 
 impl SolarStatusExt for SolarStatusProfile {
@@ -120,6 +121,24 @@ impl SolarStatusExt for SolarStatusProfile {
             .as_ref()
             .context(NoState)?
             .value())
+    }
+
+    fn pct_v_droop(&self) -> OpenFMBResult<Option<f32>> {
+        Ok(self
+            .solar_status
+            .as_ref()
+            .context(NoSolarStatus)?
+            .solar_status_zgen
+            .as_ref()
+            .context(NoSolarStatusZGen)?
+            .solar_event_and_status_zgen
+            .as_ref()
+            .context(NoSolarEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .pct_v_droop            
+        )
     }
 }
 
