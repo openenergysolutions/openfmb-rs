@@ -137,8 +137,7 @@ impl SolarStatusExt for SolarStatusProfile {
             .point_status
             .as_ref()
             .context(NoPointStatus)?
-            .pct_v_droop            
-        )
+            .pct_v_droop)
     }
 }
 
