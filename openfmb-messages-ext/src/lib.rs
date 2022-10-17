@@ -31,7 +31,7 @@ pub mod switch;
 pub mod utils;
 
 pub use breaker::{BreakerControlExt, BreakerReadingExt};
-pub use capbank::CapBankControlExt;
+pub use capbank::{CapBankControlExt, CapBankDiscreteControlExt};
 pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
