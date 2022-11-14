@@ -184,6 +184,8 @@ message GenericControl
         WPhsAMag = 82;
         WPhsBMag = 83;
         WPhsCMag = 84;
+        SetValueOn = 85;
+        SetValueOff = 86;
     }
 }
 

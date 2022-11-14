@@ -4,7 +4,7 @@
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
-    commonmodule::{ConductingEquipment, ControlApc, MessageInfo},
+    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, MessageInfo},
     resourcemodule::{
         AnalogControlGgio, BooleanControlGgio, IntegerControlGgio, ResourceDiscreteControl,
         ResourceDiscreteControlProfile, StringControlGgio,
@@ -54,8 +54,12 @@ impl OpenFMBExt for ResourceDiscreteControlProfile {
 
 pub trait ResourceControlExt: ControlProfileExt {
     fn set_analog_msg(m_rid: &str, val: f64) -> ResourceDiscreteControlProfile {
-        Self::build_control_profile(m_rid, val, SystemTime::now())
+        Self::set_double_msg(m_rid, val, 0)
     }
+
+    fn set_double_msg(m_rid: &str, val: f64, index: usize) -> ResourceDiscreteControlProfile;
+    fn set_bool_msg(m_rid: &str, val: bool, index: usize) -> ResourceDiscreteControlProfile;
+    fn set_int_msg(m_rid: &str, val: i32, index: usize) -> ResourceDiscreteControlProfile;
 
     fn build_control_profile(
         m_rid: &str,
@@ -100,6 +104,102 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 identified_object: None,
                 boolean_control_ggio: vec![],
                 integer_control_ggio: vec![],
+                string_control_ggio: vec![],
+            }),
+        }
+    }
+
+    fn set_double_msg(m_rid: &str, val: f64, index: usize) -> ResourceDiscreteControlProfile {
+        let mut controls: Vec<AnalogControlGgio> = Vec::new();
+        for _n in 0..index {
+            controls.push(AnalogControlGgio {
+                logical_node: None,
+                phase: None,
+                an_out: None,
+            });
+        }
+        controls.push(AnalogControlGgio {
+            logical_node: None,
+            phase: None,
+            an_out: Some(ControlApc { ctl_val: val }),
+        });
+
+        ResourceDiscreteControlProfile {
+            control_message_info: Some(ResourceDiscreteControlProfile::build_control_message_info()),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                check: None,
+                identified_object: None,
+                boolean_control_ggio: vec![],
+                analog_control_ggio: controls,
+                integer_control_ggio: vec![],
+                string_control_ggio: vec![],
+            }),
+        }
+    }
+
+    fn set_bool_msg(m_rid: &str, val: bool, index: usize) -> ResourceDiscreteControlProfile {
+        let mut controls: Vec<BooleanControlGgio> = Vec::new();
+        for _n in 0..index {
+            controls.push(BooleanControlGgio {
+                logical_node: None,
+                phase: None,
+                spcso: None,
+            });
+        }
+        controls.push(BooleanControlGgio {
+            logical_node: None,
+            phase: None,
+            spcso: Some(ControlSpc { ctl_val: val }),
+        });
+
+        ResourceDiscreteControlProfile {
+            control_message_info: Some(ResourceDiscreteControlProfile::build_control_message_info()),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                check: None,
+                identified_object: None,
+                boolean_control_ggio: controls,
+                analog_control_ggio: vec![],
+                integer_control_ggio: vec![],
+                string_control_ggio: vec![],
+            }),
+        }
+    }
+
+    fn set_int_msg(m_rid: &str, val: i32, index: usize) -> ResourceDiscreteControlProfile {
+        let mut controls: Vec<IntegerControlGgio> = Vec::new();
+        for _n in 0..index {
+            controls.push(IntegerControlGgio {
+                logical_node: None,
+                phase: None,
+                iscso: None,
+            });
+        }
+        controls.push(IntegerControlGgio {
+            logical_node: None,
+            phase: None,
+            iscso: Some(ControlInc { ctl_val: val }),
+        });
+
+        ResourceDiscreteControlProfile {
+            control_message_info: Some(ResourceDiscreteControlProfile::build_control_message_info()),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                check: None,
+                identified_object: None,
+                boolean_control_ggio: vec![],
+                analog_control_ggio: vec![],
+                integer_control_ggio: controls,
                 string_control_ggio: vec![],
             }),
         }
