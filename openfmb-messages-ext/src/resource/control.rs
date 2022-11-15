@@ -4,7 +4,7 @@
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
-    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, MessageInfo},
+    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, Vsc, MessageInfo},
     resourcemodule::{
         AnalogControlGgio, BooleanControlGgio, IntegerControlGgio, ResourceDiscreteControl,
         ResourceDiscreteControlProfile, StringControlGgio,
@@ -60,6 +60,7 @@ pub trait ResourceControlExt: ControlProfileExt {
     fn set_double_msg(m_rid: &str, val: f64, index: usize) -> ResourceDiscreteControlProfile;
     fn set_bool_msg(m_rid: &str, val: bool, index: usize) -> ResourceDiscreteControlProfile;
     fn set_int_msg(m_rid: &str, val: i32, index: usize) -> ResourceDiscreteControlProfile;
+    fn set_string_msg(m_rid: &str, val: String, index: usize) -> ResourceDiscreteControlProfile;
 
     fn build_control_profile(
         m_rid: &str,
@@ -201,6 +202,38 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 analog_control_ggio: vec![],
                 integer_control_ggio: controls,
                 string_control_ggio: vec![],
+            }),
+        }
+    }
+
+    fn set_string_msg(m_rid: &str, val: String, index: usize) -> ResourceDiscreteControlProfile {
+        let mut controls: Vec<StringControlGgio> = Vec::new();
+        for _n in 0..index {
+            controls.push(StringControlGgio {
+                logical_node: None,
+                phase: None,
+                str_out: None,
+            });
+        }
+        controls.push(StringControlGgio {
+            logical_node: None,
+            phase: None,
+            str_out: Some(Vsc { ctl_val: val }),
+        });
+
+        ResourceDiscreteControlProfile {
+            control_message_info: Some(ResourceDiscreteControlProfile::build_control_message_info()),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                check: None,
+                identified_object: None,
+                boolean_control_ggio: vec![],
+                analog_control_ggio: vec![],
+                integer_control_ggio: vec![],
+                string_control_ggio: controls,
             }),
         }
     }

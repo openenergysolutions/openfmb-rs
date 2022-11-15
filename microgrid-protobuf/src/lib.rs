@@ -191,8 +191,10 @@ impl FromStr for generic_control::ControlType {
             "WPhsAMag" => Ok(generic_control::ControlType::WPhsAMag),
             "WPhsBMag" => Ok(generic_control::ControlType::WPhsBMag),
             "WPhsCMag" => Ok(generic_control::ControlType::WPhsCMag),
-            "SetValueOn" => Ok(generic_control::ControlType::SetValueOn),
-            "SetValueOff" => Ok(generic_control::ControlType::SetValueOff),
+            "SetGgioValueBool" => Ok(generic_control::ControlType::SetGgioValueBool),            
+            "SetGgioValueAnalog" => Ok(generic_control::ControlType::SetGgioValueAnalog),
+            "SetGgioValueInteger" => Ok(generic_control::ControlType::SetGgioValueInteger),
+            "SetGgioValueString" => Ok(generic_control::ControlType::SetGgioValueString),
             _ => {
                 println!("Unsupport Generic control {}", input);
                 Err(())
