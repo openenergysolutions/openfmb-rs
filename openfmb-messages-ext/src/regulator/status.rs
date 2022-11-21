@@ -106,6 +106,9 @@ pub trait RegulatorStatusExt: StatusProfileExt {
     fn bnd_wid_hi_phs3(&self) -> OpenFMBResult<bool>;
     fn bnd_wid_lo_phs3(&self) -> OpenFMBResult<bool>;
 
+    fn hot_line_tag(&self) -> OpenFMBResult<bool>;
+    fn tap_op_err(&self) -> OpenFMBResult<bool>;
+
     fn state(&self) -> OpenFMBResult<StateKind>;
 }
 
@@ -269,6 +272,40 @@ impl RegulatorStatusExt for RegulatorStatusProfile {
             .phs3
             .as_ref()
             .context(NoPhs3)?
+            .st_val)
+    }
+
+    fn tap_op_err(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .tap_op_err
+            .as_ref()
+            .context(NoTapOpErr)?
+            .st_val)
+    }
+
+    fn hot_line_tag(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .regulator_status
+            .as_ref()
+            .context(NoRegulatorStatus)?
+            .regulator_event_and_status_ancr
+            .as_ref()
+            .context(NoRegulatorEventAndStatusAncr)?
+            .logical_node_for_event_and_status
+            .as_ref()
+            .context(NoLogicalNodeForEventAndStatus)?
+            .hot_line_tag
+            .as_ref()
+            .context(NoHotLineTag)?
             .st_val)
     }
 
