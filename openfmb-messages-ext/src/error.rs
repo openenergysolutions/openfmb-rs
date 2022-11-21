@@ -94,6 +94,8 @@ pub enum OpenFMBError {
     NoPhsA,
     NoPhsB,
     NoPhsC,
+    NoTapOpErr,
+    NoHotLineTag,
     NoStatusAndEventXcbr,
     NoEssStatus,
     NoEssStatusZBat,
