@@ -8,6 +8,8 @@ use futures::prelude::*;
 use futures::StreamExt;
 use std::marker::PhantomData;
 
+use super::Closable;
+
 /// Nats Message Bus
 #[derive(Debug, Clone)]
 pub struct NatsBus<E: MessageEncoding> {
@@ -117,6 +119,15 @@ where
     E: 'static + MessageEncoding + Send,
     M: 'static + Send + Message<E>,
 {
+}
+
+impl<E> Closable<E> for NatsBus<E>
+where
+    E: 'static + MessageEncoding + Send,
+{
+    fn close(&self) {
+        self.conn.clone().close();
+    }
 }
 
 impl<E> NatsBus<E>

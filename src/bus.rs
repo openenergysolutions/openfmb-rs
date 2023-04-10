@@ -27,6 +27,11 @@ pub trait Subscriber<M> {
 /// typed
 pub trait MessageBus<M>: Publisher<M> + Subscriber<M> {}
 
+/// A Closable trait provides simple "close" function to disconnect from server
+pub trait Closable<M> {
+    fn close(&self);
+}
+
 #[cfg(feature = "nats")]
 mod nats;
 #[cfg(feature = "nats")]

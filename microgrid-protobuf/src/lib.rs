@@ -191,7 +191,7 @@ impl FromStr for generic_control::ControlType {
             "WPhsAMag" => Ok(generic_control::ControlType::WPhsAMag),
             "WPhsBMag" => Ok(generic_control::ControlType::WPhsBMag),
             "WPhsCMag" => Ok(generic_control::ControlType::WPhsCMag),
-            "SetGgioValueBool" => Ok(generic_control::ControlType::SetGgioValueBool),            
+            "SetGgioValueBool" => Ok(generic_control::ControlType::SetGgioValueBool),
             "SetGgioValueAnalog" => Ok(generic_control::ControlType::SetGgioValueAnalog),
             "SetGgioValueInteger" => Ok(generic_control::ControlType::SetGgioValueInteger),
             "SetGgioValueString" => Ok(generic_control::ControlType::SetGgioValueString),

@@ -4,7 +4,7 @@
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
-    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, Vsc, MessageInfo},
+    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, MessageInfo, Vsc},
     resourcemodule::{
         AnalogControlGgio, BooleanControlGgio, IntegerControlGgio, ResourceDiscreteControl,
         ResourceDiscreteControlProfile, StringControlGgio,
