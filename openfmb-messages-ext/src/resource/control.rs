@@ -4,10 +4,14 @@
 
 use crate::{error::*, ControlProfileExt, OpenFMBExt};
 use openfmb_messages::{
-    commonmodule::{ConductingEquipment, ControlApc, ControlInc, ControlSpc, MessageInfo, Vsc},
+    commonmodule::{
+        ConductingEquipment, ControlApc, ControlInc, ControlSpc, IdentifiedObject,
+        IsControlMessageInfo, IsMessageInfo, LogicalNode, MessageInfo, Vsc,
+    },
     resourcemodule::{
-        AnalogControlGgio, BooleanControlGgio, IntegerControlGgio, ResourceDiscreteControl,
-        ResourceDiscreteControlProfile, StringControlGgio,
+        AnalogControlGgio, BooleanControlGgio, IntegerControlGgio,
+        IsResourceDiscreteControlProfile, ResourceDiscreteControl, ResourceDiscreteControlProfile,
+        StringControlGgio,
     },
 };
 use snafu::{OptionExt, ResultExt};
@@ -61,6 +65,14 @@ pub trait ResourceControlExt: ControlProfileExt {
     fn set_bool_msg(m_rid: &str, val: bool, index: usize) -> ResourceDiscreteControlProfile;
     fn set_int_msg(m_rid: &str, val: i32, index: usize) -> ResourceDiscreteControlProfile;
     fn set_string_msg(m_rid: &str, val: String, index: usize) -> ResourceDiscreteControlProfile;
+
+    // ev
+    fn start_transaction(m_rid: &str, connector_id: i32) -> ResourceDiscreteControlProfile;
+    fn stop_transaction(
+        m_rid: &str,
+        connector_id: Option<i32>,
+        transaction_id: Option<i32>,
+    ) -> ResourceDiscreteControlProfile;
 
     fn build_control_profile(
         m_rid: &str,
@@ -236,6 +248,102 @@ impl ResourceControlExt for ResourceDiscreteControlProfile {
                 string_control_ggio: controls,
             }),
         }
+    }
+
+    fn start_transaction(m_rid: &str, connector_id: i32) -> ResourceDiscreteControlProfile {
+        let mut control_message_info = ResourceDiscreteControlProfile::build_control_message_info();
+        control_message_info
+            .message_info_mut()
+            .identified_object_mut()
+            .name = Some("RemoteStartTransactionRequest".into());
+
+        ResourceDiscreteControlProfile {
+            control_message_info: Some(control_message_info),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                integer_control_ggio: vec![IntegerControlGgio {
+                    logical_node: Some(LogicalNode {
+                        identified_object: Some(IdentifiedObject {
+                            name: Some("ocpp16j.RemoteStartTransactionRequest.connector_id".into()),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    iscso: Some(ControlInc {
+                        ctl_val: connector_id,
+                    }),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }),
+        }
+    }
+
+    fn stop_transaction(
+        m_rid: &str,
+        connector_id: Option<i32>,
+        transaction_id: Option<i32>,
+    ) -> ResourceDiscreteControlProfile {
+        let mut control_message_info = ResourceDiscreteControlProfile::build_control_message_info();
+        control_message_info
+            .message_info_mut()
+            .identified_object_mut()
+            .name = Some("RemoteStopTransactionRequest".into());
+
+        let mut profile = ResourceDiscreteControlProfile {
+            control_message_info: Some(control_message_info),
+            conducting_equipment: Some(ConductingEquipment {
+                named_object: None,
+                m_rid: m_rid.to_string(),
+            }),
+            resource_discrete_control: Some(ResourceDiscreteControl {
+                integer_control_ggio: vec![],
+                ..Default::default()
+            }),
+        };
+
+        profile
+            .resource_discrete_control_mut()
+            .integer_control_ggio
+            .push(IntegerControlGgio {
+                logical_node: Some(LogicalNode {
+                    identified_object: Some(IdentifiedObject {
+                        name: Some("ocpp16j.RemoteStopTransactionRequest.connector_id".into()),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                iscso: Some(ControlInc {
+                    ctl_val: connector_id.unwrap_or(0) as i32,
+                }),
+                ..Default::default()
+            });
+
+        if let Some(transaction_id) = transaction_id {
+            profile
+                .resource_discrete_control_mut()
+                .integer_control_ggio
+                .push(IntegerControlGgio {
+                    logical_node: Some(LogicalNode {
+                        identified_object: Some(IdentifiedObject {
+                            name: Some(
+                                "ocpp16j.RemoteStopTransactionRequest.transaction_id".into(),
+                            ),
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    iscso: Some(ControlInc {
+                        ctl_val: transaction_id as i32,
+                    }),
+                    ..Default::default()
+                });
+        }
+
+        profile
     }
 
     fn message_identified_object_name(&self) -> OpenFMBResult<String> {

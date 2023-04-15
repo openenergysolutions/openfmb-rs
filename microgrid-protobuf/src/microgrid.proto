@@ -188,6 +188,12 @@ message GenericControl
         SetGgioValueAnalog = 86;
         SetGgioValueInteger = 87;
         SetGgioValueString = 88;
+        StartTransaction = 89;
+        StopTransaction = 90;
+        Heartbeat = 91;
+        MeterValues = 92;
+        StatusNotification = 93;
+        BootNotification = 94;
     }
 }
 

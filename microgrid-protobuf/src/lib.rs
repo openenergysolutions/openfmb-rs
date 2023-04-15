@@ -195,6 +195,12 @@ impl FromStr for generic_control::ControlType {
             "SetGgioValueAnalog" => Ok(generic_control::ControlType::SetGgioValueAnalog),
             "SetGgioValueInteger" => Ok(generic_control::ControlType::SetGgioValueInteger),
             "SetGgioValueString" => Ok(generic_control::ControlType::SetGgioValueString),
+            "StartTransaction" => Ok(generic_control::ControlType::StartTransaction),
+            "StopTransaction" => Ok(generic_control::ControlType::StopTransaction),
+            "Heartbeat" => Ok(generic_control::ControlType::Heartbeat),
+            "MeterValues" => Ok(generic_control::ControlType::MeterValues),
+            "StatusNotification" => Ok(generic_control::ControlType::StatusNotification),
+            "BootNotification" => Ok(generic_control::ControlType::BootNotification),
             _ => {
                 println!("Unsupport Generic control {}", input);
                 Err(())
