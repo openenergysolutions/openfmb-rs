@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
-// Tuesday, December 7, 2021 5:56:45 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
+// Monday, April 3, 2023 7:34:35 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -610,13 +610,6 @@ message CapabilityMessageInfo
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
 }
 
-// Generic capability message info.
-message CapabilityOverrideMessageInfo
-{
-    // UML inherited base object
-    MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
-}
-
 // IEC61850-7-2 Service parameter for conditions checking
 message CheckConditions
 {
@@ -697,7 +690,12 @@ message ControlAPC
     double ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Specialized DPC 61850 CDC class
+// Specialized DPC 61850 CDC class  Because objects in OpenFMB are optional fields, OpenFMB has
+// elected to send a "True" or "False" control state when a DPC state is sent. In a poll-based system,
+// the DPC will have two Booleans for "close" and "open", allowing a 'no-op' state if neither are true,
+// and a winning state (usually open) if both are true. OpenFMB simply elects to not populate the
+// control when no op is required. All state being sent will either be commanding a close or open for
+// the PhaseDPS &amp; StatusDPS.
 message ControlDPC
 {
     // Service parameter that determines the control activity ('false' for off, 'true' for on).
@@ -954,7 +952,12 @@ message DEL
     CMV phsCA = 3;
 }
 
-// [OpenFMB CDC extension] Per Phase DPC.
+// [OpenFMB CDC extension] Per Phase DPC. Because objects in OpenFMB are optional fields, OpenFMB
+// has elected to send a "True" or "False" control state when a DPC state is sent. In a poll-based
+// system, the DPC will have two Booleans for "close" and "open", allowing a 'no-op' state if neither
+// are true, and a winning state (usually open) if both are true. OpenFMB simply elects to not populate
+// the control when no op is required. All state being sent will either be commanding a close or open
+// for the PhaseDPS &amp; StatusDPS.
 message PhaseDPC
 {
     // 3 Phase control.
@@ -1268,11 +1271,11 @@ message ENS_SwitchingCapabilityKind
 message OperationDCTE
 {
     // MISSING DOCUMENTATION!!!
-    float rndDlTmms = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ControlING rndDlTmms = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    float rtnDlTmms = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ControlING rtnDlTmms = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
-    float rtnRmpTmms = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ControlING rtnRmpTmms = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -1521,7 +1524,7 @@ message OperationDVVR
     // Autonomous <i>V</i><i><sub>Ref</sub></i><i>  </i>adjustment enable
     bool VRefAdjEna = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // <i>V</i><i><sub>Ref</sub></i><i>  </i>adjustment time constant
-    float VRefTmms = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    ControlING VRefTmms = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -1533,20 +1536,18 @@ message OperationDVWC
     ClearingTime OplTmmsMax = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
+// MISSING DOCUMENTATION!!!
+message OperationDWGC
+{
+    // Active power setpoint. Its mxVal attribute reflects the value of the setpoint that is requested.
+    float wSpt = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
 // Curve shape setting (FC=SP) (CSG_SP)
 message OperationDWVR
 {
     // Active-Reactive Power Mode Enable
     bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// MISSING DOCUMENTATION!!!
-message OperationStorageDFPF
-{
-    // UML inherited base object
-    OperationDFPF operationDFPF = 1 [(uml.option_parent_message) = true];
-    // Applies when charging and need not be supported for generating-only DER.
-    float pFLodTgtMxVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Generic event message information
@@ -1563,15 +1564,6 @@ message PFSPC
     bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     OperationDFPF pFParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-}
-
-// Constant power factor control function
-message PFStorageSPC
-{
-    // MISSING DOCUMENTATION!!!
-    bool ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
-    // MISSING DOCUMENTATION!!!
-    OperationStorageDFPF pFStorageParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // [OpenFMB CDC extension] Per Phase ISC.
@@ -1835,6 +1827,10 @@ message WYE
     CMV phsB = 4;
     // Value of phase C.
     CMV phsC = 5;
+    // Residual current, as the algebraic sum of the instantaneous values of currents flowing through
+    // all live conductors of a circuit at one point of the electrical installation ('phsA.instCVal'+'phsB
+    // instCVal'+'phsC.instCVal').
+    CMV res = 6;
 }
 
 // Specialized 61850 MMXU LN class
@@ -2160,6 +2156,15 @@ message VSC
 {
     // [OpenFMB Extension]  String control value.
     string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Constant Reactive Power (Fixed VAr) Function
+message WSPC
+{
+    // Constant Reactive Power Mode Enable
+    bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    OperationDWGC wParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // MISSING DOCUMENTATION!!!

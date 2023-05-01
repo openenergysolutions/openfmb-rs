@@ -11,7 +11,7 @@ use openfmb_messages::{
     },
     solarmodule::{
         SolarControl, SolarControlFscc, SolarControlProfile, SolarControlScheduleFsch, SolarCsg,
-        SolarInverter, SolarPoint,
+        SolarCurvePoint, SolarInverter, SolarPoint,
     },
 };
 use snafu::{OptionExt, ResultExt};
@@ -122,16 +122,11 @@ pub trait SolarControlExt: ControlProfileExt {
                 }),
                 solar_control_schedule_fsch: Some(SolarControlScheduleFsch {
                     val_dcsg: Some(SolarCsg {
-                        crv_pts: vec![SolarPoint {
-                            frequency_set_point_enabled: None,
-                            mode: None,
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: None,
-                            real_pwr_set_point_enabled: None,
-                            reset: None,
-                            state: Some(state),
+                        crv_pts: vec![SolarCurvePoint {
+                            control: Some(SolarPoint {
+                                state: Some(state),
+                                ..Default::default()
+                            }),
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -142,8 +137,6 @@ pub trait SolarControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            voltage_set_point_enabled: None,
-                            ..Default::default()
                         }],
                     }),
                 }),

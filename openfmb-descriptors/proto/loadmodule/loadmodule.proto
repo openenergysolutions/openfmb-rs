@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
-// Tuesday, December 7, 2021 5:56:45 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
+// Monday, April 3, 2023 7:34:35 PM UTC
 
 package loadmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/loadmodule";

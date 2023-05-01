@@ -33,7 +33,7 @@ zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.
 [features]
 client = ["openfmb-messages-ext"]
 microgrid = ["microgrid-protobuf"]
-default = ["nats"]
+default = ["nats", "client"]
 
 [dev-dependencies]
 tokio = { version = "1.0", features = ["full"] }

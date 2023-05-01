@@ -24,7 +24,7 @@ impl OpenFMBExt for CircuitSegmentStatusProfile {
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
-            .event_message_info
+            .status_message_info
             .as_ref()
             .context(NoStatusMessageInfo)?
             .message_info

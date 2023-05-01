@@ -5,14 +5,13 @@
 use openfmb_messages::commonmodule::ControlMessageInfo;
 use openfmb_messages::{
     commonmodule::{
-        CheckConditions, ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlSpc,
-        ControlTimestamp, ControlValue, EngGridConnectModeKind, EngScheduleParameter, Ess,
-        MessageInfo, NamedObject, OptionalStateKind, ScheduleCsg, ScheduleParameterKind,
-        SchedulePoint, StateKind,
+        CheckConditions, ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
+        ControlValue, EngGridConnectModeKind, EngScheduleParameter, Ess, MessageInfo, NamedObject,
+        OptionalStateKind, ScheduleCsg, ScheduleParameterKind, SchedulePoint, StateKind,
     },
     essmodule::{
-        EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssFunction,
-        EssPoint, Esscsg, SocLimit, SocManagement,
+        EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssCurvePoint,
+        EssFunction, EssPoint, Esscsg, SocLimit, SocManagement,
     },
 };
 use snafu::{OptionExt, ResultExt};
@@ -36,8 +35,10 @@ impl OpenFMBExt for EssControlProfile {
             .crv_pts
             .first()
             .unwrap()
-            .mode
+            .control
             .clone()
+            .unwrap()
+            .mode
             .unwrap();
         Ok(format!("param: {}", &eng_grid_connected_modekind.set_val))
     }
@@ -212,23 +213,13 @@ pub trait EssControlExt: ControlProfileExt {
                     control_fscc: None,
                     ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                         val_dcsg: Some(Esscsg {
-                            crv_pts: vec![EssPoint {
-                                black_start_enabled: None,
-                                frequency_set_point_enabled: None,
-                                function: None,
-                                mode: None,
-                                pct_hz_droop: None,
-                                pct_v_droop: None,
-                                ramp_rates: None,
-                                reactive_pwr_set_point_enabled: None,
-                                real_pwr_set_point_enabled: None,
-                                reset: None,
-                                state: Some(OptionalStateKind {
-                                    value: StateKind::Off as i32,
+                            crv_pts: vec![EssCurvePoint {
+                                control: Some(EssPoint {
+                                    state: Some(OptionalStateKind {
+                                        value: StateKind::Off as i32,
+                                    }),
+                                    ..Default::default()
                                 }),
-                                sync_back_to_grid: None,
-                                trans_to_islnd_on_grid_loss_enabled: None,
-                                voltage_set_point_enabled: None,
                                 start_time: Some(ControlTimestamp {
                                     nanoseconds: start_time
                                         .duration_since(SystemTime::UNIX_EPOCH)
@@ -239,7 +230,6 @@ pub trait EssControlExt: ControlProfileExt {
                                         .unwrap()
                                         .as_secs(),
                                 }),
-                                ..Default::default()
                             }],
                         }),
                     }),
@@ -415,24 +405,18 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: None,
-                            mode: Some(EngGridConnectModeKind {
-                                set_val: mod_val as i32,
-                                set_val_extension: None,
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                mode: Some(EngGridConnectModeKind {
+                                    set_val: mod_val as i32,
+                                    set_val_extension: None,
+                                }),
+                                // FIXME: check if needed
+                                //reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
+                                //real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
+                                state: Some(OptionalStateKind { value: state }),
+                                ..Default::default()
                             }),
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
-                            real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
-                            reset: None,
-                            state: Some(OptionalStateKind { value: state }),
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -443,7 +427,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
@@ -466,35 +449,27 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: Some(EssFunction {
-                                capacity_firming: None,
-                                frequency_regulation: None,
-                                peak_shaving: None,
-                                soc_limit: Some(SocLimit {
-                                    soc_high_limit: Some(high_limit),
-                                    soc_low_limit: Some(low_limit),
-                                    soc_high_limit_hysteresis: None,
-                                    soc_low_limit_hysteresis: None,
-                                    soc_limit_ctl: Some(true),
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                function: Some(EssFunction {
+                                    capacity_firming: None,
+                                    frequency_regulation: None,
+                                    peak_shaving: None,
+                                    soc_limit: Some(SocLimit {
+                                        soc_high_limit: Some(high_limit),
+                                        soc_low_limit: Some(low_limit),
+                                        soc_high_limit_hysteresis: None,
+                                        soc_low_limit_hysteresis: None,
+                                        soc_limit_ctl: Some(true),
+                                    }),
+                                    soc_management: None,
+                                    voltage_droop: None,
+                                    voltage_pi: None,
                                 }),
-                                soc_management: None,
-                                voltage_droop: None,
-                                voltage_pi: None,
+                                //reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
+                                //real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
+                                ..Default::default()
                             }),
-                            mode: None,
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
-                            real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
-                            reset: None,
-                            state: None,
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -505,7 +480,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
@@ -532,35 +506,22 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: Some(EssFunction {
-                                capacity_firming: None,
-                                frequency_regulation: None,
-                                peak_shaving: None,
-                                soc_limit: None,
-                                soc_management: Some(SocManagement {
-                                    soc_dead_band_minus: Some(5.0),
-                                    soc_dead_band_plus: Some(5.0),
-                                    soc_management_ctl: Some(true),
-                                    soc_power_set_point: Some(low_limit),
-                                    soc_set_point: Some(high_limit),
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                function: Some(EssFunction {
+                                    soc_management: Some(SocManagement {
+                                        soc_dead_band_minus: Some(5.0),
+                                        soc_dead_band_plus: Some(5.0),
+                                        soc_management_ctl: Some(true),
+                                        soc_power_set_point: Some(low_limit),
+                                        soc_set_point: Some(high_limit),
+                                    }),
+                                    ..Default::default()
                                 }),
-                                voltage_droop: None,
-                                voltage_pi: None,
+                                //reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
+                                //real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
+                                ..Default::default()
                             }),
-                            mode: None,
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
-                            real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: false }) },
-                            reset: None,
-                            state: None,
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -571,7 +532,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
@@ -595,24 +555,14 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: None,
-                            mode: Some(EngGridConnectModeKind {
-                                set_val: GridConnectModeKind::VsiIso as i32,
-                                set_val_extension: None,
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                mode: Some(EngGridConnectModeKind {
+                                    set_val: GridConnectModeKind::VsiIso as i32,
+                                    set_val_extension: None,
+                                }),
+                                ..Default::default()
                             }),
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { None },
-                            real_pwr_set_point_enabled: { None },
-                            reset: None,
-                            state: None,
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -623,7 +573,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
@@ -650,24 +599,14 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: None,
-                            mode: Some(EngGridConnectModeKind {
-                                set_val: GridConnectModeKind::VsiPq as i32,
-                                set_val_extension: None,
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                mode: Some(EngGridConnectModeKind {
+                                    set_val: GridConnectModeKind::VsiPq as i32,
+                                    set_val_extension: None,
+                                }),
+                                ..Default::default()
                             }),
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { None },
-                            real_pwr_set_point_enabled: { None },
-                            reset: None,
-                            state: None,
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -678,7 +617,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
@@ -745,24 +683,17 @@ pub trait EssControlExt: ControlProfileExt {
                 }),
                 ess_control_schedule_fsch: Some(EssControlScheduleFsch {
                     val_dcsg: Some(Esscsg {
-                        crv_pts: vec![EssPoint {
-                            black_start_enabled: None,
-                            frequency_set_point_enabled: None,
-                            function: None,
-                            mode: Some(EngGridConnectModeKind {
-                                set_val: mod_val as i32,
-                                set_val_extension: None,
+                        crv_pts: vec![EssCurvePoint {
+                            control: Some(EssPoint {
+                                mode: Some(EngGridConnectModeKind {
+                                    set_val: mod_val as i32,
+                                    set_val_extension: None,
+                                }),
+                                //reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
+                                //real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
+                                state: Some(OptionalStateKind { value: state }),
+                                ..Default::default()
                             }),
-                            pct_hz_droop: None,
-                            pct_v_droop: None,
-                            ramp_rates: None,
-                            reactive_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
-                            real_pwr_set_point_enabled: { Some(ControlSpc { ctl_val: true }) },
-                            reset: None,
-                            state: Some(OptionalStateKind { value: state }),
-                            sync_back_to_grid: None,
-                            trans_to_islnd_on_grid_loss_enabled: None,
-                            voltage_set_point_enabled: None,
                             start_time: Some(ControlTimestamp {
                                 nanoseconds: when
                                     .duration_since(SystemTime::UNIX_EPOCH)
@@ -773,7 +704,6 @@ pub trait EssControlExt: ControlProfileExt {
                                     .unwrap()
                                     .as_secs(),
                             }),
-                            ..Default::default()
                         }],
                     }),
                 }),
