@@ -19,7 +19,7 @@ impl OpenFMBExt for SolarCapabilityOverrideProfile {
 
     fn message_info(&self) -> OpenFMBResult<&MessageInfo> {
         Ok(self
-            .capability_override_message_info
+            .capability_message_info
             .as_ref()
             .context(NoMessageInfo)?
             .message_info

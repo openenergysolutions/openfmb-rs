@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.0.1) .eap
-// Tuesday, December 7, 2021 5:56:45 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
+// Monday, April 3, 2023 7:34:35 PM UTC
 
 package essmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/essmodule";
@@ -266,36 +266,21 @@ message ESSFunction
 // Point definition (Point)
 message ESSPoint
 {
+    reserved 2,5,6,8,9,12,14,15;
     // Black start enable
     commonmodule.ControlSPC blackStartEnabled = 1;
-    // Enable frequency set point
-    commonmodule.ControlSPC frequencySetPointEnabled = 2;
     // ESS function parameter
     ESSFunction function = 3;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 4;
-    // MISSING DOCUMENTATION!!!
-    google.protobuf.FloatValue pctHzDroop = 5;
-    // MISSING DOCUMENTATION!!!
-    google.protobuf.FloatValue pctVDroop = 6;
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
-    // Enable reactive power set point
-    commonmodule.ControlSPC reactivePwrSetPointEnabled = 8;
-    // Enable real power set point
-    commonmodule.ControlSPC realPwrSetPointEnabled = 9;
     // Reset device
     commonmodule.ControlSPC reset = 10;
     // ESS state
     commonmodule.Optional_StateKind state = 11;
-    // Synchronize back to grid
-    commonmodule.ControlSPC syncBackToGrid = 12;
     // Transition to island on grid loss enable
     commonmodule.ControlSPC transToIslndOnGridLossEnabled = 13;
-    // Enable voltage set point
-    commonmodule.ControlSPC voltageSetPointEnabled = 14;
-    // Start time
-    commonmodule.ControlTimestamp startTime = 15 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     commonmodule.EnterServiceAPC enterServiceOperation = 16;
     // MISSING DOCUMENTATION!!!
@@ -303,7 +288,7 @@ message ESSPoint
     // MISSING DOCUMENTATION!!!
     commonmodule.LimitWAPC limitWOperation = 18;
     // MISSING DOCUMENTATION!!!
-    commonmodule.PFStorageSPC pFStorageOperation = 19;
+    commonmodule.PFSPC pFOperation = 19;
     // MISSING DOCUMENTATION!!!
     commonmodule.TmHzCSG tmHzTripOperation = 20;
     // MISSING DOCUMENTATION!!!
@@ -316,13 +301,24 @@ message ESSPoint
     commonmodule.VoltWCSG voltWOperation = 24;
     // MISSING DOCUMENTATION!!!
     commonmodule.WVarCSG wVarOperation = 25;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WSPC wOperation = 26;
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message ESSCurvePoint
+{
+    // The array with the points specifying a curve shape.
+    ESSPoint control = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Start time
+    commonmodule.ControlTimestamp startTime = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Curve shape setting (FC=SP) (CSG_SP)
 message ESSCSG
 {
     // The array with the points specifying a curve shape.
-    repeated ESSPoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    repeated ESSCurvePoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
@@ -362,6 +358,39 @@ message ESSControlProfile
     commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     ESSControl essControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for cap bank discrete control:
+message ESSDiscreteControlDBAT
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ESSPoint control = 2;
+}
+
+// Cap bank discrete control
+message ESSDiscreteControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 2;
+    // MISSING DOCUMENTATION!!!
+    ESSDiscreteControlDBAT essDiscreteControlDBAT = 3;
+}
+
+// Cap bank discrete control profile.  Instructs an end device (or an end device group) to perform
+// a specified action.
+message ESSDiscreteControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ESS ess = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    ESSDiscreteControl essDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // Specialized 61850 ZBAT class  LN: Battery   Name: ZBAT
@@ -421,7 +450,7 @@ message ESSPointStatus
     // MISSING DOCUMENTATION!!!
     commonmodule.LimitWAPC limitWOperation = 16;
     // MISSING DOCUMENTATION!!!
-    commonmodule.PFStorageSPC pFStorageOperation = 17;
+    commonmodule.PFSPC pFOperation = 17;
     // MISSING DOCUMENTATION!!!
     commonmodule.TmHzCSG tmHzTripOperation = 18;
     // MISSING DOCUMENTATION!!!
