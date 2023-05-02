@@ -5,6 +5,7 @@
 mod capability;
 mod capabilityoverride;
 mod control;
+mod discretecontrol;
 mod event;
 mod reading;
 mod status;
@@ -12,6 +13,7 @@ mod status;
 pub use capability::*;
 pub use capabilityoverride::*;
 pub use control::*;
+pub use discretecontrol::*;
 pub use event::*;
 pub use reading::*;
 pub use status::*;
