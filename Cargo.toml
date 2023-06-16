@@ -25,7 +25,7 @@ openfmb-messages-ext = { path = "./openfmb-messages-ext", optional = true }
 microgrid-protobuf = { path = "./microgrid-protobuf", optional = true }
 
 # nats bus support
-nats = {version = "0.20.1", optional = true}
+nats = {version = "0.24", optional = true}
 
 # zenoh bus support
 zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.5.0-beta.9", optional = true}
@@ -37,7 +37,7 @@ default = ["nats", "client"]
 
 [dev-dependencies]
 tokio = { version = "1.0", features = ["full"] }
-pretty_env_logger = "0.4"
+pretty_env_logger = "0.5"
 
 [[example]]
 name = "switch_client"
