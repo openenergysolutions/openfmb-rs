@@ -4,9 +4,16 @@
 
 [package]
 name = "openfmb-messages-ext"
-version = "0.0.1"
+version = "2.1.0"
 authors = ["Tupshin Harper <tupshin@openenergysolutionsinc.com>", "Tom Burdick <tom@openenergysolutionsinc.com>"]
 edition = "2018"
+description = "An OpenFMB Message Extensions crate for Rust"
+license = "Apache-2.0"
+homepage = "https://github.com/openenergysolutions/openfmb-rs"
+repository = "https://github.com/openenergysolutions/openfmb-rs"
+readme = "README.md"
+keywords = ["openfmb", "interoperability", "di", "renewable-energy"]
+categories = ["distributed-automation"]
 
 [dependencies]
 openfmb-messages = { path = "../openfmb-messages"}

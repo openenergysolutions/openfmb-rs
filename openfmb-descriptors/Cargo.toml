@@ -8,6 +8,13 @@ version = "0.1.0"
 authors = ["Tom Burdick <thomas.burdick@gmail.com>"]
 edition = "2018"
 exclude = ["proto", "third-party"]
+description = "An OpenFM Message Descriptors crate for Rust"
+license = "Apache-2.0"
+homepage = "https://github.com/openenergysolutions/openfmb-rs"
+repository = "https://github.com/openenergysolutions/openfmb-rs"
+readme = "README.md"
+keywords = ["openfmb", "interoperability", "di", "renewable-energy"]
+categories = ["distributed-automation"]
 
 [build-dependencies]
 which = { version = "4", default-features = false  }

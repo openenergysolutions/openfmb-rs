@@ -7,6 +7,13 @@ name = "openfmb"
 version = "0.2.0"
 authors = ["Tom Burdick <tom@openenergysolutionsinc.com>"]
 edition = "2018"
+description = "An Open Field Message Bus crate for Rust"
+license = "Apache-2.0"
+homepage = "https://github.com/openenergysolutions/openfmb-rs"
+repository = "https://github.com/openenergysolutions/openfmb-rs"
+readme = "README.md"
+keywords = ["openfmb", "interoperability", "di", "renewable-energy"]
+categories = ["distributed-automation"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
@@ -20,9 +27,8 @@ prost = "0.10.4"
 lazy_static = "1.4"
 
 # messages
-openfmb-messages = { path = "./openfmb-messages" }
-openfmb-messages-ext = { path = "./openfmb-messages-ext", optional = true }
-microgrid-protobuf = { path = "./microgrid-protobuf", optional = true }
+openfmb-messages = { version = "2.1.0", path = "./openfmb-messages" }
+openfmb-messages-ext = { version = "2.1.0", path = "./openfmb-messages-ext", optional = true }
 
 # nats bus support
 nats = {version = "0.24.0", optional = true}
@@ -32,7 +38,6 @@ zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.
 
 [features]
 client = ["openfmb-messages-ext"]
-microgrid = ["microgrid-protobuf"]
 default = ["nats", "client"]
 
 [dev-dependencies]

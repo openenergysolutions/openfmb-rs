@@ -4,9 +4,16 @@
 
 [package]
 name = "openfmb-messages"
-version = "0.1.0"
+version = "2.1.0"
 authors = ["Tom Burdick <tom@openenergysolutionsinc.com>"]
 edition = "2018"
+description = "An Open Field Message Bus crate for Rust"
+license = "Apache-2.0"
+homepage = "https://github.com/openenergysolutions/openfmb-rs"
+repository = "https://github.com/openenergysolutions/openfmb-rs"
+readme = "README.md"
+keywords = ["openfmb", "interoperability", "di", "renewable-energy"]
+categories = ["distributed-automation"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
