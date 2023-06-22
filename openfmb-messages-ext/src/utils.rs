@@ -356,7 +356,7 @@ impl TryFrom<&nats::Message> for OpenFMBMessage {
             ))),
             "ESSCapabilityOverrideProfile" => Ok(ESSCapabilityOverride(Box::new(
                 EssCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),            
+            ))),
             "GenerationControlProfile" => Ok(GenerationControl(Box::new(
                 GenerationControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
             ))),
@@ -377,7 +377,8 @@ impl TryFrom<&nats::Message> for OpenFMBMessage {
                 GenerationCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
             ))),
             "GenerationCapabilityOverrideProfile" => Ok(GenerationCapabilityOverride(Box::new(
-                GenerationCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+                GenerationCapabilityOverrideProfile::decode(bytes.as_slice())
+                    .context(ProstDecodeError)?,
             ))),
             "LoadControlProfile" => Ok(LoadControl(Box::new(
                 LoadControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
@@ -455,7 +456,8 @@ impl TryFrom<&nats::Message> for OpenFMBMessage {
                 SolarCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
             ))),
             "SolarCapabilityOverrideProfile" => Ok(SolarCapabilityOverride(Box::new(
-                SolarCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+                SolarCapabilityOverrideProfile::decode(bytes.as_slice())
+                    .context(ProstDecodeError)?,
             ))),
             "SwitchDiscreteControlProfile" => Ok(SwitchDiscreteControl(Box::new(
                 SwitchDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
