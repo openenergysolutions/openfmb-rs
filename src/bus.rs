@@ -32,9 +32,9 @@ pub trait Closable<M> {
     fn close(&self);
 }
 
-#[cfg(feature = "nats")]
+#[cfg(feature = "nats-sync")]
 mod nats;
-#[cfg(feature = "nats")]
+#[cfg(feature = "nats-sync")]
 pub use self::nats::NatsBus;
 
 #[cfg(feature = "zenoh")]

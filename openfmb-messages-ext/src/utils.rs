@@ -286,6 +286,7 @@ impl OpenFMBMessage {
     }
 }
 
+#[cfg(feature = "nats-sync")]
 impl TryFrom<&nats::Message> for OpenFMBMessage {
     type Error = OpenFMBDecodeError;
 
@@ -296,185 +297,201 @@ impl TryFrom<&nats::Message> for OpenFMBMessage {
             warn!("PROFILE: {:?}", &profile);
         }
         let profile = profile.get(2).unwrap();
-        use OpenFMBMessage::*;
-        match *profile {
-            "BreakerDiscreteControlProfile" => Ok(BreakerDiscreteControl(Box::new(
-                BreakerDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "BreakerEventProfile" => Ok(BreakerEvent(Box::new(
-                BreakerEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "BreakerReadingProfile" => Ok(BreakerReading(Box::new(
-                BreakerReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "BreakerStatusProfile" => Ok(BreakerStatus(Box::new(
-                BreakerStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CapBankControlProfile" => Ok(CapBankControl(Box::new(
-                CapBankControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CapBankDiscreteControlProfile" => Ok(CapBankDiscreteControl(Box::new(
-                CapBankDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "CapBankEventProfile" => Ok(CapBankEvent(Box::new(
-                CapBankEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CapBankReadingProfile" => Ok(CapBankReading(Box::new(
-                CapBankReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CapBankStatusProfile" => Ok(CapBankStatus(Box::new(
-                CapBankStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CircuitSegmentControlProfile" => Ok(CircuitSegmentControl(Box::new(
-                CircuitSegmentControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CircuitSegmentEventProfile" => Ok(CircuitSegmentEvent(Box::new(
-                CircuitSegmentEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "CircuitSegmentStatusProfile" => Ok(CircuitSegmentStatus(Box::new(
-                CircuitSegmentStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSEventProfile" => Ok(ESSEvent(Box::new(
-                EssEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSReadingProfile" => Ok(ESSReading(Box::new(
-                EssReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSStatusProfile" => Ok(ESSStatus(Box::new(
-                EssStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSControlProfile" => Ok(ESSControl(Box::new(
-                EssControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSDiscreteControlProfile" => Ok(ESSDiscreteControl(Box::new(
-                EssDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSCapabilityProfile" => Ok(ESSCapability(Box::new(
-                EssCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ESSCapabilityOverrideProfile" => Ok(ESSCapabilityOverride(Box::new(
-                EssCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationControlProfile" => Ok(GenerationControl(Box::new(
-                GenerationControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationDiscreteControlProfile" => Ok(GenerationDiscreteControl(Box::new(
-                GenerationDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "GenerationReadingProfile" => Ok(GenerationReading(Box::new(
-                GenerationReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationEventProfile" => Ok(GenerationEvent(Box::new(
-                GenerationEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationStatusProfile" => Ok(GenerationStatus(Box::new(
-                GenerationStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationCapabilityProfile" => Ok(GenerationCapability(Box::new(
-                GenerationCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "GenerationCapabilityOverrideProfile" => Ok(GenerationCapabilityOverride(Box::new(
-                GenerationCapabilityOverrideProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "LoadControlProfile" => Ok(LoadControl(Box::new(
-                LoadControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "LoadEventProfile" => Ok(LoadEvent(Box::new(
-                LoadEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "LoadReadingProfile" => Ok(LoadReading(Box::new(
-                LoadReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "LoadStatusProfile" => Ok(LoadStatus(Box::new(
-                LoadStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "MeterReadingProfile" => Ok(MeterReading(Box::new(
-                MeterReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RecloserDiscreteControlProfile" => Ok(RecloserDiscreteControl(Box::new(
-                RecloserDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "RecloserEventProfile" => Ok(RecloserEvent(Box::new(
-                RecloserEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RecloserReadingProfile" => Ok(RecloserReading(Box::new(
-                RecloserReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RecloserStatusProfile" => Ok(RecloserStatus(Box::new(
-                RecloserStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RegulatorControlProfile" => Ok(RegulatorControl(Box::new(
-                RegulatorControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RegulatorDiscreteControlProfile" => Ok(RegulatorDiscreteControl(Box::new(
-                RegulatorDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "RegulatorEventProfile" => Ok(RegulatorEvent(Box::new(
-                RegulatorEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RegulatorReadingProfile" => Ok(RegulatorReading(Box::new(
-                RegulatorReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "RegulatorStatusProfile" => Ok(RegulatorStatus(Box::new(
-                RegulatorStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ResourceDiscreteControlProfile" => Ok(ResourceDiscreteControl(Box::new(
-                ResourceDiscreteControlProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "ResourceReadingProfile" => Ok(ResourceReading(Box::new(
-                ResourceReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ResourceEventProfile" => Ok(ResourceEvent(Box::new(
-                ResourceEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "ResourceStatusProfile" => Ok(ResourceStatus(Box::new(
-                ResourceStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarControlProfile" => Ok(SolarControl(Box::new(
-                SolarControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarDiscreteControlProfile" => Ok(SolarDiscreteControl(Box::new(
-                SolarDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarEventProfile" => Ok(SolarEvent(Box::new(
-                SolarEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarReadingProfile" => Ok(SolarReading(Box::new(
-                SolarReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarStatusProfile" => Ok(SolarStatus(Box::new(
-                SolarStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarCapabilityProfile" => Ok(SolarCapability(Box::new(
-                SolarCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SolarCapabilityOverrideProfile" => Ok(SolarCapabilityOverride(Box::new(
-                SolarCapabilityOverrideProfile::decode(bytes.as_slice())
-                    .context(ProstDecodeError)?,
-            ))),
-            "SwitchDiscreteControlProfile" => Ok(SwitchDiscreteControl(Box::new(
-                SwitchDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SwitchEventProfile" => Ok(SwitchEvent(Box::new(
-                SwitchEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SwitchReadingProfile" => Ok(SwitchReading(Box::new(
-                SwitchReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            "SwitchStatusProfile" => Ok(SwitchStatus(Box::new(
-                SwitchStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
-            ))),
-            _ => Err(OpenFMBDecodeError::UnsupportedOpenFMBProfileError {
-                profile: profile.to_string(),
-            }),
+
+        openfmb_message(bytes, *&profile)
+    }
+}
+
+#[cfg(feature = "nats-async")]
+impl TryFrom<&async_nats::Message> for OpenFMBMessage {
+    type Error = OpenFMBDecodeError;
+
+    fn try_from(msg: &async_nats::Message) -> Result<Self, OpenFMBDecodeError> {
+        use std::ops::Deref;
+        let bytes = &msg.payload.deref().to_vec();
+        let profile: Vec<&str> = msg.subject.split(".").collect();
+        if profile.len() <= 1 {
+            warn!("PROFILE: {:?}", &profile);
         }
+        let profile = profile.get(2).unwrap();
+
+        openfmb_message(bytes, *&profile)
+    }
+}
+
+#[allow(dead_code)]
+fn openfmb_message(bytes: &Vec<u8>, profile: &str) -> Result<OpenFMBMessage, OpenFMBDecodeError> {
+    use OpenFMBMessage::*;
+    match profile {
+        "BreakerDiscreteControlProfile" => Ok(BreakerDiscreteControl(Box::new(
+            BreakerDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "BreakerEventProfile" => Ok(BreakerEvent(Box::new(
+            BreakerEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "BreakerReadingProfile" => Ok(BreakerReading(Box::new(
+            BreakerReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "BreakerStatusProfile" => Ok(BreakerStatus(Box::new(
+            BreakerStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CapBankControlProfile" => Ok(CapBankControl(Box::new(
+            CapBankControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CapBankDiscreteControlProfile" => Ok(CapBankDiscreteControl(Box::new(
+            CapBankDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CapBankEventProfile" => Ok(CapBankEvent(Box::new(
+            CapBankEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CapBankReadingProfile" => Ok(CapBankReading(Box::new(
+            CapBankReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CapBankStatusProfile" => Ok(CapBankStatus(Box::new(
+            CapBankStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CircuitSegmentControlProfile" => Ok(CircuitSegmentControl(Box::new(
+            CircuitSegmentControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CircuitSegmentEventProfile" => Ok(CircuitSegmentEvent(Box::new(
+            CircuitSegmentEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "CircuitSegmentStatusProfile" => Ok(CircuitSegmentStatus(Box::new(
+            CircuitSegmentStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSEventProfile" => Ok(ESSEvent(Box::new(
+            EssEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSReadingProfile" => Ok(ESSReading(Box::new(
+            EssReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSStatusProfile" => Ok(ESSStatus(Box::new(
+            EssStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSControlProfile" => Ok(ESSControl(Box::new(
+            EssControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSDiscreteControlProfile" => Ok(ESSDiscreteControl(Box::new(
+            EssDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSCapabilityProfile" => Ok(ESSCapability(Box::new(
+            EssCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ESSCapabilityOverrideProfile" => Ok(ESSCapabilityOverride(Box::new(
+            EssCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationControlProfile" => Ok(GenerationControl(Box::new(
+            GenerationControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationDiscreteControlProfile" => Ok(GenerationDiscreteControl(Box::new(
+            GenerationDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationReadingProfile" => Ok(GenerationReading(Box::new(
+            GenerationReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationEventProfile" => Ok(GenerationEvent(Box::new(
+            GenerationEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationStatusProfile" => Ok(GenerationStatus(Box::new(
+            GenerationStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationCapabilityProfile" => Ok(GenerationCapability(Box::new(
+            GenerationCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "GenerationCapabilityOverrideProfile" => Ok(GenerationCapabilityOverride(Box::new(
+            GenerationCapabilityOverrideProfile::decode(bytes.as_slice())
+                .context(ProstDecodeError)?,
+        ))),
+        "LoadControlProfile" => Ok(LoadControl(Box::new(
+            LoadControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "LoadEventProfile" => Ok(LoadEvent(Box::new(
+            LoadEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "LoadReadingProfile" => Ok(LoadReading(Box::new(
+            LoadReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "LoadStatusProfile" => Ok(LoadStatus(Box::new(
+            LoadStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "MeterReadingProfile" => Ok(MeterReading(Box::new(
+            MeterReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RecloserDiscreteControlProfile" => Ok(RecloserDiscreteControl(Box::new(
+            RecloserDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RecloserEventProfile" => Ok(RecloserEvent(Box::new(
+            RecloserEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RecloserReadingProfile" => Ok(RecloserReading(Box::new(
+            RecloserReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RecloserStatusProfile" => Ok(RecloserStatus(Box::new(
+            RecloserStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RegulatorControlProfile" => Ok(RegulatorControl(Box::new(
+            RegulatorControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RegulatorDiscreteControlProfile" => Ok(RegulatorDiscreteControl(Box::new(
+            RegulatorDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RegulatorEventProfile" => Ok(RegulatorEvent(Box::new(
+            RegulatorEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RegulatorReadingProfile" => Ok(RegulatorReading(Box::new(
+            RegulatorReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "RegulatorStatusProfile" => Ok(RegulatorStatus(Box::new(
+            RegulatorStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ResourceDiscreteControlProfile" => Ok(ResourceDiscreteControl(Box::new(
+            ResourceDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ResourceReadingProfile" => Ok(ResourceReading(Box::new(
+            ResourceReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ResourceEventProfile" => Ok(ResourceEvent(Box::new(
+            ResourceEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ResourceStatusProfile" => Ok(ResourceStatus(Box::new(
+            ResourceStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarControlProfile" => Ok(SolarControl(Box::new(
+            SolarControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarDiscreteControlProfile" => Ok(SolarDiscreteControl(Box::new(
+            SolarDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarEventProfile" => Ok(SolarEvent(Box::new(
+            SolarEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarReadingProfile" => Ok(SolarReading(Box::new(
+            SolarReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarStatusProfile" => Ok(SolarStatus(Box::new(
+            SolarStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarCapabilityProfile" => Ok(SolarCapability(Box::new(
+            SolarCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SolarCapabilityOverrideProfile" => Ok(SolarCapabilityOverride(Box::new(
+            SolarCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SwitchDiscreteControlProfile" => Ok(SwitchDiscreteControl(Box::new(
+            SwitchDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SwitchEventProfile" => Ok(SwitchEvent(Box::new(
+            SwitchEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SwitchReadingProfile" => Ok(SwitchReading(Box::new(
+            SwitchReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "SwitchStatusProfile" => Ok(SwitchStatus(Box::new(
+            SwitchStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        _ => Err(OpenFMBDecodeError::UnsupportedOpenFMBProfileError {
+            profile: profile.to_string(),
+        }),
     }
 }
 
