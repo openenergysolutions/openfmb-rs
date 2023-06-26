@@ -41,6 +41,7 @@ zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.
 client = ["openfmb-messages-ext"]
 nats-sync = ["nats", "openfmb-messages-ext/nats-sync"]
 nats-async = ["async-nats", "openfmb-messages-ext/nats-async"]
+default = ["nats-sync", "client"]
 
 [dev-dependencies]
 tokio = { version = "1.0", features = ["full"] }
@@ -49,6 +50,10 @@ pretty_env_logger = "0.5"
 [[example]]
 name = "switch_client"
 required-features = ["nats-sync", "client", "zenoh"]
+
+[[example]]
+name = "switch_client_async_nats"
+required-features = ["nats-async", "client"]
 
 [[example]]
 name = "switch_device"

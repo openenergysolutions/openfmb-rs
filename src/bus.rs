@@ -37,6 +37,11 @@ mod nats;
 #[cfg(feature = "nats-sync")]
 pub use self::nats::NatsBus;
 
+#[cfg(feature = "nats-async")]
+mod nats_async;
+#[cfg(feature = "nats-async")]
+pub use self::nats_async::NatsAsyncBus;
+
 #[cfg(feature = "zenoh")]
 mod zenoh;
 #[cfg(feature = "zenoh")]

@@ -1,6 +1,6 @@
 use std::{convert::TryInto, env, sync::Arc};
 
-use bytes::Bytes;
+use bytes::BytesMut;
 use futures::stream::StreamExt;
 use openfmb_messages::{
     breakermodule::{Breaker, BreakerStatus, BreakerStatusProfile},
@@ -50,13 +50,13 @@ async fn test_nats_async() {
                 status_value: None,
             }),
         };
-        let mut buffer = vec![];
+        let mut buffer = BytesMut::new();
         profile.encode(&mut buffer).unwrap();
         client
             .publish(
                 "openfmb.breakermodule.BreakerStatusProfile.ec9dc3dd-d329-4ec6-9149-762b033f0be8"
                     .into(),
-                Bytes::copy_from_slice(&buffer),
+                buffer.freeze(),
             )
             .await
             .unwrap()
