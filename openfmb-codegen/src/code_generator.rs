@@ -94,6 +94,7 @@ impl<'a> CodeGenerator<'a> {
         if code_gen.package.as_str() != "commonmodule" && code_gen.package.as_str() != "uml" {
             code_gen.buf.push_str("use crate::commonmodule::*;\n");
         }
+        code_gen.buf.push_str("use prost::Message;\n");
 
         code_gen.path.push(4);
         for (idx, message) in file.message_type.into_iter().enumerate() {
@@ -360,6 +361,32 @@ impl<'a> CodeGenerator<'a> {
                 self.buf.push_str("}\n");
             }
         }
+
+        // Add prost encode
+        self.push_indent();
+        self.buf.push_str(
+            "pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {\n",
+        );
+        self.depth += 1;
+        self.push_indent();
+        self.buf.push_str("self.encode(buf)\n");
+        self.depth -= 1;
+        self.push_indent();
+        self.buf.push_str("}\n");
+
+        // Add prost decode
+        self.push_indent();
+        self.buf.push_str(
+            "pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {\n",
+        );
+        self.depth += 1;
+        self.push_indent();
+        self.buf.push_str(&to_upper_camel(&message_name));
+        self.buf.push_str("::decode(buf)\n");
+        self.depth -= 1;
+        self.push_indent();
+        self.buf.push_str("}\n");
+
         self.depth -= 1;
         self.push_indent();
         self.buf.push_str("}\n");

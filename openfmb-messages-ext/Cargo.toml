@@ -35,7 +35,7 @@ nats-async = ["async-nats"]
 [dev-dependencies]
 tokio = { version = "1.25.0", features = ["rt-multi-thread"] }
 futures = { version = "0.3.26", default-features = false, features = ["std", "async-await"] }
-bytes = "1.4.0"
+bytes = "1"
 
 [[test]]
 name = "nats_test"
