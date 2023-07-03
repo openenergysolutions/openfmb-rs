@@ -4,11 +4,9 @@
 
 use crate::{OpenFMBError, OpenFMBExt};
 use chrono::{DateTime, NaiveDateTime, Utc};
-use log::warn;
 use prost::Message;
 use serde::{Deserialize, Serialize};
 use snafu::{ResultExt, Snafu};
-use std::convert::TryFrom;
 use uuid::Uuid;
 
 use openfmb_messages::{
@@ -287,14 +285,14 @@ impl OpenFMBMessage {
 }
 
 #[cfg(feature = "nats-sync")]
-impl TryFrom<&nats::Message> for OpenFMBMessage {
+impl std::convert::TryFrom<&nats::Message> for OpenFMBMessage {
     type Error = OpenFMBDecodeError;
 
     fn try_from(msg: &nats::Message) -> Result<Self, OpenFMBDecodeError> {
         let bytes = &msg.data;
         let profile: Vec<&str> = msg.subject.split(".").collect();
         if profile.len() <= 1 {
-            warn!("PROFILE: {:?}", &profile);
+            log::warn!("PROFILE: {:?}", &profile);
         }
         let profile = profile.get(2).unwrap();
 
@@ -303,7 +301,7 @@ impl TryFrom<&nats::Message> for OpenFMBMessage {
 }
 
 #[cfg(feature = "nats-async")]
-impl TryFrom<&async_nats::Message> for OpenFMBMessage {
+impl std::convert::TryFrom<&async_nats::Message> for OpenFMBMessage {
     type Error = OpenFMBDecodeError;
 
     fn try_from(msg: &async_nats::Message) -> Result<Self, OpenFMBDecodeError> {
@@ -311,7 +309,7 @@ impl TryFrom<&async_nats::Message> for OpenFMBMessage {
         let bytes = &msg.payload.deref().to_vec();
         let profile: Vec<&str> = msg.subject.split(".").collect();
         if profile.len() <= 1 {
-            warn!("PROFILE: {:?}", &profile);
+            log::warn!("PROFILE: {:?}", &profile);
         }
         let profile = profile.get(2).unwrap();
 
@@ -319,8 +317,10 @@ impl TryFrom<&async_nats::Message> for OpenFMBMessage {
     }
 }
 
-#[allow(dead_code)]
-fn openfmb_message(bytes: &Vec<u8>, profile: &str) -> Result<OpenFMBMessage, OpenFMBDecodeError> {
+pub fn openfmb_message(
+    bytes: &Vec<u8>,
+    profile: &str,
+) -> Result<OpenFMBMessage, OpenFMBDecodeError> {
     use OpenFMBMessage::*;
     match profile {
         "BreakerDiscreteControlProfile" => Ok(BreakerDiscreteControl(Box::new(

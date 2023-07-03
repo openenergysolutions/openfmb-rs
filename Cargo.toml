@@ -39,9 +39,8 @@ zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.
 
 [features]
 client = ["openfmb-messages-ext"]
-nats-sync = ["nats", "openfmb-messages-ext/nats-sync"]
-nats-async = ["async-nats", "openfmb-messages-ext/nats-async"]
-default = ["nats-sync", "client"]
+nats-sync = ["nats"]
+nats-async = ["async-nats"]
 
 [dev-dependencies]
 tokio = { version = "1.0", features = ["full"] }
