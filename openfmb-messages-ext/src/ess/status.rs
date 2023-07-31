@@ -102,7 +102,7 @@ impl OpenFMBExtStatus for EssStatusProfile {
 }
 
 pub trait EssStatusExt: StatusProfileExt {
-    fn ess_soc(&self) -> OpenFMBResult<f64>;    
+    fn ess_soc(&self) -> OpenFMBResult<f64>;
     fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind>;
     fn ess_state(&self) -> OpenFMBResult<StateKind>;
 
@@ -113,7 +113,7 @@ pub trait EssStatusExt: StatusProfileExt {
     fn online_status(&self) -> OpenFMBResult<bool>;
     fn supervisory_control(&self) -> OpenFMBResult<bool>;
     fn reactive_power_enabled(&self) -> OpenFMBResult<bool>;
-    fn active_power_enabled(&self) -> OpenFMBResult<bool>;    
+    fn active_power_enabled(&self) -> OpenFMBResult<bool>;
 }
 
 impl EssStatusExt for EssStatusProfile {
@@ -226,8 +226,7 @@ impl EssStatusExt for EssStatusProfile {
             .soc_low_limit
             .as_ref()
             .context(NoSocLow)?
-            .clone()
-           )
+            .clone())
     }
 
     fn soc_max(&self) -> OpenFMBResult<f32> {
@@ -253,10 +252,9 @@ impl EssStatusExt for EssStatusProfile {
             .soc_high_limit
             .as_ref()
             .context(NoSocHigh)?
-            .clone()
-           )
+            .clone())
     }
-    
+
     fn online_status(&self) -> OpenFMBResult<bool> {
         Ok(self
             .ess_status
@@ -268,8 +266,7 @@ impl EssStatusExt for EssStatusProfile {
             .bat_st
             .as_ref()
             .context(NoBatSt)?
-            .st_val
-        )
+            .st_val)
     }
 
     fn supervisory_control(&self) -> OpenFMBResult<bool> {
@@ -283,12 +280,11 @@ impl EssStatusExt for EssStatusProfile {
             .stdby
             .as_ref()
             .context(NoStandby)?
-            .st_val
-        )
+            .st_val)
     }
 
     fn reactive_power_enabled(&self) -> OpenFMBResult<bool> {
-        Ok(self 
+        Ok(self
             .ess_status
             .as_ref()
             .context(NoEssStatus)?
@@ -304,12 +300,11 @@ impl EssStatusExt for EssStatusProfile {
             .reactive_pwr_set_point_enabled
             .as_ref()
             .context(NoReactivePowerSet)?
-            .st_val
-        )
+            .st_val)
     }
 
     fn active_power_enabled(&self) -> OpenFMBResult<bool> {
-        Ok(self 
+        Ok(self
             .ess_status
             .as_ref()
             .context(NoEssStatus)?
@@ -325,10 +320,8 @@ impl EssStatusExt for EssStatusProfile {
             .real_pwr_set_point_enabled
             .as_ref()
             .context(NoRealPowerSet)?
-            .st_val
-        )
+            .st_val)
     }
-
 }
 
 impl StatusProfileExt for EssStatusProfile {}
