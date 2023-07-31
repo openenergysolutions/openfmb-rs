@@ -102,10 +102,18 @@ impl OpenFMBExtStatus for EssStatusProfile {
 }
 
 pub trait EssStatusExt: StatusProfileExt {
-    fn ess_soc(&self) -> OpenFMBResult<f64>;
+    fn ess_soc(&self) -> OpenFMBResult<f64>;    
     fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind>;
     fn ess_state(&self) -> OpenFMBResult<StateKind>;
+
+    fn ess_soh(&self) -> OpenFMBResult<f64>;
     fn ess_gn_sync_st(&self) -> OpenFMBResult<bool>;
+    fn soc_max(&self) -> OpenFMBResult<f32>;
+    fn soc_min(&self) -> OpenFMBResult<f32>;
+    fn online_status(&self) -> OpenFMBResult<bool>;
+    fn supervisory_control(&self) -> OpenFMBResult<bool>;
+    fn reactive_power_enabled(&self) -> OpenFMBResult<bool>;
+    fn active_power_enabled(&self) -> OpenFMBResult<bool>;    
 }
 
 impl EssStatusExt for EssStatusProfile {
@@ -179,6 +187,148 @@ impl EssStatusExt for EssStatusProfile {
             .context(NoEssGnSyncSt)?
             .st_val)
     }
+
+    fn ess_soh(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zbat
+            .as_ref()
+            .context(NoEssStatusZBat)?
+            .so_h
+            .as_ref()
+            .context(NoSoh)?
+            .mag
+            / 100.0)
+    }
+
+    fn soc_min(&self) -> OpenFMBResult<f32> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssStatusZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .function
+            .as_ref()
+            .context(NoFunction)?
+            .soc_limit
+            .as_ref()
+            .context(NoSocLimit)?
+            .soc_low_limit
+            .as_ref()
+            .context(NoSocLow)?
+            .clone()
+           )
+    }
+
+    fn soc_max(&self) -> OpenFMBResult<f32> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssStatusZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .function
+            .as_ref()
+            .context(NoFunction)?
+            .soc_limit
+            .as_ref()
+            .context(NoSocLimit)?
+            .soc_high_limit
+            .as_ref()
+            .context(NoSocHigh)?
+            .clone()
+           )
+    }
+    
+    fn online_status(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zbat
+            .as_ref()
+            .context(NoEssStatusZBat)?
+            .bat_st
+            .as_ref()
+            .context(NoBatSt)?
+            .st_val
+        )
+    }
+
+    fn supervisory_control(&self) -> OpenFMBResult<bool> {
+        Ok(self
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zbat
+            .as_ref()
+            .context(NoEssStatusZBat)?
+            .stdby
+            .as_ref()
+            .context(NoStandby)?
+            .st_val
+        )
+    }
+
+    fn reactive_power_enabled(&self) -> OpenFMBResult<bool> {
+        Ok(self 
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssEventZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .reactive_pwr_set_point_enabled
+            .as_ref()
+            .context(NoReactivePowerSet)?
+            .st_val
+        )
+    }
+
+    fn active_power_enabled(&self) -> OpenFMBResult<bool> {
+        Ok(self 
+            .ess_status
+            .as_ref()
+            .context(NoEssStatus)?
+            .ess_status_zgen
+            .as_ref()
+            .context(NoEssEventZGen)?
+            .e_ss_event_and_status_zgen
+            .as_ref()
+            .context(NoEssEventAndStatusZGen)?
+            .point_status
+            .as_ref()
+            .context(NoPointStatus)?
+            .real_pwr_set_point_enabled
+            .as_ref()
+            .context(NoRealPowerSet)?
+            .st_val
+        )
+    }
+
 }
 
 impl StatusProfileExt for EssStatusProfile {}

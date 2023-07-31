@@ -141,6 +141,15 @@ pub enum OpenFMBError {
     NoCapBankReading,
     NoCapBankStatus,
     NoCapBankControl,
+    NoSocLimit,
+    NoSocHigh,
+    NoSocLow,
+    NoBatSt,
+    NoStandby,
+    NoRealPowerSet,
+    NoReactivePowerSet,
+    NoFunction,
+    NoSoh,
     #[snafu(display("Actor System Error"))]
     IOError {
         source: std::io::Error,
