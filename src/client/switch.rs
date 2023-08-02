@@ -226,7 +226,7 @@ where
     /// TODO add timeout and retry support
     pub async fn close(&mut self) -> ControlResult<()> {
         let mut is_open = self.is_open().await?;
-        while let Some(Ok(true)) = is_open.next().await {
+        if let Some(Ok(true)) = is_open.next().await {
             let msg = SwitchDiscreteControlProfile::switch_close_msg(&self.mrid_as_string());
             self.control(msg).await?
         }
@@ -238,7 +238,7 @@ where
     /// TODO add timeout and retry support
     pub async fn open(&mut self) -> ControlResult<()> {
         let mut is_closed = self.is_closed().await?;
-        while let Some(Ok(true)) = is_closed.next().await {
+        if let Some(Ok(true)) = is_closed.next().await {
             let msg = SwitchDiscreteControlProfile::switch_open_msg(&self.mrid_as_string());
             self.control(msg).await?;
         }
