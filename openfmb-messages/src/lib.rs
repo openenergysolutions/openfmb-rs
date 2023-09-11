@@ -67,7 +67,7 @@ impl std::str::FromStr for Module {
     type Err = ();
     fn from_str(input: &str) -> Result<Module, Self::Err> {
         match input {
-            "breakmodule" => Ok(Module::BreakerModule),
+            "breakermodule" => Ok(Module::BreakerModule),
             "capbankmodule" => Ok(Module::CapBankModule),
             "circuitsegmentservicemodule" => Ok(Module::CircuitSegmentServiceModule),
             "essmodule" => Ok(Module::EssModule),
