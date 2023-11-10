@@ -90,17 +90,7 @@ impl OpenFMBExtReading for MeterReadingProfile {
     }
 }
 
-pub trait MeterReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-
-    fn q_net(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
-}
-
-impl MeterReadingExt for MeterReadingProfile {
+impl ReadingProfileExt for MeterReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .meter_reading
@@ -181,5 +171,3 @@ impl MeterReadingExt for MeterReadingProfile {
             .mag)
     }
 }
-
-impl ReadingProfileExt for MeterReadingProfile {}

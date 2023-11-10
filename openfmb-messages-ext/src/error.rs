@@ -157,6 +157,7 @@ pub enum OpenFMBError {
     UuidError {
         source: uuid::Error,
     },
+    NotImplented,
 }
 
 /// OpenFMBExt Result Type Alias

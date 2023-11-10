@@ -70,21 +70,7 @@ impl OpenFMBExtReading for RecloserReadingProfile {
     }
 }
 
-pub trait RecloserReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-    fn w_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn q_net(&self) -> OpenFMBResult<f64>;
-    fn q_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
-    fn v_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
-    fn a_net_load_side(&self) -> OpenFMBResult<f64>;
-}
-
-impl RecloserReadingExt for RecloserReadingProfile {
+impl ReadingProfileExt for RecloserReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.recloser_reading.is_empty() {
             return Ok(self
@@ -277,5 +263,3 @@ impl RecloserReadingExt for RecloserReadingProfile {
         Err(OpenFMBError::NoRecloserReading)
     }
 }
-
-impl ReadingProfileExt for RecloserReadingProfile {}

@@ -30,23 +30,41 @@ pub mod solar;
 pub mod switch;
 pub mod utils;
 
-pub use breaker::{BreakerControlExt, BreakerReadingExt};
-pub use capbank::{
-    CapBankControlExt, CapBankDiscreteControlExt, CapBankReadingExt, CapBankStatusExt,
-};
+pub use breaker::BreakerControlExt;
+pub use capbank::{CapBankControlExt, CapBankDiscreteControlExt, CapBankStatusExt};
 pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
-pub use generation::{GenerationControlExt, GenerationReadingExt};
+pub use generation::GenerationControlExt;
 pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
-pub use recloser::{RecloserControlExt, RecloserReadingExt};
+pub use recloser::RecloserControlExt;
 pub use regulator::{RegulatorControlExt, RegulatorDiscreteControlExt, RegulatorStatusExt};
 pub use resource::ResourceControlExt;
-pub use solar::{SolarControlExt, SolarReadingExt};
-pub use switch::{SwitchControlExt, SwitchReadingExt};
+pub use solar::SolarControlExt;
+pub use switch::SwitchControlExt;
 pub use utils::*;
 
-pub trait ReadingProfileExt {}
+pub trait ReadingProfileExt {
+    fn w_net(&self) -> OpenFMBResult<f64>;
+    fn w_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
+    fn q_net(&self) -> OpenFMBResult<f64>;
+    fn q_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
+    fn v_net(&self) -> OpenFMBResult<f64>;
+    fn v_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64>;
+    fn a_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+}
 pub trait StatusProfileExt {}
 
 /// Measurement reading side, either source or load
