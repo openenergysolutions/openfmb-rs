@@ -9,11 +9,10 @@ use openfmb_messages::{
     solarmodule::SolarReadingProfile,
 };
 
-use crate::ReadingProfileExt;
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, OpenFMBExtReading};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, OpenFMBReading, ReadingProfileExt};
 
 impl OpenFMBExt for SolarReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -172,3 +171,5 @@ impl ReadingProfileExt for SolarReadingProfile {
             .mag)
     }
 }
+
+impl OpenFMBReading for SolarReadingProfile {}
