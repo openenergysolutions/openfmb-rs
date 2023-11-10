@@ -94,21 +94,8 @@ impl OpenFMBExtReading for BreakerReadingProfile {
     }
 }
 
-pub trait BreakerReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-    fn w_net_load_side(&self) -> OpenFMBResult<f64>;
 
-    fn q_net(&self) -> OpenFMBResult<f64>;
-    fn q_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
-    fn v_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
-    fn a_net_load_side(&self) -> OpenFMBResult<f64>;
-}
-
-impl BreakerReadingExt for BreakerReadingProfile {
+impl ReadingProfileExt for BreakerReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.breaker_reading.is_empty() {
             return Ok(self
@@ -302,4 +289,3 @@ impl BreakerReadingExt for BreakerReadingProfile {
     }
 }
 
-impl ReadingProfileExt for BreakerReadingProfile {}

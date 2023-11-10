@@ -70,17 +70,8 @@ impl OpenFMBExt for CapBankReadingProfile {
     }
 }
 
-pub trait CapBankReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
 
-    fn q_net(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
-}
-
-impl CapBankReadingExt for CapBankReadingProfile {
+impl ReadingProfileExt for CapBankReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         return Ok(self
             .cap_bank_reading
@@ -162,4 +153,3 @@ impl CapBankReadingExt for CapBankReadingProfile {
     }
 }
 
-impl ReadingProfileExt for CapBankReadingProfile {}

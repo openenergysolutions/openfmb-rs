@@ -73,20 +73,13 @@ impl OpenFMBExtReading for LoadReadingProfile {
     }
 }
 
-pub trait LoadReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-
-    fn q_net(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
+pub trait LoadReadingExt: ReadingProfileExt {    
     fn v_phs_a(&self) -> OpenFMBResult<f64>;
     fn v_phs_b(&self) -> OpenFMBResult<f64>;
     fn v_phs_c(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
 }
 
-impl LoadReadingExt for LoadReadingProfile {
+impl ReadingProfileExt for LoadReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .load_reading
@@ -145,8 +138,30 @@ impl LoadReadingExt for LoadReadingProfile {
             .as_ref()
             .context(NoCVal)?
             .mag);
-    }
+    }    
 
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+}
+
+impl LoadReadingExt for LoadReadingProfile {
     fn v_phs_a(&self) -> OpenFMBResult<f64> {
         return Ok(self
             .load_reading
@@ -206,26 +221,4 @@ impl LoadReadingExt for LoadReadingProfile {
             .context(NoCVal)?
             .mag);
     }
-
-    fn a_net(&self) -> OpenFMBResult<f64> {
-        return Ok(self
-            .load_reading
-            .as_ref()
-            .context(NoLoadReading)?
-            .reading_mmxu
-            .as_ref()
-            .context(NoReadingMmxu)?
-            .a
-            .as_ref()
-            .context(NoValue)?
-            .net
-            .as_ref()
-            .context(NoNet)?
-            .c_val
-            .as_ref()
-            .context(NoCVal)?
-            .mag);
-    }
 }
-
-impl ReadingProfileExt for LoadReadingProfile {}

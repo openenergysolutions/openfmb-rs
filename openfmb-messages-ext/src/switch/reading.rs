@@ -91,21 +91,8 @@ impl OpenFMBExtReading for SwitchReadingProfile {
     }
 }
 
-pub trait SwitchReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
-    fn w_net_load_side(&self) -> OpenFMBResult<f64>;
 
-    fn q_net(&self) -> OpenFMBResult<f64>;
-    fn q_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn v_net(&self) -> OpenFMBResult<f64>;
-    fn v_net_load_side(&self) -> OpenFMBResult<f64>;
-
-    fn a_net(&self) -> OpenFMBResult<f64>;
-    fn a_net_load_side(&self) -> OpenFMBResult<f64>;
-}
-
-impl SwitchReadingExt for SwitchReadingProfile {
+impl ReadingProfileExt for SwitchReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.switch_reading.is_empty() {
             return Ok(self
@@ -299,4 +286,3 @@ impl SwitchReadingExt for SwitchReadingProfile {
     }
 }
 
-impl ReadingProfileExt for SwitchReadingProfile {}

@@ -70,7 +70,7 @@ impl OpenFMBExt for RegulatorReadingProfile {
     }
 }
 
-pub trait RegulatorReadingExt: ReadingProfileExt {
+pub trait RegulatorReadingExt {
     fn w_net(&self, side: Side) -> OpenFMBResult<f64>;
     fn q_net(&self, side: Side) -> OpenFMBResult<f64>;
     fn v_net(&self, side: Side) -> OpenFMBResult<f64>;
@@ -179,4 +179,196 @@ impl RegulatorReadingExt for RegulatorReadingProfile {
     }
 }
 
-impl ReadingProfileExt for RegulatorReadingProfile {}
+impl ReadingProfileExt for RegulatorReadingProfile {
+    fn w_net(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() {
+            return Ok(self
+                .regulator_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn q_net(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() {
+            return Ok(self
+                .regulator_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn w_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() || self.regulator_reading.len() < 2 {
+            return Ok(self
+                .regulator_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .w
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn q_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() || self.regulator_reading.len() < 2 {
+            return Ok(self
+                .regulator_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn v_net(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() {
+            return Ok(self
+                .regulator_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .ph_v
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn v_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() || self.regulator_reading.len() < 2 {
+            return Ok(self
+                .regulator_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .ph_v
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() {
+            return Ok(self
+                .regulator_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .a
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn a_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.regulator_reading.is_empty() || self.regulator_reading.len() < 2 {
+            return Ok(self
+                .regulator_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .a
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+}

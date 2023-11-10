@@ -89,13 +89,8 @@ impl OpenFMBExtReading for GenerationReadingProfile {
     }
 }
 
-pub trait GenerationReadingExt: ReadingProfileExt {
-    fn w_net(&self) -> OpenFMBResult<f64>;
 
-    fn q_net(&self) -> OpenFMBResult<f64>;
-}
-
-impl GenerationReadingExt for GenerationReadingProfile {
+impl ReadingProfileExt for GenerationReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .generation_reading
@@ -135,6 +130,45 @@ impl GenerationReadingExt for GenerationReadingProfile {
             .context(NoCVal)?
             .mag)
     }
+
+    fn v_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .generation_reading
+            .as_ref()
+            .context(NoGenerationReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .generation_reading
+            .as_ref()
+            .context(NoGenerationReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
 }
 
-impl ReadingProfileExt for GenerationReadingProfile {}
