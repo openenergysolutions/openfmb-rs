@@ -12,7 +12,7 @@ use openfmb_messages::{
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, ReadingProfileExt, OpenFMBExtReading, OpenFMBReading};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, OpenFMBReading, ReadingProfileExt};
 
 impl OpenFMBExt for SolarReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {

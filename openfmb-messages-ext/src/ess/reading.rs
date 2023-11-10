@@ -4,11 +4,14 @@
 
 use std::str::FromStr;
 
-use openfmb_messages::{commonmodule::{MessageInfo, ReadingMessageInfo}, essmodule::EssReadingProfile};
+use openfmb_messages::{
+    commonmodule::{MessageInfo, ReadingMessageInfo},
+    essmodule::EssReadingProfile,
+};
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, ReadingProfileExt, OpenFMBExtReading, OpenFMBReading};
+use crate::{error::*, OpenFMBExt, OpenFMBExtReading, OpenFMBReading, ReadingProfileExt};
 
 impl OpenFMBExt for EssReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
