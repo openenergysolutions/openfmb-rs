@@ -90,7 +90,6 @@ impl OpenFMBExtReading for MeterReadingProfile {
     }
 }
 
-
 impl ReadingProfileExt for MeterReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         Ok(self
@@ -172,4 +171,3 @@ impl ReadingProfileExt for MeterReadingProfile {
             .mag)
     }
 }
-

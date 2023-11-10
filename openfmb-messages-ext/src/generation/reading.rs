@@ -89,7 +89,6 @@ impl OpenFMBExtReading for GenerationReadingProfile {
     }
 }
 
-
 impl ReadingProfileExt for GenerationReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         Ok(self
@@ -171,4 +170,3 @@ impl ReadingProfileExt for GenerationReadingProfile {
             .mag)
     }
 }
-

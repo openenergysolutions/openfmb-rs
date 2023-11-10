@@ -31,9 +31,7 @@ pub mod switch;
 pub mod utils;
 
 pub use breaker::BreakerControlExt;
-pub use capbank::{
-    CapBankControlExt, CapBankDiscreteControlExt, CapBankStatusExt,
-};
+pub use capbank::{CapBankControlExt, CapBankDiscreteControlExt, CapBankStatusExt};
 pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
@@ -64,7 +62,7 @@ pub trait ReadingProfileExt {
 
     fn a_net(&self) -> OpenFMBResult<f64>;
     fn a_net_load_side(&self) -> OpenFMBResult<f64> {
-        Err(OpenFMBError::NotImplented)        
+        Err(OpenFMBError::NotImplented)
     }
 }
 pub trait StatusProfileExt {}

@@ -94,7 +94,6 @@ impl OpenFMBExtReading for BreakerReadingProfile {
     }
 }
 
-
 impl ReadingProfileExt for BreakerReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.breaker_reading.is_empty() {
@@ -288,4 +287,3 @@ impl ReadingProfileExt for BreakerReadingProfile {
         Err(OpenFMBError::NoBreakerReading)
     }
 }
-

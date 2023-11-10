@@ -73,7 +73,7 @@ impl OpenFMBExtReading for LoadReadingProfile {
     }
 }
 
-pub trait LoadReadingExt: ReadingProfileExt {    
+pub trait LoadReadingExt: ReadingProfileExt {
     fn v_phs_a(&self) -> OpenFMBResult<f64>;
     fn v_phs_b(&self) -> OpenFMBResult<f64>;
     fn v_phs_c(&self) -> OpenFMBResult<f64>;
@@ -138,7 +138,7 @@ impl ReadingProfileExt for LoadReadingProfile {
             .as_ref()
             .context(NoCVal)?
             .mag);
-    }    
+    }
 
     fn a_net(&self) -> OpenFMBResult<f64> {
         return Ok(self

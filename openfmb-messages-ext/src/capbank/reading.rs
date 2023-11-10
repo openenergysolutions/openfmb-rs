@@ -70,7 +70,6 @@ impl OpenFMBExt for CapBankReadingProfile {
     }
 }
 
-
 impl ReadingProfileExt for CapBankReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         return Ok(self
@@ -152,4 +151,3 @@ impl ReadingProfileExt for CapBankReadingProfile {
             .mag);
     }
 }
-

@@ -70,8 +70,6 @@ impl OpenFMBExtReading for RecloserReadingProfile {
     }
 }
 
-
-
 impl ReadingProfileExt for RecloserReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.recloser_reading.is_empty() {
@@ -265,4 +263,3 @@ impl ReadingProfileExt for RecloserReadingProfile {
         Err(OpenFMBError::NoRecloserReading)
     }
 }
-

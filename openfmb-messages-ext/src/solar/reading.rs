@@ -172,4 +172,3 @@ impl ReadingProfileExt for SolarReadingProfile {
             .mag)
     }
 }
-

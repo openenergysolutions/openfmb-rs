@@ -146,7 +146,6 @@ impl ReadingProfileExt for EssReadingProfile {
             .context(NoCVal)?
             .mag)
     }
-    
 }
 
 impl EssReadingExt for EssReadingProfile {

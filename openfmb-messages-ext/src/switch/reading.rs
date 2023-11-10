@@ -91,7 +91,6 @@ impl OpenFMBExtReading for SwitchReadingProfile {
     }
 }
 
-
 impl ReadingProfileExt for SwitchReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
         if !self.switch_reading.is_empty() {
@@ -285,4 +284,3 @@ impl ReadingProfileExt for SwitchReadingProfile {
         Err(OpenFMBError::NoSwitchReading)
     }
 }
-
