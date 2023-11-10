@@ -8,7 +8,7 @@ use openfmb_messages::{commonmodule::{MessageInfo, ReadingMessageInfo}, essmodul
 use snafu::{OptionExt, ResultExt};
 use uuid::Uuid;
 
-use crate::{error::*, OpenFMBExt, ReadingProfileExt, OpenFMBExtReading};
+use crate::{error::*, OpenFMBExt, ReadingProfileExt, OpenFMBExtReading, OpenFMBReading};
 
 impl OpenFMBExt for EssReadingProfile {
     fn device_state(&self) -> OpenFMBResult<String> {
@@ -198,3 +198,5 @@ impl EssReadingExt for EssReadingProfile {
             .mag)
     }
 }
+
+impl OpenFMBReading for EssReadingProfile {}

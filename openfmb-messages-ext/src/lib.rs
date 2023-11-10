@@ -158,3 +158,6 @@ pub enum Phase {
     PhsB,
     PhsC,
 }
+
+
+pub trait OpenFMBReading: ReadingProfileExt + OpenFMBExtReading {}
