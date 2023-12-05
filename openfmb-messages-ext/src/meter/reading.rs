@@ -170,4 +170,64 @@ impl ReadingProfileExt for MeterReadingProfile {
             .context(NoCVal)?
             .mag)
     }
+
+    fn a_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
 }
