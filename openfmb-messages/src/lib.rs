@@ -120,4 +120,3 @@ mod tests {
         assert_eq!(message, decoded);
     }
 }
-
