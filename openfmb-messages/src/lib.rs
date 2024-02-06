@@ -90,3 +90,34 @@ mod profiles;
 pub use profiles::Profile;
 mod variant;
 pub use variant::ProfileMessage;
+
+// encode/decode
+
+use prost::Message;
+
+/// Encode a message to a byte array
+pub fn encode_message<T: Message>(message: &T) -> Vec<u8> {
+    let mut buf = Vec::new();
+    message.encode(&mut buf).unwrap();
+    buf
+}
+
+/// Decode a message from a byte array
+pub fn decode_message<T: Message + std::default::Default>(data: &[u8]) -> T {
+    T::decode(data).unwrap()
+}
+
+// tests
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_encode_decode() {
+        let message = breakermodule::BreakerDiscreteControlProfile::default();
+        let encoded = encode_message(&message);
+        let decoded = decode_message(&encoded);
+        assert_eq!(message, decoded);
+    }
+}
+
