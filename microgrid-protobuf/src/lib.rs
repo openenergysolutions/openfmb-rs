@@ -202,6 +202,8 @@ impl FromStr for generic_control::ControlType {
             "MeterValues" => Ok(generic_control::ControlType::MeterValues),
             "StatusNotification" => Ok(generic_control::ControlType::StatusNotification),
             "BootNotification" => Ok(generic_control::ControlType::BootNotification),
+            "SetChargeProfile" => Ok(generic_control::ControlType::SetChargeProfile),
+            "ClearChargeProfile" => Ok(generic_control::ControlType::ClearChargeProfile),
             _ => {
                 println!("Unsupport Generic control {}", input);
                 Err(())
