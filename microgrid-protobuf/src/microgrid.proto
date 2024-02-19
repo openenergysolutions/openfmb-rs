@@ -194,6 +194,8 @@ message GenericControl
         MeterValues = 92;
         StatusNotification = 93;
         BootNotification = 94;
+        SetChargeProfile = 95;
+        ClearChargeProfile = 96;
     }
 }
 
