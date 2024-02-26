@@ -5,6 +5,7 @@
 // Custom clippy lints for this crate, used to avoid unwrap() calls on options
 // and results in this crate. Nothing in this crate should cause a panic.
 #![deny(clippy::all)]
+#![allow(unused_imports)]
 
 use std::{fmt, fmt::Debug, str::FromStr, time::SystemTime};
 
@@ -21,10 +22,12 @@ pub mod circuitsegmentservice;
 pub mod error;
 pub mod ess;
 pub mod generation;
+pub mod interconnection;
 pub mod load;
 pub mod meter;
 pub mod recloser;
 pub mod regulator;
+pub mod reserve;
 pub mod resource;
 pub mod solar;
 pub mod switch;

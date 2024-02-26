@@ -11,8 +11,9 @@ use uuid::Uuid;
 
 use openfmb_messages::{
     breakermodule::*, capbankmodule::*, circuitsegmentservicemodule::*, commonmodule::*,
-    essmodule::*, generationmodule::*, loadmodule::*, metermodule::*, reclosermodule::*,
-    regulatormodule::*, resourcemodule::*, solarmodule::*, switchmodule::*,
+    essmodule::*, generationmodule::*, interconnectionmodule::*, loadmodule::*, metermodule::*,
+    reclosermodule::*, regulatormodule::*, reservemodule::*, resourcemodule::*, solarmodule::*,
+    switchmodule::*,
 };
 
 #[derive(Debug)]
@@ -68,6 +69,8 @@ pub enum OpenFMBMessage {
     GenerationStatus(Box<GenerationStatusProfile>),
     GenerationCapability(Box<GenerationCapabilityProfile>),
     GenerationCapabilityOverride(Box<GenerationCapabilityOverrideProfile>),
+    InterconnectionPlannedSchedule(Box<InterconnectionPlannedScheduleProfile>),
+    InterconnectionRequestedSchedule(Box<InterconnectionRequestedScheduleProfile>),
     LoadControl(Box<LoadControlProfile>),
     LoadEvent(Box<LoadEventProfile>),
     LoadReading(Box<LoadReadingProfile>),
@@ -82,6 +85,8 @@ pub enum OpenFMBMessage {
     RegulatorEvent(Box<RegulatorEventProfile>),
     RegulatorReading(Box<RegulatorReadingProfile>),
     RegulatorStatus(Box<RegulatorStatusProfile>),
+    ReserveAvailability(Box<ReserveAvailabilityProfile>),
+    ReserveRequest(Box<ReserveRequestProfile>),
     ResourceDiscreteControl(Box<ResourceDiscreteControlProfile>),
     ResourceReading(Box<ResourceReadingProfile>),
     ResourceEvent(Box<ResourceEventProfile>),
@@ -129,6 +134,8 @@ impl OpenFMBMessage {
             GenerationStatus(_) => "GenerationStatus",
             GenerationCapability(_) => "GenerationCapability",
             GenerationCapabilityOverride(_) => "GenerationCapabilityOverride",
+            InterconnectionPlannedSchedule(_) => "InterconnectionPlannedSchedule",
+            InterconnectionRequestedSchedule(_) => "InterconnectionRequestedSchedule",
             LoadControl(_) => "LoadControl",
             LoadEvent(_) => "LoadEvent",
             LoadReading(_) => "LoadReading",
@@ -143,6 +150,8 @@ impl OpenFMBMessage {
             RegulatorEvent(_) => "RegulatorEvent",
             RegulatorReading(_) => "RegulatorReading",
             RegulatorStatus(_) => "RegulatorStatus",
+            ReserveAvailability(_) => "ReserveAvailability",
+            ReserveRequest(_) => "ReserveRequest",
             ResourceDiscreteControl(_) => "ResourceDiscreteControl",
             ResourceReading(_) => "ResourceReading",
             ResourceEvent(_) => "ResourceEvent",
@@ -190,6 +199,8 @@ impl OpenFMBMessage {
             GenerationStatus(_) => "generationmodule",
             GenerationCapability(_) => "generationmodule",
             GenerationCapabilityOverride(_) => "generationmodule",
+            InterconnectionPlannedSchedule(_) => "interconnectionmodule",
+            InterconnectionRequestedSchedule(_) => "interconnectionmodule",
             LoadControl(_) => "loadmodule",
             LoadEvent(_) => "loadmodule",
             LoadReading(_) => "loadmodule",
@@ -204,6 +215,8 @@ impl OpenFMBMessage {
             RegulatorEvent(_) => "regulatormodule",
             RegulatorReading(_) => "regulatormodule",
             RegulatorStatus(_) => "regulatormodule",
+            ReserveAvailability(_) => "reservemodule",
+            ReserveRequest(_) => "reservemodule",
             ResourceDiscreteControl(_) => "resourcemodule",
             ResourceReading(_) => "resourcemodule",
             ResourceEvent(_) => "resourcemodule",
@@ -251,6 +264,8 @@ impl OpenFMBMessage {
             GenerationStatus(p) => p.device_mrid(),
             GenerationCapability(p) => p.device_mrid(),
             GenerationCapabilityOverride(p) => p.device_mrid(),
+            InterconnectionPlannedSchedule(p) => p.device_mrid(),
+            InterconnectionRequestedSchedule(p) => p.device_mrid(),
             LoadControl(p) => p.device_mrid(),
             LoadEvent(p) => p.device_mrid(),
             LoadReading(p) => p.device_mrid(),
@@ -265,6 +280,8 @@ impl OpenFMBMessage {
             RegulatorEvent(p) => p.device_mrid(),
             RegulatorReading(p) => p.device_mrid(),
             RegulatorStatus(p) => p.device_mrid(),
+            ReserveAvailability(p) => p.device_mrid(),
+            ReserveRequest(p) => p.device_mrid(),
             ResourceDiscreteControl(p) => p.device_mrid(),
             ResourceReading(p) => p.device_mrid(),
             ResourceEvent(p) => p.device_mrid(),
@@ -402,6 +419,16 @@ pub fn openfmb_message(
             GenerationCapabilityOverrideProfile::decode(bytes.as_slice())
                 .context(ProstDecodeError)?,
         ))),
+        "InterconnectionPlannedScheduleProfile" => Ok(InterconnectionPlannedSchedule(Box::new(
+            InterconnectionPlannedScheduleProfile::decode(bytes.as_slice())
+                .context(ProstDecodeError)?,
+        ))),
+        "InterconnectionRequestedScheduleProfile" => {
+            Ok(InterconnectionRequestedSchedule(Box::new(
+                InterconnectionRequestedScheduleProfile::decode(bytes.as_slice())
+                    .context(ProstDecodeError)?,
+            )))
+        }
         "LoadControlProfile" => Ok(LoadControl(Box::new(
             LoadControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
         ))),
@@ -443,6 +470,12 @@ pub fn openfmb_message(
         ))),
         "RegulatorStatusProfile" => Ok(RegulatorStatus(Box::new(
             RegulatorStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ReserveAvailabilityProfile" => Ok(ReserveAvailability(Box::new(
+            ReserveAvailabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "ReserveRequestProfile" => Ok(ReserveRequest(Box::new(
+            ReserveRequestProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
         ))),
         "ResourceDiscreteControlProfile" => Ok(ResourceDiscreteControl(Box::new(
             ResourceDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
