@@ -567,12 +567,5 @@ pub fn timestamp_from_datetime(t: DateTime<Utc>) -> Timestamp {
 }
 
 pub fn datetime_from_timestamp(t: Timestamp) -> DateTime<Utc> {
-    let _nanoseconds: u32 =
-        (t.nanoseconds as f64 / (2u64.pow(32) as f64) * 1000000000f64 as f64) as u32;
-
-    let ms = fraction_to_ms(t.nanoseconds);
-    DateTime::<Utc>::from_naive_utc_and_offset(
-        NaiveDateTime::from_timestamp_opt(t.seconds as i64, ms).unwrap(),
-        Utc,
-    )
+    DateTime::<Utc>::from_timestamp(t.seconds as i64, t.nanoseconds).unwrap()
 }

@@ -163,6 +163,10 @@ pub trait EssControlExt: ControlProfileExt {
         Ctrl::build_stop_control_profile(m_rid, SystemTime::now())
     }
 
+    fn start_now_msg(m_rid: &str) -> EssControlProfile {
+        Ctrl::build_start_control_profile(m_rid, SystemTime::now())
+    }
+
     fn ess_modblk_msg(m_rid: &str, modblk: bool) -> EssControlProfile {
         Ctrl::build_modblk_profile(m_rid, SystemTime::now(), modblk)
     }
@@ -195,6 +199,17 @@ pub trait EssControlExt: ControlProfileExt {
         }
     }
     fn build_stop_control_profile(m_rid: &str, start_time: SystemTime) -> EssControlProfile {
+        Ctrl::build_state_control_profile(m_rid, StateKind::Off, start_time)
+    }
+    fn build_start_control_profile(m_rid: &str, start_time: SystemTime) -> EssControlProfile {
+        Ctrl::build_state_control_profile(m_rid, StateKind::On, start_time)
+    }
+
+    fn build_state_control_profile(
+        m_rid: &str,
+        state: StateKind,
+        start_time: SystemTime,
+    ) -> EssControlProfile {
         EssControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             ess: Some(Ess {
@@ -216,7 +231,7 @@ pub trait EssControlExt: ControlProfileExt {
                             crv_pts: vec![EssCurvePoint {
                                 control: Some(EssPoint {
                                     state: Some(OptionalStateKind {
-                                        value: StateKind::Off as i32,
+                                        value: state as i32,
                                     }),
                                     ..Default::default()
                                 }),
@@ -244,6 +259,15 @@ pub trait EssControlExt: ControlProfileExt {
         low: f32,
         start_time: SystemTime,
     ) -> EssControlProfile {
+        Self::build_soclimits_control_profile_opt(m_rid, Some(high), Some(low), start_time)
+    }
+
+    fn build_soclimits_control_profile_opt(
+        m_rid: &str,
+        high: Option<f32>,
+        low: Option<f32>,
+        start_time: SystemTime,
+    ) -> EssControlProfile {
         EssControlProfile {
             control_message_info: Some(Self::build_control_message_info()),
             ess: Some(Ess {
@@ -255,7 +279,7 @@ pub trait EssControlExt: ControlProfileExt {
                     }),
                 }),
             }),
-            ess_control: Some(Self::build_ess_soclimit_control(high, low, start_time)),
+            ess_control: Some(Self::build_ess_soclimit_control_opt(high, low, start_time)),
         }
     }
 
@@ -435,6 +459,14 @@ pub trait EssControlExt: ControlProfileExt {
     }
 
     fn build_ess_soclimit_control(high_limit: f32, low_limit: f32, when: SystemTime) -> EssControl {
+        Self::build_ess_soclimit_control_opt(Some(high_limit), Some(low_limit), when)
+    }
+
+    fn build_ess_soclimit_control_opt(
+        high_limit: Option<f32>,
+        low_limit: Option<f32>,
+        when: SystemTime,
+    ) -> EssControl {
         EssControl {
             control_value: None,
             check: Some(CheckConditions {
@@ -456,8 +488,8 @@ pub trait EssControlExt: ControlProfileExt {
                                     frequency_regulation: None,
                                     peak_shaving: None,
                                     soc_limit: Some(SocLimit {
-                                        soc_high_limit: Some(high_limit),
-                                        soc_low_limit: Some(low_limit),
+                                        soc_high_limit: high_limit,
+                                        soc_low_limit: low_limit,
                                         soc_high_limit_hysteresis: None,
                                         soc_low_limit_hysteresis: None,
                                         soc_limit_ctl: Some(true),
