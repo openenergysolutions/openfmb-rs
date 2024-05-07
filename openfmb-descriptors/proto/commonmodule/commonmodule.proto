@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
-// Monday, April 3, 2023 7:34:35 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
+// Wednesday, April 17, 2024 5:11:40 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -608,6 +608,21 @@ message CapabilityMessageInfo
 {
     // UML inherited base object
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// ESS inverter high level function to reduce (smooth) charging or discharging rate of change.
+message CapacityFirming
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue capacityFirmingCtl = 1;
+    // uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
+    // limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
+    // the PCC
+    google.protobuf.FloatValue limitNegative_dp_dt = 2;
+    // uint/1kW/min  If the supervised power increases at a rate higher that the rate defined by these
+    // limits, the ESS will discharge/charge at an opposite dp/dt to reduce (smooth) the rate of change at
+    // the PCC
+    google.protobuf.FloatValue limitPositive_dp_dt = 3;
 }
 
 // IEC61850-7-2 Service parameter for conditions checking
@@ -1353,6 +1368,39 @@ message ForecastValue
     IdentifiedObject identifiedObject = 1 [(uml.option_parent_message) = true];
 }
 
+// ESS inverter high level function to maintain frequency within dead bands.
+message FrequencyRegulation
+{
+    // uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
+    // bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
+    // DB = frequency set point – dead band minus
+    google.protobuf.FloatValue frequencyDeadBandMinus = 1;
+    // uint/0.01Hz  Frequency regulation is performed when the grid frequency goes beyond the dead
+    // bands. The dead bands are defined as follows: Upper DB = frequency set point + dead band plus Lower
+    // DB = frequency set point – dead band minus
+    google.protobuf.FloatValue frequencyDeadBandPlus = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue frequencyRegulationCtl = 3;
+    // uint/0.01Hz  Target frequency
+    google.protobuf.FloatValue frequencySetPoint = 4;
+    // uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue gridFrequencyStableBandMinus = 5;
+    // uint/0.01Hz  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue gridFrequencyStableBandPlus = 6;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over frequency events. A droop of
+    // 1% means that the PCS will output 100% power if the frequency is 1% of the nominal frequency away
+    // from the upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue overFrequencyDroop = 7;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue underFrequencyDroop = 8;
+}
+
 // MISSING DOCUMENTATION!!!
 message OperationDHFW
 {
@@ -1555,6 +1603,24 @@ message OptimizationMessageInfo
 {
     // UML inherited base object
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// ESS inverter high level function to maintain power level by charging or discharging
+message PeakShaving
+{
+    // uint/1kW  If the supervised power goes below this limit, the ESS will charge to maintain this limit.
+    google.protobuf.FloatValue baseShavingLimit = 1;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue peakShavingCtl = 2;
+    // uint/1kW  If the supervised power goes above this limit, the ESS will discharge to maintain this
+    // limit.
+    google.protobuf.FloatValue peakShavingLimit = 3;
+    // uint/1kW  If the supervised power is between the band defined by these two limits then SOC
+    // management is allowed.
+    google.protobuf.FloatValue socManagementAllowedHighLimit = 4;
+    // uint/1kW  If the supervised power is between the band defined by these two limits then SOC
+    // management is allowed.
+    google.protobuf.FloatValue socManagementAllowedLowLimit = 5;
 }
 
 // Constant power factor control function
@@ -1868,6 +1934,52 @@ message ReadingMMXU
     WYE W = 11;
 }
 
+// ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
+message SocLimit
+{
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socHighLimit = 1;
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socHighLimitHysteresis = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue socLimitCtl = 3;
+    // uint/1%  These limits define the operational range of the battery. If a lineup reaches the SOC
+    // high limit, the inverter’s output is reduced to 0. Charging is then blocked until the hysteresis is
+    // overcome. The same logic applies to the SOC low limit, except that after the ramp down is complete,
+    // discharging is blocked until the hysteresis is overcome.
+    google.protobuf.FloatValue socLowLimit = 4;
+    // uint/1%  These hysteresis define the release conditions for the block charge or discharge
+    // initiated by the SOC limits.For example, assume a SOC low limit of 10% and a SOC low limit
+    // hysteresis of 2% and that discharging is blocked because the batteries SOC reached the SOC low
+    // limit, discharging will only be allowed again after the battery’s SOC reaches 13%.
+    google.protobuf.FloatValue socLowLimitHysteresis = 5;
+}
+
+// ESS inverter high level function to maintain SOC within dead bands
+message SOCManagement
+{
+    // uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
+    // dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
+    // + dead band plus Lower DB = set point – dead band minus
+    google.protobuf.FloatValue socDeadBandMinus = 1;
+    // uint/1%  Define a dead band (DB) around the SOC set point. When the battery SOC goes outside the
+    // dead band, the SOC management executes and bring the SOC back to the set point. Upper DB = set point
+    // + dead band plus Lower DB = set point – dead band minus
+    google.protobuf.FloatValue socDeadBandPlus = 2;
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue socManagementCtl = 3;
+    // uint/1kW  Set point used for SOC maintenance
+    google.protobuf.FloatValue socPowerSetPoint = 4;
+    // uint/1%  SOC Target in percentage (%).
+    google.protobuf.FloatValue socSetPoint = 5;
+}
+
 // Source configured setting
 message SourceCapabilityConfiguration
 {
@@ -1971,6 +2083,13 @@ message SourceCapabilityRatings
     ASG WUndExtRtg = 16 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Active power rating at specified under-excited power factor
     ASG WUndExtRtgPF = 17 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Single point setting (FC=SP) (SPG_SP)
+message SPG
+{
+    // The value of the status setting (false is off, true is on).
+    bool setVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
 // OpenFMB specialization for breaker, recloser and switch status and event profiles:  LN: Circuit
@@ -2113,6 +2232,49 @@ message VarSPC
     bool modEna = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // MISSING DOCUMENTATION!!!
     OperationDVAR varParameter = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Voltage regulation function
+message VoltageRegulation
+{
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue overVoltageDroop = 1;
+    // uint/0.1%  The droops define the reaction of the PCS to under/over voltage events. A droop of 1%
+    // means that the PCS will output 100% power if the voltage is 1% of the nominal voltage away from the
+    // upper or lower dead band. The minimum droop value possible is 0.8%.
+    google.protobuf.FloatValue underVoltageDroop = 2;
+    // uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
+    // dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
+    // set point – dead band minus
+    google.protobuf.FloatValue voltageDeadBandMinus = 3;
+    // uint/0.1V  Voltage regulation is performed when the grid voltage goes beyond the dead bands. The
+    // dead bands are defined as follows: Upper DB = voltage set point + dead band plus Lower DB = voltage
+    // set point – dead band minus
+    google.protobuf.FloatValue voltageDeadBandPlus = 4;
+    // uint/0.1V  Other modes of operation, such as peak shaving, smoothing or SOC management may
+    // operate if the grid frequency is within the stable band. Upper stable band = frequency set point +
+    // band plus Lower stable band = frequency set point – band minus
+    google.protobuf.FloatValue voltageSetPoint = 5;
+}
+
+// ESS inverter high level function to maintain voltage within droop dead bands.
+message VoltageDroop
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue voltageDroopCtl = 1;
+    // Voltage regulation
+    VoltageRegulation voltageRegulation = 2;
+}
+
+// ESS inverter high level function to maintain voltage within dead bands.
+message VoltagePI
+{
+    // Control value (TRUE or FALSE)
+    google.protobuf.BoolValue voltagePICtl = 1;
+    // Voltage regulation
+    VoltageRegulation voltageRegulation = 2;
 }
 
 // Point definition (Point)

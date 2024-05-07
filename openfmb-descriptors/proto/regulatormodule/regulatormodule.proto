@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.1.0).eapx
-// Monday, April 3, 2023 7:34:35 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
+// Wednesday, April 17, 2024 5:11:40 PM UTC
 
 package regulatormodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/regulatormodule";
@@ -193,6 +193,10 @@ message RegulatorEventAndStatusATCC
     commonmodule.PhaseAPC VolSpt = 18;
     // Voltage set point status
     commonmodule.StatusSPS voltageSetPointEnabled = 19;
+    // The control characteristics for power flow operation
+    commonmodule.Optional_DirectionModeKind DirMod = 20;
+    // Voltage-limiting types
+    commonmodule.Optional_VoltLimitModeKind VolLmtMode = 21;
 }
 
 // OpenFMB 61850 specialization for both RegulatorEventProfile and RegulatorStatusProfile

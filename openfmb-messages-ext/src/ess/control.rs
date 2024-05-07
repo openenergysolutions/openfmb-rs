@@ -7,11 +7,12 @@ use openfmb_messages::{
     commonmodule::{
         CheckConditions, ConductingEquipment, ControlFscc, ControlScheduleFsch, ControlTimestamp,
         ControlValue, EngGridConnectModeKind, EngScheduleParameter, Ess, MessageInfo, NamedObject,
-        OptionalStateKind, ScheduleCsg, ScheduleParameterKind, SchedulePoint, StateKind,
+        OptionalStateKind, ScheduleCsg, ScheduleParameterKind, SchedulePoint, SocLimit,
+        SocManagement, StateKind,
     },
     essmodule::{
         EssControl, EssControlFscc, EssControlProfile, EssControlScheduleFsch, EssCurvePoint,
-        EssFunction, EssPoint, Esscsg, SocLimit, SocManagement,
+        EssFunction, EssPoint, Esscsg,
     },
 };
 use snafu::{OptionExt, ResultExt};

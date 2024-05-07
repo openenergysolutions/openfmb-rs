@@ -1,0 +1,908 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
+// Wednesday, April 17, 2024 5:11:40 PM UTC
+
+package evsemodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/evsemodule";
+option java_package = "openfmb.evsemodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.evsemodule";
+
+import "uml.proto";
+import "google/protobuf/wrappers.proto";
+import "commonmodule/commonmodule.proto";
+
+// MISSING DOCUMENTATION!!!
+message CapabilityConfigurationDEAO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // The rated maximum AC charging current of the outlet
+    commonmodule.ControlING ChaARtg = 3;
+    // Available AC current (6-80A) to signal to the EV when not using digital communication
+    commonmodule.ControlING ChaAMax = 4;
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityConfigurationDEDO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityConfigurationDESE
+{
+    // UML inherited base object
+    commonmodule.SourceCapabilityConfiguration sourceCapabilityConfiguration = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    CapabilityConfigurationDEAO capabilityConfigurationDEA0 = 2;
+    // MISSING DOCUMENTATION!!!
+    CapabilityConfigurationDEDO capabilityConfigurationDEDO = 3;
+    // Rated maximum charging power of the EVSE
+    commonmodule.ASG ChaPwrRtg = 4;
+    // The power value that the EVSE requires to grid
+    commonmodule.ASG ChaPwrTgt = 5;
+    // The power value that the grid limits to the charger
+    commonmodule.ASG ChaPwrLim = 6;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSECapabilityOverride
+{
+    // UML inherited base object
+    commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    CapabilityConfigurationDESE capabilityConfigurationDESE = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSE
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
+}
+
+// EVSE Capability Override Profile
+message EVSECapabilityOverrideProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityMessageInfo capabilityMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSECapabilityOverride evseCapabilityOverride = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityRatingsZCAB
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Rated current of the cable in A
+    commonmodule.ASG ARtg = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Maximum overload of the cable in percent
+    commonmodule.ASG OvlMaxPct = 3;
+    // Maximum time allowed for corresponding overload set as Tmm
+    commonmodule.ControlING OvlMaxTm = 4;
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityRatingsDEAO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // The rated maximum AC charging current of the outlet
+    commonmodule.ControlING ChaARtg = 3;
+    // Available AC current (6-80A) to signal to the EV when not using digital communication
+    commonmodule.ControlING ChaAMax = 4;
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityRatingsDEDO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+}
+
+// MISSING DOCUMENTATION!!!
+message CapabilityRatingsDESE
+{
+    // UML inherited base object
+    commonmodule.SourceCapabilityRatings sourceCapabilityRatings = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated CapabilityRatingsDEAO capabilityRatingsDEAO = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    repeated CapabilityRatingsDEDO capabilityRatingsDEDO = 3 [(uml.option_multiplicity_min) = 0];
+    // Rated maximum charging power of the EVSE
+    commonmodule.ASG ChaPwrRtg = 4;
+    // The power value that the EVSE requires to grid
+    commonmodule.ASG ChaPwrTgt = 5;
+    // The power value that the grid limits to the charger
+    commonmodule.ASG ChaPwrLim = 6;
+    // True = DC charging is supported
+    commonmodule.SPG ConnTypDC = 7;
+    // True = AC 1 phase charging is supported. Use ConnTypPhs1 for one phase charging, ConnTypPhs2 for
+    // two phase charging and ConnTypPhs3 for three phase charging.
+    commonmodule.SPG ConnTypPhs1 = 8;
+    // True = AC 2 phase charging is supported.
+    commonmodule.SPG ConnTypPhs2 = 9;
+    // True = AC 3 phase charging is supported.
+    commonmodule.SPG ConnTypPhs3 = 10;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSECapability
+{
+    // UML inherited base object
+    commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    CapabilityRatingsDESE capabilityRatingsDESE = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    repeated CapabilityConfigurationDESE capabilityConfigurationDESE = 3 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    CapabilityRatingsZCAB capabilityRatingsZCAB = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// EVSE Capability Profile
+message EVSECapabilityProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.CapabilityMessageInfo capabilityMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSECapability evseCapability = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// EVSE inverter high level functions.
+message EVSEFunction
+{
+    // EVSE inverter high level function to reduce (smooth) charging or discharging rate of change.
+    commonmodule.CapacityFirming capacityFirming = 1;
+    // EVSE inverter high level function to maintain frequency within dead bands.
+    commonmodule.FrequencyRegulation frequencyRegulation = 2;
+    // EVSE inverter high level function to maintain power level by charging or discharging
+    commonmodule.PeakShaving peakShaving = 3;
+    // EVSE inverter high level function to shut down ESS if SOC exceeds high or low limits.
+    commonmodule.SocLimit socLimit = 4;
+    // EVSE inverter high level function to maintain SOC within dead bands
+    commonmodule.SOCManagement socManagement = 5;
+    // EVSE inverter high level function to maintain voltage within droop dead bands.
+    commonmodule.VoltageDroop voltageDroop = 6;
+    // EVSE inverter high level function to maintain voltage within dead bands.
+    commonmodule.VoltagePI voltagePI = 7;
+}
+
+// MISSING DOCUMENTATION!!!
+enum ChargingStateKind
+{
+    // There is no connection between EV and EVSE.
+     ChargingStateKind_Idle = 0;
+    // The contactor of the Connector is closed and energy is flowing to between EVSE and EV.
+     ChargingStateKind_Charging = 1;
+    // There is a connection between EV and EVSE, in case the protocol used between EV and the Charging
+    // Station can detect a connection, the protocol needs to detect this for the state to become active.
+    // The connection can either be wired or wireless.
+     ChargingStateKind_EVConnected = 2;
+    // When the EV is connected to the EVSE and the EVSE is offering energy but the EV is not taking
+    // any energy.
+     ChargingStateKind_SuspendedEV = 3;
+    // When the EV is connected to the EVSE but the EVSE is not offering energy to the EV, e.g. due to
+    // a smart charging restriction, local supply power constraints, or when charging has stopped because
+    // of the authorization status in the response to a transactionEventRequest indicating that charging is
+    // not allowed etc.
+     ChargingStateKind_SuspendedEVSE = 4;
+}
+
+message Optional_ChargingStateKind
+{
+    ChargingStateKind value = 1;
+}
+
+// Point definition (Point)
+message EVSEPoint
+{
+    reserved 2,5,6,8,9,12,13,14,15;
+    // EVSE function parameter
+    EVSEFunction function = 3;
+    // Grid connect mode
+    commonmodule.ENG_GridConnectModeKind mode = 4;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 7;
+    // Reset device
+    commonmodule.ControlSPC reset = 10;
+    // EV state
+    Optional_ChargingStateKind state = 11;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFSPC pFOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 21;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 22;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 23;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 24;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 25;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WSPC wOperation = 26;
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message EVSECurvePoint
+{
+    // The array with the points specifying a curve shape.
+    EVSEPoint control = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Start time
+    commonmodule.ControlTimestamp startTime = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Duration of the charging schedule in seconds.
+    uint64 duration = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Value determining level in hierarchy stack of profiles. Higher values have precedence over lower
+    // values. Lowest level is 0.
+    uint64 stackLevel = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Identifies the Charging Schedule.
+    uint64 id = 5 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Curve shape setting (FC=SP) (CSG_SP)
+message EVSECSG
+{
+    // The array with the points specifying a curve shape.
+    repeated EVSECurvePoint crvPts = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message DESEControlScheduleFSCH
+{
+    // Discrete value in EVSECSG type
+    EVSECSG ValDCSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// OpenFMB specialization for control schedule using:  LN: Schedule   Name: FSCH
+message DEEVControlScheduleFSCH
+{
+    // Analog CSG
+    commonmodule.ScheduleCSG ValACSG = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// LN: E-Mobility Electric Vehicle Name: DEEV
+message ControlDEEV
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    DEEVControlScheduleFSCH deevControlScheduleFSCH = 2;
+}
+
+// MISSING DOCUMENTATION!!!
+message ControlDEAO
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ControlDEEV controlDEEV = 2;
+}
+
+// MISSING DOCUMENTATION!!!
+message ControlDEDO
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ControlDEEV controlDEEV = 2;
+}
+
+// Specialized 61850 DESE class.  LN: Controlling the features of an EVSE   Name: DESE
+message ControlDESE
+{
+    // UML inherited base object
+    commonmodule.ControlFSCC controlFSCC = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    DESEControlScheduleFSCH deseControlScheduleFSCH = 2;
+    // MISSING DOCUMENTATION!!!
+    ControlDEAO controlDEAO = 3;
+    // MISSING DOCUMENTATION!!!
+    ControlDEDO controlDEEO = 4;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated ControlDESE controlDESE = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 3;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSEControl evseControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message DiscreteControlDESE
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForControl logicalNodeForControl = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSEPoint control = 3;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEDiscreteControl
+{
+    // UML inherited base object
+    commonmodule.ControlValue controlValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated DiscreteControlDESE discreteControlDESE = 2 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.CheckConditions check = 3;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEDiscreteControlProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ControlMessageInfo controlMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSEDiscreteControl evseDiscreteControl = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// Point definition (Point)
+message EVSEPointStatus
+{
+    reserved 2,5,6,12,13,14,15;
+    // EVSE function parameter
+    EVSEFunction function = 3;
+    // Grid connect mode
+    commonmodule.ENG_GridConnectModeKind mode = 4;
+    // Ramp rates
+    commonmodule.RampRate rampRates = 7;
+    // charge an EV when plugged in with no restrictions.
+    commonmodule.StatusSPS noRestricEnable = 8;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusSPS chargeControlEnable = 9;
+    // Reset device
+    commonmodule.ControlSPC reset = 10;
+    // EV state
+    Optional_ChargingStateKind state = 11;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.EnterServiceAPC enterServiceOperation = 16;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.HzWAPC hzWOperation = 17;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.LimitWAPC limitWOperation = 18;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PFSPC pFOperation = 19;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmHzCSG tmHzTripOperation = 20;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.TmVoltCSG tmVoltTripOperation = 21;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VarSPC vArOperation = 22;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltVarCSG voltVarOperation = 23;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.VoltWCSG voltWOperation = 24;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WVarCSG wVarOperation = 25;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.WSPC wOperation = 26;
+}
+
+// This enumeration lists the connection states of electrical vehicles (notation from IEC 61851-1).
+// Used in logical node DEAO or DEDO for IEC 61851-23 and -24 system C.
+enum EVACConnectionStateKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVACConnectionStateKind_Not_applicable_UNDEFINED = 0;
+    // No vehicle connected
+     EVACConnectionStateKind_State_A = 1;
+    // Vehicle connected, not ready for energy flow
+     EVACConnectionStateKind_State_B = 2;
+    // Vehicle connected, ready for energy flow, ventilation not required
+     EVACConnectionStateKind_State_C = 3;
+    // Vehicle connected, ready for energy flow, ventilation required
+     EVACConnectionStateKind_State_D = 4;
+    // Vehicle connected, charge spot fault
+     EVACConnectionStateKind_State_E = 5;
+    // Charge spot not available for action
+     EVACConnectionStateKind_State_F = 6;    
+}
+
+message Optional_EVACConnectionStateKind
+{
+    EVACConnectionStateKind value = 1;
+}
+
+// Connection states of electrical vehicles (notation from IEC 61851-1).
+message ENS_EVACConnectionStateKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVACConnectionStateKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// This enumeration lists the plug present and coupler lock states (according to IEC 61851-1). Used
+// in logical node DEAO.
+enum EVACPlugStateKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVACPlugStateKind_Not_applicable_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     EVACPlugStateKind_Disconnected = 1;
+    // MISSING DOCUMENTATION!!!
+     EVACPlugStateKind_Connected_and_unlocked = 2;
+    // MISSING DOCUMENTATION!!!
+     EVACPlugStateKind_Connected_and_locked = 3;
+    // Connected but not locked (no locking mechanism available)
+     EVACPlugStateKind_Connected = 4;    
+}
+
+message Optional_EVACPlugStateKind
+{
+    EVACPlugStateKind value = 1;
+}
+
+// Plug present and coupler lock states (according to IEC 61851-1)
+message ENS_EVACPlugStateKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVACPlugStateKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// This enumeration lists the capability of the EV AC charging cable assembly (according to IEC
+// 61851-1). Used in logical node DEAO.
+enum EVACCableCapabilityKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVACCableCapabilityKind_Not_applicable_UNDEFINED = 0;
+    // 13 amps per phase
+     EVACCableCapabilityKind_13A = 1;
+    // 20 amps per phase
+     EVACCableCapabilityKind_20A = 2;
+    // 32 amps per phase
+     EVACCableCapabilityKind_32A = 3;
+    // 63 amps (3 phase) or 70 amps (1 phase)
+     EVACCableCapabilityKind_63_70A = 4;
+}
+
+message Optional_EVACCableCapabilityKind
+{
+    EVACCableCapabilityKind value = 1;
+}
+
+// <b>EV AC Charging Cable Capability</b>
+message ENS_EVACCableCapabilityKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVACCableCapabilityKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// Connection charging types (according to IEC 61851-1).
+enum EVConnectionChargingKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVConnectionChargingKind_Not_applicable_UNDEFINED = 0;
+    // Single phase AC charging
+     EVConnectionChargingKind_Single_Phase = 1;
+    // Three phase AC charging
+     EVConnectionChargingKind_Three_Phase = 2;
+    // System A DC Charging
+     EVConnectionChargingKind_System_A = 3;
+    // System B DC Charging
+     EVConnectionChargingKind_System_B = 4;
+    // System C 5 System C DC Charging
+     EVConnectionChargingKind_System_C = 5;
+    
+}
+
+message Optional_EVConnectionChargingKind
+{
+    EVConnectionChargingKind value = 1;
+}
+
+// This enumeration lists the connection charging types (according to IEC 61851-1). Used in logical
+// node DEEV.
+message ENS_EVConnectionChargingKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVConnectionChargingKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// Specialized 61850 DEEV class
+message EventAndStatusDEEV
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // In ISO 15118 compliant implementations, the EVId refers to the EVCCID Identifier as defined in
+    // [ISO 15118-2:2014]  Specifies the EV’s identification in a readable format. It contains the MAC
+    // address of the EVCC as six hexBinary encoded bytes, i.e. the element shall have a length of six
+    // bytes.
+    google.protobuf.StringValue EVId = 2 [(uml.option_uuid) = true];
+    // In ISO 15118-2:2014 compliant implementations, EMobility Account Identifier as defined in Annex
+    // H.1 of [ISO 15118-2:2014] This element identifies the charging contract.
+    google.protobuf.StringValue EMAId = 3 [(uml.option_uuid) = true];
+    // Selected connection type according to 61851-1
+    ENS_EVConnectionChargingKind ConnTypSel = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Departure time is used to indicate when the vehicle intends to finish the charging process. A
+    // value of zero (0) indicates that the charging process shall be finished as fast as possible.
+    commonmodule.Timestamp DptTm = 5;
+    // Amount of energy required by the EV until the departure time has been reached or the EV
+    // battery's SOC is at 100%. This might include the amount of energy the EV consumes for other vehicle
+    // features than solely charging the EV battery.
+    commonmodule.MV WHReq = 6;
+    // Energy available of the EV
+    commonmodule.MV WHAvail = 7;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.MV Soc = 8;
+}
+
+// Specialized 61850 DEAO class
+message EventAndStatusDEAO
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EventAndStatusDEEV eventAndStatusDEEV = 2;
+    // Enable digital communication with the EV
+    commonmodule.StatusSPS DigComm = 3;
+    // Connection state (notation from IEC 61851-1)
+    ENS_EVACConnectionStateKind ConnSt = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Plug present and coupler lock state (according to 61851-1)
+    ENS_EVACPlugStateKind PlgStAC = 5;
+    // Capability of the EV cable assembly (according to 61851-1)
+    ENS_EVACCableCapabilityKind CabRtgAC = 6;
+}
+
+// This enumeration lists the capability of the EV DC charging cable assembly (according to IEC
+// 61851-1). Used in logical node DEDO.
+enum EVDCCableCapabilityKind
+{
+    // MISSING DOCUMENTATION!!!
+    EVDCCableCapabilityKind_Not_available_UNDEFINED = 0;
+    // 13 A
+     EVDCCableCapabilityKind_13A = 1;
+    // 16 to 20 A
+     EVDCCableCapabilityKind_16_20A = 2;
+    // 30 to 32 A
+     EVDCCableCapabilityKind_30_32A = 3;
+    // 60 to 63 A
+     EVDCCableCapabilityKind_60_63A = 4;
+    // 70 A
+     EVDCCableCapabilityKind_70A = 5;
+    // 80 A
+     EVDCCableCapabilityKind_80A = 6;
+    // 125 A
+     EVDCCableCapabilityKind_125A = 7;
+    // 200 A
+     EVDCCableCapabilityKind_200A = 8;
+    // 250 A
+     EVDCCableCapabilityKind_250A = 9;
+    // 400 A
+     EVDCCableCapabilityKind_400A = 10;    
+}
+
+message Optional_EVDCCableCapabilityKind
+{
+    EVDCCableCapabilityKind value = 1;
+}
+
+// <b>EV DC Charging Cable Capability (EVDCCableCapabilityKind enumeration)</b>
+message ENS_EVDCCableCapabilityKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVDCCableCapabilityKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// This enumeration lists the connection states of electrical vehicles for DC charging IEC 61851
+// 23/24 system A. Used in logical node DEDO.
+enum EVDCConnectionStateAKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVDCConnectionStateAKind_Not_applicable_UNDEFINED = 0;
+    // Vehicle unconnected
+     EVDCConnectionStateAKind_DC_A = 1;
+    // Vehicle connected and start request
+     EVDCConnectionStateAKind_DC_B1 = 2;
+    // Initialisation 1: Handshaking
+     EVDCConnectionStateAKind_DC_B2 = 3;
+    // Initialisation 2: Vehicle connector lock Initialisation 3: Insulation test before charging
+     EVDCConnectionStateAKind_DC_B3 = 4;
+    // Energy transfer
+     EVDCConnectionStateAKind_DC_C = 5;
+    // Ventilation
+     EVDCConnectionStateAKind_DC_D = 6;
+    // Shutdown 1: Termination of current output
+     EVDCConnectionStateAKind_DC_B_prime_1 = 7;
+    // Shutdown 2: Verification of voltage
+     EVDCConnectionStateAKind_DC_B_prime_2 = 8;
+    // Shutdown 3: Connector unlock - Connector unlocked
+     EVDCConnectionStateAKind_DC_B_prime_3 = 9;
+    // Shutdown 4: Connector unlock - End of charge at communication level
+     EVDCConnectionStateAKind_DC_B_prime_4 = 10;
+    // Not ready
+     EVDCConnectionStateAKind_DC_E = 11;
+    // Not ready
+     EVDCConnectionStateAKind_DC_F = 12;
+}
+
+message Optional_EVDCConnectionStateAKind
+{
+    EVDCConnectionStateAKind value = 1;
+}
+
+// <b>EV DC Connection State for IEC 61851-23/24 system A</b> <b>(EVDCConnectionStateAKind
+// enumeration)</b>
+message ENS_EVDCConnectionStateAKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVDCConnectionStateAKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// This enumeration lists the connection states of electrical vehicles for DC charging IEC 61851
+// 23/24 system C. Used in logical node DEDO.
+enum EVDCConnectionStateCKind
+{
+    // Voltage source inverter regulating to P and Q references (VSI PQ)
+     EVDCConnectionStateCKind_Not_applicable_UNDEFINED = 0;
+    // Current-source inverter (CSI)
+     EVDCConnectionStateCKind_State_A = 1;
+    // Undefined
+     EVDCConnectionStateCKind_State_B = 2;
+    // Voltage-controlled voltage-source inverter (VC-VSI)
+     EVDCConnectionStateCKind_State_C = 3;
+    // Current-controlled voltage-source inverter (CC-VSI)
+     EVDCConnectionStateCKind_State_D = 4;
+    // Not applicable / Unknown
+     EVDCConnectionStateCKind_State_E = 5;
+    // MISSING DOCUMENTATION!!!
+     EVDCConnectionStateCKind_State_F = 6;    
+}
+
+message Optional_EVDCConnectionStateCKind
+{
+    EVDCConnectionStateCKind value = 1;
+}
+
+// <b>EV DC Connection State for IEC 61851-23/24 system C</b> <b>(EVDCConnectionStateCKind
+// enumeration)</b>
+message ENS_EVDCConnectionStateCKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVDCConnectionStateCKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// This enumeration lists the plug present and coupler lock states (according to IEC 61851-1). Used
+// in logical node DEDO.
+enum EVDCPlugStateKind
+{
+    // MISSING DOCUMENTATION!!!
+     EVDCPlugStateKind_Not_applicable_UNDEFINED = 0;
+    // MISSING DOCUMENTATION!!!
+     EVDCPlugStateKind_Disconnected = 1;
+    // MISSING DOCUMENTATION!!!
+     EVDCPlugStateKind_Connected_and_unlocked = 2;
+    // MISSING DOCUMENTATION!!!
+     EVDCPlugStateKind_Connected_and_locked = 3;
+    // Connected but not locked (no locking mechanism available)
+     EVDCPlugStateKind_Connected = 4;
+}
+
+message Optional_EVDCPlugStateKind
+{
+    EVDCPlugStateKind value = 1;
+}
+
+// <b>EV DC Plug Present and Coupler Lock State (EVDCPlugStateKind</b> <b>enumeration)</b>
+message ENS_EVDCPlugStateKind
+{
+    // Quality of the value in 'stVal'.
+    commonmodule.Quality q = 1;
+    // Value of the data.
+    EVDCPlugStateKind stVal = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // Timestamp of the last change or update event of 'stVal' or the last change of value in 'q'.
+    commonmodule.Timestamp t = 3;
+}
+
+// Specialized 61850 DEDO class
+message EventAndStatusDEDO
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EventAndStatusDEEV eventAndStatusDEEV = 2;
+    // Capability of the EV cable assembly (according to 61851-1)
+    ENS_EVDCCableCapabilityKind CabRtgDC = 3;
+    // Connection state for system A connection type (notation from IEC 61851-23/24 system A)
+    ENS_EVDCConnectionStateAKind ConnStA = 4;
+    // Connection state for system C connection type (notation from IEC 61851-23/24 system c)
+    ENS_EVDCConnectionStateCKind ConnStC = 5;
+    // Plug present and coupler lock state (according to 61851-1)
+    ENS_EVDCPlugStateKind PlgStDC = 6;
+}
+
+// Specialized 61850 DESE class
+message EventAndStatusDESE
+{
+    // UML inherited base object
+    commonmodule.LogicalNodeForEventAndStatus logicalNodeForEventAndStatus = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EventAndStatusDEAO eventAndStatusDEAO = 2;
+    // MISSING DOCUMENTATION!!!
+    EventAndStatusDEDO eventAndStatusDEDO = 3;
+    // Isolation test fault (i.e. the isolation test executed before charging has failed)
+    commonmodule.StatusSPS IsoTestFlt = 4;
+    // Short circuit test fault (i.e. short circuit test before charging has failed)
+    commonmodule.StatusSPS ScTestFlt = 5;
+    // Detection of loss of digital communication
+    commonmodule.StatusSPS DigCommLos = 6;
+    // Detection of a welding condition
+    commonmodule.StatusSPS WldDet = 7;
+    // MISSING DOCUMENTATION!!!
+    EVSEPointStatus PointStatus = 8;
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEEvent
+{
+    // UML inherited base object
+    commonmodule.EventValue eventValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated EventAndStatusDESE eventAndStatusDESE = 2 [(uml.option_multiplicity_min) = 0];
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEEventProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.EventMessageInfo eventMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSEEvent evseEvent = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// LN: E-Mobility Electric Vehicle Name: DEEV
+message ReadingDEEV
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // State of charge
+    commonmodule.MV Soc = 2;
+}
+
+// MISSING DOCUMENTATION!!!
+message ReadingDEAO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ReadingDEEV readingDEEV = 2;
+}
+
+// MISSING DOCUMENTATION!!!
+message ReadingDEDO
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ReadingDEEV readingDEEV = 2;
+}
+
+// LN: E-Mobility supply equipment Name: DESE
+message EVSEReadingDESE
+{
+    // UML inherited base object
+    commonmodule.LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    ReadingDEAO readingDEAO = 2;
+    // MISSING DOCUMENTATION!!!
+    ReadingDEDO readingDEDO = 3;
+    // Charging voltage  (AllOrNonePerGroup with ChaA)
+    commonmodule.MV ChaV = 4;
+    // Charging current (AllOrNonePerGroup with ChaV).
+    commonmodule.MV ChaA = 5;
+}
+
+// EVSE reading value
+message EVSEReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMXU readingMMXU = 2;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMTR readingMMTR = 3;
+    // MISSING DOCUMENTATION!!!
+    repeated EVSEReadingDESE evseReadingDESE = 4 [(uml.option_multiplicity_min) = 0];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.PhaseMMTN phaseMMTN = 5;
+}
+
+// EVSE Reading Profile
+message EVSEReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSEReading evseReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEStatus
+{
+    // UML inherited base object
+    commonmodule.StatusValue statusValue = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    repeated EventAndStatusDESE eventAndStatusDESE = 2 [(uml.option_multiplicity_min) = 0];
+}
+
+// MISSING DOCUMENTATION!!!
+message EVSEStatusProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.StatusMessageInfo statusMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    EVSE evse = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EVSEStatus evseStatus = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

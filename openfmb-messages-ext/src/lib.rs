@@ -21,6 +21,7 @@ pub mod capbank;
 pub mod circuitsegmentservice;
 pub mod error;
 pub mod ess;
+pub mod evse;
 pub mod generation;
 pub mod interconnection;
 pub mod load;
@@ -38,6 +39,7 @@ pub use capbank::{CapBankControlExt, CapBankDiscreteControlExt, CapBankStatusExt
 pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
+pub use evse::EvseReadingExt;
 pub use generation::GenerationControlExt;
 pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
 pub use recloser::RecloserControlExt;

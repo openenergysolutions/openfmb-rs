@@ -10,9 +10,24 @@ use snafu::{ResultExt, Snafu};
 use uuid::Uuid;
 
 use openfmb_messages::{
-    breakermodule::*, capbankmodule::*, circuitsegmentservicemodule::*, commonmodule::*,
-    essmodule::*, generationmodule::*, interconnectionmodule::*, loadmodule::*, metermodule::*,
-    reclosermodule::*, regulatormodule::*, reservemodule::*, resourcemodule::*, solarmodule::*,
+    breakermodule::*,
+    capbankmodule::*,
+    circuitsegmentservicemodule::*,
+    commonmodule::*,
+    essmodule::*,
+    evsemodule::{
+        EvseCapabilityOverrideProfile, EvseCapabilityProfile, EvseControlProfile,
+        EvseDiscreteControlProfile, EvseEventProfile, EvseReadingProfile, EvseStatusProfile,
+    },
+    generationmodule::*,
+    interconnectionmodule::*,
+    loadmodule::*,
+    metermodule::*,
+    reclosermodule::*,
+    regulatormodule::*,
+    reservemodule::*,
+    resourcemodule::*,
+    solarmodule::*,
     switchmodule::*,
 };
 
@@ -39,6 +54,9 @@ pub enum OpenFMBProfileType {
     Resource,
     Solar,
     Switch,
+    EVSE,
+    Interconnection,
+    Reserve,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -62,6 +80,13 @@ pub enum OpenFMBMessage {
     ESSDiscreteControl(Box<EssDiscreteControlProfile>),
     ESSCapability(Box<EssCapabilityProfile>),
     ESSCapabilityOverride(Box<EssCapabilityOverrideProfile>),
+    EVSEEvent(Box<EvseEventProfile>),
+    EVSEStatus(Box<EvseStatusProfile>),
+    EVSEReading(Box<EvseReadingProfile>),
+    EVSEControl(Box<EvseControlProfile>),
+    EVSEDiscreteControl(Box<EvseDiscreteControlProfile>),
+    EVSECapability(Box<EvseCapabilityProfile>),
+    EVSECapabilityOverride(Box<EvseCapabilityOverrideProfile>),
     GenerationControl(Box<GenerationControlProfile>),
     GenerationDiscreteControl(Box<GenerationDiscreteControlProfile>),
     GenerationReading(Box<GenerationReadingProfile>),
@@ -127,6 +152,13 @@ impl OpenFMBMessage {
             ESSDiscreteControl(_) => "ESSDiscreteControl",
             ESSCapability(_) => "ESSCapability",
             ESSCapabilityOverride(_) => "ESSCapabilityOverride",
+            EVSEEvent(_) => "EVSEEvent",
+            EVSEStatus(_) => "EVSEStatus",
+            EVSEReading(_) => "EVSEReading",
+            EVSEControl(_) => "EVSEControl",
+            EVSEDiscreteControl(_) => "EVSEDiscreteControl",
+            EVSECapability(_) => "EVSECapability",
+            EVSECapabilityOverride(_) => "EVSECapabilityOverride",
             GenerationControl(_) => "GenerationControl",
             GenerationDiscreteControl(_) => "GenerationDiscreteControl",
             GenerationReading(_) => "GenerationReading",
@@ -192,6 +224,13 @@ impl OpenFMBMessage {
             ESSDiscreteControl(_) => "essmodule",
             ESSCapability(_) => "essmodule",
             ESSCapabilityOverride(_) => "essmodule",
+            EVSEEvent(_) => "evsemodule",
+            EVSEStatus(_) => "evsemodule",
+            EVSEReading(_) => "evsemodule",
+            EVSEControl(_) => "evsemodule",
+            EVSEDiscreteControl(_) => "evsemodule",
+            EVSECapability(_) => "evsemodule",
+            EVSECapabilityOverride(_) => "evsemodule",
             GenerationControl(_) => "generationmodule",
             GenerationDiscreteControl(_) => "generationmodule",
             GenerationReading(_) => "generationmodule",
@@ -257,6 +296,13 @@ impl OpenFMBMessage {
             ESSDiscreteControl(p) => p.device_mrid(),
             ESSCapability(p) => p.device_mrid(),
             ESSCapabilityOverride(p) => p.device_mrid(),
+            EVSEEvent(p) => p.device_mrid(),
+            EVSEStatus(p) => p.device_mrid(),
+            EVSEReading(p) => p.device_mrid(),
+            EVSEControl(p) => p.device_mrid(),
+            EVSEDiscreteControl(p) => p.device_mrid(),
+            EVSECapability(p) => p.device_mrid(),
+            EVSECapabilityOverride(p) => p.device_mrid(),
             GenerationControl(p) => p.device_mrid(),
             GenerationDiscreteControl(p) => p.device_mrid(),
             GenerationReading(p) => p.device_mrid(),
@@ -396,6 +442,27 @@ pub fn openfmb_message(
         ))),
         "ESSCapabilityOverrideProfile" => Ok(ESSCapabilityOverride(Box::new(
             EssCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSEEventProfile" => Ok(EVSEEvent(Box::new(
+            EvseEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSEStatusProfile" => Ok(EVSEStatus(Box::new(
+            EvseStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSEReadingProfile" => Ok(EVSEReading(Box::new(
+            EvseReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSEControlProfile" => Ok(EVSEControl(Box::new(
+            EvseControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSEDiscreteControlProfile" => Ok(EVSEDiscreteControl(Box::new(
+            EvseDiscreteControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSECapabilityProfile" => Ok(EVSECapability(Box::new(
+            EvseCapabilityProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EVSECapabilityOverrideProfile" => Ok(EVSECapabilityOverride(Box::new(
+            EvseCapabilityOverrideProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
         ))),
         "GenerationControlProfile" => Ok(GenerationControl(Box::new(
             GenerationControlProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
