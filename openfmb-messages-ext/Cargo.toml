@@ -20,9 +20,9 @@ openfmb-messages = { path = "../openfmb-messages"}
 log = "0.4.8"
 uuid =  { version = "1.1.2", features = ["serde", "v4"] }
 snafu = "0.6.6"
-chrono = {vesion = "0.4.26", default-features = false, features = ["clock"]}
+chrono = "0.4.26"
 prost = "0.10.4"
-serde = {version = "1.0.114", features = ["derive"] }
+serde = { version = "1.0.114", features = ["derive"] }
 serde_json = "1.0.57"
 
 nats = { version = "0.24.0", optional = true }
