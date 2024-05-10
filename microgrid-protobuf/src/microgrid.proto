@@ -196,6 +196,9 @@ message GenericControl
         BootNotification = 94;
         SetChargeProfile = 95;
         ClearChargeProfile = 96;
+        InitiateFault = 97;
+        ClearFault = 98;
+        ResetProtectionPickup = 99;
     }
 }
 

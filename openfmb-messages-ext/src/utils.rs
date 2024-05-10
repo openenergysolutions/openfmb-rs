@@ -39,6 +39,8 @@ pub enum OpenFMBProfileType {
     Resource,
     Solar,
     Switch,
+    Reserve,
+    Interconnection,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

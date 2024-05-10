@@ -4,8 +4,8 @@
 
 include!(concat!(env!("OUT_DIR"), "/openfmb.microgrid.rs"));
 
-use std::str::FromStr;
 use prost::Message;
+use std::str::FromStr;
 
 impl FromStr for microgrid_control::ControlMessage {
     type Err = ();
@@ -204,6 +204,9 @@ impl FromStr for generic_control::ControlType {
             "BootNotification" => Ok(generic_control::ControlType::BootNotification),
             "SetChargeProfile" => Ok(generic_control::ControlType::SetChargeProfile),
             "ClearChargeProfile" => Ok(generic_control::ControlType::ClearChargeProfile),
+            "InitiateFault" => Ok(generic_control::ControlType::InitiateFault),
+            "ClearFault" => Ok(generic_control::ControlType::ClearFault),
+            "ResetProtectionPickup" => Ok(generic_control::ControlType::ResetProtectionPickup),
             _ => {
                 println!("Unsupport Generic control {}", input);
                 Err(())
@@ -216,8 +219,7 @@ impl MicrogridControl {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -226,8 +228,7 @@ impl DeviceControl {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -236,8 +237,7 @@ impl DeviceStatus {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -246,8 +246,7 @@ impl CoordinatorConfig {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -256,8 +255,7 @@ impl BatteryConfig {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -266,8 +264,7 @@ impl Config {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -276,8 +273,7 @@ impl CoordinationStatus {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -286,8 +282,7 @@ impl GenericControl {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
@@ -296,8 +291,7 @@ impl HmiControl {
     pub fn encode_to(&self, buf: &mut Vec<u8>) -> Result<(), prost::EncodeError> {
         self.encode(buf)
     }
-    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError>
-    {
+    pub fn decode_frm(buf: bytes::Bytes) -> Result<Self, prost::DecodeError> {
         Self::decode(buf)
     }
 }
