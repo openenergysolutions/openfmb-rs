@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
-// Wednesday, April 17, 2024 5:11:40 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
+// Thursday, May 30, 2024 9:14:03 PM UTC
 
 package evsemodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/evsemodule";
@@ -206,7 +206,7 @@ message Optional_ChargingStateKind
 // Point definition (Point)
 message EVSEPoint
 {
-    reserved 2,5,6,8,9,12,13,14,15;
+    reserved 2,5,6,8,9,12,14,15;
     // EVSE function parameter
     EVSEFunction function = 3;
     // Grid connect mode
@@ -376,17 +376,13 @@ message EVSEDiscreteControlProfile
 // Point definition (Point)
 message EVSEPointStatus
 {
-    reserved 2,5,6,12,13,14,15;
+    reserved 2,5,6,8,9,12,14,15;
     // EVSE function parameter
     EVSEFunction function = 3;
     // Grid connect mode
     commonmodule.ENG_GridConnectModeKind mode = 4;
     // Ramp rates
     commonmodule.RampRate rampRates = 7;
-    // charge an EV when plugged in with no restrictions.
-    commonmodule.StatusSPS noRestricEnable = 8;
-    // MISSING DOCUMENTATION!!!
-    commonmodule.StatusSPS chargeControlEnable = 9;
     // Reset device
     commonmodule.ControlSPC reset = 10;
     // EV state
@@ -413,6 +409,10 @@ message EVSEPointStatus
     commonmodule.WVarCSG wVarOperation = 25;
     // MISSING DOCUMENTATION!!!
     commonmodule.WSPC wOperation = 26;
+    // charge an EV when plugged in with no restrictions.
+    commonmodule.StatusSPS noRestricEnable = 27;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.StatusSPS chargeControlEnable = 28;
 }
 
 // This enumeration lists the connection states of electrical vehicles (notation from IEC 61851-1).
@@ -420,19 +420,19 @@ message EVSEPointStatus
 enum EVACConnectionStateKind
 {
     // MISSING DOCUMENTATION!!!
-     EVACConnectionStateKind_Not_applicable_UNDEFINED = 0;
+     EVACConnectionStateKind_UNDEFINED = 0;
     // No vehicle connected
-     EVACConnectionStateKind_State_A = 1;
+     EVACConnectionStateKind_StateA = 1;
     // Vehicle connected, not ready for energy flow
-     EVACConnectionStateKind_State_B = 2;
+     EVACConnectionStateKind_StateB = 2;
     // Vehicle connected, ready for energy flow, ventilation not required
-     EVACConnectionStateKind_State_C = 3;
+     EVACConnectionStateKind_StateC = 3;
     // Vehicle connected, ready for energy flow, ventilation required
-     EVACConnectionStateKind_State_D = 4;
+     EVACConnectionStateKind_StateD = 4;
     // Vehicle connected, charge spot fault
-     EVACConnectionStateKind_State_E = 5;
+     EVACConnectionStateKind_StateE = 5;
     // Charge spot not available for action
-     EVACConnectionStateKind_State_F = 6;    
+     EVACConnectionStateKind_StateF = 6;
 }
 
 message Optional_EVACConnectionStateKind
@@ -456,15 +456,15 @@ message ENS_EVACConnectionStateKind
 enum EVACPlugStateKind
 {
     // MISSING DOCUMENTATION!!!
-     EVACPlugStateKind_Not_applicable_UNDEFINED = 0;
+     EVACPlugStateKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
      EVACPlugStateKind_Disconnected = 1;
     // MISSING DOCUMENTATION!!!
-     EVACPlugStateKind_Connected_and_unlocked = 2;
+     EVACPlugStateKind_ConnectedandUnlocked = 2;
     // MISSING DOCUMENTATION!!!
-     EVACPlugStateKind_Connected_and_locked = 3;
+     EVACPlugStateKind_ConnectedandLocked = 3;
     // Connected but not locked (no locking mechanism available)
-     EVACPlugStateKind_Connected = 4;    
+     EVACPlugStateKind_Connected = 4;
 }
 
 message Optional_EVACPlugStateKind
@@ -488,7 +488,7 @@ message ENS_EVACPlugStateKind
 enum EVACCableCapabilityKind
 {
     // MISSING DOCUMENTATION!!!
-     EVACCableCapabilityKind_Not_applicable_UNDEFINED = 0;
+     EVACCableCapabilityKind_UNDEFINED = 0;
     // 13 amps per phase
      EVACCableCapabilityKind_13A = 1;
     // 20 amps per phase
@@ -496,7 +496,7 @@ enum EVACCableCapabilityKind
     // 32 amps per phase
      EVACCableCapabilityKind_32A = 3;
     // 63 amps (3 phase) or 70 amps (1 phase)
-     EVACCableCapabilityKind_63_70A = 4;
+     EVACCableCapabilityKind_63to70A = 4;
 }
 
 message Optional_EVACCableCapabilityKind
@@ -519,18 +519,17 @@ message ENS_EVACCableCapabilityKind
 enum EVConnectionChargingKind
 {
     // MISSING DOCUMENTATION!!!
-     EVConnectionChargingKind_Not_applicable_UNDEFINED = 0;
+     EVConnectionChargingKind_UNDEFINED = 0;
     // Single phase AC charging
-     EVConnectionChargingKind_Single_Phase = 1;
+     EVConnectionChargingKind_SinglePhase = 1;
     // Three phase AC charging
-     EVConnectionChargingKind_Three_Phase = 2;
+     EVConnectionChargingKind_ThreePhase = 2;
     // System A DC Charging
-     EVConnectionChargingKind_System_A = 3;
+     EVConnectionChargingKind_SystemA = 3;
     // System B DC Charging
-     EVConnectionChargingKind_System_B = 4;
+     EVConnectionChargingKind_SystemB = 4;
     // System C 5 System C DC Charging
-     EVConnectionChargingKind_System_C = 5;
-    
+     EVConnectionChargingKind_SystemC = 5;
 }
 
 message Optional_EVConnectionChargingKind
@@ -599,16 +598,16 @@ message EventAndStatusDEAO
 // 61851-1). Used in logical node DEDO.
 enum EVDCCableCapabilityKind
 {
-    // MISSING DOCUMENTATION!!!
-    EVDCCableCapabilityKind_Not_available_UNDEFINED = 0;
+    // Tera 10**12.
+     EVDCCableCapabilityKind_UNDEFINED = 0;
     // 13 A
      EVDCCableCapabilityKind_13A = 1;
     // 16 to 20 A
-     EVDCCableCapabilityKind_16_20A = 2;
+     EVDCCableCapabilityKind_16to20A = 2;
     // 30 to 32 A
-     EVDCCableCapabilityKind_30_32A = 3;
+     EVDCCableCapabilityKind_30to32A = 3;
     // 60 to 63 A
-     EVDCCableCapabilityKind_60_63A = 4;
+     EVDCCableCapabilityKind_60to63A = 4;
     // 70 A
      EVDCCableCapabilityKind_70A = 5;
     // 80 A
@@ -620,7 +619,7 @@ enum EVDCCableCapabilityKind
     // 250 A
      EVDCCableCapabilityKind_250A = 9;
     // 400 A
-     EVDCCableCapabilityKind_400A = 10;    
+     EVDCCableCapabilityKind_400A = 10;
 }
 
 message Optional_EVDCCableCapabilityKind
@@ -644,7 +643,7 @@ message ENS_EVDCCableCapabilityKind
 enum EVDCConnectionStateAKind
 {
     // MISSING DOCUMENTATION!!!
-     EVDCConnectionStateAKind_Not_applicable_UNDEFINED = 0;
+     EVDCConnectionStateAKind_UNDEFINED = 0;
     // Vehicle unconnected
      EVDCConnectionStateAKind_DC_A = 1;
     // Vehicle connected and start request
@@ -658,13 +657,13 @@ enum EVDCConnectionStateAKind
     // Ventilation
      EVDCConnectionStateAKind_DC_D = 6;
     // Shutdown 1: Termination of current output
-     EVDCConnectionStateAKind_DC_B_prime_1 = 7;
+     EVDCConnectionStateAKind_DC_B_S1 = 7;
     // Shutdown 2: Verification of voltage
-     EVDCConnectionStateAKind_DC_B_prime_2 = 8;
+     EVDCConnectionStateAKind_DC_B_S2 = 8;
     // Shutdown 3: Connector unlock - Connector unlocked
-     EVDCConnectionStateAKind_DC_B_prime_3 = 9;
+     EVDCConnectionStateAKind_DC_B_S3 = 9;
     // Shutdown 4: Connector unlock - End of charge at communication level
-     EVDCConnectionStateAKind_DC_B_prime_4 = 10;
+     EVDCConnectionStateAKind_DC_B_S4 = 10;
     // Not ready
      EVDCConnectionStateAKind_DC_E = 11;
     // Not ready
@@ -693,19 +692,19 @@ message ENS_EVDCConnectionStateAKind
 enum EVDCConnectionStateCKind
 {
     // Voltage source inverter regulating to P and Q references (VSI PQ)
-     EVDCConnectionStateCKind_Not_applicable_UNDEFINED = 0;
+     EVDCConnectionStateCKind_UNDEFINED = 0;
     // Current-source inverter (CSI)
-     EVDCConnectionStateCKind_State_A = 1;
+     EVDCConnectionStateCKind_StateA = 1;
     // Undefined
-     EVDCConnectionStateCKind_State_B = 2;
+     EVDCConnectionStateCKind_StateB = 2;
     // Voltage-controlled voltage-source inverter (VC-VSI)
-     EVDCConnectionStateCKind_State_C = 3;
+     EVDCConnectionStateCKind_StateC = 3;
     // Current-controlled voltage-source inverter (CC-VSI)
-     EVDCConnectionStateCKind_State_D = 4;
+     EVDCConnectionStateCKind_StateD = 4;
     // Not applicable / Unknown
-     EVDCConnectionStateCKind_State_E = 5;
+     EVDCConnectionStateCKind_StateE = 5;
     // MISSING DOCUMENTATION!!!
-     EVDCConnectionStateCKind_State_F = 6;    
+     EVDCConnectionStateCKind_StateF = 6;
 }
 
 message Optional_EVDCConnectionStateCKind
@@ -730,13 +729,13 @@ message ENS_EVDCConnectionStateCKind
 enum EVDCPlugStateKind
 {
     // MISSING DOCUMENTATION!!!
-     EVDCPlugStateKind_Not_applicable_UNDEFINED = 0;
+     EVDCPlugStateKind_UNDEFINED = 0;
     // MISSING DOCUMENTATION!!!
      EVDCPlugStateKind_Disconnected = 1;
     // MISSING DOCUMENTATION!!!
-     EVDCPlugStateKind_Connected_and_unlocked = 2;
+     EVDCPlugStateKind_ConnectedandUnlocked = 2;
     // MISSING DOCUMENTATION!!!
-     EVDCPlugStateKind_Connected_and_locked = 3;
+     EVDCPlugStateKind_ConnectedandLocked = 3;
     // Connected but not locked (no locking mechanism available)
      EVDCPlugStateKind_Connected = 4;
 }

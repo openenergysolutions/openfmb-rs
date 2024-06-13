@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
-// Wednesday, April 17, 2024 5:11:40 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
+// Thursday, May 30, 2024 9:14:03 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -1843,6 +1843,39 @@ message RampRate
     google.protobuf.FloatValue positiveRealPowerKWPerMin = 4;
 }
 
+// Specialized 61850 MENV LN class
+message ReadingMENV
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    MV CloudCvr = 2;
+    // CO2 emission
+    MV CO2Em = 3;
+    // Environment Humidity
+    MV EnvHum = 4;
+    // Environment Pressure
+    MV EnvPres = 5;
+    // Environment Temperature
+    MV EnvTmp = 6;
+    // Horizontal Wind direction
+    MV HorWdDir = 7;
+    // Horizontal Wind Speed
+    MV HorWdSpd = 8;
+    // Humidity
+    MV Hum = 9;
+    // Pressure
+    MV Pres = 10;
+    // Solar Radiation
+    MV SolRad = 11;
+    // Temperature
+    MV Tmp = 12;
+    // Vertical Wind direction
+    MV VerWdDir = 13;
+    // Vertical Wind Speed
+    MV VerWdSpd = 14;
+}
+
 // Generic reading message information
 message ReadingMessageInfo
 {
@@ -1932,6 +1965,14 @@ message ReadingMMXU
     WYE VAr = 10;
     // Phase to ground/phase to neutral real powers P.
     WYE W = 11;
+}
+
+// Physical asset that performs the metering role of the usage point. Used for measuring
+// consumption and detection of events.
+message Sensor
+{
+    // UML inherited base object
+    ConductingEquipment conductingEquipment = 1 [(uml.option_parent_message) = true];
 }
 
 // ESS inverter high level function to shut down ESS if SOC exceeds high or low limits.
