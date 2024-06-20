@@ -73,10 +73,7 @@ impl OpenFMBExtReading for EvseReadingProfile {
     }
 }
 
-pub trait EvseReadingExt: ReadingProfileExt {
-    fn pf_net(&self) -> OpenFMBResult<f64>;
-    fn va_net(&self) -> OpenFMBResult<f64>;
-}
+pub trait EvseReadingExt: ReadingProfileExt {}
 
 impl ReadingProfileExt for EvseReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
@@ -158,9 +155,7 @@ impl ReadingProfileExt for EvseReadingProfile {
             .context(NoCVal)?
             .mag)
     }
-}
 
-impl EvseReadingExt for EvseReadingProfile {
     fn pf_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .evse_reading
@@ -200,6 +195,22 @@ impl EvseReadingExt for EvseReadingProfile {
             .context(NoCVal)?
             .mag)
     }
+
+    fn freq(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .evse_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .hz
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
 }
+
+impl EvseReadingExt for EvseReadingProfile {}
 
 impl OpenFMBReading for EvseReadingProfile {}

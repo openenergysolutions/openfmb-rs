@@ -72,3 +72,203 @@ impl OpenFMBExtReading for EnvironmentReadingProfile {
             .context(NoStatusMessageInfo)?)
     }
 }
+
+pub trait EnvironmentReadingExt {
+    fn co2_em(&self) -> OpenFMBResult<f64>;
+    fn cloud_cvr(&self) -> OpenFMBResult<f64>;
+    fn hor_wd_dir(&self) -> OpenFMBResult<f64>;
+    fn hor_wd_spd(&self) -> OpenFMBResult<f64>;
+    fn ver_wd_dir(&self) -> OpenFMBResult<f64>;
+    fn ver_wd_spd(&self) -> OpenFMBResult<f64>;
+    fn env_hum(&self) -> OpenFMBResult<f64>;
+    fn env_pres(&self) -> OpenFMBResult<f64>;
+    fn env_tmp(&self) -> OpenFMBResult<f64>;
+    fn hum(&self) -> OpenFMBResult<f64>;
+    fn pres(&self) -> OpenFMBResult<f64>;
+    fn tmp(&self) -> OpenFMBResult<f64>;
+    fn sol_rad(&self) -> OpenFMBResult<f64>;
+}
+
+impl EnvironmentReadingExt for EnvironmentReadingProfile {
+    fn co2_em(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .co2_em
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn cloud_cvr(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .cloud_cvr
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn hor_wd_dir(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .hor_wd_dir
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn hor_wd_spd(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .hor_wd_spd
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn ver_wd_dir(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .ver_wd_dir
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn ver_wd_spd(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .ver_wd_spd
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn env_hum(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .env_hum
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn env_pres(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .env_pres
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn env_tmp(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .env_tmp
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn hum(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .hum
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn pres(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .pres
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn tmp(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .tmp
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn sol_rad(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .sol_rad
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+}
