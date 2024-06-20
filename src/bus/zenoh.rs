@@ -157,11 +157,11 @@ mod tests {
     fn test_subject_conversion() {
         assert_eq!(
             topic_to_subject(subject_to_topic(&zenoh::Path::new("x/y/z").unwrap())),
-            "x/y/z"
+            "/x/y/z"
         );
         assert_eq!(
             topic_to_subject(subject_to_topic(&zenoh::Path::new("x").unwrap())),
-            "x"
+            "/x"
         );
         assert_eq!(
             subject_to_topic(&zenoh::Path::new("x/y").unwrap()).prefix_match(),
