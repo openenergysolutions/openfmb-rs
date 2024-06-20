@@ -286,4 +286,70 @@ impl ReadingProfileExt for BreakerReadingProfile {
         }
         Err(OpenFMBError::NoBreakerReading)
     }
+
+    fn pf_net(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .pf
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn va_net(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn freq(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .hz
+                .as_ref()
+                .context(NoValue)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
 }

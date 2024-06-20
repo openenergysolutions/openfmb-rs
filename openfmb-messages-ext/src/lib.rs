@@ -67,6 +67,21 @@ pub trait ReadingProfileExt {
     fn a_net_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
+
+    fn pf_net(&self) -> OpenFMBResult<f64>;
+    fn pf_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
+    fn va_net(&self) -> OpenFMBResult<f64>;
+    fn va_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
+    fn freq(&self) -> OpenFMBResult<f64>;
+    fn freq_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
 }
 pub trait StatusProfileExt {}
 
