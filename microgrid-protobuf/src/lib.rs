@@ -204,6 +204,9 @@ impl FromStr for generic_control::ControlType {
             "BootNotification" => Ok(generic_control::ControlType::BootNotification),
             "SetChargeProfile" => Ok(generic_control::ControlType::SetChargeProfile),
             "ClearChargeProfile" => Ok(generic_control::ControlType::ClearChargeProfile),
+            "InitiateFault" => Ok(generic_control::ControlType::InitiateFault),
+            "ClearFault" => Ok(generic_control::ControlType::ClearFault),
+            "ResetProtectionPickup" => Ok(generic_control::ControlType::ResetProtectionPickup),
             _ => {
                 println!("Unsupport Generic control {}", input);
                 Err(())

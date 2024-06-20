@@ -111,7 +111,49 @@ pub trait RecloserControlExt: ControlProfileExt {
         synchro_check: bool,
     ) -> RecloserDiscreteControlProfile;
 
+    fn build_recloser_enabled(
+        m_rid: &str,
+        reclose_enabled: bool,
+    ) -> RecloserDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RecloserDiscreteControlProfile::build_control_message_info();
+
+        RecloserDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            recloser: Some(Recloser {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                normal_open: None,
+            }),
+            recloser_discrete_control: Some(RecloserDiscreteControl {
+                check: None,
+                control_value: None,
+                recloser_discrete_control_xcbr: Some(RecloserDiscreteControlXcbr {
+                    discrete_control_xcbr: Some(DiscreteControlXcbr {
+                        reclose_enabled: Some(ControlSpc {
+                            ctl_val: reclose_enabled,
+                        }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+            }),
+        }
+    }
+
     fn recloser_reset_msg(m_rid: &str) -> RecloserDiscreteControlProfile;
+    fn recloser_initiate_fault_msg(m_rid: &str) -> RecloserDiscreteControlProfile {
+        Self::build_recloser_enabled(m_rid, true)
+    }
+    fn recloser_clear_fault_msg(m_rid: &str) -> RecloserDiscreteControlProfile {
+        Self::build_recloser_enabled(m_rid, false)
+    }
+    fn recloser_reset_protection_pickup_msg(
+        m_rid: &str,
+        val: Option<bool>,
+    ) -> RecloserDiscreteControlProfile;
 }
 
 impl RecloserControlExt for RecloserDiscreteControlProfile {
@@ -246,6 +288,38 @@ impl RecloserControlExt for RecloserDiscreteControlProfile {
                     identified_object: None,
                     mod_blk: None,
                     reset: Some(true),
+                }),
+            }),
+        }
+    }
+
+    fn recloser_reset_protection_pickup_msg(
+        m_rid: &str,
+        val: Option<bool>,
+    ) -> RecloserDiscreteControlProfile {
+        let msg_info: ControlMessageInfo =
+            RecloserDiscreteControlProfile::build_control_message_info();
+
+        let val = val.unwrap_or(false);
+
+        RecloserDiscreteControlProfile {
+            control_message_info: Some(msg_info),
+            recloser: Some(Recloser {
+                conducting_equipment: Some(ConductingEquipment {
+                    named_object: None,
+                    m_rid: m_rid.to_string(),
+                }),
+                normal_open: None,
+            }),
+            recloser_discrete_control: Some(RecloserDiscreteControl {
+                check: None,
+                control_value: None,
+                recloser_discrete_control_xcbr: Some(RecloserDiscreteControlXcbr {
+                    discrete_control_xcbr: Some(DiscreteControlXcbr {
+                        reset_protection_pickup: Some(ControlSpc { ctl_val: val }),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
                 }),
             }),
         }
