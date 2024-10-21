@@ -191,6 +191,54 @@ impl ReadingProfileExt for BreakerReadingProfile {
         Err(OpenFMBError::NoBreakerReading)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() {
+            return Ok(self
+                .breaker_reading
+                .first()
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
+    fn s_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.breaker_reading.is_empty() || self.breaker_reading.len() < 2 {
+            return Ok(self
+                .breaker_reading
+                .get(1)
+                .as_ref()
+                .context(NoBreakerReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoBreakerReading)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64> {
         if !self.breaker_reading.is_empty() {
             return Ok(self

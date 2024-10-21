@@ -131,6 +131,26 @@ impl ReadingProfileExt for MeterReadingProfile {
             .mag)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .meter_reading
+            .as_ref()
+            .context(NoMeterReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .meter_reading
