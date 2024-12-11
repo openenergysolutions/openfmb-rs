@@ -61,6 +61,11 @@ pub trait ReadingProfileExt {
         Err(OpenFMBError::NotImplented)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64>;
+    fn s_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64>;
     fn v_net_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)

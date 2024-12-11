@@ -140,6 +140,30 @@ impl ReadingProfileExt for SwitchReadingProfile {
         Err(OpenFMBError::NoSwitchReading)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        if !self.switch_reading.is_empty() {
+            return Ok(self
+                .switch_reading
+                .first()
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
     fn w_net_load_side(&self) -> OpenFMBResult<f64> {
         if self.switch_reading.len() > 1 {
             return Ok(self
@@ -175,6 +199,30 @@ impl ReadingProfileExt for SwitchReadingProfile {
                 .as_ref()
                 .context(NoReadingMmxu)?
                 .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoSwitchReading)
+    }
+
+    fn s_net_load_side(&self) -> OpenFMBResult<f64> {
+        if self.switch_reading.len() > 1 {
+            return Ok(self
+                .switch_reading
+                .get(1)
+                .as_ref()
+                .context(NoSwitchReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
                 .as_ref()
                 .context(NoW)?
                 .net

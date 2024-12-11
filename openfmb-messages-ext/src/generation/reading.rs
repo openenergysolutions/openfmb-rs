@@ -130,6 +130,26 @@ impl ReadingProfileExt for GenerationReadingProfile {
             .mag)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .generation_reading
+            .as_ref()
+            .context(NoGenerationReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .generation_reading
