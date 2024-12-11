@@ -73,10 +73,7 @@ impl OpenFMBExtReading for EssReadingProfile {
     }
 }
 
-pub trait EssReadingExt: ReadingProfileExt {
-    fn pf_net(&self) -> OpenFMBResult<f64>;
-    fn va_net(&self) -> OpenFMBResult<f64>;
-}
+pub trait EssReadingExt: ReadingProfileExt {}
 
 impl ReadingProfileExt for EssReadingProfile {
     fn w_net(&self) -> OpenFMBResult<f64> {
@@ -108,6 +105,26 @@ impl ReadingProfileExt for EssReadingProfile {
             .as_ref()
             .context(NoReadingMmxu)?
             .v_ar
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
             .as_ref()
             .context(NoW)?
             .net
@@ -158,9 +175,7 @@ impl ReadingProfileExt for EssReadingProfile {
             .context(NoCVal)?
             .mag)
     }
-}
 
-impl EssReadingExt for EssReadingProfile {
     fn pf_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_reading
@@ -200,6 +215,22 @@ impl EssReadingExt for EssReadingProfile {
             .context(NoCVal)?
             .mag)
     }
+
+    fn freq(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .hz
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
 }
+
+impl EssReadingExt for EssReadingProfile {}
 
 impl OpenFMBReading for EssReadingProfile {}

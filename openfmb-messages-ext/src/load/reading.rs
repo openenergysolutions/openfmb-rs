@@ -120,6 +120,26 @@ impl ReadingProfileExt for LoadReadingProfile {
             .mag)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64> {
         return Ok(self
             .load_reading
@@ -157,6 +177,60 @@ impl ReadingProfileExt for LoadReadingProfile {
             .c_val
             .as_ref()
             .context(NoCVal)?
+            .mag);
+    }
+
+    fn pf_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .pf
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn va_net(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoValue)?
+            .net
+            .as_ref()
+            .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag);
+    }
+
+    fn freq(&self) -> OpenFMBResult<f64> {
+        return Ok(self
+            .load_reading
+            .as_ref()
+            .context(NoLoadReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .hz
+            .as_ref()
+            .context(NoValue)?
             .mag);
     }
 }

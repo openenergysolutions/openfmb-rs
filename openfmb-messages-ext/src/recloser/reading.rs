@@ -119,8 +119,32 @@ impl ReadingProfileExt for RecloserReadingProfile {
         Err(OpenFMBError::NoRecloserReading)
     }
 
+    fn s_net(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
     fn w_net_load_side(&self) -> OpenFMBResult<f64> {
-        if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
+        if self.recloser_reading.len() > 1 {
             return Ok(self
                 .recloser_reading
                 .get(1)
@@ -144,7 +168,7 @@ impl ReadingProfileExt for RecloserReadingProfile {
     }
 
     fn q_net_load_side(&self) -> OpenFMBResult<f64> {
-        if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
+        if self.recloser_reading.len() > 1 {
             return Ok(self
                 .recloser_reading
                 .get(1)
@@ -154,6 +178,30 @@ impl ReadingProfileExt for RecloserReadingProfile {
                 .as_ref()
                 .context(NoReadingMmxu)?
                 .v_ar
+                .as_ref()
+                .context(NoW)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn s_net_load_side(&self) -> OpenFMBResult<f64> {
+        if self.recloser_reading.len() > 1 {
+            return Ok(self
+                .recloser_reading
+                .get(1)
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
                 .as_ref()
                 .context(NoW)?
                 .net
@@ -192,7 +240,7 @@ impl ReadingProfileExt for RecloserReadingProfile {
     }
 
     fn v_net_load_side(&self) -> OpenFMBResult<f64> {
-        if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
+        if self.recloser_reading.len() > 1 {
             return Ok(self
                 .recloser_reading
                 .get(1)
@@ -240,7 +288,7 @@ impl ReadingProfileExt for RecloserReadingProfile {
     }
 
     fn a_net_load_side(&self) -> OpenFMBResult<f64> {
-        if !self.recloser_reading.is_empty() || self.recloser_reading.len() < 2 {
+        if !self.recloser_reading.is_empty() && self.recloser_reading.len() > 1 {
             return Ok(self
                 .recloser_reading
                 .get(1)
@@ -258,6 +306,120 @@ impl ReadingProfileExt for RecloserReadingProfile {
                 .c_val
                 .as_ref()
                 .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn pf_net(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .pf
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn pf_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() || self.recloser_reading.len() > 1 {
+            return Ok(self
+                .recloser_reading
+                .get(1)
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .pf
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn va_net(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn va_net_load_side(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() || self.recloser_reading.len() > 1 {
+            return Ok(self
+                .recloser_reading
+                .get(1)
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .va
+                .as_ref()
+                .context(NoValue)?
+                .net
+                .as_ref()
+                .context(NoNet)?
+                .c_val
+                .as_ref()
+                .context(NoCVal)?
+                .mag);
+        }
+        Err(OpenFMBError::NoRecloserReading)
+    }
+
+    fn freq(&self) -> OpenFMBResult<f64> {
+        if !self.recloser_reading.is_empty() {
+            return Ok(self
+                .recloser_reading
+                .first()
+                .as_ref()
+                .context(NoRecloserReading)?
+                .reading_mmxu
+                .as_ref()
+                .context(NoReadingMmxu)?
+                .hz
+                .as_ref()
+                .context(NoValue)?
                 .mag);
         }
         Err(OpenFMBError::NoRecloserReading)

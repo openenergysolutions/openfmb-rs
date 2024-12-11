@@ -5,7 +5,7 @@
 [package]
 name = "openfmb-codegen"
 version = "0.6.1"
-authors = ["Tom Burdick <tom@openenergysolutionsinc.com>", "Dan Burkert <dan@danburkert.com>"]
+authors = ["Tom Burdick", "Dan Burkert"]
 license = "Apache-2.0"
 repository = "https://github.com/openenergysolutions/openfmb"
 documentation = "https://docs.rs/openfmb"

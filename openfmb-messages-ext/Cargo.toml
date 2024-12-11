@@ -5,7 +5,7 @@
 [package]
 name = "openfmb-messages-ext"
 version = "2.1.0"
-authors = ["Tupshin Harper <tupshin@openenergysolutionsinc.com>", "Tom Burdick <tom@openenergysolutionsinc.com>"]
+authors = ["Tupshin Harper", "Tom Burdick"]
 edition = "2018"
 description = "An OpenFMB Message Extensions crate for Rust"
 license = "Apache-2.0"
