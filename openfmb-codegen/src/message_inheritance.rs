@@ -63,6 +63,7 @@ fn field_type_name_ident(paths: &ExternPaths, package: &str, type_name: &str) ->
         .join("::")
 }
 
+#[allow(dead_code)]
 #[derive(Debug, Clone)]
 pub struct MessageInheritance {
     /// A mapping from full protobuf type to another full protobuf type
