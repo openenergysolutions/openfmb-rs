@@ -19,6 +19,7 @@ use uuid::Uuid;
 pub mod breaker;
 pub mod capbank;
 pub mod circuitsegmentservice;
+pub mod environment;
 pub mod error;
 pub mod ess;
 pub mod evse;

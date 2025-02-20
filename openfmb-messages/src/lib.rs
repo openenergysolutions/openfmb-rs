@@ -6,6 +6,7 @@ pub mod breakermodule;
 pub mod capbankmodule;
 pub mod circuitsegmentservicemodule;
 pub mod commonmodule;
+pub mod environmentmodule;
 pub mod essmodule;
 pub mod evsemodule;
 pub mod generationmodule;
@@ -24,6 +25,7 @@ pub enum Module {
     BreakerModule,
     CapBankModule,
     CircuitSegmentServiceModule,
+    EnvironmentModule,
     EssModule,
     EvseModule,
     GenerationModule,
@@ -44,6 +46,7 @@ impl Module {
             Module::BreakerModule => "breakermodule",
             Module::CapBankModule => "capbankmodule",
             Module::CircuitSegmentServiceModule => "circuitsegmentservicemodule",
+            Module::EnvironmentModule => "environmentmodule",
             Module::EssModule => "essmodule",
             Module::EvseModule => "evsemodule",
             Module::GenerationModule => "generationmodule",
@@ -73,6 +76,7 @@ impl std::str::FromStr for Module {
             "breakermodule" => Ok(Module::BreakerModule),
             "capbankmodule" => Ok(Module::CapBankModule),
             "circuitsegmentservicemodule" => Ok(Module::CircuitSegmentServiceModule),
+            "environmentmodule" => Ok(Module::EnvironmentModule),
             "essmodule" => Ok(Module::EssModule),
             "evsemodule" => Ok(Module::EvseModule),
             "generationmodule" => Ok(Module::GenerationModule),

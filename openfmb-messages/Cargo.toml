@@ -4,8 +4,8 @@
 
 [package]
 name = "openfmb-messages"
-version = "2.1.0"
-authors = ["Tom Burdick"]
+version = "2.2.0"
+authors = ["Tom Burdick <tom@openenergysolutionsinc.com>"]
 edition = "2018"
 description = "An Open Field Message Bus crate for Rust"
 license = "Apache-2.0"

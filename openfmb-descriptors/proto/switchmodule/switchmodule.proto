@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1).eapx
-// Wednesday, April 17, 2024 5:11:40 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
+// Thursday, May 30, 2024 9:14:03 PM UTC
 
 package switchmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/switchmodule";

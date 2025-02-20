@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
+// Thursday, May 30, 2024 9:14:03 PM UTC
+
+package environmentmodule;
+option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/environmentmodule";
+option java_package = "openfmb.environmentmodule";
+option java_multiple_files = true;
+option csharp_namespace = "openfmb.environmentmodule";
+
+import "uml.proto";
+import "commonmodule/commonmodule.proto";
+
+// Resource reading value
+message EnvironmentReading
+{
+    // UML inherited base object
+    commonmodule.ConductingEquipmentTerminalReading conductingEquipmentTerminalReading = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMENV readingMENV = 2;
+}
+
+// Environment reading profile
+message EnvironmentReadingProfile
+{
+    option (uml.option_openfmb_profile) = true;
+    // UML inherited base object
+    commonmodule.ReadingMessageInfo readingMessageInfo = 1 [(uml.option_parent_message) = true];
+    // MISSING DOCUMENTATION!!!
+    commonmodule.Sensor sensor = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    // MISSING DOCUMENTATION!!!
+    EnvironmentReading environmentReading = 3 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+}
+

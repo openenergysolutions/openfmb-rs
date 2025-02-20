@@ -14,6 +14,7 @@ use openfmb_messages::{
     capbankmodule::*,
     circuitsegmentservicemodule::*,
     commonmodule::*,
+    environmentmodule::EnvironmentReadingProfile,
     essmodule::*,
     evsemodule::{
         EvseCapabilityOverrideProfile, EvseCapabilityProfile, EvseControlProfile,
@@ -57,6 +58,7 @@ pub enum OpenFMBProfileType {
     EVSE,
     Interconnection,
     Reserve,
+    Environment,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -73,6 +75,7 @@ pub enum OpenFMBMessage {
     CircuitSegmentControl(Box<CircuitSegmentControlProfile>),
     CircuitSegmentEvent(Box<CircuitSegmentEventProfile>),
     CircuitSegmentStatus(Box<CircuitSegmentStatusProfile>),
+    EnvironmentReading(Box<EnvironmentReadingProfile>),
     ESSEvent(Box<EssEventProfile>),
     ESSReading(Box<EssReadingProfile>),
     ESSStatus(Box<EssStatusProfile>),
@@ -145,6 +148,7 @@ impl OpenFMBMessage {
             CircuitSegmentControl(_) => "CircuitSegmentControl",
             CircuitSegmentEvent(_) => "CircuitSegmentEvent",
             CircuitSegmentStatus(_) => "CircuitSegmentStatus",
+            EnvironmentReading(_) => "EnvironmentReading",
             ESSEvent(_) => "ESSEvent",
             ESSReading(_) => "ESSReading",
             ESSStatus(_) => "ESSStatus",
@@ -217,6 +221,7 @@ impl OpenFMBMessage {
             CircuitSegmentControl(_) => "circuitsegmentservicemodule",
             CircuitSegmentEvent(_) => "circuitsegmentservicemodule",
             CircuitSegmentStatus(_) => "circuitsegmentservicemodule",
+            EnvironmentReading(_) => "environmentmodule",
             ESSEvent(_) => "essmodule",
             ESSReading(_) => "essmodule",
             ESSStatus(_) => "essmodule",
@@ -289,6 +294,7 @@ impl OpenFMBMessage {
             CircuitSegmentControl(p) => p.device_mrid(),
             CircuitSegmentEvent(p) => p.device_mrid(),
             CircuitSegmentStatus(p) => p.device_mrid(),
+            EnvironmentReading(p) => p.device_mrid(),
             ESSEvent(p) => p.device_mrid(),
             ESSReading(p) => p.device_mrid(),
             ESSStatus(p) => p.device_mrid(),
@@ -421,6 +427,9 @@ pub fn openfmb_message(
         ))),
         "CircuitSegmentStatusProfile" => Ok(CircuitSegmentStatus(Box::new(
             CircuitSegmentStatusProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
+        ))),
+        "EnvironmentReadingProfile" => Ok(EnvironmentReading(Box::new(
+            EnvironmentReadingProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,
         ))),
         "ESSEventProfile" => Ok(ESSEvent(Box::new(
             EssEventProfile::decode(bytes.as_slice()).context(ProstDecodeError)?,

@@ -220,7 +220,7 @@ impl ReadingProfileExt for EvseReadingProfile {
         Ok(self
             .evse_reading
             .as_ref()
-            .context(NoEssReading)?
+            .context(NoValue)?
             .reading_mmxu
             .as_ref()
             .context(NoReadingMmxu)?
