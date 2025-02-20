@@ -17,7 +17,7 @@ keywords = ["openfmb", "interoperability", "di", "renewable-energy"]
 categories = ["distributed-automation"]
 
 [build-dependencies]
-which = { version = "4", default-features = false  }
+which = { version = "3", default-features = false  }
 
 [dependencies]
 prost = "0.10.4"
