@@ -30,8 +30,8 @@ openfmb-messages = { version = "2.1.0", path = "./openfmb-messages" }
 openfmb-messages-ext = { version = "2.1.0", path = "./openfmb-messages-ext", optional = true }
 
 # nats bus support
-async-nats = {version = "0.29.0", optional = true}
-nats = {version = "0.24.0", optional = true}
+async-nats = {version = "0.38.0", optional = true}
+nats = {git = "https://github.com/nats-io/nats.rs.git", rev = "7d63f1dd725c86a4f01723ea3194f17e30a0561b", optional = true}
 
 # zenoh bus support
 zenoh = {git = "https://github.com/eclipse-zenoh/zenoh.git", branch = "branch_0.5.0-beta.9", optional = true}
