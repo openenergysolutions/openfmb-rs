@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
-// Thursday, May 30, 2024 9:14:03 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)_02212025.eapx
+// Monday, February 24, 2025 1:20:33 PM UTC
 
 package commonmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/commonmodule";
@@ -1843,37 +1843,27 @@ message RampRate
     google.protobuf.FloatValue positiveRealPowerKWPerMin = 4;
 }
 
-// Specialized 61850 MENV LN class
+// Specialized 61850 MENV LN class  LN: Environmental information   Name: MENV
 message ReadingMENV
 {
     // UML inherited base object
     LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
-    // MISSING DOCUMENTATION!!!
-    MV CloudCvr = 2;
-    // CO2 emission
-    MV CO2Em = 3;
-    // Environment Humidity
-    MV EnvHum = 4;
-    // Environment Pressure
-    MV EnvPres = 5;
-    // Environment Temperature
-    MV EnvTmp = 6;
-    // Horizontal Wind direction
-    MV HorWdDir = 7;
-    // Horizontal Wind Speed
-    MV HorWdSpd = 8;
-    // Humidity
-    MV Hum = 9;
-    // Pressure
-    MV Pres = 10;
-    // Solar Radiation
-    MV SolRad = 11;
-    // Temperature
-    MV Tmp = 12;
-    // Vertical Wind direction
-    MV VerWdDir = 13;
-    // Vertical Wind Speed
-    MV VerWdSpd = 14;
+    // Emission level of CO2.
+    MV CO2Em = 2;
+    // Emission level of CO.
+    MV COEm = 3;
+    // Emission level of NO<sub>x</sub>.
+    MV NOxEm = 4;
+    // Emission level of SO<sub>x</sub>.
+    MV SOxEm = 5;
+    // Amount of dust particles suspended in air.
+    MV Dust = 6;
+    // Sound pressure level.
+    MV Snd = 7;
+    // Amount of oxygen in combustion gases.
+    MV O2CmbuGas = 8;
+    // Amount of ozone in the air.
+    MV O3Air = 9;
 }
 
 // Generic reading message information
@@ -1881,6 +1871,78 @@ message ReadingMessageInfo
 {
     // UML inherited base object
     MessageInfo messageInfo = 1 [(uml.option_parent_message) = true];
+}
+
+// Specialized 61850 MMDC LN: DC measurement   Name: MMDC
+message ReadingMMDC
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // DC power.
+    MV Watt = 2;
+    // DC current.
+    MV Amp = 3;
+    // DC voltage.
+    MV Vol = 4;
+    // DC voltage between positive pole and earth.
+    MV VolPsGnd = 5;
+    // DC voltage between negative pole and earth.
+    MV VolNgGnd = 6;
+    // Resistance in DC circuit.
+    MV Ris = 7;
+    // DC resistance between positive pole and earth.
+    MV RisPsGnd = 8;
+    // DC resistance between negative pole and earth.
+    MV RisNgGnd = 9;
+}
+
+// LN: Meteorological information   Name: MMET
+message ReadingMMET
+{
+    // UML inherited base object
+    LogicalNode logicalNode = 1 [(uml.option_parent_message) = true];
+    // Temperature of environment [&#176;C].
+    MV EnvTmp = 2;
+    // Wet bulb temperature (typically in &#176;C).
+    MV WetBlbTmp = 3;
+    // Cloud cover level.
+    MV CloudCvr = 4;
+    // Humidity of environment (typically in %).
+    MV EnvHum = 5;
+    // Dew point.
+    MV DewPt = 6;
+    // Diffuse insolation (insolation SIUnit [W/m<sup>2</sup>]).
+    MV DffInsol = 7;
+    // Direct normal insolation (insolation SIUnit [W/m<sup>2</sup>]).
+    MV DctInsol = 8;
+    // Daylight duration (time elapsed between sunrise and sunset).
+    MV DlDur = 9;
+    // Total horizontal insolation (insolation SIUnit [W/m<sup>2</sup>]).
+    MV HorInsol = 10;
+    // Total horizontal wind direction.
+    MV HorWdDir = 11;
+    // Average horizontal wind speed.
+    MV HorWdSpd = 12;
+    // Vertical wind direction.
+    MV VerWdDir = 13;
+    // Average vertical wind speed.
+    MV VerWdSpd = 14;
+    // Maximum wind gust speed.
+    MV WdGustSpd = 15;
+    // Barometric pressure of environment.
+    MV EnvPres = 16;
+    // Rainfall (typically in mm - length SIUnit [m]).
+    MV RnFll = 17;
+    // Snowfall density (typically in g/cm<sup>3</sup> - density SIUnit [kg/m<sup>3</sup>]).
+    MV SnwDen = 18;
+    // Snowfall temperature (typically in &#176;C).
+    MV SnwTmp = 19;
+    // Snow cover (typically in mm - length SIUnit [m]).
+    MV SnwCvr = 20;
+    // Snowfall (typically in mm - length SIUnit [m]).
+    MV SnwFll = 21;
+    // Water equivalent of snowfall (typically in mm - length SIUnit [m]).
+    MV SnwEq = 22;
 }
 
 // Specialized 61850 MMTR class
@@ -1967,8 +2029,7 @@ message ReadingMMXU
     WYE W = 11;
 }
 
-// Physical asset that performs the metering role of the usage point. Used for measuring
-// consumption and detection of events.
+// MISSING DOCUMENTATION!!!
 message Sensor
 {
     // UML inherited base object
@@ -2361,7 +2422,7 @@ message VSC
     string ctlVal = 1 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
 }
 
-// Constant Reactive Power (Fixed VAr) Function
+// Constant Power (Fixed W) Function
 message WSPC
 {
     // Constant Reactive Power Mode Enable

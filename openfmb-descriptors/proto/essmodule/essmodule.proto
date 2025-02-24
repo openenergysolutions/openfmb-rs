@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
-// Thursday, May 30, 2024 9:14:03 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)_02212025.eapx
+// Monday, February 24, 2025 1:20:33 PM UTC
 
 package essmodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/essmodule";
@@ -323,8 +323,10 @@ message ESSEventAndStatusZGEN
     commonmodule.StatusSPS EmgStop = 4;
     // Generator is synchronized to EPS, or not; True = Synchronized
     commonmodule.StatusSPS GnSynSt = 5;
+    // DC Power On/Off Status; True = DC power on
+    commonmodule.Optional_AlrmKind Alrm = 6;
     // Point status
-    ESSPointStatus PointStatus = 6;
+    ESSPointStatus PointStatus = 7;
 }
 
 // Specialized 61850 ZGEN class for ESS event profile
@@ -368,6 +370,8 @@ message ESSReading
     commonmodule.ReadingMMTR readingMMTR = 3;
     // MISSING DOCUMENTATION!!!
     commonmodule.ReadingMMXU readingMMXU = 4;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMDC readingMMDC = 5;
 }
 
 // ESS reading profile

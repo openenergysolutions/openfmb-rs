@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
-// Thursday, May 30, 2024 9:14:03 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)_02212025.eapx
+// Monday, February 24, 2025 1:20:33 PM UTC
 
 package evsemodule;
 option go_package = "gitlab.com/openfmb/psm/ops/protobuf/go-openfmb-ops-protobuf/v2/openfmb/evsemodule";
@@ -54,7 +54,7 @@ message EVSECapabilityOverride
     // UML inherited base object
     commonmodule.NameplateValue nameplateValue = 1 [(uml.option_parent_message) = true];
     // MISSING DOCUMENTATION!!!
-    CapabilityConfigurationDESE capabilityConfigurationDESE = 2 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
+    repeated CapabilityConfigurationDESE capabilityConfigurationDESE = 2 [(uml.option_multiplicity_min) = 0];
 }
 
 // MISSING DOCUMENTATION!!!
@@ -566,7 +566,7 @@ message EventAndStatusDEEV
     ENS_EVConnectionChargingKind ConnTypSel = 4 [(uml.option_required_field) = true, (uml.option_multiplicity_min) = 1];
     // Departure time is used to indicate when the vehicle intends to finish the charging process. A
     // value of zero (0) indicates that the charging process shall be finished as fast as possible.
-    commonmodule.Timestamp DptTm = 5;
+    commonmodule.ClearingTime DptTm = 5;
     // Amount of energy required by the EV until the departure time has been reached or the EV
     // battery's SOC is at 100%. This might include the amount of energy the EV consumes for other vehicle
     // features than solely charging the EV battery.
@@ -870,6 +870,8 @@ message EVSEReading
     repeated EVSEReadingDESE evseReadingDESE = 4 [(uml.option_multiplicity_min) = 0];
     // MISSING DOCUMENTATION!!!
     commonmodule.PhaseMMTN phaseMMTN = 5;
+    // MISSING DOCUMENTATION!!!
+    commonmodule.ReadingMMDC readingMMDC = 6;
 }
 
 // EVSE Reading Profile

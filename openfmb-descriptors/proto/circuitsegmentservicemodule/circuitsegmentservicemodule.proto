@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-// OpenFMB Operational Model (61850-CIM) (v2.2.1)-OES.eapx
-// Thursday, May 30, 2024 9:14:03 PM UTC
+// OpenFMB Operational Model (61850-CIM) (v2.2.1)_02212025.eapx
+// Monday, February 24, 2025 1:20:33 PM UTC
 
 // This module is an early alpha release and subject to change. It is NOT part of the gateway test
 // procedure for OpenFMB certification.

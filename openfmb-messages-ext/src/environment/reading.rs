@@ -74,19 +74,20 @@ impl OpenFMBExtReading for EnvironmentReadingProfile {
 }
 
 pub trait EnvironmentReadingExt {
+    // MENV
     fn co2_em(&self) -> OpenFMBResult<f64>;
-    fn cloud_cvr(&self) -> OpenFMBResult<f64>;
-    fn hor_wd_dir(&self) -> OpenFMBResult<f64>;
-    fn hor_wd_spd(&self) -> OpenFMBResult<f64>;
-    fn ver_wd_dir(&self) -> OpenFMBResult<f64>;
-    fn ver_wd_spd(&self) -> OpenFMBResult<f64>;
+    fn co_em(&self) -> OpenFMBResult<f64>;
+    fn dust(&self) -> OpenFMBResult<f64>;
+    fn n_ox_em(&self) -> OpenFMBResult<f64>;
+    fn o2_cmbu_gas(&self) -> OpenFMBResult<f64>;
+    fn o3_air(&self) -> OpenFMBResult<f64>;
+    fn snd(&self) -> OpenFMBResult<f64>;
+    fn s_ox_em(&self) -> OpenFMBResult<f64>;
+
+    // MMET
+    fn env_tmp(&self) -> OpenFMBResult<f64>;
     fn env_hum(&self) -> OpenFMBResult<f64>;
     fn env_pres(&self) -> OpenFMBResult<f64>;
-    fn env_tmp(&self) -> OpenFMBResult<f64>;
-    fn hum(&self) -> OpenFMBResult<f64>;
-    fn pres(&self) -> OpenFMBResult<f64>;
-    fn tmp(&self) -> OpenFMBResult<f64>;
-    fn sol_rad(&self) -> OpenFMBResult<f64>;
 }
 
 impl EnvironmentReadingExt for EnvironmentReadingProfile {
@@ -104,7 +105,7 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .mag)
     }
 
-    fn cloud_cvr(&self) -> OpenFMBResult<f64> {
+    fn co_em(&self) -> OpenFMBResult<f64> {
         Ok(self
             .environment_reading
             .as_ref()
@@ -112,13 +113,13 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .reading_menv
             .as_ref()
             .context(NoValue)?
-            .cloud_cvr
+            .co_em
             .as_ref()
             .context(NoValue)?
             .mag)
     }
 
-    fn hor_wd_dir(&self) -> OpenFMBResult<f64> {
+    fn dust(&self) -> OpenFMBResult<f64> {
         Ok(self
             .environment_reading
             .as_ref()
@@ -126,13 +127,13 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .reading_menv
             .as_ref()
             .context(NoValue)?
-            .hor_wd_dir
+            .dust
             .as_ref()
             .context(NoValue)?
             .mag)
     }
 
-    fn hor_wd_spd(&self) -> OpenFMBResult<f64> {
+    fn n_ox_em(&self) -> OpenFMBResult<f64> {
         Ok(self
             .environment_reading
             .as_ref()
@@ -140,13 +141,13 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .reading_menv
             .as_ref()
             .context(NoValue)?
-            .hor_wd_spd
+            .n_ox_em
             .as_ref()
             .context(NoValue)?
             .mag)
     }
 
-    fn ver_wd_dir(&self) -> OpenFMBResult<f64> {
+    fn o2_cmbu_gas(&self) -> OpenFMBResult<f64> {
         Ok(self
             .environment_reading
             .as_ref()
@@ -154,13 +155,13 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .reading_menv
             .as_ref()
             .context(NoValue)?
-            .ver_wd_dir
+            .o2_cmbu_gas
             .as_ref()
             .context(NoValue)?
             .mag)
     }
 
-    fn ver_wd_spd(&self) -> OpenFMBResult<f64> {
+    fn o3_air(&self) -> OpenFMBResult<f64> {
         Ok(self
             .environment_reading
             .as_ref()
@@ -168,7 +169,51 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .reading_menv
             .as_ref()
             .context(NoValue)?
-            .ver_wd_spd
+            .o3_air
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn snd(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .snd
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    fn s_ox_em(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_menv
+            .as_ref()
+            .context(NoValue)?
+            .s_ox_em
+            .as_ref()
+            .context(NoValue)?
+            .mag)
+    }
+
+    // MMET
+
+    fn env_tmp(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .environment_reading
+            .as_ref()
+            .context(NoValue)?
+            .reading_mmet
+            .as_ref()
+            .context(NoValue)?
+            .env_tmp
             .as_ref()
             .context(NoValue)?
             .mag)
@@ -179,7 +224,7 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .environment_reading
             .as_ref()
             .context(NoValue)?
-            .reading_menv
+            .reading_mmet
             .as_ref()
             .context(NoValue)?
             .env_hum
@@ -193,80 +238,10 @@ impl EnvironmentReadingExt for EnvironmentReadingProfile {
             .environment_reading
             .as_ref()
             .context(NoValue)?
-            .reading_menv
+            .reading_mmet
             .as_ref()
             .context(NoValue)?
             .env_pres
-            .as_ref()
-            .context(NoValue)?
-            .mag)
-    }
-
-    fn env_tmp(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .environment_reading
-            .as_ref()
-            .context(NoValue)?
-            .reading_menv
-            .as_ref()
-            .context(NoValue)?
-            .env_tmp
-            .as_ref()
-            .context(NoValue)?
-            .mag)
-    }
-
-    fn hum(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .environment_reading
-            .as_ref()
-            .context(NoValue)?
-            .reading_menv
-            .as_ref()
-            .context(NoValue)?
-            .hum
-            .as_ref()
-            .context(NoValue)?
-            .mag)
-    }
-
-    fn pres(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .environment_reading
-            .as_ref()
-            .context(NoValue)?
-            .reading_menv
-            .as_ref()
-            .context(NoValue)?
-            .pres
-            .as_ref()
-            .context(NoValue)?
-            .mag)
-    }
-
-    fn tmp(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .environment_reading
-            .as_ref()
-            .context(NoValue)?
-            .reading_menv
-            .as_ref()
-            .context(NoValue)?
-            .tmp
-            .as_ref()
-            .context(NoValue)?
-            .mag)
-    }
-
-    fn sol_rad(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .environment_reading
-            .as_ref()
-            .context(NoValue)?
-            .reading_menv
-            .as_ref()
-            .context(NoValue)?
-            .sol_rad
             .as_ref()
             .context(NoValue)?
             .mag)
