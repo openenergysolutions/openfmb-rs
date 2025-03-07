@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
+use std::convert::TryFrom;
+
 use crate::{prelude::*, topic};
 use futures::{stream, StreamExt};
 use log::trace;
@@ -39,7 +41,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::SwitchModule, profile, mrid.clone())
+    ProfileTopic::new(Module::SwitchModule, profile, *mrid)
 }
 
 impl<MB> Switch<MB>
@@ -89,10 +91,9 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: SwitchDiscreteControlProfile) -> PublishResult<()> {
-        Ok(self
-            .bus
+        self.bus
             .publish(self.discrete_control_topic.iter(), msg)
-            .await?)
+            .await
     }
 
     /// A returned subscription transform that checks if the switch was closed
@@ -141,7 +142,7 @@ where
     /// ```
     pub async fn position(&mut self) -> SubscribeResult<DbPosKind> {
         let status = self.status().await?.map(|s| match s {
-            Ok(s) => Ok(DbPosKind::from_i32(
+            Ok(s) => Ok(DbPosKind::try_from(
                 s.switch_status
                     .unwrap_or_default()
                     .switch_status_xswi
@@ -156,7 +157,7 @@ where
             Err(err) => Err(err),
         });
         let event = self.event().await?.map(|s| match s {
-            Ok(s) => Ok(DbPosKind::from_i32(
+            Ok(s) => Ok(DbPosKind::try_from(
                 s.switch_event
                     .unwrap_or_default()
                     .switch_event_xswi
@@ -189,7 +190,7 @@ where
     /// ```
     pub async fn dynamic_test(&mut self) -> SubscribeResult<DynamicTestKind> {
         let status = self.status().await?.map(|s| match s {
-            Ok(s) => Ok(DynamicTestKind::from_i32(
+            Ok(s) => Ok(DynamicTestKind::try_from(
                 s.switch_status
                     .unwrap_or_default()
                     .switch_status_xswi
@@ -202,7 +203,7 @@ where
             Err(err) => Err(err),
         });
         let event = self.event().await?.map(|s| match s {
-            Ok(s) => Ok(DynamicTestKind::from_i32(
+            Ok(s) => Ok(DynamicTestKind::try_from(
                 s.switch_event
                     .unwrap_or_default()
                     .switch_event_xswi

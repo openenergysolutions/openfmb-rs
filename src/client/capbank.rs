@@ -24,7 +24,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::CapBankModule, profile, mrid.clone())
+    ProfileTopic::new(Module::CapBankModule, profile, *mrid)
 }
 
 impl<MB> CapBank<MB>
@@ -81,7 +81,7 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: CapBankControlProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
+        self.bus.publish(self.control_topic.iter(), msg).await
     }
 
     /// Send a discrete control message to the device asynchronously
@@ -91,9 +91,8 @@ where
         &mut self,
         msg: CapBankDiscreteControlProfile,
     ) -> PublishResult<()> {
-        Ok(self
-            .bus
+        self.bus
             .publish(self.discrete_control_topic.iter(), msg)
-            .await?)
+            .await
     }
 }

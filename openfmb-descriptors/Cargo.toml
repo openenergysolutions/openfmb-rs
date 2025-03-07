@@ -20,6 +20,6 @@ categories = ["distributed-automation"]
 which = { version = "3", default-features = false  }
 
 [dependencies]
-prost = "0.10.4"
+prost = "0.13"
 proto-types = { version = "0.7", path = "../proto-types" }
 lazy_static = "1.4"

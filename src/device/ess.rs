@@ -28,7 +28,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::EssModule, profile, mrid.clone())
+    ProfileTopic::new(Module::EssModule, profile, *mrid)
 }
 
 impl<MB> Ess<MB>
@@ -54,17 +54,17 @@ where
 
     /// publish Ess status messages
     pub async fn status(&mut self, msg: EssStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish Ess event messages
     pub async fn event(&mut self, msg: EssEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish Ess reading messages
     pub async fn reading(&mut self, msg: EssReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// Subscribe to control messages

@@ -27,7 +27,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::CircuitSegmentServiceModule, profile, mrid.clone())
+    ProfileTopic::new(Module::CircuitSegmentServiceModule, profile, *mrid)
 }
 
 impl<MB> CircuitSegment<MB>
@@ -49,11 +49,11 @@ where
     }
 
     pub async fn status(&mut self, msg: CircuitSegmentStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     pub async fn event(&mut self, msg: CircuitSegmentEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     pub async fn control(&mut self) -> SubscribeResult<CircuitSegmentControlProfile> {
