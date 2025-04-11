@@ -180,22 +180,24 @@ message EVSEFunction
 // MISSING DOCUMENTATION!!!
 enum ChargingStateKind
 {
+    // MISSING DOCUMENTATION!!!
+     ChargingStateKind_UNDEFINED = 0;
     // There is no connection between EV and EVSE.
-     ChargingStateKind_Idle = 0;
+     ChargingStateKind_Idle = 1;
     // The contactor of the Connector is closed and energy is flowing to between EVSE and EV.
-     ChargingStateKind_Charging = 1;
+     ChargingStateKind_Charging = 2;
     // There is a connection between EV and EVSE, in case the protocol used between EV and the Charging
     // Station can detect a connection, the protocol needs to detect this for the state to become active.
     // The connection can either be wired or wireless.
-     ChargingStateKind_EVConnected = 2;
+     ChargingStateKind_EVConnected = 3;
     // When the EV is connected to the EVSE and the EVSE is offering energy but the EV is not taking
     // any energy.
-     ChargingStateKind_SuspendedEV = 3;
+     ChargingStateKind_SuspendedEV = 4;
     // When the EV is connected to the EVSE but the EVSE is not offering energy to the EV, e.g. due to
     // a smart charging restriction, local supply power constraints, or when charging has stopped because
     // of the authorization status in the response to a transactionEventRequest indicating that charging is
     // not allowed etc.
-     ChargingStateKind_SuspendedEVSE = 4;
+     ChargingStateKind_SuspendedEVSE = 5;
 }
 
 message Optional_ChargingStateKind
