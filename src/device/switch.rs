@@ -29,7 +29,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::SwitchModule, profile, mrid.clone())
+    ProfileTopic::new(Module::SwitchModule, profile, *mrid)
 }
 
 impl<MB> Switch<MB>
@@ -55,17 +55,17 @@ where
 
     /// publish switch status messages
     pub async fn status(&mut self, msg: SwitchStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish switch event messages
     pub async fn event(&mut self, msg: SwitchEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish switch reading messages
     pub async fn reading(&mut self, msg: SwitchReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// Subscribe to control messages

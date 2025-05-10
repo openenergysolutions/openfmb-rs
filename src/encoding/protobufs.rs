@@ -48,16 +48,26 @@ impl Message<ProtobufVariantEncoding> for openfmb_messages::ProfileMessage {
     ) -> Result<openfmb_messages::ProfileMessage, ProtobufVariantDecodeError> {
         // maybe decode and validate the topic here into a ProfileTopic instead?
         let profile = if let Some(last) = topic.nth(2) {
-            match last  {
-                TopicLevel::Exact(profile_str) =>  Profile::from_str(profile_str.as_ref()).map_err(|_err| ProtobufVariantDecodeError::InvalidProfile(format!("{:?}", profile_str.as_ref())))?,
-                TopicLevel::WildCard => return Err(ProtobufVariantDecodeError::InvalidProfile(format!("Wildcard given for last topic level, not convertable to an OpenFMB Profile"))),
+            match last {
+                TopicLevel::Exact(profile_str) => {
+                    Profile::from_str(profile_str.as_ref()).map_err(|_err| {
+                        ProtobufVariantDecodeError::InvalidProfile(format!(
+                            "{:?}",
+                            profile_str.as_ref()
+                        ))
+                    })?
+                }
+                TopicLevel::WildCard => return Err(ProtobufVariantDecodeError::InvalidProfile(
+                    "Wildcard given for last topic level, not convertable to an OpenFMB Profile"
+                        .to_string(),
+                )),
             }
         } else {
             // NOTE uses a hidden API here
             return Err(ProtobufVariantDecodeError::InvalidTopic);
         };
         openfmb_messages::ProfileMessage::decode(profile, buf)
-            .map_err(|err| ProtobufVariantDecodeError::ProstDecodeError(err))
+            .map_err(ProtobufVariantDecodeError::ProstDecodeError)
     }
 }
 

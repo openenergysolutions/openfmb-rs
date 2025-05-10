@@ -21,7 +21,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::SolarModule, profile, mrid.clone())
+    ProfileTopic::new(Module::SolarModule, profile, *mrid)
 }
 
 impl<MB> Solar<MB>
@@ -50,17 +50,17 @@ where
 
     /// Subscribe to Solar status messages
     pub async fn status(&mut self) -> SubscribeResult<SolarStatusProfile> {
-        Ok(self.bus.subscribe(self.status_topic.iter()).await?)
+        self.bus.subscribe(self.status_topic.iter()).await
     }
 
     /// Subscribe to Solar event messages
     pub async fn event(&mut self) -> SubscribeResult<SolarEventProfile> {
-        Ok(self.bus.subscribe(self.event_topic.iter()).await?)
+        self.bus.subscribe(self.event_topic.iter()).await
     }
 
     /// Subscribe to Solar reading messages
     pub async fn reading(&mut self) -> SubscribeResult<SolarReadingProfile> {
-        Ok(self.bus.subscribe(self.reading_topic.iter()).await?)
+        self.bus.subscribe(self.reading_topic.iter()).await
     }
 
     /// Publish Solar control messages

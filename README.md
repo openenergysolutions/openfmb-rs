@@ -30,11 +30,11 @@ The switch_device and switch_client examples require a NATS_URL
 and SWITCH_MRID environment variables be set
 
 ```sh 
-RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-67b4-434c-8c26-736104cc14fe" cargo run --example=switch_device
+RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-67b4-434c-8c26-736104cc14fe" cargo run --example=switch_device --features="nats-sync client"
 ```
 
 ```sh 
-RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-67b4-434c-8c26-736104cc14fe" cargo run --example=switch_client
+RUST_BACKTRACE=1 RUST_LOG=debug NATS_URL="localhost:4222" SWITCH_MRID="6e595d68-67b4-434c-8c26-736104cc14fe" cargo run --example=switch_client --features="nats-sync client zenoh"
 ```
 
 ## Commercial licenses and support

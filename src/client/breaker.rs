@@ -22,7 +22,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::BreakerModule, profile, mrid.clone())
+    ProfileTopic::new(Module::BreakerModule, profile, *mrid)
 }
 
 impl<MB> Breaker<MB>
@@ -81,9 +81,8 @@ where
         &mut self,
         msg: BreakerDiscreteControlProfile,
     ) -> PublishResult<()> {
-        Ok(self
-            .bus
+        self.bus
             .publish(self.discrete_control_topic.iter(), msg)
-            .await?)
+            .await
     }
 }

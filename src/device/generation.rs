@@ -31,7 +31,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::GenerationModule, profile, mrid.clone())
+    ProfileTopic::new(Module::GenerationModule, profile, *mrid)
 }
 
 impl<MB> Generation<MB>
@@ -57,17 +57,17 @@ where
 
     /// publish Generation status messages
     pub async fn status(&mut self, msg: GenerationStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish Generation event messages
     pub async fn event(&mut self, msg: GenerationEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish Generation reading messages
     pub async fn reading(&mut self, msg: GenerationReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// Subscribe to control messages

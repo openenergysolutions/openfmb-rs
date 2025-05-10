@@ -32,7 +32,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::CapBankModule, profile, mrid.clone())
+    ProfileTopic::new(Module::CapBankModule, profile, *mrid)
 }
 
 impl<MB> CapBank<MB>
@@ -60,17 +60,17 @@ where
 
     /// publish capbank status messages
     pub async fn status(&mut self, msg: CapBankStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish capbank event messages
     pub async fn event(&mut self, msg: CapBankEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish capbank reading messages
     pub async fn reading(&mut self, msg: CapBankReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// subscribe to control messages
