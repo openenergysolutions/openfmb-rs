@@ -128,8 +128,7 @@ impl EssStatusExt for EssStatusProfile {
             .soc
             .as_ref()
             .context(NoSoc)?
-            .mag
-            / 100.0)
+            .mag)
     }
 
     fn ess_mode(&self) -> OpenFMBResult<EngGridConnectModeKind> {
@@ -199,8 +198,7 @@ impl EssStatusExt for EssStatusProfile {
             .so_h
             .as_ref()
             .context(NoSoh)?
-            .mag
-            / 100.0)
+            .mag)
     }
 
     fn soc_min(&self) -> OpenFMBResult<f32> {
