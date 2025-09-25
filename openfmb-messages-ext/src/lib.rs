@@ -40,7 +40,7 @@ pub use capbank::{CapBankControlExt, CapBankDiscreteControlExt, CapBankStatusExt
 pub use circuitsegmentservice::CircuitSegmentControlExt;
 pub use error::{OpenFMBError, OpenFMBResult};
 pub use ess::{EssControlExt, EssReadingExt, EssStatusExt};
-pub use evse::EvseReadingExt;
+pub use evse::{EvseControlExt, EvseReadingExt};
 pub use generation::GenerationControlExt;
 pub use load::{LoadControlExt, LoadReadingExt, LoadStatusExt};
 pub use recloser::RecloserControlExt;
