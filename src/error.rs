@@ -45,8 +45,8 @@ pub type PublishResult<T, E = PublishError> = Result<T, E>;
 #[derive(Debug)]
 pub enum SubscriptionError {
     IoError(std::io::Error),
-    DecodeError(Box<(dyn Error + Send)>),
-    BusError(Box<(dyn Error + Send)>),
+    DecodeError(Box<dyn Error + Send>),
+    BusError(Box<dyn Error + Send>),
     Unsubscribed,
 }
 
