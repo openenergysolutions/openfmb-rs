@@ -96,6 +96,66 @@ impl ReadingProfileExt for EssReadingProfile {
             .mag)
     }
 
+    fn w_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn w_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn w_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .w
+            .as_ref()
+            .context(NoW)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn q_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_reading
@@ -110,6 +170,66 @@ impl ReadingProfileExt for EssReadingProfile {
             .net
             .as_ref()
             .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn q_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .v_ar
+            .as_ref()
+            .context(NoW)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn q_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .v_ar
+            .as_ref()
+            .context(NoW)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn q_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .v_ar
+            .as_ref()
+            .context(NoW)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
             .c_val
             .as_ref()
             .context(NoCVal)?
@@ -136,6 +256,66 @@ impl ReadingProfileExt for EssReadingProfile {
             .mag)
     }
 
+    fn s_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn s_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn s_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .va
+            .as_ref()
+            .context(NoW)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn v_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_reading
@@ -150,6 +330,66 @@ impl ReadingProfileExt for EssReadingProfile {
             .net
             .as_ref()
             .context(NoNet)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn v_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoW)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn v_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoW)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn v_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .ph_v
+            .as_ref()
+            .context(NoW)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
             .c_val
             .as_ref()
             .context(NoCVal)?
@@ -176,6 +416,66 @@ impl ReadingProfileExt for EssReadingProfile {
             .mag)
     }
 
+    fn a_phs_a(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .phs_a
+            .as_ref()
+            .context(NoPhsA)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_phs_b(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .phs_b
+            .as_ref()
+            .context(NoPhsB)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
+    fn a_phs_c(&self) -> OpenFMBResult<f64> {
+        Ok(self
+            .ess_reading
+            .as_ref()
+            .context(NoEssReading)?
+            .reading_mmxu
+            .as_ref()
+            .context(NoReadingMmxu)?
+            .a
+            .as_ref()
+            .context(NoValue)?
+            .phs_c
+            .as_ref()
+            .context(NoPhsC)?
+            .c_val
+            .as_ref()
+            .context(NoCVal)?
+            .mag)
+    }
+
     fn pf_net(&self) -> OpenFMBResult<f64> {
         Ok(self
             .ess_reading
@@ -185,26 +485,6 @@ impl ReadingProfileExt for EssReadingProfile {
             .as_ref()
             .context(NoReadingMmxu)?
             .pf
-            .as_ref()
-            .context(NoW)?
-            .net
-            .as_ref()
-            .context(NoNet)?
-            .c_val
-            .as_ref()
-            .context(NoCVal)?
-            .mag)
-    }
-
-    fn va_net(&self) -> OpenFMBResult<f64> {
-        Ok(self
-            .ess_reading
-            .as_ref()
-            .context(NoEssReading)?
-            .reading_mmxu
-            .as_ref()
-            .context(NoReadingMmxu)?
-            .va
             .as_ref()
             .context(NoW)?
             .net

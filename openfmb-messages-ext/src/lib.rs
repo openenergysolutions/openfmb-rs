@@ -52,27 +52,92 @@ pub use utils::*;
 
 pub trait ReadingProfileExt {
     fn w_net(&self) -> OpenFMBResult<f64>;
+    fn w_phs_a(&self) -> OpenFMBResult<f64>;
+    fn w_phs_b(&self) -> OpenFMBResult<f64>;
+    fn w_phs_c(&self) -> OpenFMBResult<f64>;
+
     fn w_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn w_phs_a_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn w_phs_b_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn w_phs_c_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
 
     fn q_net(&self) -> OpenFMBResult<f64>;
+    fn q_phs_a(&self) -> OpenFMBResult<f64>;
+    fn q_phs_b(&self) -> OpenFMBResult<f64>;
+    fn q_phs_c(&self) -> OpenFMBResult<f64>;
+
     fn q_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn q_phs_a_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn q_phs_b_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn q_phs_c_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
 
     fn s_net(&self) -> OpenFMBResult<f64>;
+    fn s_phs_a(&self) -> OpenFMBResult<f64>;
+    fn s_phs_b(&self) -> OpenFMBResult<f64>;
+    fn s_phs_c(&self) -> OpenFMBResult<f64>;
+
     fn s_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn s_phs_a_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn s_phs_b_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn s_phs_c_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
 
     fn v_net(&self) -> OpenFMBResult<f64>;
+    fn v_phs_a(&self) -> OpenFMBResult<f64>;
+    fn v_phs_b(&self) -> OpenFMBResult<f64>;
+    fn v_phs_c(&self) -> OpenFMBResult<f64>;
+
     fn v_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn v_phs_a_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn v_phs_b_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn v_phs_c_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
 
     fn a_net(&self) -> OpenFMBResult<f64>;
+    fn a_phs_a(&self) -> OpenFMBResult<f64>;
+    fn a_phs_b(&self) -> OpenFMBResult<f64>;
+    fn a_phs_c(&self) -> OpenFMBResult<f64>;
+
     fn a_net_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn a_phs_a_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn a_phs_b_load_side(&self) -> OpenFMBResult<f64> {
+        Err(OpenFMBError::NotImplented)
+    }
+    fn a_phs_c_load_side(&self) -> OpenFMBResult<f64> {
         Err(OpenFMBError::NotImplented)
     }
 
@@ -81,9 +146,17 @@ pub trait ReadingProfileExt {
         Err(OpenFMBError::NotImplented)
     }
 
-    fn va_net(&self) -> OpenFMBResult<f64>;
+    #[deprecated(
+        note = "use s_net instead, which returns the same apparent power (VA) measurement"
+    )]
+    fn va_net(&self) -> OpenFMBResult<f64> {
+        self.s_net()
+    }
+    #[deprecated(
+        note = "use s_net_load_side instead, which returns the same apparent power (VA) measurement"
+    )]
     fn va_net_load_side(&self) -> OpenFMBResult<f64> {
-        Err(OpenFMBError::NotImplented)
+        self.s_net_load_side()
     }
 
     fn freq(&self) -> OpenFMBResult<f64>;
