@@ -7,6 +7,7 @@ use chrono::{DateTime, NaiveDateTime, Utc};
 use prost::Message;
 use serde::{Deserialize, Serialize};
 use snafu::{ResultExt, Snafu};
+use std::convert::TryInto;
 use uuid::Uuid;
 
 use openfmb_messages::{
@@ -353,36 +354,29 @@ impl OpenFMBMessage {
     }
 }
 
-#[cfg(feature = "nats-sync")]
-impl std::convert::TryFrom<&nats::Message> for OpenFMBMessage {
+impl std::convert::TryFrom<(Vec<u8>, String)> for OpenFMBMessage {
     type Error = OpenFMBDecodeError;
 
-    fn try_from(msg: &nats::Message) -> Result<Self, OpenFMBDecodeError> {
-        let bytes = &msg.data;
-        let profile: Vec<&str> = msg.subject.split(".").collect();
-        if profile.len() <= 1 {
-            log::warn!("PROFILE: {:?}", &profile);
-        }
-        let profile = profile.get(2).unwrap();
-
-        openfmb_message(bytes, *&profile)
+    fn try_from(profile_data: (Vec<u8>, String)) -> Result<Self, OpenFMBDecodeError> {
+        let profile: Vec<&str> = profile_data.1.split(".").collect();
+        let profile = if profile.len() == 1 {
+            profile.get(0).unwrap()
+        } else if profile.len() > 2 {
+            profile.get(2).unwrap()
+        } else {
+            return Err(OpenFMBDecodeError::UnsupportedOpenFMBProfileError {
+                profile: profile_data.1,
+            });
+        };
+        openfmb_message(&profile_data.0, &profile)
     }
 }
 
-#[cfg(feature = "nats-async")]
-impl std::convert::TryFrom<&async_nats::Message> for OpenFMBMessage {
+impl std::convert::TryFrom<(&[u8], String)> for OpenFMBMessage {
     type Error = OpenFMBDecodeError;
 
-    fn try_from(msg: &async_nats::Message) -> Result<Self, OpenFMBDecodeError> {
-        use std::ops::Deref;
-        let bytes = &msg.payload.deref().to_vec();
-        let profile: Vec<&str> = msg.subject.split(".").collect();
-        if profile.len() <= 1 {
-            log::warn!("PROFILE: {:?}", &profile);
-        }
-        let profile = profile.get(2).unwrap();
-
-        openfmb_message(bytes, *&profile)
+    fn try_from(profile_data: (&[u8], String)) -> Result<Self, OpenFMBDecodeError> {
+        (profile_data.0.to_vec(), profile_data.1.clone()).try_into()
     }
 }
 

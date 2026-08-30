@@ -45,7 +45,7 @@ impl ProfileTopic {
         }
     }
 
-    pub fn iter<'a>(&'a self) -> ProfileTopicRefIter<'a> {
+    pub fn iter(&self) -> ProfileTopicRefIter<'_> {
         ProfileTopicRefIter {
             topic: self,
             pos: 0,

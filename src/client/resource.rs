@@ -22,7 +22,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::ResourceModule, profile, mrid.clone())
+    ProfileTopic::new(Module::ResourceModule, profile, *mrid)
 }
 
 impl<MB> Resource<MB>
@@ -80,9 +80,8 @@ where
         &mut self,
         msg: ResourceDiscreteControlProfile,
     ) -> PublishResult<()> {
-        Ok(self
-            .bus
+        self.bus
             .publish(self.discrete_control_topic.iter(), msg)
-            .await?)
+            .await
     }
 }

@@ -22,7 +22,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::LoadModule, profile, mrid.clone())
+    ProfileTopic::new(Module::LoadModule, profile, *mrid)
 }
 
 impl<MB> Load<MB>
@@ -77,6 +77,6 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: LoadControlProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
+        self.bus.publish(self.control_topic.iter(), msg).await
     }
 }

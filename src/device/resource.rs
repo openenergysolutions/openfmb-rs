@@ -30,7 +30,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::ResourceModule, profile, mrid.clone())
+    ProfileTopic::new(Module::ResourceModule, profile, *mrid)
 }
 
 impl<MB> Resource<MB>
@@ -56,17 +56,17 @@ where
 
     /// publish resource status messages
     pub async fn status(&mut self, msg: ResourceStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish resource event messages
     pub async fn event(&mut self, msg: ResourceEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish resource reading messages
     pub async fn reading(&mut self, msg: ResourceReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// subscribe to discrete control messages

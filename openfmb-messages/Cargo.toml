@@ -21,8 +21,8 @@ categories = ["distributed-automation"]
 lazy_static = "1.4"
 bytes = "1"
 serde = { version = "1", features = ["derive"] }
-prost = "0.10.4"
-prost-derive = "0.10.1"
+prost = "0.13"
+prost-derive = "0.13"
 
 [build-dependencies]
 openfmb-codegen  = { path = "../openfmb-codegen" }

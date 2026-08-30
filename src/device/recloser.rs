@@ -30,7 +30,7 @@ where
 }
 
 fn topic(profile: Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::RecloserModule, profile, mrid.clone())
+    ProfileTopic::new(Module::RecloserModule, profile, *mrid)
 }
 
 impl<MB> Recloser<MB>
@@ -56,17 +56,17 @@ where
 
     /// publish recloser status messages
     pub async fn status(&mut self, msg: RecloserStatusProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.status_topic.iter(), msg).await?)
+        self.bus.publish(self.status_topic.iter(), msg).await
     }
 
     /// publish recloser event messages
     pub async fn event(&mut self, msg: RecloserEventProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.event_topic.iter(), msg).await?)
+        self.bus.publish(self.event_topic.iter(), msg).await
     }
 
     /// publish recloser reading messages
     pub async fn reading(&mut self, msg: RecloserReadingProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.reading_topic.iter(), msg).await?)
+        self.bus.publish(self.reading_topic.iter(), msg).await
     }
 
     /// subscribe to discrete control messages

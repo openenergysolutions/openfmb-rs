@@ -22,7 +22,7 @@ where
 }
 
 fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::RecloserModule, profile, mrid.clone())
+    ProfileTopic::new(Module::RecloserModule, profile, *mrid)
 }
 
 impl<MB> Recloser<MB>
@@ -80,9 +80,8 @@ where
         &mut self,
         msg: RecloserDiscreteControlProfile,
     ) -> PublishResult<()> {
-        Ok(self
-            .bus
+        self.bus
             .publish(self.discrete_control_topic.iter(), msg)
-            .await?)
+            .await
     }
 }

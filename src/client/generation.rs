@@ -23,7 +23,7 @@ where
 
 /// Topic string given a message type and mrid
 pub fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::GenerationModule, profile, mrid.clone())
+    ProfileTopic::new(Module::GenerationModule, profile, *mrid)
 }
 
 impl<MB> Generation<MB>
@@ -71,6 +71,6 @@ where
     }
 
     pub async fn control(&mut self, msg: GenerationControlProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
+        self.bus.publish(self.control_topic.iter(), msg).await
     }
 }

@@ -11,7 +11,7 @@ use openfmb_messages::{
 };
 
 use openfmb_messages_ext::EssControlExt;
-use std::time::SystemTime;
+use std::{convert::TryFrom, time::SystemTime};
 use uuid::Uuid;
 
 pub struct Ess<MB>
@@ -31,7 +31,7 @@ where
 
 /// Topic string given a message type and mrid
 pub fn topic(profile: topic::Profile, mrid: &Uuid) -> ProfileTopic {
-    ProfileTopic::new(Module::EssModule, profile, mrid.clone())
+    ProfileTopic::new(Module::EssModule, profile, *mrid)
 }
 
 impl<MB> Ess<MB>
@@ -86,7 +86,7 @@ where
     ///
     /// Awaits on publishing but no change awaited on.
     pub async fn control(&mut self, msg: EssControlProfile) -> PublishResult<()> {
-        Ok(self.bus.publish(self.control_topic.iter(), msg).await?)
+        self.bus.publish(self.control_topic.iter(), msg).await
     }
 
     pub async fn is_synchro_enabled(&mut self) -> SubscribeResult<bool> {
@@ -123,7 +123,7 @@ where
     pub async fn is_grid_following(&mut self) -> SubscribeResult<bool> {
         Ok(Box::pin(self.status().await?.map(|s| {
             match s {
-                Ok(s) => Ok(GridConnectModeKind::from_i32(
+                Ok(s) => Ok(GridConnectModeKind::try_from(
                     s.ess_status
                         .unwrap()
                         .ess_status_zbat
@@ -143,7 +143,7 @@ where
     pub async fn is_grid_forming(&mut self) -> SubscribeResult<bool> {
         Ok(Box::pin(self.status().await?.map(|s| {
             match s {
-                Ok(s) => Ok(GridConnectModeKind::from_i32(
+                Ok(s) => Ok(GridConnectModeKind::try_from(
                     s.ess_status
                         .unwrap()
                         .ess_status_zbat
